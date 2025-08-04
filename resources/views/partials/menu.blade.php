@@ -6,9 +6,39 @@
         </a>
     </li>
     <li>
-        <a href="{{route('slide.index')}}" title="Slide" data-filter-tags="Slide">
+        <a href="{{route('film.index')}}" title="Film" data-filter-tags="Film">
             <i class="fal fa-warehouse"></i>
-            <span class="nav-link-text">Slide</span>
+            <span class="nav-link-text">Film</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{route('kategori.index')}}" title="Kategori" data-filter-tags="Kategori">
+            <i class="fal fa-warehouse"></i>
+            <span class="nav-link-text">Kategori</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{route('shop.index')}}" title="Shop" data-filter-tags="Shop">
+            <i class="fal fa-warehouse"></i>
+            <span class="nav-link-text">Shop</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{route('article.index')}}" title="Article" data-filter-tags="Article">
+            <i class="fal fa-warehouse"></i>
+            <span class="nav-link-text">Article</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{route('job.index')}}" title="Career" data-filter-tags="Career">
+            <i class="fal fa-warehouse"></i>
+            <span class="nav-link-text">Career</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{route('casting.index')}}" title="Casting" data-filter-tags="Casting">
+            <i class="fal fa-warehouse"></i>
+            <span class="nav-link-text">Casting</span>
         </a>
     </li>
     @isset($menu)

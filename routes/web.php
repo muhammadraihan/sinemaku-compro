@@ -13,6 +13,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KategoriController;
 
 Route::get('/', function () {
     // check if user is auth then redirect to dashboard page
@@ -39,5 +40,11 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('users', 'UserController');
     Route::resource('permissions', 'PermissionController');
     Route::resource('roles', 'RoleController');
-    Route::resource('slide', 'SlideController');
+    Route::resource('film', 'FilmController');
+    Route::resource('kategori', 'KategoriController');
+    Route::resource('shop', 'ShopController');
+    Route::resource('article', 'ArticleController');
+    Route::resource('job', 'JobController');
+    Route::resource('casting', 'CastingController');
+    Route::get('get-kategori', [KategoriController::class,'show'])->name('ref.kategori');
 });

@@ -1,0 +1,183 @@
+@extends('layouts.page')
+
+@section('title', 'Career Edit')
+
+@section('css')
+<link rel="stylesheet" media="screen, print" href="{{asset('css/formplugins/select2/select2.bundle.css')}}">
+<link rel="stylesheet" media="screen, print"
+    href="{{asset('css/formplugins/bootstrap-datepicker/bootstrap-datepicker.css')}}">
+@endsection
+
+@section('content')
+<div class="col-xxl">
+    <div id="panel-1" class="panel">
+        <div class="panel-hdr">
+        <h2>Edit <span class="fw-300"><i>Career</i></span></h2>
+            <div class="panel-toolbar">
+                <a class="nav-link active" href="{{route('job.index')}}"><i class="fal fa-arrow-alt-left">
+                    </i>
+                    <span class="nav-link-text">Kembali</span>
+                </a>
+                <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                    data-offset="0,10" data-original-title="Fullscreen"></button>
+            </div>
+        </div>
+        <div class="panel-container show">
+            <div class="panel-content">
+                <div class="panel-tag">
+                    Field dengan <code>*</code> tidak boleh kosong.
+                </div>
+                @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                @endif
+                {!! Form::open(['route' => ['job.update',$job->uuid],'method' => 'PUT','class' =>
+                'needs-validation','novalidate', 'enctype' => 'multipart/form-data']) !!}
+                <div class="row">
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('position','Posisi',['class' => 'required form-label'])}}
+                        {{ Form::text('position',$job->position,['placeholder' => 'Posisi','class' => 'form-control '.($errors->has('position') ? 'is-invalid':''),'required'])}}
+                        @if ($errors->has('position'))
+                        <div class="invalid-feedback">{{ $errors->first('position') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('tim','Tim',['class' => 'required form-label'])}}
+                        {{ Form::text('tim',$job->tim,['placeholder' => 'Tim','class' => 'form-control '.($errors->has('tim') ? 'is-invalid':''),'required'])}}
+                        @if ($errors->has('tim'))
+                        <div class="invalid-feedback">{{ $errors->first('tim') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('location','Lokasi',['class' => 'required form-label'])}}
+                        {{ Form::text('location',$job->location,['placeholder' => 'Lokasi','class' => 'form-control location'.($errors->has('location') ? 'is-invalid':''),'required'])}}
+                        @if ($errors->has('location'))
+                        <div class="invalid-feedback">{{ $errors->first('location') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('salary','Salary',['class' => 'required form-label'])}}
+                        {{ Form::text('salary',$job->salary,['placeholder' => 'Salary','class' => 'form-control '.($errors->has('salary') ? 'is-invalid':''),'required'])}}
+                        @if ($errors->has('salary'))
+                        <div class="invalid-feedback">{{ $errors->first('salary') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('pengalaman','Pengalaman',['class' => 'required form-label'])}}
+                        {{ Form::text('pengalaman',$job->pengalaman,['placeholder' => 'e.g 5+ years experience','class' => 'form-control '.($errors->has('pengalaman') ? 'is-invalid':''),'required'])}}
+                        @if ($errors->has('pengalaman'))
+                        <div class="invalid-feedback">{{ $errors->first('pengalaman') }}</div>
+                        @endif
+                    </div>
+                </div>
+                <div class="form-group col-md-12 mb-3">
+                    {{ Form::label('detail','Detail',['class' => 'required form-label'])}}
+                    {{ Form::textarea('detail',$job->detail,['placeholder' => 'Detail','class' => 'form-control '.($errors->has('detail') ? 'is-invalid':''),'required'])}}
+                    @if ($errors->has('detail'))
+                    <div class="invalid-feedback">{{ $errors->first('detail') }}</div>
+                    @endif
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('status','Status',['class' => 'required form-label'])}}
+                        {{ Form::text('status',$job->status,['placeholder' => 'e.g contract/freelance/full time','class' => 'form-control '.($errors->has('status') ? 'is-invalid':''),'required'])}}
+                        @if ($errors->has('status'))
+                        <div class="invalid-feedback">{{ $errors->first('status') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('link','Link External',['class' => 'required form-label'])}}
+                        {{ Form::text('link',$job->link,['placeholder' => 'Link External','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
+                        @if ($errors->has('link'))
+                        <div class="invalid-feedback">{{ $errors->first('link') }}</div>
+                        @endif
+                    </div>
+                </div>
+            <div
+                class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
+                <button class="btn btn-primary ml-auto" type="submit">Submit</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('js')
+<script src="{{asset('js/formplugins/select2/select2.bundle.js')}}"></script>
+<script src="{{asset('js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#kategori').select2();
+        $('#type').select2();
+
+        CKEDITOR.replace('detail');
+
+        $('#photo').change(function(){
+            
+            let reader = new FileReader();
+         
+            reader.onload = (e) => { 
+         
+              $('#preview-image-before-upload').attr('src', e.target.result); 
+            }
+         
+            reader.readAsDataURL(this.files[0]); 
+           
+           });
+
+           $('.tgl_rilis').datepicker({
+            orientation: "bottom left",
+            format:'yyyy-mm-dd', // Notice the Extra space at the beginning
+            todayHighlight:'TRUE',
+            autoclose: true,
+            todayBtn: "linked",
+            clearBtn: true,
+        });
+
+        $('.tgl_akhir').datepicker({
+            orientation: "bottom left",
+            format:'yyyy-mm-dd', // Notice the Extra space at the beginning
+            todayHighlight:'TRUE',
+            autoclose: true,
+            todayBtn: "linked",
+            clearBtn: true,
+        });
+        
+        // Generate a password string
+        function randString(){
+            var chars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNP123456789";
+            var string_length = 8;
+            var randomstring = '';
+            for (var i = 0; i < string_length; i++) {
+                var rnum = Math.floor(Math.random() * chars.length);
+                randomstring += chars.substring(rnum, rnum + 1);
+            }
+            return randomstring;
+        }
+        
+        // Create a new password
+        $(".getNewPass").click(function(){
+            var field = $('#password').closest('div').find('input[name="password"]');
+            field.val(randString(field));
+        });
+
+        //Enable input and button change password
+        $('#enablePassChange').click(function() {
+            if ($(this).is(':checked')) {
+                $('#passwordForm').attr('disabled',false); //enable input
+                $('#getNewPass').attr('disabled',false); //enable button
+            } else {
+                    $('#passwordForm').attr('disabled', true); //disable input
+                    $('#getNewPass').attr('disabled', true); //disable button
+            }
+        });
+    });
+</script>
+@endsection
