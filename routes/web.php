@@ -25,6 +25,10 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
+Route::get('/movies', function () {
+        return view('movies');
+    })->name('movies');
+
 Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     // backoffice
     Route::get('/', 'DashboardController@index');
