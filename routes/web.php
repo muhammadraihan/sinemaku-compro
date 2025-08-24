@@ -23,6 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/film', 'FrontEndController@film')->name('film');
+Route::get('/detail-film', 'FrontEndController@detailfilm')->name('detail-film');
+Route::get('/detail-shop', 'FrontEndController@detailshop')->name('detail-shop');
+
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
@@ -46,5 +50,5 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('article', 'ArticleController');
     Route::resource('job', 'JobController');
     Route::resource('casting', 'CastingController');
-    Route::get('get-kategori', [KategoriController::class,'show'])->name('ref.kategori');
+    Route::get('get-kategori', [KategoriController::class, 'show'])->name('ref.kategori');
 });
