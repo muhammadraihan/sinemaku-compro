@@ -256,7 +256,7 @@
     </div>
 
     <p class="film-hero__desc">
-      In the beginingging of a sleepless city, a detective unravels a mystery that blurs the line
+      In the begining of a sleepless city, a detective unravels a mystery that blurs the line
       between reality and nightmare. As midnight approaches, time becomes the enemy, and every
       shadow holds a secret that could change everything. A psychological thriller that questions
       the nature of perception and truth.
