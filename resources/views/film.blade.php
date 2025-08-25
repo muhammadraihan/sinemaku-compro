@@ -341,6 +341,173 @@
     .film-detail-label{ font-size: 10px; }
     }
 
+    /* ====================== A24-style overlay ====================== */
+/* 1) Kartu: pakai rasio 2:3 & full width cell */
+.allfilms-grid .filmitem-media{
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 2 / 3;
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+.allfilms-grid .filmitem-media img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transform: scale(1.02);
+  transition: transform .6s cubic-bezier(.18,.72,.18,1);
+}
+
+/* 2) Gradient gelap seluruh poster (muncul saat hover desktop) */
+.allfilms-grid .filmitem-media::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.82) 18%,
+    rgba(0,0,0,.40) 46%,
+    rgba(0,0,0,.08) 70%,
+    rgba(0,0,0,0) 100%
+  );
+  opacity: 0;
+  transition: opacity .36s cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;
+}
+@media (hover:hover) and (pointer:fine){
+  .filmitem-link:hover .filmitem-media::after{ opacity: 1; }
+}
+@media (hover:none){
+  .allfilms-grid .filmitem-media::after{ opacity: 1; }
+}
+
+/* 3) Blok teks kiri-atas (bukan panel rounded) */
+.film-detail{
+  position: absolute;
+  top: clamp(24px, 14%, 84px);          /* posisi vertikal ala A24 */
+  left: clamp(16px, 2.6vw, 32px);
+  right: auto; bottom: auto;
+  max-width: min(72%, 540px);
+  z-index: 2;
+
+  /* tampilkan sebagai daftar blok, bukan grid 2 kolom */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(10px, 1.6vw, 18px);
+
+  padding: 0;                          /* tidak ada kotak/panel */
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+
+  /* animasi muncul */
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .36s cubic-bezier(.2,.7,.2,1),
+              transform .36s cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;                 /* klik tetap ke link kartu */
+}
+@media (hover:hover) and (pointer:fine){
+  .filmitem-link:hover .film-detail{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (hover:none){
+  .film-detail{ opacity: 1; transform: none; }
+}
+
+/* 4) Tipografi label & value ala A24 */
+.film-detail-row{ display: block; }    /* label di atas value */
+.film-detail-label{
+  display:block;
+  color: rgba(255,255,255,.68);
+  font: 600 clamp(10px,.8vw,13px)/1.15 Inter, Arial, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: clamp(4px,.5vw,6px);
+}
+.film-detail-value{
+  display:block;
+  color:#fff;
+  font: 500 clamp(14px,1.25vw,22px)/1.35 Inter, Arial, sans-serif;
+  text-shadow: 0 1px 2px rgba(0,0,0,.25);
+  word-break: break-word;              /* nama pemain panjang aman */
+}
+/* nilai pertama (tanggal rilis) sedikit lebih tebal */
+.film-detail .film-detail-row:nth-of-type(1) .film-detail-value{ font-weight: 650; }
+
+/* 5) Badge & rating tetap smooth */
+@media (hover:hover) and (pointer:fine){
+  .filmitem-link .film-badge, .filmitem-link .film-rate{
+    transform: translateY(-6px);
+    opacity: 0;
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .filmitem-link:hover .film-badge, .filmitem-link:hover .film-rate{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 6) Grid responsif (opsional biar mirip spacing A24) */
+.allfilms-grid{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+@media (max-width:1200px){ .allfilms-grid{ grid-template-columns: repeat(3,1fr); } }
+@media (max-width:800px){  .allfilms-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width:520px){  .allfilms-grid{ grid-template-columns: 1fr; } }
+
+/* ---- tempatkan overlay di atas gambar, di bawah teks ---- */
+.allfilms-grid .filmitem-media{
+  position: relative;
+  isolation: isolate; /* bikin stacking context sendiri */
+}
+
+/* Layer gelap merata */
+.allfilms-grid .filmitem-media::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35); /* dasar */
+  opacity: 0;                  /* desktop: muncul saat hover */
+  z-index: 1;                  /* di atas IMG, di bawah teks */
+  transition: opacity .36s cubic-bezier(.2,.7,.2,1);
+}
+
+/* Gradient dari bawah ke atas */
+.allfilms-grid .filmitem-media::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.82) 18%,
+    rgba(0,0,0,.40) 46%,
+    rgba(0,0,0,.08) 70%,
+    rgba(0,0,0,0) 100%
+  );
+  opacity: 0;                 /* desktop: muncul saat hover */
+  z-index: 1;
+  transition: opacity .36s cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;
+}
+
+/* Teks overlay tetap di atas overlay */
+.film-detail, .film-badge, .film-rate{ z-index: 2; }
+
+/* Hover (device dengan hover) */
+@media (hover:hover) and (pointer:fine){
+  .filmitem-link:hover .filmitem-media::before{ opacity: .45; } /* gelap merata */
+  .filmitem-link:hover .filmitem-media::after{  opacity: 1;    } /* + gradient */
+  /* opsional: tambah sedikit gelap dari gambar */
+  .filmitem-link:hover .filmitem-media img{ filter: brightness(.65) contrast(1.02); }
+}
+
+/* Perangkat sentuh: overlay selalu on agar teks terbaca */
+@media (hover:none){
+  .allfilms-grid .filmitem-media::before{ opacity: .30; }
+  .allfilms-grid .filmitem-media::after{  opacity: .90; }
+}
+
 
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
