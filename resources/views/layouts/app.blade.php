@@ -426,10 +426,10 @@
         .careers-footer{ margin-top: clamp(40px, 10vw, 100px); display:flex; justify-content:center; }
         .careers-viewall{
             display:inline-flex; align-items:center; gap:10px; background:#000; color:#fff;
-            padding: 14px 26px; font-weight:700; text-decoration:none; font-size:16px; border-radius:2px; transition: background .25s ease;
+            padding: 16px 28px; font-weight:700; text-decoration:none; font-size:16px; border-radius:2px; transition: background .25s ease;
         }
         .careers-viewall:hover{ background:#333; }
-        .careers-view{ margin:0 0 8px; font: 500 22px/1.25 "Inter", system-ui, -apple-system, Arial, sans-serif; color:#333; }
+        .careers-view{ margin:0 0 8px; font: 500 16px/1.25 "Inter", system-ui, -apple-system, Arial, sans-serif; color:#fff; }
 
         /* ========= Join Member ========= */
         .join-member{
