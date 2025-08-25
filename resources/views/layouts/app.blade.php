@@ -505,6 +505,67 @@
             .legal{ justify-content:center; }
             .copy,.est{ justify-self:center; white-space: normal; }
         }
+
+        /* ====== Articles – sidebar list like the reference ====== */
+.articles-grid{
+  grid-template-columns: 1.7fr 1fr;         /* sedikit lebih sempit untuk sidebar */
+  align-items: start;
+}
+
+/* bungkus list jadi satu kartu besar membulat */
+.article-list{
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.08);
+  gap: 14px;                                 /* rapat tapi rapi */
+}
+
+/* setiap item: rata kiri, tanpa bayangan item (mengandalkan bayangan kartu besar) */
+.article-item{
+  background: transparent;
+  box-shadow: none;
+  padding: 10px 8px;
+  border-radius: 12px;
+  transition: background .2s ease, transform .2s ease;
+}
+.article-item:hover{ 
+  background: #f8fafc; 
+  transform: translateY(-2px);
+}
+
+/* thumbnail kecil, membulat, sesuai referensi */
+.article-item img{
+  width: 64px; height: 64px;
+  border-radius: 14px;
+  object-fit: cover;
+  flex: 0 0 64px;
+}
+
+/* tipografi judul & jarak */
+.article-item h4{
+  margin: 0 0 6px;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #1f2937; /* abu gelap */
+}
+
+/* “2 days ago” ditampilkan sebagai pill */
+.article-item .date{
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  background: #eef2f7;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+/* sudut besar untuk featured card agar konsisten */
+.article-featured,
+.article-featured img{ border-radius: 18px; }
+
     </style>
 </head>
 <body>
