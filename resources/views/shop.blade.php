@@ -53,6 +53,24 @@
   line-height:1.5; letter-spacing:-.2px; color:#6f6f6f; font-size:13px; margin:40px 0;
 }
 
+/* Hero tanpa kartu / background */
+.shop-detail__media{
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.shop-detail__media img{
+  background: transparent !important;
+  border-radius: 0 !important;
+  width: 100%;
+  height: clamp(360px, 48vw, 640px);
+  object-fit: contain;
+  display: block;
+  margin: 0 auto; /* center */
+}
+
 /* ---------- SECTION HEADER KATEGORI ---------- */
 :root{
   --shelf-max: min(1280px, 92vw);
@@ -117,6 +135,7 @@
   :root{ --shelf-col: clamp(220px, 78vw, 360px); }
   .prev-btn{ left:8px; } .next-btn{ right:8px; }
 }
+
 </style>
 
 <section class="shop-detail">
