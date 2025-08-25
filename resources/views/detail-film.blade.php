@@ -115,6 +115,7 @@
       color:#fff; cursor:pointer;
       transition: transform .18s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
       backdrop-filter: blur(6px);
+      text-decoration: none;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.35); box-shadow: 0 10px 26px rgba(0,0,0,.28) }
     .btn:active{ transform: translateY(0) }
