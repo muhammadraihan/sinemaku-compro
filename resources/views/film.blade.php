@@ -622,7 +622,6 @@
 
             <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
             <span class="film-badge">Drama</span>
-            <span class="film-rate">★ 4.5</span>
 
             <!-- DETAIL OVERLAY (baru) -->
             <div class="film-detail">
@@ -657,7 +656,7 @@
 
             <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
             <span class="film-badge">Drama</span>
-            <span class="film-rate">★ 4.5</span>
+            
 
             <!-- DETAIL OVERLAY (baru) -->
             <div class="film-detail">
@@ -692,7 +691,7 @@
 
             <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
             <span class="film-badge">Thriller</span>
-            <span class="film-rate">★ 4.5</span>
+           
 
             <!-- DETAIL OVERLAY (baru) -->
             <div class="film-detail">
@@ -727,7 +726,7 @@
 
             <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
             <span class="film-badge">Romance</span>
-            <span class="film-rate">★ 4.5</span>
+           
 
             <!-- DETAIL OVERLAY (baru) -->
             <div class="film-detail">
