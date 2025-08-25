@@ -141,7 +141,7 @@
     }
     .allfilms-title{
     font-family: Inter, Arial, sans-serif;
-    font-size: 64px;
+    font-size: 36px;
     font-weight: 300;
     letter-spacing:-1px;
     margin:0;
