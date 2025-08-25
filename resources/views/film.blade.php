@@ -359,25 +359,43 @@
 }
 
 /* 2) Gradient gelap seluruh poster (muncul saat hover desktop) */
+.allfilms-grid .filmitem-media::before{
+  content:"";
+  position:absolute; inset:0;
+  background: rgba(0,0,0,.34);   /* tingkat dasar */
+  opacity: 0;                    /* default non-hover */
+  transition: opacity .36s cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;
+  z-index: 0;
+}
 .allfilms-grid .filmitem-media::after{
   content:"";
   position:absolute; inset:0;
   background: linear-gradient(
     to top,
-    rgba(0,0,0,.82) 18%,
-    rgba(0,0,0,.40) 46%,
-    rgba(0,0,0,.08) 70%,
-    rgba(0,0,0,0) 100%
+    rgba(0,0,0,.55) 0%,
+    rgba(0,0,0,.22) 38%,
+    rgba(0,0,0,.22) 62%,
+    rgba(0,0,0,.72) 100%
   );
   opacity: 0;
   transition: opacity .36s cubic-bezier(.2,.7,.2,1);
   pointer-events: none;
 }
-@media (hover:hover) and (pointer:fine){
-  .filmitem-link:hover .filmitem-media::after{ opacity: 1; }
+/* Saat hover: keduanya aktif → efek gelap merata + tebal di tepi */
+.allfilms-grid .filmitem:hover .filmitem-media::before{ opacity: 1; }
+.allfilms-grid .filmitem:hover .filmitem-media::after { opacity: 1; }
+
+/* (Opsional) mobile: selalu sedikit gelap agar teks terbaca */
+@media (max-width: 768px){
+  .allfilms-grid .filmitem-media::before{ opacity: .35; }
+  .allfilms-grid .filmitem-media::after { opacity: .8;  }
 }
-@media (hover:none){
-  .allfilms-grid .filmitem-media::after{ opacity: 1; }
+
+/* (Opsional) respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .allfilms-grid .filmitem-media::before,
+  .allfilms-grid .filmitem-media::after{ transition: none; }
 }
 
 /* 3) Blok teks kiri-atas (bukan panel rounded) */
@@ -423,7 +441,7 @@
 .film-detail-label{
   display:block;
   color: rgba(255,255,255,.68);
-  font: 600 clamp(10px,.8vw,13px)/1.15 Inter, Arial, sans-serif;
+  font: 600 clamp(12px,.8vw,12px)/1.15 Inter, Arial, sans-serif;
   letter-spacing: .08em;
   text-transform: uppercase;
   margin-bottom: clamp(4px,.5vw,6px);
@@ -431,7 +449,7 @@
 .film-detail-value{
   display:block;
   color:#fff;
-  font: 500 clamp(14px,1.25vw,22px)/1.35 Inter, Arial, sans-serif;
+  font: 500 clamp(14px,1.25vw,14px)/1.35 Inter, Arial, sans-serif;
   text-shadow: 0 1px 2px rgba(0,0,0,.25);
   word-break: break-word;              /* nama pemain panjang aman */
 }
