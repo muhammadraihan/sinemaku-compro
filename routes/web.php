@@ -25,7 +25,13 @@ Route::get('/', function () {
 
 Route::get('/film', 'FrontEndController@film')->name('film');
 Route::get('/detail-film', 'FrontEndController@detailfilm')->name('detail-film');
+Route::get('/shop', 'FrontEndController@shop')->name('shop');
 Route::get('/detail-shop', 'FrontEndController@detailshop')->name('detail-shop');
+Route::get('/detail-kategori', 'FrontEndController@detailkategori')->name('detail-kategori');
+Route::get('/articles', 'FrontEndController@articles')->name('articles');
+Route::get('/detail-articles', 'FrontEndController@detailarticles')->name('detail-articles');
+Route::get('/event', 'FrontEndController@event')->name('event');
+Route::get('/detail-event', 'FrontEndController@detailevent')->name('detail-event');
 
 Auth::routes(['register' => false]);
 

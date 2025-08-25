@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\film;
 use App\Models\Shop;
+use App\Models\Article;
 
 class FrontEndController extends Controller
 {
@@ -51,11 +52,53 @@ class FrontEndController extends Controller
         return view('detail-film', compact('film'));
     }
 
+    public function shop()
+    {
+        $shop = shop::all();
+
+        return view('shop', compact('shop'));
+    }
+
     public function detailshop()
     {
         $shop = shop::all();
 
         return view('detail-shop', compact('shop'));
+    }
+
+    public function detailkategori()
+    {
+        $shop = shop::all();
+
+        return view('detail-kategori', compact('shop'));
+    }
+
+    public function articles()
+    {
+        $articles = article::all();
+
+        return view('articles', compact('articles'));
+    }
+
+    public function detailarticles()
+    {
+        $article = article::all();
+
+        return view('detail-articles', compact('article'));
+    }
+
+    public function event()
+    {
+        $event = article::all();
+
+        return view('event', compact('event'));
+    }
+
+    public function detailevent()
+    {
+        $event = article::all();
+
+        return view('detail-event', compact('event'));
     }
 
     // public function cabang()

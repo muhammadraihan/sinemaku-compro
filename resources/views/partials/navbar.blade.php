@@ -419,9 +419,9 @@
       <a href="/" class="mega-menu-link active" data-desc="Back to homepage">Home</a>
       <a href="{{ route('film') }}" class="mega-menu-link" data-desc="Explore our cinematic works">Films</a>
       <a href="#" class="mega-menu-link" data-desc="Long-form storytelling">Series</a>
-      <a href="#" class="mega-menu-link" data-desc="Exclusive merchandise">Shop</a>
-      <a href="#" class="mega-menu-link" data-desc="Stories and insights">Articles</a>
-      <a href="#" class="mega-menu-link" data-desc="Premieres and screenings">Events</a>
+      <a href="{{ route('shop') }}" class="mega-menu-link" data-desc="Exclusive merchandise">Shop</a>
+      <a href="{{ route('articles') }}" class="mega-menu-link" data-desc="Stories and insights">Articles</a>
+      <a href="{{ route('event') }}" class="mega-menu-link" data-desc="Premieres and screenings">Events</a>
       <a href="#" class="mega-menu-link" data-desc="Join our inner circle">Membership</a>
       <a href="#" class="mega-menu-link" data-desc="Join our creative team">Careers</a>
       <div class="mega-menu-copyright">© 2024 Sinemaku Pictures. All rights reserved.</div>

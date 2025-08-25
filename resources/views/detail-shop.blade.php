@@ -403,7 +403,7 @@
   <div class="shop-about__grid">
     <!-- LEFT COLUMN -->
     <div class="shop-about__main">
-      <h2 class="h2">About the Film</h2>
+      <h2 class="h2">About the Product</h2>
 
       <p class="lead">
         Midnight explores the fragile boundary between consciousness and dreams through the eyes

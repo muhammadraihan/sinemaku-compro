@@ -119,6 +119,7 @@
     color: #6f6f6f;
     font-size: 13px;
     margin-top: 40px;
+    margin-bottom: 40px;
     }
 
     /* Divider + bullets */
@@ -177,6 +178,11 @@
     }
     .detail{
     font: 300 14px/1.25 Inter, Arial, sans-serif;
+    }
+
+    .kategori{
+    font: 300 14px/1.25 Inter, Arial, sans-serif;
+    margin-left: 100px;
     }
 
     /* ====== ABOUT LAYOUT ====== */
@@ -328,6 +334,67 @@
     .rp__grid { grid-template-columns: 1fr; }
     }
 
+    .carousel-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+    }
+    .carousel-track::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    .product-card {
+      min-width: 220px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .product-card img {
+      width: 450px;
+      height: 450px;         /* atur sesuai kebutuhan, misal 200–300px */
+      object-fit: contain;     /* isi penuh kotak, crop kalau perlu */
+      border-radius: 10px;
+      display: block;
+    }
+
+    .product-card .title {
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    .product-card .price {
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      cursor: pointer;
+      padding: 10px 15px;
+      font-size: 24px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    .carousel-btn:hover {
+      background: black;
+      color: white;
+    }
+    .prev-btn {
+      left: -10px;
+    }
+    .next-btn {
+      right: -10px;
+    }
 
 </style>
 <section class="shop-detail">
@@ -335,7 +402,7 @@
     <!-- Media / Foto Produk -->
     <div class="shop-detail__media">
       <!-- ganti src sesuai asset Anda -->
-      <img src="{{ asset('img/baju-pmr.jpg') }}" alt="Kaos Perayaan Mati Rasa" />
+      <img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa" />
     </div>
 
     <!-- Info Produk -->
@@ -344,126 +411,257 @@
         Kaos film<br/>Perayaan Mati Rasa
       </h1>
 
-      <div class="shop-detail__price">Rp175.000,-</div>
+      <p class="shop-detail__note">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor sit amet. Venenatis urna cursus eget nunc scelerisque viverra mauris. At in tellus integer feugiat scelerisque. Eu sem integer vitae justo eget magna. Volutpat blandit aliquam etiam erat velit scelerisque in. Amet luctus venenatis lectus magna fringilla. Non tellus orci ac auctor augue mauris. Egestas fringilla phasellus faucibus scelerisque eleifend donec. Elit duis tristique sollicitudin nibh sit amet.
+      </p>
+
+      <div class="shop-detail__price">Rp 175.000,-</div>
 
       <a
         class="shop-detail__cta"
-        href="https://tokopedia.com/" 
-        target="_blank" 
+        href="{{ route('detail-shop') }}" 
         rel="noopener"
       >
-        <span class="detail">BUY NOW ON TOKOPEDIA</span>
+        <span class="detail">VIEW PRODUCT</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
-
-      <p class="shop-detail__note">
-        Purchases are handled via our official store on external platforms.
-      </p>
-
-      <hr class="shop-detail__divider"/>
-
-      <ul class="shop-detail__bullets">
-        <li>
-          <span class="ico">
-            <svg viewBox="0 0 24 24">
-              <path d="M3 7h18v10H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="detail">Free shipping on orders over $25</span>
-        </li>
-        <li>
-          <span class="ico">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 22s8-4.5 8-12a8 8 0 10-16 0c0 7.5 8 12 8 12z" fill="none" stroke="currentColor" stroke-width="1.8"/>
-              <circle cx="12" cy="10" r="2" fill="currentColor"/>
-            </svg>
-          </span>
-          <span class="detail">Secure payment & buyer protection</span>
-        </li>
-        <li>
-          <span class="ico">
-            <svg viewBox="0 0 24 24">
-              <path d="M4 7h16v10H4zM8 7V5h8v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 12h6M9 15h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <spam class="detail">30-day return policy</spam>
-        </li>
-      </ul>
     </div>
   </div>
 </section>
 
+<span class="kategori">KATEGORI (PERAYAAN MATI RASA)</span>
 <hr class="shop-detail__divider2"/>
 
-<!-- ========= ABOUT SHOP ========= -->
-<section class="shop-about">
-  <div class="shop-about__grid">
-    <!-- LEFT COLUMN -->
-    <div class="shop-about__main">
-      <h2 class="h2">About the Film</h2>
+<!-- ========= KATEGORI SHOP 1 ========= -->
+<section class="related-products">
+  <div class="carousel-wrapper">
+    <!-- Tombol kiri -->
+    <button class="carousel-btn prev-btn">&#10094;</button>
 
-      <p class="lead">
-        Midnight explores the fragile boundary between consciousness and dreams through the eyes
-        of Detective Sarah Chen, who finds herself trapped in a case that defies logic. As she
-        delves deeper into the investigation, the city around her begins to shift and change,
-        reflecting her own psychological state. The film combines practical effects with
-        innovative cinematography to create a truly immersive experience that challenges audiences
-        to question what they see.
-      </p>
+    <!-- Container produk -->
+    <div class="carousel-track">
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasas</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasass</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasass</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+    </div>
+
+    <!-- Tombol kanan -->
+    <button class="carousel-btn next-btn">&#10095;</button>
+  </div>
+</section>
+<br><br><br>
+
+<span class="kategori">KATEGORI (PERAYAAN MATI RASA)</span>
+<hr class="shop-detail__divider2"/>
+
+<!-- ========= KATEGORI SHOP 2 ========= -->
+<section class="related-products">
+  <div class="carousel-wrapper">
+    <!-- Tombol kiri -->
+    <button class="carousel-btn prev-btn">&#10094;</button>
+
+    <!-- Container produk -->
+    <div class="carousel-track">
+      <div class="product-card">
+        <img src="{{ asset('img/sepatu.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/sepatu2.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/sepatu3.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasas</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasass</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasass</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+    </div>
+
+    <!-- Tombol kanan -->
+    <button class="carousel-btn next-btn">&#10095;</button>
+  </div>
+</section>
+<br><br><br>
+
+<span class="kategori">KATEGORI (PERAYAAN MATI RASA)</span>
+<hr class="shop-detail__divider2"/>
+
+<!-- ========= KATEGORI SHOP 3 ========= -->
+<section class="related-products">
+  <div class="carousel-wrapper">
+    <!-- Tombol kiri -->
+    <button class="carousel-btn prev-btn">&#10094;</button>
+
+    <!-- Container produk -->
+    <div class="carousel-track">
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasa</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasas</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasass</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+      <div class="product-card">
+        <img src="{{ asset('img/image-10.png') }}" alt="Kaos">
+        <p class="title">Kaos Perayaan Mati Rasass</p>
+        <p class="price">Rp175.000,-</p>
+      </div>
+    </div>
+
+    <!-- Tombol kanan -->
+    <button class="carousel-btn next-btn">&#10095;</button>
+  </div>
+</section>
+
+<br><br><br>
+
+<span class="kategori">SHOP BY CATEGORY</span>
+<hr class="shop-detail__divider2"/>
+
+<!-- ========= KATEGORI SHOP ALL ========= -->
+<section class="shop-detail">
+  <div class="shop-detail__container">
+    <!-- Media / Foto Produk -->
+    <div class="shop-detail__media">
+      <!-- ganti src sesuai asset Anda -->
+      <img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa" />
+    </div>
+
+    <!-- Info Produk -->
+    <div class="shop-detail__info">
+      <h1 class="shop-detail__title">
+        APPAREL 
+      </h1>
+
+      <a
+        class="shop-detail__cta"
+        href="{{ route('detail-kategori') }}" 
+        rel="noopener"
+      >
+        <span class="detail">VIEW PRODUCT</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="shop-detail__container">
+    <!-- Media / Foto Produk -->
+    <div class="shop-detail__media">
+      <!-- ganti src sesuai asset Anda -->
+      <img src="{{ asset('img/sepatu3.png') }}" alt="Kaos Perayaan Mati Rasa" />
+    </div>
+
+    <!-- Info Produk -->
+    <div class="shop-detail__info">
+      <h1 class="shop-detail__title">
+        SEPATU
+      </h1>
+
+      <a
+        class="shop-detail__cta"
+        href="{{ route('detail-kategori') }}" 
+        rel="noopener"
+      >
+        <span class="detail">VIEW PRODUCT</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
-<section class="related-products">
-  <div class="rp__header">
-    <h2 class="rp__title">You Might Also Like</h2>
+<script>
+  const track = document.querySelector(".carousel-track");
+  const prevBtn = document.querySelector(".prev-btn");
+  const nextBtn = document.querySelector(".next-btn");
 
-    <a href="/shop" class="rp__viewall">
-      <span class="detail">View All</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-  </div>
+  nextBtn.addEventListener("click", () => {
+    track.scrollBy({ left: 250, behavior: "smooth" });
+  });
 
-  <div class="rp__grid">
-    <!-- Item 1 -->
-    <a href="/shop/tee-mati-rasa" class="rp-card">
-    <img src="{{ asset('img/baju-pmr.jpg') }}" class="rp-card__media">
-      <div class="rp-card__meta">
-        <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
-        <div class="rp-card__price">Rp175.000,-</div>
-      </div>
-    </a>
+  prevBtn.addEventListener("click", () => {
+    track.scrollBy({ left: -250, behavior: "smooth" });
+  });
 
-    <!-- Item 2 -->
-    <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/temp-imagehc-vht-6-10.png') }}" class="rp-card__media">
-      <div class="rp-card__meta">
-        <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
-        <div class="rp-card__price">Rp175.000,-</div>
-      </div>
-    </a>
-
-    <!-- Item 3 -->
-    <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/poster_kbds.jpg') }}" class="rp-card__media">
-      <div class="rp-card__meta">
-        <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
-        <div class="rp-card__price">Rp175.000,-</div>
-      </div>
-    </a>
-
-    <!-- Item 4 -->
-    <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/baju-pmr.jpg') }}" class="rp-card__media">
-      <div class="rp-card__meta">
-        <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
-        <div class="rp-card__price">Rp175.000,-</div>
-      </div>
-    </a>
-  </div>
-</section>
+</script>
