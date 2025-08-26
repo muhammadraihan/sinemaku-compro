@@ -91,7 +91,7 @@
   .btn-primary{
     display:inline-flex; align-items:center; gap:8px;
     padding:8px 12px;                 /* lebih kecil */
-    font-size:14px; font-weight:600;
+    font-size:14px; font-weight:100;
     border-radius:12px;
     background:#2563EB; color:#fff; text-decoration:none;
     box-shadow:0 8px 18px rgba(37,99,235,.18);
