@@ -97,7 +97,7 @@
     font-weight: 700;
     letter-spacing: .2px;
     transition: transform .18s ease, box-shadow .18s ease, background .2s ease;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.156);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.156);
     }
 
     .shop-detail__cta svg {
