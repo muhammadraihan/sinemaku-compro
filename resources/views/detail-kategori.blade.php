@@ -19,7 +19,7 @@
 :root{
   --wrap: min(1400px, 94vw);
   --gap: clamp(20px, 2.6vw, 48px);
-  --ink: ##0f0f0f;
+  --ink: #0f0f0f;   /* <— perbaiki typo (#) */
   --sub: #B2B1B9;
 }
 
@@ -35,13 +35,13 @@
 
 /* ===== HERO: kecil + title kiri atas + span 2 baris (agar 4 tile di kanan) ===== */
 .collection-hero{
-  grid-column: 1 / span 6;   /* setengah layar */
-  grid-row: span 2;          /* >>> ini kunci 4 tile di kanan (2×2) <<< */
+  grid-column: 1 / span 6;
+  grid-row: span 2;
   position: relative;
   isolation:isolate;
 }
 .collection-hero .hero-media{
-  aspect-ratio: 4 / 5;       /* proporsi ramping */
+  aspect-ratio: 4 / 5;
   width:100%; display:grid; place-items:center;
 }
 .collection-hero .hero-media img{
@@ -54,7 +54,7 @@
 }
 
 /* ===== TILE PRODUK POLOS ===== */
-.product-tile{ grid-column: span 3; }   /* 4 per baris di total 12 kolom (kanan hero 6 kolom => 2 per baris) */
+.product-tile{ grid-column: span 3; }
 
 .product-media{
   aspect-ratio:1/1; width:100%;
@@ -71,49 +71,57 @@
 .product-name{
   margin: 10px 0 6px;
   font-family: 'Inter', Arial, sans-serif;
-  font-size: clamp(13px, 0.5vw, 16px); /* boleh sesuaikan */
-  font-weight: 100;                     /* 700 kalau mau lebih tebal */
+  font-size: clamp(13px, 0.5vw, 16px);
+  font-weight: 200;
   line-height: 1.1;
-  letter-spacing: 0;                    /* tanpa tracking */
-  color: var(--ink);                    /* hitam */
+  letter-spacing: 0;
+  color: var(--ink);
+  transition: color .18s ease;        /* <— biar halus saat berubah warna */
 }
 
 .product-price{
   margin: 0;
   font-family: 'Inter', Arial, sans-serif;
-  font-size: clamp(12px, 0.5vw, 13px); /* sedikit lebih kecil */
-  font-weight: 400;                      /* lebih ringan dari judul */
+  font-size: clamp(12px, 0.5vw, 13px);
+  font-weight: 500;
   line-height: 1;
-  color: var(--sub);                     /* abu-abu */
+  color: var(--sub);
+}
+
+/* Hover effect ala A24:
+   Saat seluruh tile di-hover/focus-within, nama produk menjadi warna harga */
+.product-tile:hover .product-name,
+.product-tile:focus-within .product-name{
+  color: var(--sub);
 }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:1200px){
   .collection-hero{ grid-column:1 / span 8; }
-  .product-tile{ grid-column: span 4; } /* 3 kolom */
+  .product-tile{ grid-column: span 4; }
 }
 @media (max-width:900px){
   .collection-grid{ gap: clamp(18px,4vw,36px); }
-  .collection-hero{ grid-column:1 / span 12; grid-row: span 1; } /* di mobile tidak perlu 2 baris */
+  .collection-hero{ grid-column:1 / span 12; grid-row: span 1; }
   .collection-hero .hero-media{ aspect-ratio:16/9; }
-  .product-tile{ grid-column: span 6; } /* 2 kolom */
+  .product-tile{ grid-column: span 6; }
 }
 @media (max-width:520px){
-  .product-tile{ grid-column:1 / -1; } /* 1 kolom */
+  .product-tile{ grid-column:1 / -1; }
 }
 </style>
 
 <section class="collection">
   <div class="collection-grid">
-    {{-- HERO (kiri, kecil, span 2 baris) --}}
+    {{-- HERO --}}
     <article class="collection-hero">
       <h1 class="hero-title">APPAREL</h1>
       <div class="hero-media">
-        <img src="{{ asset('img/baju-pmr.jpg') }}" alt="Apparel">
+        <img src="{{ asset('img/image-10.png') }}" alt="Apparel">
       </div>
     </article>
 
-    {{-- 4 tile pertama akan otomatis mengisi area kanan hero (2×2) --}}
+    {{-- TILES --}}
     <article class="product-tile">
       <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
       <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
@@ -138,7 +146,7 @@
       <p class="product-price">Rp175.000,-</p>
     </article>
 
-    {{-- sisanya lanjut ke baris berikutnya --}}
+    {{-- Tambahan contoh --}}
     <article class="product-tile">
       <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
       <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
@@ -162,30 +170,5 @@
       <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
       <p class="product-price">Rp175.000,-</p>
     </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
   </div>
 </section>
