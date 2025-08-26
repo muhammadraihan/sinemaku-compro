@@ -67,9 +67,9 @@
 
     .shop-detail__title {
     font-family: "Inter", sans-serif;
-    font-weight: 500;
+    font-weight: 800;
     line-height: .95;
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
     font-size: clamp(28px, 3.2vw, 44px);
     margin-top: 150px;
     }
@@ -193,20 +193,20 @@
 
     .h2{
         font-family:"Inter",sans-serif; 
-        font-size: clamp(28px,4.6vw,56px); 
-        font-weight: 500;
+        font-size: clamp(18px,2.2vw,20px); 
+        font-weight: 200;
         line-height: .95;
         letter-spacing: -0.5px;
         margin-left: 150px;
-        margin-top: -10px;
+        margin-top: -50px;
     }
     .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(18px,2.2vw,22px); margin: 0 0 .8em; font-weight: 700 }
     .lead{ 
     font-family:"Inter",sans-serif; 
     font-weight: 100px;
-    font-size: clamp(15px,2.1vw,18px); 
+    font-size: clamp(14px,1.5vw,16px); 
     line-height: .95;
-    letter-spacing: 0.5px;
+    letter-spacing: 0px;
     color:#525050; 
     margin-bottom: 26px ;
     margin-left: 150px;
@@ -403,7 +403,7 @@
   <div class="shop-about__grid">
     <!-- LEFT COLUMN -->
     <div class="shop-about__main">
-      <h2 class="h2">About the Product</h2>
+      <h2 class="h2">Description</h2>
 
       <p class="lead">
         Midnight explores the fragile boundary between consciousness and dreams through the eyes
