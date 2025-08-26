@@ -19,8 +19,8 @@
 :root{
   --wrap: min(1400px, 94vw);
   --gap: clamp(20px, 2.6vw, 48px);
-  --ink: #111;
-  --sub: #757575;
+  --ink: ##0f0f0f;
+  --sub: #B2B1B9;
 }
 
 .collection{ width:var(--wrap); margin: clamp(20px,5vw,68px) auto 80px; }
@@ -69,11 +69,22 @@
 .product-tile:hover .product-media img{ transform: translateY(-2px); }
 
 .product-name{
-  margin:10px 0 6px;
-  font:500 clamp(14px,1.35vw,18px)/1.2 'Inter',Arial,sans-serif; color:var(--ink); letter-spacing:.2px;
+  margin: 10px 0 6px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: clamp(13px, 0.5vw, 16px); /* boleh sesuaikan */
+  font-weight: 100;                     /* 700 kalau mau lebih tebal */
+  line-height: 1.1;
+  letter-spacing: 0;                    /* tanpa tracking */
+  color: var(--ink);                    /* hitam */
 }
+
 .product-price{
-  margin:0; font:600 clamp(12px,1.05vw,14px)/1 'Inter',Arial,sans-serif; color:var(--sub);
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: clamp(12px, 0.5vw, 13px); /* sedikit lebih kecil */
+  font-weight: 400;                      /* lebih ringan dari judul */
+  line-height: 1;
+  color: var(--sub);                     /* abu-abu */
 }
 
 /* ---------- RESPONSIVE ---------- */
