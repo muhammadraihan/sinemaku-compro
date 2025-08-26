@@ -335,7 +335,7 @@
     <!-- Media / Foto Produk -->
     <div class="shop-detail__media">
       <!-- ganti src sesuai asset Anda -->
-      <img src="{{ asset('img/baju-pmr.jpg') }}" alt="Kaos Perayaan Mati Rasa" />
+      <img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa" />
     </div>
 
     <!-- Info Produk -->
@@ -432,7 +432,7 @@
   <div class="rp__grid">
     <!-- Item 1 -->
     <a href="/shop/tee-mati-rasa" class="rp-card">
-    <img src="{{ asset('img/baju-pmr.jpg') }}" class="rp-card__media">
+    <img src="{{ asset('img/image-10.png') }}" class="rp-card__media">
       <div class="rp-card__meta">
         <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
         <div class="rp-card__price">Rp175.000,-</div>
@@ -441,7 +441,7 @@
 
     <!-- Item 2 -->
     <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/temp-imagehc-vht-6-10.png') }}" class="rp-card__media">
+        <img src="{{ asset('img/image-10.png') }}" class="rp-card__media">
       <div class="rp-card__meta">
         <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
         <div class="rp-card__price">Rp175.000,-</div>
@@ -450,7 +450,7 @@
 
     <!-- Item 3 -->
     <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/poster_kbds.jpg') }}" class="rp-card__media">
+        <img src="{{ asset('img/image-10.png') }}" class="rp-card__media">
       <div class="rp-card__meta">
         <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
         <div class="rp-card__price">Rp175.000,-</div>
@@ -459,7 +459,7 @@
 
     <!-- Item 4 -->
     <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/baju-pmr.jpg') }}" class="rp-card__media">
+        <img src="{{ asset('img/image-10.png') }}" class="rp-card__media">
       <div class="rp-card__meta">
         <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
         <div class="rp-card__price">Rp175.000,-</div>
