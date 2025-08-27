@@ -135,7 +135,13 @@
     transition:background .18s ease;
     white-space: nowrap;
   }
-  .card-actions a:hover{ background:#0b0f14; }
+  .card-actions a:hover{ 
+      background: #111;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      width:100%; height:30%;
+    }
 
   /* ===== Responsive ===== */
   @media (max-width:1180px){
