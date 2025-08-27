@@ -3,275 +3,287 @@
 @section('title', 'Home | Sinemaku Pictures')
 
 @include('partials.navbar')
+
 <style>
-    .navbar-logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Inter', Arial, sans-serif;
-    font-size: 1.11rem;      /* Lebih kecil dan ramping */
-    font-weight: 800;
-    letter-spacing: 1.7px;
-    color: #070707;
-    text-shadow: 0 1px 5px rgba(0,0,0,0.09);
-    white-space: nowrap;
-    pointer-events: none;
-    text-transform: uppercase;
-    line-height: 1;
-    }
-    .icon-hamburger rect {
-    fill: #070707;
-    }
-    .icon-search circle {
-    stroke: #070707;
-    }
-    .icon-search line {
-    stroke: #070707;
-    }
+/* ---------------- NAV tetapkan ---------------- */
+.navbar-logo{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:'Inter',Arial,sans-serif; font-size:1.11rem; font-weight:800;
+  letter-spacing:1.7px; color:#070707; text-shadow:0 1px 5px rgba(0,0,0,.09);
+  pointer-events:none; text-transform:uppercase; line-height:1; white-space:nowrap;
+}
+.icon-hamburger rect{ fill:#070707; }
+.icon-search circle,.icon-search line{ stroke:#070707; }
 
-    /* ====== Layout base ====== */
-    .article-detail {
-      padding: 48px 0 72px;
-      background: #fff;
-      color: #0d0d0d;
-    }
-    .article-detail .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+/* ---------------- THEME ---------------- */
+:root{
+  --wrap: min(1180px, 94vw);
+  --ink: #0f0f0f;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --bg: #ffff;
+  --paper: #fff;
+  --radius: 14px;
+  --shadow: 0 14px 40px rgba(0,0,0,.10);
+}
+*{box-sizing:border-box}
+body{background:var(--bg)}
 
-    /* ====== Header ====== */
-    .article-head {
-      margin-bottom: 28px;
-      margin-top: 100px;
-    }
-    .article-title {
-      font-family: "Inter", sans-serif;
-      line-height: .95;
-      letter-spacing: 0.5px;
-      font-size: clamp(28px, 3.6vw, 40px);
-      margin: 0 0 12px;
-    }
-    .article-sublead {
-      font-size: 15.5px;
-      line-height: 1.7;
-      color: #444;
-      margin: 0 0 14px;
-    }
+/* ---------------- PAGE ---------------- */
+.article-detail{ padding: 28px 0 80px; color:var(--ink); }
+.article-detail .container{ width:var(--wrap); margin:0 auto; }
 
-    .article-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-size: 14px;
-      color: #6b7280;
-    }
-    .meta-item { display: inline-flex; gap: 8px; align-items: center; }
-    .meta-dot { opacity: .5; }
-    .meta-actions { margin-left: auto; }
-    .btn-icon {
-      width: 34px; height: 34px;
-      display: grid; place-items: center;
-      border-radius: 8px;
-      border: 1px solid rgba(0,0,0,.08);
-      background: #fff;
-      cursor: pointer;
-      transition: transform .18s, box-shadow .18s;
-    }
-    .btn-icon:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(0,0,0,.08); }
+/* ---------------- HERO ---------------- */
+.article-head{ margin-top: 86px; margin-bottom: 22px; }
+.hero-media{
+  width:100%; border-radius: var(--radius); overflow:hidden; background:#eef1f4;
+  box-shadow: var(--shadow); margin-bottom: clamp(16px,2.2vw,22px);
+}
 
-    /* ====== Grid ====== */
-    .article-grid {
-      display: grid;
-      grid-template-columns: 1.6fr .9fr;
-      gap: clamp(22px, 4vw, 40px);
-    }
+.hero-media{
+  width: 90vw;                   /* lebar = viewport */
+  margin-left: calc(50% - 45vw);  /* geser agar center & keluar dari container */
+  margin-right: calc(50% - 45vw);
+  border-radius: 50;               /* hilangkan sudut agar benar2 ujung-ke-ujung */
+  box-shadow: none;               /* opsional: tak perlu shadow utk full-bleed */
+  background:#000;                /* supaya crop rapi saat loading */
+}
 
-    /* ====== Content ====== */
-    .article-content { min-width: 0; }
-    .article-figure {
-      margin-top: 50px;
-      margin-right: 180px;
-      margin-left: 100px;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #f5f6f7;
-    }
-    .article-figure img {
-      width: 100%;
-      height: clamp(260px, 46vw, 420px);
-      object-fit: cover;
-      display: block;
-    }
-    .article-figure figcaption {
-      padding: 8px 12px;
-      font-size: 12px;
-      color: #8b8b8b;
-    }
+.hero-media img{
+  width:100%; height: clamp(260px, 46vw, 520px); object-fit:cover; display:block;
+  transform: scale(1); transition: transform .6s cubic-bezier(.2,.8,.2,1);
+}
 
-    .article-content p {
-      font-size: 16px;
-      line-height: 1.85;
-      color: #2b2b2b;
-      margin: 0 0 16px;
-    }
-    .article-content a { color: #0d63ff; text-decoration: none; }
-    .article-content a:hover { text-decoration: underline; }
+.hero-media img{
+  width: 100%;
+  height: clamp(320px, 45vw, 560px); /* tinggi responsif horizontal */
+  object-fit: cover;                 /* isi penuh, tanpa gepeng */
+  object-position: center;           /* pastikan center */
+  display: block;
+}
 
-    .article-content h3 {
-      font-family: "Inter", sans-serif;
-      line-height: .95;
-      letter-spacing: 0.5px;
-      margin: 26px 0 12px;
-      font-size: 22px;
-    }
-    .article-content ol { padding-left: 20px; margin: 0 0 18px; }
-    .article-content li { margin: 6px 0; }
+.hero-media:hover img{ transform: scale(1.02); }
 
-    /* ====== Sidebar ====== */
-    .article-sidebar {
-      min-width: 0;
-    }
-    .related-title {
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height: .95;
-      letter-spacing: 0.5px;
-      font-weight: 700;
-      letter-spacing: .2px;
-      font-size: 15px;
-      color: #111;
-      margin: 4px 0 12px;
-    }
-    .related-card {
-      display: grid;
-      grid-template-columns: 96px 1fr;
-      gap: 12px;
-      padding: 10px;
-      border-radius: 12px;
-      text-decoration: none;
-      color: inherit;
-      transition: background .18s, transform .18s, box-shadow .18s;
-    }
-    .related-card + .related-card { margin-top: 6px; }
-    .related-card:hover {
-      background: #fafafa;
-      transform: translateY(-1px);
-      box-shadow: 0 10px 26px rgba(0,0,0,.06);
-    }
-    .related-card img {
-      width: 96px; height: 72px; object-fit: cover; border-radius: 10px; background: #eee;
-    }
-    .rel-body {
-      font-family: "Inter", sans-serif;
-      line-height: .95;
-      letter-spacing: 0.5px;
-      display: grid; 
-      gap: 4px; 
-      align-content: center;
-    }
-    .rel-title {
-      font-size: 14px;
-      line-height: 1.35;
-      font-weight: 600;
-    }
-    .rel-meta {
-      font-size: 12px;
-      color: #6b7280;
-    }
+.breadcrumbs{
+  font: 500 12.5px/1 'Inter',system-ui,Arial; color:var(--muted); display:flex; gap:8px; align-items:center;
+  margin: 6px 2px 10px;
+}
+.breadcrumbs a{ color:inherit; text-decoration:none }
+.breadcrumbs .sep{ opacity:.6 }
 
-    /* ====== Responsive ====== */
-    @media (max-width: 980px) {
-      .article-grid { grid-template-columns: 1fr; }
-      .meta-actions { margin-left: 0; }
-      .article-figure img { height: clamp(220px, 58vw, 360px); }
-    }
+.article-title{
+  font: 500 clamp(26px,3.2vw,40px)/1.15 'Inter',system-ui,Arial;
+  letter-spacing: -.01em; margin: 4px 0 10px;
+}
+.article-sublead{ display:none; } /* tak dipakai pada gaya ini */
+
+.meta-row{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  font: 500 14px/1.2 'Inter',system-ui,Arial; color:var(--muted);
+  padding: 6px 0 2px; border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+}
+.meta-chip{
+  display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+  background:#eef2f7; color:#374151; font-size:12.5px;
+}
+.meta-dot{ opacity:.5 }
+.meta-brand{ font-weight:700; color:#111 }
+.meta-right{ margin-left:auto; display:flex; gap:8px; align-items:center }
+.btn-share{
+  width:34px; height:34px; display:grid; place-items:center; border-radius:8px;
+  border:1px solid var(--line); background:#fff; cursor:pointer;
+  transition:transform .18s, box-shadow .18s, background .2s;
+}
+.btn-share:hover{ transform:translateY(-1px); box-shadow:0 8px 22px rgba(0,0,0,.08); background:#fafafa }
+
+/* ---------------- GRID ---------------- */
+.article-grid{
+  display:grid; grid-template-columns: 1.65fr .9fr; gap: clamp(22px, 3.8vw, 42px); align-items:start;
+  margin-top: 18px;
+}
+@media (max-width: 980px){
+  .article-grid{ grid-template-columns:1fr; }
+  .meta-right{ margin-left:0 }
+}
+
+/* ---------------- CONTENT ---------------- */
+.article-content{ min-width:0; border:1px solid var(--line);
+  border-radius: var(--radius); padding: clamp(16px,2.2vw,22px) clamp(18px,2.4vw,26px); }
+
+.article-content p{
+  font: 400 16px/1.85 'Inter',system-ui,Arial; color:#2b2b2b; margin: 0 0 16px;
+}
+.article-content a{ color:#0d63ff; text-decoration:none }
+.article-content a:hover{ text-decoration:underline }
+.article-content h2,.article-content h3{
+  font: 800 22px/1.15 'Inter',system-ui,Arial; margin: 26px 0 10px;
+}
+
+/* Quote highlight ala news */
+.key-quote{
+  border-left: 4px solid #111; padding: 10px 12px; margin: 12px 0 16px; background:#fafafa;
+  font: 700 18px/1.45 'Inter',system-ui,Arial; color:#111;
+}
+
+/* Image & caption in body */
+.figure{
+  margin: 14px 0; border-radius: 12px; overflow:hidden; background:#f2f3f5; border:1px solid var(--line)
+}
+.figure img{ width:100%; height: clamp(200px, 38vw, 360px); object-fit:cover; display:block }
+.figure figcaption{ padding:8px 12px; font: 500 12px/1.4 'Inter',system-ui,Arial; color:#7b7b7b }
+
+/* Two-column list block */
+.list-block{
+  background:#fafafa; border:1px solid var(--line); border-radius:12px; padding:14px;
+}
+.list-block h4{ margin: 0 0 10px; font: 800 15px/1.2 'Inter',system-ui,Arial; }
+.cols-2{ columns: 2; column-gap: 28px; padding-left: 18px; }
+.cols-2 li{ break-inside: avoid; margin:6px 0; }
+@media (max-width: 720px){ .cols-2{ columns:1 } }
+
+/* ---------------- SIDEBAR ---------------- */
+.article-sidebar{ min-width:0; }
+.widget{
+  position: sticky; top: 92px;
+  display:grid; gap:12px; background:var(--paper); padding:16px; border-radius: var(--radius);
+  border:1px solid var(--line);
+}
+.widget-title{ font:800 15px/1.2 'Inter',system-ui,Arial; margin:0 0 4px; }
+
+.story-mini{
+  display:grid; grid-template-columns: 92px 1fr; gap:12px; text-decoration:none; color:inherit;
+  padding:10px; border-radius:12px; transition: background .18s, transform .18s, box-shadow .18s;
+}
+.story-mini:hover{ background:#fafafa; transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.06) }
+.story-mini img{ width:92px; height:72px; object-fit:cover; border-radius:10px; background:#eee }
+.story-meta{ font:600 12px/1.2 'Inter',system-ui,Arial; color:var(--muted) }
+.story-title{ font:700 14px/1.35 'Inter',system-ui,Arial; color:#111 }
+
+/* Tiny helpers */
+.badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; background:#f1f5ff; color:#2643d6; border-radius:999px; font:700 12px/1 'Inter',system-ui,Arial }
+.hr{ height:1px; background:var(--line); border:0; margin: 14px 0; }
+
+/* --- Jarak antara HERO dan blok judul/meta --- */
+.hero-media{
+  /* full-bleed yang kemarin */
+  width:90vw;
+  margin-left:calc(50% - 45vw);
+  margin-right:calc(50% - 45vw);
+
+  /* 👉 tambahkan jarak bawah */
+  margin-bottom: clamp(20px, 3.2vw, 56px);
+}
+
+/* Kalau hero-mu pakai <figure class="article-figure">, pakai ini juga */
+.article-figure{
+  margin-bottom: clamp(20px, 3.2vw, 56px) !important;
+  /* opsional: reset margin lain supaya rapi */
+  /* margin-top: 0; margin-left: 0; margin-right: 0; */
+}
 
 </style>
-<!-- ========== ARTICLE DETAIL ========== -->
+
 <section class="article-detail">
   <div class="container">
 
-    <!-- Header -->
+    <!-- HERO -->
     <header class="article-head">
-      <h1 class="article-title">
-        Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024
-      </h1>
+      <figure class="hero-media">
+        <img src="{{ asset('img/artikel3.jpg') }}" alt="Sinemaku Day">
+      </figure>
 
-      <p class="article-sublead">
-        Sinemaku Pictures sebagai rumah produksi yang berdiri hampir lima tahun, memang terus menunjukkan berbagai karyanya di industri film Tanah Air. Selain itu, Umay Shahab dan Prilly Latuconsina selaku pendiri Sinemaku Pictures, di awal tahun ini menghadirkan satu acara bertajuk, Sinemaku Day.
-      </p>
+      <!-- <nav class="breadcrumbs">
+        <a href="#">Home</a> <span class="sep">›</span>
+        <a href="#">World</a>
+      </nav> -->
 
-      <div class="article-meta">
-        <span class="meta-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4Zm0 2c-3.33 0-6 2.24-6 5v1h12v-1c0-2.76-2.67-5-6-5Z" fill="currentColor"/></svg>
-          Nindi Widya Wati
-        </span>
+      <h1 class="article-title">Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024</h1>
+
+      <div class="meta-row">
+        <span class="meta-brand">Sinemaku Article</span>
         <span class="meta-dot">•</span>
-        <span class="meta-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 2h10a2 2 0 0 1 2 2v16l-7-3-7 3V4a2 2 0 0 1 2-2Z" fill="currentColor"/></svg>
-          11 Jan 2024
-        </span>
-      </div>
+        <span class="meta-item">by Nindi Widya Wati</span>
+        <span class="meta-dot">•</span>
+        <span class="meta-item">11 Jan 2024</span>
+        <span class="meta-dot">•</span>
 
-      <figure class="article-figure">
-          <img src="{{ asset('img/artikel3.jpg') }}" alt="Sinemaku Day" />
-          <figcaption>Dok. Sinemaku Day 2024</figcaption>
-        </figure>
+        <div class="meta-right">
+          <button class="btn-share" title="Share to X" aria-label="Share to X">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.5 3h-3.1l-3 4.3L9.3 3H5.5l5 7.3L5 21h3.1l3.4-4.9 3.4 4.9H19l-5.3-7.6L18.5 3Z"/></svg>
+          </button>
+          <button class="btn-share" title="Share to Facebook" aria-label="Share to Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h2.8l.4-3H13V9.1c0-.9.3-1.5 1.6-1.5H16V5.1c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.3-3.8 3.9V11H7v3h3v8h3Z"/></svg>
+          </button>
+          <button class="btn-share" title="Copy Link" aria-label="Copy link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12a5 5 0 0 1 5-5h4v2H8a3 3 0 0 0 0 6h4v2H8a5 5 0 0 1-5-5Zm8-3h5a5 5 0 1 1 0 10h-5v-2h5a3 3 0 1 0 0-6h-5V9Z"/></svg>
+          </button>
+        </div>
+      </div>
     </header>
 
-    <!-- Body + Sidebar -->
+    <!-- GRID -->
     <div class="article-grid">
 
-      <!-- Content -->
+      <!-- CONTENT -->
       <article class="article-content">
-
         <p>Rumah produksi yang didirikan Umay Shahab dan Prilly Latuconsina, <a href="#">Sinemaku Pictures</a> mengumumkan tiga judul film terbaru. Film bergenre horor hingga komedi itu akan diproduksi dan tayang pada 2024.</p>
 
-        <p>“Pada tahun 2024, Sinemaku Pictures punya genre baru yang akan kami eksplorasi. Sebelumnya kami berfokus pada drama tapi film-film Sinemaku Pictures tahun ini akan lebih kaya akan cerita dan genre,” kata Prilly Latuconsina dalam acara Sinemaku Day yang digelar pada Rabu, 10 Januari 2024.</p>
+        <p class="key-quote">“Kami ingin tahun ini lebih kaya cerita dan genre—melampaui drama yang selama ini jadi identitas Sinemaku,” ujar Prilly Latuconsina.</p>
 
-        <h3>3 Judul Film Terbaru Sinemaku Pictures di 2024</h3>
-        <ol>
-          <li><strong>Temurun</strong> (Horror) — Disutradarai Inarah Syarafina.</li>
-          <li><strong>Bolehkah Sekali Saja Ku Menangis</strong> (Comedy Drama) — Disutradarai Reka Wijaya.</li>
-          <li><strong>Mati Rasa</strong> (Drama) — Disutradarai Bryan Domani.</li>
-        </ol>
+        <p>Acara pengumuman digelar pada Rabu, 10 Januari 2024 melalui event Sinemaku Day. Selain panel diskusi, ditampilkan pula first-look beberapa proyek yang akan masuk tahap produksi pada paruh pertama tahun ini.</p>
 
-        <p>Ketiga film tersebut akan diproduksi secara bertahap sepanjang tahun 2024 dan ditargetkan siap tayang di bioskop pada kuartal terakhir tahun ini.</p>
+        <figure class="figure">
+          <img src="{{ asset('img/artikel.jpeg') }}" alt="Behind the scenes">
+          <figcaption>Behind the scenes: Sinemaku Day 2024.</figcaption>
+        </figure>
+
+        <h4>3 Judul yang Dikenalkan</h4>
+        <div class="list-block">
+          <ol class="cols-2">
+            <li><strong>Temurun</strong> — Horor oleh Inarah Syarafina.</li>
+            <li><strong>Bolehkah Sekali Saja Ku Menangis</strong> — Komedi drama oleh Reka Wijaya.</li>
+            <li><strong>Mati Rasa</strong> — Drama oleh Bryan Domani.</li>
+            <li>Proyek antologi pendek.</li>
+            <li>Kolaborasi lintas studio.</li>
+          </ol>
+        </div>
+
+        <h4>Jadwal & Target Rilis</h4>
+        <p>Ketiga film diproduksi bertahap sepanjang 2024 dan menargetkan rilis mulai kuartal terakhir tahun ini, menyesuaikan kalender festival dan slot penayangan nasional.</p>
       </article>
 
-      <!-- Sidebar -->
+      <!-- SIDEBAR -->
       <aside class="article-sidebar">
-        <h4 class="related-title">Related Articles</h4>
+        <div class="widget">
+          <div class="badge">Top Stories</div>
 
-        <a class="related-card" href="{{ route('detail-articles') }}">
-          <img src="{{ asset('img/artikel4.jpg') }}" alt="" />
-          <div class="rel-body">
-            <div class="rel-title">Behind the Scenes: Creating Midnight’s Atmospheric Score</div>
-            <div class="rel-meta">2 min read • 09 Jan 2024</div>
-          </div>
-        </a>
+          <a class="story-mini" href="{{ route('detail-articles') }}">
+            <img src="{{ asset('img/artikel4.jpg') }}" alt="">
+            <div>
+              <div class="story-title">Behind the Scenes: Creative Affair &amp; Sinemaku Day</div>
+              <div class="story-meta">11 Jan 2024 • 3 min read</div>
+            </div>
+          </a>
 
-        <a class="related-card" href="{{ route('detail-articles') }}">
-          <img src="{{ asset('img/artikel5.jpg') }}" alt="" />
-          <div class="rel-body">
-            <div class="rel-title">Casting Notes: Building Authentic Chemistry On Screen</div>
-            <div class="rel-meta">4 min read • 05 Jan 2024</div>
-          </div>
-        </a>
+          <a class="story-mini" href="{{ route('detail-articles') }}">
+            <img src="{{ asset('img/artikel5.jpg') }}" alt="">
+            <div>
+              <div class="story-title">Premiere Recap: Antusiasme Penonton &amp; Momen Ikonik</div>
+              <div class="story-meta">10 Jan 2024 • 4 min read</div>
+            </div>
+          </a>
 
-        <a class="related-card" href="{{ route('detail-articles') }}">
-          <img src="{{ asset('img/artikel1.jpg') }}" alt="" />
-          <div class="rel-body">
-            <div class="rel-title">Neon Dreams: From Script to Premiere Night</div>
-            <div class="rel-meta">3 min read • 29 Dec 2023</div>
-          </div>
-        </a>
+          <a class="story-mini" href="{{ route('detail-articles') }}">
+            <img src="{{ asset('img/artikel1.jpg') }}" alt="">
+            <div>
+              <div class="story-title">Neon Dreams: From Script to Premiere Night</div>
+              <div class="story-meta">29 Dec 2023 • 5 min read</div>
+            </div>
+          </a>
+        </div>
       </aside>
+
     </div>
   </div>
 </section>
-
-
