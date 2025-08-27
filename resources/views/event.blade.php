@@ -81,7 +81,32 @@
     color:#111; text-decoration:none; letter-spacing:.1px;
     padding-top: 20px;
   }
-  .card-title:hover{ text-decoration:underline; }
+  
+  /* Title link sizes to its text only */
+.card-title{
+  position: relative;
+  display: inline-block !important;   /* override any global rule */
+  width: fit-content;                  /* shrink to text */
+  max-width: 100%;
+  text-decoration: none;
+  font:700 clamp(20px, 2vw, 24px)/1.2 Inter,system-ui;
+  color:#111; letter-spacing:.1px;
+  padding-top:20px;
+  justify-self: start;                 /* if inside CSS Grid */
+}
+
+/* animated underline */
+.card-title::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  height:2px;
+  width:0;                             /* start hidden */
+  background:#111;
+  transition:width .3s ease;
+}
+.card-title:hover::after{ width:100%; } /* now 100% = text width */
 
   .card-excerpt{
     color:#3b3b3b; line-height:1.6; max-width: 80ch;
