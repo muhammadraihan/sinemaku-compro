@@ -17,266 +17,131 @@
   :root{
     --ink:#0A0A0A;
     --muted:#6b7280;
-    --chip:#f3f4f6;
+    --line:#e6e6e6;
     --surface:#ffffff;
-    --line:#ececec;
-    --radius:16px;
-    --shadow:0 12px 30px rgba(16,24,40,.08);
 
-    /* baru: kontrol lebar & kolom tombol */
-    --contentMax: 1200px;
-    --ctaW: 220px; /* lebar kolom tombol kanan */
+    /* layout */
+    --mediaW: 460px;     /* lebar kolom gambar (desktop) */
+    --ribbonW: 74px;     /* lebar pita vertikal kanan */
   }
 
-  /* ============ Base ============ */
+  /* ===== Base (safe-area agar tidak nabrak navbar) ===== */
   .event-page{
-    padding: clamp(16px, 4vw, 48px) clamp(16px, 5vw, 64px);
+    padding: clamp(88px, 11vh, 120px) 0 56px; /* top diberi ruang */
     color: var(--ink);
-    background:
-      radial-gradient(1200px 400px at 10% -10%, #f8fafc 0%, transparent 60%),
-      radial-gradient(1200px 400px at 90% -10%, #f8fafc 0%, transparent 60%);
+    background:#fff;
   }
 
-  /* ============ HERO ala Lumospace ============ */
-  .article-featureds{
-    display:grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: clamp(18px,3.6vw,40px);
-    align-items:center;
-    margin: clamp(28px,6vw,56px) 0;
-    isolation:isolate;
-  }
-  .featured-body{
-    background:#f6f8fb;
-    border:1px solid var(--line);
-    border-radius: calc(var(--radius) + 6px);
-    padding: clamp(20px,3.4vw,44px);
-    box-shadow: var(--shadow);
-  }
-  .featured-body::before{
-    content:"Events";
-    display:inline-block;
-    margin-bottom:12px;
-    padding:8px 12px;
-    background:var(--chip);
-    color:#111;
-    border-radius:999px;
-    font:600 12px/1 'Inter',system-ui,Arial;
-    letter-spacing:.02em;
-  }
-  .featured-title{
-    margin:0 0 10px;
-    font:800 clamp(28px,4vw,44px)/1.02 'Inter',system-ui,Arial;
-    letter-spacing:-.01em;
-  }
-  .featured-excerpt{
-    color:#475569;
-    font-size: clamp(14px,1.1vw,16px);
-    line-height:1.7;
-    margin:0 0 16px;
-    max-width:60ch;
-  }
-  .featured-meta{
-    display:flex; flex-wrap:wrap; gap:10px 12px;
-    margin: 10px 0 6px;
-  }
-  .meta-chip{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:8px 12px; border-radius:999px; background:var(--chip);
-    color:#111; font:600 12px/1 'Inter',system-ui,Arial;
-  }
-
-  .btn-outline{
-    margin-top:14px;
-    display:inline-flex; align-items:center; gap:10px;
-    padding:12px 16px; border-radius:999px;
-    background:#111; color:#fff; text-decoration:none; font:700 13px/1 'Inter',Arial;
-    box-shadow:0 10px 24px rgba(0,0,0,.16);
-    transition:transform .18s, box-shadow .18s, background .2s, color .2s;
-  }
-  .btn-outline:hover{ transform:translateY(-2px); background:#000; }
-
-  .featured-media{
-    position:relative; border-radius: calc(var(--radius) + 6px);
-    overflow:hidden; background:var(--surface);
-    border:1px solid var(--line); box-shadow:var(--shadow);
-  }
-  .featured-media img{
-    width:100%; height: clamp(240px, 42vw, 420px); object-fit:cover; display:block;
-    transform:scale(1); transition:transform .6s cubic-bezier(.2,.8,.2,1);
-  }
-  .featured-media:hover img{ transform:scale(1.04); }
-
-  /* ============ LIST / CARDS ala Lumospace ============ */
-
-  /* pusatkan konten All Event */
-  .event-list,
+  /* ===== Heading strip (tanpa tanggal di kanan) ===== */
   .event-list .section-heading{
-    max-width: var(--contentMax);
-    margin-inline: auto;
+    font:800 clamp(28px,3vw,36px)/1.08 Inter,system-ui;
+    padding:18px clamp(16px,5vw,64px);
+    margin:0 0 clamp(12px,1.2vw,18px);
   }
 
-  .event-list .section-heading{
-    font:800 clamp(22px,2vw,30px)/1.05 'Inter',sans-serif;
-    margin: clamp(8px, 2vw, 18px) 0 clamp(14px, 2.4vw, 20px);
-  }
-
+  /* ===== Grid ===== */
   .stories-grid{
     display:grid;
     grid-template-columns: 1fr;
-    gap: clamp(14px, 1.8vw, 18px);
+    gap:30px; /* edge-to-edge antar kartu */
   }
 
+  /* ===== Card (3 kolom: gambar | konten | pita) ===== */
   .article-card{
     display:grid;
-    grid-template-columns: minmax(420px, 30px) 1fr; /* kiri gambar, kanan konten */
+    grid-template-columns: minmax(200px,var(--mediaW)) 1fr var(--ribbonW);
     align-items:stretch;
-    border:1px solid var(--line);
     background:var(--surface);
-    border-radius: calc(var(--radius) + 2px);
-    overflow:hidden;
-    box-shadow:0 8px 24px rgba(2,8,23,.06);
-    position:relative;
-    min-height: 200px;
-    transition:transform .18s ease, box-shadow .2s ease;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
   }
-  .article-card:hover{ transform:translateY(-3px); box-shadow:0 18px 44px rgba(2,8,23,.10); }
 
+  /* Kiri: gambar diberi padding agar “sinematik” */
   .article-card .thumb{
-    display:block; overflow:hidden; border-right:1px solid var(--line);
+    display:block; overflow:hidden;
+    border-right:1px solid var(--line);
+    padding: clamp(14px, 2.4vw, 28px);
+    background:#fff;
   }
   .article-card .thumb img{
-    width:100%; height: clamp(100px,45vw,200px); object-fit:cover; /* tinggi konsisten */
-    transform:scale(1); transition:transform .6s cubic-bezier(.2,.8,.2,1);
+    width:100%; height: clamp(100px, 18vw, 220px);
+    object-fit:cover; display:block;
+    box-shadow:0 12px 28px rgba(2,8,23,.14);
+    transform:scale(1); transition:transform .55s cubic-bezier(.2,.8,.2,1);
   }
-  .article-card:hover .thumb img{ transform:scale(1.05); }
+  .article-card:hover .thumb img{ transform:scale(1.03); }
 
+  /* Tengah: konten */
   .card-body{
-    position:relative;
-    padding: clamp(14px,1.6vw,18px) clamp(16px,2vw,24px);
-    /* sisakan ruang untuk kolom tombol di kanan */
-    padding-right: calc(var(--ctaW) + 28px);
-    padding-top: 35px;
-    display:grid; align-content:start; gap:8px;
+    padding: clamp(18px,2.6vw,30px) clamp(16px,5vw,56px);
+    display:grid; gap:12px; align-content:start;
   }
   .card-title{
-    font:550 18px/1.15 'Inter',sans-serif;
-    color:#111; text-decoration:none; letter-spacing:.2px;
+    font:700 clamp(20px, 2vw, 24px)/1.2 Inter,system-ui;
+    color:#111; text-decoration:none; letter-spacing:.1px;
+    padding-top: 20px;
   }
   .card-title:hover{ text-decoration:underline; }
 
   .card-excerpt{
-    margin: 4px 0 10px; color:#4b5563; font:400 14px/1.55 'Inter',sans-serif;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
-    max-width: 70ch;
-  }
-  .card-meta{ display:flex; flex-wrap:wrap; gap:10px; }
-  .card-meta .meta-chip{
-    background:var(--chip); color:#111; border-radius:999px; padding:7px 10px;
-    font:600 12px/1 'Inter',sans-serif;
+    color:#3b3b3b; line-height:1.6; max-width: 80ch;
   }
 
-  /* ====== KOLOM TOMBOL di tengah-kanan ====== */
+  /* meta row (waktu & lokasi) */
+  .card-meta{ display:flex; flex-wrap:wrap; gap:10px 12px; }
+  .meta-chip{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 10px; border:1px solid var(--line); border-radius:6px;
+    background:#fff; font:600 12px/1 Inter,system-ui; color:#111;
+  }
+
+  /* Kanan: pita vertikal klikable */
   .card-actions{
-    position:absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: var(--ctaW);                  /* area tombol */
-    display:flex; flex-direction:column; gap:12px;
-    align-items:flex-end;
+    border-left:1px solid var(--line);
+    background:#0c1118;
+    display:flex; align-items:center; justify-content:center;
   }
   .card-actions a{
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:12px 16px; border-radius:999px;
-    font:700 12.5px/1 'Inter',sans-serif; text-decoration:none;
-    transition:transform .18s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
-    white-space:nowrap;
+    writing-mode: vertical-rl; transform:rotate(180deg);
+    width:100%; height:30%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; text-decoration:none;
+    font:800 12px/1 Inter,system-ui; letter-spacing:.16em; text-transform:uppercase;
+    transition:background .18s ease;
+    white-space: nowrap;
   }
-  .btn-see{
-    background:#fff; color:#111; border:1px solid var(--line);
-    box-shadow:0 4px 12px rgba(2,8,23,.06);
-  }
-  .btn-see:hover{ transform:translateY(-2px); box-shadow:0 12px 20px rgba(16,24,40,.10); }
-  .btn-buy{
-    background:#111; color:#fff; border:1px solid #111;
-    box-shadow:0 10px 24px rgba(0,0,0,.16);
-  }
-  .btn-buy:hover{ transform:translateY(-2px); }
+  .card-actions a:hover{ background:#0b0f14; }
 
-  /* ============ Responsive ============ */
-  @media (max-width: 1024px){
-    .article-featureds{ grid-template-columns: 1fr; }
-    .featured-body{ order:1; }
-    .featured-media{ order:2; }
-    .featured-media img{ height: clamp(220px, 48vw, 420px); }
+  /* ===== Responsive ===== */
+  @media (max-width:1180px){
+    :root{ --mediaW: 400px; --ribbonW: 68px; }
   }
-  @media (max-width: 760px){
+  @media (max-width:900px){
+    :root{ --mediaW: 340px; --ribbonW: 60px; }
+  }
+  @media (max-width:760px){
     .article-card{ grid-template-columns: 1fr; }
-    .article-card .thumb{ border-right:0; aspect-ratio:16/9; }
-    .card-body{ padding-right: 16px; }
+    .article-card .thumb{ border-right:0; padding: clamp(10px,3vw,16px); }
+    .article-card .thumb img{ height: clamp(180px, 44vw, 240px); }
     .card-actions{
-      position:static; transform:none; width:auto;
-      align-items:flex-start; flex-direction:row; gap:10px; margin-top:8px;
+      order:3; border-left:0; background:transparent;
+      padding: 0 clamp(16px,5vw,24px) 16px;
+      justify-content:flex-start;
+    }
+    .card-actions a{
+      writing-mode: horizontal-tb; transform:none;
+      background:#111; border-radius:999px; padding:12px 16px; width:auto; height:auto;
+      letter-spacing:.08em;
     }
   }
-</style>
 
+</style>
 
 <section class="event-page">
 
-  <!-- ============ Featured / Hero ============ -->
-  <div class="article-featureds">
-    <div class="featured-media">
-      <img src="{{ asset('img/artikel.jpeg') }}" alt="Featured article">
-    </div>
-
-    <div class="featured-body">
-      <h1 class="featured-title">Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024</h1>
-      <p class="featured-excerpt">
-        Sinemaku Pictures sebagai rumah produksi yang berdiri hampir lima tahun,
-        terus menunjukkan berbagai karyanya di industri film Tanah Air. Selain itu,
-        Umay Shahab dan Prilly Latuconsina selaku pendiri Sinemaku Pictures,
-        di awal tahun ini menghadirkan satu acara bertajuk, Sinemaku Day.
-      </p>
-
-      <div class="featured-meta">
-        <span class="meta-chip">
-          <!-- Calendar -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-label="Calendar" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="4" width="18" height="17" rx="3" stroke="currentColor" stroke-width="2" />
-            <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2" />
-          </svg> 11 Jan 2024
-        </span>
-        <span class="meta-chip">
-          <!-- Clock -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-label="Clock" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-            <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg> 19.00 WIB
-        </span>
-        <span class="meta-chip">
-          <!-- Location -->
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-label="Location" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
-          </svg> Grand Cinema Jakarta
-        </span>
-      </div>
-
-      <a href="{{ route('detail-event') }}" class="btn-outline">
-        SEE EVENT DETAIL
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
-
-  <!-- ============ All Event ============ -->
+  <!-- ====== All Event (edge-to-edge) ====== -->
   <div class="event-list">
-    <h2 class="section-heading">All Event</h2>
+    <h2 class="section-heading">Events</h2>
 
     <div class="stories-grid">
       <!-- CARD 1 -->
@@ -284,6 +149,7 @@
         <a href="{{ route('detail-event') }}" class="thumb">
           <img src="{{ asset('img/artikel3.jpg') }}" alt="Artikel 1">
         </a>
+
         <div class="card-body">
           <a href="{{ route('detail-event') }}" class="card-title">
             Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024
@@ -293,25 +159,29 @@
             Sinemaku mengumumkan deretan film yang siap mereka rilis pada 2025 ini.
           </p>
           <div class="card-meta">
+            <!-- waktu -->
             <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="3" stroke="currentColor" stroke-width="2" /><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2" /></svg>
-              11 Jan 2024
-            </span>
-            <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
               19.00 WIB
             </span>
+            <!-- lokasi -->
             <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
+              </svg>
               Grand Cinema Jakarta
             </span>
           </div>
+        </div>
 
-          <!-- tombol nyata -->
-          <div class="card-actions">
-            <a href="{{ route('detail-event') }}" class="btn-see">See Details</a>
-            <a href="{{ route('detail-event') }}" class="btn-buy">Buy a ticket</a>
-          </div>
+        <div class="card-actions">
+          <a href="{{ route('detail-event') }}">SEE EVENT DETAIL</a>
         </div>
       </article>
 
@@ -320,24 +190,37 @@
         <a href="{{ route('detail-event') }}" class="thumb">
           <img src="{{ asset('img/artikel4.jpg') }}" alt="Artikel 2">
         </a>
+
         <div class="card-body">
           <a href="{{ route('detail-event') }}" class="card-title">
-            Behind the Scenes: Creative Affair & Sinemaku Day
+            Behind the Scenes: Creative Affair &amp; Sinemaku Day
           </a>
           <p class="card-excerpt">
-            Intip momen di balik layar, sesi diskusi, serta penampilan spesial yang
-            membuka mata soal proses kreatif dan kolaborasi.
+            Intip momen di balik layar, sesi diskusi, serta penampilan spesial
+            yang membuka mata soal proses kreatif dan kolaborasi.
           </p>
           <div class="card-meta">
-            <span class="meta-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="3" stroke="currentColor" stroke-width="2" /><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2" /></svg> 11 Jan 2024</span>
-            <span class="meta-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 19.00 WIB</span>
-            <span class="meta-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/></svg> Grand Cinema Jakarta</span>
+            <span class="meta-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              19.00 WIB
+            </span>
+            <span class="meta-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Grand Cinema Jakarta
+            </span>
           </div>
+        </div>
 
-          <div class="card-actions">
-            <a href="{{ route('detail-event') }}" class="btn-see">See Details</a>
-            <a href="{{ route('detail-event') }}" class="btn-buy">Buy a ticket</a>
-          </div>
+        <div class="card-actions">
+          <a href="{{ route('detail-event') }}">SEE EVENT DETAIL</a>
         </div>
       </article>
 
@@ -346,23 +229,37 @@
         <a href="{{ route('detail-event') }}" class="thumb">
           <img src="{{ asset('img/artikel5.jpg') }}" alt="Artikel 3">
         </a>
+
         <div class="card-body">
           <a href="{{ route('detail-event') }}" class="card-title">
-            Premiere Recap: Antusiasme Penonton & Momen Ikonik
+            Premiere Recap: Antusiasme Penonton &amp; Momen Ikonik
           </a>
           <p class="card-excerpt">
-            Sorotan dari malam pemutaran perdana – reaksi penonton, sesi Q&amp;A, dan momen yang bikin merinding.
+            Sorotan dari malam pemutaran perdana – reaksi penonton, sesi Q&amp;A,
+            dan momen yang bikin merinding.
           </p>
           <div class="card-meta">
-            <span class="meta-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="3" stroke="currentColor" stroke-width="2" /><line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2" /></svg> 11 Jan 2024</span>
-            <span class="meta-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> 19.00 WIB</span>
-            <span class="meta-chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/></svg> Grand Cinema Jakarta</span>
+            <span class="meta-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              19.00 WIB
+            </span>
+            <span class="meta-chip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Grand Cinema Jakarta
+            </span>
           </div>
+        </div>
 
-          <div class="card-actions">
-            <a href="{{ route('detail-event') }}" class="btn-see">See Details</a>
-            <a href="{{ route('detail-event') }}" class="btn-buy">Buy a ticket</a>
-          </div>
+        <div class="card-actions">
+          <a href="{{ route('detail-event') }}">SEE EVENT DETAIL</a>
         </div>
       </article>
     </div>
