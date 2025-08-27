@@ -227,7 +227,7 @@ body{background:var(--bg)}
 
       <!-- CONTENT -->
       <article class="article-content">
-        <p>Rumah produksi yang didirikan Umay Shahab dan Prilly Latuconsina, <a href="#">Sinemaku Pictures</a> mengumumkan tiga judul film terbaru. Film bergenre horor hingga komedi itu akan diproduksi dan tayang pada 2024.</p>
+        <p>Rumah produksi yang didirikan Umay Shahab dan Prilly Latuconsina, Sinemaku Pictures mengumumkan tiga judul film terbaru. Film bergenre horor hingga komedi itu akan diproduksi dan tayang pada 2024.</p>
 
         <p class="key-quote">“Kami ingin tahun ini lebih kaya cerita dan genre—melampaui drama yang selama ini jadi identitas Sinemaku,” ujar Prilly Latuconsina.</p>
 
