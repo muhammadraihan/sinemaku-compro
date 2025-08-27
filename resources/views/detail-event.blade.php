@@ -71,7 +71,7 @@
     }
 
     .event-info{
-      margin-top: 240px;
+      margin-top: 140px;
       padding-top: 8px;
     }
 
@@ -134,7 +134,7 @@
       max-width: 900px;
     }
     .event-about h2{
-      font: 500 clamp(24px, 3vw, 32px)/1.1 'Inter', sans-serif;
+      font: 400 clamp(20px, 2vw, 28px)/1.1 'Inter', sans-serif;
       margin: 0 0 16px;
     }
     .event-about p{
