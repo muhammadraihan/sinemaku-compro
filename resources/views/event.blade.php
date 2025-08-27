@@ -100,18 +100,12 @@
     }
 
     .btn-outline{
-      font-family: "Inter", sans-serif;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      border: 1.5px solid #11111126;
-      border-radius: 2px;
-      color: #111;
-      font-weight: 400;
-      text-decoration: none;
-      transition: transform .2s, background .25s, color .25s, box-shadow .25s;
+      margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
+  border-radius:10px; background:#fff; color:#111; text-decoration:none; font-weight:700; font-size:13px;
+  letter-spacing:.2px; box-shadow:0 10px 24px rgba(0,0,0,.156);
+  transition:transform .18s, box-shadow .18s, background .2s;
     }
+    
     .btn-outline:hover{
       background: #111;
       color: #fff;

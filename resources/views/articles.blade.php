@@ -88,19 +88,18 @@
   }
 
   /* ====== Tombol Read More (diperkecil) ====== */
+  
   .btn-primary{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:8px 12px;                 /* lebih kecil */
-    font-size:14px; font-weight:100;
-    border-radius:12px;
-    background:#2563EB; color:#fff; text-decoration:none;
-    box-shadow:0 8px 18px rgba(37,99,235,.18);
-    width:auto; max-width: 240px;     /* cegah memanjang */
-    inline-size: fit-content;          /* pastikan sekecil kontennya */
-    transition:transform .2s, box-shadow .25s, background .25s;
+    margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
+  border-radius:10px; background:#fff; color:#111; text-decoration:none; font-weight:700; font-size:13px;
+  letter-spacing:.2px; box-shadow:0 10px 24px rgba(0,0,0,.156);
+  transition:transform .18s, box-shadow .18s, background .2s; width:auto; max-width: 160px;
   }
   .btn-primary svg{ width:16px; height:16px; }
-  .btn-primary:hover{ transform:translateY(-2px); background:#1D4ED8; }
+  .btn-primary:hover{ background: #111;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08); }
 
   /* Media kanan (crop rounded) */
   .featured-media{
@@ -189,7 +188,7 @@
       </div>
 
       <a href="{{ route('detail-articles') }}" class="btn-primary">
-        Read More
+        READ MORE
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

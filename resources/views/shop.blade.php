@@ -46,6 +46,12 @@
   transition:transform .18s, box-shadow .18s, background .2s;
 }
 .shop-detail__cta:hover{ transform:translateY(-1px); box-shadow:0 14px 34px rgba(0,0,0,.18); }
+.shop-detail__cta:hover{
+      background: #111;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+    }
 .shop-detail__cta svg{ width:20px; height:20px; transition:transform .22s; }
 .shop-detail__cta:hover svg{ transform:translateX(4px); }
 .shop-detail__note{

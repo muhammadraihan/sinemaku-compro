@@ -170,5 +170,29 @@
       <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
       <p class="product-price">Rp175.000,-</p>
     </article>
+
+    <article class="product-tile">
+      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
+      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
+      <p class="product-price">Rp175.000,-</p>
+    </article>
+
+    <article class="product-tile">
+      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
+      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
+      <p class="product-price">Rp175.000,-</p>
+    </article>
+
+    <article class="product-tile">
+      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
+      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
+      <p class="product-price">Rp175.000,-</p>
+    </article>
+
+    <article class="product-tile">
+      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
+      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
+      <p class="product-price">Rp175.000,-</p>
+    </article>
   </div>
 </section>
