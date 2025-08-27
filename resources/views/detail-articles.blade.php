@@ -161,7 +161,7 @@ body{background:var(--bg)}
 .story-title{ font:700 14px/1.35 'Inter',system-ui,Arial; color:#111 }
 
 /* Tiny helpers */
-.badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; background:#f1f5ff; color:#2643d6; border-radius:999px; font:700 12px/1 'Inter',system-ui,Arial }
+.badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; color:var(--ink); border-radius:999px; font:700 12px/1 'Inter',system-ui,Arial }
 .hr{ height:1px; background:var(--line); border:0; margin: 14px 0; }
 
 /* --- Jarak antara HERO dan blok judul/meta --- */
