@@ -61,7 +61,7 @@
 
   /* Panel teks kiri (squircle) */
   .featured-body{
-    background:#EAF1FF;
+    background:#f8f9fa;
     border-radius: 18px 0 clamp(80px, 10vw, 140px) 18px;
     padding: clamp(20px, 3.6vw, 48px);
     display:flex; flex-direction:column; justify-content:center;
