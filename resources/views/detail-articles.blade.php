@@ -138,7 +138,7 @@ body{background:var(--bg)}
   background:#fafafa; border:1px solid var(--line); border-radius:12px; padding:14px;
 }
 .list-block h4{ margin: 0 0 10px; font: 800 15px/1.2 'Inter',system-ui,Arial; }
-.cols-2{ columns: 2; column-gap: 28px; padding-left: 18px; }
+.cols-2{ columns: 2; column-gap: 35px; padding-left: 18px; }
 .cols-2 li{ break-inside: avoid; margin:6px 0; }
 @media (max-width: 720px){ .cols-2{ columns:1 } }
 
@@ -241,9 +241,9 @@ body{background:var(--bg)}
         <h4>3 Judul yang Dikenalkan</h4>
         <div class="list-block">
           <ol class="cols-2">
-            <li><strong>Temurun</strong> — Horor oleh Inarah Syarafina.</li>
-            <li><strong>Bolehkah Sekali Saja Ku Menangis</strong> — Komedi drama oleh Reka Wijaya.</li>
-            <li><strong>Mati Rasa</strong> — Drama oleh Bryan Domani.</li>
+            <li>Temurun — Horor oleh Inarah Syarafina.</li>
+            <li>Bolehkah Sekali Saja Ku Menangis — Komedi drama oleh Reka Wijaya.</li>
+            <li>Mati Rasa — Drama oleh Bryan Domani.</li>
             <li>Proyek antologi pendek.</li>
             <li>Kolaborasi lintas studio.</li>
           </ol>
