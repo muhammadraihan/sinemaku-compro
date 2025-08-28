@@ -105,22 +105,18 @@
     }
 
     .btn-primary{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--btn);
-      color: var(--white);
-      padding: 14px 22px;
-      border: 1.5px solid #11111126;
-      text-decoration: none;
-      font: 500 14px/1 Inter, system-ui;
-      letter-spacing: .3px;
-      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
-      will-change: transform;
-    }
-    .btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.15); }
+    margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
+  border-radius:10px; background:#fff; color:#111; text-decoration:none; font-weight:700; font-size:13px;
+  letter-spacing:.2px; box-shadow:0 10px 24px rgba(0,0,0,.156);
+  transition:transform .18s, box-shadow .18s, background .2s; width:auto; max-width: 260px;
+  }
+  .btn-primary:hover{ background: #111;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08); }
+      
     .btn-primary:active{ transform: translateY(0); opacity:.9; }
-    .btn-primary .arrow{ width:18px;height:18px; stroke:#111; fill:none; stroke-width:2; }
+    /* .btn-primary .arrow{ width:18px;height:18px; stroke:#111; fill:none; stroke-width:2; } */
 
     .purchase-note{
       margin: 12px 0 0;
@@ -175,7 +171,7 @@
     .other-events{
       max-width: 1220px;
       margin: 72px auto;
-      padding: 0 24px;
+      padding: 20 24px;
       color: #101010;
     }
     .oe-head{
@@ -183,12 +179,12 @@
       gap:16px; margin-bottom:28px;
     }
     .other-events h2{
-      font: 500 clamp(28px,3.6vw,44px)/1.08 "Inter", sans-serif;
+      font: 300 clamp(20px,2.6vw,35px)/1.08 "Inter", sans-serif;
       letter-spacing:.2px; margin:0;
     }
     .oe-viewall{
       display:inline-flex; align-items:center; gap:10px;
-      color:#111; text-decoration:none; font:600 18px/1 Inter, system-ui;
+      color:#111; text-decoration:none; font:450 15px/1 Inter, system-ui;
       opacity:.92; transition:opacity .2s ease, transform .2s ease;
     }
     .oe-viewall:hover{ opacity:1; transform:translateX(2px); }
@@ -217,11 +213,11 @@
     .oe-card:hover .oe-media img{ transform: scale(1.03); }
 
     .oe-title{
-      font: 500 clamp(18px,2.1vw,24px)/1.25 "Inter", sans-serif;
+      font: 500 clamp(14px,1.5vw,20px)/1.25 "Inter", sans-serif;
       margin:0 0 6px;
     }
     .oe-date{
-      display:block; font: 500 18px/1.4 "Inter", sans-serif;
+      display:block; font: 500 13px/1.4 "Inter", sans-serif;
       color:#111;
     }
 
@@ -271,9 +267,11 @@
         </li>
       </ul>
 
-      <a class="btn-primary" href="https://loket.com" target="_blank" rel="noopener">
-        BUY NOW ON LOKET.COM
-        <svg viewBox="0 0 24 24" class="arrow"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      <a href="https://loket.com" class="btn-primary">
+      BUY NOW ON LOKET.COM
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
 
       <p class="purchase-note">
