@@ -192,24 +192,20 @@
     }
 
     .h2{
-        font-family:"Inter",sans-serif; 
-        font-size: clamp(18px,2.2vw,20px); 
-        font-weight: 200;
         line-height: .95;
         letter-spacing: -0.5px;
         margin-left: 150px;
         margin-top: -50px;
+        font: 400 clamp(20px, 2vw, 28px)/1.1 'Inter', sans-serif;
     }
     .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(18px,2.2vw,22px); margin: 0 0 .8em; font-weight: 700 }
     .lead{ 
-    font-family:"Inter",sans-serif; 
-    font-weight: 100px;
-    font-size: clamp(14px,1.5vw,16px); 
     line-height: .95;
     letter-spacing: 0px;
-    color:#525050; 
     margin-bottom: 26px ;
     margin-left: 150px;
+    font: 400 16px/1.75 Inter, system-ui;
+      color: #2a2a2a;
     
     /* line-height: .95; */
     }
