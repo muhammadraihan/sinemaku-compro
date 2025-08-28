@@ -121,10 +121,16 @@
     .btn:active{ transform: translateY(0) }
 
     .btn--primary{
-      background:#fff; color:#0e0e0e; border-color:transparent;
-      box-shadow: 0 10px 26px rgba(0,0,0,.28)
-    }
-    .btn--primary:hover{ background:#f4f4f4 }
+    margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
+  border-radius:10px; background:#fff; color:#111; text-decoration:none; font-weight:700; font-size:13px;
+  letter-spacing:.2px; box-shadow:0 10px 24px rgba(0,0,0,.156);
+  transition:transform .18s, box-shadow .18s, background .2s; width:auto; max-width: 200px;
+  }
+  .btn--primary svg{ width:16px; height:16px; }
+  .btn--primary:hover{ background: #111;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08); }
     .btn--ghost{ background:transparent }
 
     .film-hero__actions{
@@ -154,12 +160,12 @@
       .film-about__grid{ grid-template-columns: 1fr; }
     }
 
-    .h2{ font-family:"Inter",sans-serif; font-size: clamp(28px,4.6vw,56px); line-height:1.05; margin: 0 0 .4em }
-    .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(18px,2.2vw,22px); margin: 0 0 .8em; font-weight: 700 }
+    .h2{ font-family:"Inter",sans-serif; font-size: clamp(18px,2.0vw,30px); line-height:1.05; margin: 0 0 .4em }
+    .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(15px,2.0vw,20px); margin: 0 0 .8em; font-weight: 500 }
     .lead{ 
     font-family:"Inter",sans-serif; 
     font-weight: 500px;
-    font-size: clamp(15px,2.1vw,18px); 
+    font-size: clamp(14px,2.0vw,16px); 
     line-height: 1.9; 
     color:#2c2c2c; 
     margin-bottom: 26px ;
@@ -207,8 +213,8 @@
       width:78px; height:78px; border-radius:10px; object-fit:cover;
       box-shadow: 0 6px 16px rgba(0,0,0,.08);
     }
-    .suggest-item .title{ font-family:"Inter",sans-serif; font-weight:700; margin-bottom:3px }
-    .small{ font-size:13px }
+    .suggest-item .title{ font-family:"Inter",sans-serif; font-weight:600; margin-bottom:1px; margin-top: 10px}
+    .small{ font-size:11px }
     .muted{ color:#6a6a6a }
     .rating{ display:flex; align-items:center; gap:6px; margin-top:3px }
     .rating svg{ width:14px; height:14px; fill:#ffd965 }
