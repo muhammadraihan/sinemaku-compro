@@ -114,8 +114,8 @@
 
   /* ======= list card (biarkan seperti sebelumnya) ======= */
   .articles-list .section-heading{
-    font-family:"Inter",sans-serif; font-weight:800;
-    font-size: clamp(22px, 2vw, 30px);
+    font: 300 clamp(20px,2.6vw,35px)/1.08 "Inter", sans-serif;
+      letter-spacing:.2px;
     margin: clamp(8px, 2vw, 18px) 0 clamp(14px, 3vw, 22px);
   }
   .stories-grid{

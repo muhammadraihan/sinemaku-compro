@@ -170,13 +170,13 @@
     /* ===== OTHER EVENTS ===== */
     .other-events{
       max-width: 1220px;
-      margin: 72px auto;
+      margin: 52px auto;
       padding: 20 24px;
       color: #101010;
     }
     .oe-head{
       display:flex; align-items:center; justify-content:space-between;
-      gap:16px; margin-bottom:28px;
+      gap:16px; margin-bottom:18px;
     }
     .other-events h2{
       font: 300 clamp(20px,2.6vw,35px)/1.08 "Inter", sans-serif;

@@ -140,11 +140,8 @@
     margin-bottom: 18px;
     }
     .allfilms-title{
-    font-family: Inter, Arial, sans-serif;
-    font-size: 36px;
-    font-weight: 300;
-    letter-spacing:-1px;
-    margin:0;
+      font: 300 clamp(20px,2.6vw,35px)/1.08 "Inter", sans-serif;
+      letter-spacing:.2px; margin:0;
     }
 
     .allfilms-filters{ display:flex; gap:10px; flex-wrap:wrap; padding-top:10px; }
