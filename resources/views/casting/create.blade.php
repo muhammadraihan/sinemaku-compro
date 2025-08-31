@@ -114,7 +114,7 @@
 <script src="{{asset('js/formplugins/select2/select2.bundle.js')}}"></script>
 <script src="{{asset('js/formplugins/dropzone/dropzone.js')}}"></script>
 <script src="{{asset('js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
-<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script src="{{asset('js/formplugins/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){
         $('#gender').select2();

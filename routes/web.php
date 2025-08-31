@@ -40,7 +40,9 @@ Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     // backoffice
-    Route::get('/', 'DashboardController@index');
+    Route::get('/', function () {
+        return redirect()->route('backoffice.dashboard');
+    });
     Route::get('dashboard', 'DashboardController@dashboard')->name('backoffice.dashboard');
     // logs
     Route::get('logs', 'ActivityController@index')->name('logs');
