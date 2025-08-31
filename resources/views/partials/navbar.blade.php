@@ -193,8 +193,8 @@
   font-family: 'Inter', Arial, sans-serif;
   font-size: 16px;
   color: #999;
-  margin-top: 58px;
-  margin-bottom: 10px;
+  margin-top: 18px;
+  margin-bottom: 2px;
 }
 
 .mega-menu-aside {
