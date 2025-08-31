@@ -101,85 +101,25 @@ class FrontEndController extends Controller
         return view('detail-event', compact('event'));
     }
 
-    // public function cabang()
-    // {
-    //     $cabang = Cabang::all();
-    //     $kategori = Produk_kategori::all();
+    public function membership()
+    {
+        // $membership = membership::all();
 
-    //     return view('pages.cabang-klinik', compact('cabang','kategori'));
-    // }
+        return view('membership');
+    }
 
-    // public function treatment()
-    // {
-    //     $treatment = Treatment::all();
-    //     $kategori = Produk_kategori::all();
+    public function careers()
+    {
+        // $careers = careers::all();
 
-    //     return view('pages.treatment', compact('treatment','kategori'));
-    // }
+        return view('careers');
+    }
 
-    // public function produk($id)
-    // {
-    //     // dd($id);
-    //     $produkKategori = Produk_kategori::where('slug',$id)->get();
-    //     $produk = Produk::where('kategori', $produkKategori[0]->uuid)->get();
-    //     $kategori = Produk_kategori::all();
+    public function detailcareers()
+    {
+        // $careers = article::all();
 
-    //     return view('pages.store', compact('produk','kategori'));
-    // }
-
-    // public function produkAll()
-    // {
-    //     $produk = Produk::all();
-    //     $kategori = Produk_kategori::all();
-
-    //     return view('pages.store', compact('produk', 'kategori'));
-    // }
-
-    // public function dokter()
-    // {
-    //     $dokter = Dokter::all();
-    //     $kategori = Produk_kategori::all();
-
-    //     return view('pages.dokter', compact('dokter','kategori'));
-    // }
-
-    // public function treatmentDetail($id)
-    // {
-    //     // $treatmentDetail = Treatment::uuid($id);
-    //     $result = Treatment::all()->where('slug', 'like', $id);
-    //     $kategori = Produk_kategori::all();
-    //     $about = About::all();
-
-    //     return view('pages.treatment-detail', compact('result', 'kategori', 'about'));
-    // }
-
-    // public function treatmentDetailByName($name) {
-    //     $data = Treatment::where('name', $name)->first();
-    
-    //     // Periksa apakah data ditemukan
-    //     if (!$data) {
-    //         abort(404); // Atau tindakan lain jika data tidak ditemukan
-    //     }
-    
-    //     // Kembalikan view dengan data
-    //     return view('pages.treatment-detail', compact('data'));
-    // }
-    
-
-    // public function reseller()
-    // {
-    //     $reseller = Reseller::all();
-    //     $kategori = Produk_kategori::all();
-
-    //     return view('pages.reseller', compact('reseller','kategori'));
-    // }
-
-    // public function karir()
-    // {
-    //     $karir = Karir::all();
-    //     $kategori = Produk_kategori::all();
-
-    //     return view('pages.karir', compact('karir','kategori'));
-    // }
+        return view('detail-careers');
+    }
     
 }

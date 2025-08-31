@@ -32,6 +32,9 @@ Route::get('/articles', 'FrontEndController@articles')->name('articles');
 Route::get('/detail-articles', 'FrontEndController@detailarticles')->name('detail-articles');
 Route::get('/event', 'FrontEndController@event')->name('event');
 Route::get('/detail-event', 'FrontEndController@detailevent')->name('detail-event');
+Route::get('/membership', 'FrontEndController@membership')->name('membership');
+Route::get('/careers', 'FrontEndController@careers')->name('careers');
+Route::get('/detail-careers', 'FrontEndController@detailcareers')->name('detail-careers');
 
 Auth::routes(['register' => false]);
 
