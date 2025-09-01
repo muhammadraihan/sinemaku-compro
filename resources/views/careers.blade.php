@@ -47,10 +47,10 @@
   }
 
   /* ============== CAREERS STYLES ============== */
-  .careers{ background:#fff; padding: clamp(40px,6vw,72px) 0; }
-  .careers-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px; }
-  .careers-title{
-    font: 700 clamp(34px,5.2vw,60px)/1.08 "Libre Baskerville", serif;
+  .careers{ background:#fff; padding: clamp(40px,6vw,72px) 0; margin-top: 40px;}
+  .careers-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px;}
+  .judul-karir{
+    font: 700 clamp(22px,3vw,36px)/1.08 "Libre Baskerville", serif;
     margin: 0 0 clamp(20px,3vw,28px);
   }
 
@@ -59,6 +59,7 @@
     display:grid;
     grid-template-columns: repeat(2, minmax(0,1fr));
     gap: 28px;
+    margin-top: 30px;
   }
   @media (max-width: 920px){
     .job-grid{ grid-template-columns: 1fr; }
@@ -125,7 +126,7 @@
   .castings{ background:#fff; padding: clamp(32px,4.5vw,56px) 0; }
   .castings-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px; }
   .castings-title{
-    font: 700 clamp(32px,5vw,56px)/1.08 "Libre Baskerville", serif;
+    font: 700 clamp(22px,3vw,36px)/1.08 "Libre Baskerville", serif;
     margin:0 0 clamp(18px,3vw,26px);
   }
 
@@ -163,6 +164,7 @@
   .chip{
     background:#f2f5f9; color:#4f5a6a; border:1px solid #e6ebf2;
     font:600 12.5px/1 Inter, system-ui; padding:7px 10px; border-radius:8px;
+    margin-top: 20px;
   }
 
   /* CTA button (right) */
@@ -189,7 +191,7 @@
 <!-- ============== CAREERS: OPEN POSITIONS ============== -->
 <section class="careers" id="careers">
   <div class="careers-wrap">
-    <h2 class="careers-title">Open Positions</h2>
+    <h2 class="judul-karir">Open Positions</h2>
 
     <div class="job-grid">
       <!-- Job Card -->
