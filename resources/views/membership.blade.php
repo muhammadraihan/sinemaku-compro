@@ -57,17 +57,17 @@
     padding: 0 24px;
   }
   .mb-title{
-    font: 500 clamp(30px,4.6vw,56px)/1.08 "Inter", sans-serif;
+    font: 500 clamp(25px,4.0vw,50px)/1.08 "Inter", sans-serif;
     text-align:center;
     letter-spacing:.3px;
-    margin: 0 0 12px;
+    margin: 40 0 12px;
   }
   .mb-sub{
     text-align:center;
     max-width: 860px;
     margin: 0 auto clamp(28px, 5vw, 46px);
     color:#484a50;
-    font: 400 clamp(15px, 2.1vw, 18px)/1.6 Inter, system-ui;
+    font: 400 clamp(13px, 2.0vw, 15px)/1.6 Inter, system-ui;
   }
 
   /* grid */
@@ -105,7 +105,7 @@
   .mb-ico svg{ width:22px; height:22px; }
 
   .mb-badge{
-    font: 700 12px/1 Inter, system-ui;
+    font: 500 10px/1 Inter, system-ui;
     text-transform: uppercase;
     letter-spacing:.4px;
     color:#fff;
@@ -116,13 +116,13 @@
 
   .mb-card-title{
     margin: 2px 0 6px;
-    font: 700 clamp(16px,2vw,18px)/1.3 Inter, system-ui;
+    font: 700 clamp(14px,1.8vw,16px)/1.3 Inter, system-ui;
     color:#121212;
   }
   .mb-card-desc{
     margin:0;
     color:#565963;
-    font: 400 15px/1.55 Inter, system-ui;
+    font: 400 13px/1.55 Inter, system-ui;
   }
 
   /* responsive */
@@ -145,7 +145,7 @@
     padding: 0 20px;
   }
   .jc-title{
-    font: 500 clamp(32px,4.8vw,56px)/1.08 "Inter", sans-serif;
+    font: 500 clamp(25px,4.0vw,50px)/1.08 "Inter", sans-serif;
     text-align:center;
     margin: 0 0 10px;
   }
@@ -154,7 +154,7 @@
     color:#585d66;
     max-width: 640px;
     margin: 0 auto clamp(28px,5vw,40px);
-    font: 400 16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto;
+    font: 400 15px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto;
   }
 
   /* Card */
