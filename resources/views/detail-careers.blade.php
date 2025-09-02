@@ -57,7 +57,7 @@
   .btn-back:hover{background:#fff;box-shadow:0 8px 20px rgba(10,10,20,.08);}
   .btn-pill{ margin-left: 600px; padding:.45rem .7rem;border-radius:8px;background:#f3e7b8;color:#6a5312;font:700 12.5px/1 Inter,system-ui;text-decoration:none;border:1px solid #eadf9a;}
   .jobdetail__title{font:700 clamp(25px,4.2vw,35px)/1.1 "Libre Baskerville",serif;margin:.2rem 0;}
-  .jobdetail__dept{color:#727a86;font:600 14px/1.2 Inter,system-ui;margin-bottom:10px;}
+  .jobdetail__dept{color:#727a86;font:400 14px/1.2 Inter,system-ui;margin-bottom:10px;}
   .jobdetail__meta{display:flex;flex-wrap:wrap;gap:14px 18px;margin:25px 0 28px;padding:0;}
   .jobdetail__meta li{list-style:none;display:inline-flex;align-items:center;gap:8px;color:#505763;background:#f7f8fa;border:1px solid #eceef2;padding:8px 12px;border-radius:10px;font:600 13px/1 Inter,system-ui;}
   .jobdetail__meta svg{width:18px;height:18px;color:#9aa0a6}
@@ -124,7 +124,7 @@
         </li>
       </ul>
 
-      <h2 class="h2">About This Role</h2>
+      <h2 class="h3">About This Role</h3>
       <p><strong>Create immersive audio landscapes</strong> for our psychological thriller productions as our Sound Designer, crafting sonic experiences that enhance narrative tension and emotional depth.</p>
       <p>We’re looking for a creative sound designer who understands the psychological impact of audio in storytelling. You’ll be responsible for creating original sound effects, designing ambient soundscapes, and collaborating with our composers to create cohesive audio experiences.</p>
       <p>This remote position offers flexibility while working on high-profile productions that demand innovative audio solutions and meticulous attention to detail.</p>
