@@ -194,114 +194,38 @@
     <h2 class="judul-karir">Open Positions</h2>
 
     <div class="job-grid">
-      <!-- Job Card -->
-      <article class="job-card">
-        <header class="job-head">
-          <h3 class="job-title">Lead Cinematographer</h3>
-          <span class="job-time">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-            2 days ago
-          </span>
-        </header>
+      @foreach ($careers as $item)
+          <article class="job-card">
+            <header class="job-head">
+              <h3 class="job-title">{{ $item->position }}</h3>
+              <span class="job-time">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+                {{ $item->created_at->diffForHumans() }}
+              </span>
+            </header>
 
-        <div class="job-meta">Production</div>
-        <p class="job-desc">
-          Shape the visual language of our upcoming sci-fi drama
-          with innovative cinematography techniques.
-        </p>
+            <div class="job-meta">{{ $item->tim }}</div>
+            {{-- <p class="job-desc">
+              {!! $item->detail !!}
+            </p> --}}
 
-        <div class="job-tags">
-          <span class="tag tag-green">Full-time</span>
-          <span class="tag">Production</span>
-        </div>
+            <div class="job-tags">
+              <span class="tag tag-green">{{ $item->status }}</span>
+              <span class="tag">{{ $item->tim }}</span>
+            </div>
 
-        <footer class="job-foot">
-          <div class="job-location">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="currentColor"/></svg>
-            Jakarta, Indonesia
-          </div>
-          <a class="job-cta" href="{{ route('detail-careers') }}">
-            See Details
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </footer>
-      </article>
-
-      <!-- Duplikat kartu untuk contoh -->
-      <article class="job-card">
-        <header class="job-head">
-          <h3 class="job-title">Lead Cinematographer</h3>
-          <span class="job-time">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-            2 days ago
-          </span>
-        </header>
-        <div class="job-meta">Production</div>
-        <p class="job-desc">Shape the visual language of our upcoming sci-fi drama with innovative cinematography techniques.</p>
-        <div class="job-tags">
-          <span class="tag tag-green">Full-time</span>
-          <span class="tag">Production</span>
-        </div>
-        <footer class="job-foot">
-          <div class="job-location">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="currentColor"/></svg>
-            Jakarta, Indonesia
-          </div>
-          <a class="job-cta" href="{{ route('detail-careers') }}"><span>See Details</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </footer>
-      </article>
-
-      <article class="job-card">
-        <header class="job-head">
-          <h3 class="job-title">Lead Cinematographer</h3>
-          <span class="job-time">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-            2 days ago
-          </span>
-        </header>
-        <div class="job-meta">Production</div>
-        <p class="job-desc">Shape the visual language of our upcoming sci-fi drama with innovative cinematography techniques.</p>
-        <div class="job-tags">
-          <span class="tag tag-green">Full-time</span>
-          <span class="tag">Production</span>
-        </div>
-        <footer class="job-foot">
-          <div class="job-location">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="currentColor"/></svg>
-            Jakarta, Indonesia
-          </div>
-          <a class="job-cta" href="{{ route('detail-careers') }}"><span>See Details</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </footer>
-      </article>
-
-      <article class="job-card">
-        <header class="job-head">
-          <h3 class="job-title">Lead Cinematographer</h3>
-          <span class="job-time">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-            2 days ago
-          </span>
-        </header>
-        <div class="job-meta">Production</div>
-        <p class="job-desc">Shape the visual language of our upcoming sci-fi drama with innovative cinematography techniques.</p>
-        <div class="job-tags">
-          <span class="tag tag-green">Full-time</span>
-          <span class="tag">Production</span>
-        </div>
-        <footer class="job-foot">
-          <div class="job-location">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="currentColor"/></svg>
-            Jakarta, Indonesia
-          </div>
-          <a class="job-cta" href="{{ route('detail-careers') }}"><span>See Details</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </footer>
-      </article>
+            <footer class="job-foot">
+              <div class="job-location">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="currentColor"/></svg>
+                {{ $item->location }}
+              </div>
+              <a class="job-cta" href="{{ route('detail-careers', $item->uuid) }}">
+                See Details
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </footer>
+          </article>
+      @endforeach
     </div>
   </div>
 </section>
@@ -312,77 +236,36 @@
   <div class="castings-wrap">
     <h2 class="castings-title">Current Castings</h2>
 
-    <!-- Card -->
-    <article class="cast-card">
-      <header class="cast-head">
-        <h3 class="cast-title">Lead Actor</h3>
-        <span class="cast-time">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-          2 days ago
-        </span>
-      </header>
+    @foreach ($casting as $item)
+        <article class="cast-card">
+          <header class="cast-head">
+            <h3 class="cast-title">{{ $item->pemeran }}</h3>
+            <span class="cast-time">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+              {{ $item->created_at->diffForHumans() }}
+            </span>
+          </header>
 
-      <p class="cast-desc">
-        Seeking charismatic lead actor for crime drama series set in modern Jakarta.
-      </p>
+          {{-- <p class="cast-desc">
+            {!! $item->detail !!}
+          </p> --}}
 
-      <div class="cast-project">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12a2 2 0 0 1 2 2v13l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2Z" fill="currentColor"/></svg>
-        Urban Chronicles (Series)
-      </div>
+          <div class="cast-project">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12a2 2 0 0 1 2 2v13l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2Z" fill="currentColor"/></svg>
+            {{ $item->judul_film }}
+          </div>
 
-      <div class="cast-tags">
-        <span class="chip">Male</span>
-        <span class="chip">25–35 years</span>
-        <span class="chip">Jakarta</span>
-      </div>
+          <div class="cast-tags">
+            <span class="chip">{{ $item->gender }}</span>
+            <span class="chip">{{ $item->umur }} years</span>
+            <span class="chip">{{ $item->location }}</span>
+          </div>
 
-      <a class="cast-cta" href="#">
-        SEE DETAILS
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </article>
-
-    <article class="cast-card">
-      <header class="cast-head">
-        <h3 class="cast-title">Lead Actor</h3>
-        <span class="cast-time">
-          <svg viewBox="0 0 24 24"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-          2 days ago
-        </span>
-      </header>
-      <p class="cast-desc">Seeking charismatic lead actor for crime drama series set in modern Jakarta.</p>
-      <div class="cast-project">
-        <svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v13l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2Z" fill="currentColor"/></svg>
-        Urban Chronicles (Series)
-      </div>
-      <div class="cast-tags">
-        <span class="chip">Male</span><span class="chip">25–35 years</span><span class="chip">Jakarta</span>
-      </div>
-      <a class="cast-cta" href="#">SEE DETAILS
-        <svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </article>
-
-    <article class="cast-card">
-      <header class="cast-head">
-        <h3 class="cast-title">Lead Actor</h3>
-        <span class="cast-time">
-          <svg viewBox="0 0 24 24"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-          2 days ago
-        </span>
-      </header>
-      <p class="cast-desc">Seeking charismatic lead actor for crime drama series set in modern Jakarta.</p>
-      <div class="cast-project">
-        <svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v13l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2Z" fill="currentColor"/></svg>
-        Urban Chronicles (Series)
-      </div>
-      <div class="cast-tags">
-        <span class="chip">Male</span><span class="chip">25–35 years</span><span class="chip">Jakarta</span>
-      </div>
-      <a class="cast-cta" href="#">SEE DETAILS
-        <svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </article>
+          <a class="cast-cta" href="{{ route('detail-careers', $item->uuid) }}">
+            SEE DETAILS
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+    @endforeach
   </div>
 </section>

@@ -167,27 +167,24 @@
     <!-- TEKS KIRI -->
     <div class="featured-body">
       <div class="eyebrow">Featured</div>
-      <h1 class="featured-title">Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024</h1>
+      <h1 class="featured-title">{{ $articles->judul }}</h1>
 
       <p class="featured-excerpt">
-        Sinemaku Pictures sebagai rumah produksi yang berdiri hampir lima tahun, terus menunjukkan
-        berbagai karyanya di industri film Tanah Air. Selain itu, Umay Shahab dan Prilly
-        Latuconsina selaku pendiri Sinemaku Pictures, di awal tahun ini menghadirkan satu acara bertajuk,
-        Sinemaku Day.
+        {{ $articles->title }}
       </p>
 
       <div class="featured-meta">
         <span class="meta-chip">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7z"/></svg>
-          Nindi Widya Wati
+          {{ $articles->penulis }}
         </span>
         <span class="meta-chip">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
-          11 Jan 2024
+          {{ \Carbon\Carbon::parse($articles->tgl_rilis)->format('d M Y') }}
         </span>
       </div>
 
-      <a href="{{ route('detail-articles') }}" class="btn-primary">
+      <a href="{{ route('detail-articles', $articles->uuid) }}" class="btn-primary">
         READ MORE
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -197,7 +194,7 @@
 
     <!-- GAMBAR KANAN -->
     <div class="featured-media">
-      <img src="{{ asset('img/artikel.jpeg') }}" alt="Featured article">
+      <img src="{{ asset('photo/' . $articles->photo) }}" alt="Featured article">
     </div>
   </div>
 
@@ -206,82 +203,58 @@
     <h2 class="section-heading">All Stories</h2>
 
     <div class="stories-grid">
-      <!-- CARD 1 -->
-      <article class="article-card">
-        <a href="{{ route('detail-articles') }}" class="thumb">
-          <img src="{{ asset('img/artikel3.jpg') }}" alt="Artikel 1">
-        </a>
-        <div class="card-body">
-          <a href="{{ route('detail-articles') }}" class="card-title">
-            Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024
-          </a>
-          <p class="card-excerpt">
-            Dalam acara yang digelar berbarengan dengan Festival Perayaan Mati Rasa,
-            Sinemaku mengumumkan deretan film yang siap mereka rilis pada 2025 ini.
-          </p>
-          <div class="card-meta">
-            <span class="meta-chip">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7z"/></svg>
-              Nindi Widya Wati
-            </span>
-            <span class="meta-chip">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
-              11 Jan 2024
-            </span>
-          </div>
-        </div>
-      </article>
-
-      <!-- CARD 2 -->
-      <article class="article-card">
-        <a href="{{ route('detail-articles') }}" class="thumb">
-          <img src="{{ asset('img/artikel4.jpg') }}" alt="Artikel 2">
-        </a>
-        <div class="card-body">
-          <a href="{{ route('detail-articles') }}" class="card-title">
-            Behind the Scenes: Creative Affair & Sinemaku Day
-          </a>
-          <p class="card-excerpt">
-            Intip momen di balik layar, sesi diskusi, serta penampilan spesial yang
-            membuka mata soal proses kreatif dan kolaborasi.
-          </p>
-          <div class="card-meta">
-            <span class="meta-chip">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7z"/></svg>
-              Nindi Widya Wati
-            </span>
-            <span class="meta-chip">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
-              11 Jan 2024
-            </span>
-          </div>
-        </div>
-      </article>
-
-      <!-- CARD 3 -->
-      <article class="article-card">
-        <a href="{{ route('detail-articles') }}" class="thumb">
-          <img src="{{ asset('img/artikel5.jpg') }}" alt="Artikel 3">
-        </a>
-        <div class="card-body">
-          <a href="{{ route('detail-articles') }}" class="card-title">
-            Premiere Recap: Antusiasme Penonton & Momen Ikonik
-          </a>
-          <p class="card-excerpt">
-            Sorotan dari malam pemutaran perdana – reaksi penonton, sesi Q&amp;A, dan momen yang bikin merinding.
-          </p>
-          <div class="card-meta">
-            <span class="meta-chip">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7z"/></svg>
-              Nindi Widya Wati
-            </span>
-            <span class="meta-chip">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
-              11 Jan 2024
-            </span>
-          </div>
-        </div>
-      </article>
+      @foreach ($all_articles as $item)
+        @if($item->kategori == 'external')
+          <article class="article-card">
+            <a href="{{ $item->link }}" class="thumb">
+              <img src="{{ asset('photo/' . $item->photo) }}" alt="Artikel 1">
+            </a>
+            <div class="card-body">
+              <a href="" class="card-title">
+                {{ $item->judul }}
+              </a>
+              <p class="card-excerpt">
+                {{ $item->title }}
+              </p>
+              <div class="card-meta">
+                <span class="meta-chip">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7z"/></svg>
+                  {{ $item->penulis }}
+                </span>
+                <span class="meta-chip">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
+                  {{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}
+                </span>
+              </div>
+            </div>
+          </article>
+        @else
+          <article class="article-card">
+            <a href="{{ route('detail-articles', $item->uuid) }}" class="thumb">
+              <img src="{{ asset('photo/' . $item->photo) }}" alt="Artikel 1">
+            </a>
+            <div class="card-body">
+              <a href="" class="card-title">
+                {{ $item->judul }}
+              </a>
+              <p class="card-excerpt">
+                {{ $item->title }}
+              </p>
+              <div class="card-meta">
+                <span class="meta-chip">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.87 0-7 3.13-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.87-3.13-7-7-7z"/></svg>
+                  {{ $item->penulis }}
+                </span>
+                <span class="meta-chip">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
+                  {{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}
+                </span>
+              </div>
+            </div>
+          </article>
+        @endif
+            
+      @endforeach
     </div>
   </div>
 

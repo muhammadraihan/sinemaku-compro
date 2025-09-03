@@ -36,6 +36,10 @@ class FilmController extends Controller
                     $url = asset('photo');
                     return '<image style="width: 150px; height: 150px;"  src="'.$url.'/'.$row->photo.'" alt="">';
                 })
+                ->editColumn('poster', function ($row){
+                    $url = asset('photo');
+                    return '<image style="width: 150px; height: 150px;"  src="'.$url.'/'.$row->poster.'" alt="">';
+                })
                 ->addColumn('action', function ($row) {
                     return '
                             <a class="btn btn-success btn-sm btn-icon waves-effect waves-themed" href="' . route('film.edit', $row->uuid) . '"><i class="fal fa-edit"></i></a>
@@ -43,7 +47,7 @@ class FilmController extends Controller
                 })
                 ->removeColumn('id')
                 ->removeColumn('uuid')
-                ->rawColumns(['action','photo'])
+                ->rawColumns(['action','photo', 'poster'])
                 ->make(true);
         }
 
@@ -77,7 +81,8 @@ class FilmController extends Controller
             'sinopsis' => 'required',
             'director' => 'required',
             'cast' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'poster' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ];
 
         $messages = [
@@ -109,6 +114,14 @@ class FilmController extends Controller
             $image->move($destinationPath, $profileImage);
             $film->photo = "$profileImage";
         }
+
+        if ($image = $request->file('poster')) {
+            $destinationPath = 'photo/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $film->poster = "$profileImage";
+        }
+
         $film->created_by = Auth::user()->uuid;
         $film->created_at = now();
         $film->save();
@@ -198,6 +211,24 @@ class FilmController extends Controller
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $film->photo = "$profileImage";
+        }
+
+        if($request->hasFile('poster')){
+
+            // user intends to replace the current image for the category.  
+            // delete existing (if set)
+        
+            if($oldImage = $film->poster) {
+        
+                unlink(public_path('photo/') . $oldImage);
+            }
+        
+            // save the new image
+            $image = $request->file('poster');
+            $destinationPath = 'photo/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $film->poster = "$profileImage";
         }
         $film->edited_by = Auth::user()->uuid;
         $film->save();

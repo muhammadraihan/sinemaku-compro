@@ -115,84 +115,19 @@
   <div class="collection-grid">
     {{-- HERO --}}
     <article class="collection-hero">
-      <h1 class="hero-title">APPAREL</h1>
+      <h1 class="hero-title">{{ strtoupper($title->Categories->name) }}</h1>
       <div class="hero-media">
         <img src="{{ asset('img/image-10.png') }}" alt="Apparel">
       </div>
     </article>
 
     {{-- TILES --}}
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    {{-- Tambahan contoh --}}
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
-
-    <article class="product-tile">
-      <a href="{{ route('detail-shop') }}" class="product-media"><img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa"></a>
-      <h3 class="product-name">Kaos Perayaan Mati Rasa</h3>
-      <p class="product-price">Rp175.000,-</p>
-    </article>
+    @foreach ($shop as $item)
+        <article class="product-tile">
+          <a href="{{ route('detail-shop', $item->uuid) }}" class="product-media"><img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->name }}"></a>
+          <h3 class="product-name">{{ $item->name }}</h3>
+          <p class="product-price">{{ $item->harga ? 'Rp.'.' '.number_format($item->harga,2) : ''; }}</p>
+        </article>
+    @endforeach
   </div>
 </section>

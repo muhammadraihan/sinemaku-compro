@@ -87,6 +87,7 @@
   .others h4{font:800 15px/1.1 Inter,system-ui;margin:0 0 8px}
   .mini{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:12px;border-radius:10px;border:1px solid #eef0f3;text-decoration:none;color:inherit;margin:8px 0;}
   .mini:hover{background:#fafbfc;border-color:#e6e9ef}
+  .mini__badge_danger{font:800 12px/1 Inter,system-ui;background:#f3b8b8;color:#6a1212;border:1px solid #ea9a9a;border-radius:8px;padding:6px 10px}
   .mini__title{font:700 13px/1.2 Inter,system-ui;color:#111317}
   .mini__meta{margin-top:10px; font:600 10px/1.15 Inter,system-ui;color:#6f7783}
   .mini__badge{font:600 10px/1 Inter,system-ui;background:#f3e7b8;color:#6a5312;border:1px solid #eadf9a;border-radius:8px;padding:6px 10px}
@@ -98,57 +99,56 @@
     <!-- ====== LEFT: content ====== -->
     <article class="jobdetail__main">
       <div class="jobdetail__topbar">
-        
-        <a class="btn-pill" href="#">Contract</a>
+
+        @if (!empty($careers->status))
+            <a class="btn-pill" href="#">{{ $careers->status}}</a>
+        @endif
       </div>
 
-      <h1 class="jobdetail__title">Sound Designer</h1>
-      <div class="jobdetail__dept">Post Production</div>
+      <h1 class="jobdetail__title">{{ $careers->position ?? $casting->pemeran }}</h1>
+      <div class="jobdetail__dept">{{ $careers->tim ?? $casting->judul_film }}</div>
 
       <ul class="jobdetail__meta">
         <li>
           <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-7-10a7 7 0 0 1 14 0c0 5.65-7 10-7 10Z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="11" r="2" fill="currentColor"/></svg>
-          Jakarta, Indonesia
+          {{ $careers->location ?? $casting->location }}
         </li>
-        <li>
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          1 week ago
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-          Rp7.500.000 – Rp9.500.000
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24"><path d="M8 13h8M8 17h8M8 9h8M6 5v14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="6" cy="5" r="1.5" fill="currentColor"/></svg>
-          3+ years experience
-        </li>
+        @if (!empty($careers->status))
+            <li>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {{ $careers->created_at->diffForHumans() }}
+            </li>
+        @else
+            <li>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Shoot: {{ \Carbon\Carbon::parse($casting->shoot_date)->format('d M Y') }}
+            </li>
+        @endif
+        @if (!empty($careers->status))
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            {{ $careers->salary ? 'Rp.'.' '.number_format($careers->salary,0) : ''; }}
+          </li>
+        @else
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            {{ $casting->gender }}, {{ $casting->umur }}
+          </li>
+        @endif
+        @if (!empty($careers->status))
+            <li>
+              <svg viewBox="0 0 24 24"><path d="M8 13h8M8 17h8M8 9h8M6 5v14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="6" cy="5" r="1.5" fill="currentColor"/></svg>
+              {{ $careers->pengalaman }} experience
+            </li>
+        @else
+            <li>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Deadline: {{ \Carbon\Carbon::parse($casting->deadline)->format('d M Y') }}
+            </li>
+        @endif
       </ul>
 
-      <h2 class="h3">About This Role</h3>
-      <p><strong>Create immersive audio landscapes</strong> for our psychological thriller productions as our Sound Designer, crafting sonic experiences that enhance narrative tension and emotional depth.</p>
-      <p>We’re looking for a creative sound designer who understands the psychological impact of audio in storytelling. You’ll be responsible for creating original sound effects, designing ambient soundscapes, and collaborating with our composers to create cohesive audio experiences.</p>
-      <p>This remote position offers flexibility while working on high-profile productions that demand innovative audio solutions and meticulous attention to detail.</p>
-
-      <h3 class="h3">Key Responsibilities</h3>
-      <ul class="list">
-        <li>Design and create original sound effects for films and series</li>
-        <li>Develop ambient soundscapes and atmospheric audio</li>
-        <li>Collaborate with directors and editors on audio vision</li>
-        <li>Record and edit field recordings and foley sounds</li>
-        <li>Mix and master audio elements for final delivery</li>
-        <li>Maintain organized sound libraries and asset management</li>
-        <li>Work with composers to integrate music and sound design</li>
-      </ul>
-
-      <h3 class="h3">Requirements</h3>
-      <ul class="list">
-        <li>Minimum 3 years experience in sound design for film/TV</li>
-        <li>Proficiency in Pro Tools, Logic Pro, or similar DAWs</li>
-        <li>Experience with field recording and foley techniques</li>
-        <li>Understanding of audio post-production workflows</li>
-        <li>Ability to work independently and meet deadlines</li>
-        <li>Portfolio demonstrating range in different genres</li>
-      </ul>
+      {!! $careers->detail ?? $casting->detail !!}
     </article>
 
     <!-- ====== RIGHT: sidebar ====== -->
@@ -156,18 +156,7 @@
       <div class="applybox">
         <h4>Apply for This Position</h4>
 
-        <ul class="applybox__meta">
-          <li>
-            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 4v3m8-3v3M4 9h16" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
-            Contract Position
-          </li>
-          <li>
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            19.00 WIB
-          </li>
-        </ul>
-
-        <a class="btn-apply" href="#">
+        <a class="btn-apply" href="{{ $careers->link ?? $casting->link }}">
           APPLY NOW
           <svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -178,37 +167,28 @@
       <div class="others">
         <h4>Other Open Positions</h4>
 
-        <a class="mini" href="#">
-          <div class="mini__text">
-            <div class="mini__title">VFX Supervisor</div>
-            <div class="mini__meta">Visual Effect · Jakarta</div>
-          </div>
-          <span class="mini__badge">Contract</span>
-        </a>
+        @if (!empty($careers->status))
+            @foreach ($all_careers as $item)
+                <a class="mini" href="{{ route('detail-careers', $item->uuid) }}">
+                  <div class="mini__text">
+                    <div class="mini__title">{{ $item->position }}</div>
+                    <div class="mini__meta">{{ $item->tim }} · {{ $item->location }}</div>
+                  </div>
+                  <span class="mini__badge">{{ $item->status }}</span>
+                </a>
+            @endforeach
+        @else
+            @foreach ($all_casting as $item)
+                <a class="mini" href="{{ route('detail-careers', $item->uuid) }}">
+                  <div class="mini__text">
+                    <div class="mini__title">{{ $item->pemeran }}</div>
+                    <div class="mini__meta">{{ $item->judul_film }} · {{ $item->location }}</div>
+                  </div>
+                  <span class="mini__badge_danger">{{ \Carbon\Carbon::parse($item->deadline)->format('d M Y') }}</span>
+                </a>
+            @endforeach
+        @endif
 
-        <a class="mini" href="#">
-          <div class="mini__text">
-            <div class="mini__title">VFX Supervisor</div>
-            <div class="mini__meta">Visual Effect · Jakarta</div>
-          </div>
-          <span class="mini__badge">Contract</span>
-        </a>
-
-        <a class="mini" href="#">
-          <div class="mini__text">
-            <div class="mini__title">VFX Supervisor</div>
-            <div class="mini__meta">Visual Effect · Jakarta</div>
-          </div>
-          <span class="mini__badge">Contract</span>
-        </a>
-
-        <a class="mini" href="#">
-          <div class="mini__text">
-            <div class="mini__title">VFX Supervisor</div>
-            <div class="mini__meta">Visual Effect · Jakarta</div>
-          </div>
-          <span class="mini__badge">Contract</span>
-        </a>
       </div>
     </aside>
   </div>

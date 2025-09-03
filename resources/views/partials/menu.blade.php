@@ -18,6 +18,12 @@
         </a>
     </li>
     <li>
+        <a href="{{route('kategorishop.index')}}" title="Kategori" data-filter-tags="Kategori">
+            <i class="fal fa-warehouse"></i>
+            <span class="nav-link-text">Kategori Shop</span>
+        </a>
+    </li>
+    <li>
         <a href="{{route('shop.index')}}" title="Shop" data-filter-tags="Shop">
             <i class="fal fa-warehouse"></i>
             <span class="nav-link-text">Shop</span>

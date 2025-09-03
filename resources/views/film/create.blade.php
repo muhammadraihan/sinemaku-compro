@@ -132,6 +132,15 @@
                     <div class="invalid-feedback">{{ $errors->first('photo') }}</div>
                     @endif
                 </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ Form::label('poster','Poster',['class' => 'required form-label'])}}
+                    {{ Form::file('poster',null,['placeholder' => 'Poster','class' => 'form-control upload '.($errors->has('poster') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'poster'])}}
+                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    alt="preview image" style="max-height: 250px;">
+                    @if ($errors->has('poster'))
+                    <div class="invalid-feedback">{{ $errors->first('poster') }}</div>
+                    @endif
+                </div>
             <div
                 class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
                 <button class="btn btn-primary ml-auto" type="submit">Submit</button>
@@ -166,6 +175,19 @@
             reader.readAsDataURL(this.files[0]); 
            
            });
+
+        $('#poster').change(function(){
+            
+            let reader = new FileReader();
+            
+            reader.onload = (e) => { 
+            
+                $('#preview-image-before-upload').attr('src', e.target.result); 
+            }
+            
+            reader.readAsDataURL(this.files[0]); 
+            
+        });
 
            $('.release_date').datepicker({
             orientation: "bottom left",

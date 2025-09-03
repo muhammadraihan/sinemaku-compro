@@ -1,6 +1,6 @@
 @extends('layouts.page')
 
-@section('title', 'Film Management')
+@section('title', 'Kategori Management')
 
 @section('css')
 <link rel="stylesheet" media="screen, print" href="{{asset('css/datagrid/datatables/datatables.bundle.css')}}">
@@ -9,9 +9,9 @@
 @section('content')
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-users'></i> Modul: <span class='fw-300'>Film </span>
+        <i class='subheader-icon fal fa-users'></i> Modul: <span class='fw-300'>Kategori </span>
         <small>
-            Modul Film.
+            Modul Kategori.
         </small>
     </h1>
 </div>
@@ -20,10 +20,10 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
             <h2>
-                    Film  <span class="fw-300"><i>List</i></span>
+                    Kategori  <span class="fw-300"><i>List</i></span>
                 </h2>
                 <div class="panel-toolbar">
-                    <a class="nav-link active" href="{{route('film.create')}}"><i class="fal fa-plus-circle">
+                    <a class="nav-link active" href="{{route('kategorishop.create')}}"><i class="fal fa-plus-circle">
                         </i>
                         <span class="nav-link-text">Tambah Data</span>
                     </a>
@@ -39,18 +39,6 @@
             <tr>
                 <th>No</th>
                 <th>Kategori</th>
-                <th>Judul</th>
-                <th>Genre</th>
-                <th>Tanggal Rilis</th>
-                <th>Sinopsis</th>
-                <th>Durasi</th>
-                <th>Season</th>
-                <th>Episode</th>
-                <th>Director</th>
-                <th>Cast</th>
-                <th>Link</th>
-                <th>Foto</th>
-                <th>Poster</th>
                 <th width="120px">Aksi</th>
                 </tr>
                         </thead>
@@ -107,7 +95,7 @@
             "responsive": true,
             "order": [[ 0, "asc" ]],
             "ajax":{
-                url:'{{route('film.index')}}',
+                url:'{{route('kategorishop.index')}}',
                 type : "GET",
                 dataType: 'json',
                 error: function(data){
@@ -116,19 +104,7 @@
             },
             "columns": [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'kategori', name: 'kategori'},
-            {data: 'title', name: 'title'},
-            {data: 'genre', name: 'genre'},
-            {data: 'release_date', name: 'release_date'},
-            {data: 'sinopsis', name: 'sinopsis'},
-            {data: 'duration', name: 'duration'},
-            {data: 'season', name: 'season'},
-            {data: 'episode', name: 'episode'},
-            {data: 'director', name: 'director'},
-            {data: 'cast', name: 'cast'},
-            {data: 'link', name: 'link'},
-            {data: 'photo', name: 'photo'},
-            {data: 'poster', name: 'poster'},
+            {data: 'name', name: 'name'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

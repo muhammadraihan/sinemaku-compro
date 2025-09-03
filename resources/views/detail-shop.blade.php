@@ -331,24 +331,24 @@
     <!-- Media / Foto Produk -->
     <div class="shop-detail__media">
       <!-- ganti src sesuai asset Anda -->
-      <img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa" />
+      <img src="{{ asset('photo/' . $shop->photo) }}" alt="Kaos Perayaan Mati Rasa" />
     </div>
 
     <!-- Info Produk -->
     <div class="shop-detail__info">
       <h1 class="shop-detail__title">
-        Kaos film<br/>Perayaan Mati Rasa
+        {{ $shop->name }}
       </h1>
 
-      <div class="shop-detail__price">Rp175.000,-</div>
+      <div class="shop-detail__price">{{ $shop->harga ? 'Rp.'.' '.number_format($shop->harga,2) : ''; }}</div>
 
       <a
         class="shop-detail__cta"
-        href="https://tokopedia.com/" 
+        href="{{ $shop->link }}" 
         target="_blank" 
         rel="noopener"
       >
-        <span class="detail">BUY NOW ON TOKOPEDIA</span>
+        <span class="detail">BUY NOW</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -402,12 +402,7 @@
       <h2 class="h2">Description</h2>
 
       <p class="lead">
-        Midnight explores the fragile boundary between consciousness and dreams through the eyes
-        of Detective Sarah Chen, who finds herself trapped in a case that defies logic. As she
-        delves deeper into the investigation, the city around her begins to shift and change,
-        reflecting her own psychological state. The film combines practical effects with
-        innovative cinematography to create a truly immersive experience that challenges audiences
-        to question what they see.
+        {!! $shop->detail !!}
       </p>
     </div>
   </div>
@@ -417,7 +412,7 @@
   <div class="rp__header">
     <h2 class="rp__title">You Might Also Like</h2>
 
-    <a href="/shop" class="rp__viewall">
+    <a href="{{ route('shop') }}" class="rp__viewall">
       <span class="detail">View All</span>
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -426,40 +421,14 @@
   </div>
 
   <div class="rp__grid">
-    <!-- Item 1 -->
-    <a href="/shop/tee-mati-rasa" class="rp-card">
-    <img src="{{ asset('img/image-10.png') }}" class="rp-card__media">
-      <div class="rp-card__meta">
-        <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
-        <div class="rp-card__price">Rp175.000,-</div>
-      </div>
-    </a>
-
-    <!-- Item 2 -->
-    <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/image-10.png') }}" class="rp-card__media">
-      <div class="rp-card__meta">
-        <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
-        <div class="rp-card__price">Rp175.000,-</div>
-      </div>
-    </a>
-
-    <!-- Item 3 -->
-    <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/image-10.png') }}" class="rp-card__media">
-      <div class="rp-card__meta">
-        <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
-        <div class="rp-card__price">Rp175.000,-</div>
-      </div>
-    </a>
-
-    <!-- Item 4 -->
-    <a href="/shop/tee-mati-rasa" class="rp-card">
-        <img src="{{ asset('img/image-10.png') }}" class="rp-card__media">
-      <div class="rp-card__meta">
-        <div class="rp-card__name">Kaos Perayaan Mati Rasa</div>
-        <div class="rp-card__price">Rp175.000,-</div>
-      </div>
-    </a>
+    @foreach ($all_shop as $item)
+        <a href="{{ route('detail-shop', $item->uuid) }}" class="rp-card">
+          <img src="{{ asset('photo/' . $item->photo) }}" class="rp-card__media">
+            <div class="rp-card__meta">
+              <div class="rp-card__name">{{ $item->name }}</div>
+              <div class="rp-card__price">{{ $item->harga ? 'Rp.'.' '.number_format($shop->harga,2) : ''; }}</div>
+            </div>
+          </a>
+    @endforeach
   </div>
 </section>

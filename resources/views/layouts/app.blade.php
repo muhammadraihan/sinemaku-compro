@@ -38,11 +38,23 @@
         }
 
         /* ========= HERO ========= */
-        .hero-section{
-            position: relative;
-            width: 100vw;
-            min-height: min(100vh, 900px);
-            overflow: hidden;
+        .hero-slider{
+        position: relative;
+        min-height: 100vh;     /* your existing hero height */
+        overflow: hidden;
+        }
+
+        /* 2) each slide is stacked, only the active is visible */
+        .hero-slider .hero-section{
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .6s ease;
+        }
+        .hero-slider .hero-section.is-active{
+        opacity: 1;
+        pointer-events: auto;
         }
         /* ==== Hero meta row (centered bottom) ==== */
 .hero-meta{

@@ -23,18 +23,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', 'FrontEndController@index')->name('welcome');
 Route::get('/film', 'FrontEndController@film')->name('film');
-Route::get('/detail-film', 'FrontEndController@detailfilm')->name('detail-film');
+Route::get('/detail-film/{slug}', 'FrontEndController@detailfilm')->name('detail-film');
 Route::get('/shop', 'FrontEndController@shop')->name('shop');
-Route::get('/detail-shop', 'FrontEndController@detailshop')->name('detail-shop');
-Route::get('/detail-kategori', 'FrontEndController@detailkategori')->name('detail-kategori');
+Route::get('/detail-shop/{slug}', 'FrontEndController@detailshop')->name('detail-shop');
+Route::get('/detail-kategori/{slug}', 'FrontEndController@detailkategori')->name('detail-kategori');
 Route::get('/articles', 'FrontEndController@articles')->name('articles');
-Route::get('/detail-articles', 'FrontEndController@detailarticles')->name('detail-articles');
+Route::get('/detail-articles/{slug}', 'FrontEndController@detailarticles')->name('detail-articles');
 Route::get('/event', 'FrontEndController@event')->name('event');
 Route::get('/detail-event', 'FrontEndController@detailevent')->name('detail-event');
 Route::get('/membership', 'FrontEndController@membership')->name('membership');
 Route::get('/careers', 'FrontEndController@careers')->name('careers');
-Route::get('/detail-careers', 'FrontEndController@detailcareers')->name('detail-careers');
+Route::get('/detail-careers/{slug}', 'FrontEndController@detailcareers')->name('detail-careers');
 
 Auth::routes(['register' => false]);
 
@@ -57,6 +58,7 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('roles', 'RoleController');
     Route::resource('film', 'FilmController');
     Route::resource('kategori', 'KategoriController');
+    Route::resource('kategorishop', 'KategoriShopController');
     Route::resource('shop', 'ShopController');
     Route::resource('article', 'ArticleController');
     Route::resource('job', 'JobController');

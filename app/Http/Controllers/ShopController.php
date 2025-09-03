@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriShop;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Shop;
@@ -28,6 +29,9 @@ class ShopController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->editColumn('kategorishop', function ($row){
+                    return $row->Categories->name ?? null;
+                })
                 ->editColumn('photo', function ($row){
                     $url = asset('photo');
                     return '<image style="width: 150px; height: 150px;"  src="'.$url.'/'.$row->photo.'" alt="">';
@@ -53,7 +57,8 @@ class ShopController extends Controller
      */
     public function create()
     {
-        return view('shop.create');
+        $kategorishop = kategorishop::all()->pluck('name', 'uuid');
+        return view('shop.create', compact('kategorishop'));
     }
 
     /**
@@ -71,7 +76,8 @@ class ShopController extends Controller
             'harga' => 'required',
             'link' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            'highlight' => 'required'
+            'highlight' => 'required',
+            'kategorishop' => 'requires'
         ];
 
         $messages = [
@@ -92,6 +98,8 @@ class ShopController extends Controller
         $shop->discount = $request->discount;
         $shop->link = $request->link;
         $shop->highlight = $request->highlight;
+        $shop->merchandise = $request->merchandise;
+        $shop->kategorishop = $request->kategorishop;
 
         if ($image = $request->file('photo')) {
             $destinationPath = 'photo/';
@@ -127,7 +135,8 @@ class ShopController extends Controller
     public function edit($id)
     {
         $shop = Shop::uuid($id);
-        return view('shop.edit', compact('shop'));
+        $kategorishop = kategorishop::all()->pluck('name', 'uuid');
+        return view('shop.edit', compact('shop', 'kategorishop'));
     }
 
     /**
@@ -145,7 +154,8 @@ class ShopController extends Controller
             'detail' => 'required',
             'harga' => 'required',
             'link' => 'required',
-            'highlight' => 'required'
+            'highlight' => 'required',
+            'kategorishop' => 'required'
         ];
 
         $messages = [
@@ -166,6 +176,26 @@ class ShopController extends Controller
         $shop->discount = $request->discount;
         $shop->link = $request->link;
         $shop->highlight = $request->highlight;
+        $shop->merchandise = $request->merchandise;
+        $shop->kategorishop = $request->kategorishop;
+
+        if($request->hasFile('photo')){
+
+            // user intends to replace the current image for the category.  
+            // delete existing (if set)
+        
+            if($oldImage = $shop->photo) {
+        
+                unlink(public_path('photo/') . $oldImage);
+            }
+        
+            // save the new image
+            $image = $request->file('photo');
+            $destinationPath = 'photo/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $shop->photo = "$profileImage";
+        }
         $shop->edited_by = Auth::user()->uuid;
         $shop->save();
 

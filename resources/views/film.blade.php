@@ -527,73 +527,53 @@
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
 <h3 class="title">COMING SOON</h3>
- <section class="feature-sidetext" id="podcast">
-    <div class="feature-wrap">
-        <!-- Kolom Kiri: Teks -->
-        <div class="feature-text">
-        {{-- <div class="feature-eyebrow">SHOP</div> --}}
-        <h2 class="feature-title">
-            Hanya Namamu Dalam Doa Ku <span class="feature-eyebrow">2025</span></h2>
+@foreach ($coming_soon as $i => $item)
+    @if($loop->odd)
+        <section class="feature-sidetext" id="podcast">
+          <div class="feature-wrap">
+              <!-- Kolom Kiri: Teks -->
+              <div class="feature-text">
+              {{-- <div class="feature-eyebrow">SHOP</div> --}}
+              <h2 class="feature-title">
+                  {{ $item->title }} <span class="feature-eyebrow">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span></h2>
 
-        <a href="{{ route('detail-film') }}" class="feature-cta" aria-label="Detail">
-            <span class="cta-line" aria-hidden="true"></span>&nbsp;
-            <span class="cta-label">DETAIL</span>
-        </a>
-        </div>
+              <a href="{{ route('detail-film', $item->uuid) }}" class="feature-cta" aria-label="Detail">
+                  <span class="cta-line" aria-hidden="true"></span>&nbsp;
+                  <span class="cta-label">DETAIL</span>
+              </a>
+              </div>
 
-        <!-- Kolom Kanan: Media -->
-        <a href="{{ route('detail-film') }}" class="feature-media">
-        <div class="feature-media-frame2">
-            <img
-            src="{{ asset('img/poster_hndd.jpg') }}"
-            alt="Midnight Soundtrack">
-        </div>
-        </a>
-    </div>
-</section>
-
-<section class="feature-sidetext" id="podcast">
-    <div class="feature-wrap">
-        <!-- Foto -->
-        <a href="{{ route('detail-film') }}" class="feature-media">
-            <div class="feature-media-frame2">
-                <img src="{{ asset('img/pmr.jpg') }}" alt="Creative Affair">
-            </div>
-        </a>
-        <!-- Teks -->
-        <div class="feature-text">
-            <h2 class="feature-title">Perayaan Mati Rasa <span class="feature-eyebrow">2025</span></h2>
-            <a href="{{ route('detail-film') }}" class="feature-cta" aria-label="Detail">
-                <span class="cta-line" aria-hidden="true"></span>&nbsp;
-                <span class="cta-label">DETAIL</span>
-            </a>
-        </div>
-    </div>
-</section>
-<section class="feature-sidetext" id="podcast">
-    <div class="feature-wrap">
-        <!-- Kolom Kiri: Teks -->
-        <div class="feature-text">
-        {{-- <div class="feature-eyebrow">SHOP</div> --}}
-        <h2 class="feature-title">
-            Temurun <span class="feature-eyebrow">2024</span></h2>
-
-        <a href="{{ route('detail-film') }}" class="feature-cta" aria-label="Detail">
-            <span class="cta-line" aria-hidden="true"></span>&nbsp;
-            <span class="cta-label">DETAIL</span>
-        </a>
-        </div>
-
-        <!-- Kolom Kanan: Media -->
-        <a href="{{ route('detail-film') }}" class="feature-media">
-        <div class="feature-media-frame2">
-            <img
-            src="{{ asset('img/poster_temurun2.jpg') }}"
-            alt="Midnight Soundtrack">
-        </div>
-        </a>
-    </div>
-</section>
+              <!-- Kolom Kanan: Media -->
+              <a href="{{ route('detail-film', $item->uuid) }}" class="feature-media">
+              <div class="feature-media-frame2">
+                  <img
+                  src="{{ asset('photo/' . $item->poster) }}"
+                  alt="{{ $item->title }}">
+              </div>
+              </a>
+          </div>
+      </section>
+    @else
+        <section class="feature-sidetext" id="podcast">
+          <div class="feature-wrap">
+              <!-- Foto -->
+              <a href="{{ route('detail-film', $item->uuid) }}" class="feature-media">
+                  <div class="feature-media-frame2">
+                      <img src="{{ asset('photo/' . $item->poster) }}" alt="Creative Affair">
+                  </div>
+              </a>
+              <!-- Teks -->
+              <div class="feature-text">
+                  <h2 class="feature-title">{{ $item->title }} <span class="feature-eyebrow">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span></h2>
+                  <a href="{{ route('detail-film', $item->uuid) }}" class="feature-cta" aria-label="Detail">
+                      <span class="cta-line" aria-hidden="true"></span>&nbsp;
+                      <span class="cta-label">DETAIL</span>
+                  </a>
+              </div>
+          </div>
+      </section>
+    @endif
+@endforeach
 
 {{-- ================== SECTION ALL FILMS ================== --}}
 <section class="allfilms">
@@ -602,152 +582,47 @@
 
     <div class="allfilms-filters" role="tablist" aria-label="Filter films by genre">
       <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
-      <button class="chip" data-filter="drama" role="tab">Drama</button>
-      <button class="chip" data-filter="thriller" role="tab">Thriller</button>
-      <button class="chip" data-filter="sci-fi" role="tab">Sci-fi</button>
-      <button class="chip" data-filter="romance" role="tab">Romance</button>
+      @foreach ($genre as $item)
+        <button class="chip" data-filter="{{ strtolower($item->genre) }}" role="tab">{{ $item->genre }}</button>
+      @endforeach
     </div>
   </div>
 
   <div class="allfilms-grid">
-    <!-- Card: contoh 1 -->
-    <article class="filmitem" data-genre="drama">
-        <a href="{{ route('detail-film') }}" class="filmitem-link">
-            <figure class="filmitem-media has-overlay">
-            <img src="{{ asset('img/poster_hndd.jpg') }}"
-                alt="Neon Dreams" loading="lazy">
+    @foreach ($film as $item)
+        <article class="filmitem" data-genre="{{ strtolower($item->genre) }}">
+          <a href="{{ route('detail-film', $item->uuid) }}" class="filmitem-link">
+              <figure class="filmitem-media has-overlay">
+              <img src="{{ asset('photo/' . $item->poster) }}"
+                  alt="{{ $item->title }}" loading="lazy">
 
-            <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
-            <span class="film-badge">Drama</span>
+              <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
+              <span class="film-badge">{{ $item->genre }}</span>
 
-            <!-- DETAIL OVERLAY (baru) -->
-            <div class="film-detail">
-                <div class="film-detail-row">
-                <span class="film-detail-label">RELEASE DATE</span>
-                <span class="film-detail-value">Nov 12, 2025</span>
-                </div>
-                <div class="film-detail-row">
-                <span class="film-detail-label">WRITTEN & DIRECTED BY</span>
-                <span class="film-detail-value">A. Rahman</span>
-                </div>
-                <div class="film-detail-row">
-                <span class="film-detail-label">STARRING</span>
-                <span class="film-detail-value">D. Surya, N. Safira</span>
-                </div>
-            </div>
-            </figure>
+              <!-- DETAIL OVERLAY (baru) -->
+              <div class="film-detail">
+                  <div class="film-detail-row">
+                  <span class="film-detail-label">RELEASE DATE</span>
+                  <span class="film-detail-value">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+                  </div>
+                  <div class="film-detail-row">
+                  <span class="film-detail-label">WRITTEN & DIRECTED BY</span>
+                  <span class="film-detail-value">{{ $item->director }}</span>
+                  </div>
+                  <div class="film-detail-row">
+                  <span class="film-detail-label">STARRING</span>
+                  <span class="film-detail-value">{{ $item->cast }}</span>
+                  </div>
+              </div>
+              </figure>
 
-            <div class="filmitem-caption">
-            <h3 class="filmitem-title">Hanya Namamu Dalam Doaku</h3>
-            <div class="filmitem-year">2025</div>
-            </div>
-        </a>
-    </article>
-
-    <!-- Card: contoh 2 -->
-    <article class="filmitem" data-genre="drama">
-        <a href="{{ route('detail-film') }}" class="filmitem-link">
-            <figure class="filmitem-media has-overlay">
-            <img src="{{ asset('img/pmr.jpg') }}"
-                alt="Perayaan Mati Rasa" loading="lazy">
-
-            <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
-            <span class="film-badge">Drama</span>
-            
-
-            <!-- DETAIL OVERLAY (baru) -->
-            <div class="film-detail">
-                <div class="film-detail-row">
-                <span class="film-detail-label">RELEASE DATE</span>
-                <span class="film-detail-value">Nov 12, 2025</span>
-                </div>
-                <div class="film-detail-row">
-                <span class="film-detail-label">WRITTEN & DIRECTED BY</span>
-                <span class="film-detail-value">A. Rahman</span>
-                </div>
-                <div class="film-detail-row">
-                <span class="film-detail-label">STARRING</span>
-                <span class="film-detail-value">D. Surya, N. Safira</span>
-                </div>
-            </div>
-            </figure>
-
-            <div class="filmitem-caption">
-            <h3 class="filmitem-title">Perayaan Mati Rasa</h3>
-            <div class="filmitem-year">2025</div>
-            </div>
-        </a>
-    </article>
-
-    <!-- Card: contoh 3 -->
-    <article class="filmitem" data-genre="thriller">
-        <a href="{{ route('detail-film') }}" class="filmitem-link">
-            <figure class="filmitem-media has-overlay">
-            <img src="{{ asset('img/poster_temurun2.jpg') }}"
-                alt="Neon Dreams" loading="lazy">
-
-            <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
-            <span class="film-badge">Thriller</span>
-           
-
-            <!-- DETAIL OVERLAY (baru) -->
-            <div class="film-detail">
-                <div class="film-detail-row">
-                <span class="film-detail-label">RELEASE DATE</span>
-                <span class="film-detail-value">Nov 12, 2024</span>
-                </div>
-                <div class="film-detail-row">
-                <span class="film-detail-label">WRITTEN & DIRECTED BY</span>
-                <span class="film-detail-value">A. Rahman</span>
-                </div>
-                <div class="film-detail-row">
-                <span class="film-detail-label">STARRING</span>
-                <span class="film-detail-value">D. Surya, N. Safira</span>
-                </div>
-            </div>
-            </figure>
-
-            <div class="filmitem-caption">
-            <h3 class="filmitem-title">Temurun</h3>
-            <div class="filmitem-year">2024</div>
-            </div>
-        </a>
-    </article>
-
-    <!-- Card: contoh 5 -->
-    <article class="filmitem" data-genre="romance">
-        <a href="{{ route('detail-film') }}" class="filmitem-link">
-            <figure class="filmitem-media has-overlay">
-            <img src="{{ asset('img/poster_kbds.jpg') }}"
-                alt="Neon Dreams" loading="lazy">
-
-            <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
-            <span class="film-badge">Romance</span>
-           
-
-            <!-- DETAIL OVERLAY (baru) -->
-            <div class="film-detail">
-                <div class="film-detail-row">
-                <span class="film-detail-label">RELEASE DATE</span>
-                <span class="film-detail-value">Nov 12, 2025</span>
-                </div>
-                <div class="film-detail-row">
-                <span class="film-detail-label">WRITTEN & DIRECTED BY</span>
-                <span class="film-detail-value">A. Rahman</span>
-                </div>
-                <div class="film-detail-row">
-                <span class="film-detail-label">STARRING</span>
-                <span class="film-detail-value">D. Surya, N. Safira</span>
-                </div>
-            </div>
-            </figure>
-
-            <div class="filmitem-caption">
-            <h3 class="filmitem-title">Ketika Berhenti di Sini</h3>
-            <div class="filmitem-year">2023</div>
-            </div>
-        </a>
-    </article>
+              <div class="filmitem-caption">
+              <h3 class="filmitem-title">{{ $item->title }}</h3>
+              <div class="filmitem-year">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</div>
+              </div>
+          </a>
+      </article>
+    @endforeach
 
     <!-- Tambah film lain di sini, set data-genre sesuai: drama | thriller | sci-fi | romance -->
   </div>

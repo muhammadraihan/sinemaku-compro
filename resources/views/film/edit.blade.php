@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('release_date','Tanggal Rilis',['class' => 'required form-label'])}}
-                        {{ Form::text('release_date',$film->release_date,['placeholder' => 'Tanggal Rilis','class' => 'form-control '.($errors->has('release_date') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('release_date',$film->release_date,['placeholder' => 'Tanggal Rilis','class' => 'form-control release_date'.($errors->has('release_date') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('release_date'))
                         <div class="invalid-feedback">{{ $errors->first('release_date') }}</div>
                         @endif
@@ -135,6 +135,21 @@
                     alt="preview image" style="max-height: 250px;">
                     @if ($errors->has('photo'))
                     <div class="invalid-feedback">{{ $errors->first('photo') }}</div>
+                    @endif
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ Form::label('poster','poster',['class' => 'required form-label'])}}
+                    <input type="hidden" name="oldImage" value="{{ $film->poster }}"> 
+                    @if ($film->poster)
+                        <img src="{{ asset('photo/' . $film->poster) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                    @else
+                        <img class="img-preview img-fluid mb-5 col-sm-5">
+                    @endif
+                    {{ Form::file('poster',null,['placeholder' => 'Poster','class' => 'form-control upload '.($errors->has('poster') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'poster'])}}
+                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    alt="preview image" style="max-height: 250px;">
+                    @if ($errors->has('poster'))
+                    <div class="invalid-feedback">{{ $errors->first('poster') }}</div>
                     @endif
                 </div>
             <div

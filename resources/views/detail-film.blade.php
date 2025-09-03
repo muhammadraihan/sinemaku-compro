@@ -235,21 +235,21 @@
 
 </style>
 <!-- ===== Film Detail: HERO ===== -->
-<section class="film-hero" style="--hero-bg: url('img/poster_hndd.jpg')">
+<section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">
 
   <!-- Content -->
   <div class="film-hero__inner">
-    <h1 class="film-hero__title">Hanya Namamu Dalam Doa ku</h1>
+    <h1 class="film-hero__title">{{ $film->title }}</h1>
 
     <div class="film-hero__meta">
-      <span class="genre">2024</span>
+      <span class="genre">{{ \Carbon\Carbon::parse($film->release_date)->format('Y') }}</span>
       <span class="dot">•</span>
-      <span class="genre">Psychological Thriller</span>
+      <span class="genre">{{ $film->genre }}</span>
       <span class="dot">•</span>
-      <span class="genre">118 min</span>
+      <span class="genre">{{ $film->duration }} Min</span>
     </div>
 
-    <div class="film-hero__rating">
+    {{-- <div class="film-hero__rating">
       <div class="stars" aria-label="4.8 out of 5">
         <!-- bintang terisi -->
         <svg viewBox="0 0 24 24" class="star filled"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
@@ -260,17 +260,17 @@
         <svg viewBox="0 0 24 24" class="star"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
       </div>
       <span class="score">4.8/5</span>
-    </div>
+    </div> --}}
 
-    <p class="film-hero__desc">
+    {{-- <p class="film-hero__desc">
       In the begining of a sleepless city, a detective unravels a mystery that blurs the line
       between reality and nightmare. As midnight approaches, time becomes the enemy, and every
       shadow holds a secret that could change everything. A psychological thriller that questions
       the nature of perception and truth.
-    </p>
+    </p> --}}
 
     <div class="film-hero__actions">
-      <a href="#trailer" class="btn btn--primary">
+      <a href="{{ $film->link }}" class="btn btn--primary">
         <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
         Watch Trailer
       </a>
@@ -293,21 +293,21 @@
                   <!-- calendar -->
                   <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
                 </span>
-                <span class="detail">Release Date: <strong>March 15, 2024</strong></span>
+                <span class="detail">Release Date: <strong>{{ \Carbon\Carbon::parse($film->release_date)->format('M d, Y') }}</strong></span>
               </li>
               <li>
                 <span class="ico">
                   <!-- clock -->
                   <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 5h-2v6l5 3 1-1-4-2V7z"/></svg>
                 </span>
-                <span class="detail">Duration: <strong>118 min</strong></span>
+                <span class="detail">Duration: <strong>{{ $film->duration }} min</strong></span>
               </li>
               <li>
                 <span class="ico">
                   <!-- director / user -->
                   <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.33 0-8 2-8 4.5V21h16v-2.5c0-2.5-3.67-4.5-8-4.5z"/></svg>
                 </span>
-                <span class="detail">Director: <strong>Elena Rodriguez</strong></span>
+                <span class="detail">Director: <strong>{{ $film->director }}</strong></span>
               </li>
             </ul>
           </div>
@@ -315,49 +315,16 @@
           <div class="film-card">
             <h3 class="h3">Cast</h3>
             <ul class="plain-list">
-              <li>Sarah Chen</li>
-              <li>Michael Torres</li>
-              <li>Lisa Wang</li>
-              <li>David Kim</li>
+              <li>{{ $film->cast }}</li>
             </ul>
           </div>
         </div>
         <br>
-        <h2 class="h2">About the Film</h2>
+        {{-- <h2 class="h2">About the Film</h2> --}}
 
         <p class="lead">
-          Midnight explores the fragile boundary between consciousness and dreams through the eyes
-          of Detective Sarah Chen, who finds herself trapped in a case that defies logic. As she
-          delves deeper into the investigation, the city around her begins to shift and change,
-          reflecting her own psychological state. The film combines practical effects with
-          innovative cinematography to create a truly immersive experience that challenges audiences
-          to question what they see.
+          {!! $film->sinopsis !!}
         </p>
-
-        <!-- Awards -->
-        {{-- <div class="film-card">
-          <h3 class="h3">Awards & Recognition</h3>
-          <ul class="awards-list">
-            <li>
-              <span class="star">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
-              </span>
-              Best Cinematography – Jakarta Film Festival
-            </li>
-            <li>
-              <span class="star">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
-              </span>
-              Audience Choice Award – Asian Cinema Week
-            </li>
-            <li>
-              <span class="star">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
-              </span>
-              Official Selection – International Thriller Fest
-            </li>
-          </ul>
-        </div> --}}
       </div>
 
       <!-- RIGHT COLUMN / SIDEBAR -->
@@ -365,43 +332,21 @@
         <div class="suggest-card">
           <h3 class="h3">You Might Also Like</h3>
 
-          <a class="suggest-item" href="#">
-            <img src="img/thumb1.jpg" alt="" loading="lazy">
-            <div>
-              <div class="title">Silent Waters</div>
-              <div class="small muted detail">2023 • Drama</div>
-              <div class="small rating">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
-                4.6
-              </div>
-            </div>
-          </a>
+          @foreach ($all_film as $item)
+              <a class="suggest-item" href="{{ route('detail-film', $item->uuid) }}">
+                <img src="{{ asset('photo/' . $item->poster) }}" alt="" loading="lazy">
+                <div>
+                  <div class="title">{{ $item->title }}</div>
+                  <div class="small muted detail">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • {{ $item->genre }}</div>
+                  <div class="small rating">
+                    <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+                    4.6
+                  </div>
+                </div>
+              </a>
+          @endforeach
 
-          <a class="suggest-item" href="#">
-            <img src="img/thumb2.jpg" alt="" loading="lazy">
-            <div>
-              <div class="title">Neon Dreams</div>
-              <div class="small muted detail">2023 • Sci-Fi</div>
-              <div class="small rating">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
-                4.4
-              </div>
-            </div>
-          </a>
-
-          <a class="suggest-item" href="#">
-            <img src="img/thumb3.jpg" alt="" loading="lazy">
-            <div>
-              <div class="title">Forgotten Melody</div>
-              <div class="small muted detail">2022 • Romance</div>
-              <div class="small rating">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
-                4.7
-              </div>
-            </div>
-          </a>
-
-          <a class="btn-wide" href="/film">
+          <a class="btn-wide" href="{{ route('film') }}">
             <span class="detail">VIEW ALL FILMS</span>
             <svg viewBox="0 0 24 24" class="arr"><path d="M13 5l7 7-7 7M4 12h16"/></svg>
           </a>

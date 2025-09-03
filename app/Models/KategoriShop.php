@@ -6,30 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 
-class Film extends Model
+class KategoriShop extends Model
 {
     use HasFactory;
-    use Uuid;
+     use Uuid;
 
     protected $fillable = [
-        'kategori',
-        'title',
-        'genre',
-        'release_date',
-        'sinopsis',
-        'duration',
-        'season',
-        'episode',
-        'director',
-        'cast',
-        'link',
-        'photo',
-        'poster'
+        'name'
     ];
-
-    public function Categories(){
-        return $this->belongsTo(Kategori::class, 'kategori', 'uuid');
-    }
 
     public function userCreate() {
         return $this->belongsTo(User::class, 'created_by', 'uuid');

@@ -177,12 +177,12 @@
     <div class="stories-grid">
       <!-- CARD 1 -->
       <article class="article-card">
-        <a href="{{ route('detail-event') }}" class="thumb">
+        <a href="" class="thumb">
           <img src="{{ asset('img/artikel3.jpg') }}" alt="Artikel 1">
         </a>
 
         <div class="card-body">
-          <a href="{{ route('detail-event') }}" class="card-title">
+          <a href="" class="card-title">
             Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024
           </a>
           <p class="card-excerpt">
@@ -212,18 +212,18 @@
         </div>
 
         <div class="card-actions">
-          <a href="{{ route('detail-event') }}">SEE EVENT DETAIL</a>
+          <a href="">SEE EVENT DETAIL</a>
         </div>
       </article>
 
       <!-- CARD 2 -->
       <article class="article-card">
-        <a href="{{ route('detail-event') }}" class="thumb">
+        <a href="" class="thumb">
           <img src="{{ asset('img/artikel4.jpg') }}" alt="Artikel 2">
         </a>
 
         <div class="card-body">
-          <a href="{{ route('detail-event') }}" class="card-title">
+          <a href="" class="card-title">
             Behind the Scenes: Creative Affair &amp; Sinemaku Day
           </a>
           <p class="card-excerpt">
@@ -251,18 +251,18 @@
         </div>
 
         <div class="card-actions">
-          <a href="{{ route('detail-event') }}">SEE EVENT DETAIL</a>
+          <a href="">SEE EVENT DETAIL</a>
         </div>
       </article>
 
       <!-- CARD 3 -->
       <article class="article-card">
-        <a href="{{ route('detail-event') }}" class="thumb">
+        <a href="" class="thumb">
           <img src="{{ asset('img/artikel5.jpg') }}" alt="Artikel 3">
         </a>
 
         <div class="card-body">
-          <a href="{{ route('detail-event') }}" class="card-title">
+          <a href="" class="card-title">
             Premiere Recap: Antusiasme Penonton &amp; Momen Ikonik
           </a>
           <p class="card-excerpt">
@@ -290,7 +290,7 @@
         </div>
 
         <div class="card-actions">
-          <a href="{{ route('detail-event') }}">SEE EVENT DETAIL</a>
+          <a href="">SEE EVENT DETAIL</a>
         </div>
       </article>
     </div>

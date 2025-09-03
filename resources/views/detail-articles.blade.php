@@ -190,7 +190,7 @@ body{background:var(--bg)}
     <!-- HERO -->
     <header class="article-head">
       <figure class="hero-media">
-        <img src="{{ asset('img/artikel3.jpg') }}" alt="Sinemaku Day">
+        <img src="{{ asset('photo/' . $article->photo) }}" alt="Sinemaku Day">
       </figure>
 
       <!-- <nav class="breadcrumbs">
@@ -198,17 +198,17 @@ body{background:var(--bg)}
         <a href="#">World</a>
       </nav> -->
 
-      <h1 class="article-title">Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024</h1>
+      <h1 class="article-title">{{ $article->judul }}</h1>
 
       <div class="meta-row">
         <span class="meta-brand">Sinemaku Article</span>
         <span class="meta-dot">•</span>
-        <span class="meta-item">by Nindi Widya Wati</span>
+        <span class="meta-item">by {{ $article->penulis }}</span>
         <span class="meta-dot">•</span>
-        <span class="meta-item">11 Jan 2024</span>
+        <span class="meta-item">{{ \Carbon\Carbon::parse($article->tgl_rilis)->format('d M Y') }}</span>
         <span class="meta-dot">•</span>
 
-        <div class="meta-right">
+        {{-- <div class="meta-right">
           <button class="btn-share" title="Share to X" aria-label="Share to X">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.5 3h-3.1l-3 4.3L9.3 3H5.5l5 7.3L5 21h3.1l3.4-4.9 3.4 4.9H19l-5.3-7.6L18.5 3Z"/></svg>
           </button>
@@ -218,7 +218,7 @@ body{background:var(--bg)}
           <button class="btn-share" title="Copy Link" aria-label="Copy link">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12a5 5 0 0 1 5-5h4v2H8a3 3 0 0 0 0 6h4v2H8a5 5 0 0 1-5-5Zm8-3h5a5 5 0 1 1 0 10h-5v-2h5a3 3 0 1 0 0-6h-5V9Z"/></svg>
           </button>
-        </div>
+        </div> --}}
       </div>
     </header>
 
@@ -227,30 +227,7 @@ body{background:var(--bg)}
 
       <!-- CONTENT -->
       <article class="article-content">
-        <p>Rumah produksi yang didirikan Umay Shahab dan Prilly Latuconsina, Sinemaku Pictures mengumumkan tiga judul film terbaru. Film bergenre horor hingga komedi itu akan diproduksi dan tayang pada 2024.</p>
-
-        <p class="key-quote">“Kami ingin tahun ini lebih kaya cerita dan genre—melampaui drama yang selama ini jadi identitas Sinemaku,” ujar Prilly Latuconsina.</p>
-
-        <p>Acara pengumuman digelar pada Rabu, 10 Januari 2024 melalui event Sinemaku Day. Selain panel diskusi, ditampilkan pula first-look beberapa proyek yang akan masuk tahap produksi pada paruh pertama tahun ini.</p>
-
-        <figure class="figure">
-          <img src="{{ asset('img/artikel.jpeg') }}" alt="Behind the scenes">
-          <figcaption>Behind the scenes: Sinemaku Day 2024.</figcaption>
-        </figure>
-
-        <h4>3 Judul yang Dikenalkan</h4>
-        <div class="list-block">
-          <ol class="cols-2">
-            <li>Temurun — Horor oleh Inarah Syarafina.</li>
-            <li>Bolehkah Sekali Saja Ku Menangis — Komedi drama oleh Reka Wijaya.</li>
-            <li>Mati Rasa — Drama oleh Bryan Domani.</li>
-            <li>Proyek antologi pendek.</li>
-            <li>Kolaborasi lintas studio.</li>
-          </ol>
-        </div>
-
-        <h4>Jadwal & Target Rilis</h4>
-        <p>Ketiga film diproduksi bertahap sepanjang 2024 dan menargetkan rilis mulai kuartal terakhir tahun ini, menyesuaikan kalender festival dan slot penayangan nasional.</p>
+        {!! $article->detail !!}
       </article>
 
       <!-- SIDEBAR -->
@@ -258,29 +235,26 @@ body{background:var(--bg)}
         <div class="widget">
           <div class="badge">Top Stories</div>
 
-          <a class="story-mini" href="{{ route('detail-articles') }}">
-            <img src="{{ asset('img/artikel4.jpg') }}" alt="">
-            <div>
-              <div class="story-title">Behind the Scenes: Creative Affair &amp; Sinemaku Day</div>
-              <div class="story-meta">11 Jan 2024 • 3 min read</div>
-            </div>
-          </a>
-
-          <a class="story-mini" href="{{ route('detail-articles') }}">
-            <img src="{{ asset('img/artikel5.jpg') }}" alt="">
-            <div>
-              <div class="story-title">Premiere Recap: Antusiasme Penonton &amp; Momen Ikonik</div>
-              <div class="story-meta">10 Jan 2024 • 4 min read</div>
-            </div>
-          </a>
-
-          <a class="story-mini" href="{{ route('detail-articles') }}">
-            <img src="{{ asset('img/artikel1.jpg') }}" alt="">
-            <div>
-              <div class="story-title">Neon Dreams: From Script to Premiere Night</div>
-              <div class="story-meta">29 Dec 2023 • 5 min read</div>
-            </div>
-          </a>
+          @foreach ($all_article as $item)
+            @if ($item->kategori == 'external')
+              <a class="story-mini" href="{{ url($item->link) }}">
+                <img src="{{ asset('photo/' . $item->photo) }}" alt="">
+                <div>
+                  <div class="story-title">{{ $item->judul }}</div>
+                  <div class="story-meta">{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</div>
+                </div>
+              </a>
+            @else
+              <a class="story-mini" href="{{ route('detail-articles', $item->uuid) }}">
+                <img src="{{ asset('photo/' . $item->photo) }}" alt="">
+                <div>
+                  <div class="story-title">{{ $item->judul }}</div>
+                  <div class="story-meta">{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</div>
+                </div>
+              </a>
+            @endif
+                
+          @endforeach
         </div>
       </aside>
 

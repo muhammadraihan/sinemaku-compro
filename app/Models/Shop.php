@@ -19,8 +19,14 @@ class Shop extends Model
         'discount',
         'link',
         'photo',
-        'highlight'
+        'highlight',
+        'merchandise',
+        'kategorishop'
     ];
+
+    public function Categories(){
+        return $this->belongsTo(KategoriShop::class, 'kategorishop', 'uuid');
+    }
 
     public function userCreate() {
         return $this->belongsTo(User::class, 'created_by', 'uuid');

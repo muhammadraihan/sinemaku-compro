@@ -143,19 +143,18 @@
 }
 
 </style>
-
 <section class="shop-detail">
   <div class="shop-detail__container">
     <div class="shop-detail__media">
-      <img src="{{ asset('img/image-10.png') }}" alt="Kaos Perayaan Mati Rasa" />
+      <img src="{{ asset('photo/' . $shop->photo) }}" alt="Kaos Perayaan Mati Rasa" />
     </div>
     <div class="shop-detail__info">
-      <h1 class="shop-detail__title">Kaos film<br/>Perayaan Mati Rasa</h1>
+      <h1 class="shop-detail__title">{{ $shop->name }}</h1>
       <p class="shop-detail__note">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor sit amet. Venenatis urna cursus eget nunc scelerisque viverra mauris.
+        {{ $shop->judul }}
       </p>
-      <div class="shop-detail__price">Rp 175.000,-</div>
-      <a class="shop-detail__cta" href="{{ route('detail-shop') }}" rel="noopener">
+      <div class="shop-detail__price">{{ $shop->harga ? 'Rp.'.' '.number_format($shop->harga,2) : ''; }}</div>
+      <a class="shop-detail__cta" href="{{ route('detail-shop', $shop->uuid) }}" rel="noopener">
         <span class="detail">VIEW PRODUCT</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -163,110 +162,52 @@
   </div>
 </section>
 
-<span class="kategori">KATEGORI (PERAYAAN MATI RASA)</span>
-<hr class="shop-detail__divider2"/>
+@foreach ($merchandise as $item)
+    <span class="kategori">KATEGORI ({{ $item->merchandise }})</span>
+      <hr class="shop-detail__divider2"/>
 
-{{-- ====== RAK 1 ====== --}}
-<section class="related-products">
-  <div class="carousel-wrapper">
-    <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
-    <div class="carousel-track">
-      <div class="product-card">
-        <img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p>
-      </div>
-      <div class="product-card">
-        <img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p>
-      </div>
-      <div class="product-card">
-        <img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p>
-      </div>
-      <div class="product-card">
-        <img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p>
-      </div>
-      <div class="product-card">
-        <img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasas</p><p class="price">Rp175.000,-</p>
-      </div>
-      <div class="product-card">
-        <img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasass</p><p class="price">Rp175.000,-</p>
-      </div>
-      <div class="product-card">
-        <img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasass</p><p class="price">Rp175.000,-</p>
-      </div>
-    </div>
-    <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button>
-  </div>
-</section>
+      {{-- ====== RAK 1 ====== --}}
+      <section class="related-products">
+        <div class="carousel-wrapper">
+          <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
+          <div class="carousel-track">
+            @foreach ($all_merchandise as $items)
+                @if ($items->merchandise == $item->merchandise)
+                    <div class="product-card">
+                      <a href="{{ route('detail-shop', $items->uuid) }}">
+                        <img src="{{ asset('photo/' . $items->photo) }}" alt="{{ $items->kategorishop }}"><p class="title">{{ $items->name }}</p><p class="price">{{ $items->harga ? 'Rp.'.' '.number_format($items->harga,2) : ''; }}</p>
+                      </a>
+                    </div>
+                @endif
+            @endforeach
+          </div>
+          <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button>
+        </div>
+      </section>
 
-<br><br><br>
-
-<span class="kategori">KATEGORI (PERAYAAN MATI RASA)</span>
-<hr class="shop-detail__divider2"/>
-
-{{-- ====== RAK 2 ====== --}}
-<section class="related-products">
-  <div class="carousel-wrapper">
-    <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
-    <div class="carousel-track">
-      <div class="product-card"><img src="{{ asset('img/sepatu.png') }}" alt="Sepatu"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/sepatu2.png') }}" alt="Sepatu"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/sepatu3.png') }}" alt="Sepatu"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasas</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasass</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasass</p><p class="price">Rp175.000,-</p></div>
-    </div>
-    <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button>
-  </div>
-</section>
-
-<br><br><br>
-
-<span class="kategori">KATEGORI (PERAYAAN MATI RASA)</span>
-<hr class="shop-detail__divider2"/>
-
-{{-- ====== RAK 3 ====== --}}
-<section class="related-products">
-  <div class="carousel-wrapper">
-    <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
-    <div class="carousel-track">
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasa</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasas</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasass</p><p class="price">Rp175.000,-</p></div>
-      <div class="product-card"><img src="{{ asset('img/image-10.png') }}" alt="Kaos"><p class="title">Kaos Perayaan Mati Rasass</p><p class="price">Rp175.000,-</p></div>
-    </div>
-    <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button>
-  </div>
-</section>
-
-<br><br><br>
+      <br><br><br>
+@endforeach
 
 <span class="kategori">SHOP BY CATEGORY</span>
 <hr class="shop-detail__divider2"/>
 
 <section class="shop-detail">
-  <div class="shop-detail__container">
-    <div class="shop-detail__media"><img src="{{ asset('img/image-10.png') }}" alt="Apparel" /></div>
-    <div class="shop-detail__info">
-      <h1 class="shop-detail__title">APPAREL</h1>
-      <a class="shop-detail__cta" href="{{ route('detail-kategori') }}" rel="noopener">
-        <span class="detail">VIEW PRODUCT</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
-  <div class="shop-detail__container">
-    <div class="shop-detail__media"><img src="{{ asset('img/sepatu3.png') }}" alt="Sepatu" /></div>
-    <div class="shop-detail__info">
-      <h1 class="shop-detail__title">SEPATU</h1>
-      <a class="shop-detail__cta" href="{{ route('detail-kategori') }}" rel="noopener">
-        <span class="detail">VIEW PRODUCT</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
+  @foreach ($kategorishop as $item)
+    @foreach ($all_merchandise as $items)
+      @if ($item->uuid == $items->kategorishop)
+          <div class="shop-detail__container">
+            <div class="shop-detail__media"><img src="{{ asset('photo/' . $items->photo) }}" alt="{{ $item->name }}" /></div>
+            <div class="shop-detail__info">
+              <h1 class="shop-detail__title">{{ strtoupper($item->name) }}</h1>
+              <a class="shop-detail__cta" href="{{ route('detail-kategori', $item->uuid) }}" rel="noopener">
+                <span class="detail">VIEW PRODUCT</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+      @endif
+    @endforeach
+  @endforeach
 </section>
 
 <script>
