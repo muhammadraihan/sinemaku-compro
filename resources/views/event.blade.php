@@ -175,124 +175,46 @@
     <h2 class="section-heading">Events</h2>
 
     <div class="stories-grid">
-      <!-- CARD 1 -->
-      <article class="article-card">
-        <a href="" class="thumb">
-          <img src="{{ asset('img/artikel3.jpg') }}" alt="Artikel 1">
-        </a>
+      @foreach ($event as $item)
+          <article class="article-card">
+            <a href="{{ route('detail-event', $item->uuid) }}" class="thumb">
+              <img src="{{ asset('photo/' . $item->photo) }}" alt="Artikel 1">
+            </a>
 
-        <div class="card-body">
-          <a href="" class="card-title">
-            Sinemaku Pictures Siap Rilis Tiga Film Baru di Tahun 2024
-          </a>
-          <p class="card-excerpt">
-            Dalam acara yang digelar berbarengan dengan Festival Perayaan Mati Rasa,
-            Sinemaku mengumumkan deretan film yang siap mereka rilis pada 2025 ini.
-          </p>
-          <div class="card-meta">
-            <!-- waktu -->
-            <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-                <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              19.00 WIB
-            </span>
-            <!-- lokasi -->
-            <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              Grand Cinema Jakarta
-            </span>
-          </div>
-        </div>
+            <div class="card-body">
+              <a href="{{ route('detail-event', $item->uuid) }}" class="card-title">
+                {{ $item->judul }}
+              </a>
+              <p class="card-excerpt">
+                {{ $item->title }}
+              </p>
+              <div class="card-meta">
+                <!-- waktu -->
+                <span class="meta-chip">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  {{ $item->jam_event }} WIB
+                </span>
+                <!-- lokasi -->
+                <span class="meta-chip">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  {{ $item->location }}
+                </span>
+              </div>
+            </div>
 
-        <div class="card-actions">
-          <a href="">SEE EVENT DETAIL</a>
-        </div>
-      </article>
-
-      <!-- CARD 2 -->
-      <article class="article-card">
-        <a href="" class="thumb">
-          <img src="{{ asset('img/artikel4.jpg') }}" alt="Artikel 2">
-        </a>
-
-        <div class="card-body">
-          <a href="" class="card-title">
-            Behind the Scenes: Creative Affair &amp; Sinemaku Day
-          </a>
-          <p class="card-excerpt">
-            Intip momen di balik layar, sesi diskusi, serta penampilan spesial
-            yang membuka mata soal proses kreatif dan kolaborasi.
-          </p>
-          <div class="card-meta">
-            <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-                <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              19.00 WIB
-            </span>
-            <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              Grand Cinema Jakarta
-            </span>
-          </div>
-        </div>
-
-        <div class="card-actions">
-          <a href="">SEE EVENT DETAIL</a>
-        </div>
-      </article>
-
-      <!-- CARD 3 -->
-      <article class="article-card">
-        <a href="" class="thumb">
-          <img src="{{ asset('img/artikel5.jpg') }}" alt="Artikel 3">
-        </a>
-
-        <div class="card-body">
-          <a href="" class="card-title">
-            Premiere Recap: Antusiasme Penonton &amp; Momen Ikonik
-          </a>
-          <p class="card-excerpt">
-            Sorotan dari malam pemutaran perdana – reaksi penonton, sesi Q&amp;A,
-            dan momen yang bikin merinding.
-          </p>
-          <div class="card-meta">
-            <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-                <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              19.00 WIB
-            </span>
-            <span class="meta-chip">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              Grand Cinema Jakarta
-            </span>
-          </div>
-        </div>
-
-        <div class="card-actions">
-          <a href="">SEE EVENT DETAIL</a>
-        </div>
-      </article>
+            <div class="card-actions">
+              <a href="{{ route('detail-event', $item->uuid) }}">SEE EVENT DETAIL</a>
+            </div>
+          </article>
+      @endforeach
     </div>
   </div>
 

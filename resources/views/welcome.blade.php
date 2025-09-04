@@ -278,7 +278,7 @@
                 Be part of a community that celebrates bold storytelling and artistic vision.
                 Get exclusive access to premieres, behind-the-scenes content, and limited releases.
             </p>
-            <a href="{{ route('membership') }}">
+            <a href="{{ route('frontend.membership') }}">
                 <button class="join-member-btn" type="button" aria-label="Join now">JOIN NOW — IT'S FREE →</button>
             </a>
         </div>

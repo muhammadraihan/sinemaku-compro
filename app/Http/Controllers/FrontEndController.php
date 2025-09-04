@@ -7,6 +7,7 @@ use App\Models\film;
 use App\Models\Shop;
 use App\Models\Article;
 use App\Models\Casting;
+use App\Models\Event;
 use App\Models\Job;
 use App\Models\KategoriShop;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
@@ -105,16 +106,17 @@ class FrontEndController extends Controller
 
     public function event()
     {
-        $event = article::all();
+        $event = event::all();
 
         return view('event', compact('event'));
     }
 
-    public function detailevent()
+    public function detailevent($id)
     {
-        $event = article::all();
+        $event = event::all()->where('uuid', $id)->first();
+        $all_event = event::where('uuid', '!=', $event->uuid)->get();
 
-        return view('detail-event', compact('event'));
+        return view('detail-event', compact('event', 'all_event'));
     }
 
     public function membership()

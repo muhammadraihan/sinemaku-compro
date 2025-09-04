@@ -3,6 +3,7 @@
 @section('title', 'Home | Sinemaku Pictures')
 
 @include('partials.navbar')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <style>
   /* ---------- NAVBAR (tetap) ---------- */
   .navbar-logo{
@@ -378,7 +379,15 @@
       less than 2 minutes.
     </p>
 
-    <form class="jc-card" action="#" method="post" novalidate>
+      @if ($errors->any())
+        <script>
+          @foreach ($errors->all() as $err)
+            toastr.error(@json($err), 'Validation Error');
+          @endforeach
+        </script>
+      @endif
+      {!! Form::open(['route' => 'membership.store','id'=>'forms','method' => 'POST','class' =>
+                'jc-card needs-validation','dropzone', 'forms','novalidate','enctype' => 'multipart/form-data']) !!}
       <fieldset class="jc-fieldset">
         <legend class="jc-legend">Personal Information</legend>
 
@@ -393,7 +402,10 @@
                   <path d="M12 12c2.9 0 5-2.3 5-5s-2.1-5-5-5-5 2.3-5 5 2.1 5 5 5Zm0 2c-4.2 0-8 2-8 5v1.5c0 .8.7 1.5 1.5 1.5h13c.8 0 1.5-.7 1.5-1.5V19c0-3-3.8-5-8-5Z" fill="#9aa0a6"/>
                 </svg>
               </span>
-              <input id="first_name" name="first_name" type="text" placeholder="Enter your first name" required>
+              <input id="first_name" name="first_name" type="text" placeholder="Enter your first name" value="{{ old('first_name') }}" required>
+              @error('first_name')
+                <small class="text-danger">{{ $message }}</small>
+              @enderror
             </div>
           </div>
 
@@ -406,7 +418,10 @@
                   <path d="M12 12c2.9 0 5-2.3 5-5s-2.1-5-5-5-5 2.3-5 5 2.1 5 5 5Zm0 2c-4.2 0-8 2-8 5v1.5c0 .8.7 1.5 1.5 1.5h13c.8 0 1.5-.7 1.5-1.5V19c0-3-3.8-5-8-5Z" fill="#9aa0a6"/>
                 </svg>
               </span>
-              <input id="last_name" name="last_name" type="text" placeholder="Enter your last name" required>
+              <input id="last_name" name="last_name" type="text" placeholder="Enter your last name" value="{{ old('last_name') }}" required>
+              @error('last_name')
+                <small class="text-danger">{{ $message }}</small>
+              @enderror
             </div>
           </div>
         </div>
@@ -421,7 +436,10 @@
                 <path d="M3.5 6.5h17a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 16V8a1.5 1.5 0 0 1 1.5-1.5Zm.8 1.9 6.9 4.3a2.5 2.5 0 0 0 2.6 0l6.9-4.3" fill="none" stroke="#9aa0a6" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
             </span>
-            <input id="email" name="email" type="email" placeholder="Enter your email address" required>
+            <input id="email" name="email" type="email" placeholder="Enter your email address" value="{{ old('email') }}" required>
+            @error('email')
+                <small class="text-danger">{{ $message }}</small>
+              @enderror
           </div>
         </div>
 
@@ -435,13 +453,16 @@
                 <path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="#9aa0a6"/>
               </svg>
             </span>
-            <input id="city" name="city" type="text" placeholder="Enter your city" required>
+            <input id="city" name="city" type="text" placeholder="Enter your city" value="{{ old('city') }}" required>
+            @error('city')
+                <small class="text-danger">{{ $message }}</small>
+              @enderror
           </div>
         </div>
 
         <!-- Mobile -->
         <div class="jc-group">
-          <label for="mobile">Mobile Phone</label>
+          <label for="phone_number">Mobile Phone</label>
           <div class="jc-input">
             <span class="jc-ico">
               <!-- phone icon -->
@@ -450,7 +471,10 @@
                 <circle cx="12" cy="18.5" r="1" fill="#9aa0a6"/>
               </svg>
             </span>
-            <input id="mobile" name="mobile" type="tel" placeholder="Enter your mobile phone number" required>
+            <input id="phone_number" name="phone_number" type="tel" placeholder="Enter your mobile phone number" value="{{ old('phone_number') }}" required>
+            @error('phone_number')
+                <small class="text-danger">{{ $message }}</small>
+              @enderror
           </div>
         </div>
 
@@ -461,6 +485,25 @@
           </svg>
         </button>
       </fieldset>
-    </form>
+    {!! Form::close() !!}
   </div>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    @if(session('success'))
+        toastr.success("{{ session('success') }}", 'Success');
+    @endif
+
+    @if(session('error'))
+        toastr.error("{{ session('error') }}", 'Error');
+    @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $err)
+            toastr.error("{{ $err }}", 'Validation Error');
+        @endforeach
+    @endif
+</script>
+

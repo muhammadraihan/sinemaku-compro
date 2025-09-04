@@ -340,7 +340,7 @@
         {{ $shop->name }}
       </h1>
 
-      <div class="shop-detail__price">{{ $shop->harga ? 'Rp.'.' '.number_format($shop->harga,2) : ''; }}</div>
+      <div class="shop-detail__price">{{ $shop->harga ? 'Rp'.''.str_replace(',', '.', number_format($shop->harga)) : ''; }}</div>
 
       <a
         class="shop-detail__cta"
@@ -426,7 +426,7 @@
           <img src="{{ asset('photo/' . $item->photo) }}" class="rp-card__media">
             <div class="rp-card__meta">
               <div class="rp-card__name">{{ $item->name }}</div>
-              <div class="rp-card__price">{{ $item->harga ? 'Rp.'.' '.number_format($shop->harga,2) : ''; }}</div>
+              <div class="rp-card__price">{{ $item->harga ? 'Rp'.''.str_replace(',', '.', number_format($item->harga)) : ''; }}</div>
             </div>
           </a>
     @endforeach

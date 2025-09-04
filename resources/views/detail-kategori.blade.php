@@ -126,7 +126,7 @@
         <article class="product-tile">
           <a href="{{ route('detail-shop', $item->uuid) }}" class="product-media"><img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->name }}"></a>
           <h3 class="product-name">{{ $item->name }}</h3>
-          <p class="product-price">{{ $item->harga ? 'Rp.'.' '.number_format($item->harga,2) : ''; }}</p>
+          <p class="product-price">{{ $item->harga ? 'Rp'.''.str_replace(',', '.', number_format($item->harga)) : ''; }}</p>
         </article>
     @endforeach
   </div>

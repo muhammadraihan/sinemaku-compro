@@ -127,7 +127,7 @@
         @if (!empty($careers->status))
           <li>
             <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-            {{ $careers->salary ? 'Rp.'.' '.number_format($careers->salary,0) : ''; }}
+            {{ $careers->salary ? 'Rp'.''.str_replace(',', '.', number_format($careers->salary)) : ''; }}
           </li>
         @else
           <li>

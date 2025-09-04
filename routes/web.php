@@ -32,8 +32,8 @@ Route::get('/detail-kategori/{slug}', 'FrontEndController@detailkategori')->name
 Route::get('/articles', 'FrontEndController@articles')->name('articles');
 Route::get('/detail-articles/{slug}', 'FrontEndController@detailarticles')->name('detail-articles');
 Route::get('/event', 'FrontEndController@event')->name('event');
-Route::get('/detail-event', 'FrontEndController@detailevent')->name('detail-event');
-Route::get('/membership', 'FrontEndController@membership')->name('membership');
+Route::get('/detail-event/{slug}', 'FrontEndController@detailevent')->name('detail-event');
+Route::get('/membership', 'FrontEndController@membership')->name('frontend.membership');
 Route::get('/careers', 'FrontEndController@careers')->name('careers');
 Route::get('/detail-careers/{slug}', 'FrontEndController@detailcareers')->name('detail-careers');
 
@@ -63,5 +63,7 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('article', 'ArticleController');
     Route::resource('job', 'JobController');
     Route::resource('casting', 'CastingController');
+    Route::resource('event', 'EventController');
+    Route::resource('membership', 'MembershipController');
     Route::get('get-kategori', [KategoriController::class, 'show'])->name('ref.kategori');
 });

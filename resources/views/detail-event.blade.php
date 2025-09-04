@@ -237,37 +237,37 @@
   <div class="event-hero">
     <!-- LEFT: Poster / Foto event -->
     <figure class="event-media">
-      <img src="{{ asset('img/artikel3.jpg') }}" alt="Midnight Premiere" />
+      <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}" />
     </figure>
 
     <!-- RIGHT: Title + meta + CTA -->
     <aside class="event-info">
-      <h1 class="event-title">Midnight Premiere</h1>
+      <h1 class="event-title">{{ $event->judul }}</h1>
 
       <ul class="event-meta">
         <li>
           <!-- calendar -->
           <svg viewBox="0 0 24 24" class="i"><rect x="3" y="5" width="18" height="16" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
-          <span class="detail">11 Jan 2024</span>
+          <span class="detail">{{ \Carbon\Carbon::parse($event->tgl_event)->format('d M Y') }}</span>
         </li>
         <li>
           <!-- clock -->
           <svg viewBox="0 0 24 24" class="i"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <span class="detail">19.00 WIB</span>
+          <span class="detail">{{ $event->jam_event }} WIB</span>
         </li>
         <li>
           <!-- location -->
           <svg viewBox="0 0 24 24" class="i"><path d="M12 22s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          <span class="detail">Grand Cinema Jakarta</span>
+          <span class="detail">{{ $event->location }}</span>
         </li>
         <li>
           <!-- ticket -->
           <svg viewBox="0 0 24 24" class="i"><rect x="3" y="7" width="18" height="10" rx="2" ry="2"/><path d="M9 7v10M15 7v10"/></svg>
-          <span class="detail">Rp150.000,-</span>
+          <span class="detail">{{ $event->harga ? 'Rp'.''.str_replace(',', '.', number_format($event->harga)) : ''; }}</span>
         </li>
       </ul>
 
-      <a href="https://loket.com" class="btn-primary">
+      <a href="{{ $event->link }}" class="btn-primary">
       BUY NOW ON LOKET.COM
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -282,29 +282,7 @@
 
   <!-- ABOUT -->
   <div class="event-about">
-    <h2>About This Event</h2>
-    <p>
-      Join us for an unforgettable evening as we premiere our latest psychological
-      thriller "Midnight" in an exclusive screening that promises to be as captivating
-      as the film itself.
-    </p>
-    <p>
-      This special premiere event will feature an intimate Q&amp;A session with the cast
-      and crew, offering unique insights into the creative process behind this haunting
-      masterpiece. Following the screening, guests are invited to a sophisticated
-      reception where you can mingle with fellow film enthusiasts and industry
-      professionals.
-    </p>
-    <blockquote>
-      “Midnight represents our boldest creative vision yet – a film that challenges
-      audiences to question the nature of reality itself.”
-      <footer>— Elena Rodriguez, Director</footer>
-    </blockquote>
-    <p>
-      The evening will conclude with an exclusive behind-the-scenes presentation,
-      featuring never-before-seen footage from the production and commentary from
-      our cinematographer and sound designer.
-    </p>
+    {!! $event->detail !!}
   </div>
 </section>
 
@@ -319,36 +297,17 @@
   </div>
 
   <div class="oe-grid">
-    <!-- Card -->
-    <article class="oe-card">
-      <a href="/events/kaos-perayaan-1" class="oe-link">
-        <figure class="oe-media">
-          <img src="{{ asset('img/artikel3.jpg') }}" alt="Kaos Perayaan Mati Rasa">
-        </figure>
-        <h3 class="oe-title">Kaos Perayaan Mati Rasa</h3>
-        <time class="oe-date" datetime="2024-04-18">April 18, 2024</time>
-      </a>
-    </article>
-
-    <article class="oe-card">
-      <a href="/events/kaos-perayaan-2" class="oe-link">
-        <figure class="oe-media">
-          <img src="{{ asset('img/artikel3.jpg') }}" alt="Kaos Perayaan Mati Rasa">
-        </figure>
-        <h3 class="oe-title">Kaos Perayaan Mati Rasa</h3>
-        <time class="oe-date" datetime="2024-04-18">April 18, 2024</time>
-      </a>
-    </article>
-
-    <article class="oe-card">
-      <a href="/events/kaos-perayaan-3" class="oe-link">
-        <figure class="oe-media">
-          <img src="{{ asset('img/artikel3.jpg') }}" alt="Kaos Perayaan Mati Rasa">
-        </figure>
-        <h3 class="oe-title">Kaos Perayaan Mati Rasa</h3>
-        <time class="oe-date" datetime="2024-04-18">April 18, 2024</time>
-      </a>
-    </article>
+    @foreach ($all_event as $item)
+        <article class="oe-card">
+          <a href="{{ route('detail-event', $item->uuid) }}" class="oe-link">
+            <figure class="oe-media">
+              <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}">
+            </figure>
+            <h3 class="oe-title">{{ $item->judul }}</h3>
+            <time class="oe-date" datetime="{{ \Carbon\Carbon::parse($event->tgl_event)->format('d M Y') }}">{{ \Carbon\Carbon::parse($event->tgl_event)->format('M, d Y') }}</time>
+          </a>
+        </article>
+    @endforeach
   </div>
 </section>
 

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KategoriShop;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\Shop;
+use App\Models\Event;
 
 use Auth;
 use DataTables;
@@ -14,7 +13,7 @@ use Helper;
 use Image;
 use Response;
 
-class ShopController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,31 +22,28 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $shop = Shop::all();
+        $event = event::all();
         if (request()->ajax()) {
-            $data = Shop::get();
+            $data = event::get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->editColumn('kategorishop', function ($row){
-                    return $row->Categories->name ?? null;
-                })
                 ->editColumn('photo', function ($row){
                     $url = asset('photo');
                     return '<image style="width: 150px; height: 150px;"  src="'.$url.'/'.$row->photo.'" alt="">';
                 })
                 ->addColumn('action', function ($row) {
                     return '
-                            <a class="btn btn-success btn-sm btn-icon waves-effect waves-themed" href="' . route('shop.edit', $row->uuid) . '"><i class="fal fa-edit"></i></a>
-                            <a class="btn btn-danger btn-sm btn-icon waves-effect waves-themed delete-btn" data-url="' . URL::route('shop.destroy', $row->uuid) . '" data-id="' . $row->uuid . '" data-token="' . csrf_token() . '" data-toggle="modal" data-target="#modal-delete"><i class="fal fa-trash-alt"></i></a>';
+                            <a class="btn btn-success btn-sm btn-icon waves-effect waves-themed" href="' . route('event.edit', $row->uuid) . '"><i class="fal fa-edit"></i></a>
+                            <a class="btn btn-danger btn-sm btn-icon waves-effect waves-themed delete-btn" data-url="' . URL::route('event.destroy', $row->uuid) . '" data-id="' . $row->uuid . '" data-token="' . csrf_token() . '" data-toggle="modal" data-target="#modal-delete"><i class="fal fa-trash-alt"></i></a>';
                 })
                 ->removeColumn('id')
                 ->removeColumn('uuid')
-                ->rawColumns(['action', 'photo'])
+                ->rawColumns(['action','photo', 'poster'])
                 ->make(true);
         }
 
-        return view('shop.index');
+        return view('event.index');
     }
 
     /**
@@ -57,8 +53,7 @@ class ShopController extends Controller
      */
     public function create()
     {
-        $kategorishop = kategorishop::all()->pluck('name', 'uuid');
-        return view('shop.create', compact('kategorishop'));
+        return view('event.create');
     }
 
     /**
@@ -70,14 +65,14 @@ class ShopController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required',
             'judul' => 'required',
+            'title' => 'required',
+            'tgl_event' => 'required',
+            'jam_event' => 'required',
+            'location' => 'required',
             'detail' => 'required',
-            'harga' => 'required',
             'link' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            'highlight' => 'required',
-            'kategorishop' => 'required'
+            'photo' => 'required|image'
         ];
 
         $messages = [
@@ -90,29 +85,29 @@ class ShopController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $shop = new Shop();
-        $shop->name = $request->name;
-        $shop->judul = $request->judul;
-        $shop->detail = $request->detail;
-        $shop->harga = $request->harga;
-        $shop->discount = $request->discount;
-        $shop->link = $request->link;
-        $shop->highlight = $request->highlight;
-        $shop->merchandise = $request->merchandise;
-        $shop->kategorishop = $request->kategorishop;
+        $event = new event();
+        $event->judul = $request->judul;
+        $event->title = $request->title;
+        $event->tgl_event = $request->tgl_event;
+        $event->jam_event = $request->jam_event;
+        $event->location = $request->location;
+        $event->harga = $request->harga;
+        $event->detail = $request->detail;
+        $event->link = $request->link;
 
         if ($image = $request->file('photo')) {
             $destinationPath = 'photo/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
-            $shop->photo = "$profileImage";
+            $event->photo = "$profileImage";
         }
-        $shop->created_by = Auth::user()->uuid;
-        $shop->created_at = now();
-        $shop->save();
 
-        toastr()->success('New Shop Name Added', 'Success');
-        return redirect()->route('shop.index');
+        $event->created_by = Auth::user()->uuid;
+        $event->created_at = now();
+        $event->save();
+
+        toastr()->success('New Event Name Added', 'Success');
+        return redirect()->route('event.index');
     }
 
     /**
@@ -121,7 +116,7 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
         //
     }
@@ -134,9 +129,8 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        $shop = Shop::uuid($id);
-        $kategorishop = kategorishop::all()->pluck('name', 'uuid');
-        return view('shop.edit', compact('shop', 'kategorishop'));
+        $event = event::uuid($id);
+        return view('event.edit', compact('event'));
     }
 
     /**
@@ -149,13 +143,13 @@ class ShopController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => 'required',
             'judul' => 'required',
+            'title' => 'required',
+            'tgl_event' => 'required',
+            'jam_event' => 'required',
+            'location' => 'required',
             'detail' => 'required',
-            'harga' => 'required',
-            'link' => 'required',
-            'highlight' => 'required',
-            'kategorishop' => 'required'
+            'link' => 'required'
         ];
 
         $messages = [
@@ -168,23 +162,22 @@ class ShopController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $shop = Shop::uuid($id);
-        $shop->name = $request->name;
-        $shop->judul = $request->judul;
-        $shop->detail = $request->detail;
-        $shop->harga = $request->harga;
-        $shop->discount = $request->discount;
-        $shop->link = $request->link;
-        $shop->highlight = $request->highlight;
-        $shop->merchandise = $request->merchandise;
-        $shop->kategorishop = $request->kategorishop;
+        $event = event::uuid($id);
+        $event->judul = $request->judul;
+        $event->title = $request->title;
+        $event->tgl_event = $request->tgl_event;
+        $event->jam_event = $request->jam_event;
+        $event->location = $request->location;
+        $event->harga = $request->harga;
+        $event->detail = $request->detail;
+        $event->link = $request->link;
 
         if($request->hasFile('photo')){
 
             // user intends to replace the current image for the category.  
             // delete existing (if set)
         
-            if($oldImage = $shop->photo) {
+            if($oldImage = $event->photo) {
         
                 unlink(public_path('photo/') . $oldImage);
             }
@@ -194,13 +187,15 @@ class ShopController extends Controller
             $destinationPath = 'photo/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
-            $shop->photo = "$profileImage";
+            $event->photo = "$profileImage";
         }
-        $shop->edited_by = Auth::user()->uuid;
-        $shop->save();
 
-        toastr()->success('Shop Edited', 'Success');
-        return redirect()->route('shop.index');
+        $event->created_by = Auth::user()->uuid;
+        $event->created_at = now();
+        $event->save();
+
+        toastr()->success('Event Edited', 'Success');
+        return redirect()->route('event.index');
     }
 
     /**
@@ -211,10 +206,10 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        $shop = Shop::uuid($id);
-        $shop->delete();
+        $event = event::uuid($id);
+        $event->delete();
 
-        toastr()->success('Shop Name Deleted', 'Success');
-        return redirect()->route('shop.index');
+        toastr()->success('Event Name Deleted', 'Success');
+        return redirect()->route('event.index');
     }
 }
