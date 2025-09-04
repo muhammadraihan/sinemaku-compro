@@ -89,46 +89,20 @@
 
         <div class="coming-soon-slider" role="list">
             <!-- Slide 1 -->
-            <article class="coming-soon-slide" role="listitem">
-                <div class="coming-soon-image-wrapper">
-                    <img
-                        src="{{ asset('img/temp-imagen-cx-lql-10.png') }}"
-                        alt="Bolehkah Sekali Saja Ku Menangis poster"
-                        class="coming-soon-image"
-                        loading="lazy"
-                    />
-                    <span class="coming-soon-date">IN THEATERS DEC 15, 2025</span>
-                </div>
-                <h3 class="coming-soon-caption">Bolehkah Sekali Saja Ku Menangis</h3>
-            </article>
-
-            <!-- Slide 2 -->
-            <article class="coming-soon-slide" role="listitem">
-                <div class="coming-soon-image-wrapper">
-                    <img
-                        src="{{ asset('img/temp-imagen-cx-lql-10.png') }}"
-                        alt="Bolehkah Sekali Saja Ku Menangis poster"
-                        class="coming-soon-image"
-                        loading="lazy"
-                    />
-                    <span class="coming-soon-date">IN THEATERS DEC 15, 2025</span>
-                </div>
-                <h3 class="coming-soon-caption">Bolehkah Sekali Saja Ku Menangis</h3>
-            </article>
-
-            <!-- Slide 3 -->
-            <article class="coming-soon-slide" role="listitem">
-                <div class="coming-soon-image-wrapper">
-                    <img
-                        src="{{ asset('img/temp-imagen-cx-lql-10.png') }}"
-                        alt="Bolehkah Sekali Saja Ku Menangis poster"
-                        class="coming-soon-image"
-                        loading="lazy"
-                    />
-                    <span class="coming-soon-date">IN THEATERS DEC 15, 2025</span>
-                </div>
-                <h3 class="coming-soon-caption">Bolehkah Sekali Saja Ku Menangis</h3>
-            </article>
+            @foreach ($coming_soon as $item)
+                <article class="coming-soon-slide" role="listitem">
+                    <div class="coming-soon-image-wrapper">
+                        <img
+                            src="{{ asset('photo/' . $item->poster) }}"
+                            alt="{{ $item->title }} poster"
+                            class="coming-soon-image"
+                            loading="lazy"
+                        />
+                        <span class="coming-soon-date">IN THEATERS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}</span>
+                    </div>
+                    <h3 class="coming-soon-caption">{{ $item->title }}</h3>
+                </article>
+            @endforeach
         </div>
     </section>
 
@@ -189,15 +163,15 @@
         <div class="spotlight__frame">
             <img
                 class="spotlight__image"
-                src="{{ asset('img/temp-imagehc-vht-6-10.png') }}"
-                alt="Bolehkah Sekali Saja Ku Menangis still"
+                src="{{ asset('photo/' . $spotlight1->photo) }}"
+                alt="{{ $spotlight1->title }} still"
                 loading="lazy"
             />
             <div class="spotlight__overlay" aria-hidden="true"></div>
 
             <div class="spotlight__content">
                 <span class="spotlight__eyebrow">WATCH NOW</span>
-                <h2 class="spotlight__title">Bolehkah Sekali Saja Ku Menangis</h2>
+                <h2 class="spotlight__title">{{ strtoupper($spotlight1->title) }}</h2>
             </div>
         </div>
     </section>
@@ -260,15 +234,15 @@
         <div class="spotlight__frame">
             <img
                 class="spotlight__image"
-                src="{{ asset('img/hndd.jpg') }}"
-                alt="HNDD still"
+                src="{{ asset('photo/' . $spotlight2->photo) }}"
+                alt="{{ $spotlight2->title }} still"
                 loading="lazy"
             />
             <div class="spotlight__overlay" aria-hidden="true"></div>
 
             <div class="spotlight__content">
                 <span class="spotlight__eyebrow">WATCH NOW</span>
-                <h2 class="spotlight__title">HNDD</h2>
+                <h2 class="spotlight__title">{{ strtoupper($spotlight2->title) }}</h2>
             </div>
         </div>
     </section>

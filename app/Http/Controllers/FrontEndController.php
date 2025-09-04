@@ -38,7 +38,11 @@ class FrontEndController extends Controller
                             ->orderBy('created_at')
                             ->get();
         $careers = job::all();
-        return view('welcome',compact('film', 'shop', 'article', 'careers', 'all_article'));
+        $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
+                            ->get();
+        $spotlight1 = film::all()->random();
+        $spotlight2 = film::all()->random();
+        return view('welcome',compact('film', 'shop', 'article', 'careers', 'all_article', 'coming_soon', 'spotlight1', 'spotlight2'));
     }
 
     public function film()
