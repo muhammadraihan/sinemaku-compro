@@ -43,7 +43,7 @@
     .event-detail{
       max-width: 1180px;
       /* margin: 48px auto 96px; */
-      margin-left: 230px;
+      margin-left: 150px;
       padding: 0 20px;
       color: var(--ink);
     }
@@ -71,7 +71,7 @@
     }
 
     .event-info{
-      margin-top: 140px;
+      margin-top: 100px;
       padding-top: 8px;
     }
 
