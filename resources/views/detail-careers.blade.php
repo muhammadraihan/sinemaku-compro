@@ -85,13 +85,69 @@
   /* Others */
   .others{border:1px solid #eceef2;border-radius:14px;background:#fff;padding:18px 16px;box-shadow:0 8px 24px rgba(10,10,20,.06);margin-bottom:28px;}
   .others h4{font:800 15px/1.1 Inter,system-ui;margin:0 0 8px}
-  .mini{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:12px;border-radius:10px;border:1px solid #eef0f3;text-decoration:none;color:inherit;margin:8px 0;}
+  .mini{
+  display:flex;
+  align-items:flex-start;             /* biar tinggi tak dipaksa sejajar */
+  justify-content:space-between;
+  gap:18px;                           /* sedikit lebih rapat */
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #eef0f3;
+  text-decoration:none;
+  color:inherit;
+  margin:8px 0;
+}
+.mini__text{
+  flex:1 1 auto;                      /* ambil sisa ruang */
+  min-width:0;                        /* <— kunci agar boleh wrap di flex */
+}
   .mini:hover{background:#fafbfc;border-color:#e6e9ef}
-  .mini__badge_danger{font:800 12px/1 Inter,system-ui;background:#f3b8b8;color:#6a1212;border:1px solid #ea9a9a;border-radius:8px;padding:6px 10px}
-  .mini__title{font:700 13px/1.2 Inter,system-ui;color:#111317}
-  .mini__meta{margin-top:10px; font:600 10px/1.15 Inter,system-ui;color:#6f7783}
-  .mini__badge{font:600 10px/1 Inter,system-ui;background:#f3e7b8;color:#6a5312;border:1px solid #eadf9a;border-radius:8px;padding:6px 10px}
+  .mini__title{
+  font:700 13px/1.25 Inter,system-ui;
+  color:#111317;
+  overflow-wrap:anywhere;             /* bungkus kata panjang */
+  word-break:break-word;
+}
+.mini__meta{
+  margin-top:8px;
+  font:600 10px/1.25 Inter,system-ui;
+  color:#6f7783;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+/* badge jangan menyusut & tetap di kanan */
+/* --- Badge base (tidak mengubah warna) --- */
+.mini__badge,
+.mini__badge_danger{
+  flex: 0 0 auto;                 /* jangan menyusut */
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
 
+/* Normal badge (kuning) */
+.mini__badge{
+  font: 600 10px/1 Inter,system-ui;
+  background: #f3e7b8;
+  color: #6a5312;
+  border: 1px solid #eadf9a;
+}
+
+/* Danger badge (merah) — frame merah kembali */
+.mini__badge_danger{
+  font: 800 12px/1 Inter,system-ui;
+  background: #f3b8b8;
+  color: #6a1212;
+  border: 1px solid #ea9a9a;
+}
+/* responsif: jika sempit, badge turun ke baris bawah */
+@media (max-width:520px){
+  .mini{ flex-wrap:wrap; }
+  .mini__badge,
+  .mini__badge_danger{ margin-top:8px; }
+}
 
 </style>
 <section class="jobdetail">
