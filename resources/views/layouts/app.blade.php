@@ -360,7 +360,8 @@
         }
         .article-item:hover{ transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
         .article-item img{ width:70px; height:70px; border-radius:6px; object-fit:cover; }
-        .article-item h4{ font-size:16px; font-weight:600; margin:0; }
+        .article-item h4{ font-size:16px; font-weight:600; margin:0; text-decoration: none;}
+        .article-item h4 a {text-decoration: none;}
         .article-item .date{ font-size:13px; color:#666; }
 
         @media (max-width: 992px){
@@ -577,6 +578,11 @@
 /* sudut besar untuk featured card agar konsisten */
 .article-featured,
 .article-featured img{ border-radius: 18px; }
+
+a {
+    text-decoration: none;
+    color: inherit; /* Opsional: Ini mencegah warna biru default pada link, agar teks tetap sesuai warna asli */
+}
 
     </style>
 </head>
