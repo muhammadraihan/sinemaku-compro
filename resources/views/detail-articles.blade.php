@@ -107,10 +107,41 @@ body{background:var(--bg)}
   .meta-right{ margin-left:0 }
 }
 
-/* ---------------- CONTENT ---------------- */
-.article-content{ min-width:0; border:1px solid var(--line);
-  border-radius: var(--radius); padding: clamp(16px,2.2vw,22px) clamp(18px,2.4vw,26px); }
+/* ========== KEMBALIKAN FRAME ARTIKEL (kartu) ========== */
+.article-grid{ gap: clamp(22px, 3.2vw, 42px); }   /* beri jarak dg sidebar */
 
+/* ---------------- CONTENT ---------------- */
+/* Pastikan kontainer memotong isi jika lebih besar */
+.article-content{
+  background: var(--paper);            /* latar kartu */
+  border: 1px solid var(--line);       /* garis frame */
+  border-radius: var(--radius);        /* sudut */
+  box-shadow: 0 5px 8px rgba(2,8,23,.06); /* bayangan halus */
+  padding: clamp(16px,2.2vw,22px) clamp(18px,2.4vw,26px);
+  overflow: hidden;                    /* gambar tetap di dalam kartu */
+}
+
+/* jaga semua media tetap di dalam kartu */
+.article-content :where(img, video, iframe){
+  max-width:100% !important;
+  height:auto !important;
+  display:block;
+}
+/* Jika ada inline style width/height dari editor */
+.article-content img[style*="width"],
+.article-content img[width]{
+  max-width: 100% !important;
+  height: auto !important;
+}
+/* Figure bawaan editor */
+.article-content figure{
+  margin: 14px 0;
+  border-radius: 12px;
+  overflow: hidden;                  /* crop sudut */
+  background: #f2f3f5;
+  border: 1px solid var(--line);
+}
+.article-content figure img{ display:block; }
 .article-content p{
   font: 400 16px/1.85 'Inter',system-ui,Arial; color:#2b2b2b; margin: 0 0 16px;
 }
@@ -119,7 +150,12 @@ body{background:var(--bg)}
 .article-content h2,.article-content h3{
   font: 800 22px/1.15 'Inter',system-ui,Arial; margin: 26px 0 10px;
 }
-
+/* Embed (YouTube, dll.) agar responsif */
+.article-content iframe{
+  width: 100% !important;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
 /* Quote highlight ala news */
 .key-quote{
   border-left: 4px solid #111; padding: 10px 12px; margin: 12px 0 16px; background:#fafafa;
