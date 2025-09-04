@@ -203,72 +203,43 @@
     </section>
 
     {{-- ================== ARTICLES ================== --}}
-    <section class="articles-section" aria-labelledby="articles-title">
-        <div class="articles-header">
-            <h2 id="articles-title">Articles</h2>
-            <a href="{{ route('articles') }}" class="view-all" aria-label="View all articles">View All →</a>
-        </div>
+<section class="articles-section" aria-labelledby="articles-title">
+  <div class="articles-header">
+    <h2 id="articles-title">Articles</h2>
+    <a href="{{ route('articles') }}" class="view-all" aria-label="View all articles">View All →</a>
+  </div>
 
-        <div class="articles-grid">
-            <!-- Featured Article -->
-            @foreach ($article as $item)
-                @if($item->kategori == 'external')
-                    <article class="article-featured">
-                        <a href="{{ $item->link }}">
-                            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
-                            <div class="article-featured-text">
-                                <h3>{{ $item->judul }}</h3>
-                                <p>
-                                    {{ $item->title }}
-                                </p>
-                            </div>
-                        </a>
-                    </article>
-                @else
-                    <article class="article-featured">
-                        <a href="{{ route('detail-articles', $item->uuid) }}">
-                            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
-                            <div class="article-featured-text">
-                                <h3>{{ $item->judul }}</h3>
-                                <p>
-                                    {{ $item->title }}
-                                </p>
-                            </div>
-                        </a>
-                    </article>
-                @endif
-            @endforeach
+  <div class="articles-grid">
+    {{-- LEFT: 1 Featured only --}}
+    @php $featured = collect($article)->first(); @endphp
+    @if($featured)
+      <article class="article-featured">
+        <a href="{{ $featured->kategori === 'external' ? $featured->link : route('detail-articles', $featured->uuid) }}">
+          <img src="{{ asset('photo/' . $featured->photo) }}" alt="{{ $featured->judul }}" loading="lazy" />
+          <div class="article-featured-text">
+            <h3>{{ $featured->judul }}</h3>
+            <p>{{ $featured->title }}</p>
+          </div>
+        </a>
+      </article>
+    @endif
 
-            <!-- List Articles -->
-            @foreach ($all_article as $item)
-                @if($item->kategori == 'external')
-                <a href="{{ $item->link }}">
-                    <div class="article-list" role="list">
-                        <article class="article-item" role="listitem">
-                                <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
-                                <div>
-                                    <h4>{{ $item->judul }}</h4>
-                                    <span class="date">{{ $item->created_at->format('d M Y') }}</span>
-                                </div>
-                        </article>
-                    </div>
-                </a>
-                @else
-                <a href="{{ route('detail-articles', $item->uuid) }}">
-                    <div class="article-list" role="list">
-                        <article class="article-item" role="listitem">
-                                <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
-                                <div>
-                                    <h4>{{ $item->judul }}</h4>
-                                    <span class="date">{{ $item->created_at->format('d M Y') }}</span>
-                                </div>
-                        </article>
-                    </div>
-                </a>
-                @endif
-            @endforeach
-        </div>
-    </section>
+    {{-- RIGHT: ONE list container, items di-loop di dalamnya --}}
+    <div class="article-list" role="list">
+      @foreach ($all_article as $item)
+        <article class="article-item" role="listitem">
+          <a href="{{ $item->kategori === 'external' ? $item->link : route('detail-articles', $item->uuid) }}" class="article-item-link">
+            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
+            <div>
+              <h4>{{ $item->judul }}</h4>
+              <span class="date">{{ $item->created_at->format('d M Y') }}</span>
+            </div>
+          </a>
+        </article>
+      @endforeach
+    </div>
+  </div>
+</section>
 
     {{-- ================== JOIN MEMBER ================== --}}
     <section class="join-member" aria-labelledby="join-title">

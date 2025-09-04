@@ -60,24 +60,24 @@
 .hero-meta{
   position: absolute;
   left: 50%;
-  bottom: clamp(20px, 10vh, 120px);  /* jarak dari bawah responsif */
+  bottom: clamp(80px, 30vh, 300px);  /* jarak dari bawah responsif */
   transform: translateX(-50%);
   z-index: 3;
 
   display: inline-flex;
   align-items: center;
-  gap: clamp(10px, 2.4vw, 28px);
+  gap: clamp(6px, 1.5vw, 15px);
   padding: 10px 16px;
 
   color: #f5f5f5;
   font-family: 'Inter', sans-serif;
   font-weight: 300;
-  font-size: clamp(13px, 1.8vw, 20px);
+  font-size: clamp(10px, 1.3vw, 15px);
 
 }
 
 .hero-meta .meta-dot{
-  font-size: clamp(16px, 3vw, 28px);
+  font-size: clamp(10px, 1.5vw, 15px);
   line-height: 1;
   margin: 0 2px;
 }
@@ -337,7 +337,7 @@
         .view-all{ text-decoration:none; color:#111; font-weight:500; transition: .2s; }
         .view-all:hover{ transform: translateX(4px); }
 
-        .articles-grid{ display:grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        
         .article-featured{ position:relative; overflow:hidden; border-radius:10px; }
         .article-featured img{ width:100%; border-radius:10px; display:block; transition: transform .35s ease; }
         .article-featured:hover img{ transform: scale(1.03); }
@@ -353,14 +353,10 @@
         .article-featured-text h3{ font: 700 28px/1.2 'Inter', Arial, sans-serif; margin: 0 0 6px; }
 
         .article-list{ display:flex; flex-direction:column; gap:20px; }
-        .article-item{
-            display:flex; gap:16px; padding:12px; border-radius:12px; background:#fff;
-            box-shadow: 0 3px 16px rgba(0,0,0,0.08);
-            cursor:pointer; transition: transform .25s, box-shadow .25s;
-        }
-        .article-item:hover{ transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        
         .article-item img{ width:70px; height:70px; border-radius:6px; object-fit:cover; }
-        .article-item h4{ font-size:16px; font-weight:600; margin:0; }
+        .article-item h4{ font-size:16px; font-weight:600; margin:0; text-decoration: none;}
+        .article-item h4 a {text-decoration: none;}
         .article-item .date{ font-size:13px; color:#666; }
 
         @media (max-width: 992px){
@@ -519,10 +515,6 @@
         }
 
         /* ====== Articles – sidebar list like the reference ====== */
-.articles-grid{
-  grid-template-columns: 1.7fr 1fr;         /* sedikit lebih sempit untuk sidebar */
-  align-items: start;
-}
 
 /* bungkus list jadi satu kartu besar membulat */
 .article-list{
@@ -534,17 +526,7 @@
 }
 
 /* setiap item: rata kiri, tanpa bayangan item (mengandalkan bayangan kartu besar) */
-.article-item{
-  background: transparent;
-  box-shadow: none;
-  padding: 10px 8px;
-  border-radius: 12px;
-  transition: background .2s ease, transform .2s ease;
-}
-.article-item:hover{ 
-  background: #f8fafc; 
-  transform: translateY(-2px);
-}
+
 
 /* thumbnail kecil, membulat, sesuai referensi */
 .article-item img{
@@ -577,6 +559,34 @@
 /* sudut besar untuk featured card agar konsisten */
 .article-featured,
 .article-featured img{ border-radius: 18px; }
+
+a {
+    text-decoration: none;
+    color: inherit; /* Opsional: Ini mencegah warna biru default pada link, agar teks tetap sesuai warna asli */
+}
+/* pastikan grid hanya 2 kolom yang fleksibel */
+.articles-grid{
+  display:grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap:40px;
+  align-items:start;
+}
+
+/* link membungkus isi item, bukan kontainer list */
+.article-item-link{
+  display:flex; gap:16px; align-items:center;
+  text-decoration:none; color:inherit;
+  width:100%;
+}
+
+/* cegah bayangan ganda karena list sudah punya shadow */
+.article-item{ background:transparent; box-shadow:none; padding:10px 8px; border-radius:12px; }
+.article-item:hover{ background:#f8fafc; transform:translateY(-2px); }
+
+/* responsif */
+@media (max-width: 992px){
+  .articles-grid{ grid-template-columns:1fr; }
+}
 
     </style>
 </head>

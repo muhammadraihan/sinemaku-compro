@@ -55,7 +55,7 @@
   .jobdetail__topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
   .btn-back{display:inline-flex;width:36px;height:36px;border-radius:10px;align-items:center;justify-content:center;color:#42454d;background:#f3f4f6;border:1px solid #eceef2;}
   .btn-back:hover{background:#fff;box-shadow:0 8px 20px rgba(10,10,20,.08);}
-  .btn-pill{ margin-left: 600px; padding:.45rem .7rem;border-radius:8px;background:#f3e7b8;color:#6a5312;font:700 12.5px/1 Inter,system-ui;text-decoration:none;border:1px solid #eadf9a;}
+  .btn-pill{ margin-left: 0px; margin-bottom: 10px; padding:.45rem .7rem;border-radius:8px;background:#f3e7b8;color:#6a5312;font:700 12.5px/1 Inter,system-ui;text-decoration:none;border:1px solid #eadf9a;}
   .jobdetail__title{font:700 clamp(25px,4.2vw,35px)/1.1 "Libre Baskerville",serif;margin:.2rem 0;}
   .jobdetail__dept{color:#727a86;font:400 14px/1.2 Inter,system-ui;margin-bottom:10px;}
   .jobdetail__meta{display:flex;flex-wrap:wrap;gap:14px 18px;margin:25px 0 28px;padding:0;}
@@ -77,7 +77,7 @@
   .applybox__meta{margin:0 0 12px;padding:0;display:grid;gap:1px;}
   .applybox__meta li{margin-top: 12px; list-style:none;display:flex;gap:12px;align-items:center;color:#505763;font:600 13px/1.1 Inter,system-ui;}
   .applybox__meta svg{width:18px;height:18px;color:#9aa0a6}
-  .btn-apply{margin-top: 20px; display:flex;justify-content:center;align-items:center;gap:10px;height:44px;border-radius:10px;border:1px solid #e8e9ed;background:#111317;color:#fff;font:800 12.8px/1 Inter,system-ui;letter-spacing:.3px;text-decoration:none;}
+  .btn-apply{padding: 0 20px; width: auto; max-width: max-content;margin-top: 5px; margin-bottom: 20px; display:flex;justify-content:center;align-items:center;gap:10px;height:44px;border-radius:10px;border:1px solid #e8e9ed;background:#111317;color:#fff;font:800 12.8px/1 Inter,system-ui;letter-spacing:.3px;text-decoration:none;}
   .btn-apply:hover{filter:brightness(1.03);box-shadow:0 10px 24px rgba(10,10,20,.18);}
   .btn-apply svg{width:18px;height:18px;color:currentColor}
   .applybox__note{margin:10px 0 0;color:#7a808b;font:300 11px/1.45 Inter,system-ui}
@@ -85,13 +85,69 @@
   /* Others */
   .others{border:1px solid #eceef2;border-radius:14px;background:#fff;padding:18px 16px;box-shadow:0 8px 24px rgba(10,10,20,.06);margin-bottom:28px;}
   .others h4{font:800 15px/1.1 Inter,system-ui;margin:0 0 8px}
-  .mini{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:12px;border-radius:10px;border:1px solid #eef0f3;text-decoration:none;color:inherit;margin:8px 0;}
+  .mini{
+  display:flex;
+  align-items:flex-start;             /* biar tinggi tak dipaksa sejajar */
+  justify-content:space-between;
+  gap:18px;                           /* sedikit lebih rapat */
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #eef0f3;
+  text-decoration:none;
+  color:inherit;
+  margin:8px 0;
+}
+.mini__text{
+  flex:1 1 auto;                      /* ambil sisa ruang */
+  min-width:0;                        /* <— kunci agar boleh wrap di flex */
+}
   .mini:hover{background:#fafbfc;border-color:#e6e9ef}
-  .mini__badge_danger{font:800 12px/1 Inter,system-ui;background:#f3b8b8;color:#6a1212;border:1px solid #ea9a9a;border-radius:8px;padding:6px 10px}
-  .mini__title{font:700 13px/1.2 Inter,system-ui;color:#111317}
-  .mini__meta{margin-top:10px; font:600 10px/1.15 Inter,system-ui;color:#6f7783}
-  .mini__badge{font:600 10px/1 Inter,system-ui;background:#f3e7b8;color:#6a5312;border:1px solid #eadf9a;border-radius:8px;padding:6px 10px}
+  .mini__title{
+  font:700 13px/1.25 Inter,system-ui;
+  color:#111317;
+  overflow-wrap:anywhere;             /* bungkus kata panjang */
+  word-break:break-word;
+}
+.mini__meta{
+  margin-top:8px;
+  font:600 10px/1.25 Inter,system-ui;
+  color:#6f7783;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+/* badge jangan menyusut & tetap di kanan */
+/* --- Badge base (tidak mengubah warna) --- */
+.mini__badge,
+.mini__badge_danger{
+  flex: 0 0 auto;                 /* jangan menyusut */
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
 
+/* Normal badge (kuning) */
+.mini__badge{
+  font: 600 10px/1 Inter,system-ui;
+  background: #f3e7b8;
+  color: #6a5312;
+  border: 1px solid #eadf9a;
+}
+
+/* Danger badge (merah) — frame merah kembali */
+.mini__badge_danger{
+  font: 800 12px/1 Inter,system-ui;
+  background: #f3b8b8;
+  color: #6a1212;
+  border: 1px solid #ea9a9a;
+}
+/* responsif: jika sempit, badge turun ke baris bawah */
+@media (max-width:520px){
+  .mini{ flex-wrap:wrap; }
+  .mini__badge,
+  .mini__badge_danger{ margin-top:8px; }
+}
 
 </style>
 <section class="jobdetail">
@@ -147,22 +203,16 @@
             </li>
         @endif
       </ul>
+      <a class="btn-apply" href="{{ $careers->link ?? $casting->link }}">
+          APPLY NOW
+          <svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
 
       {!! $careers->detail ?? $casting->detail !!}
     </article>
 
     <!-- ====== RIGHT: sidebar ====== -->
     <aside class="jobdetail__side">
-      <div class="applybox">
-        <h4>Apply for This Position</h4>
-
-        <a class="btn-apply" href="{{ $careers->link ?? $casting->link }}">
-          APPLY NOW
-          <svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-
-        <p class="applybox__note">Applications are processed via email. Please include your portfolio and cover letter.</p>
-      </div>
 
       <div class="others">
         <h4>Other Open Positions</h4>

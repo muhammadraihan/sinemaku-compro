@@ -154,8 +154,9 @@
   .cast-desc{ color:#2b2f36; font:400 14.5px/1.65 Inter, system-ui; margin:10px 0 12px; }
 
   .cast-project{
+    margin-top: 10px;
     display:flex; align-items:center; gap:8px;
-    color:#69707e; font:600 13.5px/1 Inter, system-ui; margin-bottom:10px;
+    color:#69707e; font:400 13.5px/1 Inter, system-ui; margin-bottom:10px;
   }
   .cast-project svg{ width:16px; height:16px; color:#a0a6af; }
 
@@ -169,7 +170,7 @@
 
   /* CTA button (right) */
   .cast-cta{
-    position:absolute; right: clamp(18px,2.8vw,24px); top: 50%; transform: translateY(-50%);
+    position:absolute; right: clamp(18px,2.8vw,24px); top: 75%; transform: translateY(-50%);
     display:inline-flex; align-items:center; gap:10px; height:40px; padding:0 14px;
     border-radius:10px; background:#f7f8fa; color:#0f1115; border:1px solid #eceef2;
     font:800 12.5px/1 Inter, system-ui; text-decoration:none; letter-spacing:.35px;
