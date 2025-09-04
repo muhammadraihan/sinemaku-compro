@@ -55,7 +55,7 @@
   .jobdetail__topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
   .btn-back{display:inline-flex;width:36px;height:36px;border-radius:10px;align-items:center;justify-content:center;color:#42454d;background:#f3f4f6;border:1px solid #eceef2;}
   .btn-back:hover{background:#fff;box-shadow:0 8px 20px rgba(10,10,20,.08);}
-  .btn-pill{ margin-left: 600px; padding:.45rem .7rem;border-radius:8px;background:#f3e7b8;color:#6a5312;font:700 12.5px/1 Inter,system-ui;text-decoration:none;border:1px solid #eadf9a;}
+  .btn-pill{ margin-left: 0px; margin-bottom: 10px; padding:.45rem .7rem;border-radius:8px;background:#f3e7b8;color:#6a5312;font:700 12.5px/1 Inter,system-ui;text-decoration:none;border:1px solid #eadf9a;}
   .jobdetail__title{font:700 clamp(25px,4.2vw,35px)/1.1 "Libre Baskerville",serif;margin:.2rem 0;}
   .jobdetail__dept{color:#727a86;font:400 14px/1.2 Inter,system-ui;margin-bottom:10px;}
   .jobdetail__meta{display:flex;flex-wrap:wrap;gap:14px 18px;margin:25px 0 28px;padding:0;}
@@ -77,7 +77,7 @@
   .applybox__meta{margin:0 0 12px;padding:0;display:grid;gap:1px;}
   .applybox__meta li{margin-top: 12px; list-style:none;display:flex;gap:12px;align-items:center;color:#505763;font:600 13px/1.1 Inter,system-ui;}
   .applybox__meta svg{width:18px;height:18px;color:#9aa0a6}
-  .btn-apply{margin-top: 20px; display:flex;justify-content:center;align-items:center;gap:10px;height:44px;border-radius:10px;border:1px solid #e8e9ed;background:#111317;color:#fff;font:800 12.8px/1 Inter,system-ui;letter-spacing:.3px;text-decoration:none;}
+  .btn-apply{padding: 0 20px; width: auto; max-width: max-content;margin-top: 5px; margin-bottom: 20px; display:flex;justify-content:center;align-items:center;gap:10px;height:44px;border-radius:10px;border:1px solid #e8e9ed;background:#111317;color:#fff;font:800 12.8px/1 Inter,system-ui;letter-spacing:.3px;text-decoration:none;}
   .btn-apply:hover{filter:brightness(1.03);box-shadow:0 10px 24px rgba(10,10,20,.18);}
   .btn-apply svg{width:18px;height:18px;color:currentColor}
   .applybox__note{margin:10px 0 0;color:#7a808b;font:300 11px/1.45 Inter,system-ui}
@@ -127,7 +127,7 @@
         @if (!empty($careers->status))
           <li>
             <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-            {{ $careers->salary ? 'Rp.'.' '.number_format($careers->salary,0) : ''; }}
+            {{ $careers->salary ? 'Rp'.' '.number_format($careers->salary,0) : ''; }}
           </li>
         @else
           <li>
@@ -147,22 +147,16 @@
             </li>
         @endif
       </ul>
+      <a class="btn-apply" href="{{ $careers->link ?? $casting->link }}">
+          APPLY NOW
+          <svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
 
       {!! $careers->detail ?? $casting->detail !!}
     </article>
 
     <!-- ====== RIGHT: sidebar ====== -->
     <aside class="jobdetail__side">
-      <div class="applybox">
-        <h4>Apply for This Position</h4>
-
-        <a class="btn-apply" href="{{ $careers->link ?? $casting->link }}">
-          APPLY NOW
-          <svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-
-        <p class="applybox__note">Applications are processed via email. Please include your portfolio and cover letter.</p>
-      </div>
 
       <div class="others">
         <h4>Other Open Positions</h4>
