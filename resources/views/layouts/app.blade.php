@@ -60,24 +60,24 @@
 .hero-meta{
   position: absolute;
   left: 50%;
-  bottom: clamp(20px, 10vh, 120px);  /* jarak dari bawah responsif */
+  bottom: clamp(80px, 30vh, 300px);  /* jarak dari bawah responsif */
   transform: translateX(-50%);
   z-index: 3;
 
   display: inline-flex;
   align-items: center;
-  gap: clamp(10px, 2.4vw, 28px);
+  gap: clamp(6px, 1.5vw, 15px);
   padding: 10px 16px;
 
   color: #f5f5f5;
   font-family: 'Inter', sans-serif;
   font-weight: 300;
-  font-size: clamp(13px, 1.8vw, 20px);
+  font-size: clamp(10px, 1.3vw, 15px);
 
 }
 
 .hero-meta .meta-dot{
-  font-size: clamp(16px, 3vw, 28px);
+  font-size: clamp(10px, 1.5vw, 15px);
   line-height: 1;
   margin: 0 2px;
 }
