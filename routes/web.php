@@ -26,6 +26,8 @@ Route::get('/', function () {
 Route::get('/', 'FrontEndController@index')->name('welcome');
 Route::get('/film', 'FrontEndController@film')->name('film');
 Route::get('/detail-film/{slug}', 'FrontEndController@detailfilm')->name('detail-film');
+Route::get('/series', 'FrontEndController@series')->name('series');
+Route::get('/detail-series/{slug}', 'FrontEndController@detailseries')->name('detail-series');
 Route::get('/shop', 'FrontEndController@shop')->name('shop');
 Route::get('/detail-shop/{slug}', 'FrontEndController@detailshop')->name('detail-shop');
 Route::get('/detail-kategori/{slug}', 'FrontEndController@detailkategori')->name('detail-kategori');

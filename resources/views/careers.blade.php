@@ -124,7 +124,7 @@
 
   /* ============== CASTING STYLES ============== */
   .castings{ background:#fff; padding: clamp(32px,4.5vw,56px) 0; }
-  .castings-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px; }
+  .castings-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px; overflow-y: auto; max-height: calc(4 * 120px);}
   .castings-title{
     font: 700 clamp(22px,3vw,36px)/1.08 "Libre Baskerville", serif;
     margin:0 0 clamp(18px,3vw,26px);

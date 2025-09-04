@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\Casting;
 use App\Models\Event;
 use App\Models\Job;
+use App\Models\Kategori;
 use App\Models\KategoriShop;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
 use Carbon\Carbon;
@@ -42,9 +43,13 @@ class FrontEndController extends Controller
 
     public function film()
     {
-        $film = film::all();
-        $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())->get();
+        $kategori = Kategori::where('name', 'like', '%film%')->first();
+        $film = film::all()->where('kategori', $kategori->uuid);
+        $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
+                            ->where('kategori', $kategori->uuid)
+                            ->get();
         $genre = film::selectRaw('distinct genre')
+                        ->where('kategori', $kategori->uuid)
                         ->get();
 
         return view('film', compact('film', 'genre', 'coming_soon'));
@@ -52,10 +57,34 @@ class FrontEndController extends Controller
 
     public function detailfilm($id)
     {
+        $kategori = Kategori::where('name', 'like', '%film%')->first();
         $film = film::all()->where('uuid', 'like', $id)->first();
-        $all_film = film::all();
+        $all_film = film::all()->where('kategori', $kategori->uuid);
 
         return view('detail-film', compact('film', 'all_film'));
+    }
+
+    public function series()
+    {
+        $kategori = Kategori::where('name', 'like', '%series%')->first();
+        $film = film::all()->where('kategori', $kategori->uuid);
+        $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
+                            ->where('kategori', $kategori->uuid)
+                            ->get();
+        $genre = film::selectRaw('distinct genre')
+                        ->where('kategori', $kategori->uuid)
+                        ->get();
+
+        return view('series', compact('film', 'genre', 'coming_soon'));
+    }
+
+    public function detailseries($id)
+    {
+        $kategori = Kategori::where('name', 'like', '%series%')->first();
+        $film = film::all()->where('uuid', 'like', $id)->first();
+        $all_film = film::all()->where('kategori', $kategori->uuid);
+
+        return view('detail-series', compact('film', 'all_film'));
     }
 
     public function shop()
