@@ -206,10 +206,6 @@
   background:#ffffff;
   box-shadow:0 10px 28px rgba(15,17,21,.06);
   padding:clamp(18px,2.8vw,28px) clamp(18px,3vw,32px);
-
-  max-width: 760px;    /* ⬅️ batas lebar card */
-  margin: 45;      /* ⬅️ align di kiri */
-  width:100%;          /* biar tetap responsif */
 }
 .shop-card__head{
   display:flex; align-items:center; gap:12px;
@@ -321,14 +317,14 @@
 }
 
 .rp-card__name {
-  font-size: clamp(14px, 1.4vw, 18px);
+  font-size: clamp(10px, 1.0vw, 14px);
   color: #222;
   margin-bottom: 6px;
 }
 
 .rp-card__price {
-  font-weight: 800;
-  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 600;
+  font-size: clamp(12px, 1.2vw, 16px);
 }
 
     /* Responsive */

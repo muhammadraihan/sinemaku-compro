@@ -310,7 +310,7 @@
   background: transparent;     /* hilangkan background hitam */
   color: #111;                 /* teks hitam */
   padding: 8px 2px;            /* padding tipis */
-  font-weight: 600;
+  font-weight: 400;
   font-size: 15px;
   text-decoration: none;
   text-transform: uppercase;
