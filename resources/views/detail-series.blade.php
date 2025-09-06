@@ -158,7 +158,20 @@
     }
     .film-about__grid{
       display:grid; grid-template-columns: 1.45fr .82fr; gap: clamp(24px,4vw,48px);
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, .82fr);
     }
+    /* Kolom kiri tidak boleh memaksa lebar */
+.film-about__main{ min-width:0; }
+/* Gambar di dalam sinopsis / konten kiri selalu mengikuti frame */
+.film-about__main img,
+.film-about__main figure img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;            /* opsional biar rapi */
+  box-shadow: 0 8px 24px rgba(0,0,0,.06); /* opsional */
+  margin: 14px 0;                 /* jarak vertikal */
+}
     @media (max-width: 980px){
       .film-about__grid{ grid-template-columns: 1fr; }
     }

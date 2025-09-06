@@ -90,7 +90,7 @@
               loading="lazy"
             />
             <span class="cs-pill">
-              IN THEATERS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}
+            ON SCREENS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}
             </span>
           </figure>
 

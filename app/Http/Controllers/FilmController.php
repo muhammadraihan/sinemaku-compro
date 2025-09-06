@@ -81,8 +81,8 @@ class FilmController extends Controller
             'sinopsis' => 'required',
             'director' => 'required',
             'cast' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            'poster' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+            'photo' => 'required|image',
+            'poster' => 'required|image'
         ];
 
         $messages = [
