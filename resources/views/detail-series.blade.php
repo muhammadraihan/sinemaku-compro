@@ -16,9 +16,12 @@
     color: #070707;
     text-shadow: 0 1px 5px rgba(0,0,0,0.09);
     white-space: nowrap;
-    pointer-events: none;
     text-transform: uppercase;
     line-height: 1;
+    pointer-events:auto;          /* <-- boleh diklik */
+  text-decoration:none;         /* hilangkan underline */
+  padding:10px 14px;            /* area klik nyaman */
+  z-index:2;                    /* pastikan di atas bg navbar */
     }
     .icon-hamburger rect {
     fill: #070707;

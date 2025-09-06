@@ -78,9 +78,12 @@
   color: #fff;
   text-shadow: 0 1px 5px rgba(0,0,0,0.09);
   white-space: nowrap;
-  pointer-events: none;
   text-transform: uppercase;
   line-height: 1;
+  pointer-events:auto;          /* <-- boleh diklik */
+  text-decoration:none;         /* hilangkan underline */
+  padding:10px 14px;            /* area klik nyaman */
+  z-index:2;                    /* pastikan di atas bg navbar */
 }
 
 @media (max-width: 600px) {
@@ -382,7 +385,9 @@
 
 <nav class="custom-navbar">
     <div class="navbar-inner">
-        <span class="navbar-logo">SINEMAKU PICTURES</span>
+    <a href="{{ route('welcome') }}" class="navbar-logo" aria-label="Go to homepage">
+      SINEMAKU PICTURES
+    </a>
         <!-- Hamburger/Close button -->
         <button class="navbar-btn" id="menuToggle" aria-label="Toggle menu">
             <!-- Hamburger Icon (default) -->
@@ -410,6 +415,7 @@
         </button>
     </div>
 </nav>
+
 
 <!-- Mega Menu Overlay -->
 <div class="mega-menu-overlay" style="display: none;">
