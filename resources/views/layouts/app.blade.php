@@ -109,10 +109,10 @@
     }
 
     /* ================= Coming Soon (Grid Gallery) ================ */
-    .cs-section{ padding: clamp(48px,6vw,72px) clamp(16px,5vw,56px); background:#fff; }
+    .cs-section{ padding: clamp(38px,4vw,52px) clamp(16px,5vw,56px); background:#fff; margin-bottom:45px;}
     .cs-head{ text-align:center; margin-bottom: clamp(22px,3vw,34px); }
     .cs-eyebrow{ font:700 12px/1 Inter,system-ui; letter-spacing:.12em; text-transform:uppercase; color:#9aa0a6; margin-bottom:8px; }
-    .cs-title{ margin:0; font-family:"Libre Baskerville", serif; font-weight:700; letter-spacing:-.02em; color:#0f0f0f; font-size: clamp(28px,5.6vw,52px); }
+    .cs-title{ text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px; }
     .cs-grid{
       max-width:1800px; margin:0 auto; display:grid; gap: clamp(18px,2.4vw,28px);
       grid-template-columns: repeat(4, minmax(0,1fr));
@@ -177,7 +177,7 @@
     /* ========= Section Shop ========= */
     .feature-sidetext{ padding: 40px 56px 72px; background: #fff; }
     .feature-wrap{ display:grid; grid-template-columns: 1fr 1.15fr; align-items:start; gap:48px; max-width:1600px; margin:0 auto; }
-    .feature-eyebrow{ font: 300 16px/1.2 'Inter', Arial, sans-serif; color:#9aa0a6; letter-spacing:.06em; text-transform:uppercase; margin-bottom:20px; }
+    .feature-eyebrow{ font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px; }
     .feature-title{
       margin:0 0 36px; font-family:'Inter', Arial, sans-serif; font-weight:300; line-height:1.2; color:#0d0d0d;
       font-size: clamp(28px, 5vw, 48px); letter-spacing:-0.5px;
@@ -214,9 +214,9 @@
 
     /* ========= Articles ========= */
     .articles-section{ padding: 60px 80px; background:#fff;}
-    .articles-header{ display:flex; justify-content:space-between; align-items:center; gap: var(--space-md); margin-bottom: 32px; }
+    .articles-header{ display:flex; justify-content:space-between; align-items:center; gap: var(--space-md); margin-bottom: 2px; }
     .articles-header h2{
-      font-size: clamp(22px, 4.2vw, 42px); font-family: 'Libre Baskerville', serif; font-weight: 600; margin: 0;
+        text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px;
     }
     .view-all{ text-decoration:none; color:#111; font-weight:500; transition: .2s; }
     .view-all:hover{ transform: translateX(4px); }
@@ -271,8 +271,7 @@
 .careers-wrap{ max-width:1430px; margin:0 auto; padding:0 24px; }
 
 .careers-title{
-    font-family:'Inter', sans-serif; font-weight:500; margin-bottom: 16px; letter-spacing:-0.5px; line-height:1; font-size: clamp(28px, 7vw, 60px);
-    text-align:center;
+    text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px;
 }
 .careers-subtitle{
   text-align:center; font-family:'Inter', sans-serif; font-size: clamp(14px, 2.2vw, 18px); color:#444; margin-bottom: 28px; line-height:1.5;

@@ -251,7 +251,7 @@
 
     .rp__title {
     font-family: "Inter", sans-serif;
-    font-size: clamp(22px, 3vw, 40px);
+    font-size: 500 clamp(14px,2vw,25px)/1.08 "Inter", sans-serif;
     line-height: 1.1;
     margin: 0;
     line-height: .95;

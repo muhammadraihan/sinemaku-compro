@@ -153,9 +153,40 @@
       padding: clamp(28px, 6vw, 72px) clamp(16px, 5vw, 64px);
       background:#fff; color:#111;
     }
-    .film-about__grid{
-      display:grid; grid-template-columns: 1.45fr .82fr; gap: clamp(24px,4vw,48px);
-    }
+    /* ===== Film About – perbaikan grid agar kolom tak melebar ===== */
+.film-about__grid{
+  display:grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, .82fr); /* ⬅️ penting */
+  gap: clamp(24px,4vw,48px);
+}
+/* Kolom kiri tidak boleh memaksa lebar */
+.film-about__main{ min-width:0; }
+/* Gambar di dalam sinopsis / konten kiri selalu mengikuti frame */
+.film-about__main img,
+.film-about__main figure img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;            /* opsional biar rapi */
+  box-shadow: 0 8px 24px rgba(0,0,0,.06); /* opsional */
+  margin: 14px 0;                 /* jarak vertikal */
+}
+/* Jika sinopsis mengandung <figure> tanpa style, rapikan juga */
+.film-about__main figure{
+  margin: 14px 0;
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f6f7f9;
+}
+
+/* Bila ada gambar yang punya width/height inline dari CMS, paksa override */
+.film-about__main img[width],
+.film-about__main img[height]{
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+}
     @media (max-width: 980px){
       .film-about__grid{ grid-template-columns: 1fr; }
     }

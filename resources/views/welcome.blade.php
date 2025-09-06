@@ -76,7 +76,6 @@
     <!-- ============ COMING SOON (Gallery Grid) ============ -->
 <section class="cs-section" aria-labelledby="cs-title">
   <div class="cs-head">
-    <div class="cs-eyebrow">FEATURED WORKS</div>
     <h2 id="cs-title" class="cs-title">Coming Soon</h2>
   </div>
 
@@ -104,9 +103,6 @@
     @endforeach
   </div>
 
-  <div class="cs-cta">
-    <a href="{{ route('film') }}" class="cs-viewall"><span>→ Uncover the Story</span></a>
-  </div>
 </section>
 
     {{-- ================== SHOP / FEATURE 1 ================== --}}
@@ -255,9 +251,7 @@
         <div class="careers-wrap">
             <header class="careers-header">
                 <h2 class="careers-title" id="careers-title">Join Our Vision</h2>
-                <p class="careers-subtitle">
-                    We're looking for passionate creators who share our commitment to bold storytelling.
-                </p>
+                
             </header>
 
             <div class="careers-grid" role="list">

@@ -84,7 +84,7 @@
 
   /* Others */
   .others{border:1px solid #eceef2;border-radius:14px;background:#fff;padding:18px 16px;box-shadow:0 8px 24px rgba(10,10,20,.06);margin-bottom:28px;}
-  .others h4{font:800 15px/1.1 Inter,system-ui;margin:0 0 8px}
+  .others h4{font:600 15px/1.1 Inter,system-ui;margin:0 0 8px}
   .mini{
   display:flex;
   align-items:flex-start;             /* biar tinggi tak dipaksa sejajar */

@@ -124,33 +124,72 @@
       font: 400 12px/1.4 Inter, system-ui;
     }
 
+    /* Garis pemisah antar section */
+.event-divider {
+  border: 0;
+  height: 1px;
+  background: #e5e5e5;     /* warna abu tipis */
+  margin: 60px auto;       /* jarak atas-bawah */
+  width: 100%;        /* biar gak selebar layar */
+}
+
     /* About */
-    .event-about{
-      margin-top: 56px;
-      max-width: 900px;
-    }
-    .event-about h2{
-      font: 400 clamp(20px, 2vw, 28px)/1.1 'Inter', sans-serif;
-      margin: 0 0 16px;
-    }
-    .event-about p{
-      font: 400 16px/1.75 Inter, system-ui;
-      color: #2a2a2a;
-      margin: 0 0 16px;
-    }
-    .event-about blockquote{
-      margin: 24px 0;
-      padding: 18px 20px;
-      background: var(--surface);
-      border-left: 4px solid #222;
-      border-radius: 10px;
-      font: 500 16px/1.6 Inter, system-ui;
-    }
-    .event-about blockquote footer{
-      font: 600 14px/1.4 Inter, system-ui;
-      color: var(--muted);
-      margin-top: 6px;
-    }
+.event-about {
+  margin: 64px auto 80px;
+  max-width: 820px;
+  padding: 0 18px;
+}
+
+.event-about h2 {
+  font: 600 clamp(22px, 2.4vw, 30px)/1.25 'Inter', sans-serif;
+  margin: 0 0 22px;
+  letter-spacing: -0.2px;
+  color: #0f1115;
+}
+
+.event-about p {
+  font: 400 16px/1.8 'Inter', system-ui, sans-serif;
+  color: #333;
+  margin: 0 0 20px;
+}
+
+/* Quote */
+.event-about blockquote {
+  margin: 32px 0;
+  padding: 20px 24px;
+  background: #fafafa;
+  border-left: 4px solid #000;
+  border-radius: 12px;
+  font: italic 500 17px/1.65 'Inter', system-ui, sans-serif;
+  color: #111;
+  position: relative;
+}
+.event-about blockquote::before {
+  content: "“";
+  font-size: 42px;
+  line-height: 1;
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  color: #aaa;
+}
+.event-about blockquote footer {
+  margin-top: 10px;
+  text-align: right;
+  font: 600 14px/1.4 'Inter', system-ui, sans-serif;
+  color: #666;
+}
+
+/* Gambar di dalam deskripsi event */
+.event-about img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+  margin: 24px auto;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+  object-fit: cover;
+}
 
     /* Responsive */
     @media (max-width: 980px){
@@ -179,8 +218,9 @@
       gap:16px; margin-bottom:18px;
     }
     .other-events h2{
-      font: 300 clamp(20px,2.6vw,35px)/1.08 "Inter", sans-serif;
+      font: 500 clamp(14px,2vw,25px)/1.08 "Inter", sans-serif;
       letter-spacing:.2px; margin:0;
+      margin-bottom:20px;
     }
     .oe-viewall{
       display:inline-flex; align-items:center; gap:10px;
@@ -279,6 +319,8 @@
       </p>
     </aside>
   </div>
+
+  <hr class="event-divider">
 
   <!-- ABOUT -->
   <div class="event-about">
