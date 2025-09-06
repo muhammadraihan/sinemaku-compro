@@ -261,25 +261,34 @@
             </header>
 
             <div class="careers-grid" role="list">
-                <!-- Card -->
-                @foreach ($careers as $item)
-                    <article class="career-card" role="listitem">
-                        <h3 class="career-role">{{ $item->position }}</h3>
-                        <div class="career-dept">{{ $item->tim }}</div>
-                        <div class="career-meta">
-                            <span class="career-loc">
-                                <svg viewBox="0 0 24 24" class="loc-ic" aria-hidden="true">
-                                    <path d="M12 2C8.686 2 6 4.686 6 8c0 4.246 5.09 10.14 5.308 10.39a.9.9 0 0 0 1.384 0C12.91 18.14 18 12.246 18 8c0-3.314-2.686-6-6-6Zm0 8.5A2.5 2.5 0 1 1 12 5a2.5 2.5 0 0 1 0 5.5Z" fill="currentColor"/>
-                                </svg>
-                                {{ $item->location }}
-                            </span>
-                        </div>
-                        <a href="{{ $item->link }}">
-                            <button class="career-apply" type="button">APPLY NOW</button>
-                        </a>
-                    </article>
-                @endforeach
-            </div>
+  @foreach ($careers as $item)
+    <article class="career-card" role="listitem">
+      <div class="career-card__body">
+        <h3 class="career-role">{{ $item->position }}</h3>
+        <div class="career-dept">{{ $item->tim }}</div>
+
+        <div class="career-meta">
+          <span class="career-loc">
+            <svg viewBox="0 0 24 24" class="loc-ic" aria-hidden="true">
+              <path d="M12 22s8-4.5 8-12a8 8 0 10-16 0c0 7.5 8 12 8 12z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="10" r="2" fill="currentColor"/>
+            </svg>
+            {{ $item->location }}
+          </span>
+        </div>
+      </div>
+
+      <hr class="career-sep" />
+
+      <a class="career-apply" href="{{ $item->link }}" target="_blank" rel="noopener">
+        APPLY NOW
+        <svg class="career-apply__ic" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </article>
+  @endforeach
+</div>
         </div>
 
         <!-- Button View All Careers -->

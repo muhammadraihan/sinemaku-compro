@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>@yield('title', 'Sinemaku Pictures')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>@yield('title', 'Sinemaku Pictures')</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
     {{-- <link rel="stylesheet" href="{{ asset('css/main.css') }}"> --}}
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/sinemaku_horizontal.png') }}">
@@ -267,89 +267,115 @@
     .spotlight__frame:hover .spotlight__image{ transform: scale(1.03); }
 
     /* ========= Careers ========= */
-    .careers-section{ padding: 64px 0 90px; background:#fff; }
-    .careers-wrap{ max-width: 1430px; margin: 0 auto; padding: 0 24px; }
-    .careers-title{
-      font-family:"Inter", Arial, sans-serif; font-weight:300; letter-spacing:-0.5px; line-height:.95; text-align:center; margin:0 0 10px; color:#0f1115;
-      font-size: clamp(28px, 6vw, 64px);
-    }
-    .careers-subtitle{
-      text-align:center; max-width:860px; margin:0 auto 40px;
-      font-family:'Inter', system-ui, -apple-system, Arial, sans-serif; color:#5d6b7a; letter-spacing:-0.5px; line-height:1.25;
-      font-size: clamp(14px, 1.8vw, 22px);
-    }
-    .careers-grid{ display:grid; gap:28px; grid-template-columns: repeat(3, 1fr); }
-    @media (max-width: 1050px){ .careers-grid{ grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 680px){ .careers-grid{ grid-template-columns: 1fr; } }
-    .career-card{
-      background:#fff; border-radius:10px; padding:26px 24px 22px;
-      box-shadow: 0 10px 30px rgba(15,17,21,0.06), 0 1px 0 rgba(15,17,21,0.04);
-      transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s cubic-bezier(.22,.61,.36,1);
-    }
-    .career-card:hover{ transform: translateY(-4px); box-shadow: 0 18px 50px rgba(15,17,21,0.10), 0 1px 0 rgba(15,17,21,0.04); }
-    .career-role{ margin:0 0 8px; font: 500 22px/1.25 "Inter", system-ui, -apple-system, Arial, sans-serif; color:#0f1115; }
-    .career-dept{ font: 500 14px/1.4 "Inter", system-ui, -apple-system, Arial, sans-serif; color:#6b7683; margin-bottom:14px; }
-    .career-meta{ display:flex; align-items:center; gap:14px; margin-bottom:16px; }
-    .career-loc{ display:inline-flex; align-items:center; gap:8px; color:#6b7683; font: 500 14px/1.4 "Inter", system-ui, -apple-system, Arial, sans-serif; }
-    .loc-ic{ width:16px; height:16px; opacity:.9; }
-    .career-apply{
-      width:100%; height:48px; border-radius:4px; border:none; background:#0a0a0a; color:#fff;
-      font: 700 15px/1 "Inter", system-ui, -apple-system, Arial, sans-serif; cursor:pointer;
-      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
-    }
-    .career-apply:hover{ transform: translateY(-1px); background:#000; box-shadow:0 10px 18px rgba(0,0,0,.14); }
-    .career-apply:active{ transform: translateY(0); box-shadow:none; }
-    .careers-footer{ margin-top: clamp(40px, 10vw, 100px); display:flex; justify-content:center; }
-    .careers-viewall{ display:inline-flex; align-items:center; gap:10px; background:#000; color:#fff; padding: 16px 28px; font-weight:700; text-decoration:none; font-size:16px; border-radius:2px; transition: background .25s ease; }
-    .careers-viewall:hover{ background:#333; }
-    .careers-view{ margin:0 0 8px; font: 500 16px/1.25 "Inter", system-ui, -apple-system, Arial, sans-serif; color:#fff; }
-    .careers-viewall {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: transparent;     /* hilangkan background hitam */
-  color: #111;                 /* teks hitam */
-  padding: 8px 2px;            /* padding tipis */
-  font-weight: 400;
-  font-size: 15px;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  position: relative;
-  transition: color .25s ease;
-  border-radius: 0;            /* tidak perlu rounded */
-  cursor: pointer;
+.careers-section{ padding:64px 0 90px; background:#fff; }
+.careers-wrap{ max-width:1430px; margin:0 auto; padding:0 24px; }
+
+.careers-title{
+  font-family:"Inter", Arial, sans-serif;
+  font-weight:300; letter-spacing:-0.5px; line-height:.95;
+  text-align:center; margin:0 0 10px; color:#0f1115;
+  font-size:clamp(28px,6vw,64px);
+}
+.careers-subtitle{
+  text-align:center; max-width:860px; margin:0 auto 40px;
+  font-family:'Inter',system-ui,-apple-system,Arial,sans-serif;
+  color:#5d6b7a; letter-spacing:-0.5px; line-height:1.25;
+  font-size:clamp(14px,1.8vw,22px);
 }
 
-.careers-viewall::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;                /* jarak garis dari teks */
-  width: 100%;
-  height: 1.5px;
-  background: #111;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform .3s ease;
+/* Grid */
+.careers-grid{
+  display:grid; gap:28px;
+  grid-template-columns:repeat(3,1fr);
+}
+@media (max-width:1050px){ .careers-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:680px){  .careers-grid{ grid-template-columns:1fr; } }
+
+/* Card – minimal sinematik */
+.career-card{
+  position:relative;
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:8px;
+  padding:20px 20px 18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.05);
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  overflow:hidden;
+}
+/* accent kiri tipis (film-festival vibe) */
+.career-card::before{
+  content:"";
+  position:absolute; left:0; top:0; bottom:0;
+  width:3px; background:#111; transform:scaleY(.12);
+  transform-origin:top; transition:transform .35s ease;
+  opacity:.9;
+}
+.career-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 26px rgba(0,0,0,.07);
+  border-color:#e9e9e9;
+}
+.career-card:hover::before{ transform:scaleY(1); }
+
+.career-card__body{ padding:2px 2px 0; }
+
+/* Tipografi ala judul poster */
+.career-role{
+  margin:0 0 8px;
+  font:800 clamp(16px,1.6vw,20px)/1.2 "Inter", system-ui, Arial, sans-serif;
+  text-transform:uppercase; letter-spacing:.04em; color:#0f1115;
+}
+.career-dept{
+  font:400 14px/1.45 "Inter", system-ui, Arial, sans-serif;
+  font-style:italic; color:#6b7683; margin-bottom:12px;
 }
 
-.careers-viewall:hover {
-  color: #111;                 /* warna teks tetap */
-  background: transparent;     /* cegah block background */
+/* Meta */
+.career-meta{ display:flex; align-items:center; gap:14px; margin-bottom:10px; }
+.career-loc{
+  display:inline-flex; align-items:center; gap:8px;
+  color:#6b7683; font:500 13.5px/1.4 "Inter", system-ui, Arial, sans-serif;
+}
+.loc-ic{ width:16px; height:16px; opacity:.9; }
+
+/* Divider halus */
+.career-sep{
+  border:0; height:1px; background:#eee; margin:14px 0 12px;
 }
 
-.careers-viewall:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+/* CTA – ghost → solid on hover */
+.career-apply{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  width:100%; height:46px;
+  border-radius:8px;
+  border:1.6px solid #111;
+  background:transparent; color:#111;
+  font:700 14px/1 "Inter", system-ui, Arial, sans-serif;
+  text-decoration:none; cursor:pointer;
+  transition:background .22s ease, color .22s ease, transform .18s ease, box-shadow .18s ease;
+}
+.career-apply__ic{ width:18px; height:18px; }
+.career-apply:hover{
+  background:#111; color:#fff;
+  transform:translateY(-1px);
+  box-shadow:0 10px 18px rgba(0,0,0,.14);
 }
 
-/* opsional: teks pendamping */
-.careers-view {
-  margin: 0 0 8px;
-  font: 500 16px/1.25 "Inter", system-ui, -apple-system, Arial, sans-serif;
-  color: #111; /* biar konsisten dengan tema putih */
+/* Footer (link View All) – editorial underline */
+.careers-footer{ margin-top:clamp(40px,10vw,100px); display:flex; justify-content:center; }
+.careers-viewall{
+  display:inline-flex; align-items:center; gap:10px;
+  background:transparent; color:#111; padding:8px 2px;
+  font:400 15px/1 "Inter", system-ui, Arial, sans-serif;
+  text-decoration:none; text-transform:uppercase; letter-spacing:.08em;
+  position:relative; border-radius:0; transition:color .25s ease;
 }
+.careers-viewall::after{
+  content:""; position:absolute; left:0; bottom:-3px; width:100%; height:1.5px;
+  background:#111; transform:scaleX(0); transform-origin:right; transition:transform .3s ease;
+}
+.careers-viewall:hover::after{ transform:scaleX(1); transform-origin:left; }
+.careers-view{ margin:0 0 8px; font:500 16px/1.25 "Inter", system-ui, Arial, sans-serif; color:#111; }
 
     /* ========= Join Member ========= */
     .join-member{ margin-top: -60px; background:#fff; color:#000; padding: clamp(64px, 10vw, 120px) 20px; text-align:center; }
@@ -396,40 +422,61 @@
 
     /* ========= Footer ========= */
     .site-footer{ background:#0A0B0C; color:#cfd8e3; padding:72px 24px 28px; }
-    .site-footer a{ color:#e6eef8; text-decoration:none; }
-    .site-footer a:hover{ color:#ffffff; }
-    .footer-inner{ max-width:1280px; margin:0 auto 28px; display:grid; grid-template-columns: 1.2fr 1fr 1fr; gap:54px; }
-    .footer-brand .brand-head{ display:flex; align-items:center; gap:12px; }
-    .brand-icon{ flex:0 0 auto; }
-    .brand-name{ font-family:'Inter', Arial, sans-serif; font-size:28px; font-weight:800; letter-spacing:-0.5px; line-height:.95; color:#fff; }
-    .brand-tagline{ margin-top:18px; line-height:1.7; color:#98a7b8; max-width:620px; }
-    .footer-title{ font-family:'Inter', Arial, sans-serif; font-weight:700; color:#fff; margin:2px 0 16px; }
-    .nav-cols{ display:grid; grid-template-columns: 1fr 1fr; gap:32px; }
-    .footer-links{ list-style:none; margin:0; padding:0; }
-    .footer-links li{ margin:12px 0; }
-    .footer-links a{ font-size:16px; color:#cfd8e3; transition: transform .2s, color .2s; display:inline-block; }
-    .footer-links a:hover{ color:#fff; transform: translateX(4px); }
-    .contact-item{ display:flex; align-items:center; gap:10px; margin:12px 0; }
-    .ci{ opacity:.85; }
-    .follow-title{ margin-top:18px; font-weight:600; color:#fff; }
-    .socials{ display:flex; gap:14px; margin-top:10px; }
-    .social-btn{ width:44px; height:44px; display:grid; place-items:center; background:#18202b; border-radius:6px; border:1px solid rgba(255,255,255,.06); transition: transform .18s, background .18s, box-shadow .18s; }
-    .social-btn:hover{ background:#222c3a; transform: translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.35); }
-    .footer-divider{ max-width:1280px; margin:18px auto 22px; height:1px; background: linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.08), rgba(255,255,255,.06)); }
-    .footer-bottom{ max-width:1280px; margin:0 auto; display:grid; grid-template-columns: 1.2fr auto auto; align-items:center; gap:18px; font-size:14px; color:#9fb0c2; }
-    .legal{ list-style:none; display:flex; gap:22px; margin:0; padding:0; flex-wrap: wrap; }
-    .legal a{ color:#b9c7d6; } .legal a:hover{ color:#fff; }
-    .copy,.est{ white-space:nowrap; }
-    @media (max-width: 1024px){
-      .footer-inner{ grid-template-columns: 1fr 1fr; }
-      .footer-brand{ grid-column: 1 / -1; }
-    }
-    @media (max-width: 720px){
-      .footer-inner{ grid-template-columns: 1fr; gap:36px; }
-      .footer-bottom{ grid-template-columns: 1fr; gap:10px; text-align:center; }
-      .legal{ justify-content:center; }
-      .copy,.est{ justify-self:center; white-space: normal; }
-    }
+        .site-footer a{ color:#e6eef8; text-decoration:none; }
+        .site-footer a:hover{ color:#ffffff; }
+        .footer-inner{
+            max-width:1280px; margin:0 auto 28px;
+            display:grid; grid-template-columns: 1.2fr 1fr 1fr; gap:54px;
+        }
+        .footer-brand .brand-head{ display:flex; align-items:center; gap:12px; }
+        .brand-icon{ flex:0 0 auto; }
+        .brand-name{
+            font-family:'Inter', Arial, sans-serif; font-size:28px; font-weight:800; letter-spacing:-0.5px; line-height:.95; color:#fff;
+        }
+        .brand-tagline{ margin-top:18px; line-height:1.7; color:#98a7b8; max-width:620px; }
+
+        .footer-title{ font-family:'Inter', Arial, sans-serif; font-weight:700; color:#fff; margin:2px 0 16px; }
+        .nav-cols{ display:grid; grid-template-columns: 1fr 1fr; gap:32px; }
+        .footer-links{ list-style:none; margin:0; padding:0; }
+        .footer-links li{ margin:12px 0; }
+        .footer-links a{ font-size:16px; color:#cfd8e3; transition: transform .2s, color .2s; display:inline-block; }
+        .footer-links a:hover{ color:#fff; transform: translateX(4px); }
+
+        .contact-item{ display:flex; align-items:center; gap:10px; margin:12px 0; }
+        .ci{ opacity:.85; }
+        .follow-title{ margin-top:18px; font-weight:600; color:#fff; }
+        .socials{ display:flex; gap:14px; margin-top:10px; }
+        .social-btn{
+            width:44px; height:44px; display:grid; place-items:center;
+            background:#18202b; border-radius:6px; border:1px solid rgba(255,255,255,.06);
+            transition: transform .18s, background .18s, box-shadow .18s;
+        }
+        .social-btn:hover{ background:#222c3a; transform: translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.35); }
+
+        .footer-divider{
+            max-width:1280px; margin:18px auto 22px;
+            height:1px; background: linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.08), rgba(255,255,255,.06));
+        }
+        .footer-bottom{
+            max-width:1280px; margin:0 auto;
+            display:grid; grid-template-columns: 1.2fr auto auto; align-items:center; gap:18px;
+            font-size:14px; color:#9fb0c2;
+        }
+        .legal{ list-style:none; display:flex; gap:22px; margin:0; padding:0; flex-wrap: wrap; }
+        .legal a{ color:#b9c7d6; } .legal a:hover{ color:#fff; }
+        .copy,.est{ white-space:nowrap; }
+
+        @media (max-width: 1024px){
+            .footer-inner{ grid-template-columns: 1fr 1fr; }
+            .footer-brand{ grid-column: 1 / -1; }
+        }
+        @media (max-width: 720px){
+            .footer-inner{ grid-template-columns: 1fr; gap:36px; }
+            .footer-bottom{ grid-template-columns: 1fr; gap:10px; text-align:center; }
+            .legal{ justify-content:center; }
+            .copy,.est{ justify-self:center; white-space: normal; }
+        }
+
   </style>
 </head>
 <body>
@@ -438,37 +485,103 @@
 
 <!-- ======================= FOOTER ======================= -->
 <footer class="site-footer">
-  <!-- (isi footer sama seperti versi kamu) -->
-  <!-- … -->
-  <div class="footer-inner">
-    <!-- Brand / About -->
-    <div class="footer-brand">
-      <div class="brand-head">
-        <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="4" width="18" height="16" rx="2" stroke="white" stroke-width="2"/>
-          <rect x="6" y="7" width="3" height="3" rx="1" fill="white"/>
-          <rect x="6" y="14" width="3" height="3" rx="1" fill="white"/>
-          <rect x="15" y="7" width="3" height="3" rx="1" fill="white"/>
-          <rect x="15" y="14" width="3" height="3" rx="1" fill="white"/>
-        </svg>
-        <span class="brand-name">SINEMAKU PICTURES</span>
-      </div>
-      <p class="brand-tagline">
-        Creating cinematic experiences that challenge conventions and inspire new perspectives.
-        We are storytellers, dreamers, and rebels with cameras.
-      </p>
+    <div class="footer-inner">
+        <!-- Brand / About -->
+        <div class="footer-brand">
+            <div class="brand-head">
+                <!-- Film icon -->
+                <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="4" width="18" height="16" rx="2" stroke="white" stroke-width="2"/>
+                    <rect x="6" y="7" width="3" height="3" rx="1" fill="white"/>
+                    <rect x="6" y="14" width="3" height="3" rx="1" fill="white"/>
+                    <rect x="15" y="7" width="3" height="3" rx="1" fill="white"/>
+                    <rect x="15" y="14" width="3" height="3" rx="1" fill="white"/>
+                </svg>
+                <span class="brand-name">SINEMAKU PICTURES</span>
+            </div>
+            <p class="brand-tagline">
+                Creating cinematic experiences that challenge conventions and inspire new perspectives.
+                We are storytellers, dreamers, and rebels with cameras.
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="footer-nav">
+            <h4 class="footer-title">Navigation</h4>
+            <div class="nav-cols">
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Series</a></li>
+                    <li><a href="#">Articles</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+                <ul class="footer-links">
+                    <li><a href="#">Films</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Events</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Connect -->
+        <div class="footer-connect">
+            <h4 class="footer-title">Connect</h4>
+
+            <div class="contact-item">
+                <!-- mail -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="ci">
+                    <path d="M4 6h16v12H4z" stroke="#cfd8e3" stroke-width="1.8" />
+                    <path d="M4 6l8 6 8-6" stroke="#cfd8e3" stroke-width="1.8" fill="none"/>
+                </svg>
+                <a href="mailto:hello@sinemakupictures.com">hello@sinemakupictures.com</a>
+            </div>
+
+            <div class="contact-item">
+                <!-- pin -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="ci">
+                    <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z" stroke="#cfd8e3" stroke-width="1.8"/>
+                    <circle cx="12" cy="10" r="2.4" fill="#cfd8e3"/>
+                </svg>
+                <span>Jakarta, Indonesia</span>
+            </div>
+
+            <div class="follow-title">Follow Us</div>
+            <div class="socials">
+                <a class="social-btn" href="#" aria-label="Instagram">
+                    <!-- instagram -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="5" stroke="#e6eef8" stroke-width="1.6"/>
+                        <circle cx="12" cy="12" r="4" stroke="#e6eef8" stroke-width="1.6"/>
+                        <circle cx="17.5" cy="6.5" r="1.2" fill="#e6eef8"/>
+                    </svg>
+                </a>
+                <a class="social-btn" href="#" aria-label="YouTube">
+                    <!-- youtube -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <rect x="2.5" y="6" width="19" height="12" rx="4" stroke="#e6eef8" stroke-width="1.6"/>
+                        <path d="M10 9v6l5-3-5-3z" fill="#e6eef8"/>
+                    </svg>
+                </a>
+                <a class="social-btn" href="#" aria-label="Twitter/X">
+                    <!-- twitter/x (simple) -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 4l16 16M20 4L4 20" stroke="#e6eef8" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </div>
-    <!-- Navigation, Connect … (tetap) -->
-  </div>
-  <div class="footer-divider"></div>
-  <div class="footer-bottom">
-    <div class="copy">© 2024 Sinemaku Pictures. All rights reserved.</div>
-    <ul class="legal">
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms of Service</a></li>
-      <li><a href="#">Cookies</a></li>
-    </ul>
-    <div class="est">EST. 2020&nbsp; • &nbsp;JAKARTA</div>
-  </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+        <div class="copy">© 2024 Sinemaku Pictures. All rights reserved.</div>
+        <ul class="legal">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookies</a></li>
+        </ul>
+        <div class="est">EST. 2020&nbsp; • &nbsp;JAKARTA</div>
+    </div>
 </footer>
 </html>
