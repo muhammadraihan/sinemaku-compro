@@ -179,41 +179,57 @@
     font: 300 14px/1.25 Inter, Arial, sans-serif;
     }
 
-    /* ====== ABOUT LAYOUT ====== */
-    .shop-about{
-      padding: clamp(28px, 6vw, 72px) clamp(16px, 5vw, 64px);
-      background:#fff; color:#111;
-    }
-    .shop-about__grid{
-      display:grid; grid-template-columns: 1.45fr .82fr; gap: clamp(24px,4vw,48px);
-    }
-    @media (max-width: 980px){
-      .shop-about__grid{ grid-template-columns: 1fr; }
-    }
+ /* ====== ABOUT LAYOUT ====== */
+.shop-about{
+  padding: clamp(28px, 5vw, 64px) clamp(16px, 5vw, 64px);
+  background:#fff; 
+  color:#0f1115;
+  margin-top: -40px;     /* ⬅️ naikkan card lebih dekat */
+}
 
-    .h2{
-        line-height: .95;
-        letter-spacing: -0.5px;
-        margin-left: 150px;
-        margin-top: -50px;
-        font: 400 clamp(20px, 2vw, 28px)/1.1 'Inter', sans-serif;
-    }
-    .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(18px,2.2vw,22px); margin: 0 0 .8em; font-weight: 700 }
-    .lead{ 
-    line-height: .95;
-    letter-spacing: 0px;
-    margin-bottom: 26px ;
-    margin-left: 150px;
-    font: 400 16px/1.75 Inter, system-ui;
-      color: #2a2a2a;
-    
-    /* line-height: .95; */
-    }
-    
-    .shop-about__two{
-      display:grid; grid-template-columns: 1fr 1fr; gap: clamp(16px,2.8vw,22px); margin: 22px 0;
-    }
-    @media (max-width: 720px){ .shop-about__two{ grid-template-columns: 1fr; } }
+/* pastikan tidak ada garis separator global */
+.shop-about::before,
+.shop-about::after{
+  content:none !important;
+  display:none !important;
+  border:0 !important;
+}
+.articles-section + .shop-about,
+.site-footer + .shop-about{
+  border-top:none !important;
+}
+
+/* ====== CARD ====== */
+.shop-card{
+  border:1px solid #eceef2;
+  border-radius:16px;
+  background:#ffffff;
+  box-shadow:0 10px 28px rgba(15,17,21,.06);
+  padding:clamp(18px,2.8vw,28px) clamp(18px,3vw,32px);
+
+  max-width: 760px;    /* ⬅️ batas lebar card */
+  margin: 45;      /* ⬅️ align di kiri */
+  width:100%;          /* biar tetap responsif */
+}
+.shop-card__head{
+  display:flex; align-items:center; gap:12px;
+  margin-bottom: clamp(10px, 2vw, 16px);
+}
+.shop-card__title{
+  margin:0;
+  font: 700 clamp(18px, 2.6vw, 24px)/1.15 "Inter", system-ui, Arial, sans-serif;
+  letter-spacing:-.01em;
+}
+
+/* ====== TYPOGRAPHY (prose) ====== */
+.shop-desc{
+  white-space: normal;
+  font: 400 16px/1.75 "Inter", system-ui, -apple-system, Arial, sans-serif;
+  color:#2a2f35;
+}
+.shop-desc p{ margin: 0 0 14px; }
+
+/* dll tetap sama (list, heading, tabel, blockquote, img, code) */
 
     /* meta list */
     .meta-list{ list-style:none; margin:0; padding:0; display:grid; gap:12px }
@@ -399,11 +415,19 @@
   <div class="shop-about__grid">
     <!-- LEFT COLUMN -->
     <div class="shop-about__main">
-      <h2 class="h2">Description</h2>
 
-      <p class="lead">
-        {!! $shop->detail !!}
-      </p>
+      <article class="shop-card">
+        <header class="shop-card__head">
+          <h2 class="shop-card__title">Description</h2>
+        </header>
+
+        <!-- JANGAN pakai <p> untuk detail yang berisi list/heading.
+             Pakai <div> agar semua markup bawaan tetap valid. -->
+        <div class="shop-desc">
+          {!! $shop->detail !!}
+        </div>
+      </article>
+
     </div>
   </div>
 </section>

@@ -73,38 +73,41 @@
     </div>
 
     {{-- ================== FEATURED MOVIE / SLIDER ================== --}}
-    <section class="section-coming-soon" aria-labelledby="coming-soon-title">
-        <div class="coming-soon-header">
-            <h2 id="coming-soon-title" class="coming-soon-title">COMING SOON</h2>
+    <!-- ============ COMING SOON (Gallery Grid) ============ -->
+<section class="cs-section" aria-labelledby="cs-title">
+  <div class="cs-head">
+    <div class="cs-eyebrow">FEATURED WORKS</div>
+    <h2 id="cs-title" class="cs-title">Coming Soon</h2>
+  </div>
 
-            <div class="coming-soon-controls" role="group" aria-label="Slider controls">
-                <button class="slider-btn prev" type="button" aria-label="Previous">
-                    <span class="icon" aria-hidden="true">&#8592;</span>
-                </button>
-                <button class="slider-btn next" type="button" aria-label="Next">
-                    <span class="icon" aria-hidden="true">&#8594;</span>
-                </button>
-            </div>
-        </div>
+  <div class="cs-grid" role="list">
+    @foreach ($coming_soon as $item)
+      <article class="cs-card" role="listitem">
+        <a class="cs-link" href="#" aria-label="{{ $item->title }}">
+          <figure class="cs-media">
+            <img
+              src="{{ asset('photo/' . $item->poster) }}"
+              alt="{{ $item->title }} poster"
+              loading="lazy"
+            />
+            <span class="cs-pill">
+              IN THEATERS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}
+            </span>
+          </figure>
 
-        <div class="coming-soon-slider" role="list">
-            <!-- Slide 1 -->
-            @foreach ($coming_soon as $item)
-                <article class="coming-soon-slide" role="listitem">
-                    <div class="coming-soon-image-wrapper">
-                        <img
-                            src="{{ asset('photo/' . $item->poster) }}"
-                            alt="{{ $item->title }} poster"
-                            class="coming-soon-image"
-                            loading="lazy"
-                        />
-                        <span class="coming-soon-date">IN THEATERS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}</span>
-                    </div>
-                    <h3 class="coming-soon-caption">{{ $item->title }}</h3>
-                </article>
-            @endforeach
-        </div>
-    </section>
+          <figcaption class="cs-caption">
+            <h3 class="cs-name">{{ $item->title }}</h3>
+            <div class="cs-sub">{{ $item->Categories->name }}</div>
+          </figcaption>
+        </a>
+      </article>
+    @endforeach
+  </div>
+
+  <div class="cs-cta">
+    <a href="{{ route('film') }}" class="cs-viewall"><span>→ Uncover the Story</span></a>
+  </div>
+</section>
 
     {{-- ================== SHOP / FEATURE 1 ================== --}}
     @foreach ($shop as $i => $item)
@@ -119,7 +122,7 @@
 
                         <a href="{{ route('detail-shop', $item->uuid) }}" class="feature-cta">
                             <span class="cta-line"></span>&nbsp;
-                            <span class="cta-label">LISTEN NOW</span>
+                            <span class="cta-label">EXPLORE PRODUCT</span>
                         </a>
                     </div>
 
@@ -149,7 +152,7 @@
 
                         <a href="{{ route('detail-shop', $item->uuid) }}" class="feature-cta">
                             <span class="cta-line"></span>&nbsp;
-                            <span class="cta-label">LISTEN NOW</span>
+                            <span class="cta-label">EXPLORE PRODUCT</span>
                         </a>
                     </div>
                 </div>
@@ -224,7 +227,7 @@
                 Get exclusive access to premieres, behind-the-scenes content, and limited releases.
             </p>
             <a href="{{ route('frontend.membership') }}">
-                <button class="join-member-btn" type="button" aria-label="Join now">JOIN NOW — IT'S FREE →</button>
+                <button class="join-member-btn" type="button" aria-label="Join now">→ UNLOCK THE EXPERIENCE</button>
             </a>
         </div>
     </section>
@@ -271,7 +274,7 @@
                                 {{ $item->location }}
                             </span>
                         </div>
-                        <button class="career-apply" type="button">APPLY</button>
+                        <button class="career-apply" type="button">APPLY NOW</button>
                     </article>
                 @endforeach
             </div>
@@ -280,7 +283,7 @@
         <!-- Button View All Careers -->
         <div class="careers-footer">
             <a class="careers-viewall" href="{{ route('careers') }}" aria-label="View all careers">
-                <span class="careers-view">VIEW ALL CAREERS →</span>
+                <span class="careers-view">→ VIEW ALL CAREERS</span>
             </a>
         </div>
     </section>

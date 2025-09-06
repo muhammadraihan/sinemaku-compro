@@ -75,7 +75,7 @@ class ShopController extends Controller
             'detail' => 'required',
             'harga' => 'required',
             'link' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'photo' => 'required|image',
             'highlight' => 'required',
             'kategorishop' => 'required'
         ];
