@@ -314,20 +314,22 @@
     }
 
     .rp-card__meta {
-    font-family: "Inter", sans-serif;
-    line-height: .95;
-    letter-spacing: 0.5px;
-    text-align: center;
-    }
-    .rp-card__name {
-    font-size: clamp(14px, 1.4vw, 18px);
-    color: #222;
-    margin-bottom: 6px;
-    }
-    .rp-card__price {
-    font-weight: 800;
-    font-size: clamp(14px, 1.4vw, 18px);
-    }
+  font-family: "Inter", sans-serif;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  text-align: left;   /* ubah dari center ke left */
+}
+
+.rp-card__name {
+  font-size: clamp(14px, 1.4vw, 18px);
+  color: #222;
+  margin-bottom: 6px;
+}
+
+.rp-card__price {
+  font-weight: 800;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
 
     /* Responsive */
     @media (max-width: 1100px) {

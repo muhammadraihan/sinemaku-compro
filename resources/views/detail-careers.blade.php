@@ -218,14 +218,12 @@
         @endif
         @if (!empty($careers->status))
             <li>
-              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round">
-                <!-- badge -->
-                <path d="M12 3l3.2 2.2 3.8.4-2.5 2.8.6 3.7L12 11l-5.1 1.1.6-3.7L5 5.6l3.8-.4L12 3Z"/>
-                <!-- pita bawah -->
-                <path d="M8.5 13.5V20l3.5-2 3.5 2v-6.5"/>
-              </svg>
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor" stroke-width="1.8"
+     stroke-linecap="round" stroke-linejoin="round">
+  <title>Experience</title>
+  <path d="M12 3.5l2.3 4.7 5.2.8-3.8 3.7.9 5.2L12 15.9 7.4 18l.9-5.2-3.8-3.7 5.2-.8L12 3.5z"/>
+</svg>
 
               {{ $careers->pengalaman }} experience
             </li>

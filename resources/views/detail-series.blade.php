@@ -331,7 +331,18 @@
               <li>
                 <span class="ico">
                   <!-- director / user -->
-                  <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.33 0-8 2-8 4.5V21h16v-2.5c0-2.5-3.67-4.5-8-4.5z"/></svg>
+                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor" stroke-width="1.8"
+     stroke-linecap="round" stroke-linejoin="round">
+  <title>Episode</title>
+  <!-- clapperboard atas -->
+  <path d="M3 6h18v4H3z"/>
+  <path d="M6 6l2-3h4l2 3"/>
+  <!-- body filmstrip -->
+  <rect x="3" y="10" width="18" height="11" rx="2"/>
+  <!-- garis horizontal (tiap baris episode/scene) -->
+  <path d="M3 15h18"/>
+</svg>
                 </span>
                 <span class="detail">Director: <strong>{{ $film->director }}</strong></span>
               </li>
