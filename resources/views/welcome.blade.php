@@ -62,7 +62,7 @@
                         <span class="meta-cast">{{ $h->cast }}</span>
                     </div>
 
-                    <div class="_01-04">{{ str_pad($i+1,2,'0',STR_PAD_LEFT) }} - {{ $total }}</div>
+                    <!-- <div class="_01-04">{{ str_pad($i+1,2,'0',STR_PAD_LEFT) }} - {{ $total }}</div> -->
 
                     <h1 class="bolehkah-sekali-saja-ku-menangis">
                         <span>{{ $h->title }}</span><br />
