@@ -429,24 +429,11 @@
     <!-- Bagian Kanan: Kontak -->
     <div class="mega-menu-aside">
       <div class="mega-menu-aside-inner">
-        <div class="mega-menu-contact">
-          <div class="contact-title">Get in Touch</div>
-          <div class="contact-email">hello@sinemakupictures.com</div>
-          <div class="contact-phone">+62 21 1234 5678</div>
-          <div class="contact-address">Jakarta, Indonesia</div>
-        </div>
+        
         <div class="mega-menu-social">
-          <div class="follow-title">Follow Us</div>
-          <div class="social-links">
-            <a href="#">Instagram</a>
-            <a href="#">Twitter</a>
-            <a href="#">YouTube</a>
-          </div>
+         
         </div>
-        <div class="mega-menu-logo">
-          <div class="logo-main">SINEMAKU PICTURES</div>
-          <div class="logo-sub">EST. 2020</div>
-        </div>
+        
       </div>
       <div class="creative-storytelling">CREATIVE STORYTELLING</div>
     </div>
