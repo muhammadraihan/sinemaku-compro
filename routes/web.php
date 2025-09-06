@@ -14,6 +14,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MembershipController;
 
 Route::get('/', function () {
     // check if user is auth then redirect to dashboard page
@@ -68,4 +69,6 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('event', 'EventController');
     Route::resource('membership', 'MembershipController');
     Route::get('get-kategori', [KategoriController::class, 'show'])->name('ref.kategori');
+    Route::get('/membership/export', [MembershipController::class, 'export'])
+     ->name('membership.export');
 });

@@ -526,6 +526,7 @@
   .allfilms-grid .filmitem-media::after{  opacity: .90; }
 }
 
+.filmitem.is-hidden{ display:none !important; }
 
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
@@ -585,15 +586,19 @@
 
     <div class="allfilms-filters" role="tablist" aria-label="Filter films by genre">
       <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
-      @foreach ($genre as $item)
-        <button class="chip" data-filter="{{ strtolower($item->genre) }}" role="tab">{{ $item->genre }}</button>
+      {{-- @foreach ($genre as $item)
+        <button class="chip" data-filter="{{ strtolower(trim($item->genre)) }}" role="tab">{{ $item->genre }}</button>
+      @endforeach --}}
+      @foreach ($chipGenres as $g)
+        <button class="chip" data-filter="{{ $g }}">{{ ucwords($g) }}</button>
       @endforeach
     </div>
   </div>
 
   <div class="allfilms-grid">
-    @foreach ($film as $item)
-        <article class="filmitem" data-genre="{{ strtolower($item->genre) }}">
+    @foreach ($genre as $item)
+      <article class="filmitem" data-genres='@json($item->genres_array)'>
+        {{-- <article class="filmitem" data-genre="{{ strtolower($item->genre) }}"> --}}
           <a href="{{ route('detail-film', $item->uuid) }}" class="filmitem-link">
               <figure class="filmitem-media has-overlay">
               <img src="{{ asset('photo/' . $item->poster) }}"
@@ -632,33 +637,46 @@
 </section>
 
 <script>
-  (function(){
-    const chips = document.querySelectorAll('.allfilms .chip');
-    const cards = document.querySelectorAll('.allfilms .filmitem');
+(function(){
+  const scope = document.querySelector('.allfilms') || document;
+  const chips = scope.querySelectorAll('.chip');
+  const cards = scope.querySelectorAll('.filmitem');
 
-    function setActive(btn){
-      chips.forEach(c=>c.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      chips.forEach(c => c.setAttribute('aria-selected', c===btn ? 'true' : 'false'));
-    }
-
-    function applyFilter(key){
-      cards.forEach(card=>{
-        const g = (card.getAttribute('data-genre') || '').toLowerCase();
-        if(key==='all' || g===key){ card.classList.remove('is-hidden'); }
-        else { card.classList.add('is-hidden'); }
-      });
-    }
-
-    chips.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        setActive(btn);
-        applyFilter(btn.dataset.filter);
-      });
-      // akses keyboard (Enter/Space)
-      btn.addEventListener('keydown', e=>{
-        if(e.key==='Enter' || e.key===' ') { e.preventDefault(); btn.click(); }
-      });
+  function setActive(btn){
+    chips.forEach(c => {
+      const on = c === btn;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-selected', on ? 'true' : 'false');
     });
-  })();
+  }
+
+  function applyFilter(key){
+    cards.forEach(card => {
+      // BACA ARRAY GENRE dari data-genres='["drama","thriller",...]'
+      let genres = [];
+      try { genres = JSON.parse(card.dataset.genres || '[]'); } catch(e){}
+      const match = (key === 'all') ? true : genres.includes(key);
+      card.classList.toggle('is-hidden', !match);
+    });
+  }
+
+  chips.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = (btn.dataset.filter || '').toLowerCase();
+      setActive(btn);
+      applyFilter(key);
+    });
+    // akses keyboard
+    btn.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    });
+  });
+
+  // initial state
+  const first = scope.querySelector('.chip.is-active') || chips[0];
+  if(first){
+    setActive(first);
+    applyFilter((first.dataset.filter || '').toLowerCase());
+  }
+})();
 </script>

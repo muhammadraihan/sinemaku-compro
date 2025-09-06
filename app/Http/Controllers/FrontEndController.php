@@ -52,11 +52,33 @@ class FrontEndController extends Controller
         $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
                             ->where('kategori', $kategori->uuid)
                             ->get();
-        $genre = film::selectRaw('distinct genre')
-                        ->where('kategori', $kategori->uuid)
-                        ->get();
+        // $genre = film::selectRaw('distinct genre')
+        //                 ->where('kategori', $kategori->uuid)
+        //                 ->get();
 
-        return view('film', compact('film', 'genre', 'coming_soon'));
+        // 1) Kumpulkan semua genre mentah dari DB
+        $raw = Film::pluck('genre'); // mis: ["drama, thriller", "comedy", "drama, comedy"]
+
+        // 2) Pecah per koma, rapikan, unique, sort
+        $chipGenres = $raw
+            ->flatMap(fn ($s) => preg_split('/\s*,\s*/', (string) $s)) // → ["drama","thriller","comedy",...]
+            ->map(fn ($g) => strtolower(trim($g)))
+            ->filter()
+            ->unique()
+            ->sort()
+            ->values();
+
+        // 3) Siapkan data film + array genre per film (untuk data-genres)
+        $genre = Film::get()->map(function ($f) {
+            $f->genres_array = collect(preg_split('/\s*,\s*/', (string) $f->genre))
+                ->map(fn ($g) => strtolower(trim($g)))
+                ->filter()
+                ->values()
+                ->all();
+            return $f;
+        });
+
+        return view('film', compact('film', 'genre', 'coming_soon', 'chipGenres'));
     }
 
     public function detailfilm($id)

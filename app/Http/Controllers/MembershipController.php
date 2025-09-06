@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Membership;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 use Auth;
 use DataTables;
@@ -137,5 +138,36 @@ class MembershipController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export(Request $request)
+    {
+        $q = Membership::query();
+
+        // opsional: terapkan pencarian global dari DataTables
+        if ($search = $request->input('search.value')) {
+            $q->where(function ($x) use ($search) {
+                $x->where('first_name', 'like', "%{$search}%")
+                ->orWhere('last_name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('city', 'like', "%{$search}%")
+                ->orWhere('phone_number', 'like', "%{$search}%");
+            });
+        }
+
+        $rows = $q->orderBy('first_name')->get(['first_name','last_name','email','city','phone_number']);
+
+        $data = $rows->values()->map(function ($r, $i) {
+            return [
+                'No'          => $i + 1,
+                'First Name'  => $r->first_name,
+                'Last Name'   => $r->last_name,
+                'Email'       => $r->email,
+                'City'        => $r->city,
+                'Phone'       => $r->phone_number,
+            ];
+        });
+
+        return (new FastExcel($data))->download('membership.xlsx');
     }
 }

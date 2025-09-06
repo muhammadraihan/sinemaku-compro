@@ -214,7 +214,7 @@
               <img src="{{ asset('photo/' . $item->photo) }}" alt="Artikel 1">
             </a>
             <div class="card-body">
-              <a href="" class="card-title">
+              <a href="{{ $item->link }}" class="card-title">
                 {{ $item->judul }}
               </a>
               <p class="card-excerpt">

@@ -504,15 +504,15 @@
             <h4 class="footer-title">Navigation</h4>
             <div class="nav-cols">
                 <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Series</a></li>
-                    <li><a href="#">Articles</a></li>
-                    <li><a href="#">Careers</a></li>
+                    <li><a href="{{ route('welcome') }}">Home</a></li>
+                    <li><a href="{{ route('series') }}">Series</a></li>
+                    <li><a href="{{ route('articles') }}">Articles</a></li>
+                    <li><a href="{{ route('careers') }}">Careers</a></li>
                 </ul>
                 <ul class="footer-links">
-                    <li><a href="#">Films</a></li>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Events</a></li>
+                    <li><a href="{{ route('film') }}">Films</a></li>
+                    <li><a href="{{ route('shop') }}">Shop</a></li>
+                    <li><a href="{{ route('event') }}">Events</a></li>
                 </ul>
             </div>
         </nav>

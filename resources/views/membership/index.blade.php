@@ -4,6 +4,7 @@
 
 @section('css')
 <link rel="stylesheet" media="screen, print" href="{{asset('css/datagrid/datatables/datatables.bundle.css')}}">
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css"> --}}
 @endsection
 
 @section('content')
@@ -83,6 +84,9 @@
 
 @section('js')
 <script src="{{asset('js/datagrid/datatables/datatables.bundle.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
 <script>
     $(document).ready(function(){
         $.ajaxSetup({
@@ -105,6 +109,16 @@
                     console.log(data);
                     }
             },
+            dom: 'Bfrtip',
+
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    title: 'Membership',
+                    text: 'Export Excel',
+                    exportOptions: { columns: [0,1,2,3,4,5] } // sesuaikan
+                }
+            ],
             "columns": [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'first_name', name: 'first_name'},

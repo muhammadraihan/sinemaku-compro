@@ -82,7 +82,11 @@
   <div class="cs-grid" role="list">
     @foreach ($coming_soon as $item)
       <article class="cs-card" role="listitem">
-        <a class="cs-link" href="#" aria-label="{{ $item->title }}">
+        @if (strtolower($item->Categories->name) == 'film')
+            <a class="cs-link" href="{{ route('detail-film', $item->uuid) }}" aria-label="{{ $item->title }}">
+        @else
+            <a class="cs-link" href="{{ route('detail-series', $item->uuid) }}" aria-label="{{ $item->title }}">
+        @endif
           <figure class="cs-media">
             <img
               src="{{ asset('photo/' . $item->poster) }}"
