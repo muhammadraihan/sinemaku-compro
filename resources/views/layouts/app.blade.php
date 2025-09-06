@@ -271,16 +271,11 @@
 .careers-wrap{ max-width:1430px; margin:0 auto; padding:0 24px; }
 
 .careers-title{
-  font-family:"Inter", Arial, sans-serif;
-  font-weight:300; letter-spacing:-0.5px; line-height:.95;
-  text-align:center; margin:0 0 10px; color:#0f1115;
-  font-size:clamp(28px,6vw,64px);
+    font-family:'Inter', sans-serif; font-weight:500; margin-bottom: 16px; letter-spacing:-0.5px; line-height:1; font-size: clamp(28px, 7vw, 60px);
+    text-align:center;
 }
 .careers-subtitle{
-  text-align:center; max-width:860px; margin:0 auto 40px;
-  font-family:'Inter',system-ui,-apple-system,Arial,sans-serif;
-  color:#5d6b7a; letter-spacing:-0.5px; line-height:1.25;
-  font-size:clamp(14px,1.8vw,22px);
+  text-align:center; font-family:'Inter', sans-serif; font-size: clamp(14px, 2.2vw, 18px); color:#444; margin-bottom: 28px; line-height:1.5;
 }
 
 /* Grid */
@@ -322,7 +317,7 @@
 /* Tipografi ala judul poster */
 .career-role{
   margin:0 0 8px;
-  font:800 clamp(16px,1.6vw,20px)/1.2 "Inter", system-ui, Arial, sans-serif;
+  font:800 clamp(14px,1.2vw,18px)/1.2 "Inter", system-ui, Arial, sans-serif;
   text-transform:uppercase; letter-spacing:.04em; color:#0f1115;
 }
 .career-dept{
