@@ -117,7 +117,7 @@
     <article class="collection-hero">
       <h1 class="hero-title">{{ strtoupper($title->Categories->name) }}</h1>
       <div class="hero-media">
-        <img src="{{ asset('img/image-10.png') }}" alt="Apparel">
+        <img src="https://i.imgur.com/X1io1iz.jpeg" alt="Apparel">
       </div>
     </article>
 
