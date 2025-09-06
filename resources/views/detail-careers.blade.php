@@ -176,24 +176,57 @@
             </li>
         @else
             <li>
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                <!-- kalender -->
+                <rect x="3" y="5" width="18" height="16" rx="2"/>
+                <path d="M8 3v4M16 3v4M3 10h18"/>
+                <!-- clap kecil di kanan-bawah -->
+                <path d="M13.5 15.5h5v3h-5z"/>
+                <path d="M13.5 15.5l3-2h2v2h-5z"/>
+              </svg>
+
               Shoot: {{ \Carbon\Carbon::parse($casting->shoot_date)->format('d M Y') }}
             </li>
         @endif
         @if (!empty($careers->status))
           <li>
-            <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="7" width="18" height="10" rx="2"/>
+              <circle cx="12" cy="12" r="2.6"/>        <!-- lingkar tengah uang -->
+              <path d="M6 10v4M18 10v4"/>              <!-- detail sisi uang -->
+            </svg>
+
             {{ $careers->salary ? 'Rp'.''.str_replace(',', '.', number_format($careers->salary)) : ''; }}
           </li>
         @else
           <li>
-            <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-            {{ $casting->gender }}, {{ $casting->umur }}
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="7" r="3.2"/>
+              <path d="M5 19a7 7 0 0 1 14 0"/>
+              <!-- badge kecil (bisa dipakai label gender/umur via text CSS terpisah) -->
+              <circle cx="18.5" cy="8.5" r="2.2"/>
+            </svg>
+
+            {{ $casting->gender == 'L' ? 'Pria' : 'Wanita' }}, {{ $casting->umur }}
           </li>
         @endif
         @if (!empty($careers->status))
             <li>
-              <svg viewBox="0 0 24 24"><path d="M8 13h8M8 17h8M8 9h8M6 5v14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="6" cy="5" r="1.5" fill="currentColor"/></svg>
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                <!-- badge -->
+                <path d="M12 3l3.2 2.2 3.8.4-2.5 2.8.6 3.7L12 11l-5.1 1.1.6-3.7L5 5.6l3.8-.4L12 3Z"/>
+                <!-- pita bawah -->
+                <path d="M8.5 13.5V20l3.5-2 3.5 2v-6.5"/>
+              </svg>
+
               {{ $careers->pengalaman }} experience
             </li>
         @else

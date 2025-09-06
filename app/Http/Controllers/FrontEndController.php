@@ -37,7 +37,7 @@ class FrontEndController extends Controller
                             ->limit(4)
                             ->orderBy('created_at')
                             ->get();
-        $careers = job::all();
+        $careers = job::orderBy('created_at', 'DESC')->limit(6)->get();
         $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
                             ->get();
         $spotlight1 = film::all()->random();
@@ -171,8 +171,12 @@ class FrontEndController extends Controller
     {
         $careers = job::all()->where('uuid', '=', $id)->first();
         $casting = Casting::all()->where('uuid', '=', $id)->first();
-        $all_careers = job::all()->where('uuid', '!=', @$careers->uuid);
-        $all_casting = Casting::all()->where('uuid', '!=', @$casting->uuid);
+        $all_careers = job::all()
+                            ->where('uuid', '!=', @$careers->uuid)
+                            ->where('tim', @$careers->tim);
+        $all_casting = Casting::all()
+                                ->where('uuid', '!=', @$casting->uuid)
+                                ->where('judul_film', @$casting->judul_film);
 
         return view('detail-careers', compact('careers', 'casting', 'all_careers', 'all_casting'));
     }

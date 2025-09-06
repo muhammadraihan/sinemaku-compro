@@ -274,7 +274,9 @@
                                 {{ $item->location }}
                             </span>
                         </div>
-                        <button class="career-apply" type="button">APPLY NOW</button>
+                        <a href="{{ $item->link }}">
+                            <button class="career-apply" type="button">APPLY NOW</button>
+                        </a>
                     </article>
                 @endforeach
             </div>

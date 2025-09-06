@@ -300,14 +300,31 @@
               <li>
                 <span class="ico">
                   <!-- clock -->
-                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 5h-2v6l5 3 1-1-4-2V7z"/></svg>
+                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round">
+                    {{-- <title>Season</title> --}}
+                    <!-- tiga layer bertumpuk -->
+                    <path d="M12 4L20 8l-8 4L4 8l8-4Z"/>
+                    <path d="M20 12l-8 4-8-4"/>
+                    <path d="M20 16l-8 4-8-4"/>
+                  </svg>
+
                 </span>
                 <span class="detail">Season: <strong>{{ $film->season }} Season</strong></span>
               </li>
               <li>
                 <span class="ico">
                   <!-- clock -->
-                  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 5h-2v6l5 3 1-1-4-2V7z"/></svg>
+                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="M10 9l6 3-6 3z"/> <!-- play -->
+                    <!-- garis kecil seperti “progress bar” -->
+                    <path d="M5 7h4"/>
+                  </svg>
+
                 </span>
                 <span class="detail">Episode: <strong>{{ $film->episode }} Episode</strong></span>
               </li>

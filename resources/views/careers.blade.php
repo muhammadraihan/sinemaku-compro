@@ -191,11 +191,11 @@
           {{ $item->judul_film }}
         </div>
 
-        <div class="cast-tags">
-          <span class="chip">{{ $item->gender }}</span>
-          <span class="chip">{{ $item->umur }} years</span>
-          <span class="chip">{{ $item->location }}</span>
-        </div>
+          <div class="cast-tags">
+            <span class="chip">{{ $item->gender == 'L' ? 'Pria' : 'Wanita' }}</span>
+            <span class="chip">{{ $item->umur }} years</span>
+            <span class="chip">{{ $item->location }}</span>
+          </div>
 
         <a class="cast-cta" href="{{ route('detail-careers', $item->uuid) }}">
           SEE DETAILS

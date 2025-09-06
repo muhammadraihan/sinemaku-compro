@@ -315,7 +315,12 @@
           <div class="film-card">
             <h3 class="h3">Cast</h3>
             <ul class="plain-list">
-              <li>{{ $film->cast }}</li>
+              @php
+                $all_cast = explode(',', $film->cast);
+              @endphp
+              @foreach ($all_cast as $item)
+                  <li>{{ $item }}</li>
+              @endforeach
             </ul>
           </div>
         </div>
@@ -338,10 +343,10 @@
                 <div>
                   <div class="title">{{ $item->title }}</div>
                   <div class="small muted detail">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • {{ $item->genre }}</div>
-                  <div class="small rating">
+                  {{-- <div class="small rating">
                     <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
                     4.6
-                  </div>
+                  </div> --}}
                 </div>
               </a>
           @endforeach

@@ -96,7 +96,7 @@
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('link','Link',['class' => 'required form-label'])}}
-                        {{ Form::text('link',null,['placeholder' => 'Link Trailer','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('link',null,['placeholder' => 'Link Produk','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('link'))
                         <div class="invalid-feedback">{{ $errors->first('link') }}</div>
                         @endif

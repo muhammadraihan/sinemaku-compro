@@ -110,7 +110,7 @@
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('cast','Cast',['class' => 'required form-label'])}}
-                        {{ Form::text('cast',null,['placeholder' => 'Cast','class' => 'form-control '.($errors->has('cast') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('cast',null,['placeholder' => 'e.g Umay, Prilly','class' => 'form-control '.($errors->has('cast') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('cast'))
                         <div class="invalid-feedback">{{ $errors->first('cast') }}</div>
                         @endif
