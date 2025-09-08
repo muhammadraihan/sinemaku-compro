@@ -209,6 +209,7 @@
               </a>
             </div>
           </div>
+          @break
       @endif
     @endforeach
   @endforeach
