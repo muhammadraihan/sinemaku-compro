@@ -174,6 +174,135 @@
   transform-origin: left;
 }
 
+/* ======== Section Film ======== */
+.nr-rail{ background:#fff; padding: 28px clamp(16px,5vw,56px) 40px; }
+.nr-rail-head{
+  display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:14px;
+}
+.nr-rail-title{
+  margin:0; font: 600 14px/1.1 "Inter",system-ui; letter-spacing:.08em; text-transform:uppercase; color:#6f7680;
+}
+.nr-rail-viewall{ text-decoration:none; color:#111; font-weight:500; transition: .2s; }
+.nr-rail-viewall:hover{ transform: translateX(4px); }
+
+/* === perbaikan stacking & klikability untuk kedua rail (Films/Series) === */
+.nr-rail-wrap,
+.sr-rail-wrap{
+  position: relative;
+  overflow: visible;             /* pastikan tombol tidak ter-clipping */
+}
+/* ruang di sisi kiri–kanan untuk tombol */
+.nr-track,
+.sr-track{
+  padding-inline: 48px;          /* sesuaikan dengan lebar tombol */
+}
+/* tombol selalu di atas segalanya */
+.nr-nav,
+.sr-nav{
+  z-index: 20;                    /* > fade & > card */
+}
+
+/* track: horizontal, snap, fixed column width */
+.nr-track{
+  display:grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(170px, 19vw, 230px);
+  gap: clamp(12px,2vw,18px);
+  overflow-x:auto; overflow-y:visible;
+  padding: 6px 0 4px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nr-track::-webkit-scrollbar{ display:none; }
+
+.nr-item{ scroll-snap-align: start; list-style:none; }
+
+.nr-card{ display:block; color:inherit; text-decoration:none;}
+.nr-media{
+  margin:0 0 10px; position:relative; border-radius:0px; overflow:hidden;
+  background:#eee; aspect-ratio: 2 / 3; box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.nr-media img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  transform: scale(1); transition: transform .5s cubic-bezier(.2,.7,.2,1), filter .3s ease;
+}
+.nr-card:hover .nr-media{ transform: translateY(-3px); box-shadow: 0 18px 36px rgba(0,0,0,.08); }
+.nr-card:hover .nr-media img{ transform: scale(1.04); }
+
+/* year pill */
+.nr-year{
+  position:absolute; right:8px; top:8px;
+  background:#111; color:#fff; font:700 11px/1 "Inter";
+  padding:6px 9px; border-radius:999px; opacity:.95;
+}
+
+/* caption */
+.nr-caption{ text-align:left; }
+.nr-name,
+.nr-sub{
+  margin:0 0 4px; font:700 12px/1.25 "Inter",system-ui; color:#0f1115;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-align: center;
+}
+.nr-sub{ font:500 11px/1.2 "Inter"; color:#6b7280; text-align: center; }
+
+/* nav buttons */
+.nr-nav{
+  position:absolute; top:50%; transform: translateY(-50%);
+  width:36px; height:36px; border-radius:999px; border:1px solid #e5e7eb;
+  background:#fff; color:#111; display:grid; place-items:center; cursor:pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.nr-prev{ left:-6px; } .nr-next{ right:-6px; }
+.nr-nav:hover{ transform: translateY(-50%) scale(1.04); box-shadow:0 10px 24px rgba(0,0,0,.12); }
+.nr-nav[disabled]{ opacity:.35; pointer-events:none; }
+
+/* edge fade (subtle) */
+/* fade hanya visual, jangan menghalangi klik
+.nr-fade,
+.sr-fade{
+  z-index: 5;
+  pointer-events: none;
+} */
+
+.nr-fade-left{ left:0; background:linear-gradient(90deg,#fff,rgba(255,255,255,0)); }
+.nr-fade-right{ right:0; background:linear-gradient(270deg,#fff,rgba(255,255,255,0)); }
+
+/* responsive tweak */
+@media (max-width:600px){
+  .nr-nav{ display:none; }
+  .nr-rail{ padding-left:16px; padding-right:16px; }
+}
+/* kartu & media di bawah tombol
+.nr-card, .sr-card,
+.nr-media, .sr-media{
+  position: relative;
+  z-index: 1;
+} */
+/* --- NO BORDER for film/series cards --- */
+.nr-card, .sr-card{
+  border: none !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.06); /* hanya drop shadow lembut */
+}
+
+.nr-media, .sr-media{
+  border: 0 !important;
+  box-shadow: none !important;   /* matikan inset frame lawas */
+  background: #f5f5f5;           /* placeholder netral */
+}
+
+/* img selalu bersih, tanpa outline/border */
+.nr-media img, .sr-media img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border:0 !important;
+  outline:0 !important;
+}
+
     /* ========= Section Shop ========= */
     .feature-sidetext{ padding: 40px 56px 72px; background: #fff; }
     .feature-wrap{ display:grid; grid-template-columns: 1fr 1.15fr; align-items:start; gap:48px; max-width:1600px; margin:0 auto; }
@@ -474,6 +603,7 @@
   </style>
 </head>
 <body>
+
   @yield('content')
 </body>
 

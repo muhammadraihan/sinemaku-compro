@@ -109,6 +109,45 @@
 
 </section>
 
+{{-- ================== FILMS (New Release rail) ================== --}}
+<section class="nr-rail" aria-labelledby="nr-films-title">
+  <div class="nr-rail-head">
+    <h2 id="nr-films-title" class="nr-rail-title">Films</h2>
+    <a class="nr-rail-viewall" href="{{ route('film') }}">View All →</a>
+  </div>
+
+  <div class="nr-rail-wrap">
+    <button class="nr-nav nr-prev" aria-label="Previous" type="button">‹</button>
+
+    <ul class="nr-track" role="list" aria-label="Films scroller">
+      @foreach ($film as $item)
+        <li class="nr-item" role="listitem">
+          <a class="nr-card" href="{{ route('detail-film', $item->uuid) }}">
+            <figure class="nr-media">
+              <img
+                src="{{ asset('photo/' . $item->poster) }}"
+                alt="{{ $item->title }} poster"
+                loading="lazy"
+              />
+              <span class="nr-year">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+            </figure>
+            <figcaption class="nr-caption">
+              <h3 class="nr-name">{{ $item->title }}</h3>
+              <span class="nr-sub">Film</span>
+            </figcaption>
+          </a>
+        </li>
+      @endforeach
+    </ul>
+
+    <button class="nr-nav nr-next" aria-label="Next" type="button">›</button>
+
+    <!-- edge fade -->
+    <div class="nr-fade nr-fade-left" aria-hidden="true"></div>
+    <div class="nr-fade nr-fade-right" aria-hidden="true"></div>
+  </div>
+</section>
+
     {{-- ================== SHOP / FEATURE 1 ================== --}}
     @foreach ($shop as $i => $item)
         @if($loop->odd)
