@@ -348,17 +348,17 @@
                 <span class="ico">
                   <!-- director / user -->
                   <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
-     fill="none" stroke="currentColor" stroke-width="1.8"
-     stroke-linecap="round" stroke-linejoin="round">
-  <title>Episode</title>
-  <!-- clapperboard atas -->
-  <path d="M3 6h18v4H3z"/>
-  <path d="M6 6l2-3h4l2 3"/>
-  <!-- body filmstrip -->
-  <rect x="3" y="10" width="18" height="11" rx="2"/>
-  <!-- garis horizontal (tiap baris episode/scene) -->
-  <path d="M3 15h18"/>
-</svg>
+                      fill="none" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round">
+                    <title>Episode</title>
+                    <!-- clapperboard atas -->
+                    <path d="M3 6h18v4H3z"/>
+                    <path d="M6 6l2-3h4l2 3"/>
+                    <!-- body filmstrip -->
+                    <rect x="3" y="10" width="18" height="11" rx="2"/>
+                    <!-- garis horizontal (tiap baris episode/scene) -->
+                    <path d="M3 15h18"/>
+                  </svg>
                 </span>
                 <span class="detail">Director: <strong>{{ $film->director }}</strong></span>
               </li>
@@ -391,10 +391,10 @@
                 <div>
                   <div class="title">{{ $item->title }}</div>
                   <div class="small muted detail">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • {{ $item->genre }}</div>
-                  <div class="small rating">
+                  {{-- <div class="small rating">
                     <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
                     4.6
-                  </div>
+                  </div> --}}
                 </div>
               </a>
           @endforeach

@@ -61,14 +61,15 @@ class KategoriShopController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required'
+            'name' => 'required|unique:kategori_shops,name'
         ];
 
         $messages = [
             '*.required' => 'Field :attribute tidak boleh kosong !',
             '*.min' => 'Nama tidak boleh kurang dari 2 karakter !',
             '*.image' => 'Field Harus Berupa Foto !',
-            '*.mimes' => 'Foto Harus Berformat JPEG/PNG/JPG'
+            '*.mimes' => 'Foto Harus Berformat JPEG/PNG/JPG',
+            'name.unique' => 'Nama Kategori sudah digunakan, silakan gunakan Nama Kategori lain.',
         ];
 
         $this->validate($request, $rules, $messages);
@@ -123,14 +124,15 @@ class KategoriShopController extends Controller
     public function update(Request $request, $id)
     {
           $rules = [
-            'name' => 'required'
+            'name' => 'required|unique:kategori_shops,name'
         ];
 
         $messages = [
             '*.required' => 'Field :attribute tidak boleh kosong !',
             '*.min' => 'Nama tidak boleh kurang dari 2 karakter !',
             '*.image' => 'Field Harus Berupa Foto !',
-            '*.mimes' => 'Foto Harus Berformat JPEG/PNG/JPG'
+            '*.mimes' => 'Foto Harus Berformat JPEG/PNG/JPG',
+            'name.unique' => 'Nama Kategori sudah digunakan, silakan gunakan Nama Kategori lain.',
         ];
 
         $this->validate($request, $rules, $messages);

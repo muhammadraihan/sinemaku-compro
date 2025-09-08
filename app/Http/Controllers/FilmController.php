@@ -208,7 +208,7 @@ class FilmController extends Controller
             // save the new image
             $image = $request->file('photo');
             $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $profileImage = date('YmdHis') . ".photo." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $film->photo = "$profileImage";
         }
@@ -226,7 +226,7 @@ class FilmController extends Controller
             // save the new image
             $image = $request->file('poster');
             $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $profileImage = date('YmdHis') . ".poster." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $film->poster = "$profileImage";
         }

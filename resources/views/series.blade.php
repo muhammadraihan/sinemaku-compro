@@ -585,15 +585,15 @@
 
     <div class="allfilms-filters" role="tablist" aria-label="Filter films by genre">
       <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
-      @foreach ($genre as $item)
-        <button class="chip" data-filter="{{ strtolower($item->genre) }}" role="tab">{{ $item->genre }}</button>
+      @foreach ($chipGenres as $g)
+        <button class="chip" data-filter="{{ $g }}">{{ ucwords($g) }}</button>
       @endforeach
     </div>
   </div>
 
   <div class="allfilms-grid">
-    @foreach ($film as $item)
-        <article class="filmitem" data-genre="{{ strtolower($item->genre) }}">
+    @foreach ($genre as $item)
+      <article class="filmitem" data-genres='@json($item->genres_array)'>
           <a href="{{ route('detail-series', $item->uuid) }}" class="filmitem-link">
               <figure class="filmitem-media has-overlay">
               <img src="{{ asset('photo/' . $item->poster) }}"
