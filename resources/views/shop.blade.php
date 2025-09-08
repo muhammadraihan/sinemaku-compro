@@ -90,7 +90,7 @@
 .kategori{
   display:block; width:var(--shelf-max);
   margin:clamp(32px,6vw,40px) auto 8px;
-  font:600 12px/1 Inter,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#6a6a6a;
+  font:600 10px/1 Inter,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#6a6a6a;
 }
 .shop-detail__divider2{ width:var(--shelf-max); margin:0 auto clamp(18px,2.4vw,28px); height:1px; background:#111; opacity:.18; border:0; }
 
@@ -120,13 +120,17 @@
 /* kartu produk */
 .product-card{ scroll-snap-align:start; display:grid; gap:10px; text-align:left; color:#111; }
 .product-card img{
-  width:100%; height:auto; aspect-ratio:4/3; object-fit:contain; background:#f6f7f8;
+  width:100%; height:auto; aspect-ratio:4/3; object-fit:contain;
   border-radius:12px; padding:clamp(14px,2vw,22px); box-shadow:0 10px 24px rgba(0,0,0,.05);
   transition:transform .18s, box-shadow .18s;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
 }
 .product-card:hover img{ transform:translateY(-4px); box-shadow:0 14px 38px rgba(0,0,0,.08); }
-.product-card .title{ margin:6px 0 2px; font:500 14px/1.35 Inter,Arial,sans-serif; }
-.product-card .price{ margin:0; color:#444; font:600 14px/1 Inter,Arial,sans-serif; }
+.product-card .title{ margin:6px 0 2px; font:400 12px/1.35 Inter,Arial,sans-serif; }
+.product-card .price{ margin:0; color:#444; font:300 11px/1 Inter,Arial,sans-serif; }
 
 /* tombol panah */
 .carousel-btn{
@@ -167,7 +171,7 @@
 </section>
 
 @foreach ($merchandise as $item)
-    <span class="kategori">KATEGORI ({{ $item->merchandise }})</span>
+    <span class="kategori">{{ $item->merchandise }} COLLECTION</span>
       <hr class="shop-detail__divider2"/>
 
       {{-- ====== RAK 1 ====== --}}

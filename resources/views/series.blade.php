@@ -143,8 +143,8 @@
     margin-bottom: 18px;
     }
     .allfilms-title{
-      font: 300 clamp(20px,2.6vw,35px)/1.08 "Inter", sans-serif;
-      letter-spacing:.2px; margin:0;
+      font: 400 18px/1.35 Inter,Arial,sans-serif;
+      letter-spacing:.0px; margin:0;
     }
 
     .allfilms-filters{ display:flex; gap:10px; flex-wrap:wrap; padding-top:10px; }
@@ -244,10 +244,10 @@
     /* Caption */
     .filmitem-caption{ margin-top: 12px; }
     .filmitem-title{
-    font: 300 17px/1.3 Inter, Arial, sans-serif;
+    font: 600 14px/1.35 Inter,Arial,sans-serif;
     color:#0a0a0a; margin:0 0 4px;
     }
-    .filmitem-year{ color:#70757a; font: 300 12px/1 Inter, Arial, sans-serif; }
+    .filmitem-year{ color:#444; font: 300 11px/1 Inter,Arial,sans-serif; }
 
     /* Hide when filtered */
     .filmitem.is-hidden{ display:none; }
