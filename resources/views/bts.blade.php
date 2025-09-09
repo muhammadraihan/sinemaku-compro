@@ -98,14 +98,14 @@
 :root{
   --shelf-max: min(1280px, 92vw);
   --shelf-col: clamp(220px, 23vw, 300px);
-  --shelf-gap: clamp(24px, 3vw, 48px);
+  --shelf-gap: 12px;
 }
 .kategori{
   display:block; width:var(--shelf-max);
-  margin:clamp(32px,6vw,40px) auto 8px;
+  margin:16px auto 4px;
   font:600 10px/1 Inter,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#6a6a6a;
 }
-.shop-detail__divider2{ width:var(--shelf-max); margin:0 auto clamp(18px,2.4vw,28px); height:1px; background:#111; opacity:.18; border:0; }
+.shop-detail__divider2{ width:var(--shelf-max); margin: 0 auto 12px; height:1px; background:#111; opacity:.18; border:0; }
 
 /* ---------- SHELF (CAROUSEL) ala A24 ---------- */
 .related-products{ width:var(--shelf-max); margin:0 auto; }
@@ -126,12 +126,12 @@
 .carousel-track{
   display:grid; grid-auto-flow:column; grid-auto-columns:var(--shelf-col); gap:var(--shelf-gap);
   overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
-  padding:0 12px 8px; scroll-padding-inline:12px; scrollbar-width:none;
+  padding: 0 6px 8px; scroll-padding-inline:12px; scrollbar-width:none;
 }
 .carousel-track::-webkit-scrollbar{ display:none; }
 
 /* kartu produk */
-.product-card{ scroll-snap-align:start; display:grid; gap:10px; text-align:left; color:#111; }
+.product-card{ scroll-snap-align:start; display:grid; gap:5px; text-align:left; color:#111; }
 .product-card img{
   width:100%; height:auto; aspect-ratio:4/3; object-fit:contain;
   border-radius:12px; padding:clamp(14px,2vw,22px); box-shadow:0 10px 24px rgba(0,0,0,.05);
@@ -147,11 +147,21 @@
 
 /* tombol panah */
 .carousel-btn{
-  position:absolute; top:50%; transform:translateY(-50%);
-  width:44px; height:44px; display:grid; place-items:center;
-  border-radius:50%; border:1px solid rgba(0,0,0,.12);
-  background:#fff; color:#111; box-shadow:0 6px 18px rgba(0,0,0,.08);
-  cursor:pointer; transition:background .18s,color .18s,transform .18s; z-index:5;
+  position: absolute;
+  top: 35%;               /* turunkan dari default 50% → 40% agar naik */
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.12);
+  background: #fff;
+  color: #111;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  cursor: pointer;
+  transition: background .18s, color .18s, transform .18s;
+  z-index: 5;
 }
 .carousel-btn:hover{ background:#111; color:#fff; }
 .prev-btn{ left:16px; }
@@ -163,37 +173,138 @@
   .prev-btn{ left:8px; } .next-btn{ right:8px; }
 }
 
+/* Kecilkan ukuran video tanpa mengecilkan rak */
+.product-card iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* jaga proporsi */
+  height: auto;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  background: #000;
+  transform-origin: center top;    /* pusat pengecilan */
+  margin: 0 auto;                  /* center */
+}
+
+/* beri jarak antar card */
+.product-card {
+  scroll-snap-align: start;
+  display: grid;
+  gap: 10px;
+  padding: 12px 0;                 /* jarak vertikal antar card */
+}
+
+/* caption & waktu agar lebih rapi */
+.product-card .title {
+  margin-top: 8px;
+  font: 600 13px/1.4 Inter, system-ui;
+  color: #111;
+}
+.product-card .price {
+  font: 500 11.5px/1.3 Inter, system-ui;
+  color: #7b7f86;
+}
+
+/* Section wrapper per kategori */
+.bts-category{ margin: 24px auto 28px; }             /* atur rapatnya di sini */
+.kategori{ margin: 12px auto 6px; }
+.shop-detail__divider2{
+  width:var(--shelf-max);
+  margin: 0 auto 12px;             /* ⬅️ tadi salah tulis mmargin */
+  height:1px; background:#111; opacity:.18; border:0;
+}
+.related-products{ width:var(--shelf-max); margin:0 auto 10px; }
+
+/* jarak antar kartu */
+:root{ --shelf-gap: 10px; }        /* lebih rapat */
+
+/* Tombol panah (sudah kamu naikkan) */
+.carousel-btn{ top: 35%; }
+
+/* =========================
+   2) Judul & waktu sejajar dengan frame
+   =========================
+   Jangan pakai transform: scale pada iframe karena visual mengecil,
+   tapi layout lebarnya tetap penuh → teks terlihat “keluar”.
+   Pakai wrapper .video-frame dengan lebar yang memang lebih kecil.
+*/
+.video-frame{
+  width: 88%;                      /* kecilkan video secara layout */
+  aspect-ratio: 16/9;
+  margin: 0 auto;                  /* center */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  background: #000;
+}
+.video-frame iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Teks sekarang sejajar persis dengan lebar frame */
+.product-card{ display:grid; gap:8px; }
+.product-card .title{ font:600 13px/1.4 Inter,system-ui; margin:4px auto 0; width:88%; }
+.product-card .price{ font:500 11.5px/1.3 Inter,system-ui; color:#7b7f86; margin:0 auto; width:88%; }
+
+/* pastikan wrapper tidak memberi bezel */
+.video-frame{
+  position: relative;
+  width: 88%;              /* ukuran yang kamu mau */
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent; /* jangan #000 supaya tidak terlihat sebagai bezel */
+}
+
+/* isi frame = full bleed */
+.video-frame iframe{
+  position: absolute;
+  inset: 0;               /* top/right/bottom/left: 0 */
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  border-radius: 0;       /* radius ikut wrapper */
+  transform: none !important;   /* override kalau masih ada scale lama */
+  padding: 0 !important;        /* override kalau ada padding bawaan */
+  background: transparent !important;
+}
+
 </style>
 <h3 class="title">BEHIND THE SCENE</h3>
+
 @foreach ($film as $item)
-    <span class="kategori">{{ $item->title }} COLLECTION</span>
-      <hr class="shop-detail__divider2"/>
+<section class="bts-category">   <!-- ⬅️ wrapper per kategori -->
+  <span class="kategori">{{ $item->title }}</span>
+  <hr class="shop-detail__divider2"/>
 
-      {{-- ====== RAK 1 ====== --}}
-      <section class="related-products">
-        <div class="carousel-wrapper">
-          <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
-          <div class="carousel-track">
-            @foreach ($bts as $items)
-            {{-- {{ dd($items->link) }} --}}
-                @if ($items->judul == $item->uuid)
-                    <div class="product-card">
-                      {{-- <img src="{{ asset('photo/' . $items->photo) }}" alt="{{ $items->kategorishop }}"><p class="title">{{ $items->name }}</p><p class="price">{{ $items->harga ? 'Rp'.''.str_replace(',', '.', number_format($items->harga)) : ''; }}</p> --}}
-                      <iframe width="600" height="400" src="https://www.youtube.com/embed/{{ $items->link }}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
-                      <p class="title">{{ $items->caption }}</p>
-                      <p class="price">{{ $items->created_at->diffForHumans() }}</p>
-                    </div>
-                @endif
-            @endforeach
-          </div>
-          <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button>
-        </div>
-      </section>
-
-      <br><br><br>
+  <section class="related-products">
+    <div class="carousel-wrapper">
+      <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
+      <div class="carousel-track">
+        @foreach ($bts as $items)
+          @if ($items->judul == $item->uuid)
+            <div class="product-card">
+              <div class="video-frame">           <!-- ⬅️ wrapper video (lihat #2) -->
+                <iframe
+                  src="https://www.youtube.com/embed/{{ $items->link }}"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <p class="title">{{ $items->caption }}</p>
+              <p class="price">{{ $items->created_at->diffForHumans() }}</p>
+            </div>
+          @endif
+        @endforeach
+      </div>
+      <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button>
+    </div>
+  </section>
+</section>
 @endforeach
 
 <script>
