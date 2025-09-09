@@ -322,7 +322,6 @@
         Trailer
       </a>
       <a href="{{ $film->link }}" class="btn btn--secondary">
-        <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
         Watch Now
       </a>
     </div>
