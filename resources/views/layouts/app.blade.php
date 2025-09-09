@@ -109,8 +109,8 @@
     }
 
     /* ================= Coming Soon (Grid Gallery) ================ */
-    .cs-section{ padding: clamp(38px,4vw,52px) clamp(16px,5vw,56px); background:#fff; margin-bottom:45px;}
-    .cs-head{ text-align:center; margin-bottom: clamp(22px,3vw,34px); }
+    .cs-section{ padding: clamp(38px,4vw,52px) clamp(16px,5vw,56px); background:#fff; margin-bottom:15px;}
+    .cs-head{ text-align:center; margin-bottom: 15px; }
     .cs-eyebrow{ font:700 12px/1 Inter,system-ui; letter-spacing:.12em; text-transform:uppercase; color:#9aa0a6; margin-bottom:8px; }
     .cs-title{ text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px; }
     .cs-grid{
@@ -175,7 +175,7 @@
 }
 
 /* ======== Section Film ======== */
-.nr-rail{ background:#fff; padding: 28px clamp(16px,5vw,56px) 40px; }
+.nr-rail{ background:#fff; padding: 28px clamp(16px,5vw,56px) 40px;}
 .nr-rail-head{
   display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:14px;
 }

@@ -64,9 +64,9 @@
     .film-hero__inner{ max-width: 1060px }
     .film-hero__title{
       font-family: "Inter", sans-serif;
-      font-weight: 700;
+      font-weight: 500;
       line-height: .95;
-      font-size: clamp(48px, 9vw, 120px);
+      font-size: clamp(30px, 6vw, 90px);
       margin: 0 0 .3em 0;
       text-shadow: 0 10px 40px rgba(0,0,0,.45);
     }
@@ -130,8 +130,21 @@
   transition:transform .18s, box-shadow .18s, background .2s; width:auto; max-width: 200px;
   }
   .btn--primary svg{ width:16px; height:16px; }
-  .btn--primary:hover{ background: #111;
-      color: #fff;
+  .btn--primary:hover{ margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
+  border-radius:10px; background:linear-gradient(180deg, #1a1d22, #0f1115); color:#fff; text-decoration:none; font-weight:700; font-size:13px;
+  letter-spacing:.2px; box-shadow: 0 12px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06); border:1px solid #20242a;
+  transition:transform .18s, box-shadow .18s, background .2s; width:auto; max-width: 200px; position:relative; overflow:hidden; }
+    .btn--ghost{ background:transparent }
+
+    .btn--secondary{
+    margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
+  border-radius:10px; background:linear-gradient(180deg, #1a1d22, #0f1115); color:#fff; text-decoration:none; font-weight:700; font-size:13px;
+  letter-spacing:.2px; box-shadow: 0 12px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06); border:1px solid #20242a;
+  transition:transform .18s, box-shadow .18s, background .2s; width:auto; max-width: 200px; position:relative; overflow:hidden;
+  }
+  .btn--secondary svg{ width:16px; height:16px; }
+  .btn--secondary:hover{ background: #fff;
+      color: #111;
       transform: translateY(-2px);
       box-shadow: 0 10px 24px rgba(0,0,0,.08); }
     .btn--ghost{ background:transparent }
@@ -195,7 +208,7 @@
     }
 
     .h2{ font-family:"Inter",sans-serif; font-size: clamp(18px,2.0vw,30px); line-height:1.05; margin: 0 0 .4em }
-    .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(15px,2.0vw,20px); margin: 0 0 .8em; font-weight: 500 }
+    .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(13px,1.8vw,16px); margin: 0 0 .8em; font-weight: 500 }
     .lead{ 
     font-family:"Inter",sans-serif; 
     font-weight: 500px;
@@ -263,7 +276,7 @@
     .btn-wide:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,.16); background:#000 }
     .btn-wide .arr{ width:18px; height:18px; fill:#fff }
     .detail{
-    font: 300 14px/1.25 Inter, Arial, sans-serif;
+    font: 500 12px/1.25 Inter, Arial, sans-serif;
     }
 
 
@@ -306,7 +319,11 @@
     <div class="film-hero__actions">
       <a href="{{ $film->link }}" class="btn btn--primary">
         <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
-        Watch Trailer
+        Trailer
+      </a>
+      <a href="{{ $film->link }}" class="btn btn--secondary">
+        <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
+        Watch Now
       </a>
     </div>
   </div>
