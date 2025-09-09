@@ -72,41 +72,40 @@
         @endforeach
     </div>
 
-    {{-- ================== FEATURED MOVIE / SLIDER ================== --}}
-    <!-- ============ COMING SOON (Gallery Grid) ============ -->
-<section class="cs-section" aria-labelledby="cs-title">
-  <div class="cs-head">
-    <h2 id="cs-title" class="cs-title">Coming Soon</h2>
+
+<!-- ============ COMING SOON (Horizontal Scroll) ============ -->
+<section class="cs-scroll" aria-labelledby="cs-scroll-title">
+  <div class="cs-scroll-head">
+    <h2 id="cs-scroll-title">Coming Soon</h2>
+    {{-- Opsional: kalau ada rute list semua film/series, isi href-nya --}}
+    <a class="cs-scroll-seeall" href="#">See all</a>
   </div>
 
-  <div class="cs-grid" role="list">
+  <div class="cs-row" role="list">
     @foreach ($coming_soon as $item)
-      <article class="cs-card" role="listitem">
+      <article class="cs-tile" role="listitem">
         @if (strtolower($item->Categories->name) == 'film')
-            <a class="cs-link" href="{{ route('detail-film', $item->uuid) }}" aria-label="{{ $item->title }}">
+          <a class="cs-link" href="{{ route('detail-film', $item->uuid) }}" aria-label="{{ $item->title }}">
         @else
-            <a class="cs-link" href="{{ route('detail-series', $item->uuid) }}" aria-label="{{ $item->title }}">
+          <a class="cs-link" href="{{ route('detail-series', $item->uuid) }}" aria-label="{{ $item->title }}">
         @endif
-          <figure class="cs-media">
-            <img
-              src="{{ asset('photo/' . $item->poster) }}"
-              alt="{{ $item->title }} poster"
-              loading="lazy"
-            />
-            <span class="cs-pill">
-            ON SCREENS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}
-            </span>
-          </figure>
 
-          <figcaption class="cs-caption">
-            <h3 class="cs-name">{{ $item->title }}</h3>
-            <div class="cs-sub">{{ $item->Categories->name }}</div>
-          </figcaption>
-        </a>
+            <div class="cs-tile-media">
+              <img src="{{ asset('photo/' . $item->poster) }}" alt="{{ $item->title }} poster" loading="lazy">
+            </div>
+
+            <div class="cs-tile-caption">
+              <h3 class="cs-tile-title">{{ strtoupper($item->title) }}</h3>
+              <p class="cs-tile-sub">
+                {{ $item->Categories->name }}
+                ({{ \Carbon\Carbon::parse($item->release_date)->format('Y') }})
+              </p>
+            </div>
+
+          </a>
       </article>
     @endforeach
   </div>
-
 </section>
 
 {{-- ================== FILMS (New Release rail) ================== --}}

@@ -108,70 +108,68 @@
       font-size: clamp(42px, 9vw, 96px); text-align: center; padding: 0 var(--space-md); max-width: min(1200px, 92vw);
     }
 
-    /* ================= Coming Soon (Grid Gallery) ================ */
-    .cs-section{ padding: clamp(38px,4vw,52px) clamp(16px,5vw,56px); background:#fff; margin-bottom:15px;}
-    .cs-head{ text-align:center; margin-bottom: 15px; }
-    .cs-eyebrow{ font:700 12px/1 Inter,system-ui; letter-spacing:.12em; text-transform:uppercase; color:#9aa0a6; margin-bottom:8px; }
-    .cs-title{ text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px; }
-    .cs-grid{
-      max-width:1800px; margin:0 auto; display:grid; gap: clamp(18px,2.4vw,28px);
-      grid-template-columns: repeat(4, minmax(0,1fr));
-    }
-    @media (max-width:1100px){ .cs-grid{ grid-template-columns: repeat(3,1fr); } }
-    @media (max-width:820px){  .cs-grid{ grid-template-columns: repeat(2,1fr); } }
-    @media (max-width:520px){  .cs-grid{ grid-template-columns: 1fr; } }
-    .cs-card{ background:#fff; border-radius:0; box-shadow:0 10px 30px rgba(10,10,20,.06); transition:transform .25s ease, box-shadow .25s ease; padding:0; overflow:visible; }
-    .cs-card:hover{ transform:translateY(-6px); box-shadow:0 18px 44px rgba(10,10,20,.12); }
-    .cs-link{ display:block; color:inherit; text-decoration:none; }
-    .cs-media{ position:relative; margin:0; border-radius:0; overflow:hidden; background:#000; }
-    .cs-media::before{ content:""; display:block; aspect-ratio:2/3; }
-    .cs-media > img{ position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; object-position:center; transform:scale(1); transition:transform .45s cubic-bezier(.2,.6,.2,1); }
-    .cs-card:hover .cs-media > img{ transform:scale(1.04); }
-    .cs-pill{
-      position:absolute; left:14px; top:14px; padding:6px 10px;
-      font:700 10.5px/1 Inter,system-ui; letter-spacing:.06em; color:#6a1212;
-      background:#f3b8b8; border:1px solid #ea9a9a; border-radius:10px;
-    }
-    .cs-caption{ padding:16px 16px 20px; text-align:center; margin:0; }
-    .cs-name{ margin:0 0 6px; font:700 16px/1.25 Inter,system-ui; color:#111; }
-    .cs-sub{ font:500 12.5px/1.2 Inter,system-ui; color:#6b7280; }
-    .cs-cta{ display:flex; justify-content:center; margin-top: clamp(22px,3.4vw,34px); }
-    .cs-viewall{ background:#000; color:#fff; font-weight:600; border:none; padding: 16px 28px; font-size:16px; border-radius:4px; cursor:pointer; transition:.3s; }
-    .cs-viewall:hover{ background:#333; transform: translateY(-2px); }
-    .cs-viewall {
-  background: transparent;    /* pastikan transparan */
-  border: none;               /* tidak ada border */
-  padding: 6px 2px;
-  font: 400 15px/1 "Inter", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #111;
-  position: relative;
-  cursor: pointer;
-  text-decoration: none;      /* hilangkan underline bawaan link */
+    /* ===== Horizontal “Apple TV”-like ===== */
+.cs-scroll{
+  padding: clamp(28px,4vw,40px) clamp(16px,5vw,40px);
+  border-radius: 18px;
+  margin-bottom: 34px;
 }
-
-.cs-viewall::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;               /* jarak garis dari teks */
-  width: 100%;
-  height: 1.5px;
-  background: #111;
-  transform: scaleX(0);       /* mulai dari 0 */
-  transform-origin: right;
-  transition: transform .3s ease;
+.cs-scroll-head{
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;
 }
-
-.cs-viewall:hover {
-  background: transparent;    /* cegah muncul background hitam */
-  color: #111;                /* warna teks tetap */
+.cs-scroll-head h2{
+  margin:0; font:700 clamp(14px,2.0vw,20px)/1.2 Inter,system-ui; color:#0f1115;
 }
+.cs-scroll-seeall{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:34px; padding:0 14px; border-radius:999px;
+  background:#ffffff; color:#374151; text-decoration:none; font:600 13px/1 Inter,system-ui;
+  box-shadow:0 4px 12px rgba(0,0,0,.06); transition:.2s;
+}
+.cs-scroll-seeall:hover{ background:#f3f4f6; }
 
-.cs-viewall:hover::after {
-  transform: scaleX(1);       /* animasi muncul garis */
-  transform-origin: left;
+/* track */
+.cs-row{
+  display:flex; gap:18px;
+  overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory;
+  padding-bottom:6px;
+}
+.cs-row::-webkit-scrollbar{ display:none; }  /* sembunyikan scrollbar */
+
+/* card */
+.cs-tile{
+  flex:0 0 300px;                 /* lebar kartu */
+  background: rgba(255,255,255,.78);
+  backdrop-filter: blur(8px);
+  border: 1px solid #e6e9ee;
+  border-radius: 18px;
+  scroll-snap-align:start;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.cs-tile:hover{ transform: translateY(-4px); border-color:#d6dbe3; }
+
+.cs-link{ display:block; color:inherit; text-decoration:none; }
+
+/* media 16:9 */
+.cs-tile-media{
+  position:relative; margin:10px; border-radius:14px; overflow:hidden; background:#0a0a0a;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.cs-tile-media::before{ content:""; display:block; aspect-ratio:16/9; }
+.cs-tile-media img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.02);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), filter .35s;
+}
+.cs-tile:hover .cs-tile-media img{ transform:scale(1.06); filter:contrast(1.04) saturate(1.04); }
+
+/* caption */
+.cs-tile-caption{ padding: 8px 14px 14px; }
+.cs-tile-title{ margin:0 0 4px; font:800 15px/1.2 Inter,system-ui; color:#111; letter-spacing:.02em; }
+.cs-tile-sub{ margin:0; font:600 12.5px/1.45 Inter,system-ui; color:#6b7280; }
+
+/* responsive */
+@media (max-width:560px){
+  .cs-tile{ flex-basis: 76vw; }
 }
 
 /* ======== Section Film ======== */
