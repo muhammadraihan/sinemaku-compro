@@ -108,17 +108,17 @@
       font-size: clamp(42px, 9vw, 96px); text-align: center; padding: 0 var(--space-md); max-width: min(1200px, 92vw);
     }
 
-    /* ===== Horizontal “Apple TV”-like ===== */
+    /* ===== Coming Soon “Apple TV”-like ===== */
 .cs-scroll{
   padding: clamp(28px,4vw,40px) clamp(16px,5vw,40px);
   border-radius: 18px;
   margin-bottom: 34px;
 }
 .cs-scroll-head{
-  display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:1px;
 }
 .cs-scroll-head h2{
-  margin:0; font:700 clamp(14px,2.0vw,20px)/1.2 Inter,system-ui; color:#0f1115;
+  font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px;
 }
 .cs-scroll-seeall{
   display:inline-flex; align-items:center; justify-content:center;
@@ -152,8 +152,21 @@
 
 /* media 16:9 */
 .cs-tile-media{
-  position:relative; margin:10px; border-radius:14px; overflow:hidden; background:#0a0a0a;
+  position:relative; margin:10px; border-radius:9px; overflow:hidden; background:#0a0a0a;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+/* release date tag */
+.cs-date{
+  position:absolute; top:10px; left:10px;
+  background:#c1121f;             /* merah */
+  color:#fff;
+  font:500 9px/1 Inter,system-ui;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  padding:6px 10px;
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);
+  border:1px solid rgba(0,0,0,.15);
 }
 .cs-tile-media::before{ content:""; display:block; aspect-ratio:16/9; }
 .cs-tile-media img{
@@ -164,8 +177,8 @@
 
 /* caption */
 .cs-tile-caption{ padding: 8px 14px 14px; }
-.cs-tile-title{ margin:0 0 4px; font:800 15px/1.2 Inter,system-ui; color:#111; letter-spacing:.02em; }
-.cs-tile-sub{ margin:0; font:600 12.5px/1.45 Inter,system-ui; color:#6b7280; }
+.cs-tile-title{ margin:0 0 4px; font:600 13px/1.2 Inter,system-ui; color:#111; letter-spacing:.02em; }
+.cs-tile-sub{ margin:0; font:400 12px/1.45 Inter,system-ui; color:#6b7280; }
 
 /* responsive */
 @media (max-width:560px){
@@ -175,10 +188,10 @@
 /* ======== Section Film ======== */
 .nr-rail{ background:#fff; padding: 28px clamp(16px,5vw,56px) 40px;}
 .nr-rail-head{
-  display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:14px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:1px;
 }
 .nr-rail-title{
-  margin:0; font: 600 14px/1.1 "Inter",system-ui; letter-spacing:.08em; text-transform:uppercase; color:#6f7680;
+  text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px;
 }
 .nr-rail-viewall{ text-decoration:none; color:#111; font-weight:500; transition: .2s; }
 .nr-rail-viewall:hover{ transform: translateX(4px); }
@@ -219,7 +232,7 @@
 .nr-card{ display:block; color:inherit; text-decoration:none;}
 .nr-media{
   margin:0 0 10px; position:relative; border-radius:0px; overflow:hidden;
-  background:#eee; aspect-ratio: 2 / 3; box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  background:#eee; aspect-ratio: 2 / 3;
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .nr-media img{
@@ -282,7 +295,6 @@
 /* --- NO BORDER for film/series cards --- */
 .nr-card, .sr-card{
   border: none !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,.06); /* hanya drop shadow lembut */
 }
 
 .nr-media, .sr-media{

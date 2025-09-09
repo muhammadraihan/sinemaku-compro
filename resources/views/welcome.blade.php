@@ -78,7 +78,6 @@
   <div class="cs-scroll-head">
     <h2 id="cs-scroll-title">Coming Soon</h2>
     {{-- Opsional: kalau ada rute list semua film/series, isi href-nya --}}
-    <a class="cs-scroll-seeall" href="#">See all</a>
   </div>
 
   <div class="cs-row" role="list">
@@ -90,9 +89,12 @@
           <a class="cs-link" href="{{ route('detail-series', $item->uuid) }}" aria-label="{{ $item->title }}">
         @endif
 
-            <div class="cs-tile-media">
-              <img src="{{ asset('photo/' . $item->poster) }}" alt="{{ $item->title }} poster" loading="lazy">
-            </div>
+        <div class="cs-tile-media">
+  <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->title }} poster" loading="lazy">
+  <span class="cs-date">
+    ON SCREENS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}
+  </span>
+</div>
 
             <div class="cs-tile-caption">
               <h3 class="cs-tile-title">{{ strtoupper($item->title) }}</h3>
