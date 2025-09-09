@@ -254,19 +254,12 @@ class FrontEndController extends Controller
 
     public function bts()
     {
-        // $shop = shop::all()->random()->limit(1)->first();
-        // $kategorishop = KategoriShop::all();
-        // $merchandise = shop::selectRaw('distinct merchandise')->get();  
-        // $all_merchandise = shop::all();      
-        // $kategorishop = KategoriShop::all();
-
-        // return view('shop', compact('shop', 'kategorishop', 'merchandise', 'all_merchandise', 'kategorishop'));
-
         $bts = bts::all();
+        $judul = bts::selectRaw('distinct judul')->get();
         $film = film::orderBy('created_at', 'DESC')->get();
         $kategorishop = KategoriShop::all();
 
-        return view('bts', compact('bts', 'film', 'kategorishop'));
+        return view('bts', compact('bts', 'film', 'kategorishop', 'judul'));
     }
     
 }

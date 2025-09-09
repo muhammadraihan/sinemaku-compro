@@ -277,7 +277,7 @@
 </style>
 <h3 class="title">BEHIND THE SCENE</h3>
 
-@foreach ($film as $item)
+{{-- @foreach ($film as $item)
 <section class="bts-category">   <!-- ⬅️ wrapper per kategori -->
   <span class="kategori">{{ $item->title }}</span>
   <hr class="shop-detail__divider2"/>
@@ -305,6 +305,41 @@
     </div>
   </section>
 </section>
+@endforeach --}}
+
+@foreach ($judul as $items)
+  @foreach ($film as $item)
+  @if ($item->uuid == $items->judul)
+      <section class="bts-category">   <!-- ⬅️ wrapper per kategori -->
+        <span class="kategori">{{ $item->title }}</span>
+        <hr class="shop-detail__divider2"/>
+
+        <section class="related-products">
+          <div class="carousel-wrapper">
+            <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
+            <div class="carousel-track">
+              @foreach ($bts as $value)
+                @if ($value->judul == $item->uuid)
+                  <div class="product-card">
+                    <div class="video-frame">           <!-- ⬅️ wrapper video (lihat #2) -->
+                      {{-- <iframe
+                        src="https://www.youtube.com/embed/{{ $value->link }}"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe> --}}
+                        {!! $value->link !!}
+                    </div>
+                    <p class="title">{{ $value->caption }}</p>
+                    <p class="price">{{ $value->created_at->diffForHumans() }}</p>
+                  </div>
+                @endif
+              @endforeach
+            </div>
+            <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button>
+          </div>
+        </section>
+      </section>
+  @endif
+  @endforeach
 @endforeach
 
 <script>

@@ -32,6 +32,12 @@ class Film extends Model
         return $this->belongsTo(Kategori::class, 'kategori', 'uuid');
     }
 
+    public function bts()
+    {
+        // kolom foreign key di tabel bts = 'judul' yang berisi uuid film
+        return $this->hasMany(BehindTheScene::class, 'judul', 'uuid');
+    }
+
     public function userCreate() {
         return $this->belongsTo(User::class, 'created_by', 'uuid');
     }
