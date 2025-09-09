@@ -89,12 +89,12 @@
           <a class="cs-link" href="{{ route('detail-series', $item->uuid) }}" aria-label="{{ $item->title }}">
         @endif
 
-        <div class="cs-tile-media">
-  <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->title }} poster" loading="lazy">
-  <span class="cs-date">
-    ON SCREENS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}
-  </span>
-</div>
+            <div class="cs-tile-media">
+                <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->title }} poster" loading="lazy">
+                <span class="cs-date">
+                    ON SCREENS {{ strtoupper(\Carbon\Carbon::parse($item->release_date)->format('M d, Y')) }}
+                </span>
+            </div>
 
             <div class="cs-tile-caption">
               <h3 class="cs-tile-title">{{ strtoupper($item->title) }}</h3>
@@ -118,7 +118,7 @@
   </div>
 
   <div class="nr-rail-wrap">
-    <button class="nr-nav nr-prev" aria-label="Previous" type="button">‹</button>
+    {{-- <button class="nr-nav nr-prev" aria-label="Previous" type="button">‹</button> --}}
 
     <ul class="nr-track" role="list" aria-label="Films scroller">
       @foreach ($film as $item)
@@ -141,7 +141,46 @@
       @endforeach
     </ul>
 
-    <button class="nr-nav nr-next" aria-label="Next" type="button">›</button>
+    {{-- <button class="nr-nav nr-next" aria-label="Next" type="button">›</button> --}}
+
+    <!-- edge fade -->
+    <div class="nr-fade nr-fade-left" aria-hidden="true"></div>
+    <div class="nr-fade nr-fade-right" aria-hidden="true"></div>
+  </div>
+</section>
+
+{{-- ================== SERIES (New Release rail) ================== --}}
+<section class="nr-rail" aria-labelledby="nr-films-title">
+  <div class="nr-rail-head">
+    <h2 id="nr-films-title" class="nr-rail-title">Series</h2>
+    <a class="nr-rail-viewall" href="{{ route('series') }}">View All →</a>
+  </div>
+
+  <div class="nr-rail-wrap">
+    {{-- <button class="nr-nav nr-prev" aria-label="Previous" type="button">‹</button> --}}
+
+    <ul class="nr-track" role="list" aria-label="Films scroller">
+      @foreach ($series as $item)
+        <li class="nr-item" role="listitem">
+          <a class="nr-card" href="{{ route('detail-series', $item->uuid) }}">
+            <figure class="nr-media">
+              <img
+                src="{{ asset('photo/' . $item->poster) }}"
+                alt="{{ $item->title }} poster"
+                loading="lazy"
+              />
+              <span class="nr-year">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+            </figure>
+            <figcaption class="nr-caption">
+              <h3 class="nr-name">{{ $item->title }}</h3>
+              <span class="nr-sub">Series</span>
+            </figcaption>
+          </a>
+        </li>
+      @endforeach
+    </ul>
+
+    {{-- <button class="nr-nav nr-next" aria-label="Next" type="button">›</button> --}}
 
     <!-- edge fade -->
     <div class="nr-fade nr-fade-left" aria-hidden="true"></div>

@@ -121,6 +121,13 @@
                         <div class="invalid-feedback">{{ $errors->first('link') }}</div>
                         @endif
                     </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('link_watch','Link Watch Now / Buy Ticket',['class' => 'form-label'])}}
+                        {{ Form::text('link_watch',$film->link_watch,['placeholder' => 'https://www.netflix.com','class' => 'form-control '.($errors->has('link_watch') ? 'is-invalid':'')])}}
+                        @if ($errors->has('link_watch'))
+                        <div class="invalid-feedback">{{ $errors->first('link_watch') }}</div>
+                        @endif
+                    </div>
                 </div>
                 <div class="form-group col-md-4 mb-3">
                     {{ Form::label('photo','Photo',['class' => 'required form-label'])}}

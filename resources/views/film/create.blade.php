@@ -117,9 +117,16 @@
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('link','Link',['class' => 'required form-label'])}}
-                        {{ Form::text('link',null,['placeholder' => 'Link Trailer','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('link',null,['placeholder' => 'https://www.youtube.com','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('link'))
                         <div class="invalid-feedback">{{ $errors->first('link') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('link_watch','Link Watch Now / Buy Ticket',['class' => 'form-label'])}}
+                        {{ Form::text('link_watch',null,['placeholder' => 'https://www.netflix.com','class' => 'form-control '.($errors->has('link_watch') ? 'is-invalid':'')])}}
+                        @if ($errors->has('link_watch'))
+                        <div class="invalid-feedback">{{ $errors->first('link_watch') }}</div>
                         @endif
                     </div>
                 </div>

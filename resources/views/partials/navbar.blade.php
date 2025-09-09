@@ -381,6 +381,64 @@
   width: 0;
 }
 
+/* wadah item yg punya submenu */
+.has-sub{ position: relative; }
+
+/* panah kecil di kanan teks Shop */
+.mega-menu-link .chev{
+  width: 32px; height: 32px; margin-left: 14px;
+  opacity: .85; transform: rotate(0deg);
+  transition: transform .25s ease, opacity .2s ease;
+}
+.has-sub.open .mega-menu-link .chev{ transform: rotate(180deg); }
+
+/* daftar submenu */
+.mega-sub{
+  margin: 6px 0 20px 8px;
+  padding-left: 18px;
+  border-left: 1px solid rgba(255,255,255,.12);
+}
+
+/* link submenu — tipografi lebih kecil */
+.mega-sub-link{
+  display:block;
+  padding:10px 0 10px 10px;
+  font: 500 clamp(16px, 2.2vw, 28px)/1.25 'Inter', Arial, sans-serif;
+  color:#d6d6d6; text-decoration:none;
+  transition: color .18s ease, transform .18s ease;
+}
+.mega-sub-link:hover{ color:#fff; transform: translateX(6px); }
+
+/* biar “Shop” tetap dapat efek hover garis */
+.has-sub .mega-menu-link{ display:inline-flex; align-items:center; }
+
+button.mega-menu-link{
+  -webkit-appearance: none; /* hilangkan native style Safari */
+  appearance: none;
+  background: transparent !important;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  font-family: 'Libre Baskerville', serif;
+  /* font-weight: 600; */
+  font-size: 85px;
+  color: #D7D7D7;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  display: block;
+  position: relative;
+  line-height: 1.08;
+  cursor: pointer;
+}
+
+/* opsional: fokus yang rapi */
+button.mega-menu-link:focus{ outline: none; }
+button.mega-menu-link:focus-visible{
+  outline: 2px solid rgba(255,255,255,.25);
+  outline-offset: 6px;
+}
+
 </style>
 
 <nav class="custom-navbar">
@@ -425,11 +483,29 @@
       <a href="/" class="mega-menu-link active" data-desc="Back to homepage">Home</a>
       <a href="{{ route('film') }}" class="mega-menu-link" data-desc="Explore our cinematic works">Films</a>
       <a href="{{ route('series') }}" class="mega-menu-link" data-desc="Long-form storytelling">Series</a>
-      <a href="{{ route('shop') }}" class="mega-menu-link" data-desc="Exclusive merchandise">Shop</a>
+      {{-- <a href="{{ route('shop') }}" class="mega-menu-link" data-desc="Exclusive merchandise">Shop</a> --}}
+      <div class="has-sub">
+        <!-- pakai button supaya tidak langsung navigate -->
+        <button type="button" class="mega-menu-link js-toggle-sub" aria-expanded="false">
+          Shop
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="mega-sub" style="display:none">
+          <a class="mega-sub-link" href="{{ route('shop') }}">All</a>
+          @foreach ($kategorishop as $item)
+            <a class="mega-sub-link" href="{{ route('detail-kategori', $item->uuid) }}">{{ $item->name }}</a>
+          @endforeach
+        </div>
+      </div>
       <a href="{{ route('articles') }}" class="mega-menu-link" data-desc="Stories and insights">Articles</a>
       <a href="{{ route('event') }}" class="mega-menu-link" data-desc="Premieres and screenings">Events</a>
       <a href="{{ route('frontend.membership') }}" class="mega-menu-link" data-desc="Join our inner circle">Membership</a>
       <a href="{{ route('careers') }}" class="mega-menu-link" data-desc="Join our creative team">Careers</a>
+      <a href="{{ route('bts') }}" class="mega-menu-link" data-desc="Join our creative team">Behind The Scene</a>
       <div class="mega-menu-copyright">© 2024 Sinemaku Pictures. All rights reserved.</div>
     </div>
     <!-- Bagian Kanan: Kontak -->
@@ -506,14 +582,23 @@ $(function(){
         });
 
         // ...dan di tempat close lain:
-        $('.mega-menu-link').on('click', function(){
-            var $overlay = $('.mega-menu-overlay');
-            $overlay.removeClass('menu-animate');
-            $overlay.fadeOut(400);
-            $('#menuToggle .icon-close').fadeOut(150, function(){
-                $('#menuToggle .icon-hamburger').fadeIn(250);
-            });
-            $('body').css('overflow', '');
+        // $('.mega-menu-link').on('click', function(){
+        //     var $overlay = $('.mega-menu-overlay');
+        //     $overlay.removeClass('menu-animate');
+        //     $overlay.fadeOut(400);
+        //     $('#menuToggle .icon-close').fadeOut(150, function(){
+        //         $('#menuToggle .icon-hamburger').fadeIn(250);
+        //     });
+        //     $('body').css('overflow', '');
+        // });
+
+        $('a.mega-menu-link, .mega-sub-link').on('click', function(){
+          const $overlay = $('.mega-menu-overlay');
+          $overlay.removeClass('menu-animate').fadeOut(400);
+          $('#menuToggle .icon-close').fadeOut(150, function(){
+            $('#menuToggle .icon-hamburger').fadeIn(250);
+          });
+          $('body').css('overflow', '');
         });
 
         $('.mega-menu-overlay').on('click', function(e) {
@@ -527,7 +612,57 @@ $(function(){
                 $('body').css('overflow', '');
             }
         });
+
+        $('.js-toggle-sub').on('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          const $btn = $(this);
+          const $wrap = $btn.closest('.has-sub');
+          const $sub  = $wrap.find('.mega-sub');
+          const open  = !$wrap.hasClass('open');
+
+          // (opsional) tutup submenu lain
+          // $('.has-sub.open').not($wrap).removeClass('open')
+          //   .find('.mega-sub').stop(true,true).slideUp(220)
+          //   .end().find('.js-toggle-sub').attr('aria-expanded','false');
+
+          // $wrap.toggleClass('open', open);
+          // $btn.attr('aria-expanded', open ? 'true' : 'false');
+          // $sub.stop(true,true).slideToggle(220);
+        });
     });
+
+    $(document).ready(function(){
+
+    // === A) Toggle submenu Shop ===
+    $('.js-toggle-sub').on('click', function(e){
+      e.preventDefault();
+      const $btn = $(this);
+      const $wrap = $btn.closest('.has-sub');
+      const $sub  = $wrap.find('.mega-sub');
+
+      const willOpen = !$wrap.hasClass('open');
+      // tutup yang lain (kalau nanti ada submenu lain)
+      $('.has-sub.open').not($wrap).removeClass('open')
+        .find('.mega-sub').stop(true,true).slideUp(220)
+        .end().find('.js-toggle-sub').attr('aria-expanded','false');
+
+      $wrap.toggleClass('open', willOpen);
+      $btn.attr('aria-expanded', willOpen ? 'true' : 'false');
+      $sub.stop(true,true).slideToggle(220);
+    });
+
+    // === B) Close overlay saat klik link navigasi ===
+    // ganti selector lama $('.mega-menu-link') -> hanya <a> top-level & link submenu
+    $('a.mega-menu-link, .mega-sub-link').on('click', function(){
+      const $overlay = $('.mega-menu-overlay');
+      $overlay.removeClass('menu-animate').fadeOut(400);
+      $('#menuToggle .icon-close').fadeOut(150, function(){
+        $('#menuToggle .icon-hamburger').fadeIn(250);
+      });
+      $('body').css('overflow', '');
+    });
+  });
 
 });
 </script>

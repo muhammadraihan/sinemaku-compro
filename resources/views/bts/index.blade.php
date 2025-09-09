@@ -1,6 +1,6 @@
 @extends('layouts.page')
 
-@section('title', 'Film Management')
+@section('title', 'Behind The Scene Management')
 
 @section('css')
 <link rel="stylesheet" media="screen, print" href="{{asset('css/datagrid/datatables/datatables.bundle.css')}}">
@@ -9,9 +9,9 @@
 @section('content')
 <div class="subheader">
     <h1 class="subheader-title">
-        <i class='subheader-icon fal fa-users'></i> Modul: <span class='fw-300'>Film </span>
+        <i class='subheader-icon fal fa-users'></i> Modul: <span class='fw-300'>Behind The Scene </span>
         <small>
-            Modul Film.
+            Modul Behind The Scene.
         </small>
     </h1>
 </div>
@@ -20,10 +20,10 @@
         <div id="panel-1" class="panel">
             <div class="panel-hdr">
             <h2>
-                    Film  <span class="fw-300"><i>List</i></span>
+                    Behind The Scene  <span class="fw-300"><i>List</i></span>
                 </h2>
                 <div class="panel-toolbar">
-                    <a class="nav-link active" href="{{route('film.create')}}"><i class="fal fa-plus-circle">
+                    <a class="nav-link active" href="{{route('bts.create')}}"><i class="fal fa-plus-circle">
                         </i>
                         <span class="nav-link-text">Tambah Data</span>
                     </a>
@@ -38,20 +38,9 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Kategori</th>
                 <th>Judul</th>
-                <th>Genre</th>
-                <th>Tanggal Rilis</th>
-                <th>Sinopsis</th>
-                <th>Durasi</th>
-                <th>Season</th>
-                <th>Episode</th>
-                <th>Director</th>
-                <th>Cast</th>
+                <th>Caption</th>
                 <th>Link</th>
-                <th>Link Watch Now / Buy Ticket</th>
-                <th>Foto</th>
-                <th>Poster</th>
                 <th width="120px">Aksi</th>
                 </tr>
                         </thead>
@@ -108,7 +97,7 @@
             "responsive": true,
             "order": [[ 0, "asc" ]],
             "ajax":{
-                url:'{{route('film.index')}}',
+                url:'{{route('bts.index')}}',
                 type : "GET",
                 dataType: 'json',
                 error: function(data){
@@ -117,20 +106,9 @@
             },
             "columns": [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'kategori', name: 'kategori'},
-            {data: 'title', name: 'title'},
-            {data: 'genre', name: 'genre'},
-            {data: 'release_date', name: 'release_date'},
-            {data: 'sinopsis', name: 'sinopsis'},
-            {data: 'duration', name: 'duration'},
-            {data: 'season', name: 'season'},
-            {data: 'episode', name: 'episode'},
-            {data: 'director', name: 'director'},
-            {data: 'cast', name: 'cast'},
+            {data: 'judul', name: 'judul'},
+            {data: 'caption', name: 'caption'},
             {data: 'link', name: 'link'},
-            {data: 'link_watch', name: 'link_watch'},
-            {data: 'photo', name: 'photo'},
-            {data: 'poster', name: 'poster'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

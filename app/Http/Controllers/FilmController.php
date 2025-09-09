@@ -107,6 +107,7 @@ class FilmController extends Controller
         $film->director = $request->director;
         $film->cast = $request->cast;
         $film->link = $request->link;
+        $film->link_watch = $request->link_watch;
 
         if ($image = $request->file('photo')) {
             $destinationPath = 'photo/';
@@ -194,6 +195,7 @@ class FilmController extends Controller
         $film->director = $request->director;
         $film->cast = $request->cast;
         $film->link = $request->link;
+        $film->link_watch = $request->link_watch;
 
         if($request->hasFile('photo')){
 

@@ -28,7 +28,13 @@
     <li>
         <a href="{{route('film.index')}}" title="Film" data-filter-tags="Film">
             <i class="fal fa-film"></i>
-            <span class="nav-link-text">Film</span>
+            <span class="nav-link-text">Film / Series</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{route('bts.index')}}" title="Behind The Scene" data-filter-tags="Behind The Scene">
+            <i class="fal fa-film"></i>
+            <span class="nav-link-text">Behind The Scene</span>
         </a>
     </li>
     <li>

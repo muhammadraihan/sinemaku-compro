@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\film;
 use App\Models\Shop;
 use App\Models\Article;
+use App\Models\BehindTheScene as bts;
 use App\Models\Casting;
 use App\Models\Event;
 use App\Models\Job;
@@ -24,7 +25,10 @@ class FrontEndController extends Controller
      */
     public function index()
     {
-        $film = film::all();
+        $kategori_film = Kategori::where('name', 'like', '%film%')->first();
+        $film = film::all()->where('kategori', $kategori_film->uuid);
+        $kategori_series = Kategori::where('name', 'like', '%series%')->first();
+        $series = film::all()->where('kategori', $kategori_series->uuid);
         $shop = shop::select('uuid','name', 'photo')
                 ->where('highlight', '=', 'Y')
                 ->get();
@@ -42,7 +46,9 @@ class FrontEndController extends Controller
                             ->get();
         $spotlight1 = film::all()->random();
         $spotlight2 = film::all()->random();
-        return view('welcome',compact('film', 'shop', 'article', 'careers', 'all_article', 'coming_soon', 'spotlight1', 'spotlight2'));
+        $kategorishop = KategoriShop::all();
+        return view('welcome',compact('film', 'shop', 'article', 'careers', 'all_article', 'coming_soon', 'spotlight1', 'spotlight2', 'kategorishop',
+                                        'series', 'kategori_film', 'kategori_series'));
     }
 
     public function film()
@@ -78,8 +84,9 @@ class FrontEndController extends Controller
                 ->all();
             return $f;
         });
+        $kategorishop = KategoriShop::all();
 
-        return view('film', compact('film', 'genre', 'coming_soon', 'chipGenres'));
+        return view('film', compact('film', 'genre', 'coming_soon', 'chipGenres', 'kategorishop'));
     }
 
     public function detailfilm($id)
@@ -89,8 +96,9 @@ class FrontEndController extends Controller
         $all_film = film::all()
                         ->where('kategori', $kategori->uuid)
                         ->where('uuid', '!=', $film->uuid);
+        $kategorishop = KategoriShop::all();
 
-        return view('detail-film', compact('film', 'all_film'));
+        return view('detail-film', compact('film', 'all_film', 'kategorishop'));
     }
 
     public function series()
@@ -127,7 +135,9 @@ class FrontEndController extends Controller
             return $f;
         });
 
-        return view('series', compact('film', 'genre', 'coming_soon', 'chipGenres'));
+        $kategorishop = KategoriShop::all();
+
+        return view('series', compact('film', 'genre', 'coming_soon', 'chipGenres', 'kategorishop'));
     }
 
     public function detailseries($id)
@@ -137,8 +147,9 @@ class FrontEndController extends Controller
         $all_film = film::all()
                         ->where('kategori', $kategori->uuid)
                         ->where('uuid', '!=', $film->uuid);
+        $kategorishop = KategoriShop::all();
 
-        return view('detail-series', compact('film', 'all_film'));
+        return view('detail-series', compact('film', 'all_film', 'kategorishop'));
     }
 
     public function shop()
@@ -147,8 +158,9 @@ class FrontEndController extends Controller
         $kategorishop = KategoriShop::all();
         $merchandise = shop::selectRaw('distinct merchandise')->get();  
         $all_merchandise = shop::all();      
+        $kategorishop = KategoriShop::all();
 
-        return view('shop', compact('shop', 'kategorishop', 'merchandise', 'all_merchandise'));
+        return view('shop', compact('shop', 'kategorishop', 'merchandise', 'all_merchandise', 'kategorishop'));
     }
 
     public function detailshop($id)
@@ -156,8 +168,9 @@ class FrontEndController extends Controller
         // dd($id);
         $shop = shop::select('name', 'photo', 'link', 'harga', 'detail')->where('uuid', '=', $id)->first();
         $all_shop = shop::all();
+        $kategorishop = KategoriShop::all();
 
-        return view('detail-shop', compact('shop', 'all_shop'));
+        return view('detail-shop', compact('shop', 'all_shop', 'kategorishop'));
     }
 
     public function detailkategori($id)
@@ -165,8 +178,9 @@ class FrontEndController extends Controller
         $shop = shop::all()->where('kategorishop', '=', $id);
         $title = shop::all()->where('kategorishop', '=', $id)->first();
         $all_shop = shop::all();
+        $kategorishop = KategoriShop::all();
 
-        return view('detail-kategori', compact('shop', 'all_shop', 'title'));
+        return view('detail-kategori', compact('shop', 'all_shop', 'title', 'kategorishop'));
     }
 
     public function articles()
@@ -175,46 +189,52 @@ class FrontEndController extends Controller
         $all_articles = article::where('uuid', '!=', $articles->uuid)
                         ->orderBy('tgl_rilis', 'DESC')
                         ->get();
+        $kategorishop = KategoriShop::all();
 
-        return view('articles', compact('articles', 'all_articles'));
+        return view('articles', compact('articles', 'all_articles', 'kategorishop'));
     }
 
     public function detailarticles($id)
     {
         $article = article::all()->where('uuid', '=', $id)->first();
         $all_article = article::all();
+        $kategorishop = KategoriShop::all();
 
-        return view('detail-articles', compact('article', 'all_article'));
+        return view('detail-articles', compact('article', 'all_article', 'kategorishop'));
     }
 
     public function event()
     {
         $event = event::all();
+        $kategorishop = KategoriShop::all();
 
-        return view('event', compact('event'));
+        return view('event', compact('event', 'kategorishop'));
     }
 
     public function detailevent($id)
     {
         $event = event::all()->where('uuid', $id)->first();
         $all_event = event::where('uuid', '!=', $event->uuid)->get();
+        $kategorishop = KategoriShop::all();
 
-        return view('detail-event', compact('event', 'all_event'));
+        return view('detail-event', compact('event', 'all_event', 'kategorishop'));
     }
 
     public function membership()
     {
         // $membership = membership::all();
+        $kategorishop = KategoriShop::all();
 
-        return view('membership');
+        return view('membership', compact('kategorishop'));
     }
 
     public function careers()
     {
         $careers = Job::all();
         $casting = Casting::all();
+        $kategorishop = KategoriShop::all();
 
-        return view('careers', compact('careers', 'casting'));
+        return view('careers', compact('careers', 'casting', 'kategorishop'));
     }
 
     public function detailcareers($id)
@@ -227,8 +247,26 @@ class FrontEndController extends Controller
         $all_casting = Casting::all()
                                 ->where('uuid', '!=', @$casting->uuid)
                                 ->where('judul_film', @$casting->judul_film);
+        $kategorishop = KategoriShop::all();
 
-        return view('detail-careers', compact('careers', 'casting', 'all_careers', 'all_casting'));
+        return view('detail-careers', compact('careers', 'casting', 'all_careers', 'all_casting', 'kategorishop'));
+    }
+
+    public function bts()
+    {
+        // $shop = shop::all()->random()->limit(1)->first();
+        // $kategorishop = KategoriShop::all();
+        // $merchandise = shop::selectRaw('distinct merchandise')->get();  
+        // $all_merchandise = shop::all();      
+        // $kategorishop = KategoriShop::all();
+
+        // return view('shop', compact('shop', 'kategorishop', 'merchandise', 'all_merchandise', 'kategorishop'));
+
+        $bts = bts::all();
+        $film = film::orderBy('created_at', 'DESC')->get();
+        $kategorishop = KategoriShop::all();
+
+        return view('bts', compact('bts', 'film', 'kategorishop'));
     }
     
 }

@@ -321,9 +321,11 @@
         <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
         Trailer
       </a>
-      <a href="{{ $film->link }}" class="btn btn--secondary">
-        Watch Now
-      </a>
+      @if (!empty($film->link_watch))
+        <a href="{{ $film->link_watch }}" class="btn btn--Secondary">
+          Watch Now
+        </a>
+      @endif
     </div>
   </div>
 </section>
