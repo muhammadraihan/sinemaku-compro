@@ -191,9 +191,9 @@
   display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:1px;
 }
 .nr-rail-title{
-  text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px;
+  text-align: left;font: 500 14px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px;
 }
-.nr-rail-viewall{ text-decoration:none; color:#111; font-weight:500; transition: .2s; }
+.nr-rail-viewall{ text-align: left;font: 200 12px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase;margin-bottom:1px; }
 .nr-rail-viewall:hover{ transform: translateX(4px); }
 
 /* === perbaikan stacking & klikability untuk kedua rail (Films/Series) === */
@@ -253,8 +253,7 @@
 .nr-caption{ text-align:left; }
 .nr-name,
 .nr-sub{
-  margin:0 0 4px; font:700 12px/1.25 "Inter",system-ui; color:#0f1115;
-  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-align: center;
+  margin:0 0 4px; font:600 13px/1.2 Inter,system-ui; color:#111; letter-spacing:.02em;  text-transform: uppercase;
 }
 .nr-sub{ font:500 11px/1.2 "Inter"; color:#6b7280; text-align: center; }
 
@@ -316,7 +315,7 @@
     /* ========= Section Shop ========= */
     .feature-sidetext{ padding: 40px 56px 72px; background: #fff; }
     .feature-wrap{ display:grid; grid-template-columns: 1fr 1.15fr; align-items:start; gap:48px; max-width:1600px; margin:0 auto; }
-    .feature-eyebrow{ font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px; }
+    .feature-eyebrow{ text-align: left;font: 500 14px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px; }
     .feature-title{
       margin:0 0 36px; font-family:'Inter', Arial, sans-serif; font-weight:300; line-height:1.2; color:#0d0d0d;
       font-size: clamp(28px, 5vw, 48px); letter-spacing:-0.5px;
@@ -355,9 +354,9 @@
     .articles-section{ padding: 60px 80px; background:#fff;}
     .articles-header{ display:flex; justify-content:space-between; align-items:center; gap: var(--space-md); margin-bottom: 2px; }
     .articles-header h2{
-        text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px;
-    }
-    .view-all{ text-decoration:none; color:#111; font-weight:500; transition: .2s; }
+      text-align: left;font: 500 14px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px;
+    } 
+    .view-all{ text-align: left;font: 200 12px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px; }
     .view-all:hover{ transform: translateX(4px); }
 
     .article-featured{ position:relative; overflow:hidden; border-radius:10px; }
@@ -370,11 +369,11 @@
     .article-featured-text{
       position:absolute; bottom:20px; left:20px; right:20px; color:#fff; z-index:2; font: 300 15px/1.2 'Inter', Arial, sans-serif;
     }
-    .article-featured-text h3{ font: 700 28px/1.2 'Inter', Arial, sans-serif; margin: 0 0 6px; }
+    .article-featured-text h3{ font: 600 25px/1.2 'Inter', Arial, sans-serif; margin: 0 0 6px; }
 
     .article-list{ display:flex; flex-direction:column; gap:20px; background:#ffffff; border-radius: 18px; padding: 16px; box-shadow: 0 8px 28px rgba(0,0,0,.08); }
     .article-item img{ width: 64px; height: 64px; border-radius: 14px; object-fit: cover; flex: 0 0 64px; }
-    .article-item h4{ margin: 0 0 6px; font-size: 18px; line-height: 1.3; font-weight: 700; color: #1f2937; }
+    .article-item h4{ margin: 0 0 6px; font: 400 13px/1.2 'Inter', Arial, sans-serif; color: #111; }
     .article-item .date{ display: inline-block; font-size: 12px; font-weight: 600; color: #64748b; background: #eef2f7; padding: 6px 10px; border-radius: 999px; }
     .article-featured, .article-featured img{ border-radius: 18px; }
     a { text-decoration: none; color: inherit; }
@@ -435,7 +434,7 @@
   right: clamp(10px,2.4vw,18px);
 }
 .article-featured-text h3{
-  font-size: clamp(18px,2.6vw,26px);
+  font-size: clamp(15px,2.3vw,20px);
   line-height: 1.2;
   margin: 0 0 6px;
 }
@@ -486,14 +485,15 @@
 
 /* teks: clamp supaya tak meluber */
 .article-item h4{
-  font-size: clamp(15px,2.1vw,18px);
-  line-height: 1.35;
+  font-size: clamp(11px,1.8vw,15px);
+  line-height: 1.2;
   margin: 0 0 6px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 .article-item .date{
   display: inline-block;
   font-size: 12px;
@@ -504,9 +504,20 @@
   color: #64748b;
 }
 
+@media (max-width: 640px){
+  .article-item h4{
+  font-size: clamp(13px,2.0vw,17px);
+  line-height: 1.2;
+  margin: 0 0 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+}
 /* kecilkan padding section di layar sangat kecil */
 @media (max-width: 420px){
-  .articles-section{ padding-inline: 12px; }
+  .articles-section{ padding-inline: 12px;}
 }
 
 /* prefer reduced motion – matikan animasi non-esensial */
@@ -540,7 +551,7 @@
 .careers-wrap{ max-width:1430px; margin:0 auto; padding:0 24px; }
 
 .careers-title{
-    text-align: left;font: 200 13px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:20px;
+  text-align: left;font: 500 14px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:5px;
 }
 .careers-subtitle{
   text-align:center; font-family:'Inter', sans-serif; font-size: clamp(14px, 2.2vw, 18px); color:#444; margin-bottom: 28px; line-height:1.5;
@@ -585,11 +596,11 @@
 /* Tipografi ala judul poster */
 .career-role{
   margin:0 0 8px;
-  font:800 clamp(14px,1.2vw,18px)/1.2 "Inter", system-ui, Arial, sans-serif;
-  text-transform:uppercase; letter-spacing:.04em; color:#0f1115;
+  font:600 clamp(14px,1.2vw,18px)/1.2 "Inter", system-ui, Arial, sans-serif;
+  text-transform:uppercase; letter-spacing:.01em; color:#0f1115;
 }
 .career-dept{
-  font:400 14px/1.45 "Inter", system-ui, Arial, sans-serif;
+  font:400 14px/1.2 "Inter", system-ui, Arial, sans-serif;
   font-style:italic; color:#6b7683; margin-bottom:12px;
 }
 
@@ -597,7 +608,7 @@
 .career-meta{ display:flex; align-items:center; gap:14px; margin-bottom:10px; }
 .career-loc{
   display:inline-flex; align-items:center; gap:8px;
-  color:#6b7683; font:500 13.5px/1.4 "Inter", system-ui, Arial, sans-serif;
+  color:#6b7683; font:500 13.5px/1.2 "Inter", system-ui, Arial, sans-serif;
 }
 .loc-ic{ width:16px; height:16px; opacity:.9; }
 
@@ -613,7 +624,7 @@
   border-radius:8px;
   border:1.6px solid #111;
   background:transparent; color:#111;
-  font:700 14px/1 "Inter", system-ui, Arial, sans-serif;
+  font:400 14px/1.2 "Inter", system-ui, Arial, sans-serif;
   text-decoration:none; cursor:pointer;
   transition:background .22s ease, color .22s ease, transform .18s ease, box-shadow .18s ease;
 }
@@ -740,6 +751,61 @@
             .copy,.est{ justify-self:center; white-space: normal; }
         }
 
+/* === Hero judul + meta sejajar kiri-bawah === */
+.hero-content {
+  position: absolute !important;
+  left: clamp(16px, 4vw, 48px) !important;
+  bottom: clamp(28px, 6vh, 60px) !important;
+  right: clamp(16px, 6vw, 72px) !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+
+  text-align: left !important;
+  padding: 0 !important;
+  z-index: 2;
+}
+
+/* Judul (now contains meta inline) */
+.bolehkah-sekali-saja-ku-menangis {
+  position: static !important;
+  transform: none !important;
+  margin: 0 !important;
+  text-align: left !important;
+  font: clamp(30px, 6.2vw, 58px) 'Inter', Arial, sans-serif;;
+  line-height: 0.95;
+  max-width: min(1200px, 92vw);
+  white-space: normal; /* Allow title to wrap naturally */
+}
+
+/* Meta (tahun • cast) embedded inline after title */
+.hero-meta {
+  position: static !important;
+  transform: none !important;
+  margin: 0 0 0 clamp(6px, 1.5vw, 14px) !important; /* Gap from title text */
+  padding: 0 !important;
+
+  display: inline-flex; /* Keep internal flex for meta items */
+  align-items: baseline; /* Align meta items with title baseline */
+  gap: clamp(6px, 1.5vw, 14px);
+  color: #f5f5f5;
+  font-size: clamp(14px, 1.6vw, 18px);
+  white-space: nowrap; /* Prevent meta from wrapping internally */
+  vertical-align: baseline; /* Ensure alignment with title text */
+}
+
+/* Mobile tweak */
+@media (max-width: 640px) {
+  .bolehkah-sekali-saja-ku-menangis {
+    font-size: clamp(24px, 7vw, 36px) !important;
+  }
+  .hero-meta {
+    font-size: 12px !important;
+    margin-left: clamp(4px, 1vw, 8px) !important; /* Tighter gap on mobile */
+  }
+}
   </style>
 </head>
 <body>

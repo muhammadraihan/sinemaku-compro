@@ -250,7 +250,7 @@
 
     /* button */
     .btn-wide{
-      margin-top: 16px; display:flex; justify-content:center; align-items:center; gap:10px;
+      margin-top: 14px; display:flex; justify-content:center; align-items:center; gap:10px;
       background:#111; color:#fff; text-decoration:none;
       border-radius: 12px; padding:14px; font-weight:800; letter-spacing:.4px;
       transition: transform .18s, box-shadow .22s, background .22s;

@@ -200,7 +200,7 @@
                     <line x1="12" y1="12" x2="12" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     <line x1="12" y1="12" x2="16" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   </svg>
-                  {{ $item->jam_event }} WIB
+                  {{ \Carbon\Carbon::parse($item->tgl_event)->format('d M Y') }}
                 </span>
                 <!-- lokasi -->
                 <span class="meta-chip">

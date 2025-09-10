@@ -262,14 +262,6 @@
       <!-- Card -->
       <article class="mb-card">
         <div class="mb-card-head">
-          <span class="mb-ico">
-            <!-- calendar icon -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="4.5" width="18" height="16" rx="2.8" fill="none" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M3 9.5h18" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M8 3.5v3M16 3.5v3" stroke="#6b6873" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </span>
           <span class="mb-badge">VIP Access</span>
         </div>
         <h3 class="mb-card-title">Exclusive Premiere</h3>
@@ -282,13 +274,6 @@
       <!-- Duplikasi kartu sesuai kebutuhan -->
       <article class="mb-card">
         <div class="mb-card-head">
-          <span class="mb-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="4.5" width="18" height="16" rx="2.8" fill="none" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M3 9.5h18" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M8 3.5v3M16 3.5v3" stroke="#6b6873" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </span>
           <span class="mb-badge">VIP Access</span>
         </div>
         <h3 class="mb-card-title">Exclusive Premiere</h3>
@@ -300,13 +285,6 @@
 
       <article class="mb-card">
         <div class="mb-card-head">
-          <span class="mb-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="4.5" width="18" height="16" rx="2.8" fill="none" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M3 9.5h18" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M8 3.5v3M16 3.5v3" stroke="#6b6873" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </span>
           <span class="mb-badge">VIP Access</span>
         </div>
         <h3 class="mb-card-title">Exclusive Premiere</h3>
@@ -318,13 +296,6 @@
 
       <article class="mb-card">
         <div class="mb-card-head">
-          <span class="mb-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="4.5" width="18" height="16" rx="2.8" fill="none" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M3 9.5h18" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M8 3.5v3M16 3.5v3" stroke="#6b6873" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </span>
           <span class="mb-badge">VIP Access</span>
         </div>
         <h3 class="mb-card-title">Exclusive Premiere</h3>
@@ -336,13 +307,6 @@
 
       <article class="mb-card">
         <div class="mb-card-head">
-          <span class="mb-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="4.5" width="18" height="16" rx="2.8" fill="none" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M3 9.5h18" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M8 3.5v3M16 3.5v3" stroke="#6b6873" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </span>
           <span class="mb-badge">VIP Access</span>
         </div>
         <h3 class="mb-card-title">Exclusive Premiere</h3>
@@ -354,13 +318,6 @@
 
       <article class="mb-card">
         <div class="mb-card-head">
-          <span class="mb-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="4.5" width="18" height="16" rx="2.8" fill="none" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M3 9.5h18" stroke="#6b6873" stroke-width="1.8"/>
-              <path d="M8 3.5v3M16 3.5v3" stroke="#6b6873" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </span>
           <span class="mb-badge">VIP Access</span>
         </div>
         <h3 class="mb-card-title">Exclusive Premiere</h3>

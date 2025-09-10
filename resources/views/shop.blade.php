@@ -188,7 +188,8 @@
 
 @media (max-width: 560px){
   .shop-detail{ padding: 24px 0; }
-  .shop-detail__container{ gap:16px; }
+  .shop-detail__container{ gap:6px;  background: transparent !important; }
+  .shop-detail__media{ background: transparent !important;}
   .shop-detail__title{ font-size: clamp(22px, 7vw, 32px); margin-top: clamp(24px, 14vw, 68px); }
   .shop-detail__note{ font-size: 12.5px; margin:16px 0; }
   :root{ --shelf-col: clamp(220px, 82vw, 360px); --shelf-gap: 12px; }
@@ -197,6 +198,12 @@
   .shop-detail__divider2{ margin:0 auto 10px; }
   .product-card .title{ font-size:12.5px; }
   .product-card .price{ font-size:11.5px; }
+
+  /* extra breathing room so CTA doesn't collide on mobile */
+  .shop-detail__info{ padding-top: 6px; }
+  .shop-detail__cta{ margin-top: clamp(14px, 4.8vw, 24px); }
+  /* when multiple category containers stack, add spacing between blocks */
+  .shop-detail__container + .shop-detail__container{ margin-top: clamp(12px, 4vw, 20px); }
 }
 
 @media (min-width: 561px) and (max-width: 960px){

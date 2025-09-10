@@ -26,9 +26,10 @@
             <span class="meta-cast">Starring Prilly Latuconsina</span>
         </div>
 
+        
     <!-- Tetap biarkan 01 - 04 di kiri bawah -->
     <div class="_01-04">01 - 04</div>
-
+        
             <h1 class="bolehkah-sekali-saja-ku-menangis" aria-label="BOLEHKAH SEKALI SAJA KU MENANGIS">
                 <span>BOLEHKAH</span><br />
                 <span>SEKALI SAJA</span><br />
@@ -54,20 +55,17 @@
                     @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif>
 
                 <div class="rectangle-5" aria-hidden="true"></div>
+ 
 
                 <div class="hero-content">
-                    <div class="hero-meta" role="group" aria-label="Movie meta">
-                        <span class="meta-year">{{ \Carbon\Carbon::parse($h->release_date)->format('Y') }}</span>
-                        <span class="meta-dot" aria-hidden="true">•</span>
-                        <span class="meta-cast">{{ $h->cast }}</span>
-                    </div>
-
-                    <!-- <div class="_01-04">{{ str_pad($i+1,2,'0',STR_PAD_LEFT) }} - {{ $total }}</div> -->
-
-                    <h1 class="bolehkah-sekali-saja-ku-menangis">
-                        <span>{{ $h->title }}</span><br />
-                    </h1>
-                </div>
+  <h1 class="bolehkah-sekali-saja-ku-menangis">
+    {{ $h->title }}
+    <span class="hero-meta">
+      <span class="meta-year">{{ \Carbon\Carbon::parse($h->release_date)->format('Y') }}</span>
+      {{-- <span class="meta-dot">•</span><span class="meta-cast">{{ $h->cast }}</span> --}}
+    </span>
+  </h1>
+</div>
             </section>
         @endforeach
     </div>
@@ -134,7 +132,6 @@
             </figure>
             <figcaption class="nr-caption">
               <h3 class="nr-name">{{ $item->title }}</h3>
-              <span class="nr-sub">Film</span>
             </figcaption>
           </a>
         </li>
@@ -173,7 +170,6 @@
             </figure>
             <figcaption class="nr-caption">
               <h3 class="nr-name">{{ $item->title }}</h3>
-              <span class="nr-sub">Series</span>
             </figcaption>
           </a>
         </li>
@@ -274,7 +270,7 @@
           <img src="{{ asset('photo/' . $featured->photo) }}" alt="{{ $featured->judul }}" loading="lazy" />
           <div class="article-featured-text">
             <h3>{{ $featured->judul }}</h3>
-            <p>{{ $featured->title }}</p>
+            <!-- <p>{{ $featured->title }}</p> -->
           </div>
         </a>
       </article>
