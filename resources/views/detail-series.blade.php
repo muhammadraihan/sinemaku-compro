@@ -242,7 +242,7 @@
       width:78px; height:78px; border-radius:10px; object-fit:cover;
       box-shadow: 0 6px 16px rgba(0,0,0,.08);
     }
-    .suggest-item .title{ font-family:"Inter",sans-serif; font-weight:600; margin-bottom:1px; margin-top: 10px}
+    .suggest-item .title{ font-size: clamp(12px,1.5vw,15px); font-family:"Inter",sans-serif; font-weight:400; margin-bottom:6px; margin-top: 20px}
     .small{ font-size:11px }
     .muted{ color:#6a6a6a }
     .rating{ display:flex; align-items:center; gap:6px; margin-top:3px }

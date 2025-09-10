@@ -63,12 +63,11 @@
     /* content */
     .film-hero__inner{ max-width: 1060px }
     .film-hero__title{
-      font-family: "Inter", sans-serif;
       font-weight: 500;
       line-height: .95;
-      font-size: clamp(30px, 6vw, 90px);
       margin: 0 0 .3em 0;
       text-shadow: 0 10px 40px rgba(0,0,0,.45);
+      font: clamp(30px, 6.2vw, 58px) 'Inter', Arial, sans-serif;;
     }
 
     .film-hero__meta{
@@ -260,7 +259,7 @@
       width:78px; height:78px; border-radius:10px; object-fit:cover;
       box-shadow: 0 6px 16px rgba(0,0,0,.08);
     }
-    .suggest-item .title{ font-family:"Inter",sans-serif; font-weight:600; margin-bottom:1px; margin-top: 10px}
+    .suggest-item .title{ font-size: clamp(12px,1.5vw,15px); font-family:"Inter",sans-serif; font-weight:400; margin-bottom:6px; margin-top: 20px}
     .small{ font-size:11px }
     .muted{ color:#6a6a6a }
     .rating{ display:flex; align-items:center; gap:6px; margin-top:3px }
@@ -283,7 +282,7 @@
 /* ===== Mobile refinements for Film Detail ===== */
 @media (max-width: 560px){
   .film-hero{ min-height: 72vh; padding: 18px 16px 44px; }
-  .film-hero__title{ font-size: clamp(26px, 10vw, 40px); }
+  .film-hero__title{ font-size: clamp(2px, 8vw, 30px); }
   .film-hero__meta{ gap:8px; font-size: 14px; }
   .film-hero__actions{ gap:10px; }
   .btn{ padding: 12px 16px; border-radius: 9px; font-size: 12px; }

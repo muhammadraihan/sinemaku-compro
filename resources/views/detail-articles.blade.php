@@ -84,10 +84,10 @@ body{background:var(--bg)}
 }
 .meta-chip{
   display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
-  background:#eef2f7; color:#374151; font-size:12.5px;
+  background:#eef2f7; color:#374151; font-size:12.5px; font-family:'Inter',Arial,sans-serif;
 }
 .meta-dot{ opacity:.5 }
-.meta-brand{ font-weight:700; color:#111 }
+.meta-brand{ font-weight:700; color:#111 ;font-family:'Inter',Arial,sans-serif; }
 .meta-right{ margin-left:auto; display:flex; gap:8px; align-items:center }
 .btn-share{
   width:34px; height:34px; display:grid; place-items:center; border-radius:8px;
@@ -154,7 +154,7 @@ body{background:var(--bg)}
 .article-content p{
   font: 400 16px/1.85 'Inter',system-ui,Arial; color:#2b2b2b; margin: 0 0 16px;
 }
-.article-content a{ color:#0d63ff; text-decoration:none }
+.article-content a{ font-family:'Inter',Arial,sans-serif; color:#0d63ff; text-decoration:none }
 .article-content a:hover{ text-decoration:underline }
 .article-content h2,.article-content h3{
   font: 800 22px/1.15 'Inter',system-ui,Arial; margin: 26px 0 10px;
@@ -182,7 +182,7 @@ body{background:var(--bg)}
   overflow: auto;
 }
 .article-content code{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family:'Inter',Arial,sans-serif;
   font-size: 90%;
 }
 
@@ -209,7 +209,7 @@ body{background:var(--bg)}
 .list-block{
   background:#fafafa; border:1px solid var(--line); border-radius:12px; padding:14px;
 }
-.list-block h4{ margin: 0 0 10px; font: 800 15px/1.2 'Inter',system-ui,Arial; }
+.list-block h4{ margin: 0 0 10px; font: 600 15px/1.2 'Inter',system-ui,Arial; }
 .cols-2{ columns: 2; column-gap: 35px; padding-left: 18px; }
 .cols-2 li{ break-inside: avoid; margin:6px 0; }
 @media (max-width: 720px){ .cols-2{ columns:1 } }
@@ -221,7 +221,7 @@ body{background:var(--bg)}
   display:grid; gap:12px; background:var(--paper); padding:16px; border-radius: var(--radius);
   border:1px solid var(--line);
 }
-.widget-title{ font:800 15px/1.2 'Inter',system-ui,Arial; margin:0 0 4px; }
+.widget-title{ font:500 15px/1.2 'Inter',system-ui,Arial; margin:0 0 4px; }
 
 .story-mini{
   display:grid; grid-template-columns: 92px 1fr; gap:12px; text-decoration:none; color:inherit;
@@ -229,8 +229,8 @@ body{background:var(--bg)}
 }
 .story-mini:hover{ background:#fafafa; transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.06) }
 .story-mini img{ width:92px; height:72px; object-fit:cover; border-radius:10px; background:#eee }
-.story-meta{ font:600 12px/1.2 'Inter',system-ui,Arial; color:var(--muted) }
-.story-title{ font:700 14px/1.35 'Inter',system-ui,Arial; color:#111 }
+.story-meta{ font:300 12px/1.2 'Inter',system-ui,Arial; color:var(--muted) }
+.story-title{ font-size: clamp(12px,1.5vw,15px); font-family:"Inter",sans-serif; font-weight:400; margin-bottom:6px; margin-top: 10px}
 
 /* Tiny helpers */
 .badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; color:var(--ink); border-radius:999px; font:500 15px/1 'Inter',system-ui,Arial }

@@ -244,8 +244,7 @@
     /* Caption */
     .filmitem-caption{ margin-top: 12px; }
     .filmitem-title{
-    font: 600 14px/1.35 Inter,Arial,sans-serif;
-    color:#0a0a0a; margin:0 0 4px;
+      margin:0 0 4px; font:600 13px/1.2 Inter,system-ui; color:#111; letter-spacing:.02em;  text-transform: uppercase;
     }
     .filmitem-year{ color:#444; font: 300 11px/1 Inter,Arial,sans-serif; }
 
@@ -533,15 +532,20 @@
   .title{
     margin-left: 16px;
     margin-top: 72px;
+    margin-bottom: 2px;
     font-size: 20px;
   }
 
   /* Spotlight (COMING SOON) – tighter & stacked */
-  .feature-sidetext{ padding: 20px 16px 28px; }
-  .feature-wrap{ grid-template-columns: 1fr; gap: 18px; }
+  .feature-sidetext{ padding: 12px 14px 18px; }
+  .feature-wrap{ grid-template-columns: 1fr; gap: 12px; }
   .feature-text{ margin-top: 0; }
-  .feature-title{ font-size: clamp(24px, 8vw, 34px); margin: 0 0 12px; }
-  .feature-media-frame2{ padding: 6px; border-radius: 8px; }
+  .feature-title{ font-size: clamp(24px, 7.2vw, 32px); margin: 0 0 6px; line-height: 1.05; }
+  /* tighter CTA + year next to title on small screens */
+  .feature-title .feature-eyebrow{ margin-left: 8px; font-size: 14px; position: relative; top: -2px; }
+  .feature-cta{ margin-top: 6px; }
+  .feature-cta .cta-line{ width: 44px; }
+  .feature-media-frame2{ padding: 4px; border-radius: 8px; }
   .feature-media-frame2::before{ aspect-ratio: 16/9; }
 
   /* Section container & header */
@@ -610,6 +614,35 @@
 @media (max-width: 360px){
   .chip{ padding: 6px 9px; font-size: 11px; }
   .filmitem-title{ font-size: 12.5px; }
+}
+/* ===== Touch/Mobile: hide hover overlays on Series cards ===== */
+@media (hover: none), (pointer: coarse){
+  /* Hide text overlay panel */
+  .film-detail{
+    display: none !important;
+    opacity: 0 !important;
+    transform: none !important;
+  }
+  /* Remove darkening layers */
+  .allfilms-grid .filmitem-media::before,
+  .allfilms-grid .filmitem-media::after,
+  .filmitem-media::before,
+  .filmitem-media::after{
+    opacity: 0 !important;
+  }
+  /* Hide optional badges/controls that were shown on hover */
+  .film-badge,
+  .film-rate,
+  .film-play{
+    display: none !important;
+  }
+}
+
+/* Extra guard for small screens (in case earlier rules re-enable them) */
+@media (max-width: 680px){
+  .film-detail{ display: none !important; opacity: 0 !important; }
+  .allfilms-grid .filmitem-media::before,
+  .allfilms-grid .filmitem-media::after{ opacity: 0 !important; }
 }
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}

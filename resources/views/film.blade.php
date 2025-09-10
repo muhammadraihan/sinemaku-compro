@@ -244,8 +244,7 @@
     /* Caption */
     .filmitem-caption{ margin-top: 12px; }
     .filmitem-title{
-    font: 600 14px/1.35 Inter,Arial,sans-serif;
-    color:#0a0a0a; margin:0 0 4px;
+      margin:0 0 4px; font:600 13px/1.2 Inter,system-ui; color:#111; letter-spacing:.02em;  text-transform: uppercase;
     }
     .filmitem-year{ color:#444; font: 300 11px/1 Inter,Arial,sans-serif; }
 
@@ -320,18 +319,9 @@
     }
     }
 
-    /* Di perangkat sentuh: tampilkan overlay tanpa hover agar tetap terbaca */
     @media (hover: none){
-    .film-detail{
-        opacity: 1;
-        transform: none;
-        background: linear-gradient(
-        to top,
-        rgba(0,0,0,.78) 16%,
-        rgba(0,0,0,.38) 52%,
-        rgba(0,0,0,0) 85%
-        );
-    }
+    /* Mobile/touch: HIDE overlay completely */
+    .film-detail{ display: none !important; }
     }
 
     /* Sedikit responsif untuk density konten */
@@ -520,10 +510,10 @@
   .filmitem-link:hover .filmitem-media img{ filter: brightness(.65) contrast(1.02); }
 }
 
-/* Perangkat sentuh: overlay selalu on agar teks terbaca */
+/* Perangkat sentuh: jangan tampilkan layer gelap */
 @media (hover:none){
-  .allfilms-grid .filmitem-media::before{ opacity: .30; }
-  .allfilms-grid .filmitem-media::after{  opacity: .90; }
+  .allfilms-grid .filmitem-media::before,
+  .allfilms-grid .filmitem-media::after{ opacity: 0 !important; }
 }
 
 .filmitem.is-hidden{ display:none !important; }
@@ -534,15 +524,20 @@
   .title{
     margin-left: 16px;
     margin-top: 72px;
+    margin-bottom: 2px;
     font-size: 20px;
   }
 
   /* Spotlight (COMING SOON) – tighter & stacked */
-  .feature-sidetext{ padding: 20px 16px 28px; }
-  .feature-wrap{ grid-template-columns: 1fr; gap: 18px; }
+  .feature-sidetext{ padding: 12px 14px 18px; }
+  .feature-wrap{ grid-template-columns: 1fr; gap: 12px; }
   .feature-text{ margin-top: 0; }
-  .feature-title{ font-size: clamp(24px, 8vw, 34px); margin: 0 0 12px; }
-  .feature-media-frame2{ padding: 6px; border-radius: 8px; }
+  .feature-title{ font-size: clamp(24px, 7.2vw, 32px); margin: 0 0 6px; line-height: 1.05; }
+  /* tighter CTA + year next to title on small screens */
+  .feature-title .feature-eyebrow{ margin-left: 8px; font-size: 14px; position: relative; top: -2px; }
+  .feature-cta{ margin-top: 6px; }
+  .feature-cta .cta-line{ width: 44px; }
+  .feature-media-frame2{ padding: 4px; border-radius: 8px; }
   .feature-media-frame2::before{ aspect-ratio: 16/9; }
 
   /* Section container & header */
@@ -591,21 +586,10 @@
   .filmitem-title{ font: 600 13px/1.3 Inter, Arial, sans-serif; }
   .filmitem-year{ font-size: 10.5px; }
 
-  /* Overlay on mobile: keep readable but lighter */
-  .film-detail{
-    top: auto;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    max-width: unset;
-    gap: 8px;
-  }
-  .film-detail-label{ font-size: 10px; }
-  .film-detail-value{ font-size: 12.5px; }
-
-  /* Reduce hover darkening on touch devices */
-  .allfilms-grid .filmitem-media::before{ opacity: .22; }
-  .allfilms-grid .filmitem-media::after{  opacity: .72; }
+  /* Overlay on mobile: hidden for cleaner cards */
+  .film-detail{ display: none !important; }
+  .allfilms-grid .filmitem-media::before,
+  .allfilms-grid .filmitem-media::after{ opacity: 0 !important; }
 }
 /* Extra-small tweaks */
 @media (max-width: 360px){
