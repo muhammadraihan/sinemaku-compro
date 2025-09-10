@@ -156,9 +156,9 @@
   z-index: 3;
 }
 
-.mega-menu-link {
+/* Anchor link top-level */
+a.mega-menu-link {
   font-family: 'Libre Baskerville', serif;
-  /* font-weight: 600; */
   font-size: 85px;
   color: #D7D7D7;
   text-decoration: none;
@@ -166,31 +166,39 @@
   display: block;
   position: relative;
   line-height: 1.08;
-  /* transition: color 0.23s cubic-bezier(.75,0,.2,1); */
   cursor: pointer;
   transition:
     color 0.24s cubic-bezier(.75,0,.2,1),
-    transform 0.38s cubic-bezier(.63,.06,.25,1);   /* <-- animasi geser */
+    transform 0.38s cubic-bezier(.63,.06,.25,1);
+  will-change: color, transform;
+}
+/* Button version (Shop trigger) — explicit styles so it doesn't get wiped by resets */
+button.mega-menu-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 85px;
+  color: #D7D7D7;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  line-height: 1.08;
+  cursor: pointer;
+  transition:
+    color 0.24s cubic-bezier(.75,0,.2,1),
+    transform 0.38s cubic-bezier(.63,.06,.25,1);
   will-change: color, transform;
 }
 
-.mega-menu-link.active,
-.mega-menu-link:hover {
+button.mega-menu-link.active,
+button.mega-menu-link:hover {
   color: #fff;
 }
 
-.mega-menu-link.active:after,
-.mega-menu-link:hover:after {
-  content: '';
-  display: block;
-  width: 92px;
-  height: 2.5px;
-  background: #fff;
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  border-radius: 1.5px;
-}
 
 .mega-menu-copyright {
   font-family: 'Inter', Arial, sans-serif;
@@ -325,72 +333,45 @@
 @media (max-width: 1200px) {
   .mega-menu-content { flex-direction: column; padding: 70px 16px 20px 16px; }
   .mega-menu-main { min-width: 200px; margin-right: 0; }
-  .mega-menu-link { font-size: 48px; }
+  a.mega-menu-link { font-size: 48px; }
+  button.mega-menu-link { font-size: 48px; }
   .mega-menu-aside { min-width: 0; align-items: flex-start; }
   .mega-menu-aside-inner { width: 100%; }
   .creative-storytelling { display: none; }
 }
 
-.mega-menu-link.active:after,
-.mega-menu-link:hover:after {
+/* underline accent for hover/active (both <a> and <button>) */
+a.mega-menu-link::after,
+button.mega-menu-link::after {
   content: '';
-  display: block;
-  width: 130px;    /* Sesuaikan panjang garis */
-  height: 1px;     /* Tinggi garis, agak lebih tebal dari sebelumnya */
-  background: linear-gradient(
-    to right,
-    #fff 0%,
-    #3b3a3a 60%,
-    rgba(255,255,255,0) 100%
-  );
   position: absolute;
   left: 0;
-  bottom: -12px;  /* Jarak dari text menu */
-  border-radius: 2px;
-  transition: width 0.2s, background 0.2s;
-}
-
-.mega-menu-link:hover,
-.mega-menu-link.active {
-  color: #fff;
-  transform: translateX(38px) scale(1.038);
-}
-
-.mega-menu-link::after,
-.mega-menu-link.active::after,
-.mega-menu-link:hover::after {
-  content: '';
-  display: block;
-  width: 140px;
+  bottom: -8px;
   height: 1px;
-  background: linear-gradient(90deg, 
-    #fff 0%,
-    #3b3a3a 60%,
-    rgba(255,255,255,0) 100%);
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  border-radius: 1.5px;
-  opacity: 1;
-  transition: opacity 0.22s, width 0.32s cubic-bezier(.56,0,.27,1);
-}
-
-/* Hanya tampil pada active/hover */
-.mega-menu-link:not(:hover):not(.active)::after {
-  opacity: 0;
   width: 0;
+  background: linear-gradient(90deg,#fff 0%,#3b3a3a 60%,rgba(255,255,255,0) 100%);
+  border-radius: 2px;
+  transition: width .28s cubic-bezier(.56,0,.27,1), opacity .22s;
+  opacity: 0;
+}
+a.mega-menu-link:hover::after,
+a.mega-menu-link.active::after,
+button.mega-menu-link:hover::after,
+button.mega-menu-link.active::after {
+  width: 140px;
+  opacity: 1;
 }
 
 /* wadah item yg punya submenu */
 .has-sub{ position: relative; }
 
 /* panah kecil di kanan teks Shop */
-.mega-menu-link .chev{
+button.mega-menu-link .chev{
   width: 32px; height: 32px; margin-left: 14px;
   opacity: .85; transform: rotate(0deg);
   transition: transform .25s ease, opacity .2s ease;
 }
-.has-sub.open .mega-menu-link .chev{ transform: rotate(180deg); }
+.has-sub.open button.mega-menu-link .chev{ transform: rotate(180deg); }
 
 /* daftar submenu */
 .mega-sub{
@@ -410,27 +391,12 @@
 .mega-sub-link:hover{ color:#fff; transform: translateX(6px); }
 
 /* biar “Shop” tetap dapat efek hover garis */
-.has-sub .mega-menu-link{ display:inline-flex; align-items:center; }
-
-button.mega-menu-link{
-  -webkit-appearance: none; /* hilangkan native style Safari */
-  appearance: none;
-  background: transparent !important;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  box-shadow: none;
-  font-family: 'Libre Baskerville', serif;
-  /* font-weight: 600; */
-  font-size: 85px;
-  color: #D7D7D7;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  display: block;
-  position: relative;
-  line-height: 1.08;
-  cursor: pointer;
+.has-sub a.mega-menu-link,
+.has-sub button.mega-menu-link {
+  display: inline-flex;
+  align-items: center;
 }
+
 
 /* opsional: fokus yang rapi */
 button.mega-menu-link:focus{ outline: none; }
@@ -496,9 +462,11 @@ button.mega-menu-link:focus-visible{
 
         <div class="mega-sub" style="display:none">
           <a class="mega-sub-link" href="{{ route('shop') }}">All</a>
-          @foreach ($kategorishop as $item)
-            <a class="mega-sub-link" href="{{ route('detail-kategori', $item->uuid) }}">{{ $item->name }}</a>
-          @endforeach
+          @isset($kategorishop)
+            @foreach ($kategorishop as $item)
+              <a class="mega-sub-link" href="{{ route('detail-kategori', $item->uuid) }}">{{ $item->name }}</a>
+            @endforeach
+          @endisset
         </div>
       </div>
       <a href="{{ route('articles') }}" class="mega-menu-link" data-desc="Stories and insights">Articles</a>

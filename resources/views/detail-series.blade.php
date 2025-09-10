@@ -261,6 +261,21 @@
     font: 500 12px/1.25 Inter, Arial, sans-serif;
     }
 
+    /* ===== Mobile refinements for Film Detail ===== */
+@media (max-width: 560px){
+  .film-hero{ min-height: 72vh; padding: 18px 16px 44px; }
+  .film-hero__title{ font-size: clamp(26px, 10vw, 40px); }
+  .film-hero__meta{ gap:8px; font-size: 14px; }
+  .film-hero__actions{ gap:10px; }
+  .btn{ padding: 12px 16px; border-radius: 9px; font-size: 12px; }
+  .btn--primary, .btn--secondary{ max-width: none; }
+  .film-card{margin-top:20px;}
+}
+
+/* Improve sticky card offset on small screens (navbar overlap) */
+@media (max-width: 980px){
+  .suggest-card{ top: 76px; }
+}
 
 </style>
 <!-- ===== Film Detail: HERO ===== -->

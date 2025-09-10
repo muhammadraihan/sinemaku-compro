@@ -154,12 +154,35 @@
 
   /* ============ Responsive stack ============ */
   @media (max-width: 1024px){
-    .article-featureds{ grid-template-columns: 1fr; height:auto; min-height:auto; max-height:none; }
-    .featured-body{ order:1; border-radius:18px; }
-    .featured-media{ order:2; }
+    .article-featureds{
+      grid-template-columns: 1fr;
+      height:auto; min-height:auto; max-height:none;
+    }
+    /* --- Stack order on small screens: IMAGE first, then TEXT --- */
+    .featured-media{ order:1; }
+    .featured-body{ order:2; border-radius:18px; }
+    /* add a little spacing under the image */
+    .featured-media{ margin-bottom: 12px; }
   }
   @media (max-width: 640px){
     .stories-grid{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px){
+    .featured-media {
+      margin-top:50px;
+    }
+    .featured-media img{
+      height: auto;
+      min-height: 0;
+      object-fit: cover;
+    }
+    .featured-title{
+      font-size: clamp(22px, 6vw, 28px);
+    }
+    .featured-excerpt{
+      font-size: 14px;
+      line-height: 1.4;
+    }
   }
 </style>
 

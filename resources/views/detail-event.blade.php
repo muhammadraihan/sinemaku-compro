@@ -45,8 +45,7 @@
 
     .event-detail{
       max-width: 1180px;
-      /* margin: 48px auto 96px; */
-      margin-left: 150px;
+      margin: 48px auto 96px;
       padding: 0 20px;
       color: var(--ink);
     }
@@ -68,13 +67,14 @@
     }
     .event-media img{
       width: 100%;
-      height: 520px;
+      height: auto;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       display: block;
     }
 
     .event-info{
-      margin-top: 100px;
+      margin-top: 40px;
       padding-top: 8px;
     }
 
@@ -196,12 +196,15 @@
 
     /* Responsive */
     @media (max-width: 980px){
-      .event-hero{ grid-template-columns: 1fr; }
-      .event-media img{ height: 420px; }
+      .event-hero{ grid-template-columns: 1fr; gap: 24px; }
+      .event-media img{ height: auto; aspect-ratio: 16 / 9; }
+      .event-info{ margin-top: 0; }
       .event-about{ max-width: 100%; }
     }
     @media (max-width: 560px){
-      .event-media img{ height: 300px; }
+      .event-detail{ padding: 0 16px; }
+      .event-media img{ height: auto; aspect-ratio: 16 / 9; border-radius: 12px; }
+      .event-title{ font-size: clamp(22px, 6.4vw, 28px); }
       .btn-primary{ width: 100%; justify-content: center; }
     }
 
@@ -213,7 +216,7 @@
     .other-events{
       max-width: 1220px;
       margin: 52px auto;
-      padding: 20 24px;
+      padding: 0 24px;
       color: #101010;
     }
     .oe-head{
@@ -349,10 +352,9 @@
               <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}">
             </figure>
             <h3 class="oe-title">{{ $item->judul }}</h3>
-            <time class="oe-date" datetime="{{ \Carbon\Carbon::parse($event->tgl_event)->format('d M Y') }}">{{ \Carbon\Carbon::parse($event->tgl_event)->format('M, d Y') }}</time>
+            <time class="oe-date" datetime="{{ \Carbon\Carbon::parse($item->tgl_event)->format('Y-m-d') }}">{{ \Carbon\Carbon::parse($item->tgl_event)->format('M, d Y') }}</time>
           </a>
         </article>
     @endforeach
   </div>
 </section>
-

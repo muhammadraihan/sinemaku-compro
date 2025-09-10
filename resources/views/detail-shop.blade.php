@@ -342,6 +342,45 @@
     }
 
 
+/* ======= Responsive refinements for Detail Shop ======= */
+@media (max-width: 1024px){
+  .shop-detail{ padding: 28px 0; }
+  .shop-detail__container{ grid-template-columns: 1fr; gap: 18px; }
+  .shop-detail__media{ order: 1; }
+  .shop-detail__media img{ height: clamp(280px, 62vw, 520px); }
+  .shop-detail__info{ order: 2; }
+  .shop-detail__title{ margin-top: 12px; }
+  .shop-detail__price{ margin: 8px 0 16px; }
+  .shop-detail__cta{ width: 100%; justify-content: center; }
+  .shop-detail__bullets{ gap: 10px; font-size: 14px; }
+  .shop-detail__bullets .ico{ width: 24px; height: 24px; }
+  .shop-detail__bullets .ico svg{ width: 14px; height: 14px; }
+  .shop-detail__note{ margin-top: 22px; line-height: 1.4; }
+  .shop-detail__divider2{ margin-left: 16px; margin-right: 16px; }
+  .shop-about{ padding: 24px 16px 40px; }
+  .shop-card{ padding: 16px 16px 18px; }
+  .shop-card__title{ font-size: 20px; }
+}
+
+@media (max-width: 640px){
+  .shop-detail{ padding: 20px 0; }
+  .shop-detail__media {margin-top:50px;}
+  .shop-detail__media img{ height: clamp(220px, 58vw, 420px); }
+  .shop-detail__title{ font-size: clamp(22px, 6.2vw, 32px); margin-top: 8px; }
+  .shop-detail__price{ font-size: 16px; }
+  .shop-detail__cta{ padding: 14px 18px; }
+  .shop-detail__note{ font-size: 12.5px; }
+
+  .rp__grid{ grid-template-columns: 1fr; gap: 16px; }
+  .rp-card__media{ height: clamp(180px, 56vw, 260px); padding: 12px; }
+  .rp-card__name{ font-size: 14px; }
+  .rp-card__price{ font-size: 14px; }
+}
+
+@media (max-width: 400px){
+  .shop-detail__media img{ height: clamp(200px, 60vw, 360px); }
+  .rp-card__media{ height: clamp(160px, 54vw, 220px); padding: 10px; }
+}
 </style>
 <section class="shop-detail">
   <div class="shop-detail__container">
@@ -402,7 +441,7 @@
               <path d="M9 12h6M9 15h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
           </span>
-          <spam class="detail">30-day return policy</spam>
+          <span class="detail">30-day return policy</span>
         </li>
       </ul>
     </div>

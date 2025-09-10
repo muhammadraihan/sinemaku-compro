@@ -40,30 +40,25 @@ body{background:var(--bg)}
 /* ---------------- HERO ---------------- */
 .article-head{ margin-top: 86px; margin-bottom: 22px; }
 .hero-media{
-  width:100%; border-radius: var(--radius); overflow:hidden; background:#eef1f4;
-  box-shadow: var(--shadow); margin-bottom: clamp(16px,2.2vw,22px);
-}
-
-.hero-media{
-  width: 90vw;                   /* lebar = viewport */
-  margin-left: calc(50% - 45vw);  /* geser agar center & keluar dari container */
+  /* full-bleed hero */
+  width: 90vw;
+  margin-left: calc(50% - 45vw);
   margin-right: calc(50% - 45vw);
-  border-radius: 50;               /* hilangkan sudut agar benar2 ujung-ke-ujung */
-  box-shadow: none;               /* opsional: tak perlu shadow utk full-bleed */
-  background:#000;                /* supaya crop rapi saat loading */
-}
-
-.hero-media img{
-  width:100%; height: clamp(260px, 46vw, 520px); object-fit:cover; display:block;
-  transform: scale(1); transition: transform .6s cubic-bezier(.2,.8,.2,1);
+  margin-bottom: clamp(20px, 3.2vw, 56px);
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  background: #000;
 }
 
 .hero-media img{
   width: 100%;
-  height: clamp(320px, 45vw, 560px); /* tinggi responsif horizontal */
-  object-fit: cover;                 /* isi penuh, tanpa gepeng */
-  object-position: center;           /* pastikan center */
+  height: clamp(300px, 45vw, 560px);
+  object-fit: cover;
+  object-position: center;
   display: block;
+  transform: none;
+  transition: transform .6s cubic-bezier(.2,.8,.2,1);
 }
 
 .hero-media:hover img{ transform: scale(1.02); }
@@ -101,6 +96,13 @@ body{background:var(--bg)}
 }
 .btn-share:hover{ transform:translateY(-1px); box-shadow:0 8px 22px rgba(0,0,0,.08); background:#fafafa }
 
+/* better word-wrap in narrow screens */
+.article-title,
+.article-content{
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
 /* ---------------- GRID ---------------- */
 .article-grid{
   display:grid; grid-template-columns: 1.65fr .9fr; gap: clamp(22px, 3.8vw, 42px); align-items:start;
@@ -109,6 +111,9 @@ body{background:var(--bg)}
 @media (max-width: 980px){
   .article-grid{ grid-template-columns:1fr; }
   .meta-right{ margin-left:0 }
+}
+@media (max-width: 980px){
+  .widget{ position: static; top: auto; }
 }
 
 /* ========== KEMBALIKAN FRAME ARTIKEL (kartu) ========== */
@@ -154,6 +159,33 @@ body{background:var(--bg)}
 .article-content h2,.article-content h3{
   font: 800 22px/1.15 'Inter',system-ui,Arial; margin: 26px 0 10px;
 }
+
+/* tables & code blocks inside editor content */
+.article-content table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  display: table;
+}
+.article-content th,
+.article-content td{
+  border: 1px solid var(--line);
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.article-content pre{
+  background: #0b0b0b0d;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  overflow: auto;
+}
+.article-content code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 90%;
+}
+
 /* Embed (YouTube, dll.) agar responsif */
 .article-content iframe{
   width: 100% !important;
@@ -220,6 +252,23 @@ body{background:var(--bg)}
   margin-bottom: clamp(20px, 3.2vw, 56px) !important;
   /* opsional: reset margin lain supaya rapi */
   /* margin-top: 0; margin-left: 0; margin-right: 0; */
+}
+
+@media (max-width: 720px){
+  .article-title{
+    font-size: clamp(18px, 5.8vw, 25px);
+    line-height: 1.2;
+    text-align: center;
+  }
+  .meta-row{
+    gap: 10px;
+  }
+  .story-mini{
+    grid-template-columns: 76px 1fr;
+  }
+  .story-mini img{
+    width: 76px; height: 60px;
+  }
 }
 
 </style>

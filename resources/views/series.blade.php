@@ -527,6 +527,90 @@
 }
 
 
+/* ===================== Mobile-first responsive refinements (Films) ===================== */
+@media (max-width: 680px){
+  /* Page title spacing */
+  .title{
+    margin-left: 16px;
+    margin-top: 72px;
+    font-size: 20px;
+  }
+
+  /* Spotlight (COMING SOON) – tighter & stacked */
+  .feature-sidetext{ padding: 20px 16px 28px; }
+  .feature-wrap{ grid-template-columns: 1fr; gap: 18px; }
+  .feature-text{ margin-top: 0; }
+  .feature-title{ font-size: clamp(24px, 8vw, 34px); margin: 0 0 12px; }
+  .feature-media-frame2{ padding: 6px; border-radius: 8px; }
+  .feature-media-frame2::before{ aspect-ratio: 16/9; }
+
+  /* Section container & header */
+  .allfilms{
+    padding: 0 16px;
+    margin: 12px auto 40px;
+  }
+  .allfilms-head{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .allfilms-title{ font-size: 14px; }
+
+  /* Chips: horizontal scroll on small screens */
+  .allfilms-filters{
+    width: 100%;
+    gap: 8px;
+    padding-top: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    white-space: nowrap;
+  }
+  .allfilms-filters::-webkit-scrollbar{ display:none; }
+  .chip{
+    font-size: 12px;
+    padding: 7px 10px;
+    flex: 0 0 auto;       /* keep width tight for scroll */
+    border-radius: 9px;
+  }
+
+  /* Grid: 2 columns → 1 column on very small devices */
+  .allfilms-grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 12px;
+    margin-top: 10px;
+  }
+  @media (max-width: 420px){
+    .allfilms-grid{ grid-template-columns: 1fr; }
+  }
+
+  /* Card media & caption */
+  .filmitem-caption{ margin-top: 8px; }
+  .filmitem-title{ font: 600 13px/1.3 Inter, Arial, sans-serif; }
+  .filmitem-year{ font-size: 10.5px; }
+
+  /* Overlay on mobile: keep readable but lighter */
+  .film-detail{
+    top: auto;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    max-width: unset;
+    gap: 8px;
+  }
+  .film-detail-label{ font-size: 10px; }
+  .film-detail-value{ font-size: 12.5px; }
+
+  /* Reduce hover darkening on touch devices */
+  .allfilms-grid .filmitem-media::before{ opacity: .22; }
+  .allfilms-grid .filmitem-media::after{  opacity: .72; }
+}
+/* Extra-small tweaks */
+@media (max-width: 360px){
+  .chip{ padding: 6px 9px; font-size: 11px; }
+  .filmitem-title{ font-size: 12.5px; }
+}
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
 <h3 class="title">COMING SOON</h3>
@@ -632,33 +716,48 @@
 </section>
 
 <script>
-  (function(){
-    const chips = document.querySelectorAll('.allfilms .chip');
-    const cards = document.querySelectorAll('.allfilms .filmitem');
+(function(){
+  const chips = document.querySelectorAll('.allfilms .chip');
+  const cards = document.querySelectorAll('.allfilms .filmitem');
 
-    function setActive(btn){
-      chips.forEach(c=>c.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      chips.forEach(c => c.setAttribute('aria-selected', c===btn ? 'true' : 'false'));
-    }
+  function setActive(btn){
+    chips.forEach(c=>c.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    chips.forEach(c => c.setAttribute('aria-selected', c===btn ? 'true' : 'false'));
+  }
 
-    function applyFilter(key){
-      cards.forEach(card=>{
-        const g = (card.getAttribute('data-genre') || '').toLowerCase();
-        if(key==='all' || g===key){ card.classList.remove('is-hidden'); }
-        else { card.classList.add('is-hidden'); }
-      });
-    }
+  function getGenres(card){
+    try {
+      const raw = card.dataset.genres || '[]';
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr.map(s => String(s).toLowerCase()) : [];
+    } catch(e){ return []; }
+  }
 
-    chips.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        setActive(btn);
-        applyFilter(btn.dataset.filter);
-      });
-      // akses keyboard (Enter/Space)
-      btn.addEventListener('keydown', e=>{
-        if(e.key==='Enter' || e.key===' ') { e.preventDefault(); btn.click(); }
-      });
+  function applyFilter(key){
+    const target = String(key || 'all').toLowerCase();
+    cards.forEach(card=>{
+      const list = getGenres(card);
+      if(target==='all' || list.includes(target)){
+        card.classList.remove('is-hidden');
+      } else {
+        card.classList.add('is-hidden');
+      }
     });
-  })();
+  }
+
+  chips.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      setActive(btn);
+      applyFilter(btn.dataset.filter);
+    });
+    btn.addEventListener('keydown', e=>{
+      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); btn.click(); }
+    });
+  });
+
+  // Init state (keep first active chip's filter)
+  const active = document.querySelector('.allfilms .chip.is-active');
+  if(active){ applyFilter(active.dataset.filter); }
+})();
 </script>

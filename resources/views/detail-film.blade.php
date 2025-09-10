@@ -211,7 +211,7 @@
     .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(13px,1.8vw,16px); margin: 0 0 .8em; font-weight: 500 }
     .lead{ 
     font-family:"Inter",sans-serif; 
-    font-weight: 500px;
+    font-weight: 500;
     font-size: clamp(14px,2.0vw,16px); 
     line-height: 1.9; 
     color:#2c2c2c; 
@@ -280,6 +280,21 @@
     }
 
 
+/* ===== Mobile refinements for Film Detail ===== */
+@media (max-width: 560px){
+  .film-hero{ min-height: 72vh; padding: 18px 16px 44px; }
+  .film-hero__title{ font-size: clamp(26px, 10vw, 40px); }
+  .film-hero__meta{ gap:8px; font-size: 14px; }
+  .film-hero__actions{ gap:10px; }
+  .btn{ padding: 12px 16px; border-radius: 9px; font-size: 12px; }
+  .btn--primary, .btn--secondary{ max-width: none; }
+  .film-card{margin-top:20px;}
+}
+
+/* Improve sticky card offset on small screens (navbar overlap) */
+@media (max-width: 980px){
+  .suggest-card{ top: 76px; }
+}
 </style>
 <!-- ===== Film Detail: HERO ===== -->
 <section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">
@@ -322,7 +337,7 @@
         Trailer
       </a>
       @if (!empty($film->link_watch))
-        <a href="{{ $film->link_watch }}" class="btn btn--Secondary">
+        <a href="{{ $film->link_watch }}" class="btn btn--secondary">
           Watch Now
         </a>
       @endif

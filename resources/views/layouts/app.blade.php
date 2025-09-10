@@ -386,6 +386,136 @@
     .article-item:hover{ background:#f8fafc; transform:translateY(-2px); }
     @media (max-width: 992px){ .articles-grid{ grid-template-columns:1fr; } }
 
+    /* ===================== ARTICLES – RESPONSIVE REFINEMENT ===================== */
+/* container width & padding */
+.articles-section{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(28px,5vw,64px) clamp(16px,5vw,32px);
+}
+
+/* header */
+.articles-header{
+  gap: 12px;
+  margin-bottom: clamp(14px,2.5vw,22px);
+}
+.articles-header h2{
+  margin: 0;
+}
+
+/* grid: featured kiri, list kanan → stack di tablet/phone */
+.articles-grid{
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, .9fr);
+  gap: clamp(16px,3.2vw,32px);
+  align-items: start;
+}
+@media (max-width: 1024px){
+  .articles-grid{ grid-template-columns: 1fr; }
+}
+
+/* featured card: jaga rasio & overlay */
+.article-featured{
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.article-featured::after{ border-radius: inherit; }
+.article-featured img{
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+.article-featured-text{
+  bottom: clamp(10px,2.4vw,18px);
+  left: clamp(10px,2.4vw,18px);
+  right: clamp(10px,2.4vw,18px);
+}
+.article-featured-text h3{
+  font-size: clamp(18px,2.6vw,26px);
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+
+/* list container: hilangkan card box-shadow di mobile, jadikan grid rapi */
+.article-list{
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 640px){
+  .article-list{ gap: 14px; }
+}
+
+/* list item layout: thumbnail kiri, teks kanan; responsif ukuran gambar */
+.article-item{
+  padding: 8px;
+  border-radius: 12px;
+  transition: background .18s ease, transform .18s ease;
+}
+.article-item:hover{ background: #f8fafc; transform: translateY(-1px); }
+
+/* link jadi grid dua kolom (thumb + text) */
+.article-item-link{
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+@media (min-width: 640px){
+  .article-item-link{ grid-template-columns: 96px 1fr; gap: 14px; }
+}
+@media (min-width: 1024px){
+  .article-item-link{ grid-template-columns: 110px 1fr; gap: 16px; }
+}
+
+/* thumbnail */
+.article-item img{
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* teks: clamp supaya tak meluber */
+.article-item h4{
+  font-size: clamp(15px,2.1vw,18px);
+  line-height: 1.35;
+  margin: 0 0 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.article-item .date{
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #eef2f7;
+  color: #64748b;
+}
+
+/* kecilkan padding section di layar sangat kecil */
+@media (max-width: 420px){
+  .articles-section{ padding-inline: 12px; }
+}
+
+/* prefer reduced motion – matikan animasi non-esensial */
+@media (prefers-reduced-motion: reduce){
+  .article-featured img,
+  .article-item,
+  .article-item img{ transition: none !important; }
+}
+
     /* ========= Spotlight ========= */
     .spotlight{ padding: 24px 0; }
     .spotlight__frame{ position:relative; overflow:hidden; }

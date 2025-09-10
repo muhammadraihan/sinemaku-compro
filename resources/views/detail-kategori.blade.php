@@ -35,6 +35,7 @@
   gap: var(--gap);
   align-items:start;
   grid-auto-flow:dense;
+  grid-gap: var(--gap);
 }
 
 /* ===== HERO: kecil + title kiri atas + span 2 baris (agar 4 tile di kanan) ===== */
@@ -50,6 +51,7 @@
 }
 .collection-hero .hero-media img{
   width: 82%; height:auto; object-fit:contain; display:block;
+  max-width: 100%;
 }
 .collection-hero .hero-title{
   position:absolute; top:clamp(12px,2.4vw,28px); left:clamp(12px,2.4vw,28px);
@@ -105,13 +107,37 @@
   .product-tile{ grid-column: span 4; }
 }
 @media (max-width:900px){
-  .collection-grid{ gap: clamp(18px,4vw,36px); }
-  .collection-hero{ grid-column:1 / span 12; grid-row: span 1; }
+  .collection-grid{ gap: clamp(18px,4vw,36px); grid-gap: clamp(18px,4vw,36px); }
+  .collection-hero{ 
+    grid-column:1 / span 12; 
+    grid-row: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .collection-hero .hero-media{ aspect-ratio:16/9; }
+  .collection-hero .hero-title{
+    position: static;
+    margin-top: 52px;
+    text-align: center;
+    font: 700 clamp(16px, 3vw, 24px)/1 'Inter', system-ui, Arial;
+    letter-spacing: .02em;
+    color: #000;
+    z-index: auto;
+  }
   .product-tile{ grid-column: span 6; }
 }
 @media (max-width:520px){
+  .collection-grid{ gap: 12px; grid-gap: 12px; }
   .product-tile{ grid-column:1 / -1; }
+  .product-media img{
+    max-width: 70%;
+    height: auto;
+    margin: 0 auto;
+  }
+  .product-name, .product-price {
+    text-align: center;
+  }
 }
 </style>
 
