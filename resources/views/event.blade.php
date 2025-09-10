@@ -181,12 +181,12 @@
     <div class="stories-grid">
       @foreach ($event as $item)
           <article class="article-card">
-            <a href="{{ route('detail-event', $item->uuid) }}" class="thumb">
+            <a href="{{ route('detail-event', $item->slug) }}" class="thumb">
               <img src="{{ asset('photo/' . $item->photo) }}" alt="Artikel 1">
             </a>
 
             <div class="card-body">
-              <a href="{{ route('detail-event', $item->uuid) }}" class="card-title">
+              <a href="{{ route('detail-event', $item->slug) }}" class="card-title">
                 {{ $item->judul }}
               </a>
               <p class="card-excerpt">
@@ -215,7 +215,7 @@
             </div>
 
             <div class="card-actions">
-              <a href="{{ route('detail-event', $item->uuid) }}">SEE EVENT DETAIL</a>
+              <a href="{{ route('detail-event', $item->slug) }}">SEE EVENT DETAIL</a>
             </div>
           </article>
       @endforeach

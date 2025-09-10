@@ -347,7 +347,7 @@
   <div class="oe-grid">
     @foreach ($all_event as $item)
         <article class="oe-card">
-          <a href="{{ route('detail-event', $item->uuid) }}" class="oe-link">
+          <a href="{{ route('detail-event', $item->slug) }}" class="oe-link">
             <figure class="oe-media">
               <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}">
             </figure>

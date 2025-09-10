@@ -164,7 +164,7 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="currentColor"/></svg>
               {{ $item->location }}
             </div>
-            <a class="job-cta" href="{{ route('detail-careers', $item->uuid) }}">
+            <a class="job-cta" href="{{ route('detail-careers', $item->slug) }}">
               See Details
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -201,7 +201,7 @@
             <span class="chip">{{ $item->location }}</span>
           </div>
 
-        <a class="cast-cta" href="{{ route('detail-careers', $item->uuid) }}">
+        <a class="cast-cta" href="{{ route('detail-careers', $item->slug) }}">
           SEE DETAILS
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>

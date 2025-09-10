@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Event;
 
@@ -86,6 +87,7 @@ class EventController extends Controller
         // dd($request->photo);
 
         $event = new event();
+        $event->slug = Str::slug($request->judul);
         $event->judul = $request->judul;
         $event->title = $request->title;
         $event->tgl_event = $request->tgl_event;
@@ -163,6 +165,7 @@ class EventController extends Controller
         // dd($request->photo);
 
         $event = event::uuid($id);
+        $event->slug = Str::slug($request->judul);
         $event->judul = $request->judul;
         $event->title = $request->title;
         $event->tgl_event = $request->tgl_event;

@@ -45,34 +45,35 @@ Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
 
 Auth::routes(['register' => false]);
 
-// ===== backoffice =====
-Route::prefix('backoffice')->middleware('auth')->group(function () {
-    Route::redirect('/', '/backoffice/dashboard');
-    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('backoffice.dashboard');
-
-    Route::get('logs', [ActivityController::class, 'index'])->name('logs');
-
-    Route::get('profile', [UserController::class, 'profile'])->name('profile');
-    Route::patch('profile/{user}/update', [UserController::class, 'ProfileUpdate'])->name('profile.update');
-    Route::patch('profile/{user}/password', [UserController::class, 'ChangePassword'])->name('profile.password');
-
-    Route::resources([
-        'menus'        => MenuController::class,
-        'users'        => UserController::class,
-        'permissions'  => PermissionController::class,
-        'roles'        => RoleController::class,
-        'film'         => FilmController::class,
-        'kategori'     => KategoriController::class,
-        'kategorishop' => KategoriShopController::class,
-        'shop'         => ShopController::class,
-        'article'      => ArticleController::class,
-        'job'          => JobController::class,
-        'casting'      => CastingController::class,
-        'event'        => EventController::class,
-        'membership'   => MembershipController::class,
-        'bts'          => BehindTheSceneController::class,
-    ]);
-
+Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
+    // backoffice
+    // Route::get('/', function () {
+    //     return redirect()->route('backoffice.dashboard');
+    // });
+    Route::get('/', 'DashboardController@index');
+    Route::get('dashboard', 'DashboardController@dashboard')->name('backoffice.dashboard');
+    // logs
+    Route::get('logs', 'ActivityController@index')->name('logs');
+    // profile
+    Route::get('profile', 'UserController@profile')->name('profile');
+    Route::patch('profile/{user}/update', 'UserController@ProfileUpdate')->name('profile.update');
+    Route::patch('profile/{user}/password', 'UserController@ChangePassword')->name('profile.password');
+    // resource
+    Route::resource('menus', 'MenuController');
+    Route::resource('users', 'UserController');
+    Route::resource('permissions', 'PermissionController');
+    Route::resource('roles', 'RoleController');
+    Route::resource('film', 'FilmController');
+    Route::resource('kategori', 'KategoriController');
+    Route::resource('kategorishop', 'KategoriShopController');
+    Route::resource('shop', 'ShopController');
+    Route::resource('article', 'ArticleController');
+    Route::resource('job', 'JobController');
+    Route::resource('casting', 'CastingController');
+    Route::resource('event', 'EventController');
+    Route::resource('membership', 'MembershipController');
+    Route::resource('bts', 'BehindTheSceneController');
     Route::get('get-kategori', [KategoriController::class, 'show'])->name('ref.kategori');
-    Route::get('membership/export', [MembershipController::class, 'export'])->name('membership.export');
+    Route::get('/membership/export', [MembershipController::class, 'export'])
+     ->name('membership.export');
 });

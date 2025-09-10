@@ -154,7 +154,7 @@
     {{-- TILES --}}
     @foreach ($shop as $item)
         <article class="product-tile">
-          <a href="{{ route('detail-shop', $item->uuid) }}" class="product-media"><img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->name }}"></a>
+          <a href="{{ route('detail-shop', $item->slug) }}" class="product-media"><img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->name }}"></a>
           <h3 class="product-name">{{ $item->name }}</h3>
           <p class="product-price">{{ $item->harga ? 'Rp'.''.str_replace(',', '.', number_format($item->harga)) : ''; }}</p>
         </article>

@@ -486,7 +486,7 @@
 
   <div class="rp__grid">
     @foreach ($all_shop as $item)
-        <a href="{{ route('detail-shop', $item->uuid) }}" class="rp-card">
+        <a href="{{ route('detail-shop', $item->slug) }}" class="rp-card">
           <img src="{{ asset('photo/' . $item->photo) }}" class="rp-card__media">
             <div class="rp-card__meta">
               <div class="rp-card__name">{{ $item->name }}</div>

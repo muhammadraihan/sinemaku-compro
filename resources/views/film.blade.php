@@ -625,14 +625,14 @@
               <h2 class="feature-title">
                   {{ $item->title }} <span class="feature-eyebrow">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span></h2>
 
-              <a href="{{ route('detail-film', $item->uuid) }}" class="feature-cta" aria-label="Detail">
+              <a href="{{ route('detail-film', $item->slug) }}" class="feature-cta" aria-label="Detail">
                   <span class="cta-line" aria-hidden="true"></span>&nbsp;
                   <span class="cta-label">DETAIL</span>
               </a>
               </div>
 
               <!-- Kolom Kanan: Media -->
-              <a href="{{ route('detail-film', $item->uuid) }}" class="feature-media">
+              <a href="{{ route('detail-film', $item->slug) }}" class="feature-media">
               <div class="feature-media-frame2">
                   <img
                   src="{{ asset('photo/' . $item->poster) }}"
@@ -645,7 +645,7 @@
         <section class="feature-sidetext" id="podcast">
           <div class="feature-wrap">
               <!-- Foto -->
-              <a href="{{ route('detail-film', $item->uuid) }}" class="feature-media">
+              <a href="{{ route('detail-film', $item->slug) }}" class="feature-media">
                   <div class="feature-media-frame2">
                       <img src="{{ asset('photo/' . $item->poster) }}" alt="Creative Affair">
                   </div>
@@ -653,7 +653,7 @@
               <!-- Teks -->
               <div class="feature-text">
                   <h2 class="feature-title">{{ $item->title }} <span class="feature-eyebrow">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span></h2>
-                  <a href="{{ route('detail-film', $item->uuid) }}" class="feature-cta" aria-label="Detail">
+                  <a href="{{ route('detail-film', $item->slug) }}" class="feature-cta" aria-label="Detail">
                       <span class="cta-line" aria-hidden="true"></span>&nbsp;
                       <span class="cta-label">DETAIL</span>
                   </a>
@@ -683,7 +683,7 @@
     @foreach ($genre as $item)
       <article class="filmitem" data-genres='@json($item->genres_array)'>
         {{-- <article class="filmitem" data-genre="{{ strtolower($item->genre) }}"> --}}
-          <a href="{{ route('detail-film', $item->uuid) }}" class="filmitem-link">
+          <a href="{{ route('detail-film', $item->slug) }}" class="filmitem-link">
               <figure class="filmitem-media has-overlay">
               <img src="{{ asset('photo/' . $item->poster) }}"
                   alt="{{ $item->title }}" loading="lazy">

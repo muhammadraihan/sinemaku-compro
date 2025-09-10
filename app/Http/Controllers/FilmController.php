@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Film;
 use App\Models\Kategori;
@@ -96,6 +97,7 @@ class FilmController extends Controller
         // dd($request->photo);
 
         $film = new Film();
+        $film->slug = Str::slug($request->title);
         $film->kategori = $request->kategori;
         $film->title = $request->title;
         $film->genre = $request->genre;
@@ -184,6 +186,7 @@ class FilmController extends Controller
         $this->validate($request, $rules, $messages);
         
         $film = Film::uuid($id);
+        $film->slug = Str::slug($request->title);
         $film->kategori = $request->kategori;
         $film->title = $request->title;
         $film->genre = $request->genre;

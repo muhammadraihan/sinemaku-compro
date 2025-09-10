@@ -215,7 +215,7 @@
         {{ $shop->judul }}
       </p>
       <div class="shop-detail__price">{{ $shop->harga ? 'Rp'.''.str_replace(',', '.', number_format($shop->harga)) : ''; }}</div>
-      <a class="shop-detail__cta" href="{{ route('detail-shop', $shop->uuid) }}" rel="noopener">
+      <a class="shop-detail__cta" href="{{ route('detail-shop', $shop->slug) }}" rel="noopener">
         <span class="detail">VIEW PRODUCT</span>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -235,7 +235,7 @@
             @foreach ($all_merchandise as $items)
                 @if ($items->merchandise == $item->merchandise)
                     <div class="product-card">
-                      <a href="{{ route('detail-shop', $items->uuid) }}">
+                      <a href="{{ route('detail-shop', $items->slug) }}">
                         <img src="{{ asset('photo/' . $items->photo) }}" alt="{{ $items->kategorishop }}"><p class="title">{{ $items->name }}</p><p class="price">{{ $items->harga ? 'Rp'.''.str_replace(',', '.', number_format($items->harga)) : ''; }}</p>
                       </a>
                     </div>

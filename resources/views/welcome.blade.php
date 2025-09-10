@@ -84,9 +84,9 @@
     @foreach ($coming_soon as $item)
       <article class="cs-tile" role="listitem">
         @if (strtolower($item->Categories->name) == 'film')
-          <a class="cs-link" href="{{ route('detail-film', $item->uuid) }}" aria-label="{{ $item->title }}">
+          <a class="cs-link" href="{{ route('detail-film', $item->slug) }}" aria-label="{{ $item->title }}">
         @else
-          <a class="cs-link" href="{{ route('detail-series', $item->uuid) }}" aria-label="{{ $item->title }}">
+          <a class="cs-link" href="{{ route('detail-series', $item->slug) }}" aria-label="{{ $item->title }}">
         @endif
 
             <div class="cs-tile-media">
@@ -123,7 +123,7 @@
     <ul class="nr-track" role="list" aria-label="Films scroller">
       @foreach ($film as $item)
         <li class="nr-item" role="listitem">
-          <a class="nr-card" href="{{ route('detail-film', $item->uuid) }}">
+          <a class="nr-card" href="{{ route('detail-film', $item->slug) }}">
             <figure class="nr-media">
               <img
                 src="{{ asset('photo/' . $item->poster) }}"
@@ -162,7 +162,7 @@
     <ul class="nr-track" role="list" aria-label="Films scroller">
       @foreach ($series as $item)
         <li class="nr-item" role="listitem">
-          <a class="nr-card" href="{{ route('detail-series', $item->uuid) }}">
+          <a class="nr-card" href="{{ route('detail-series', $item->slug) }}">
             <figure class="nr-media">
               <img
                 src="{{ asset('photo/' . $item->poster) }}"
@@ -199,14 +199,14 @@
                         <div class="feature-eyebrow">SHOP</div>
                         <h2 class="feature-title">{{ $item->name }}</h2>
 
-                        <a href="{{ route('detail-shop', $item->uuid) }}" class="feature-cta">
+                        <a href="{{ route('detail-shop', $item->slug) }}" class="feature-cta">
                             <span class="cta-line"></span>&nbsp;
                             <span class="cta-label">EXPLORE PRODUCT</span>
                         </a>
                     </div>
 
                     <!-- Kolom Kanan: Media -->
-                    <a href="{{ route('detail-shop', $item->uuid) }}" class="feature-media">
+                    <a href="{{ route('detail-shop', $item->slug) }}" class="feature-media">
                         <div class="feature-media-frame">
                             <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->name }}" loading="lazy" />
                         </div>
@@ -218,7 +218,7 @@
             <section class="feature-sidetext">
                 <div class="feature-wrap">
                     <!-- Foto -->
-                    <a href="{{ route('detail-shop', $item->uuid) }}" class="feature-media">
+                    <a href="{{ route('detail-shop', $item->slug) }}" class="feature-media">
                         <div class="feature-media-frame">
                             <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->name }}" loading="lazy" />
                         </div>
@@ -229,7 +229,7 @@
                         <span class="feature-eyebrow">SHOP</span>
                         <h2 class="feature-title">{{ $item->name }}</h2>
 
-                        <a href="{{ route('detail-shop', $item->uuid) }}" class="feature-cta">
+                        <a href="{{ route('detail-shop', $item->slug) }}" class="feature-cta">
                             <span class="cta-line"></span>&nbsp;
                             <span class="cta-label">EXPLORE PRODUCT</span>
                         </a>
@@ -270,7 +270,7 @@
     @php $featured = collect($article)->first(); @endphp
     @if($featured)
       <article class="article-featured">
-        <a href="{{ $featured->kategori === 'external' ? $featured->link : route('detail-articles', $featured->uuid) }}">
+        <a href="{{ $featured->kategori === 'external' ? $featured->link : route('detail-articles', $featured->slug) }}">
           <img src="{{ asset('photo/' . $featured->photo) }}" alt="{{ $featured->judul }}" loading="lazy" />
           <div class="article-featured-text">
             <h3>{{ $featured->judul }}</h3>
@@ -284,7 +284,7 @@
     <div class="article-list" role="list">
       @foreach ($all_article as $item)
         <article class="article-item" role="listitem">
-          <a href="{{ $item->kategori === 'external' ? $item->link : route('detail-articles', $item->uuid) }}" class="article-item-link">
+          <a href="{{ $item->kategori === 'external' ? $item->link : route('detail-articles', $item->slug) }}" class="article-item-link">
             <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
             <div>
               <h4>{{ $item->judul }}</h4>

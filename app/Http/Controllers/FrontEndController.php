@@ -29,14 +29,14 @@ class FrontEndController extends Controller
         $film = film::all()->where('kategori', $kategori_film->uuid);
         $kategori_series = Kategori::where('name', 'like', '%series%')->first();
         $series = film::all()->where('kategori', $kategori_series->uuid);
-        $shop = shop::select('uuid','name', 'photo')
+        $shop = shop::select('uuid','name', 'photo', 'slug')
                 ->where('highlight', '=', 'Y')
                 ->get();
-        $article = article::select('uuid','kategori', 'link', 'photo', 'judul', 'title', 'created_at')
+        $article = article::select('uuid','kategori', 'link', 'photo', 'judul', 'title', 'created_at', 'slug')
                             ->orderBy('created_at')
                             ->limit(1)
                             ->get();
-        $all_article = article::select('uuid','kategori', 'link', 'photo', 'judul', 'title', 'created_at')
+        $all_article = article::select('uuid','kategori', 'link', 'photo', 'judul', 'title', 'created_at', 'slug')
                             ->where('uuid', '!=', $article[0]->uuid)
                             ->limit(4)
                             ->orderBy('created_at')
@@ -92,7 +92,7 @@ class FrontEndController extends Controller
     public function detailfilm($id)
     {
         $kategori = Kategori::where('name', 'like', '%film%')->first();
-        $film = film::all()->where('uuid', 'like', $id)->first();
+        $film = film::all()->where('slug', 'like', $id)->first();
         $all_film = film::all()
                         ->where('kategori', $kategori->uuid)
                         ->where('uuid', '!=', $film->uuid);
@@ -143,7 +143,7 @@ class FrontEndController extends Controller
     public function detailseries($id)
     {
         $kategori = Kategori::where('name', 'like', '%series%')->first();
-        $film = film::all()->where('uuid', 'like', $id)->first();
+        $film = film::all()->where('slug', 'like', $id)->first();
         $all_film = film::all()
                         ->where('kategori', $kategori->uuid)
                         ->where('uuid', '!=', $film->uuid);
@@ -166,8 +166,8 @@ class FrontEndController extends Controller
     public function detailshop($id)
     {
         // dd($id);
-        $shop = shop::select('name', 'photo', 'link', 'harga', 'detail')->where('uuid', '=', $id)->first();
-        $all_shop = shop::all();
+        $shop = shop::select('uuid', 'name', 'photo', 'link', 'harga', 'detail')->where('slug', '=', $id)->first();
+        $all_shop = shop::where('uuid', '!=', $shop->uuid)->limit(4)->get();
         $kategorishop = KategoriShop::all();
 
         return view('detail-shop', compact('shop', 'all_shop', 'kategorishop'));
@@ -196,8 +196,8 @@ class FrontEndController extends Controller
 
     public function detailarticles($id)
     {
-        $article = article::all()->where('uuid', '=', $id)->first();
-        $all_article = article::all();
+        $article = article::all()->where('slug', '=', $id)->first();
+        $all_article = article::where('uuid', '!=', $article->uuid)->get();
         $kategorishop = KategoriShop::all();
 
         return view('detail-articles', compact('article', 'all_article', 'kategorishop'));
@@ -213,7 +213,7 @@ class FrontEndController extends Controller
 
     public function detailevent($id)
     {
-        $event = event::all()->where('uuid', $id)->first();
+        $event = event::all()->where('slug', $id)->first();
         $all_event = event::where('uuid', '!=', $event->uuid)->get();
         $kategorishop = KategoriShop::all();
 
@@ -239,8 +239,8 @@ class FrontEndController extends Controller
 
     public function detailcareers($id)
     {
-        $careers = job::all()->where('uuid', '=', $id)->first();
-        $casting = Casting::all()->where('uuid', '=', $id)->first();
+        $careers = job::all()->where('slug', '=', $id)->first();
+        $casting = Casting::all()->where('slug', '=', $id)->first();
         $all_careers = job::all()
                             ->where('uuid', '!=', @$careers->uuid)
                             ->where('tim', @$careers->tim);

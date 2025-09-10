@@ -334,7 +334,7 @@ body{background:var(--bg)}
                 </div>
               </a>
             @else
-              <a class="story-mini" href="{{ route('detail-articles', $item->uuid) }}">
+              <a class="story-mini" href="{{ route('detail-articles', $item->slug) }}">
                 <img src="{{ asset('photo/' . $item->photo) }}" alt="">
                 <div>
                   <div class="story-title">{{ $item->judul }}</div>

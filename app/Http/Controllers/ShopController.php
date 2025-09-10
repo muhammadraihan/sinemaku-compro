@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KategoriShop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Shop;
 
@@ -91,6 +92,7 @@ class ShopController extends Controller
         // dd($request->photo);
 
         $shop = new Shop();
+        $shop->slug = Str::slug($request->name);
         $shop->name = $request->name;
         $shop->judul = $request->judul;
         $shop->detail = $request->detail;
@@ -169,6 +171,7 @@ class ShopController extends Controller
         // dd($request->photo);
 
         $shop = Shop::uuid($id);
+        $shop->slug = Str::slug($request->name);
         $shop->name = $request->name;
         $shop->judul = $request->judul;
         $shop->detail = $request->detail;

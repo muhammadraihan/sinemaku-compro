@@ -211,7 +211,7 @@
         </span>
       </div>
 
-      <a href="{{ route('detail-articles', $articles->uuid) }}" class="btn-primary">
+      <a href="{{ route('detail-articles', $articles->slug) }}" class="btn-primary">
         READ MORE
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -257,7 +257,7 @@
           </article>
         @else
           <article class="article-card">
-            <a href="{{ route('detail-articles', $item->uuid) }}" class="thumb">
+            <a href="{{ route('detail-articles', $item->slug) }}" class="thumb">
               <img src="{{ asset('photo/' . $item->photo) }}" alt="Artikel 1">
             </a>
             <div class="card-body">

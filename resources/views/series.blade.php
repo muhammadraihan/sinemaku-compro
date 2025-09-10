@@ -624,14 +624,14 @@
               <h2 class="feature-title">
                   {{ $item->title }} <span class="feature-eyebrow">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span></h2>
 
-              <a href="{{ route('detail-series', $item->uuid) }}" class="feature-cta" aria-label="Detail">
+              <a href="{{ route('detail-series', $item->slug) }}" class="feature-cta" aria-label="Detail">
                   <span class="cta-line" aria-hidden="true"></span>&nbsp;
                   <span class="cta-label">DETAIL</span>
               </a>
               </div>
 
               <!-- Kolom Kanan: Media -->
-              <a href="{{ route('detail-series', $item->uuid) }}" class="feature-media">
+              <a href="{{ route('detail-series', $item->slug) }}" class="feature-media">
               <div class="feature-media-frame2">
                   <img
                   src="{{ asset('photo/' . $item->poster) }}"
@@ -644,7 +644,7 @@
         <section class="feature-sidetext" id="podcast">
           <div class="feature-wrap">
               <!-- Foto -->
-              <a href="{{ route('detail-series', $item->uuid) }}" class="feature-media">
+              <a href="{{ route('detail-series', $item->slug) }}" class="feature-media">
                   <div class="feature-media-frame2">
                       <img src="{{ asset('photo/' . $item->poster) }}" alt="Creative Affair">
                   </div>
@@ -652,7 +652,7 @@
               <!-- Teks -->
               <div class="feature-text">
                   <h2 class="feature-title">{{ $item->title }} <span class="feature-eyebrow">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span></h2>
-                  <a href="{{ route('detail-series', $item->uuid) }}" class="feature-cta" aria-label="Detail">
+                  <a href="{{ route('detail-series', $item->slug) }}" class="feature-cta" aria-label="Detail">
                       <span class="cta-line" aria-hidden="true"></span>&nbsp;
                       <span class="cta-label">DETAIL</span>
                   </a>
@@ -678,7 +678,7 @@
   <div class="allfilms-grid">
     @foreach ($genre as $item)
       <article class="filmitem" data-genres='@json($item->genres_array)'>
-          <a href="{{ route('detail-series', $item->uuid) }}" class="filmitem-link">
+          <a href="{{ route('detail-series', $item->slug) }}" class="filmitem-link">
               <figure class="filmitem-media has-overlay">
               <img src="{{ asset('photo/' . $item->poster) }}"
                   alt="{{ $item->title }}" loading="lazy">
@@ -716,48 +716,46 @@
 </section>
 
 <script>
-(function(){
-  const chips = document.querySelectorAll('.allfilms .chip');
-  const cards = document.querySelectorAll('.allfilms .filmitem');
+  (function(){
+  const scope = document.querySelector('.allfilms') || document;
+  const chips = scope.querySelectorAll('.chip');
+  const cards = scope.querySelectorAll('.filmitem');
 
   function setActive(btn){
-    chips.forEach(c=>c.classList.remove('is-active'));
-    btn.classList.add('is-active');
-    chips.forEach(c => c.setAttribute('aria-selected', c===btn ? 'true' : 'false'));
-  }
-
-  function getGenres(card){
-    try {
-      const raw = card.dataset.genres || '[]';
-      const arr = JSON.parse(raw);
-      return Array.isArray(arr) ? arr.map(s => String(s).toLowerCase()) : [];
-    } catch(e){ return []; }
+    chips.forEach(c => {
+      const on = c === btn;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
   }
 
   function applyFilter(key){
-    const target = String(key || 'all').toLowerCase();
-    cards.forEach(card=>{
-      const list = getGenres(card);
-      if(target==='all' || list.includes(target)){
-        card.classList.remove('is-hidden');
-      } else {
-        card.classList.add('is-hidden');
-      }
+    cards.forEach(card => {
+      // BACA ARRAY GENRE dari data-genres='["drama","thriller",...]'
+      let genres = [];
+      try { genres = JSON.parse(card.dataset.genres || '[]'); } catch(e){}
+      const match = (key === 'all') ? true : genres.includes(key);
+      card.classList.toggle('is-hidden', !match);
     });
   }
 
-  chips.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
+  chips.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = (btn.dataset.filter || '').toLowerCase();
       setActive(btn);
-      applyFilter(btn.dataset.filter);
+      applyFilter(key);
     });
-    btn.addEventListener('keydown', e=>{
-      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); btn.click(); }
+    // akses keyboard
+    btn.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
     });
   });
 
-  // Init state (keep first active chip's filter)
-  const active = document.querySelector('.allfilms .chip.is-active');
-  if(active){ applyFilter(active.dataset.filter); }
+  // initial state
+  const first = scope.querySelector('.chip.is-active') || chips[0];
+  if(first){
+    setActive(first);
+    applyFilter((first.dataset.filter || '').toLowerCase());
+  }
 })();
 </script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Article;
 
@@ -85,6 +86,7 @@ class ArticleController extends Controller
         // dd($request->photo);
 
         $article = new article();
+        $article->slug = Str::slug($request->judul);
         $article->judul = $request->judul;
         $article->title = $request->title;
         $article->tgl_rilis = $request->tgl_rilis;
@@ -158,6 +160,7 @@ class ArticleController extends Controller
         $this->validate($request, $rules, $messages);
         
         $article = article::uuid($id);
+        $article->slug = Str::slug($request->judul);
         $article->judul = $request->judul;
         $article->title = $request->title;
         $article->tgl_rilis = $request->tgl_rilis;

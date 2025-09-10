@@ -254,7 +254,7 @@
 
         @if (!empty($careers->status))
             @foreach ($all_careers as $item)
-                <a class="mini" href="{{ route('detail-careers', $item->uuid) }}">
+                <a class="mini" href="{{ route('detail-careers', $item->slug) }}">
                   <div class="mini__text">
                     <div class="mini__title">{{ $item->position }}</div>
                     <div class="mini__meta">{{ $item->tim }} · {{ $item->location }}</div>
@@ -264,7 +264,7 @@
             @endforeach
         @else
             @foreach ($all_casting as $item)
-                <a class="mini" href="{{ route('detail-careers', $item->uuid) }}">
+                <a class="mini" href="{{ route('detail-careers', $item->slug) }}">
                   <div class="mini__text">
                     <div class="mini__title">{{ $item->pemeran }}</div>
                     <div class="mini__meta">{{ $item->judul_film }} · {{ $item->location }}</div>

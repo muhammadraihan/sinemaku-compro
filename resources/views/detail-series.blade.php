@@ -419,7 +419,7 @@
           <h3 class="h3">You Might Also Like</h3>
 
           @foreach ($all_film as $item)
-              <a class="suggest-item" href="{{ route('detail-series', $item->uuid) }}">
+              <a class="suggest-item" href="{{ route('detail-series', $item->slug) }}">
                 <img src="{{ asset('photo/' . $item->poster) }}" alt="" loading="lazy">
                 <div>
                   <div class="title">{{ $item->title }}</div>
