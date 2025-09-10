@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\film;
+use App\Models\Film;
 use App\Models\Shop;
 use App\Models\Article;
 use App\Models\BehindTheScene as bts;
