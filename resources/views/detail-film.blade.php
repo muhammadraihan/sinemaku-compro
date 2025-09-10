@@ -294,6 +294,15 @@
 @media (max-width: 980px){
   .suggest-card{ top: 76px; }
 }
+
+/* kalau pakai Bootstrap, kurang lebih begini */
+.lead p {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
 </style>
 <!-- ===== Film Detail: HERO ===== -->
 <section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">
@@ -393,9 +402,9 @@
         <br>
         {{-- <h2 class="h2">About the Film</h2> --}}
 
-        <p class="lead">
+        <div class="lead">
           {!! $film->sinopsis !!}
-        </p>
+        </div>
       </div>
 
       <!-- RIGHT COLUMN / SIDEBAR -->

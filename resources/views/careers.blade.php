@@ -96,6 +96,7 @@
   .castings-title{
     font: 700 clamp(22px,3vw,36px)/1.08 "Libre Baskerville", serif;
     margin:0 0 clamp(18px,3vw,26px);
+    margin-left: 200px;
   }
 
   .cast-card{
@@ -177,9 +178,8 @@
 
 <!-- ============== CASTING: CURRENT CASTINGS ============== -->
 <section class="castings" id="castings">
+  <h2 class="castings-title">Current Castings</h2>
   <div class="castings-wrap">
-    <h2 class="castings-title">Current Castings</h2>
-
     @foreach ($casting as $item)
       <article class="cast-card">
         <header class="cast-head">

@@ -237,7 +237,7 @@
       {{-- ====== RAK 1 ====== --}}
       <section class="related-products">
         <div class="carousel-wrapper">
-          <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
+          {{-- <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button> --}}
           <div class="carousel-track">
             @foreach ($all_merchandise as $items)
                 @if ($items->merchandise == $item->merchandise)
@@ -249,7 +249,7 @@
                 @endif
             @endforeach
           </div>
-          <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button>
+          {{-- <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button> --}}
         </div>
       </section>
 

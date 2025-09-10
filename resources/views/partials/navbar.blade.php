@@ -113,6 +113,7 @@
 .mega-menu-link:nth-child(6) { transition-delay: 0.49s; }
 .mega-menu-link:nth-child(7) { transition-delay: 0.57s; }
 .mega-menu-link:nth-child(8) { transition-delay: 0.65s; }
+.mega-menu-link:nth-child(9) { transition-delay: 0.73s; }
 
 /* Reset transition-delay saat close supaya cepat hilang */
 .mega-menu-overlay:not(.menu-animate) .mega-menu-link {
@@ -446,13 +447,26 @@ button.mega-menu-link:focus-visible{
   <div class="mega-menu-content">
     <!-- Bagian Kiri: Menu -->
     <div class="mega-menu-main">
-      <a href="/" class="mega-menu-link active" data-desc="Back to homepage">Home</a>
-      <a href="{{ route('film') }}" class="mega-menu-link" data-desc="Explore our cinematic works">Films</a>
-      <a href="{{ route('series') }}" class="mega-menu-link" data-desc="Long-form storytelling">Series</a>
-      {{-- <a href="{{ route('shop') }}" class="mega-menu-link" data-desc="Exclusive merchandise">Shop</a> --}}
-      <div class="has-sub">
-        <!-- pakai button supaya tidak langsung navigate -->
-        <button type="button" class="mega-menu-link js-toggle-sub" aria-expanded="false">
+      {{-- HOME --}}
+      <a href="{{ route('welcome') }}"
+        class="mega-menu-link {{ request()->routeIs('welcome') ? 'active' : '' }}"
+        data-desc="Back to homepage">Home</a>
+
+      {{-- FILMS --}}
+      <a href="{{ route('film') }}"
+        class="mega-menu-link {{ request()->routeIs('film','detail-film') ? 'active' : '' }}"
+        data-desc="Explore our cinematic works">Films</a>
+
+      {{-- SERIES --}}
+      <a href="{{ route('series') }}"
+        class="mega-menu-link {{ request()->routeIs('series','detail-series') ? 'active' : '' }}"
+        data-desc="Long-form storytelling">Series</a>
+
+      {{-- SHOP (top-level sebagai button) --}}
+      <div class="has-sub {{ request()->routeIs('shop','detail-kategori','detail-shop') ? 'open' : '' }}">
+        <button type="button"
+                class="mega-menu-link js-toggle-sub {{ request()->routeIs('shop','detail-kategori','detail-shop') ? 'active' : '' }}"
+                aria-expanded="{{ request()->routeIs('shop','detail-kategori','detail-shop') ? 'true' : 'false' }}">
           Shop
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"
@@ -460,20 +474,47 @@ button.mega-menu-link:focus-visible{
           </svg>
         </button>
 
-        <div class="mega-sub" style="display:none">
-          <a class="mega-sub-link" href="{{ route('shop') }}">All</a>
+        <div class="mega-sub" style="{{ request()->routeIs('shop','detail-kategori','detail-shop') ? '' : 'display:none' }}">
+          <a class="mega-sub-link {{ request()->routeIs('shop') ? 'active' : '' }}"
+            href="{{ route('shop') }}">All</a>
+
           @isset($kategorishop)
             @foreach ($kategorishop as $item)
-              <a class="mega-sub-link" href="{{ route('detail-kategori', $item->uuid) }}">{{ $item->name }}</a>
+              <a class="mega-sub-link
+                        {{ request()->routeIs('detail-kategori') && request()->route('slug') == $item->uuid ? 'active' : '' }}"
+                href="{{ route('detail-kategori', $item->uuid) }}">
+                {{ $item->name }}
+              </a>
             @endforeach
           @endisset
         </div>
       </div>
-      <a href="{{ route('articles') }}" class="mega-menu-link" data-desc="Stories and insights">Articles</a>
-      <a href="{{ route('event') }}" class="mega-menu-link" data-desc="Premieres and screenings">Events</a>
-      <a href="{{ route('frontend.membership') }}" class="mega-menu-link" data-desc="Join our inner circle">Membership</a>
-      <a href="{{ route('careers') }}" class="mega-menu-link" data-desc="Join our creative team">Careers</a>
-      <a href="{{ route('bts') }}" class="mega-menu-link" data-desc="Join our creative team">Behind The Scene</a>
+
+      {{-- ARTICLES --}}
+      <a href="{{ route('articles') }}"
+        class="mega-menu-link {{ request()->routeIs('articles','detail-articles') ? 'active' : '' }}"
+        data-desc="Stories and insights">Articles</a>
+
+      {{-- EVENTS --}}
+      <a href="{{ route('event') }}"
+        class="mega-menu-link {{ request()->routeIs('event','detail-event') ? 'active' : '' }}"
+        data-desc="Premieres and screenings">Events</a>
+
+      {{-- MEMBERSHIP --}}
+      <a href="{{ route('frontend.membership') }}"
+        class="mega-menu-link {{ request()->routeIs('frontend.membership') ? 'active' : '' }}"
+        data-desc="Join our inner circle">Membership</a>
+
+      {{-- CAREERS --}}
+      <a href="{{ route('careers') }}"
+        class="mega-menu-link {{ request()->routeIs('careers','detail-careers') ? 'active' : '' }}"
+        data-desc="Join our creative team">Careers</a>
+
+      {{-- BTS --}}
+      <a href="{{ route('bts') }}"
+        class="mega-menu-link {{ request()->routeIs('bts') ? 'active' : '' }}"
+        data-desc="Join our creative team">Behind The Scene</a>
+
       <div class="mega-menu-copyright">© 2024 Sinemaku Pictures. All rights reserved.</div>
     </div>
     <!-- Bagian Kanan: Kontak -->
@@ -533,7 +574,7 @@ $(function(){
 
             if (!isOpen) {
                 // Buka Mega Menu + animasi menu
-                $overlay.fadeIn(400, function(){
+                $overlay.fadeIn(200, function(){
                     setTimeout(function() {
                         $overlay.addClass('menu-animate');
                     }, 20); // memberi waktu agar transition berjalan
