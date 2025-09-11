@@ -110,7 +110,8 @@
 
     .btn-primary{
     margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
-  border-radius:10px; background:#fff; color:#111; text-decoration:none; font-weight:700; font-size:13px;
+  border-radius:10px; background:#fff; color:#111; text-decoration:none;
+  font: 700 13px/1.2 Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   letter-spacing:.2px; box-shadow:0 10px 24px rgba(0,0,0,.156);
   transition:transform .18s, box-shadow .18s, background .2s; width:auto; max-width: 260px;
   }
