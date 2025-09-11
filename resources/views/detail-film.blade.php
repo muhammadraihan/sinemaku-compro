@@ -315,7 +315,7 @@
 
 /* kalau pakai Bootstrap, kurang lebih begini */
 .lead p {
-  font-size: 1.25rem;
+  font-size: 1.00rem;
   font-weight: 300;
   line-height: 1.6;
   margin-bottom: 1rem;
@@ -344,7 +344,7 @@
   }
   .lead blockquote {
     font-family: 'Inter', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.00rem;
     font-weight: 500;
     line-height: 1.6;
     margin-bottom: 1rem;
@@ -352,7 +352,7 @@
 
   .lead ul {
     font-family: 'Inter', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.00rem;
     font-weight: 300;
     line-height: 1.6;
     margin-bottom: 1rem;
