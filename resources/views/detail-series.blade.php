@@ -301,6 +301,43 @@
   transform: none !important;
   transition: none !important;
 }
+.lead p {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.lead h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .lead h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .lead blockquote {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .lead ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
 </style>
 <!-- ===== Film Detail: HERO ===== -->
 <section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">
@@ -425,16 +462,21 @@
           <div class="film-card reveal-y">
             <h3 class="h3">Cast</h3>
             <ul class="plain-list">
-              <li>{{ $film->cast }}</li>
+             @php
+                $all_cast = explode(',', $film->cast);
+              @endphp
+              @foreach ($all_cast as $item)
+                  <li>{{ $item }}</li>
+              @endforeach
             </ul>
           </div>
         </div>
         <br>
         {{-- <h2 class="h2">About the Film</h2> --}}
 
-        <p class="lead reveal-y">
+        <div class="lead reveal-y">
           {!! $film->sinopsis !!}
-        </p>
+        </div>
       </div>
 
       <!-- RIGHT COLUMN / SIDEBAR -->

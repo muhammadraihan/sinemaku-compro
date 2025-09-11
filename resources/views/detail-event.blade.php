@@ -156,6 +156,10 @@
   font: 400 16px/1.8 'Inter', system-ui, sans-serif;
   color: #333;
   margin: 0 0 20px;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 1rem;
 }
 
 /* Quote */

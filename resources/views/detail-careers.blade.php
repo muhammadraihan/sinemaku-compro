@@ -188,6 +188,43 @@
   transform: none !important;
   transition: none !important;
 }
+
+  .jobdetail__content p {
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .jobdetail__content h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .jobdetail__content h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .jobdetail__content blockquote {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .jobdetail__content ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
 </style>
 <section class="jobdetail">
   <div class="jobdetail__wrap">

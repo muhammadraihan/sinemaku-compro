@@ -151,8 +151,12 @@ body{background:var(--bg)}
   border: 1px solid var(--line);
 }
 .article-content figure img{ display:block; }
-.article-content p{
+.article-content p, .article-content ul{
   font: 400 16px/1.85 'Inter',system-ui,Arial; color:#2b2b2b; margin: 0 0 16px;
+}
+
+.article-content blockquote{
+  font: 500 16px/1.85 'Inter',system-ui,Arial; color:#2b2b2b; margin: 0 0 16px;
 }
 .article-content a{ font-family:'Inter',Arial,sans-serif; color:#0d63ff; text-decoration:none }
 .article-content a:hover{ text-decoration:underline }

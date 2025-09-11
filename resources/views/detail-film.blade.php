@@ -328,6 +328,36 @@
   transition: none !important;
 }
 
+  .lead h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .lead h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .lead blockquote {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .lead ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
 </style>
 <!-- ===== Film Detail: HERO ===== -->
 <section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">

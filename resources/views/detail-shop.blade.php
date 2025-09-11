@@ -226,7 +226,42 @@
   font: 400 16px/1.75 "Inter", system-ui, -apple-system, Arial, sans-serif;
   color:#2a2f35;
 }
-.shop-desc p{ margin: 0 0 14px; }
+.shop-desc p{ 
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 1rem; 
+}
+
+.shop-desc h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .shop-desc h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .shop-desc blockquote {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .shop-desc ul {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
 
 /* dll tetap sama (list, heading, tabel, blockquote, img, code) */
 
