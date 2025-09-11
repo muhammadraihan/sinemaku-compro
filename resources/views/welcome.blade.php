@@ -6,38 +6,6 @@
 
 @section('content')
     {{-- ================== NAVBAR & HERO ================== --}}
-    {{-- <section class="hero-section" role="banner" aria-label="Hero">
-        <div class="hero-gradient" aria-hidden="true"></div>
-
-        <img
-            class="temp-imagehc-vht-6-1 hero-bg"
-            src="{{ asset('img/temp-imagehc-vht-6-10.png') }}"
-            alt="Hero background"
-            loading="eager"
-            fetchpriority="high"
-        />
-
-        <div class="rectangle-5" aria-hidden="true"></div>
-
-        <div class="hero-content">
-        <div class="hero-meta" role="group" aria-label="Movie meta">
-            <span class="meta-year">2023</span>
-            <span class="meta-dot" aria-hidden="true">•</span>
-            <span class="meta-cast">Starring Prilly Latuconsina</span>
-        </div>
-
-        
-    <!-- Tetap biarkan 01 - 04 di kiri bawah -->
-    <div class="_01-04">01 - 04</div>
-        
-            <h1 class="bolehkah-sekali-saja-ku-menangis" aria-label="BOLEHKAH SEKALI SAJA KU MENANGIS">
-                <span>BOLEHKAH</span><br />
-                <span>SEKALI SAJA</span><br />
-                <span>KU MENANGIS</span>
-            </h1>
-        </div>
-    </section> --}}
-
     @php
         $total = str_pad($film->count(), 2, '0', STR_PAD_LEFT);
     @endphp
@@ -49,10 +17,28 @@
                     aria-label="Slide {{ $i+1 }} of {{ $film->count() }}">
                 <div class="hero-gradient" aria-hidden="true"></div>
 
+                {{-- <img class="hero-bg"
+                    src="{{ asset('photo/' . $h->photo) }}"
+                    alt="Hero background {{ $h->title }}"
+                    @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif> --}}
+                
+                @php
+                // sediakan foto portrait khusus mobile kalau ada (opsional)
+                $mobile = $h->photo;
+                @endphp
+
+                <picture class="hero-media">
+                @if($mobile)
+                    {{-- portrait khusus untuk mobile --}}
+                    <source media="(max-width: 768px)" srcset="{{ asset('photo/' . $mobile) }}">
+                @endif
+
+                {{-- default / desktop (landscape) --}}
                 <img class="hero-bg"
                     src="{{ asset('photo/' . $h->photo) }}"
                     alt="Hero background {{ $h->title }}"
                     @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif>
+                </picture>
 
                 <div class="rectangle-5" aria-hidden="true"></div>
  

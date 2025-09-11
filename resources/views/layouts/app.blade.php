@@ -89,6 +89,8 @@
     }
     .hero-slider .hero-section.is-active{ opacity: 1; pointer-events: auto; }
 
+    .hero-media, .hero-bg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+
     /* meta hero */
     .hero-meta{
       position: absolute; left: 50%; bottom: clamp(80px, 30vh, 300px);
