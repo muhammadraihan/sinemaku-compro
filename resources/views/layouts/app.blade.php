@@ -85,11 +85,11 @@
     /* ========= HERO ========= */
     .hero-slider{ position: relative; min-height: 100vh; overflow: hidden; }
     .hero-slider .hero-section{
-      position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .6s ease;
+      position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .6s ease; min-height:100svh;
     }
+    .hero-media,.hero-bg{position:absolute;inset:0;width:100%;height:100%;display:block;}
     .hero-slider .hero-section.is-active{ opacity: 1; pointer-events: auto; }
-
-    .hero-media, .hero-bg { position:relative; inset:0; width:100%; height:100%; display:block; }
+    .hero-bg{object-fit:cover;object-position:50% 30%;}
 
     /* meta hero */
     .hero-meta{
@@ -126,7 +126,7 @@
     }
 
     .hero-content{
-      position: relative; inset: 0; z-index: 2; display: flex; flex-direction: column;
+      position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column;
       justify-content: center; align-items: center; color: #fff; padding: var(--space-lg); text-align: center;
     }
 
@@ -949,6 +949,10 @@
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
+}
+
+@media (max-aspect-ratio: 3/4){
+  .hero-bg{object-fit:contain;background:#000;}
 }
 
   </style>

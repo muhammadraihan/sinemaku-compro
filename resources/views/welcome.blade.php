@@ -22,22 +22,11 @@
                     alt="Hero background {{ $h->title }}"
                     @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif> --}}
                 
-                @php
-                // sediakan foto portrait khusus mobile kalau ada (opsional)
-                $mobile = $h->photo;
-                @endphp
-
                 <picture class="hero-media">
-                @if($mobile)
-                    {{-- portrait khusus untuk mobile --}}
-                    <source media="(max-width: 768px)" srcset="{{ asset('photo/' . $mobile) }}">
-                @endif
-
-                {{-- default / desktop (landscape) --}}
-                <img class="hero-bg"
-                    src="{{ asset('photo/' . $h->photo) }}"
-                    alt="Hero background {{ $h->title }}"
-                    @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif>
+                    <img class="hero-bg"
+                        src="{{ asset('photo/' . $h->photo) }}"
+                        alt="Hero background {{ $h->title }}"
+                        @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif>
                 </picture>
 
                 <div class="rectangle-5" aria-hidden="true"></div>
