@@ -85,11 +85,9 @@
     /* ========= HERO ========= */
     .hero-slider{ position: relative; min-height: 100vh; overflow: hidden; }
     .hero-slider .hero-section{
-      position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .6s ease; min-height:100svh;
+      position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .6s ease;
     }
-    .hero-media,.hero-bg{position:absolute;inset:0;width:100%;height:100%;display:block;}
     .hero-slider .hero-section.is-active{ opacity: 1; pointer-events: auto; }
-    .hero-bg{object-fit:cover;object-position:50% 30%;}
 
     /* meta hero */
     .hero-meta{
@@ -949,10 +947,6 @@
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
-}
-
-@media (max-aspect-ratio: 3/4){
-  .hero-bg{object-fit:contain;background:#000;}
 }
 
   </style>

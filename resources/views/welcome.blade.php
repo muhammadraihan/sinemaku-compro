@@ -17,17 +17,10 @@
                     aria-label="Slide {{ $i+1 }} of {{ $film->count() }}">
                 <div class="hero-gradient" aria-hidden="true"></div>
 
-                {{-- <img class="hero-bg"
+                <img class="hero-bg"
                     src="{{ asset('photo/' . $h->photo) }}"
                     alt="Hero background {{ $h->title }}"
-                    @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif> --}}
-                
-                <picture class="hero-media">
-                    <img class="hero-bg"
-                        src="{{ asset('photo/' . $h->photo) }}"
-                        alt="Hero background {{ $h->title }}"
-                        @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif>
-                </picture>
+                    @if($loop->first) loading="eager" fetchpriority="high" @else loading="lazy" @endif>
 
                 <div class="rectangle-5" aria-hidden="true"></div>
  
