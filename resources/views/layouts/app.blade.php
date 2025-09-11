@@ -823,7 +823,7 @@
 }
 
     /* ========= Footer ========= */
-    .site-footer{ background:#0A0B0C; color:#cfd8e3; padding:72px 24px 28px; }
+    .site-footer{ background:#0A0B0C; color:#cfd8e3; padding:72px 24px 28px; font-family: "Inter", sans-serif}
         .site-footer a{ color:#e6eef8; text-decoration:none; }
         .site-footer a:hover{ color:#ffffff; }
         .footer-inner{
