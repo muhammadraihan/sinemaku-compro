@@ -89,7 +89,7 @@
     }
     .hero-slider .hero-section.is-active{ opacity: 1; pointer-events: auto; }
 
-    .hero-media, .hero-bg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+    .hero-media, .hero-bg { position:relative; inset:0; width:100%; height:100%; display:block; }
 
     /* meta hero */
     .hero-meta{
@@ -126,7 +126,7 @@
     }
 
     .hero-content{
-      position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column;
+      position: relative; inset: 0; z-index: 2; display: flex; flex-direction: column;
       justify-content: center; align-items: center; color: #fff; padding: var(--space-lg); text-align: center;
     }
 
