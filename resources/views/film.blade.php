@@ -645,6 +645,11 @@
   .chip{ padding: 6px 9px; font-size: 11px; }
   .filmitem-title{ font-size: 12.5px; }
 }
+.reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
 <h3 class="title">COMING SOON</h3>

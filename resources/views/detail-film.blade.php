@@ -320,6 +320,11 @@
   line-height: 1.6;
   margin-bottom: 1rem;
 }
+.reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 
 </style>
 <!-- ===== Film Detail: HERO ===== -->
@@ -473,15 +478,15 @@
     el.style.transitionDelay = (i * 90) + 'ms';
   });
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if(e.isIntersecting){
-        e.target.classList.add('revealed');
-        io.unobserve(e.target);
-      }
-    });
-  }, { root: null, rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+//   const io = new IntersectionObserver((entries) => {
+//     entries.forEach((e) => {
+//       if(e.isIntersecting){
+//         e.target.classList.add('revealed');
+//         io.unobserve(e.target);
+//       }
+//     });
+//   }, { root: null, rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
 
-  els.forEach(el => io.observe(el));
-})();
+//   els.forEach(el => io.observe(el));
+// })();
 </script>

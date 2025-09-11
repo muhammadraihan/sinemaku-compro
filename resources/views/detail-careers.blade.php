@@ -181,6 +181,11 @@
     opacity:1;
     transform:none;
   }
+  .reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 </style>
 <section class="jobdetail">
   <div class="jobdetail__wrap">

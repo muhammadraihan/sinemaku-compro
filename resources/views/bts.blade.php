@@ -308,6 +308,11 @@
     transition: none !important;
   }
 }
+.reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 </style>
 <h3 class="title reveal">BEHIND THE SCENES</h3>
 

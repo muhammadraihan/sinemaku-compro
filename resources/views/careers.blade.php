@@ -192,6 +192,11 @@
   @media (prefers-reduced-motion: reduce){
     .reveal{ opacity:1 !important; transform:none !important; filter:none !important; transition:none !important; }
   }
+  .reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 </style>
 
 <!-- ============== CAREERS: OPEN POSITIONS ============== -->

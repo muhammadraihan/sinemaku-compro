@@ -182,6 +182,11 @@
     transition: none !important;
   }
 }
+.reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 </style>
 
 <section class="collection">

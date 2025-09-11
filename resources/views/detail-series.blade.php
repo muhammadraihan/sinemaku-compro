@@ -294,7 +294,11 @@
 @media (max-width: 980px){
   .suggest-card{ top: 76px; }
 }
-
+.reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 </style>
 <!-- ===== Film Detail: HERO ===== -->
 <section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">
@@ -461,7 +465,7 @@
 
 
 
-<!-- Reveal Animation Script (Mobile Only) -->
+<!-- Reveal Animation Script (Mobile Only)
 <script>
   (function(){
     const isMobile = window.matchMedia('(max-width: 640px)').matches;
@@ -486,4 +490,4 @@
     const observer = new IntersectionObserver(onReveal, options);
     nodes.forEach(el => observer.observe(el));
   })();
-</script>
+</script> -->

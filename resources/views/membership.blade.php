@@ -298,6 +298,11 @@
       opacity:1 !important;
     }
   }
+  .reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 </style>
 <!-- ================= MEMBERSHIP: MEMBER EXCLUSIVE BENEFITS ================ -->
 <section class="member-benefits" id="member-benefits">

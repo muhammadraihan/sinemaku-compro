@@ -662,6 +662,11 @@
       will-change: transform, opacity;
     }
   }
+  .reveal-m {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
 <h3 class="title">COMING SOON</h3>
