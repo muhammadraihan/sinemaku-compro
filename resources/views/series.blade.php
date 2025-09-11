@@ -644,6 +644,24 @@
   .allfilms-grid .filmitem-media::before,
   .allfilms-grid .filmitem-media::after{ opacity: 0 !important; }
 }
+  /* === Mobile-only card reveal animation (Series) === */
+  @media (max-width: 680px){
+    /* Default: cards tetap terlihat.
+       Saat JS mengaktifkan mode (menambah .reveal-mobile pada grid),
+       kartu disembunyikan halus lalu muncul satu-persatu. */
+    .allfilms-grid.reveal-mobile .filmitem{
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    .allfilms-grid.reveal-mobile .filmitem.is-in{
+      opacity: 1;
+      transform: none;
+      transition:
+        transform .55s cubic-bezier(.2,.7,.2,1),
+        opacity  .55s cubic-bezier(.2,.7,.2,1);
+      will-change: transform, opacity;
+    }
+  }
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
 <h3 class="title">COMING SOON</h3>
@@ -790,5 +808,95 @@
     setActive(first);
     applyFilter((first.dataset.filter || '').toLowerCase());
   }
+})();
+})();
+</script>
+
+<script>
+(function(){
+  const grid = document.querySelector('.allfilms-grid');
+  if (!grid) return;
+
+  // Mobile-only
+  const mql = window.matchMedia('(max-width: 680px)');
+  let io = null;
+  let stagger = 0;
+
+  function enable() {
+    if (io || !mql.matches) return;
+
+    grid.classList.add('reveal-mobile');
+
+    const items = Array.from(grid.querySelectorAll('.filmitem'))
+      .filter(el => !el.classList.contains('is-hidden'));
+
+    io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          // Stagger halus
+          el.style.transitionDelay = (stagger * 60) + 'ms';
+          el.classList.add('is-in');
+          stagger++;
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '40px 0px -10% 0px' });
+
+    items.forEach(el => {
+      // pastikan start state (tanpa .is-in)
+      el.classList.remove('is-in');
+      el.style.transitionDelay = '';
+      io.observe(el);
+    });
+  }
+
+  function disable() {
+    if (!io) return;
+    io.disconnect();
+    io = null;
+    stagger = 0;
+    grid.classList.remove('reveal-mobile');
+    grid.querySelectorAll('.filmitem').forEach(el => {
+      el.classList.remove('is-in');
+      el.style.transitionDelay = '';
+    });
+  }
+
+  function sync() {
+    if (mql.matches) enable();
+    else disable();
+  }
+
+  // initial
+  sync();
+  if (mql.addEventListener) mql.addEventListener('change', sync);
+  else mql.addListener(sync); // Safari lama
+
+  // Re-observe setelah filter chip diklik (layout berubah)
+  const scope = document.querySelector('.allfilms');
+  if (scope) {
+    scope.addEventListener('click', (e) => {
+      if (e.target.classList && e.target.classList.contains('chip')) {
+        // beri waktu filter apply
+        setTimeout(() => {
+          if (!io || !mql.matches) return;
+          // reset observer
+          io.disconnect();
+          stagger = 0;
+          grid.querySelectorAll('.filmitem').forEach(el => {
+            el.classList.remove('is-in');
+            el.style.transitionDelay = '';
+          });
+          grid.querySelectorAll('.filmitem:not(.is-hidden)').forEach(el => io.observe(el));
+        }, 40);
+      }
+    });
+  }
+
+  // Safety: re-run on orientation change
+  window.addEventListener('orientationchange', () => {
+    setTimeout(sync, 150);
+  });
 })();
 </script>

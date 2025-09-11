@@ -3,6 +3,7 @@
 @section('title', 'Home | Sinemaku Pictures')
 
 @include('partials.navbar')
+<script>document.documentElement.classList.add('js');</script>
 <style>
     .navbar-logo {
     position: absolute;
@@ -277,17 +278,58 @@
     }
 
 
+  /* ===== Reveal animation (cinematic) ===== */
+  .js .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .js .reveal-x{
+    opacity:0;
+    transform:translateX(-26px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible,
+  .reveal-x.is-visible{
+    opacity:1;
+    transform:none;
+  }
+
+  /* Stagger container: children will get incremental delays via JS */
+  .js .reveal-stagger > *{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal-stagger.is-visible > *{
+    opacity:1;
+    transform:none;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .reveal,
+    .reveal-x,
+    .reveal-stagger > *{
+      opacity:1 !important;
+      transform:none !important;
+      transition:none !important;
+    }
+  }
 </style>
 <!-- ====== DETAIL EVENT ====== -->
 <section class="event-detail">
   <div class="event-hero">
     <!-- LEFT: Poster / Foto event -->
-    <figure class="event-media">
+    <figure class="event-media reveal">
       <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}" />
     </figure>
 
     <!-- RIGHT: Title + meta + CTA -->
-    <aside class="event-info">
+    <aside class="event-info reveal-x">
       <h1 class="event-title">{{ $event->judul }}</h1>
 
       <ul class="event-meta">
@@ -329,14 +371,14 @@
   <hr class="event-divider">
 
   <!-- ABOUT -->
-  <div class="event-about">
+  <div class="event-about reveal">
     {!! $event->detail !!}
   </div>
 </section>
 
 <!-- ===== OTHER EVENTS ===== -->
 <section class="other-events">
-  <div class="oe-head">
+  <div class="oe-head reveal-x">
     <h2>Other Events</h2>
     <a class="oe-viewall" href="{{ route('event') }}">
       View All
@@ -344,7 +386,7 @@
     </a>
   </div>
 
-  <div class="oe-grid">
+  <div class="oe-grid reveal-stagger">
     @foreach ($all_event as $item)
         <article class="oe-card">
           <a href="{{ route('detail-event', $item->slug) }}" class="oe-link">
@@ -358,3 +400,32 @@
     @endforeach
   </div>
 </section>
+
+<script>
+(function(){
+  // basic reveal
+  const els = document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger');
+  if(!('IntersectionObserver' in window) || !els.length) {
+    els.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        // Stagger children if container has reveal-stagger
+        if(el.classList.contains('reveal-stagger')){
+          [...el.children].forEach((child, i) => {
+            child.style.transitionDelay = (i * 90) + 'ms';
+          });
+        }
+        el.classList.add('is-visible');
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  els.forEach(el => io.observe(el));
+})();
+</script>

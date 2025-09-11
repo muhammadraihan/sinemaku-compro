@@ -271,14 +271,27 @@ body{background:var(--bg)}
   }
 }
 
+/* ================= Scroll Reveal (Detail Article) ================= */
+/* Hide only when JS is enabled */
+.js .reveal-y{ opacity:0; transform: translateY(18px); transition: opacity .3s cubic-bezier(.2,.7,.2,1), transform .3s cubic-bezier(.2,.7,.2,1); }
+.js .reveal-x{ opacity:0; transform: translateX(18px); transition: opacity .3s cubic-bezier(.2,.7,.2,1), transform .3s cubic-bezier(.2,.7,.2,1); }
+.js .reveal-stagger > *{ opacity:0; transform: translateY(14px); transition: opacity .3s cubic-bezier(.2,.7,.2,1), transform .3s cubic-bezier(.2,.7,.2,1); }
+
+.is-visible{ opacity:1 !important; transform:none !important; }
+
+/* Reduced motion: show everything without animation */
+@media (prefers-reduced-motion: reduce){
+  .reveal-y, .reveal-x, .reveal-stagger > *{ opacity:1 !important; transform:none !important; transition:none !important; }
+}
 </style>
+<script>document.documentElement.classList.add('js');</script>
 
 <section class="article-detail">
   <div class="container">
 
     <!-- HERO -->
     <header class="article-head">
-      <figure class="hero-media">
+      <figure class="hero-media reveal-y">
         <img src="{{ asset('photo/' . $article->photo) }}" alt="Sinemaku Day">
       </figure>
 
@@ -287,9 +300,9 @@ body{background:var(--bg)}
         <a href="#">World</a>
       </nav> -->
 
-      <h1 class="article-title">{{ $article->judul }}</h1>
+      <h1 class="article-title reveal-y" data-reveal="0.06">{{ $article->judul }}</h1>
 
-      <div class="meta-row">
+      <div class="meta-row reveal-y" data-reveal="0.12">
         <span class="meta-brand">Sinemaku Article</span>
         <span class="meta-dot">•</span>
         <span class="meta-item">by {{ $article->penulis }}</span>
@@ -315,13 +328,13 @@ body{background:var(--bg)}
     <div class="article-grid">
 
       <!-- CONTENT -->
-      <article class="article-content">
+      <article class="article-content reveal-y" data-reveal="0.14">
         {!! $article->detail !!}
       </article>
 
       <!-- SIDEBAR -->
       <aside class="article-sidebar">
-        <div class="widget">
+        <div class="widget reveal-y reveal-stagger" data-reveal="0.18">
           <div class="badge">Top Stories</div>
 
           @foreach ($all_article as $item)
@@ -350,3 +363,34 @@ body{background:var(--bg)}
     </div>
   </div>
 </section>
+<script>
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // no animation for reduce-motion
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e)=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const delay = parseFloat(el.getAttribute('data-reveal')||'0');
+        el.style.transitionDelay = delay ? delay+'s' : '';
+        el.classList.add('is-visible');
+        io.unobserve(el);
+      }
+    });
+  },{
+    root:null, threshold:0.16, rootMargin:'0px 0px -8% 0px'
+  });
+
+  document.querySelectorAll('.reveal-y, .reveal-x').forEach(el=>io.observe(el));
+
+  // Stagger children of containers marked with .reveal-stagger
+  document.querySelectorAll('.reveal-stagger').forEach(box=>{
+    const kids = Array.from(box.children);
+    kids.forEach((kid, i)=>{
+      kid.style.transitionDelay = (parseFloat(box.getAttribute('data-reveal')||'0') + i*0.06) + 's';
+      io.observe(kid);
+    });
+    // Also reveal the container itself if it also has reveal-y/x
+    if(box.classList.contains('reveal-y')||box.classList.contains('reveal-x')) io.observe(box);
+  });
+})();
+</script>

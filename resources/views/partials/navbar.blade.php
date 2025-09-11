@@ -513,7 +513,7 @@ button.mega-menu-link:focus-visible{
       {{-- BTS --}}
       <a href="{{ route('bts') }}"
         class="mega-menu-link {{ request()->routeIs('bts') ? 'active' : '' }}"
-        data-desc="Join our creative team">Behind The Scene</a>
+        data-desc="Join our creative team">Behind The Scenes</a>
 
       <div class="mega-menu-copyright">© 2024 Sinemaku Pictures. All rights reserved.</div>
     </div>

@@ -4,6 +4,23 @@
 
 @include('partials.navbar')
 <style>
+  /* === Scroll Reveal Animations === */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .9s cubic-bezier(.22,.61,.36,1),
+                transform .9s cubic-bezier(.22,.61,.36,1),
+                filter .9s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform, filter;
+  }
+  .reveal.is-inview {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1 !important; transform:none !important; filter:none !important; }
+  }
     .navbar-logo {
     position: absolute;
     left: 50%;
@@ -518,7 +535,39 @@
 
 .filmitem.is-hidden{ display:none !important; }
 
-/* ===================== Mobile-first responsive refinements (Films) ===================== */
+    /* ===================== Mobile-only reveal for each film card (progressive enhancement) ===================== */
+    @media (max-width: 680px){
+      /* default visible (no JS / no IO fallback) */
+      .filmitem{
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+      /* only hidden if JS adds this class */
+      .filmitem.reveal-mobile{
+        opacity: 0;
+        transform: translateY(16px);
+        filter: blur(2px);
+        transition: opacity .6s cubic-bezier(.22,.61,.36,1),
+                    transform .6s cubic-bezier(.22,.61,.36,1),
+                    filter .6s cubic-bezier(.22,.61,.36,1);
+        will-change: opacity, transform, filter;
+      }
+      .filmitem.reveal-mobile.is-inview{
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+    }
+    /* Respect reduced motion: disable animation */
+    @media (prefers-reduced-motion: reduce){
+      .filmitem.reveal-mobile{
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+    /* ===================== Mobile-first responsive refinements (Films) ===================== */
 @media (max-width: 680px){
   /* Page title spacing */
   .title{
@@ -601,7 +650,7 @@
 <h3 class="title">COMING SOON</h3>
 @foreach ($coming_soon as $i => $item)
     @if($loop->odd)
-        <section class="feature-sidetext" id="podcast">
+        <section class="feature-sidetext reveal" id="podcast">
           <div class="feature-wrap">
               <!-- Kolom Kiri: Teks -->
               <div class="feature-text">
@@ -626,7 +675,7 @@
           </div>
       </section>
     @else
-        <section class="feature-sidetext" id="podcast">
+        <section class="feature-sidetext reveal" id="podcast">
           <div class="feature-wrap">
               <!-- Foto -->
               <a href="{{ route('detail-film', $item->slug) }}" class="feature-media">
@@ -648,7 +697,7 @@
 @endforeach
 
 {{-- ================== SECTION ALL FILMS ================== --}}
-<section class="allfilms">
+<section class="allfilms reveal">
   <div class="allfilms-head">
     <h2 class="allfilms-title">All Films</h2>
 
@@ -745,6 +794,68 @@
   if(first){
     setActive(first);
     applyFilter((first.dataset.filter || '').toLowerCase());
+  }
+})();
+// === Scroll Reveal Observer ===
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('is-inview');
+      io.unobserve(entry.target);
+    }
+  });
+},{ threshold:.18 });
+revealEls.forEach(el=> io.observe(el));
+// === Mobile-only reveal for each film card (progressive enhancement) ===
+(function(){
+  // Require IntersectionObserver support
+  if (!('IntersectionObserver' in window)) return;
+
+  const mq = window.matchMedia('(max-width: 680px)');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let ioCards = null;
+
+  function init(){
+    if (!mq.matches || reduceMotion.matches) return cleanup();
+
+    const cards = document.querySelectorAll('.allfilms-grid .filmitem');
+    if (!cards.length) return;
+
+    // Add reveal class only on mobile
+    cards.forEach(el => el.classList.add('reveal-mobile'));
+
+    ioCards = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-inview');
+          ioCards.unobserve(entry.target);
+        }
+      });
+    },{
+      threshold: 0.01,
+      root: null,
+      rootMargin: '0px 0px -10% 0px'
+    });
+
+    cards.forEach(el => ioCards.observe(el));
+  }
+
+  function cleanup(){
+    if (ioCards){ ioCards.disconnect(); ioCards = null; }
+    document.querySelectorAll('.filmitem.reveal-mobile').forEach(el=>{
+      el.classList.remove('reveal-mobile','is-inview');
+    });
+  }
+
+  // Init on load (mobile only)
+  init();
+
+  // Re-run when breakpoint changes (e.g., rotate device / resize devtools)
+  if (mq.addEventListener){
+    mq.addEventListener('change', () => { cleanup(); init(); });
+  } else if (mq.addListener){ // Safari fallback
+    mq.addListener(() => { cleanup(); init(); });
   }
 })();
 </script>

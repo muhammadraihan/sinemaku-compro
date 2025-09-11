@@ -279,6 +279,24 @@
     }
 
 
+/* ===== Mobile-only cinematic reveals (desktop = always visible) ===== */
+/* Desktop & non-JS default: everything visible */
+.reveal-m{ opacity:1; transform:none; }
+
+/* Hide-on-scroll ONLY when JS marks the page as ready */
+@media (max-width:640px){
+  .io-ready .reveal-m{
+    opacity:0;
+    transform: translateY(16px);
+    transition: opacity .5s ease, transform .5s ease;
+    will-change: opacity, transform;
+  }
+  .io-ready .reveal-m.revealed{
+    opacity:1;
+    transform:none;
+  }
+}
+
 /* ===== Mobile refinements for Film Detail ===== */
 @media (max-width: 560px){
   .film-hero{ min-height: 72vh; padding: 18px 16px 44px; }
@@ -309,9 +327,9 @@
 
   <!-- Content -->
   <div class="film-hero__inner">
-    <h1 class="film-hero__title">{{ $film->title }}</h1>
+    <h1 class="film-hero__title reveal-m">{{ $film->title }}</h1>
 
-    <div class="film-hero__meta">
+    <div class="film-hero__meta reveal-m">
       <span class="genre">{{ \Carbon\Carbon::parse($film->release_date)->format('Y') }}</span>
       <span class="dot">•</span>
       <span class="genre">{{ $film->genre }}</span>
@@ -339,7 +357,7 @@
       the nature of perception and truth.
     </p> --}}
 
-    <div class="film-hero__actions">
+    <div class="film-hero__actions reveal-m">
       <a href="{{ $film->link }}" class="btn btn--primary">
         <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
         Trailer
@@ -360,7 +378,7 @@
       <div class="film-about__main">
         <!-- Details + Cast -->
         <div class="film-about__two">
-          <div class="film-card">
+          <div class="film-card reveal-m">
             <h3 class="h3">Film Details</h3>
             <ul class="meta-list">
               <li>
@@ -387,7 +405,7 @@
             </ul>
           </div>
 
-          <div class="film-card">
+          <div class="film-card reveal-m">
             <h3 class="h3">Cast</h3>
             <ul class="plain-list">
               @php
@@ -402,18 +420,18 @@
         <br>
         {{-- <h2 class="h2">About the Film</h2> --}}
 
-        <div class="lead">
+        <div class="lead reveal-m">
           {!! $film->sinopsis !!}
         </div>
       </div>
 
       <!-- RIGHT COLUMN / SIDEBAR -->
       <aside class="film-about__side">
-        <div class="suggest-card">
+        <div class="suggest-card reveal-m">
           <h3 class="h3">You Might Also Like</h3>
 
           @foreach ($all_film as $item)
-              <a class="suggest-item" href="{{ route('detail-film', $item->slug) }}">
+              <a class="suggest-item reveal-m" href="{{ route('detail-film', $item->slug) }}">
                 <img src="{{ asset('photo/' . $item->poster) }}" alt="" loading="lazy">
                 <div>
                   <div class="title">{{ $item->title }}</div>
@@ -426,7 +444,7 @@
               </a>
           @endforeach
 
-          <a class="btn-wide" href="{{ route('film') }}">
+          <a class="btn-wide reveal-m" href="{{ route('film') }}">
             <span class="detail">VIEW ALL FILMS</span>
             <svg viewBox="0 0 24 24" class="arr"><path d="M13 5l7 7-7 7M4 12h16"/></svg>
           </a>
@@ -434,4 +452,36 @@
       </aside>
     </div>
   </section>
+<script>
+(function(){
+  const isMobile = window.matchMedia('(max-width: 640px)').matches;
+  if(!isMobile) return; // desktop/tablet: elements already visible
 
+  // Mark that JS/IO is ready; only then mobile-hiding CSS kicks in
+  document.documentElement.classList.add('io-ready');
+
+  const els = Array.from(document.querySelectorAll('.reveal-m'));
+  // If IO unsupported, reveal all to avoid hidden content
+  if(!('IntersectionObserver' in window)){
+    els.forEach(el => el.classList.add('revealed'));
+    return;
+  }
+
+  // Stagger suggested items a bit for nicer flow
+  const suggestItems = Array.from(document.querySelectorAll('.suggest-item.reveal-m'));
+  suggestItems.forEach((el, i) => {
+    el.style.transitionDelay = (i * 90) + 'ms';
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if(e.isIntersecting){
+        e.target.classList.add('revealed');
+        io.unobserve(e.target);
+      }
+    });
+  }, { root: null, rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+  els.forEach(el => io.observe(el));
+})();
+</script>

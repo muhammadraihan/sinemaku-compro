@@ -75,21 +75,30 @@
   .tag{ display:inline-flex; align-items:center; padding:6px 10px; border-radius:8px; background:#f1f3f6; color:#475160; font:600 12.5px/1 Inter, system-ui; }
   .tag-green{ background:#e9f8ec; color:#149b43; }
 
-  .job-foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top: 12px; border-top:1px solid #f0f1f3; }
-  .job-location{ display:flex; align-items:center; gap:8px; color:#5a6270; font:600 13.5px/1 Inter, system-ui; }
-  .job-location svg{ width:18px; height:18px; color:#9aa0a6; }
-
+  .job-foot{ display:flex; align-items:center; gap:10px; padding-top:12px; border-top:1px solid #f0f1f3; flex-wrap:nowrap; }
+  .job-location{ display:flex; align-items:center; gap:8px; color:#5a6270; font:600 13.5px/1 Inter, system-ui; flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .job-location svg{ width:18px; height:18px; flex:0 0 18px; color:#9aa0a6; }
+  
   .job-cta{
     display:inline-flex; align-items:center; gap:10px;
     background:#f7f8fa; color:#0f1115; border:1px solid #eceef2;
     height:40px; padding:0 14px; border-radius:10px; font:700 12.5px/1 Inter, system-ui;
     text-decoration:none; text-transform:uppercase; letter-spacing:.3px;
     transition: background .2s ease, box-shadow .2s ease, transform .08s ease;
+    white-space:nowrap;            /* keep on one line */
+    flex:0 0 auto;                 /* prevent shrinking */
   }
   .job-cta svg{ width:18px; height:18px; }
   .job-cta:hover{ background:#fff; box-shadow:0 8px 20px rgba(10,10,20,.08); }
   .job-cta:active{ transform: translateY(1px); }
+  .job-cta{ margin-left:auto; }
 
+  @media (max-width: 480px){
+    .job-cta{ height:36px; padding:0 12px; gap:8px; font:700 11.5px/1 Inter, system-ui; letter-spacing:.2px; }
+    .job-cta svg{ width:16px; height:16px; }
+    .job-foot{ gap:8px; }
+    .job-location{ max-width: 60%; }
+  }
   /* ============== CASTING STYLES ============== */
   .castings{ background:#fff; padding: clamp(32px,4.5vw,56px) 0; }
   .castings-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px; overflow-y: auto; max-height: calc(4 * 120px);}
@@ -97,6 +106,12 @@
     font: 700 clamp(22px,3vw,36px)/1.08 "Libre Baskerville", serif;
     margin:0 0 clamp(18px,3vw,26px);
     margin-left: 200px;
+  }
+  }
+  @media (max-width: 720px){
+    .castings-title{
+      margin-left: 20px;
+    }
   }
 
   .cast-card{
@@ -115,10 +130,43 @@
   .cast-project{ margin-top: 10px; display:flex; align-items:center; gap:8px; color:#69707e; font:400 13.5px/1 Inter, system-ui; margin-bottom:10px; }
   .cast-project svg{ width:16px; height:16px; color:#a0a6af; }
 
-  .cast-tags{ display:flex; flex-wrap:wrap; gap:10px; }
+  .cast-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 10px;
+    margin-top: 8px;
+  }
   .chip{
     background:#f2f5f9; color:#4f5a6a; border:1px solid #e6ebf2;
-    font:600 12.5px/1 Inter, system-ui; padding:7px 10px; border-radius:8px; margin-top: 20px;
+    font:600 12.5px/1 Inter, system-ui; padding:7px 10px; border-radius:8px; margin-top: 0;
+  }
+
+  @media (max-width: 720px){
+    .cast-card{
+      padding: 18px 16px;
+    }
+    .cast-project{
+      margin: 6px 0 6px;
+      font-size: 13px;
+    }
+    .cast-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;              /* compact spacing */
+    }
+    .chip{
+      padding: 6px 10px;
+      font-size: 12px;
+      flex:0 0 auto;          /* prevent stretching; width = content */
+      width:auto;
+    }
+    .cast-cta{
+      position: static;
+      transform: none;
+      margin-top: 12px;
+      width: 100%;
+      justify-content: center;
+    }
   }
 
   .cast-cta{
@@ -135,16 +183,25 @@
   @media (max-width: 720px){
     .cast-cta{ position: static; transform:none; margin-top:14px; display:inline-flex; }
   }
+  /* ===== Scroll-reveal cinematic animations (careers & castings) ===== */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .68s cubic-bezier(.2,.7,.2,1), transform .68s cubic-bezier(.2,.7,.2,1), filter .68s cubic-bezier(.2,.7,.2,1); will-change:opacity,transform,filter;}
+  .reveal.is-inview{opacity:1; transform:none; filter:none;}
+  /* optional stagger: each element can get a CSS var --d (delay) */
+  .reveal{ transition-delay: var(--d, 0ms); }
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1 !important; transform:none !important; filter:none !important; transition:none !important; }
+  }
 </style>
 
 <!-- ============== CAREERS: OPEN POSITIONS ============== -->
 <section class="careers" id="careers">
   <div class="careers-wrap">
-    <h2 class="judul-karir">Open Positions</h2>
+    <h2 class="judul-karir reveal">Open Positions</h2>
 
     <div class="job-grid">
       @foreach ($careers as $item)
-        <article class="job-card">
+        <article class="job-card reveal">
           <header class="job-head">
             <h3 class="job-title">{{ $item->position }}</h3>
             <span class="job-time">
@@ -178,10 +235,10 @@
 
 <!-- ============== CASTING: CURRENT CASTINGS ============== -->
 <section class="castings" id="castings">
-  <h2 class="castings-title">Current Castings</h2>
+  <h2 class="castings-title reveal">Current Castings</h2>
   <div class="castings-wrap">
     @foreach ($casting as $item)
-      <article class="cast-card">
+      <article class="cast-card reveal">
         <header class="cast-head">
           <h3 class="cast-title">{{ $item->pemeran }}</h3>
           <span class="cast-time">
@@ -209,3 +266,36 @@
     @endforeach
   </div>
 </section>
+<script>
+(function(){
+  // Observer to toggle .is-inview
+  const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
+    entries.forEach((e)=>{
+      if(e.isIntersecting){
+        e.target.classList.add('is-inview');
+        io.unobserve(e.target);
+      }
+    });
+  }, {root:null, rootMargin:'0px 0px -10% 0px', threshold:0.08}) : null;
+
+  // Collect all revealable elements
+  const reveals = Array.from(document.querySelectorAll('.reveal'));
+
+  // Stagger per group (job cards & cast cards)
+  const jobs = Array.from(document.querySelectorAll('.job-card.reveal'));
+  jobs.forEach((el, i)=> el.style.setProperty('--d', (120 + i*80) + 'ms'));
+
+  const casts = Array.from(document.querySelectorAll('.cast-card.reveal'));
+  casts.forEach((el, i)=> el.style.setProperty('--d', (120 + i*80) + 'ms'));
+
+  // Headings: a little sooner
+  const heads = Array.from(document.querySelectorAll('.judul-karir.reveal, .castings-title.reveal'));
+  heads.forEach((el)=> el.style.setProperty('--d', '40ms'));
+
+  // Observe or enable immediately if no IO
+  reveals.forEach((el)=>{
+    if(io){ io.observe(el); }
+    else{ el.classList.add('is-inview'); }
+  });
+})();
+</script>

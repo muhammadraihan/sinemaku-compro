@@ -4,6 +4,24 @@
 
 @include('partials.navbar')
 <style>
+    /* ==== Reveal Animation ==== */
+    /* Default: desktop/tablet show content immediately */
+    .reveal-y,
+    .reveal-x{
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.7s cubic-bezier(.5,.1,.25,1), transform 0.7s cubic-bezier(.5,.1,.25,1);
+      will-change: opacity, transform;
+    }
+    /* Mobile-only: start hidden for reveal */
+    @media (max-width: 640px){
+      .reveal-y{ opacity: 0; transform: translateY(36px); }
+      .reveal-x{ opacity: 0; transform: translateX(36px); }
+    }
+    .is-revealed {
+      opacity: 1 !important;
+      transform: none !important;
+    }
     .navbar-logo {
     position: absolute;
     left: 50%;
@@ -283,9 +301,9 @@
 
   <!-- Content -->
   <div class="film-hero__inner">
-    <h1 class="film-hero__title">{{ $film->title }}</h1>
+    <h1 class="film-hero__title reveal-y">{{ $film->title }}</h1>
 
-    <div class="film-hero__meta">
+    <div class="film-hero__meta reveal-y">
       <span class="genre">{{ \Carbon\Carbon::parse($film->release_date)->format('Y') }}</span>
       <span class="dot">•</span>
       <span class="genre">{{ $film->genre }}</span>
@@ -316,12 +334,12 @@
     </p> --}}
 
     <div class="film-hero__actions">
-      <a href="{{ $film->link }}" class="btn btn--primary">
+      <a href="{{ $film->link }}" class="btn btn--primary reveal-x">
         <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
         Trailer
       </a>
       @if (!empty($film->link_watch))
-        <a href="{{ $film->link_watch }}" class="btn btn--Secondary">
+        <a href="{{ $film->link_watch }}" class="btn btn--secondary reveal-x">
           Watch Now
         </a>
       @endif
@@ -336,7 +354,7 @@
       <div class="film-about__main">
         <!-- Details + Cast -->
         <div class="film-about__two">
-          <div class="film-card">
+          <div class="film-card reveal-y">
             <h3 class="h3">Series Details</h3>
             <ul class="meta-list">
               <li>
@@ -398,7 +416,7 @@
             </ul>
           </div>
 
-          <div class="film-card">
+          <div class="film-card reveal-y">
             <h3 class="h3">Cast</h3>
             <ul class="plain-list">
               <li>{{ $film->cast }}</li>
@@ -408,18 +426,18 @@
         <br>
         {{-- <h2 class="h2">About the Film</h2> --}}
 
-        <p class="lead">
+        <p class="lead reveal-y">
           {!! $film->sinopsis !!}
         </p>
       </div>
 
       <!-- RIGHT COLUMN / SIDEBAR -->
       <aside class="film-about__side">
-        <div class="suggest-card">
+        <div class="suggest-card reveal-y">
           <h3 class="h3">You Might Also Like</h3>
 
           @foreach ($all_film as $item)
-              <a class="suggest-item" href="{{ route('detail-series', $item->slug) }}">
+              <a class="suggest-item reveal-y" href="{{ route('detail-series', $item->slug) }}">
                 <img src="{{ asset('photo/' . $item->poster) }}" alt="" loading="lazy">
                 <div>
                   <div class="title">{{ $item->title }}</div>
@@ -432,7 +450,7 @@
               </a>
           @endforeach
 
-          <a class="btn-wide" href="{{ route('series') }}">
+          <a class="btn-wide reveal-y" href="{{ route('series') }}">
             <span class="detail">VIEW ALL SERIES</span>
             <svg viewBox="0 0 24 24" class="arr"><path d="M13 5l7 7-7 7M4 12h16"/></svg>
           </a>
@@ -441,3 +459,31 @@
     </div>
   </section>
 
+
+
+<!-- Reveal Animation Script (Mobile Only) -->
+<script>
+  (function(){
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+    const nodes = document.querySelectorAll('.reveal-y, .reveal-x');
+
+    if (!isMobile) {
+      // Desktop/tablet: reveal everything immediately (prevent hidden content)
+      nodes.forEach(el => el.classList.add('is-revealed'));
+      return;
+    }
+
+    // Mobile: lazy reveal on scroll
+    const options = { threshold: 0.18 };
+    const onReveal = (entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    };
+    const observer = new IntersectionObserver(onReveal, options);
+    nodes.forEach(el => observer.observe(el));
+  })();
+</script>

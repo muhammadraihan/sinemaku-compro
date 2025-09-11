@@ -184,6 +184,41 @@
       line-height: 1.4;
     }
   }
+
+  /* ===================== Reveal on Scroll (Articles) ===================== */
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .56s cubic-bezier(.22,.61,.36,1),
+                  transform .56s cubic-bezier(.22,.61,.36,1);
+      will-change: opacity, transform;
+    }
+    /* stagger via --reveal-delay var (ms) */
+    .reveal[data-delay]{ transition-delay: calc(var(--reveal-delay, 0ms)); }
+    .reveal.is-in{
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Slightly different motion for hero halves */
+    .reveal-x{
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity .64s cubic-bezier(.22,.61,.36,1),
+                  transform .64s cubic-bezier(.22,.61,.36,1);
+      will-change: opacity, transform;
+    }
+    .reveal-x.is-in{ opacity:1; transform:none; }
+
+    /* Safety: when animations disabled */
+    .no-motion .reveal,
+    .no-motion .reveal-x{
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 
 
@@ -286,3 +321,70 @@
   </div>
 
 </section>
+<script>
+(function(){
+  // Respect reduced motion
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    document.documentElement.classList.add('no-motion');
+    return;
+  }
+
+  // Collect elements to reveal:
+  // - Featured wrapper and its two halves
+  // - Each article card inside All Stories
+  const toReveal = [];
+
+  const hero = document.querySelector('.article-featureds');
+  if (hero) {
+    // add class to the whole wrapper (fade up)
+    hero.classList.add('reveal');
+    hero.style.setProperty('--reveal-delay', '60ms');
+    toReveal.push(hero);
+
+    // and stagger both halves (text and image) sliding from side
+    const left = hero.querySelector('.featured-body');
+    const right = hero.querySelector('.featured-media');
+    if (left) { left.classList.add('reveal-x'); left.style.setProperty('--reveal-delay', '120ms'); toReveal.push(left); }
+    if (right){ right.classList.add('reveal-x'); right.style.setProperty('--reveal-delay', '220ms'); toReveal.push(right); }
+  }
+
+  // Cards
+  const cards = document.querySelectorAll('.stories-grid .article-card');
+  cards.forEach((card, i) => {
+    card.classList.add('reveal');
+    // stagger every card 60ms
+    card.style.setProperty('--reveal-delay', (60 * (i % 6)) + 'ms');
+    toReveal.push(card);
+  });
+
+  if (!toReveal.length) return;
+
+  // IntersectionObserver
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0.18
+  });
+
+  toReveal.forEach(el => io.observe(el));
+
+  // Re-observe on resize/orientation change (layout shifts)
+  let roTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(roTimer);
+    roTimer = setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.is-in), .reveal-x:not(.is-in)').forEach(el => {
+        try { io.observe(el); } catch(e){}
+      });
+    }, 180);
+  });
+})();
+</script>

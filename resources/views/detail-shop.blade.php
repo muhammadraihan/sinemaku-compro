@@ -282,6 +282,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: clamp(22px, 3.2vw, 36px);
     margin-bottom: 100px;
+    justify-items: center;
     }
 
     /* Card */
@@ -290,6 +291,9 @@
     color: inherit;
     display: grid;
     gap: 14px;
+    max-width: 320px;
+    margin: 0 auto;
+    justify-items: center;
     }
 
     .rp-card__media {
@@ -323,6 +327,11 @@
   font-size: clamp(10px, 1.0vw, 14px);
   color: #222;
   margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
 }
 
 .rp-card__price {
@@ -337,7 +346,25 @@
     @media (max-width: 780px) {
     .rp__grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 480px) {
+    @media (max-width: 640px){
+      .rp__grid{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        justify-items: center;
+      }
+      .rp-card{
+        max-width: 240px;
+        text-align: center;
+      }
+      .rp-card__meta{ text-align: center; }
+      .rp-card__media{
+        height: clamp(150px, 40vw, 200px);
+        padding: 10px;
+      }
+      .rp-card__name{ font-size: 13px; }
+      .rp-card__price{ font-size: 13px; }
+    }
+    @media (max-width: 400px) {
     .rp__grid { grid-template-columns: 1fr; }
     }
 
@@ -381,25 +408,57 @@
   .shop-detail__media img{ height: clamp(200px, 60vw, 360px); }
   .rp-card__media{ height: clamp(160px, 54vw, 220px); padding: 10px; }
 }
+ /* Responsive font for "You Might Also Like" title on mobile */
+ @media (max-width: 640px){
+      .rp__title {
+        font-size: 16px;
+      }
+    }
+
+/* ===== Scroll-reveal (cinematic) ===== */
+html.js .reveal-y{
+  opacity:0;
+  transform: translate3d(0,22px,0);
+  transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+html.js .reveal-x{
+  opacity:0;
+  transform: translate3d(-22px,0,0);
+  transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+html.js .is-revealed{
+  opacity:1 !important;
+  transform:none !important;
+}
+/* optional stagger container */
+.reveal-stagger{ --stagger: 90ms; }
+@media (prefers-reduced-motion: reduce){
+  html.js .reveal-y,
+  html.js .reveal-x{
+    opacity:1 !important; transform:none !important; transition:none !important;
+  }
+}
 </style>
 <section class="shop-detail">
   <div class="shop-detail__container">
     <!-- Media / Foto Produk -->
-    <div class="shop-detail__media">
+    <div class="shop-detail__media reveal-y" data-reveal="0.05">
       <!-- ganti src sesuai asset Anda -->
       <img src="{{ asset('photo/' . $shop->photo) }}" alt="Kaos Perayaan Mati Rasa" />
     </div>
 
     <!-- Info Produk -->
-    <div class="shop-detail__info">
-      <h1 class="shop-detail__title">
+    <div class="shop-detail__info reveal-y" data-reveal="0.1">
+      <h1 class="shop-detail__title reveal-y" data-reveal="0.12">
         {{ $shop->name }}
       </h1>
 
-      <div class="shop-detail__price">{{ $shop->harga ? 'Rp'.''.str_replace(',', '.', number_format($shop->harga)) : ''; }}</div>
+      <div class="shop-detail__price reveal-y" data-reveal="0.16">{{ $shop->harga ? 'Rp'.''.str_replace(',', '.', number_format($shop->harga)) : ''; }}</div>
 
       <a
-        class="shop-detail__cta"
+        class="shop-detail__cta reveal-y" data-reveal="0.20"
         href="{{ $shop->link }}" 
         target="_blank" 
         rel="noopener"
@@ -410,14 +469,14 @@
         </svg>
       </a>
 
-      <p class="shop-detail__note">
+      <p class="shop-detail__note reveal-y" data-reveal="0.24">
         Purchases are handled via our official store on external platforms.
       </p>
 
-      <hr class="shop-detail__divider"/>
+      <hr class="shop-detail__divider reveal-y" data-reveal="0.28"/>
 
-      <ul class="shop-detail__bullets">
-        <li>
+      <ul class="shop-detail__bullets reveal-stagger" data-stagger="90">
+        <li class="reveal-y">
           <span class="ico">
             <svg viewBox="0 0 24 24">
               <path d="M3 7h18v10H3zM3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -425,7 +484,7 @@
           </span>
           <span class="detail">Free shipping on orders over $25</span>
         </li>
-        <li>
+        <li class="reveal-y">
           <span class="ico">
             <svg viewBox="0 0 24 24">
               <path d="M12 22s8-4.5 8-12a8 8 0 10-16 0c0 7.5 8 12 8 12z" fill="none" stroke="currentColor" stroke-width="1.8"/>
@@ -434,7 +493,7 @@
           </span>
           <span class="detail">Secure payment & buyer protection</span>
         </li>
-        <li>
+        <li class="reveal-y">
           <span class="ico">
             <svg viewBox="0 0 24 24">
               <path d="M4 7h16v10H4zM8 7V5h8v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -456,7 +515,7 @@
     <!-- LEFT COLUMN -->
     <div class="shop-about__main">
 
-      <article class="shop-card">
+      <article class="shop-card reveal-y" data-reveal="0.08">
         <header class="shop-card__head">
           <h2 class="shop-card__title">Description</h2>
         </header>
@@ -473,7 +532,7 @@
 </section>
 
 <section class="related-products">
-  <div class="rp__header">
+  <div class="rp__header reveal-y" data-reveal="0.06">
     <h2 class="rp__title">You Might Also Like</h2>
 
     <a href="{{ route('shop') }}" class="rp__viewall">
@@ -484,9 +543,9 @@
     </a>
   </div>
 
-  <div class="rp__grid">
+  <div class="rp__grid reveal-stagger" data-stagger="80">
     @foreach ($all_shop as $item)
-        <a href="{{ route('detail-shop', $item->slug) }}" class="rp-card">
+        <a href="{{ route('detail-shop', $item->slug) }}" class="rp-card reveal-y">
           <img src="{{ asset('photo/' . $item->photo) }}" class="rp-card__media">
             <div class="rp-card__meta">
               <div class="rp-card__name">{{ $item->name }}</div>
@@ -496,3 +555,52 @@
     @endforeach
   </div>
 </section>
+<script>
+(function(){
+  // enable JS flag
+  document.documentElement.classList.add('js');
+
+  // helper: read float seconds from data-reveal
+  function getDelay(el){
+    var d = el.getAttribute('data-reveal');
+    return d ? Math.max(0, parseFloat(d)) : 0;
+  }
+
+  // IntersectionObserver
+  var io = null;
+  try{
+    io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          // stagger support (parent drives children)
+          if(el.classList.contains('reveal-stagger')){
+            var items = el.querySelectorAll('.reveal-y, .reveal-x');
+            var base = parseInt(el.getAttribute('data-stagger') || '90', 10);
+            items.forEach(function(child, i){
+              child.style.transitionDelay = (i * base / 1000) + 's';
+              // small extra per-item offset if child has data-reveal
+              var extra = getDelay(child);
+              if(extra) child.style.transitionDelay = (i * base / 1000 + extra) + 's';
+              requestAnimationFrame(function(){ child.classList.add('is-revealed'); });
+              io.unobserve(child);
+            });
+          }
+
+          // self reveal
+          el.style.transitionDelay = getDelay(el) + 's';
+          requestAnimationFrame(function(){ el.classList.add('is-revealed'); });
+          io.unobserve(el);
+        }
+      });
+    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.12 });
+  }catch(e){ /* older browsers: reveal everything */ }
+
+  // observe
+  var targets = document.querySelectorAll('.reveal-y, .reveal-x, .reveal-stagger');
+  targets.forEach(function(t){
+    if(io){ io.observe(t); }
+    else{ t.classList.add('is-revealed'); }
+  });
+})();
+</script>

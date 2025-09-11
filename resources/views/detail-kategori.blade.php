@@ -139,21 +139,64 @@
     text-align: center;
   }
 }
+
+/* ===== Cinematic reveal animations (A24-ish) ===== */
+.reveal,
+.reveal-x{
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity .66s cubic-bezier(.22,.61,.36,1),
+    transform .66s cubic-bezier(.22,.61,.36,1);
+  will-change: opacity, transform;
+}
+.reveal-x{
+  transform: translateX(-22px);
+}
+.reveal.is-visible,
+.reveal-x.is-visible{
+  opacity: 1;
+  transform: none;
+}
+
+/* Optional container stagger: each direct child fades in sequentially */
+.reveal-stagger > *{
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity .66s cubic-bezier(.22,.61,.36,1),
+    transform .66s cubic-bezier(.22,.61,.36,1);
+  will-change: opacity, transform;
+}
+.reveal-stagger.is-visible > *{
+  opacity: 1;
+  transform: none;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .reveal, .reveal-x,
+  .reveal-stagger > *{
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
 </style>
 
 <section class="collection">
   <div class="collection-grid">
     {{-- HERO --}}
     <article class="collection-hero">
-      <h1 class="hero-title">{{ strtoupper($title->Categories->name) }}</h1>
-      <div class="hero-media">
+      <h1 class="hero-title reveal-x">{{ strtoupper($title->Categories->name) }}</h1>
+      <div class="hero-media reveal">
         <img src="https://i.imgur.com/X1io1iz.jpeg" alt="Apparel">
       </div>
     </article>
 
     {{-- TILES --}}
     @foreach ($shop as $item)
-        <article class="product-tile">
+        <article class="product-tile reveal">
           <a href="{{ route('detail-shop', $item->slug) }}" class="product-media"><img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->name }}"></a>
           <h3 class="product-name">{{ $item->name }}</h3>
           <p class="product-price">{{ $item->harga ? 'Rp'.''.str_replace(',', '.', number_format($item->harga)) : ''; }}</p>
@@ -161,3 +204,33 @@
     @endforeach
   </div>
 </section>
+<script>
+(function(){
+  // Skip if prefers-reduced-motion
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  const els = document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger');
+  if (!els.length) return;
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        const el = entry.target;
+        el.classList.add('is-visible');
+
+        // Stagger for container: apply delay to each child once
+        if (el.classList.contains('reveal-stagger')) {
+          Array.from(el.children).forEach((child, i) => {
+            child.style.transitionDelay = (80 * i) + 'ms';
+          });
+        }
+
+        obs.unobserve(el); // animate once
+      }
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -4% 0px' });
+
+  els.forEach(el => io.observe(el));
+})();
+</script>

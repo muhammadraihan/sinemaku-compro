@@ -153,22 +153,50 @@
   .mini__badge_danger{ margin-top:8px; }
 }
 
+  /* ===== Scroll-reveal (cinematic) ===== */
+  html.js .reveal-y{
+    opacity:0;
+    transform: translateY(18px);
+    transition: opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform;
+  }
+  html.js .reveal-x{
+    opacity:0;
+    transform: translateX(18px);
+    transition: opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform;
+  }
+  html.js .is-revealed{
+    opacity:1 !important;
+    transform:none !important;
+  }
+  /* Stagger container: anak-anak di-animate berurutan */
+  html.js .reveal-stagger > *{
+    opacity:0;
+    transform: translateY(14px);
+    transition: opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform;
+  }
+  html.js .reveal-stagger.is-revealed > *{
+    opacity:1;
+    transform:none;
+  }
 </style>
 <section class="jobdetail">
   <div class="jobdetail__wrap">
     <!-- ====== LEFT: content ====== -->
     <article class="jobdetail__main">
-      <div class="jobdetail__topbar">
+      <div class="jobdetail__topbar reveal-y" data-reveal="0.02">
 
         @if (!empty($careers->status))
             <a class="btn-pill" href="#">{{ $careers->status}}</a>
         @endif
       </div>
 
-      <h1 class="jobdetail__title">{{ $careers->position ?? $casting->pemeran }}</h1>
-      <div class="jobdetail__dept">{{ $careers->tim ?? $casting->judul_film }}</div>
+      <h1 class="jobdetail__title reveal-y" data-reveal="0.08">{{ $careers->position ?? $casting->pemeran }}</h1>
+      <div class="jobdetail__dept reveal-y" data-reveal="0.12">{{ $careers->tim ?? $casting->judul_film }}</div>
 
-      <ul class="jobdetail__meta">
+      <ul class="jobdetail__meta reveal-y" data-reveal="0.16">
         <li>
           <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-7-10a7 7 0 0 1 14 0c0 5.65-7 10-7 10Z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="11" r="2" fill="currentColor"/></svg>
           {{ $careers->location ?? $casting->location }}
@@ -238,18 +266,20 @@
             </li>
         @endif
       </ul>
-      <a class="btn-apply" href="{{ $careers->link ?? $casting->link }}">
+      <a class="btn-apply reveal-y" data-reveal="0.20" href="{{ $careers->link ?? $casting->link }}">
           APPLY NOW
           <svg viewBox="0 0 24 24"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
 
-      {!! $careers->detail ?? $casting->detail !!}
+      <div class="jobdetail__content reveal-y" data-reveal="0.24">
+        {!! $careers->detail ?? $casting->detail !!}
+      </div>
     </article>
 
     <!-- ====== RIGHT: sidebar ====== -->
     <aside class="jobdetail__side">
 
-      <div class="others">
+      <div class="others reveal-y reveal-stagger" data-reveal="0.10" data-stagger="80">
         <h4>Other Open Positions</h4>
 
         @if (!empty($careers->status))
@@ -277,5 +307,43 @@
       </div>
     </aside>
   </div>
+
 </section>
+
+<script>
+(function(){
+  // Progressive enhancement: only animate when JS is present
+  document.documentElement.classList.add('js');
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var el = entry.target;
+        el.classList.add('is-revealed');
+
+        // If this is a stagger container, cascade delays to children
+        if(el.classList.contains('reveal-stagger')){
+          var base = parseInt(el.getAttribute('data-stagger') || '80', 10); // ms
+          Array.prototype.forEach.call(el.children, function(child, i){
+            child.style.transitionDelay = ((parseFloat(el.getAttribute('data-reveal')||'0')*1000 + base * i)/1000) + 's';
+          });
+        } else {
+          // Apply single delay via data-reveal (seconds)
+          var d = parseFloat(el.getAttribute('data-reveal') || '0');
+          if (d > 0){
+            el.style.transitionDelay = d + 's';
+          }
+        }
+
+        io.unobserve(el);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.14 });
+
+  // Observe all reveal targets
+  document.querySelectorAll('.reveal-y, .reveal-x, .reveal-stagger').forEach(function(el){
+    io.observe(el);
+  });
+})();
+</script>
 

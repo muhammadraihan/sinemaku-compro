@@ -246,19 +246,69 @@
   .jc-btn:hover{ background:#1a1a1f; box-shadow:0 10px 24px rgba(0,0,0,.12); }
   .jc-btn:active{ transform: translateY(1px); }
 
+  /* ===== Reveal-on-Scroll (cinematic) ===== */
+  .reveal{
+    opacity:0;
+    transform: translateY(16px);
+    transition:
+      opacity .6s ease,
+      transform .6s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-in{
+    opacity:1;
+    transform:none;
+  }
 
+  .reveal-x{
+    opacity:0;
+    transform: translateX(24px);
+    transition:
+      opacity .6s ease,
+      transform .6s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal-x.left{ transform: translateX(-24px); }
+  .reveal-x.is-in{
+    opacity:1;
+    transform:none;
+  }
 
+  /* Stagger: anak-anak muncul berurutan */
+  .reveal-stagger > *{
+    opacity:0;
+    transform: translateY(12px);
+    transition:
+      opacity .5s ease,
+      transform .5s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal-stagger.is-in > *{
+    opacity:1;
+    transform:none;
+  }
+
+  /* Hormati preferensi user */
+  @media (prefers-reduced-motion: reduce){
+    .reveal,
+    .reveal-x,
+    .reveal-stagger > *{
+      transition:none !important;
+      transform:none !important;
+      opacity:1 !important;
+    }
+  }
 </style>
 <!-- ================= MEMBERSHIP: MEMBER EXCLUSIVE BENEFITS ================ -->
 <section class="member-benefits" id="member-benefits">
   <div class="mb-container">
-    <h2 class="mb-title">Member Exclusive Benefits</h2>
-    <p class="mb-sub">
+    <h2 class="mb-title reveal">Member Exclusive Benefits</h2>
+    <p class="mb-sub reveal">
       As a Sinemaku Pictures member, you'll gain access to a world of exclusive
       experiences and opportunities that bring you closer to the art of filmmaking.
     </p>
 
-    <div class="mb-grid">
+    <div class="mb-grid reveal-stagger">
       <!-- Card -->
       <article class="mb-card">
         <div class="mb-card-head">
@@ -333,8 +383,8 @@
 <!-- ============== MEMBERSHIP: JOIN OUR COMMUNITY ============== -->
 <section class="join-community" id="join-community">
   <div class="jc-wrap">
-    <h2 class="jc-title">Join Our Community</h2>
-    <p class="jc-sub">
+    <h2 class="jc-title reveal">Join Our Community</h2>
+    <p class="jc-sub reveal">
       Ready to become part of our creative family? Fill out the form below to start
       your journey as a Sinemaku Pictures member. It's completely free and takes
       less than 2 minutes.
@@ -348,7 +398,7 @@
         </script>
       @endif
       {!! Form::open(['route' => 'membership.store','id'=>'forms','method' => 'POST','class' =>
-                'jc-card needs-validation','dropzone', 'forms','novalidate','enctype' => 'multipart/form-data']) !!}
+                'jc-card needs-validation reveal-stagger','dropzone', 'forms','novalidate','enctype' => 'multipart/form-data']) !!}
       <fieldset class="jc-fieldset">
         <legend class="jc-legend">Personal Information</legend>
 
@@ -467,4 +517,41 @@
         @endforeach
     @endif
 </script>
+<script>
+// Reveal on Scroll
+(function(){
+  const opts = { root:null, rootMargin:'0px', threshold: 0.12 };
+  const io = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      const el = entry.target;
+      // mark in
+      el.classList.add('is-in');
 
+      // Stagger children if needed
+      if(el.classList.contains('reveal-stagger')){
+        const kids = Array.from(el.children);
+        kids.forEach((child, i)=>{
+          child.style.transitionDelay = (i * 90) + 'ms';
+          // if child also has .reveal / base transition, ensure it becomes visible
+          requestAnimationFrame(()=> child.classList.add('is-in'));
+        });
+      }
+      obs.unobserve(el);
+    });
+  }, opts);
+
+  document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger').forEach(el=>{
+    // if user prefers-reduced-motion, show immediately
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced){
+      el.classList.add('is-in');
+      if(el.classList.contains('reveal-stagger')){
+        Array.from(el.children).forEach(k=>{ k.classList.add('is-in'); k.style.transitionDelay = '0ms'; });
+      }
+      return;
+    }
+    io.observe(el);
+  });
+})();
+</script>

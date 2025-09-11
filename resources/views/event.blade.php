@@ -170,22 +170,37 @@
     }
   }
 
+  /* ===== Reveal on Scroll (cinematic) ===== */
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1);} 
+  .reveal-x{opacity:0; transform:translateX(24px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1);} 
+  .reveal-x.left{ transform: translateX(-24px); }
+  .reveal.is-in, .reveal-x.is-in{ opacity:1; transform:none; }
+
+  /* Small stagger helper */
+  .reveal-stagger > *{ opacity:0; transform:translateY(18px); transition:opacity .6s, transform .6s cubic-bezier(.2,.7,.2,1); }
+  .reveal-stagger.is-in > *{ opacity:1; transform:none; }
+  .reveal-stagger.is-in > *{ transition-delay: var(--rd, 0ms); }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .reveal-x, .reveal-stagger > *{ opacity:1 !important; transform:none !important; transition:none !important; }
+  }
 </style>
 
 <section class="event-page">
 
   <!-- ====== All Event (edge-to-edge) ====== -->
   <div class="event-list">
-    <h2 class="section-heading">Events</h2>
+    <h2 class="section-heading reveal">Events</h2>
 
     <div class="stories-grid">
       @foreach ($event as $item)
-          <article class="article-card">
-            <a href="{{ route('detail-event', $item->slug) }}" class="thumb">
+          <article class="article-card reveal">
+            <a href="{{ route('detail-event', $item->slug) }}" class="thumb reveal-x left">
               <img src="{{ asset('photo/' . $item->photo) }}" alt="Artikel 1">
             </a>
 
-            <div class="card-body">
+            <div class="card-body reveal-stagger">
               <a href="{{ route('detail-event', $item->slug) }}" class="card-title">
                 {{ $item->judul }}
               </a>
@@ -214,7 +229,7 @@
               </div>
             </div>
 
-            <div class="card-actions">
+            <div class="card-actions reveal-x">
               <a href="{{ route('detail-event', $item->slug) }}">SEE EVENT DETAIL</a>
             </div>
           </article>
@@ -223,3 +238,34 @@
   </div>
 
 </section>
+<script>
+(function(){
+  const supportsIO = 'IntersectionObserver' in window;
+  if(!supportsIO) {
+    document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger').forEach(el=>el.classList.add('is-in'));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        // If it's a stagger container, apply staggered delays to children
+        if(el.classList.contains('reveal-stagger')){
+          const kids = Array.from(el.children);
+          kids.forEach((child, i)=>{
+            child.style.setProperty('--rd', (i*80)+'ms');
+            // ensure each child has a base transition
+            child.classList.add('reveal');
+            requestAnimationFrame(()=>child.classList.add('is-in'));
+          });
+        }
+        el.classList.add('is-in');
+        io.unobserve(el);
+      }
+    });
+  }, { root:null, rootMargin:'0px 0px -5% 0px', threshold:0.08 });
+
+  document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger').forEach(el=>io.observe(el));
+})();
+</script>

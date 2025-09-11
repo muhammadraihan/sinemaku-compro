@@ -210,6 +210,44 @@
   .shop-detail__title{ margin-top: clamp(16px, 6vw, 40px); }
 }
 
+/* ===================== SCROLL REVEAL (Cinematic) ===================== */
+@media (prefers-reduced-motion: no-preference){
+  .reveal{
+    opacity:0;
+    transform: translateY(22px);
+    filter: blur(.1px);
+    transition:
+      opacity .72s cubic-bezier(.22,.61,.36,1),
+      transform .72s cubic-bezier(.22,.61,.36,1),
+      filter .72s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform, filter;
+  }
+  .reveal.is-inview{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+  /* Stagger: apply to container, children will animate berurutan */
+  .reveal-stagger > *{
+    opacity:0;
+    transform: translateY(18px);
+    transition:
+      opacity .6s cubic-bezier(.22,.61,.36,1),
+      transform .6s cubic-bezier(.22,.61,.36,1);
+    will-change: opacity, transform;
+  }
+  .reveal-stagger.is-inview > *{
+    opacity:1;
+    transform:none;
+  }
+  /* Delay per child via CSS var --i, set dari JS */
+  .reveal-stagger.is-inview > *{
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .reveal, .reveal-stagger > *{ opacity:1 !important; transform:none !important; filter:none !important; }
+}
 </style>
 <section class="shop-detail">
   <div class="shop-detail__container">
@@ -304,4 +342,69 @@ document.querySelectorAll('.carousel-wrapper').forEach((wrap) => {
   // init
   setTimeout(update, 0);
 });
+</script>
+<script>
+// ===== Scroll Reveal (Cinematic) =====
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
+
+  // Helper: add 'reveal' to single targets and 'reveal-stagger' to lists
+  const singleSelectors = [
+    '.shop-detail',                     // section header blocks
+    '.shop-detail__container',
+    '.shop-detail__info',
+    '.shop-detail__media',
+    '.kategori',
+    '.shop-detail__divider2',
+    '.related-products'
+  ];
+
+  const listSelectors = [
+    '.carousel-track',                  // product lists (you might also like racks)
+    '.shop-detail__container .shop-detail__info', // title + button (for subtle stagger)
+  ];
+
+  // Mark singles
+  singleSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => el.classList.add('reveal'));
+  });
+
+  // Mark lists & assign child delays
+  listSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(list => {
+      list.classList.add('reveal-stagger');
+      const kids = list.matches('.carousel-track')
+        ? list.querySelectorAll('.product-card')
+        : list.children;
+
+      kids.forEach((child, i) => {
+        child.style.setProperty('--i', i);
+      });
+    });
+  });
+
+  // Also stagger product-card internals (title + price) for a nicer feel
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.classList.add('reveal-stagger');
+    [...card.children].forEach((child, i) => child.style.setProperty('--i', i));
+  });
+
+  // Observer
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-inview');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: null,
+    threshold: 0.12,
+    rootMargin: '0px 0px -10% 0px'
+  });
+
+  // Observe all
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+})();
 </script>

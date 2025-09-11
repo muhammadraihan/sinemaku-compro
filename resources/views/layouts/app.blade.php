@@ -14,6 +14,43 @@
 
 
   <style>
+  /* ===== Scroll Reveal – Cinematic ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px) scale(0.995);
+    will-change: opacity, transform;
+    transition:
+      opacity .8s cubic-bezier(.22,.61,.36,1),
+      transform .8s cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stagger helpers: apply to direct children when parent has .reveal-stagger */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity .7s cubic-bezier(.22,.61,.36,1),
+      transform .7s cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal-stagger.is-visible > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Optional subtle parallax for big visuals */
+  .reveal-parallax {
+    transform: translateY(28px);
+    transition:
+      opacity 1s cubic-bezier(.22,.61,.36,1),
+      transform 1s cubic-bezier(.22,.61,.36,1);
+  }
+  .reveal-parallax.is-visible {
+    transform: translateY(0);
+  }
     /* ========= Base ========= */
     * { box-sizing: border-box; }
     html, body {
@@ -187,14 +224,38 @@
 
 /* ======== Section Film ======== */
 .nr-rail{ background:#fff; padding: 28px clamp(16px,5vw,56px) 40px;}
-.nr-rail-head{
-  display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:1px;
-}
-.nr-rail-title{
-  text-align: left;font: 500 14px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px;
-}
-.nr-rail-viewall{ text-align: left;font: 200 12px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase;margin-bottom:1px; }
-.nr-rail-viewall:hover{ transform: translateX(4px); }
+  .nr-rail-head{
+    display:flex;
+    align-items:center;                 /* pastikan vertikal sejajar */
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:1px;
+    flex-wrap:nowrap;                   /* cegah pindah baris */
+  }
+  .nr-rail-title{
+    font: 500 14px/1 'Inter', Arial, sans-serif;
+    color:#7F8487;
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    margin:0;                           /* hilangkan margin bawah bawaan */
+    display:flex; align-items:center;   /* sejajarkan ke tengah */
+  }
+  .nr-rail-viewall{
+    font: 400 12px/1 'Inter', Arial, sans-serif;
+    color:#7F8487;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    margin:0;
+    display:inline-flex; align-items:center; justify-content:center;
+    white-space:nowrap;                 /* tetap satu baris di mobile */
+    text-decoration:none;
+  }
+  .nr-rail-viewall:hover{ transform: translateX(4px); }
+  @media (max-width:600px){
+    .nr-rail-head{ gap:8px; }
+    .nr-rail-title{ font: 500 12px/1 'Inter', Arial, sans-serif; }
+    .nr-rail-viewall{ font: 500 11px/1 'Inter', Arial, sans-serif; }
+  }
 
 /* === perbaikan stacking & klikability untuk kedua rail (Films/Series) === */
 .nr-rail-wrap,
@@ -345,19 +406,86 @@
       .feature-title{ margin-bottom: 24px; }
     }
     @media (max-width: 640px){
-      .feature-sidetext{ padding: 28px 20px 52px; }
+      /* Section padding lebih ringkas di mobile */
+      .feature-sidetext{ 
+        padding: 22px 16px 26px; 
+        margin: 0;                 /* reset margin default */
+      }
+      /* Jarak antar produk agar tidak nempel */
+      .feature-sidetext + .feature-sidetext{
+        margin-top: 20px;          /* beri spasi antar section */
+      }
+
+      /* Grid jadi satu kolom, rapikan jarak antar kolom (teks↔gambar) */
+      .feature-wrap{ 
+        grid-template-columns: 1fr; 
+        gap: 20px;                 /* jarak teks ke gambar */
+      }
+
+      /* Judul dekat dengan tombol */
+      .feature-title{ 
+        margin: 0 0 10px;          /* semula 24–36px → dipendekkan */
+      }
+
+      /* Tombol lebih dekat ke judul */
+      .feature-cta{ 
+        margin-top: 10px;          /* semula 36px → 10px */
+      }
       .feature-cta .cta-label{ font-size: 18px; }
       .feature-cta .cta-line{ width: 64px; }
+
+      /* Tambah jarak tombol ke gambar (kalau gambar berada setelah teks) */
+      .feature-media{ 
+        margin-top: 6px;           /* tambahan jarak visual dari tombol */
+      }
+
+      /* Setelah gambar, beri napas sebelum produk berikutnya */
+      .feature-media-frame{ 
+        margin-bottom: 4px;        /* sedikit jeda bawah kartu gambar */
+      }
+    }
+
+    @media (max-width: 430px){
+      .feature-wrap{ gap: 22px; }          /* sedikit lebih longgar agar tidak terasa sempit */
+      .feature-sidetext + .feature-sidetext{ margin-top: 22px; }
+      .feature-title{ margin-bottom: 8px; }
+      .feature-cta{ margin-top: 8px; }
     }
 
     /* ========= Articles ========= */
     .articles-section{ padding: 60px 80px; background:#fff;}
-    .articles-header{ display:flex; justify-content:space-between; align-items:center; gap: var(--space-md); margin-bottom: 2px; }
+    .articles-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;                 /* pusatkan vertikal */
+      gap:12px;
+      margin-bottom:2px;
+      flex-wrap:nowrap;                   /* hindari wrap */
+    }
     .articles-header h2{
-      text-align: left;font: 500 14px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px;
-    } 
-    .view-all{ text-align: left;font: 200 12px/1.2 'Inter', Arial, sans-serif; color:#7F8487; letter-spacing:.01em; text-transform:uppercase; margin-bottom:1px; }
+      font: 500 14px/1 'Inter', Arial, sans-serif;
+      color:#7F8487;
+      letter-spacing:.01em;
+      text-transform:uppercase;
+      margin:0;                           /* hapus margin bawah */
+      display:flex; align-items:center;
+    }
+    .view-all{
+      font: 400 12px/1 'Inter', Arial, sans-serif;
+      color:#7F8487;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin:0;
+      display:inline-flex; align-items:center; justify-content:center;
+      white-space:nowrap;
+      text-decoration:none;
+    }
     .view-all:hover{ transform: translateX(4px); }
+    @media (max-width:600px){
+      .articles-header{ gap:8px; }
+      .articles-header h2{ font: 500 12px/1 'Inter', Arial, sans-serif; }
+      .view-all{ font: 500 11px/1 'Inter', Arial, sans-serif; }
+    }
 
     .article-featured{ position:relative; overflow:hidden; border-radius:10px; }
     .article-featured img{ width:100%; border-radius:10px; display:block; transition: transform .35s ease; }
@@ -798,6 +926,9 @@
 
 /* Mobile tweak */
 @media (max-width: 640px) {
+  .hero-content {
+    bottom: clamp(60px, 12vh, 100px) !important; /* naikkan posisi lebih ke atas */
+  }
   .bolehkah-sekali-saja-ku-menangis {
     font-size: clamp(24px, 7vw, 36px) !important;
   }
@@ -915,3 +1046,82 @@
     </div>
 </footer>
 </html>
+<script>
+(function () {
+  // Utility: add .reveal to key sections automatically
+  const sectionSelectors = [
+    '.hero-slider',            // hero wrapper (we'll target its content)
+    '.cs-scroll',              // Coming Soon
+    '.nr-rail',                // Films & Series rails
+    '.feature-sidetext',       // Shop feature blocks
+    '.spotlight',              // Spotlight banner
+    '.articles-section',       // Articles
+    '.careers-section',        // Careers
+    '.join-member',            // Join Member
+    '.site-footer'             // Footer
+  ];
+
+  // Mark sections for reveal
+  sectionSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      // Big images: give parallax feel
+      if (el.matches('.spotlight, .hero-slider')) {
+        el.classList.add('reveal', 'reveal-parallax');
+      } else {
+        el.classList.add('reveal');
+      }
+    });
+  });
+
+  // Stagger for common lists
+  document.querySelectorAll('.cs-row, .nr-track, .article-list, .careers-grid').forEach(list => {
+    list.classList.add('reveal-stagger');
+    // set increasing delays for children at paint-time
+    Array.from(list.children).forEach((child, i) => {
+      child.style.transitionDelay = (80 * Math.min(i, 8)) + 'ms'; // cap at 8*80ms
+    });
+  });
+
+  // Also stagger shop alternating blocks (image+text)
+  document.querySelectorAll('.feature-wrap').forEach(wrap => {
+    wrap.classList.add('reveal-stagger');
+    Array.from(wrap.children).forEach((child, i) => {
+      child.style.transitionDelay = (90 * i) + 'ms';
+    });
+  });
+
+  // Observer
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        // If it's a stagger container, also mark children as visible gradually
+        if (entry.target.classList.contains('reveal-stagger')) {
+          Array.from(entry.target.children).forEach((child, i) => {
+            // in case child has its own transition, keep any custom delay
+            child.style.opacity = '1';
+            child.style.transform = 'none';
+          });
+        }
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: null,
+    threshold: 0.18,
+    rootMargin: '0px 0px -8% 0px'
+  });
+
+  // Observe all reveal targets
+  document.querySelectorAll('.reveal, .reveal-stagger, .reveal-parallax').forEach(el => io.observe(el));
+
+  // Small enhancement: if user prefers reduced motion, disable animations
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    document.querySelectorAll('.reveal, .reveal-stagger, .reveal-parallax').forEach(el => {
+      el.classList.add('is-visible');
+      el.style.transition = 'none';
+    });
+  }
+})();
+</script>

@@ -274,8 +274,42 @@
   background: transparent !important;
 }
 
+/* =============================
+   Reveal on scroll – Cinematic
+   ============================= */
+.reveal{
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s cubic-bezier(.2,.7,.2,1),
+              transform .6s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+.reveal.is-in{ opacity:1; transform:none; }
+
+/* Horizontal slide variant (optional) */
+.reveal-x{ opacity:0; transform: translateX(-28px); transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1); will-change: opacity, transform; }
+.reveal-x.is-in{ opacity:1; transform:none; }
+
+/* Stagger container: children fade-in sequentially */
+.reveal-stagger > *{
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .55s cubic-bezier(.2,.7,.2,1),
+              transform .55s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+.reveal-stagger.is-in > *{ opacity: 1; transform: none; }
+
+/* Accessibility: disable motion for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .reveal, .reveal-x, .reveal-stagger > *{
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
 </style>
-<h3 class="title">BEHIND THE SCENE</h3>
+<h3 class="title reveal">BEHIND THE SCENES</h3>
 
 {{-- @foreach ($film as $item)
 <section class="bts-category">   <!-- ⬅️ wrapper per kategori -->
@@ -310,14 +344,14 @@
 @foreach ($judul as $items)
   @foreach ($film as $item)
   @if ($item->uuid == $items->judul)
-      <section class="bts-category">   <!-- ⬅️ wrapper per kategori -->
-        <span class="kategori">{{ $item->title }}</span>
+      <section class="bts-category reveal">   <!-- ⬅️ wrapper per kategori -->
+        <span class="kategori reveal-x">{{ $item->title }}</span>
         <hr class="shop-detail__divider2"/>
 
         <section class="related-products">
           <div class="carousel-wrapper">
             <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button>
-            <div class="carousel-track">
+            <div class="carousel-track reveal-stagger">
               @foreach ($bts as $value)
                 @if ($value->judul == $item->uuid)
                   <div class="product-card">
@@ -367,4 +401,34 @@ document.querySelectorAll('.carousel-wrapper').forEach((wrap) => {
   // init
   setTimeout(update, 0);
 });
+</script>
+<script>
+// =============================
+// Reveal-on-scroll for BTS page
+// =============================
+(function(){
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return; // respect user settings
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el = entry.target;
+        el.classList.add('is-in');
+
+        // If it's a stagger container, add delay to children
+        if(el.classList.contains('reveal-stagger')){
+          const kids = Array.from(el.children);
+          kids.forEach((child, i)=>{
+            child.style.transitionDelay = (90 * i) + 'ms';
+          });
+        }
+        io.unobserve(el); // fire once
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
+  // Observe all reveal elements
+  document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger').forEach(el=> io.observe(el));
+})();
 </script>
