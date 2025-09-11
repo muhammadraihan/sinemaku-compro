@@ -937,6 +937,13 @@
     margin-left: clamp(4px, 1vw, 8px) !important; /* Tighter gap on mobile */
   }
 }
+
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
   </style>
 </head>
 <body>
