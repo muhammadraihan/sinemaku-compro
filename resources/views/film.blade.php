@@ -645,7 +645,9 @@
   .chip{ padding: 6px 9px; font-size: 11px; }
   .filmitem-title{ font-size: 12.5px; }
 }
-.reveal-m {
+.reveal-m,
+.reveal-y,
+.reveal-x {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;

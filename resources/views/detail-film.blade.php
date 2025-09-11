@@ -320,7 +320,9 @@
   line-height: 1.6;
   margin-bottom: 1rem;
 }
-.reveal-m {
+.reveal-m,
+.reveal-y,
+.reveal-x {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;

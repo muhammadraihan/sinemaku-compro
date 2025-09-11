@@ -294,7 +294,9 @@
 @media (max-width: 980px){
   .suggest-card{ top: 76px; }
 }
-.reveal-m {
+.reveal-m,
+.reveal-y,
+.reveal-x {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
