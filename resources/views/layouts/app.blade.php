@@ -110,6 +110,13 @@
     }
     .temp-imagehc-vht-6-1{ left: 0; top: 0; right: 0; bottom: 0; aspect-ratio: auto; }
 
+    /* Mobile: naikkan area fokus & bikin hero sedikit lebih pendek agar langsung terlihat */
+@media (max-width: 640px){
+  .hero-slider{ min-height: 62vh; }              /* dari 100vh → 82vh (opsional) */
+  .hero-bg{ object-position: 50% 28%; }          /* default center → “naik” 28% */
+  /* Jika masih terasa terpotong, coba 20–30% */
+}
+
     .hero-gradient{
   background: linear-gradient(
     to top,
