@@ -111,13 +111,16 @@
     .temp-imagehc-vht-6-1{ left: 0; top: 0; right: 0; bottom: 0; aspect-ratio: auto; }
 
     .hero-gradient{
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      pointer-events: none; background: linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.10) 65%); z-index: 1;
-    }
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.55) 0%,   /* dari 0.90 → 0.55 */
+    rgba(0,0,0,0.00) 60%   /* dari 0.10 → 0.00 dan naikkan transparansi lebih cepat */
+  );
+}
 
     .rectangle-5{
       position: absolute; inset: 0; width: 100%; height: 100%;
-      background: rgba(40,39,39,0.5);   /* overlay hero (biarkan; tidak memengaruhi body putih) */
+      background: rgba(40,39,39,0.15);   /* overlay hero (biarkan; tidak memengaruhi body putih) */
     }
 
     .hero-content{
