@@ -937,7 +937,7 @@
 /* Mobile tweak */
 @media (max-width: 640px) {
   .hero-content {
-    bottom: clamp(60px, 12vh, 100px) !important; /* naikkan posisi lebih ke atas */
+    bottom: clamp(20px, 5vh, 50px) !important; /* naikkan posisi lebih ke atas */
   }
   .bolehkah-sekali-saja-ku-menangis {
     font-size: clamp(24px, 7vw, 36px) !important;
