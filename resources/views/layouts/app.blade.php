@@ -938,7 +938,7 @@
   }
 }
 
-.reveal {
+.reveal-m {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
@@ -1098,37 +1098,37 @@
   });
 
   // Observer
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        // If it's a stagger container, also mark children as visible gradually
-        if (entry.target.classList.contains('reveal-stagger')) {
-          Array.from(entry.target.children).forEach((child, i) => {
-            // in case child has its own transition, keep any custom delay
-            child.style.opacity = '1';
-            child.style.transform = 'none';
-          });
-        }
-        obs.unobserve(entry.target);
-      }
-    });
-  }, {
-    root: null,
-    threshold: 0.18,
-    rootMargin: '0px 0px -8% 0px'
-  });
+  //  = new IntersectionObserver((entries, obs) => {
+  //   entries.forEach(entry => {
+  //     if (entry.isIntersecting) {
+  //       entry.target.classList.add('is-visible');
+  //       // If it's a stagger container, also mark children as visible gradually
+  //       if (entry.target.classList.contains('reveal-stagger')) {
+  //         Array.from(entry.target.children).forEach((child, i) => {
+  //           // in case child has its own transition, keep any custom delay
+  //           child.style.opacity = '1';
+  //         const io  child.style.transform = 'none';
+  //         });
+  //       }
+  //       obs.unobserve(entry.target);
+  //     }
+  //   });
+  // }, {
+  //   root: null,
+  //   threshold: 0.18,
+  //   rootMargin: '0px 0px -8% 0px'
+  // });
 
   // Observe all reveal targets
-  document.querySelectorAll('.reveal, .reveal-stagger, .reveal-parallax').forEach(el => io.observe(el));
+  // document.querySelectorAll('.reveal, .reveal-stagger, .reveal-parallax').forEach(el => io.observe(el));
 
   // Small enhancement: if user prefers reduced motion, disable animations
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) {
-    document.querySelectorAll('.reveal, .reveal-stagger, .reveal-parallax').forEach(el => {
-      el.classList.add('is-visible');
-      el.style.transition = 'none';
-    });
-  }
-})();
-</script>
+//   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+//   if (prefersReduced) {
+//     document.querySelectorAll('.reveal, .reveal-stagger, .reveal-parallax').forEach(el => {
+//       el.classList.add('is-visible');
+//       el.style.transition = 'none';
+//     });
+//   }
+// })();
+// </script>
