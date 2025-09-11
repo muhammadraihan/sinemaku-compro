@@ -248,6 +248,7 @@
 @media (prefers-reduced-motion: reduce){
   .reveal, .reveal-stagger > *{ opacity:1 !important; transform:none !important; filter:none !important; }
 }
+.reveal,
 .reveal-m,
 .reveal-y,
 .reveal-x {
@@ -339,11 +340,11 @@ document.querySelectorAll('.carousel-wrapper').forEach((wrap) => {
   }
   function update(){
     const max = track.scrollWidth - track.clientWidth - 1;
-    prev.disabled = track.scrollLeft <= 0;
-    next.disabled = track.scrollLeft >= max;
+    if (prev) prev.disabled = track.scrollLeft <= 0;
+    if (next) next.disabled = track.scrollLeft >= max;
   }
-  prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
-  next.addEventListener('click', () => track.scrollBy({ left:  step(), behavior: 'smooth'  }));
+  if (prev) prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  if (next) next.addEventListener('click', () => track.scrollBy({ left:  step(), behavior: 'smooth'  }));
   track.addEventListener('scroll', update, { passive:true });
   window.addEventListener('resize', update);
   // init
@@ -353,6 +354,12 @@ document.querySelectorAll('.carousel-wrapper').forEach((wrap) => {
 <script>
 // ===== Scroll Reveal (Cinematic) =====
 (function(){
+  // If IntersectionObserver is not supported, reveal everything immediately
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => el.classList.add('is-inview'));
+    return;
+  }
+
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce) return;
 
@@ -385,7 +392,7 @@ document.querySelectorAll('.carousel-wrapper').forEach((wrap) => {
         ? list.querySelectorAll('.product-card')
         : list.children;
 
-      kids.forEach((child, i) => {
+      Array.from(kids).forEach((child, i) => {
         child.style.setProperty('--i', i);
       });
     });
