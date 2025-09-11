@@ -256,6 +256,7 @@
   transform: none !important;
   transition: none !important;
 }
+
 </style>
 <section class="shop-detail">
   <div class="shop-detail__container">
