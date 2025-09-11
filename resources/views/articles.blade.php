@@ -88,7 +88,7 @@
   .meta-chip{
     display:inline-flex; align-items:center; gap:8px;
     background:#F3F5F7; color:#374151; border-radius:999px;
-    padding:6px 10px; font-size:13px;
+    padding:6px 10px; font-size:13px; font-family:"Inter",sans-serif;
   }
 
   /* ====== Tombol Read More (diperkecil) ====== */
