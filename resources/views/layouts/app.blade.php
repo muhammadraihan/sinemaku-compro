@@ -730,33 +730,53 @@
   }
 }
 
-/* ===== Featured Article: stretch height (TABLET ONLY) ===== */
-/* Default (mobile & desktop): no forced stretch */
+/* === Featured Article: tablet-safe sizing (fix iPad Safari/Chrome anomaly) === */
+/* Default (mobile & desktop): tetap gunakan rasio 16:9 */
 .articles-grid{ align-items: start; }
 
-/* Tablet/iPad range only → stretch featured to match the list column height */
 @media (min-width: 768px) and (max-width: 1180px){
-  .articles-grid{ align-items: stretch; }
-  .article-featured{ height: 100%; }
-  .article-featured > a{ display:block; height:100%; }
+  .articles-grid{
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start; /* jangan stretch agar tidak ketarik */
+  }
+  .article-featured{
+    height: auto;
+    max-height: clamp(260px, 44vw, 460px);
+  }
+  .article-featured > a{ display:block; height:auto; }
   .article-featured img{
     width: 100%;
-    height: 100%;
-    aspect-ratio: auto;   /* fill container height in tablet */
-    object-fit: cover;
-    display: block;
-  }
-}
-
-/* Desktop reset (≥1181px): return to 16:9 card, no stretch) */
-@media (min-width: 1181px){
-  .articles-grid{ align-items: start; }
-  .article-featured{ height: auto; }
-  .article-featured > a{ height: auto; }
-  .article-featured img{
     height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
+    display: block;
+  }
+
+  /* List column: kecilkan sedikit agar 3 item selalu muat */
+  .article-item-link{
+    grid-template-columns: 110px 1fr;
+    gap: 14px;
+  }
+  .article-item h4{
+    font-size: clamp(15px, 1.9vw, 17px);
+    line-height: 1.32;
+  }
+}
+
+@media (min-width: 1181px){
+  .articles-grid{
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+  .article-featured{
+    height: auto;
+    max-height: none;
+  }
+  .article-featured img{
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }
 
