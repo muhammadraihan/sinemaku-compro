@@ -669,6 +669,38 @@
   transform: none !important;
   transition: none !important;
 }
+  /* ================== Tablet/iPad refinements (Series) ================== */
+  @media (min-width: 768px) and (max-width: 1180px){
+    /* Title spacing lebih rapat */
+    .title{
+      margin-top: 64px;
+      margin-left: 28px;
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    /* Spotlight tighter */
+    .feature-sidetext{ padding: 20px 24px 32px; }
+    .feature-wrap{ grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
+    .feature-title{ font-size: clamp(28px, 5vw, 44px); margin-bottom: 16px; }
+    .feature-text{ margin-top: 0; }
+    .feature-cta{ margin-top: 8px; }
+    .feature-media-frame2{ padding: 6px; }
+
+    /* Allfilms container */
+    .allfilms{
+      margin: 20px auto 56px;
+      padding: 0 20px;
+    }
+    .allfilms-head{ margin-bottom: 10px; }
+    .allfilms-title{ font-size: 16px; }
+    .allfilms-grid{ gap: 18px 16px; }
+
+    /* Card caption */
+    .filmitem-caption{ margin-top: 6px; }
+    .filmitem-title{ font-size: 12.5px; }
+    .filmitem-year{ font-size: 11px; }
+  }
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
 <h3 class="title">COMING SOON</h3>

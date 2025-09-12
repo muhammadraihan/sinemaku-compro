@@ -107,11 +107,13 @@
     margin:0 0 clamp(18px,3vw,26px);
     margin-left: 200px;
   }
-  }
   @media (max-width: 720px){
     .castings-title{
       margin-left: 20px;
     }
+  }
+  @media (min-width: 721px) and (max-width: 1120px){
+    .castings-title{ margin-left: 20px; }
   }
 
   .cast-card{

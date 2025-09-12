@@ -201,6 +201,18 @@
 }
 
     /* Responsive */
+    /* Tablet (e.g. iPad 820px): keep meta in two columns so it doesn't stack too tall */
+    @media (min-width: 700px) and (max-width: 980px){
+      .event-meta{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 18px;
+        row-gap: 10px;
+      }
+      /* keep each meta row tidy */
+      .event-meta li{ 
+        white-space: nowrap; 
+      }
+    }
     @media (max-width: 980px){
       .event-hero{ grid-template-columns: 1fr; gap: 24px; }
       .event-media img{ height: auto; aspect-ratio: 16 / 9; }

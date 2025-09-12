@@ -659,10 +659,104 @@
 }
 
 /* prefer reduced motion – matikan animasi non-esensial */
+
 @media (prefers-reduced-motion: reduce){
   .article-featured img,
   .article-item,
   .article-item img{ transition: none !important; }
+}
+
+/* === Articles – Tablet/iPad sizing tweaks (iPad Air/Pro) === */
+@media (min-width: 768px) and (max-width: 1180px){
+  /* Section breathing room */
+  .articles-section{
+    padding: 44px 40px; /* sedikit lebih besar agar nyaman dibaca */
+  }
+
+  /* Header size balance */
+  .articles-header h2{
+    font: 600 14px/1 'Inter', Arial, sans-serif;
+  }
+  .view-all{
+    font: 500 12px/1 'Inter', Arial, sans-serif;
+  }
+
+  /* Grid & gaps */
+  .articles-grid{
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  /* Featured card text sizing */
+  .article-featured-text{
+    font-size: 16px;
+  }
+  .article-featured-text h3{
+    font-size: clamp(22px, 2.2vw, 28px);
+  }
+
+  /* List items: thumb lebih besar & teks lebih mudah dibaca */
+  .article-item-link{
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+  }
+  .article-item img{
+    border-radius: 14px;
+  }
+  .article-item h4{
+    font-size: clamp(16px, 2.0vw, 18px);
+    line-height: 1.35;
+  }
+  .article-item .date{
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+}
+
+/* iPad Pro landscape (sedikit lebih lebar), pertahankan skala nyaman */
+@media (min-width: 1181px) and (max-width: 1366px){
+  .articles-grid{
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 28px;
+  }
+  .article-featured-text h3{
+    font-size: clamp(24px, 2.0vw, 30px);
+  }
+  .article-item-link{
+    grid-template-columns: 130px 1fr;
+  }
+  .article-item h4{
+    font-size: 18px;
+  }
+}
+
+/* ===== Featured Article: stretch height to match list column (tablet/desktop) ===== */
+.articles-grid{
+  align-items: stretch; /* dari start -> stretch agar barisnya setinggi item tertinggi */
+}
+
+@media (min-width: 768px){
+  /* Kartu featured mengisi tinggi baris */
+  .article-featured{ height: 100%; }
+  .article-featured > a{ display:block; height:100%; }
+
+  /* Gambar mengisi penuh kartu (bukan fixed 16:9 lagi) */
+  .article-featured img{
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;   /* override 16/9 saat mode stretch */
+    object-fit: cover;
+    display: block;
+  }
+}
+
+/* iPad/Tablet tweak – pastikan tetap stretch */
+@media (min-width: 768px) and (max-width: 1180px){
+  .articles-grid{
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: stretch;
+  }
 }
 
     /* ========= Spotlight ========= */

@@ -294,6 +294,32 @@ body{background:var(--bg)}
   transform: none !important;
   transition: none !important;
 }
+/* ================= Tablet/iPad sizing for Top Stories ================= */
+@media (min-width: 768px) and (max-width: 960px){
+  /* Sidebar card spacing */
+  .widget{
+    padding: 20px 18px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+  .badge,
+  .widget-title{ font-size: 16px; }
+
+  /* Story item: bigger thumbnail + roomier spacing */
+  .story-mini{
+    grid-template-columns: 120px 1fr;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 14px;
+  }
+  .story-mini img{
+    width: 120px;
+    height: 88px;
+    border-radius: 12px;
+  }
+  .story-title{ font-size: clamp(15px, 2.2vw, 18px); }
+  .story-meta{ font-size: 13px; }
+}
 </style>
 <script>document.documentElement.classList.add('js');</script>
 

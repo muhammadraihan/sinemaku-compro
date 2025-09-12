@@ -652,6 +652,46 @@
   transform: none !important;
   transition: none !important;
 }
+/* ===================== Tablet/iPad tightening (reduce whitespace) ===================== */
+@media (min-width: 768px) and (max-width: 1180px){
+  /* Section heading */
+  .title{
+    margin-left: 24px;
+    margin-top: 72px;
+    margin-bottom: 4px;
+    font-size: 22px;
+  }
+
+  /* Spotlight (COMING SOON) */
+  .feature-sidetext{ padding: 20px 24px 28px; }
+  .feature-wrap{
+    grid-template-columns: 1fr 1.1fr;   /* dua kolom rapat */
+    gap: 22px;
+    align-items: center;
+  }
+  .feature-text{ margin-top: 0; }
+  .feature-title{
+    font-size: clamp(32px, 4.6vw, 56px);
+    line-height: 1.05;
+    margin: 0 0 8px;
+  }
+  .feature-cta{ margin-top: 8px; }
+  .feature-media-frame2{ padding: 6px; border-radius: 8px; }
+  .feature-media-frame2::before{ aspect-ratio: 16/10; }
+
+  /* All Films list */
+  .allfilms{
+    padding: 0 24px;
+    margin: 12px auto 48px;
+  }
+  .allfilms-head{ margin-bottom: 6px; }
+  .allfilms-grid{
+    grid-template-columns: repeat(3, minmax(0,1fr)); /* 3 kolom, rapat */
+    gap: 18px 16px;
+    margin-top: 10px;
+  }
+  .filmitem-caption{ margin-top: 8px; }
+}
 </style>
 {{-- ================== SECTION SPOTLIGHT ================== --}}
 <h3 class="title">COMING SOON</h3>

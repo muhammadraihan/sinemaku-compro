@@ -358,6 +358,43 @@
     margin-bottom: 1rem;
   }
 
+/* ===== Tablet refinement: make "You Might Also Like" visually larger ===== */
+@media (min-width: 768px) and (max-width: 968px){
+  /* card container tweaks */
+  .suggest-card{ 
+    padding: 22px; 
+    border-radius: 18px; 
+  }
+  .suggest-card .h3{ 
+    font-size: clamp(18px, 2.2vw, 26px); 
+    margin-bottom: 10px; 
+  }
+
+  /* make each suggestion tile bigger and more readable */
+  .suggest-item{ 
+    padding: 14px; 
+    gap: 16px; 
+  }
+  .suggest-item img{ 
+    width: 120px; 
+    height: 120px; 
+    border-radius: 12px; 
+  }
+  .suggest-item .title{ 
+    font-size: clamp(14px, 2.1vw, 18px); 
+    font-weight: 600; 
+    margin-top: 6px; 
+  }
+  .suggest-item .small.detail{ 
+    font-size: clamp(12px, 1.7vw, 14px); 
+  }
+
+  /* widen the CTA and give it breathing room */
+  .btn-wide{ 
+    margin-top: 16px; 
+    padding: 16px; 
+  }
+}
 </style>
 <!-- ===== Film Detail: HERO ===== -->
 <section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">

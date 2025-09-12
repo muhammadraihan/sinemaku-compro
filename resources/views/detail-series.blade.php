@@ -266,6 +266,36 @@
     .rating{ display:flex; align-items:center; gap:6px; margin-top:3px }
     .rating svg{ width:14px; height:14px; fill:#ffd965 }
 
+    /* ===== Tablet/iPad refinements for "You Might Also Like" ===== */
+    @media (min-width: 768px) and (max-width: 968px){
+      .suggest-card{
+        padding: 20px 22px;
+        border-radius: 18px;
+      }
+      .suggest-item{
+        gap: 16px;
+        padding: 14px;
+      }
+      .suggest-item img{
+        width: 120px;
+        height: 120px;
+        border-radius: 12px;
+      }
+      .suggest-item .title{
+        font-size: 18px;       /* bigger title for readability */
+        line-height: 1.25;
+        margin: 4px 0 6px;
+      }
+      .suggest-item .small{
+        font-size: 13.5px;     /* slightly larger meta */
+      }
+      .btn-wide{
+        padding: 16px;         /* a bit larger button */
+        gap: 12px;
+        font-size: 14px;
+      }
+    }
+
     /* button */
     .btn-wide{
       margin-top: 14px; display:flex; justify-content:center; align-items:center; gap:10px;
