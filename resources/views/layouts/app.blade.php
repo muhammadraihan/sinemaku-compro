@@ -730,32 +730,33 @@
   }
 }
 
-/* ===== Featured Article: stretch height to match list column (tablet/desktop) ===== */
-.articles-grid{
-  align-items: stretch; /* dari start -> stretch agar barisnya setinggi item tertinggi */
-}
+/* ===== Featured Article: stretch height (TABLET ONLY) ===== */
+/* Default (mobile & desktop): no forced stretch */
+.articles-grid{ align-items: start; }
 
-@media (min-width: 768px){
-  /* Kartu featured mengisi tinggi baris */
+/* Tablet/iPad range only → stretch featured to match the list column height */
+@media (min-width: 768px) and (max-width: 1180px){
+  .articles-grid{ align-items: stretch; }
   .article-featured{ height: 100%; }
   .article-featured > a{ display:block; height:100%; }
-
-  /* Gambar mengisi penuh kartu (bukan fixed 16:9 lagi) */
   .article-featured img{
     width: 100%;
     height: 100%;
-    aspect-ratio: auto;   /* override 16/9 saat mode stretch */
+    aspect-ratio: auto;   /* fill container height in tablet */
     object-fit: cover;
     display: block;
   }
 }
 
-/* iPad/Tablet tweak – pastikan tetap stretch */
-@media (min-width: 768px) and (max-width: 1180px){
-  .articles-grid{
-    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-    gap: 24px;
-    align-items: stretch;
+/* Desktop reset (≥1181px): return to 16:9 card, no stretch) */
+@media (min-width: 1181px){
+  .articles-grid{ align-items: start; }
+  .article-featured{ height: auto; }
+  .article-featured > a{ height: auto; }
+  .article-featured img{
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
   }
 }
 
