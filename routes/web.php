@@ -42,6 +42,7 @@ Route::get('/memberships', [FrontEndController::class, 'membership'])->name('fro
 Route::get('/career', [FrontEndController::class, 'careers'])->name('careers');
 Route::get('/detail-career/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
 Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
+Route::resource('membership', 'MembershipController');
 
 Auth::routes(['register' => false]);
 
@@ -71,7 +72,7 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('job', 'JobController');
     Route::resource('casting', 'CastingController');
     Route::resource('event', 'EventController');
-    Route::resource('membership', 'MembershipController');
+    // Route::resource('membership', 'MembershipController');
     Route::resource('bts', 'BehindTheSceneController');
     Route::get('get-kategori', [KategoriController::class, 'show'])->name('ref.kategori');
     Route::get('/membership/export', [MembershipController::class, 'export'])

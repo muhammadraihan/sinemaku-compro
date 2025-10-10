@@ -1,8 +1,8 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('title', 'Home | Sinemaku Pictures')
 
-@include('partials.navbar')
+@include('partials.navbar') --}}
 <style>
     .navbar-logo {
     position: absolute;
@@ -397,18 +397,18 @@
 }
 </style>
 <!-- ===== Film Detail: HERO ===== -->
-<section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">
+<section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $films->photo) }})">
 
   <!-- Content -->
   <div class="film-hero__inner">
-    <h1 class="film-hero__title reveal-m">{{ $film->title }}</h1>
+    <h1 class="film-hero__title reveal-m">{{ $films->title }}</h1>
 
     <div class="film-hero__meta reveal-m">
-      <span class="genre">{{ \Carbon\Carbon::parse($film->release_date)->format('Y') }}</span>
+      <span class="genre">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</span>
       <span class="dot">•</span>
-      <span class="genre">{{ $film->genre }}</span>
+      <span class="genre">{{ $films->genre }}</span>
       <span class="dot">•</span>
-      <span class="genre">{{ $film->duration }} Min</span>
+      <span class="genre">{{ $films->duration }} Min</span>
     </div>
 
     {{-- <div class="film-hero__rating">
@@ -432,12 +432,12 @@
     </p> --}}
 
     <div class="film-hero__actions reveal-m">
-      <a href="{{ $film->link }}" class="btn btn--primary">
+      <a href="{{ $films->link }}" class="btn btn--primary">
         <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
         Trailer
       </a>
-      @if (!empty($film->link_watch))
-        <a href="{{ $film->link_watch }}" class="btn btn--secondary">
+      @if (!empty($films->link_watch))
+        <a href="{{ $films->link_watch }}" class="btn btn--secondary">
           Watch Now
         </a>
       @endif
@@ -460,21 +460,21 @@
                   <!-- calendar -->
                   <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
                 </span>
-                <span class="detail">Release Date: <strong>{{ \Carbon\Carbon::parse($film->release_date)->format('M d, Y') }}</strong></span>
+                <span class="detail">Release Date: <strong>{{ \Carbon\Carbon::parse($films->release_date)->format('M d, Y') }}</strong></span>
               </li>
               <li>
                 <span class="ico">
                   <!-- clock -->
                   <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 5h-2v6l5 3 1-1-4-2V7z"/></svg>
                 </span>
-                <span class="detail">Duration: <strong>{{ $film->duration }} min</strong></span>
+                <span class="detail">Duration: <strong>{{ $films->duration }} min</strong></span>
               </li>
               <li>
                 <span class="ico">
                   <!-- director / user -->
                   <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.33 0-8 2-8 4.5V21h16v-2.5c0-2.5-3.67-4.5-8-4.5z"/></svg>
                 </span>
-                <span class="detail">Director: <strong>{{ $film->director }}</strong></span>
+                <span class="detail">Director: <strong>{{ $films->director }}</strong></span>
               </li>
             </ul>
           </div>
@@ -483,7 +483,7 @@
             <h3 class="h3">Cast</h3>
             <ul class="plain-list">
               @php
-                $all_cast = explode(',', $film->cast);
+                $all_cast = explode(',', $films->cast);
               @endphp
               @foreach ($all_cast as $item)
                   <li>{{ $item }}</li>
@@ -495,7 +495,7 @@
         {{-- <h2 class="h2">About the Film</h2> --}}
 
         <div class="lead reveal-m">
-          {!! $film->sinopsis !!}
+          {!! $films->sinopsis !!}
         </div>
       </div>
 
@@ -526,6 +526,11 @@
       </aside>
     </div>
   </section>
+  @if (trim($shopCollectionHtml) !== '')
+    <h3 class="title reveal">COLLECTIONS</h3>
+    {!! $shopCollectionHtml !!}
+  @endif
+  @include('bts')
 <script>
 (function(){
   const isMobile = window.matchMedia('(max-width: 640px)').matches;

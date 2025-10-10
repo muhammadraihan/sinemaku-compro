@@ -240,13 +240,24 @@
     @php $featured = collect($article)->first(); @endphp
     @if($featured)
       <article class="article-featured">
-        <a href="{{ $featured->kategori === 'external' ? $featured->link : route('detail-articles', $featured->slug) }}">
-          <img src="{{ asset('photo/' . $featured->photo) }}" alt="{{ $featured->judul }}" loading="lazy" />
-          <div class="article-featured-text">
-            <h3>{{ $featured->judul }}</h3>
-            <!-- <p>{{ $featured->title }}</p> -->
-          </div>
-        </a>
+        @if ($featured->kategori === 'external')
+          <a href="{{ $featured->link }}" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, '_blank'); return false;">
+            <img src="{{ asset('photo/' . $featured->photo) }}" alt="{{ $featured->judul }}" loading="lazy" />
+            <div class="article-featured-text">
+              <h3>{{ $featured->judul }}</h3>
+              <!-- <p>{{ $featured->title }}</p> -->
+            </div>
+          </a>
+        @else
+          <a href="{{ route('detail-articles', $featured->slug) }}">
+            <img src="{{ asset('photo/' . $featured->photo) }}" alt="{{ $featured->judul }}" loading="lazy" />
+            <div class="article-featured-text">
+              <h3>{{ $featured->judul }}</h3>
+              <!-- <p>{{ $featured->title }}</p> -->
+            </div>
+          </a>
+        @endif
+        
       </article>
     @endif
 

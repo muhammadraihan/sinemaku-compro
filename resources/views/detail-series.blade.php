@@ -1,8 +1,8 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('title', 'Home | Sinemaku Pictures')
 
-@include('partials.navbar')
+@include('partials.navbar') --}}
 <style>
     /* ==== Reveal Animation ==== */
     /* Default: desktop/tablet show content immediately */
@@ -370,20 +370,20 @@
 
 </style>
 <!-- ===== Film Detail: HERO ===== -->
-<section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $film->photo) }})">
+<section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $films->photo) }})">
 
   <!-- Content -->
   <div class="film-hero__inner">
-    <h1 class="film-hero__title reveal-y">{{ $film->title }}</h1>
+    <h1 class="film-hero__title reveal-y">{{ $films->title }}</h1>
 
     <div class="film-hero__meta reveal-y">
-      <span class="genre">{{ \Carbon\Carbon::parse($film->release_date)->format('Y') }}</span>
+      <span class="genre">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</span>
       <span class="dot">•</span>
-      <span class="genre">{{ $film->genre }}</span>
+      <span class="genre">{{ $films->genre }}</span>
       <span class="dot">•</span>
-      <span class="genre">{{ $film->season }} Season</span>
+      <span class="genre">{{ $films->season }} Season</span>
       <span class="dot">•</span>
-      <span class="genre">{{ $film->episode }} Episode</span>
+      <span class="genre">{{ $films->episode }} Episode</span>
     </div>
 
     {{-- <div class="film-hero__rating">
@@ -407,12 +407,12 @@
     </p> --}}
 
     <div class="film-hero__actions">
-      <a href="{{ $film->link }}" class="btn btn--primary reveal-x">
+      <a href="{{ $films->link }}" class="btn btn--primary reveal-x">
         <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
         Trailer
       </a>
-      @if (!empty($film->link_watch))
-        <a href="{{ $film->link_watch }}" class="btn btn--secondary reveal-x">
+      @if (!empty($films->link_watch))
+        <a href="{{ $films->link_watch }}" class="btn btn--secondary reveal-x">
           Watch Now
         </a>
       @endif
@@ -435,7 +435,7 @@
                   <!-- calendar -->
                   <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v2h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10z"/></svg>
                 </span>
-                <span class="detail">Release Date: <strong>{{ \Carbon\Carbon::parse($film->release_date)->format('M d, Y') }}</strong></span>
+                <span class="detail">Release Date: <strong>{{ \Carbon\Carbon::parse($films->release_date)->format('M d, Y') }}</strong></span>
               </li>
               <li>
                 <span class="ico">
@@ -451,7 +451,7 @@
                   </svg>
 
                 </span>
-                <span class="detail">Season: <strong>{{ $film->season }} Season</strong></span>
+                <span class="detail">Season: <strong>{{ $films->season }} Season</strong></span>
               </li>
               <li>
                 <span class="ico">
@@ -466,7 +466,7 @@
                   </svg>
 
                 </span>
-                <span class="detail">Episode: <strong>{{ $film->episode }} Episode</strong></span>
+                <span class="detail">Episode: <strong>{{ $films->episode }} Episode</strong></span>
               </li>
               <li>
                 <span class="ico">
@@ -484,7 +484,7 @@
                     <path d="M3 15h18"/>
                   </svg>
                 </span>
-                <span class="detail">Director: <strong>{{ $film->director }}</strong></span>
+                <span class="detail">Director: <strong>{{ $films->director }}</strong></span>
               </li>
             </ul>
           </div>
@@ -493,7 +493,7 @@
             <h3 class="h3">Cast</h3>
             <ul class="plain-list">
              @php
-                $all_cast = explode(',', $film->cast);
+                $all_cast = explode(',', $films->cast);
               @endphp
               @foreach ($all_cast as $item)
                   <li>{{ $item }}</li>
@@ -505,7 +505,7 @@
         {{-- <h2 class="h2">About the Film</h2> --}}
 
         <div class="lead reveal-y">
-          {!! $film->sinopsis !!}
+          {!! $films->sinopsis !!}
         </div>
       </div>
 
@@ -536,6 +536,11 @@
       </aside>
     </div>
   </section>
+  @if (trim($shopCollectionHtml) !== '')
+    <h3 class="title reveal">COLLECTIONS</h3>
+    {!! $shopCollectionHtml !!}
+  @endif
+  @include('bts')
 
 
 

@@ -279,30 +279,58 @@
 </section>
 
 @foreach ($merchandise as $item)
-    <span class="kategori">{{ $item->merchandise }} COLLECTION</span>
-      <hr class="shop-detail__divider2"/>
+      <span class="kategori">{{ $item->merchandise }} COLLECTION</span>
+        <hr class="shop-detail__divider2"/>
 
-      {{-- ====== RAK 1 ====== --}}
-      <section class="related-products">
-        <div class="carousel-wrapper">
-          {{-- <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button> --}}
-          <div class="carousel-track">
-            @foreach ($all_merchandise as $items)
-                @if ($items->merchandise == $item->merchandise)
-                    <div class="product-card">
-                      <a href="{{ route('detail-shop', $items->slug) }}">
-                        <img src="{{ asset('photo/' . $items->photo) }}" alt="{{ $items->kategorishop }}"><p class="title">{{ $items->name }}</p><p class="price">{{ $items->harga ? 'Rp'.''.str_replace(',', '.', number_format($items->harga)) : ''; }}</p>
-                      </a>
-                    </div>
-                @endif
-            @endforeach
+        {{-- ====== RAK 1 ====== --}}
+        <section class="related-products">
+          <div class="carousel-wrapper">
+            {{-- <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button> --}}
+            <div class="carousel-track">
+              @foreach ($all_merchandise as $items)
+                  @if ($items->merchandise == $item->merchandise)
+                      <div class="product-card">
+                        <a href="{{ route('detail-shop', $items->slug) }}">
+                          <img src="{{ asset('photo/' . $items->photo) }}" alt="{{ $items->kategorishop }}"><p class="title">{{ $items->name }}</p><p class="price">{{ $items->harga ? 'Rp'.''.str_replace(',', '.', number_format($items->harga)) : ''; }}</p>
+                        </a>
+                      </div>
+                  @endif
+              @endforeach
+            </div>
+            {{-- <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button> --}}
           </div>
-          {{-- <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button> --}}
-        </div>
-      </section>
+        </section>
 
-      <br><br><br>
-@endforeach
+        <br><br><br>
+  @endforeach
+
+@section('collection')
+  @foreach ($merchandise as $item)
+      <span class="kategori">{{ $item->merchandise }} COLLECTION</span>
+        <hr class="shop-detail__divider2"/>
+
+        {{-- ====== RAK 1 ====== --}}
+        <section class="related-products">
+          <div class="carousel-wrapper">
+            {{-- <button class="carousel-btn prev-btn" aria-label="Sebelumnya">&#10094;</button> --}}
+            <div class="carousel-track">
+              @foreach ($all_merchandise as $items)
+                  @if ($items->merchandise == $item->merchandise)
+                      <div class="product-card">
+                        <a href="{{ route('detail-shop', $items->slug) }}">
+                          <img src="{{ asset('photo/' . $items->photo) }}" alt="{{ $items->kategorishop }}"><p class="title">{{ $items->name }}</p><p class="price">{{ $items->harga ? 'Rp'.''.str_replace(',', '.', number_format($items->harga)) : ''; }}</p>
+                        </a>
+                      </div>
+                  @endif
+              @endforeach
+            </div>
+            {{-- <button class="carousel-btn next-btn" aria-label="Berikutnya">&#10095;</button> --}}
+          </div>
+        </section>
+
+        <br><br><br>
+  @endforeach
+@endsection
 
 <span class="kategori">SHOP BY CATEGORY</span>
 <hr class="shop-detail__divider2"/>

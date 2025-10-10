@@ -92,7 +92,7 @@ class MembershipController extends Controller
         $membership->save();
 
         // toastr()->success('Thankyou for Subscribe !', 'Success');
-        return redirect('/membership')->with('success', 'Thankyou for Subscribe !');
+        return redirect('/memberships')->with('success', 'Thankyou for Subscribe !');
     }
 
     /**
