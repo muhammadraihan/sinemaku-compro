@@ -27,13 +27,15 @@
 
                 <div class="hero-content">
   <h1 class="bolehkah-sekali-saja-ku-menangis">
-    {{ $h->title }}
+    <a href="{{ route('detail-film', $h->slug ?? $h->id) }}" class="hero-title-link" aria-label="View details: {{ $h->title }}">
+      {{ $h->title }}
+    </a>
     <span class="hero-meta">
       <span class="meta-year">{{ \Carbon\Carbon::parse($h->release_date)->format('Y') }}</span>
       {{-- <span class="meta-dot">•</span><span class="meta-cast">{{ $h->cast }}</span> --}}
     </span>
   </h1>
-</div>
+
             </section>
         @endforeach
     </div>
@@ -206,7 +208,11 @@
 
     {{-- ================== SPOTLIGHT 1 ================== --}}
     <section class="spotlight" aria-label="Spotlight">
-        <div class="spotlight__frame">
+        @if (strtolower($spotlight1->Categories->name ?? '') === 'film')
+          <a href="{{ route('detail-film', $spotlight1->slug ?? $spotlight1->uuid ?? $spotlight1->id) }}" class="spotlight__frame" aria-label="{{ $spotlight1->title }}">
+        @else
+          <a href="{{ route('detail-series', $spotlight1->slug ?? $spotlight1->uuid ?? $spotlight1->id) }}" class="spotlight__frame" aria-label="{{ $spotlight1->title }}">
+        @endif
             <img
                 class="spotlight__image"
                 src="{{ asset('photo/' . $spotlight1->photo) }}"
@@ -219,7 +225,7 @@
                 <span class="spotlight__eyebrow">WATCH NOW</span>
                 <h2 class="spotlight__title">{{ strtoupper($spotlight1->title) }}</h2>
             </div>
-        </div>
+        </a>
     </section>
 
     {{-- ================== ARTICLES ================== --}}
@@ -252,7 +258,7 @@
             <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
             <div>
               <h4>{{ $item->judul }}</h4>
-              <span class="date">{{ $item->created_at->format('d M Y') }}</span>
+              <span class="date" style="font-family: 'Inter', sans-serif;">{{ $item->created_at->format('d M Y') }}</span>
             </div>
           </a>
         </article>
@@ -277,7 +283,11 @@
 
     {{-- ================== SPOTLIGHT 2 ================== --}}
     <section class="spotlight" aria-label="Spotlight">
-        <div class="spotlight__frame">
+        @if (strtolower($spotlight2->Categories->name ?? '') === 'film')
+          <a href="{{ route('detail-film', $spotlight2->slug ?? $spotlight2->uuid ?? $spotlight2->id) }}" class="spotlight__frame" aria-label="{{ $spotlight2->title }}">
+        @else
+          <a href="{{ route('detail-series', $spotlight2->slug ?? $spotlight2->uuid ?? $spotlight2->id) }}" class="spotlight__frame" aria-label="{{ $spotlight2->title }}">
+        @endif
             <img
                 class="spotlight__image"
                 src="{{ asset('photo/' . $spotlight2->photo) }}"
@@ -287,10 +297,10 @@
             <div class="spotlight__overlay" aria-hidden="true"></div>
 
             <div class="spotlight__content">
-                <span class="spotlight__eyebrow">WATCH NOW</span>
+            <span class="spotlight__eyebrow">WATCH NOW</span>
                 <h2 class="spotlight__title">{{ strtoupper($spotlight2->title) }}</h2>
             </div>
-        </div>
+        </a>
     </section>
 
     {{-- ================== CAREERS ================== --}}

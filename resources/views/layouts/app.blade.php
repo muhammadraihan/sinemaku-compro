@@ -792,7 +792,7 @@
       position:absolute; left: clamp(16px, 4vw, 48px); bottom: clamp(14px, 3.5vw, 46px); right: clamp(16px, 6vw, 72px);
       color:#fff; z-index:2;
     }
-    .spotlight__eyebrow{ display:inline-block; font: 300 12px/1.2 'Inter', system-ui, -apple-system, Arial, sans-serif; text-transform:uppercase; opacity:.9; margin-bottom: 10px; }
+    .spotlight__eyebrow{ display:inline-block; font: 300 12px/1.2 'Inter', system-ui, -apple-system, Arial, sans-serif; text-transform:uppercase; opacity:.9; margin-bottom: 10px; white-space: nowrap; }
     .spotlight__title{
       margin:0; font-family:"Inter", Arial, serif; font-weight:500; letter-spacing:-0.5px; line-height:.95;
       font-size: clamp(28px, 7.2vw, 88px); text-shadow: 0 2px 18px rgba(0,0,0,.35);
@@ -1033,6 +1033,51 @@
   white-space: normal; /* Allow title to wrap naturally */
 }
 
+/* === Hero Title Hover (desktop/hover-capable only) === */
+@media (hover: hover) and (pointer: fine){
+  .bolehkah-sekali-saja-ku-menangis{
+    display:inline-block;                     /* needed for underline pseudo */
+    transition: transform .28s cubic-bezier(.22,.61,.36,1),
+                text-shadow .28s cubic-bezier(.22,.61,.36,1);
+  }
+  /* underline reveal */
+  .bolehkah-sekali-saja-ku-menangis::after{
+    content:"";
+    display:block;
+    height:2px;
+    margin-top:6px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .38s cubic-bezier(.22,.61,.36,1);
+    opacity:.9;
+  }
+  /* hover/focus state */
+  .bolehkah-sekali-saja-ku-menangis:hover,
+  .bolehkah-sekali-saja-ku-menangis:focus-visible{
+    transform: translateY(-2px);
+    text-shadow: 0 6px 22px rgba(0,0,0,.35);
+  }
+  .bolehkah-sekali-saja-ku-menangis:hover::after,
+  .bolehkah-sekali-saja-ku-menangis:focus-visible::after{
+    transform: scaleX(1);
+  }
+  /* optional pointer only if the title is clickable */
+  .hero-section a .bolehkah-sekali-saja-ku-menangis,
+  a .bolehkah-sekali-saja-ku-menangis{ cursor: pointer; }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .bolehkah-sekali-saja-ku-menangis{
+    transition: none !important;
+    text-shadow: none !important;
+  }
+  .bolehkah-sekali-saja-ku-menangis::after{
+    transition: none !important;
+  }
+}
+
 /* Meta (tahun • cast) embedded inline after title */
 .hero-meta {
   position: static !important;
@@ -1049,6 +1094,7 @@
   vertical-align: baseline; /* Ensure alignment with title text */
 }
 
+
 /* Mobile tweak */
 @media (max-width: 640px) {
   .hero-content {
@@ -1062,6 +1108,40 @@
     margin-left: clamp(4px, 1vw, 8px) !important; /* Tighter gap on mobile */
   }
 }
+
+/* === Hero: small CTA under title === */
+.hero-actions{ 
+  margin-top: 15px;                 /* space below title/meta */
+}
+.hero-cta{
+  display:inline-flex; align-items:center; gap:10px;
+  padding: 9px 12px;                /* small & tappable */
+  border-radius: 999px;             /* pill */
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.28);
+  color:#fff; text-decoration:none;
+  font: 600 12px/1 'Inter', system-ui, -apple-system;
+  letter-spacing:.08em; text-transform:uppercase;
+  backdrop-filter: blur(6px);
+  transition: background .2s ease, border-color .2s ease, transform .18s ease;
+}
+.hero-cta:hover{ 
+  background: rgba(255,255,255,.16);
+  border-color: rgba(255,255,255,.45);
+  transform: translateY(-1px);
+}
+.hero-cta:active{ transform:none; }
+.hero-cta .arr{ width:14px; height:14px; display:inline-block; }
+
+/* Keep CTA aligned left like the title */
+.hero-content .hero-cta{ align-self:flex-start; }
+
+/* Mobile: slightly larger touch target */
+@media (max-width:640px){
+  .hero-actions{ margin-top: 8px; }
+  .hero-cta{ padding: 10px 13px; font-weight:700; }
+}
+
 
 .reveal-m,
 .reveal-y,

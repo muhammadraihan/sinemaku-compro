@@ -49,7 +49,7 @@
   .careers{ background:#fff; padding: clamp(40px,6vw,72px) 0; margin-top: 40px;}
   .careers-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px;}
   .judul-karir{
-    font: 700 clamp(22px,3vw,36px)/1.08 "Libre Baskerville", serif;
+    font: 700 clamp(20px,3vw,30px)/1.08 "Inter", system-ui, sans-serif;
     margin: 0 0 clamp(20px,3vw,28px);
   }
 
@@ -103,7 +103,7 @@
   .castings{ background:#fff; padding: clamp(32px,4.5vw,56px) 0; }
   .castings-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px; overflow-y: auto; max-height: calc(4 * 120px);}
   .castings-title{
-    font: 700 clamp(22px,3vw,36px)/1.08 "Libre Baskerville", serif;
+    font: 700 clamp(20px,3vw,30px)/1.08 "Inter", system-ui, sans-serif;
     margin:0 0 clamp(18px,3vw,26px);
     margin-left: 200px;
   }
