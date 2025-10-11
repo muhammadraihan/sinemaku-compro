@@ -241,7 +241,7 @@
     @if($featured)
       <article class="article-featured">
         @if ($featured->kategori === 'external')
-          <a href="{{ $featured->link }}" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, '_blank'); return false;">
+          <a href="{{ $featured->link }}" target="_blank" rel="noopener noreferrer">
             <img src="{{ asset('photo/' . $featured->photo) }}" alt="{{ $featured->judul }}" loading="lazy" />
             <div class="article-featured-text">
               <h3>{{ $featured->judul }}</h3>
@@ -265,13 +265,17 @@
     <div class="article-list" role="list">
       @foreach ($all_article as $item)
         <article class="article-item" role="listitem">
-          <a href="{{ $item->kategori === 'external' ? $item->link : route('detail-articles', $item->slug) }}" class="article-item-link">
-            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
-            <div>
-              <h4>{{ $item->judul }}</h4>
-              <span class="date" style="font-family: 'Inter', sans-serif;">{{ $item->created_at->format('d M Y') }}</span>
-            </div>
-          </a>
+          @if ($item->kategori === 'external')
+            <a href="{{ $item->link }}" class="article-item-link" target="_blank" rel="noopener noreferrer">
+          @else
+            <a href="{{ route('detail-articles', $item->slug) }}" class="article-item-link">
+          @endif
+              <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" />
+              <div>
+                <h4>{{ $item->judul }}</h4>
+                <span class="date" style="font-family: 'Inter', sans-serif;">{{ $item->created_at->format('d M Y') }}</span>
+              </div>
+            </a>
         </article>
       @endforeach
     </div>

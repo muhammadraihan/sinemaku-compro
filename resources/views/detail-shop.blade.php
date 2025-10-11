@@ -500,10 +500,12 @@ html.js .is-revealed{
       <div class="shop-detail__price reveal-y" data-reveal="0.16">{{ $shop->harga ? 'Rp'.''.str_replace(',', '.', number_format($shop->harga)) : ''; }}</div>
 
       <a
+        id="buyNowBtn"
         class="shop-detail__cta reveal-y" data-reveal="0.20"
-        href="{{ $shop->link }}" 
-        target="_blank" 
-        rel="noopener"
+        href="{{ $shop->link }}"
+        target="_blank"
+        rel="noopener noreferrer nofollow external"
+        aria-label="Buy Now (opens in a new tab)"
       >
         <span class="detail">BUY NOW</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -644,5 +646,20 @@ html.js .is-revealed{
     if(io){ io.observe(t); }
     else{ t.classList.add('is-revealed'); }
   });
+})();
+</script>
+<script>
+(function(){
+  var el = document.getElementById('buyNowBtn');
+  if (!el) return;
+  el.addEventListener('click', function(e){
+    // Normalize any interceptors by explicitly opening a new tab/window
+    var url = this.getAttribute('href');
+    if (!url) return;
+    e.preventDefault();
+    // Use noopener for security; Safari-compatible fallback
+    var w = window.open(url, '_blank', 'noopener');
+    if (w) { try { w.opener = null; } catch(_){} }
+  }, { capture: true });
 })();
 </script>

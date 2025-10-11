@@ -432,12 +432,12 @@
     </p> --}}
 
     <div class="film-hero__actions reveal-m">
-      <a href="{{ $films->link }}" class="btn btn--primary">
+      <a href="{{ $films->link }}" class="btn btn--primary" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
         Trailer
       </a>
       @if (!empty($films->link_watch))
-        <a href="{{ $films->link_watch }}" class="btn btn--secondary">
+        <a href="{{ $films->link_watch }}" class="btn btn--secondary" target="_blank" rel="noopener">
           Watch Now
         </a>
       @endif
