@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Membership;
 use Rap2hpoutre\FastExcel\FastExcel;
+use Illuminate\Support\Facades\DB;
 
 use Auth;
 use DataTables;
@@ -25,7 +26,21 @@ class MembershipController extends Controller
     {
         $membership = membership::all();
         if (request()->ajax()) {
-            $data = membership::get();
+            $data = membership::selectRaw("
+                        first_name, last_name, email, city, phone_number,created_at, DATE(created_at) as created_date, TIME(created_at) as created_time,
+                        CONCAT(
+                        TIMESTAMPDIFF(MONTH, created_at, NOW()), ' bulan ',
+                        DATEDIFF(
+                            CURDATE(),
+                            DATE(DATE_ADD(
+                            created_at,
+                            INTERVAL TIMESTAMPDIFF(MONTH, DATE(created_at), CURDATE()) MONTH
+                            ))
+                        ), ' hari'
+                        ) AS durasi
+                    ")
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -142,32 +157,105 @@ class MembershipController extends Controller
 
     public function export(Request $request)
     {
-        $q = Membership::query();
+        // $q = Membership::query();
 
-        // opsional: terapkan pencarian global dari DataTables
-        if ($search = $request->input('search.value')) {
-            $q->where(function ($x) use ($search) {
-                $x->where('first_name', 'like', "%{$search}%")
-                ->orWhere('last_name', 'like', "%{$search}%")
-                ->orWhere('email', 'like', "%{$search}%")
-                ->orWhere('city', 'like', "%{$search}%")
-                ->orWhere('phone_number', 'like', "%{$search}%");
-            });
-        }
+        // // opsional: terapkan pencarian global dari DataTables
+        // if ($search = $request->input('search.value')) {
+        //     $q->where(function ($x) use ($search) {
+        //         $x->where('first_name', 'like', "%{$search}%")
+        //         ->orWhere('last_name', 'like', "%{$search}%")
+        //         ->orWhere('email', 'like', "%{$search}%")
+        //         ->orWhere('city', 'like', "%{$search}%")
+        //         ->orWhere('phone_number', 'like', "%{$search}%");
+        //     });
+        // }
 
-        $rows = $q->orderBy('first_name')->get(['first_name','last_name','email','city','phone_number']);
+        // $rows = $q->orderBy('first_name')->get(['first_name','last_name','email','city','phone_number']);
+
+        $rows = membership::selectRaw("
+                        first_name, last_name, email, city, phone_number,created_at, DATE(created_at) as created_date, TIME(created_at) as created_time,
+                        CONCAT(
+                        TIMESTAMPDIFF(MONTH, created_at, NOW()), ' bulan ',
+                        DATEDIFF(
+                            CURDATE(),
+                            DATE(DATE_ADD(
+                            created_at,
+                            INTERVAL TIMESTAMPDIFF(MONTH, DATE(created_at), CURDATE()) MONTH
+                            ))
+                        ), ' hari'
+                        ) AS durasi
+                    ");
+                    if(!empty($request['tgl_mulai']) && !empty($request['tgl_akhir'])){
+                        $rows = $rows->whereBetween(DB::raw('DATE(created_at)'), [$request->tgl_mulai, $request->tgl_akhir]);
+                    }
+                    $rows = $rows->orderBy('created_at', 'DESC')
+                    ->get();
 
         $data = $rows->values()->map(function ($r, $i) {
             return [
-                'No'          => $i + 1,
-                'First Name'  => $r->first_name,
-                'Last Name'   => $r->last_name,
-                'Email'       => $r->email,
-                'City'        => $r->city,
-                'Phone'       => $r->phone_number,
+                'No'            => $i + 1,
+                'Created Date'  => $r->created_date,
+                'Created Time'  => $r->created_time,
+                'Duration'      => $r->durasi,
+                'First Name'    => $r->first_name,
+                'Last Name'     => $r->last_name,
+                'Email'         => $r->email,
+                'City'          => $r->city,
+                'Phone'         => $r->phone_number,
             ];
         });
 
         return (new FastExcel($data))->download('membership.xlsx');
+    }
+
+    public function listData(Request $request) {
+        // dd($request->all());
+
+        // Ambil semua data dengan relasi yang dibutuhkan
+        $query = Membership::selectRaw("
+                        first_name, last_name, email, city, phone_number,created_at
+                    ");
+    
+        if (!empty($request->tgl_mulai) && !empty($request->tgl_akhir)) {
+            $query->whereBetween(DB::raw('DATE(created_at)'), [$request->tgl_mulai, $request->tgl_akhir]);
+        }
+        $data = $query->orderBy('created_at', 'DESC')
+                    ->get();
+
+        // dd($data);
+    
+        // Kirim data ke Datatables
+        return Datatables::of($data)
+            ->addIndexColumn()
+            ->editColumn('created_at', function($row){
+                return \Carbon\Carbon::parse($row->created_at)->format('d-m-Y'); // Format hh:mm
+            })
+            ->addColumn('waktu', function($row){
+                return \Carbon\Carbon::parse($row->created_at)->format('H:i'); // Format hh:mm
+            })
+            ->addColumn('durasi', function ($row) {
+                if (!$row->created_at) return '-';
+
+                $start = \Carbon\Carbon::parse($row->created_at)->startOfDay(); // abaikan jam
+                $today = \Carbon\Carbon::today();
+
+                // bulan penuh dulu
+                $months = $start->diffInMonths($today);
+
+                // sisa hari setelah tambah 'bulan penuh'
+                $days = $start->copy()->addMonths($months)->diffInDays($today);
+
+                // format sederhana (selalu tampilkan kedua komponen)
+                // return "{$months} bulan {$days} hari";
+
+                // Jika mau sembunyikan komponen yang 0, ganti dengan:
+                $parts = [];
+                if ($months > 0) $parts[] = "{$months} bulan";
+                if ($days > 0)   $parts[] = "{$days} hari";
+                return $parts ? implode(' ', $parts) : '0 hari';
+            })
+            ->removeColumn('id')
+            ->removeColumn('uuid')
+            ->make(true);
     }
 }

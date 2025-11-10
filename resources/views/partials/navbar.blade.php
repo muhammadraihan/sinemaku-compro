@@ -406,6 +406,86 @@ button.mega-menu-link:focus-visible{
   outline-offset: 6px;
 }
 
+/* ===== SEARCH OVERLAY ===== */
+.search-overlay{
+  position: fixed; inset: 0; z-index: 13000; display: none;
+}
+.search-overlay.is-open{ display: block; }
+
+.search-overlay__backdrop{
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 60%, rgba(0,0,0,0.98) 80%, #000 100%);
+  opacity: 0; transition: opacity .28s ease;
+}
+.search-overlay.is-anim .search-overlay__backdrop{ opacity: 1; }
+
+.search-overlay__panel{
+  position: relative;
+  max-width: 1100px; margin: 0 auto;
+  height: 100%; display: grid; place-content: center;
+  padding: 110px 16px 56px;
+  color: #e9e9e9;
+}
+
+.search-overlay__close{
+  position: absolute; top: 22px; right: 18px;
+  height: 42px; width: 42px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08); color: #e9e9e9;
+  display: grid; place-items: center; cursor: pointer;
+  transition: background .2s ease;
+}
+.search-overlay__close:hover{ background: rgba(255,255,255,.12); }
+
+.search-title{
+  font-family: ui-serif, "Times New Roman", Georgia, serif;
+  font-weight: 600; letter-spacing: .5px;
+  font-size: clamp(34px, 5vw, 56px);
+  text-align: center; color: #f5f5f5; margin: 0 0 22px;
+}
+
+.search-wrap{
+  position: relative; width: min(1100px, 96vw);
+  border-radius: 14px; padding: 14px 60px 14px 24px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.search-input{
+  width: 100%; font-size: clamp(16px,2vw,22px);
+  color: #eaeaea; background: transparent; border: 0; outline: 0;
+}
+.search-input::placeholder{ color:#bdbdbd; opacity:.85; }
+.search-btn{
+  position: absolute; right: 8px; top: 50%; translate: 0 -50%;
+  height: 42px; width: 42px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08); color:#e9e9e9;
+  display:grid; place-items:center; cursor:pointer;
+}
+.search-btn:hover{ background: rgba(255,255,255,.12); }
+
+.hint{ margin: 14px 0 18px; color:#b5b5b5; text-align:center; }
+
+.categories{
+  margin-top: 6px; display: grid; gap: 18px;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+}
+@media (max-width: 820px){ .categories{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.cat-btn{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  height:56px; border-radius:12px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color:#e9e9e9; text-decoration:none; font-size:15px; cursor:pointer;
+  transition: background .2s, border-color .2s, transform .06s;
+}
+.cat-btn:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
+.cat-btn:active{ transform: translateY(1px); }
+.cat-btn.active{ background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.32); }
+
+
 </style>
 
 <nav class="custom-navbar">
@@ -430,13 +510,18 @@ button.mega-menu-link:focus-visible{
                 </svg>
             </span>
         </button>
-        <button class="navbar-btn" aria-label="Toggle search">
-            <span class="icon-search">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                    <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
-                    <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </span>
+        <button class="navbar-btn" id="searchToggle" aria-label="Toggle search" aria-expanded="false" aria-controls="searchOverlay">
+          <span class="icon-search">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
+              <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="icon-search-close" style="display:none;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M6 6l12 12M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
         </button>
     </div>
 </nav>
@@ -530,6 +615,49 @@ button.mega-menu-link:focus-visible{
     </div>
   </div>
   <div class="mega-menu-desc"></div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" aria-hidden="true">
+  <div class="search-overlay__backdrop"></div>
+
+  <div class="search-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+    <button class="search-overlay__close" id="searchClose" aria-label="Close search">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <h1 class="search-title" id="searchTitle">Search Sinemaku</h1>
+
+    <form id="globalSearchForm" method="GET" action="{{ route('search.index', [], false) }}">
+      <div class="search-wrap">
+        <input
+          id="globalSearchInput"
+          name="q"
+          type="text"
+          class="search-input"
+          placeholder="Search films, series, events, articles, and careers..."
+          autocomplete="off"
+          inputmode="search"
+        />
+        <button type="submit" class="search-btn" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+
+      <p class="hint">Start typing to search across our content...</p>
+
+      <input type="hidden" id="globalSearchType" name="type" value="">
+      <div class="categories">
+        <button class="cat-btn" type="button" data-type="">All</button>
+        <button class="cat-btn" type="button" data-type="films"><i class="fa-solid fa-clapperboard"></i> Films &amp; Series</button>
+        <button class="cat-btn" type="button" data-type="events"><i class="fa-regular fa-calendar"></i> Events</button>
+        <button class="cat-btn" type="button" data-type="articles"><i class="fa-solid fa-user-group"></i> Articles</button>
+        <button class="cat-btn" type="button" data-type="careers"><i class="fa-solid fa-briefcase"></i> Careers</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 
@@ -673,6 +801,78 @@ $(function(){
     });
   });
 
+});
+
+$(function(){
+  const $overlay   = $('#searchOverlay');
+  const $backdrop  = $overlay.find('.search-overlay__backdrop');
+  const $panel     = $overlay.find('.search-overlay__panel');
+  const $toggle    = $('#searchToggle');
+  const $closeBtn  = $('#searchClose');
+  const $input     = $('#globalSearchInput');
+  const $type      = $('#globalSearchType');
+  const $catBtns   = $overlay.find('.cat-btn');
+
+  function openSearch(){
+    // jika mega menu lagi terbuka, tutup dulu
+    const $mega = $('.mega-menu-overlay');
+    if ($mega.is(':visible')) {
+      $mega.removeClass('menu-animate').fadeOut(300);
+      $('#menuToggle .icon-close').hide();
+      $('#menuToggle .icon-hamburger').show();
+      $('body').css('overflow','');
+    }
+
+    $overlay.addClass('is-open');
+    // kecil delay agar anim jalan
+    setTimeout(()=> $overlay.addClass('is-anim'), 15);
+    $('body').css('overflow','hidden');
+    $toggle.attr('aria-expanded','true');
+    $toggle.find('.icon-search').hide();
+    $toggle.find('.icon-search-close').show();
+
+    // fokus input setelah frame berikutnya
+    setTimeout(()=> $input.trigger('focus'), 120);
+  }
+
+  function closeSearch(){
+    $overlay.removeClass('is-anim');
+    setTimeout(()=> $overlay.removeClass('is-open'), 180);
+    $('body').css('overflow','');
+    $toggle.attr('aria-expanded','false');
+    $toggle.find('.icon-search-close').hide();
+    $toggle.find('.icon-search').show();
+  }
+
+  // Toggle dari tombol navbar
+  $toggle.on('click', function(e){
+    e.preventDefault();
+    $overlay.hasClass('is-open') ? closeSearch() : openSearch();
+  });
+
+  // Close actions
+  $closeBtn.on('click', closeSearch);
+  $backdrop.on('click', closeSearch);
+  $(document).on('keydown', function(e){
+    if(e.key === 'Escape' && $overlay.hasClass('is-open')) closeSearch();
+  });
+
+  // Kategori filter
+  $catBtns.on('click', function(){
+    const t = $(this).data('type') || '';
+    if ($type.val() === t) {
+      $type.val(''); $catBtns.removeClass('active');
+    } else {
+      $type.val(t); $catBtns.removeClass('active'); $(this).addClass('active');
+    }
+    // auto submit jika sudah ada query
+    if ($input.val().trim().length) $('#globalSearchForm').trigger('submit');
+  });
+
+  // Submit via Enter sudah default; jaga-jaga:
+  $input.on('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); $('#globalSearchForm').trigger('submit'); }
+  });
 });
 </script>
 
