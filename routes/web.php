@@ -21,6 +21,7 @@ use App\Http\Controllers\CastingController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\BehindTheSceneController;
+use App\Http\Controllers\PhykController;
 
 // ===== home =====
 // Kalau mau redirect user login ke dashboard, taruh logika ini di controller:
@@ -73,9 +74,12 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('job', 'JobController');
     Route::resource('casting', 'CastingController');
     Route::resource('event', 'EventController');
+    Route::resource('phyk', 'PhykController');
     // Route::resource('membership', 'MembershipController');
     Route::resource('bts', 'BehindTheSceneController');
     Route::get('get-kategori', [KategoriController::class, 'show'])->name('ref.kategori');
     Route::get('membership/export', [MembershipController::class, 'export'])->name('membership.export');
-     Route::get('get-data', [MembershipController::class,'listData'])->name('membership.search');
+    Route::get('get-data', [MembershipController::class,'listData'])->name('membership.search');
+    Route::get('phyk/export', [PhykController::class, 'export'])->name('phyk.export');
+    Route::get('get-data-phyk', [PhykController::class,'listData'])->name('phyk.search');
 });
