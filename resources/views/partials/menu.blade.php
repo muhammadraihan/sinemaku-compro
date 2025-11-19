@@ -73,6 +73,12 @@
             <span class="nav-link-text">Membership</span>
         </a>
     </li>
+    <li>
+        <a href="{{route('phyk.index')}}" title="Data User PHYK" data-filter-tags="Data User PHYK">
+            <i class="fal fa-users"></i>
+            <span class="nav-link-text">Data User PHYK</span>
+        </a>
+    </li>
     @isset($menu)
     @foreach ($menu as $parent_menu)
     <li class="">
