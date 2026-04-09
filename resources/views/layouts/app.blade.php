@@ -5,30 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Sinemaku Pictures')</title>
 
-    {{-- Google Fonts (sudah di index.css, di sini untuk preconnect agar lebih cepat) --}}
+    {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
 
     {{-- Main CSS --}}
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-    {{-- <link href="{{ asset('css/index.css') }}" rel="stylesheet" /> --}}
 
     {{-- Iconify for all Lucide icons --}}
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
-    {{-- jQuery (untuk semua animasi/interaksi di homepage) --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     {{-- Meta Theme --}}
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#0a0a0a">
 
     @stack('head')
 </head>
-<body class="bg-black text-white antialiased">
+<body class="bg-[#0a0a0a] text-white antialiased">
     @yield('content')
+    
+    {{-- GSAP JS --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     @stack('scripts')
 </body>
-<script src="{{ asset('js/app.js') }}"></script>
 </html>

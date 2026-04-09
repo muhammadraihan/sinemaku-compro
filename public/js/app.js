@@ -276,7 +276,6 @@ $(document).ready(function () {
   }
 
   // Initialize all handlers
-  handleOpeningSequence();
   handleNavbar();
   handleHomepage();
 });

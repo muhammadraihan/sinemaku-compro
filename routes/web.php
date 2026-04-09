@@ -20,7 +20,11 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('backoffice.dashboard');
     }
-    return view('welcome');
+    
+    // Fetch films for the hero slider, order by latest release
+    $films = App\Models\Film::with('Categories')->orderBy('release_date', 'desc')->get();
+    
+    return view('welcome', compact('films'));
 });
 
 Auth::routes(['register' => false]);
