@@ -176,7 +176,7 @@
     ============================================================ --}}
 
     {{-- ── 1. EVENTS ── --}}
-    <section class="section-feature bg-white border-b border-neutral-100" data-section="events">
+    <section class="section-feature bg-white" data-section="events">
         @if($latestEvent)
         <div class="feature-container">
             <div class="feature-inner reverse">
@@ -214,7 +214,7 @@
     </section>
 
     {{-- ── 2. FILM ── --}}
-    <section class="section-feature bg-[#fafafa] border-b border-neutral-100" data-section="film">
+    <section class="section-feature bg-[#fafafa]" data-section="film">
         @if($latestFilm)
         @php $filmYear = \Carbon\Carbon::parse($latestFilm->release_date)->format('Y'); @endphp
         <div class="feature-container">
@@ -250,7 +250,7 @@
     </section>
 
     {{-- ── 3. MERCH ── --}}
-    <section class="section-feature bg-white border-b border-neutral-100" data-section="merch">
+    <section class="section-feature bg-white" data-section="merch">
         @if($latestMerch)
         <div class="feature-container">
             <div class="feature-inner reverse">
@@ -284,7 +284,7 @@
     </section>
 
     {{-- ── 4. SERIAL ── --}}
-    <section class="section-feature bg-[#fafafa] border-b border-neutral-100" data-section="serial">
+    <section class="section-feature bg-[#fafafa]" data-section="serial">
         @if($latestSerial)
         @php $serialYear = \Carbon\Carbon::parse($latestSerial->release_date)->format('Y'); @endphp
         <div class="feature-container">
@@ -322,7 +322,7 @@
     </section>
 
     {{-- ── 5. ARTIKEL ── --}}
-    <section class="section-feature bg-white border-b border-neutral-100" data-section="artikel">
+    <section class="section-feature bg-white" data-section="artikel">
         @if($latestArtikel)
         <div class="feature-container">
             <div class="feature-inner reverse">
@@ -355,7 +355,7 @@
     </section>
 
     {{-- ── 6. TELEVISI ── --}}
-    <section class="section-feature bg-[#fafafa] border-b border-neutral-100" data-section="televisi">
+    <section class="section-feature bg-[#fafafa]" data-section="televisi">
         @if($latestTvShow)
         @php $tvYear = \Carbon\Carbon::parse($latestTvShow->release_date)->format('Y'); @endphp
         <div class="feature-container">
