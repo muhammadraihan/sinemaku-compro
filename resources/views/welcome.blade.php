@@ -178,200 +178,212 @@
     {{-- ── 1. EVENTS ── --}}
     <section class="section-feature bg-white border-b border-neutral-100" data-section="events">
         @if($latestEvent)
-        <div class="feature-inner reverse">
-            <div class="feature-image-wrap">
-                <img src="{{ asset('photo/' . $latestEvent->photo) }}"
-                     alt="{{ $latestEvent->judul }}"
-                     class="feature-img" loading="lazy">
-                <div class="feature-img-overlay"></div>
-            </div>
-            <div class="feature-content-wrap" data-gsap="fade-up">
-                <span class="feature-eyebrow">Upcoming Events</span>
-                <h2 class="feature-title">{{ $latestEvent->judul }}</h2>
-                <div class="feature-meta-row">
-                    <span class="feature-meta-pill">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5"/></svg>
-                        {{ \Carbon\Carbon::parse($latestEvent->tgl_event)->locale('id')->isoFormat('D MMMM YYYY') }} · {{ $latestEvent->jam_event }}
-                    </span>
-                    <span class="feature-meta-pill">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
-                        {{ $latestEvent->location }}
-                    </span>
+        <div class="feature-container">
+            <div class="feature-inner reverse">
+                <div class="feature-image-wrap">
+                    <img src="{{ asset('photo/' . $latestEvent->photo) }}"
+                         alt="{{ $latestEvent->judul }}"
+                         class="feature-img" loading="lazy">
+                    <div class="feature-img-overlay"></div>
                 </div>
-                <p class="feature-excerpt">{{ $latestEvent->title }}</p>
-                @if($latestEvent->harga)
-                <p class="feature-price">Rp {{ number_format($latestEvent->harga, 0, ',', '.') }}</p>
-                @endif
-                <a href="{{ $latestEvent->link ?? '#' }}" target="_blank" class="feature-cta">
-                    Dapatkan Tiket
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
-                </a>
+                <div class="feature-content-wrap" data-gsap="fade-up">
+                    <span class="feature-eyebrow">Upcoming Events</span>
+                    <h2 class="feature-title">{{ $latestEvent->judul }}</h2>
+                    <div class="feature-meta-row">
+                        <span class="feature-meta-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5"/></svg>
+                            {{ \Carbon\Carbon::parse($latestEvent->tgl_event)->locale('id')->isoFormat('D MMMM YYYY') }} · {{ $latestEvent->jam_event }}
+                        </span>
+                        <span class="feature-meta-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
+                            {{ $latestEvent->location }}
+                        </span>
+                    </div>
+                    <p class="feature-excerpt">{{ $latestEvent->title }}</p>
+                    @if($latestEvent->harga)
+                    <p class="feature-price">Rp {{ number_format($latestEvent->harga, 0, ',', '.') }}</p>
+                    @endif
+                    <a href="{{ $latestEvent->link ?? '#' }}" target="_blank" class="feature-cta">
+                        Dapatkan Tiket
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
         @endif
     </section>
 
     {{-- ── 2. FILM ── --}}
-    <section class="section-feature bg-white border-b border-neutral-100" data-section="film">
+    <section class="section-feature bg-[#fafafa] border-b border-neutral-100" data-section="film">
         @if($latestFilm)
         @php $filmYear = \Carbon\Carbon::parse($latestFilm->release_date)->format('Y'); @endphp
-        <div class="feature-inner">
-            <div class="feature-image-wrap">
-                <img src="{{ asset('photo/' . $latestFilm->photo) }}"
-                     alt="{{ $latestFilm->title }}"
-                     class="feature-img" loading="lazy">
-                <div class="feature-img-overlay"></div>
-                <span class="feature-badge">{{ $latestFilm->genre }}</span>
-            </div>
-            <div class="feature-content-wrap" data-gsap="fade-up">
-                <span class="feature-eyebrow">Film Terbaru</span>
-                <h2 class="feature-title">{{ $latestFilm->title }}</h2>
-                <div class="feature-meta-row">
-                    <span class="feature-meta-pill">{{ $filmYear }}</span>
-                    @if($latestFilm->duration)
-                    <span class="feature-meta-pill">{{ $latestFilm->duration }} menit</span>
-                    @endif
-                    @if($latestFilm->director)
-                    <span class="feature-meta-pill">Sutradara: {{ $latestFilm->director }}</span>
-                    @endif
+        <div class="feature-container">
+            <div class="feature-inner">
+                <div class="feature-image-wrap">
+                    <img src="{{ asset('photo/' . $latestFilm->photo) }}"
+                         alt="{{ $latestFilm->title }}"
+                         class="feature-img" loading="lazy">
+                    <div class="feature-img-overlay"></div>
+                    <span class="feature-badge">{{ $latestFilm->genre }}</span>
                 </div>
-                <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestFilm->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
-                <a href="/movies" class="feature-cta">
-                    Lihat Semua Film
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
-                </a>
+                <div class="feature-content-wrap" data-gsap="fade-up">
+                    <span class="feature-eyebrow">Film Terbaru</span>
+                    <h2 class="feature-title">{{ $latestFilm->title }}</h2>
+                    <div class="feature-meta-row">
+                        <span class="feature-meta-pill">{{ $filmYear }}</span>
+                        @if($latestFilm->duration)
+                        <span class="feature-meta-pill">{{ $latestFilm->duration }} menit</span>
+                        @endif
+                        @if($latestFilm->director)
+                        <span class="feature-meta-pill">Sutradara: {{ $latestFilm->director }}</span>
+                        @endif
+                    </div>
+                    <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestFilm->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
+                    <a href="/movies" class="feature-cta">
+                        Lihat Semua Film
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
         @endif
     </section>
 
     {{-- ── 3. MERCH ── --}}
-    <section class="section-feature bg-[#fafafa] border-b border-neutral-100" data-section="merch">
+    <section class="section-feature bg-white border-b border-neutral-100" data-section="merch">
         @if($latestMerch)
-        <div class="feature-inner reverse">
-            <div class="feature-image-wrap feature-image-square">
-                <img src="{{ asset('photo/' . $latestMerch->photo) }}"
-                     alt="{{ $latestMerch->judul }}"
-                     class="feature-img" loading="lazy">
-                <div class="feature-img-overlay"></div>
-            </div>
-            <div class="feature-content-wrap" data-gsap="fade-up">
-                <span class="feature-eyebrow">Sinemaku Store</span>
-                <h2 class="feature-title">{{ $latestMerch->judul }}</h2>
-                <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestMerch->detail), ENT_QUOTES | ENT_HTML5), 160) }}</p>
-                <div class="feature-price-row">
-                    @if($latestMerch->discount)
-                    <span class="feature-price-original">Rp {{ number_format($latestMerch->harga, 0, ',', '.') }}</span>
-                    <span class="feature-price feature-price-discount">Rp {{ number_format($latestMerch->harga - ($latestMerch->harga * $latestMerch->discount / 100), 0, ',', '.') }}</span>
-                    <span class="feature-discount-badge">-{{ $latestMerch->discount }}%</span>
-                    @else
-                    <span class="feature-price">Rp {{ number_format($latestMerch->harga, 0, ',', '.') }}</span>
-                    @endif
+        <div class="feature-container">
+            <div class="feature-inner reverse">
+                <div class="feature-image-wrap feature-image-square">
+                    <img src="{{ asset('photo/' . $latestMerch->photo) }}"
+                         alt="{{ $latestMerch->judul }}"
+                         class="feature-img" loading="lazy">
+                    <div class="feature-img-overlay"></div>
                 </div>
-                <a href="{{ $latestMerch->link ?? '/shop' }}" target="_blank" class="feature-cta">
-                    Beli Sekarang
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
-                </a>
+                <div class="feature-content-wrap" data-gsap="fade-up">
+                    <span class="feature-eyebrow">Sinemaku Store</span>
+                    <h2 class="feature-title">{{ $latestMerch->judul }}</h2>
+                    <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestMerch->detail), ENT_QUOTES | ENT_HTML5), 160) }}</p>
+                    <div class="feature-price-row">
+                        @if($latestMerch->discount)
+                        <span class="feature-price-original">Rp {{ number_format($latestMerch->harga, 0, ',', '.') }}</span>
+                        <span class="feature-price feature-price-discount">Rp {{ number_format($latestMerch->harga - ($latestMerch->harga * $latestMerch->discount / 100), 0, ',', '.') }}</span>
+                        <span class="feature-discount-badge">-{{ $latestMerch->discount }}%</span>
+                        @else
+                        <span class="feature-price">Rp {{ number_format($latestMerch->harga, 0, ',', '.') }}</span>
+                        @endif
+                    </div>
+                    <a href="{{ $latestMerch->link ?? '/shop' }}" target="_blank" class="feature-cta">
+                        Beli Sekarang
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
         @endif
     </section>
 
     {{-- ── 4. SERIAL ── --}}
-    <section class="section-feature bg-white border-b border-neutral-100" data-section="serial">
+    <section class="section-feature bg-[#fafafa] border-b border-neutral-100" data-section="serial">
         @if($latestSerial)
         @php $serialYear = \Carbon\Carbon::parse($latestSerial->release_date)->format('Y'); @endphp
-        <div class="feature-inner">
-            <div class="feature-image-wrap">
-                <img src="{{ asset('photo/' . $latestSerial->photo) }}"
-                     alt="{{ $latestSerial->title }}"
-                     class="feature-img" loading="lazy">
-                <div class="feature-img-overlay"></div>
-                @if($latestSerial->episode)
-                <span class="feature-badge">{{ $latestSerial->episode }} Episode</span>
-                @endif
-            </div>
-            <div class="feature-content-wrap" data-gsap="fade-up">
-                <span class="feature-eyebrow">Serial Web</span>
-                <h2 class="feature-title">{{ $latestSerial->title }}</h2>
-                <div class="feature-meta-row">
-                    <span class="feature-meta-pill">{{ $serialYear }}</span>
-                    @if($latestSerial->season)
-                    <span class="feature-meta-pill">Season {{ $latestSerial->season }}</span>
-                    @endif
-                    @if($latestSerial->director)
-                    <span class="feature-meta-pill">{{ $latestSerial->director }}</span>
+        <div class="feature-container">
+            <div class="feature-inner">
+                <div class="feature-image-wrap">
+                    <img src="{{ asset('photo/' . $latestSerial->photo) }}"
+                         alt="{{ $latestSerial->title }}"
+                         class="feature-img" loading="lazy">
+                    <div class="feature-img-overlay"></div>
+                    @if($latestSerial->episode)
+                    <span class="feature-badge">{{ $latestSerial->episode }} Episode</span>
                     @endif
                 </div>
-                <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestSerial->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
-                <a href="/serial" class="feature-cta">
-                    Lihat Serial Lainnya
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
-                </a>
+                <div class="feature-content-wrap" data-gsap="fade-up">
+                    <span class="feature-eyebrow">Serial Web</span>
+                    <h2 class="feature-title">{{ $latestSerial->title }}</h2>
+                    <div class="feature-meta-row">
+                        <span class="feature-meta-pill">{{ $serialYear }}</span>
+                        @if($latestSerial->season)
+                        <span class="feature-meta-pill">Season {{ $latestSerial->season }}</span>
+                        @endif
+                        @if($latestSerial->director)
+                        <span class="feature-meta-pill">{{ $latestSerial->director }}</span>
+                        @endif
+                    </div>
+                    <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestSerial->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
+                    <a href="/serial" class="feature-cta">
+                        Lihat Serial Lainnya
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
         @endif
     </section>
 
     {{-- ── 5. ARTIKEL ── --}}
-    <section class="section-feature bg-[#fafafa] border-b border-neutral-100" data-section="artikel">
+    <section class="section-feature bg-white border-b border-neutral-100" data-section="artikel">
         @if($latestArtikel)
-        <div class="feature-inner reverse">
-            <div class="feature-image-wrap feature-image-wide">
-                <img src="{{ asset('photo/' . $latestArtikel->photo) }}"
-                     alt="{{ $latestArtikel->judul }}"
-                     class="feature-img" loading="lazy">
-                <div class="feature-img-overlay"></div>
-            </div>
-            <div class="feature-content-wrap" data-gsap="fade-up">
-                <span class="feature-eyebrow">Artikel Terbaru</span>
-                <h2 class="feature-title">{{ $latestArtikel->judul }}</h2>
-                <div class="feature-meta-row">
-                    @if($latestArtikel->penulis)
-                    <span class="feature-meta-pill">Oleh {{ $latestArtikel->penulis }}</span>
-                    @endif
-                    @if($latestArtikel->tgl_rilis)
-                    <span class="feature-meta-pill">{{ \Carbon\Carbon::parse($latestArtikel->tgl_rilis)->locale('id')->isoFormat('D MMM YYYY') }}</span>
-                    @endif
+        <div class="feature-container">
+            <div class="feature-inner reverse">
+                <div class="feature-image-wrap feature-image-wide">
+                    <img src="{{ asset('photo/' . $latestArtikel->photo) }}"
+                         alt="{{ $latestArtikel->judul }}"
+                         class="feature-img" loading="lazy">
+                    <div class="feature-img-overlay"></div>
                 </div>
-                <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestArtikel->detail), ENT_QUOTES | ENT_HTML5), 200) }}</p>
-                <a href="/articles" class="feature-cta">
-                    Baca Artikel Lainnya
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
-                </a>
+                <div class="feature-content-wrap" data-gsap="fade-up">
+                    <span class="feature-eyebrow">Artikel Terbaru</span>
+                    <h2 class="feature-title">{{ $latestArtikel->judul }}</h2>
+                    <div class="feature-meta-row">
+                        @if($latestArtikel->penulis)
+                        <span class="feature-meta-pill">Oleh {{ $latestArtikel->penulis }}</span>
+                        @endif
+                        @if($latestArtikel->tgl_rilis)
+                        <span class="feature-meta-pill">{{ \Carbon\Carbon::parse($latestArtikel->tgl_rilis)->locale('id')->isoFormat('D MMM YYYY') }}</span>
+                        @endif
+                    </div>
+                    <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestArtikel->detail), ENT_QUOTES | ENT_HTML5), 200) }}</p>
+                    <a href="/articles" class="feature-cta">
+                        Baca Artikel Lainnya
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
         @endif
     </section>
 
     {{-- ── 6. TELEVISI ── --}}
-    <section class="section-feature bg-white border-b border-neutral-100" data-section="televisi">
+    <section class="section-feature bg-[#fafafa] border-b border-neutral-100" data-section="televisi">
         @if($latestTvShow)
         @php $tvYear = \Carbon\Carbon::parse($latestTvShow->release_date)->format('Y'); @endphp
-        <div class="feature-inner">
-            <div class="feature-image-wrap">
-                <img src="{{ asset('photo/' . $latestTvShow->photo) }}"
-                     alt="{{ $latestTvShow->title }}"
-                     class="feature-img" loading="lazy">
-                <div class="feature-img-overlay"></div>
-            </div>
-            <div class="feature-content-wrap" data-gsap="fade-up">
-                <span class="feature-eyebrow">Tayangan Televisi</span>
-                <h2 class="feature-title">{{ $latestTvShow->title }}</h2>
-                <div class="feature-meta-row">
-                    <span class="feature-meta-pill">{{ $tvYear }}</span>
-                    @if($latestTvShow->episode)
-                    <span class="feature-meta-pill">{{ $latestTvShow->episode }} Episode</span>
-                    @endif
-                    @if($latestTvShow->director)
-                    <span class="feature-meta-pill">{{ $latestTvShow->director }}</span>
-                    @endif
+        <div class="feature-container">
+            <div class="feature-inner">
+                <div class="feature-image-wrap">
+                    <img src="{{ asset('photo/' . $latestTvShow->photo) }}"
+                         alt="{{ $latestTvShow->title }}"
+                         class="feature-img" loading="lazy">
+                    <div class="feature-img-overlay"></div>
                 </div>
-                <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestTvShow->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
-                <a href="/tv" class="feature-cta">
-                    Lihat Tayangan Lainnya
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
-                </a>
+                <div class="feature-content-wrap" data-gsap="fade-up">
+                    <span class="feature-eyebrow">Tayangan Televisi</span>
+                    <h2 class="feature-title">{{ $latestTvShow->title }}</h2>
+                    <div class="feature-meta-row">
+                        <span class="feature-meta-pill">{{ $tvYear }}</span>
+                        @if($latestTvShow->episode)
+                        <span class="feature-meta-pill">{{ $latestTvShow->episode }} Episode</span>
+                        @endif
+                        @if($latestTvShow->director)
+                        <span class="feature-meta-pill">{{ $latestTvShow->director }}</span>
+                        @endif
+                    </div>
+                    <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestTvShow->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
+                    <a href="/tv" class="feature-cta">
+                        Lihat Tayangan Lainnya
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
         @endif
@@ -420,6 +432,11 @@
     STYLES
     ============================================================ --}}
     <style>
+        :root {
+            --site-px: clamp(1.25rem, 6vw, 10rem);
+            --site-py: clamp(5rem, 12vh, 12rem);
+        }
+
         /* ── Scroll indicator ── */
         @keyframes scrollDown {
             0%   { top: -40%; }
@@ -484,14 +501,24 @@
            SECTION FEATURE — shared layout
         ───────────────────────────────────────────── */
         .section-feature {
-            padding: 0;
+            padding: var(--site-py) 0;
             overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .feature-container {
+            padding-left: var(--site-px);
+            padding-right: var(--site-px);
+            max-width: 1540px;
+            margin: 0 auto;
         }
 
         .feature-inner {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            min-height: 560px;
+            min-height: 500px;
+            gap: 2rem;
+            align-items: stretch;
         }
 
         /* Reverse: image on the right (use order) */
@@ -578,9 +605,10 @@
 
         @media (max-width: 767px) {
             .feature-content-wrap {
-                padding: 2.5rem 1.5rem;
+                padding: 2.5rem 0; /* No side padding on mobile content, handled by container */
                 max-width: 100%;
             }
+            .feature-inner { gap: 1.5rem; }
         }
 
         /* ── Eyebrow ── */
@@ -712,7 +740,7 @@
            KOMUNITAS section (dark)
         ───────────────────────────────────────────── */
         .section-komunitas {
-            padding: 6rem 2rem;
+            padding: var(--site-py) var(--site-px);
         }
 
         .komunitas-inner {
