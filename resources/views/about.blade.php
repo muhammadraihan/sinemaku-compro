@@ -46,68 +46,116 @@
     </section>
 
     {{-- ============================================================
-    2. INTRO SECTION - Who We Are
+    2. INTRO SECTION - Who We Are (Studio Antelope Style - High Contrast)
     ============================================================ --}}
-    <section id="about-intro" class="bg-white py-24 md:py-36 px-6 md:px-16"
-        style="padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);">
-        <div class="max-w-[1540px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12 lg:gap-24 items-start">
-            <div class="sticky top-32" data-gsap="fade-up">
-                <span class="text-gray-200 font-display italic leading-none m-0 block"
-                    style="font-size: clamp(5rem, 10vw, 8rem);">
-                    EST. 2020
-                </span>
-            </div>
-            <div class="flex flex-col flex-1" data-gsap="fade-up">
-                <p class="text-gray-800 text-lg md:text-xl lg:text-2xl leading-[1.8] font-light mb-12 max-w-4xl">
-                    Berdiri dengan semangat memberdayakan generasi baru pencerita, Sinemaku Pictures hadir untuk mengubah
-                    lanskap perfilman Indonesia. Kami bukan tentang tradisi yang kaku, melainkan tentang ruang eksplorasi di
-                    mana imajinasi liar dirayakan dan suara-suara segar didengar. Keseruan ada pada prosesnya.
+    <section id="about-intro" class="bg-white px-6 md:px-16" style="
+                                                                                        padding-top:    clamp(12rem, 20vh, 22rem);
+                                                                                        padding-bottom: clamp(12rem, 20vh, 22rem);
+                                                                                        padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
+                                                                                    ">
+
+        <div class="max-w-4xl mb-12 md:mb-24" data-gsap="fade-up">
+            <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-black tracking-tight">
+                Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman
+                Indonesia.
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20" data-gsap="fade-up">
+
+            <div class="flex flex-col">
+                <h3 class="text-2xl font-bold mb-6 text-black">Company</h3>
+                <p class="text-black font-serif leading-relaxed mb-8 text-sm md:text-base">
+                    Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam
+                    membina sineas muda untuk ekosistem film Indonesia.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                    <span
-                        class="inline-flex items-center gap-3 text-xs tracking-widest text-gray-500 uppercase font-medium bg-gray-50 py-3 px-6 border border-gray-100 rounded-full w-max">
-                        <x-icons.film class="w-4 h-4" /> Film & Seri
-                    </span>
-                    <span
-                        class="inline-flex items-center gap-3 text-xs tracking-widest text-gray-500 uppercase font-medium bg-gray-50 py-3 px-6 border border-gray-100 rounded-full w-max">
-                        <x-icons.users class="w-4 h-4" /> Komunitas
-                    </span>
-                    <span
-                        class="inline-flex items-center gap-3 text-xs tracking-widest text-gray-500 uppercase font-medium bg-gray-50 py-3 px-6 border border-gray-100 rounded-full w-max">
-                        <x-icons.zap class="w-4 h-4" /> Inovasi Visual
-                    </span>
-                </div>
+                <a href="#"
+                    class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
+                    <span class="leading-none">→</span> Read More
+                </a>
+            </div>
+
+            <div class="flex flex-col">
+                <h3 class="text-2xl font-bold mb-6 text-black">Team</h3>
+                <p class="text-black font-serif leading-relaxed mb-8 text-sm md:text-base">
+                    Kenali tim dan kolaborator yang membentuk kami. Pelajari tentang orang-orang di balik proyek kami, peran
+                    mereka, dan nilai-nilai yang memandu cara kami bekerja.
+                </p>
+                <a href="#about-team"
+                    class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
+                    <span class="leading-none">→</span> Read More
+                </a>
+            </div>
+
+            <div class="flex flex-col">
+                <h3 class="text-2xl font-bold mb-6 text-black">For Press</h3>
+                <p class="text-black font-serif leading-relaxed mb-8 text-sm md:text-base">
+                    Temukan informasi resmi tentang Sinemaku Pictures, termasuk latar belakang perusahaan, press kit, logo,
+                    dan kontak media untuk jurnalis.
+                </p>
+                <span class="flex items-center gap-2 text-black font-bold text-sm">
+                    <span class="leading-none">→</span> Coming Soon
+                </span>
             </div>
         </div>
     </section>
 
     {{-- ============================================================
-    3. MISSION STATEMENT
+    2.5 TEAMS PHOTO SECTION (Edge to Edge)
     ============================================================ --}}
-    <section id="about-mission" class="bg-[#0a0a0a] py-32 md:py-48 px-6 md:px-16"
-        style="padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);">
-        <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-            <span class="text-xs tracking-[0.25em] uppercase text-gray-500 font-medium mb-10" data-gsap="fade-up">Visi &
-                Misi</span>
+    <section id="about-teams-photo" class="relative w-full overflow-hidden" style="height: 100dvh; min-height: 400px;">
+        <!-- Background Image -->
+        <img src="{{ asset('photo/20250911070349.photo.jpg') }}" alt="Meet the team"
+            style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
 
-            <div class="w-full h-[1px] bg-white/10 mb-16" data-gsap="fade-up"></div>
+        <!-- Subtle dark gradient at the bottom for text legibility -->
+        <div
+            style="position: absolute; left: 0; right: 0; bottom: 0; height: 50%; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); pointer-events: none;">
+        </div>
 
-            <h2 class="font-display italic text-white leading-[1.2] tracking-tight max-w-5xl"
-                style="font-size: clamp(2rem, 5vw, 4.5rem);" data-gsap="fade-up">
-                Menjadi rumah produksi yang tak pernah berhenti <span class="text-white/50">bermain-main dengan ide
-                    gila</span>, menceritakan realitas dengan sentuhan magis, dan terus merajut komunitas <span
-                    class="text-white/50">yang hidup bersama setiap karya</span> yang kami lepaskan.
-            </h2>
+        <!-- Text Link Bottom Right -->
+        <div style="position: absolute; bottom: 3rem; right: 10vw; z-index: 10;">
+            <a href="#about-team"
+                style="color: white; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: all 0.3s;"
+                onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+                meet our team ...
+            </a>
+        </div>
+    </section>
 
-            <div class="w-full h-[1px] bg-white/10 mt-16" data-gsap="fade-up"></div>
+    {{-- ============================================================
+    3. MISSION STATEMENT (Premium Editorial Style)
+    ============================================================ --}}
+    <section id="about-mission" class="bg-white px-6 md:px-16" style="
+                        padding-top:    clamp(14rem, 25vh, 28rem);
+                        padding-bottom: clamp(5rem, 8vh, 10rem);
+                        padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
+                    ">
+
+        {{-- Container tetap di tengah dengan mx-auto --}}
+        <div class="max-w-6xl mx-auto flex flex-col items-center">
+
+            <p class="text-black text-lg md:text-xl lg:text-2xl leading-[1.8] tracking-wider font-serif text-left max-w-4xl"
+                data-gsap="fade-up">
+                Sinemaku Pictures bukan sekadar rumah produksi, melainkan ruang bermain bagi generasi baru pencerita
+                yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia. Kami percaya bahwa cerita
+                terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar
+                lebar, tanpa pernah melupakan semangat kolaborasi yang menghidupkan komunitas di setiap napas
+                produksinya. Bagi kami, keseriusan dalam mengejar kualitas visual premium hanyalah separuh cerita;
+                separuh lainnya adalah tentang merayakan imajinasi dan memastikan bahwa di setiap prosesnya,
+                <span class="italic font-bold text-black">Here Comes The Fun.</span>
+            </p>
         </div>
     </section>
 
     {{-- ============================================================
     4. TEAM GALLERY MOSAIC
     ============================================================ --}}
-    <section id="about-team" class="bg-white py-24 md:py-36 px-6 md:px-16"
-        style="padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);">
+    <section id="about-team" class="bg-white px-6 md:px-16" style="
+                    padding-top:    clamp(12rem, 20vh, 22rem);
+                    padding-bottom: clamp(12rem, 20vh, 22rem);
+                    padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
+                ">
         <div class="max-w-[1540px] mx-auto">
             <div class="mb-16" data-gsap="fade-up">
                 <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4">Team</span>
@@ -177,8 +225,11 @@
     {{-- ============================================================
     5. NUMBERS / MILESTONES
     ============================================================ --}}
-    <section id="about-numbers" class="bg-[#0a0a0a] py-24 border-y border-white/5"
-        style="padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);">
+    <section id="about-numbers" class="bg-[#0a0a0a] border-y border-white/5" style="
+                                                                                        padding-top:    clamp(12rem, 20vh, 22rem);
+                                                                                        padding-bottom: clamp(12rem, 20vh, 22rem);
+                                                                                        padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
+                                                                                    ">
         <div class="max-w-[1540px] mx-auto">
             <div
                 class="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 divide-x-0 lg:divide-x divide-white/10 text-center lg:text-left">
@@ -205,8 +256,11 @@
     {{-- ============================================================
     6. WHAT WE DO
     ============================================================ --}}
-    <section id="about-what-we-do" class="bg-[#fafafa] py-24 md:py-36 px-6 md:px-16"
-        style="padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);">
+    <section id="about-what-we-do" class="bg-[#fafafa] px-6 md:px-16" style="
+                                                                                        padding-top:    clamp(12rem, 20vh, 22rem);
+                                                                                        padding-bottom: clamp(12rem, 20vh, 22rem);
+                                                                                        padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
+                                                                                    ">
         <div class="max-w-[1540px] mx-auto">
             <div class="mb-16 md:mb-24 flex flex-col items-center text-center" data-gsap="fade-up">
                 <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4">What We Do</span>
@@ -257,7 +311,10 @@
     {{-- ============================================================
     7. GET IN TOUCH CTA
     ============================================================ --}}
-    <section id="get-in-touch" class="bg-[#0a0a0a] py-32 md:py-48 px-6 text-center">
+    <section id="get-in-touch" class="bg-[#0a0a0a] px-6 text-center" style="
+                                                                                        padding-top:    clamp(14rem, 25vh, 28rem);
+                                                                                        padding-bottom: clamp(14rem, 25vh, 28rem);
+                                                                                    ">
         <div class="max-w-3xl mx-auto flex flex-col items-center" data-gsap="fade-up">
             <span class="text-xs tracking-[0.2em] uppercase text-gray-500 font-medium mb-6">Kolaborasi</span>
             <h2 class="font-display italic text-white text-4xl md:text-6xl mb-12">Ada proyek hebat yang bisa dikerjakan
@@ -282,8 +339,6 @@
     STYLES & SCRIPTS
     ============================================================ --}}
     <style>
-
-
         /* ── Scroll indicator ── */
         @keyframes scrollDown {
             0% {
