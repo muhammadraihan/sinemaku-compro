@@ -127,7 +127,7 @@
             style="height: 55%; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);">
         </div>
 
-        <div class="absolute z-[10]
+        <div id="hero-content-wrapper" class="absolute z-[10]
                             bottom-10 left-6
                             md:bottom-12 md:left-10
                             lg:left-14">
@@ -156,6 +156,11 @@
                     </li>
                 @endforeach
             </ul>
+        </div>
+
+        {{-- ── Mobile Slide Indicator (bottom-right) ── --}}
+        <div id="mobile-slide-indicator" class="absolute z-[10] bottom-10 right-6 text-white text-xs tracking-widest font-light md:hidden">
+            <span id="current-slide">1</span> / {{ count($slides) }}
         </div>
 
         {{-- ── Scroll down indicator (bottom-right) ── --}}
@@ -506,15 +511,38 @@
             }
         }
 
-        /* Mobile: slightly larger base */
+        /* Mobile: overlapping styling for sequential scroll */
         @media (max-width: 767px) {
+            #film-list {
+                position: relative;
+                display: flex;
+                align-items: flex-end;
+                height: 48px; /* Constrain height to contain the overlapping text */
+            }
+            .film-item {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                opacity: 0;
+                filter: blur(10px);
+                transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
+                transform: translateY(15px) scale(0.95);
+                pointer-events: none;
+                padding: 0 !important;
+            }
+            .film-item.is-active {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0) scale(1);
+                pointer-events: auto;
+            }
             .film-title {
-                font-size: clamp(1.33rem, 7.12vw, 2.09rem);
+                font-size: clamp(1.4rem, 7vw, 2.1rem);
             }
             .film-item.is-active .film-title {
-                font-size: clamp(1.4rem, 7.5vw, 2.2rem);
+                font-size: clamp(1.4rem, 7vw, 2.1rem);
+                transform: translateX(0); /* Override desktop offset */
             }
-            .film-item { padding: 3px 0; }
         }
 
         /* ─────────────────────────────────────────────
@@ -968,11 +996,36 @@ SCRIPTS
 
 
             /* ─────────────────────────────────────────
-               3. GSAP ScrollTrigger — section reveals
+               3. GSAP ScrollTrigger — section reveals & mobile hero
             ───────────────────────────────────────── */
             function initScrollAnimations() {
                 if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
                 gsap.registerPlugin(ScrollTrigger);
+
+                // --- Mobile Hero Pinning Sequence ---
+                let mm = gsap.matchMedia();
+                
+                mm.add("(max-width: 767px)", () => {
+                    const totalSlides = filmItems.length;
+                    if (totalSlides > 1) {
+                        ScrollTrigger.create({
+                            trigger: "#hero",
+                            start: "top top",
+                            end: `+=${totalSlides * 100}%`,
+                            pin: true,
+                            scrub: true,
+                            onUpdate: (self) => {
+                                let progress = self.progress;
+                                let activeIdx = Math.min(Math.floor(progress * totalSlides), totalSlides - 1);
+                                
+                                activateFilm(activeIdx);
+                                
+                                const indicator = document.getElementById('current-slide');
+                                if(indicator) indicator.innerText = activeIdx + 1;
+                            }
+                        });
+                    }
+                });
 
                 document.querySelectorAll('[data-gsap="fade-up"]').forEach(el => {
                     gsap.fromTo(el,
