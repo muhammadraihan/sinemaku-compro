@@ -444,7 +444,7 @@
         ───────────────────────────────────────────── */
         .film-title {
             display: block;
-            font-size: clamp(1rem, 2.5vw, 2.1rem);
+            font-size: clamp(1.18rem, 3.04vw, 2.66rem);
             line-height: 1.05;
             color: rgba(255, 255, 255, 0.5);
             opacity: 1; /* opacity carried by color/transform now */
@@ -472,7 +472,7 @@
         /* Mobile: slightly larger base */
         @media (max-width: 767px) {
             .film-title {
-                font-size: clamp(1.1rem, 6vw, 1.8rem);
+                font-size: clamp(1.33rem, 7.12vw, 2.09rem);
             }
             .film-item.is-active .film-title {
                 font-size: clamp(1.4rem, 7.5vw, 2.2rem);
