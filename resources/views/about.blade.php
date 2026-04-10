@@ -10,16 +10,15 @@
         class="fixed top-0 left-0 w-[300px] md:w-[380px] h-full bg-[#0a0a0a] z-[200] flex flex-col justify-center px-10 md:px-14 border-r border-white/10 pt-20 transform -translate-x-full">
         @php
             $menuItems = [
-                ['title' => 'About', 'url' => '/about'],
-                ['title' => 'Film', 'url' => '/movies'],
-                ['title' => 'Serial Web', 'url' => '/serial'],
+                ['title' => 'Film', 'url' => '/film'],
+                ['title' => 'Serial Web', 'url' => '/series'],
                 ['title' => 'Televisi', 'url' => '/tv'],
                 ['title' => 'Dokumenter', 'url' => '/documentary'],
                 ['title' => 'Events', 'url' => '/events'],
                 ['title' => 'Merch', 'url' => '/shop'],
                 ['title' => 'Komunitas', 'url' => '/community'],
                 ['title' => 'Artikel', 'url' => '/articles'],
-                ['title' => 'Karir', 'url' => '/jobs'],
+                ['title' => 'Karir', 'url' => '/careers'],
             ];
         @endphp
         <div class="flex flex-col space-y-4 text-left font-display font-medium text-3xl text-white">

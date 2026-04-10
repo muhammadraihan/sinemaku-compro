@@ -1,0 +1,266 @@
+@extends('layouts.page')
+
+@section('title', 'Membership Management')
+
+@section('css')
+<link rel="stylesheet" media="screen, print" href="{{asset('css/datagrid/datatables/datatables.bundle.css')}}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css"> --}}
+@endsection
+
+@section('content')
+<div class="subheader">
+    <h1 class="subheader-title">
+        <i class='subheader-icon fal fa-users'></i> Modul: <span class='fw-300'>Membership </span>
+        <small>
+            Modul Membership.
+        </small>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+            <h2>
+                    Membership  <span class="fw-300"><i>List</i></span>
+                </h2>
+                <div class="panel-toolbar">
+                    {{-- <a class="nav-link active" href="{{route('membership.create')}}"><i class="fal fa-plus-circle">
+                        </i>
+                        <span class="nav-link-text">Tambah Data</span>
+                    </a> --}}
+                    <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip"
+                        data-offset="0,10" data-original-title="Fullscreen"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <form id="filter-form">
+                        {!! Form::open(['route' => 'membership.search','id'=>'forms','method' => 'GET','class' =>
+                        'needs-validation','dropzone', 'forms','novalidate','enctype' => 'multipart/form-data']) !!}
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{ Form::label('tanggal_mulai','Tanggal Mulai',['class' => 'required form-label'])}}
+                                <input type="date" id="tanggal_mulai" class="form-control">
+                            </div>
+            
+                            <div class="col-md-3">
+                                {{ Form::label('tanggal_akhir','Tanggal Akhir',['class' => 'required form-label'])}}
+                                <input type="date" id="tanggal_akhir" class="form-control">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group col-md-2 mb-3">
+                                {{ Form::label('','',['class' => 'form-label'])}} <br>
+                                <button type="button" id="search-btn" class="btn btn-primary w-100"><i class="fal fa-search"></i>&nbsp;&nbsp;Search</button>
+                            </div>
+                            <div class="form-group col-md-2 mb-3">
+                                {{ Form::label('','',['class' => 'form-label'])}} <br>
+                                <button type="button" id="reset" class="btn btn-danger w-100"><i class="fal fa-times-circle"></i>&nbsp;&nbsp;Reset</button>
+                            </div>
+                            <div class="form-group col-md-2 mb-3">
+                                {{ Form::label('','',['class' => 'form-label'])}} <br>
+                                <button type="submit" id="export" class="btn btn-success w-100"><i class="fal fa-download"></i>&nbsp;&nbsp;Export</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- datatable start -->
+                    <table id="datatable" class="table table-bordered table-hover table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tangal</th>
+                                <th>Waktu</th>
+                                <th>Durasi</th>
+                                <th>Nama Pertama</th>
+                                <th>Nama Terakhir</th>
+                                <th>Email</th>
+                                <th>Kota</th>
+                                <th>No Handphone</th>
+                                </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form action="" method="POST" class="delete-form">
+    {{ csrf_field() }}
+    <!-- Delete modal center -->
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Konfirmasi
+                        <small class="m-0 text-muted">
+                        </small>
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Anda yakin ingin menghapus data?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary remove-data-from-delete-form"
+                        data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Hapus Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@endsection
+
+@section('js')
+<script src="{{asset('js/datagrid/datatables/datatables.bundle.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    });
+
+    loadData();
+
+    $(document).delegate("#search-btn", "click", function (event) {
+            event.preventDefault();
+            var tgl_mulai = $('#tanggal_mulai').val();
+            var tgl_akhir = $('#tanggal_akhir').val();
+
+            if ($.fn.DataTable.isDataTable("#datatable")) {
+                $('#datatable').DataTable().destroy();
+            }
+
+            if ($.fn.DataTable.isDataTable("#summary-table")) {
+                $('#summary-table').DataTable().destroy();
+            }
+
+            var table = $('#datatable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "responsive": true,
+                "order": [[ 0, "asc" ]],
+                "ajax":{
+                    url:'{{route('membership.search')}}',
+                    type : "GET",
+                    data: {
+                        tgl_mulai : tgl_mulai,
+                        tgl_akhir : tgl_akhir,
+                    }
+                },
+                    "columns": [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'created_at', name: 'created_at'},
+                        {data: 'waktu', name: 'waktu'},
+                        {data: 'durasi', name: 'durasi'},
+                        {data: 'first_name', name: 'first_name'},
+                        {data: 'last_name', name: 'last_name'},
+                        {data: 'email', name: 'email'},
+                        {data: 'city', name: 'city'},
+                        {data: 'phone_number', name: 'phone_number'},
+                ]
+            });
+
+            $('#datatable').show();
+            
+        });
+
+        $(document).delegate("#reset", "click", function (event) {
+            event.preventDefault();
+            $('#tanggal_mulai').val('');
+            $('#tanggal_akhir').val('');
+            if ($.fn.DataTable.isDataTable("#datatable")) {
+                $('#datatable').DataTable().destroy();
+            }
+            loadData();
+        });
+
+        $(document).delegate("#export", "click", function (event) {
+            event.preventDefault();
+            var tgl_mulai = $('#tanggal_mulai').val();
+            var tgl_akhir = $('#tanggal_akhir').val();
+
+            var link = "{{ route('membership.export') }}" + "?tgl_mulai=" + encodeURIComponent(tgl_mulai) + "&tgl_akhir=" + encodeURIComponent(tgl_akhir);
+            
+
+            var exportWithIframe = (srcLink) => {
+                $("#downloadIframe").remove();
+
+                // Tambahkan iframe tersembunyi ke body
+                $("<iframe>", {
+                    id: "downloadIframe",
+                    src: srcLink,
+                    style: "display: none;"
+                }).appendTo("body");
+            };
+
+            exportWithIframe(link);
+        });
+    });
+
+    function loadData(){
+        var table = $('#datatable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "responsive": true,
+            "order": [[ 0, "asc" ]],
+            "ajax":{
+                url:'{{route('membership.index')}}',
+                type : "GET",
+                dataType: 'json',
+                error: function(data){
+                    console.log(data);
+                    }
+            },
+            // dom: 'Bfrtip',
+
+            // buttons: [
+            //     {
+            //         extend: 'excelHtml5',
+            //         title: 'Membership',
+            //         text: 'Export Excel',
+            //         exportOptions: { columns: [0,1,2,3,4,5] } // sesuaikan
+            //     }
+            // ],
+            "columns": [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'created_date', name: 'created_date'},
+            {data: 'created_time', name: 'created_time'},
+            {data: 'durasi', name: 'durasi'},
+            {data: 'first_name', name: 'first_name'},
+            {data: 'last_name', name: 'last_name'},
+            {data: 'email', name: 'email'},
+            {data: 'city', name: 'city'},
+            {data: 'phone_number', name: 'phone_number'},
+        ]
+    });
+    // Delete Data
+    $('#datatable').on('click', '.delete-btn[data-url]', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            var url = $(this).attr('data-url');
+            var token = $(this).attr('data-token');
+            console.log(id,url,token);
+            
+            $(".delete-form").attr("action",url);
+            $('body').find('.delete-form').append('<input name="_token" type="hidden" value="'+ token +'">');
+            $('body').find('.delete-form').append('<input name="_method" type="hidden" value="DELETE">');
+            $('body').find('.delete-form').append('<input name="id" type="hidden" value="'+ id +'">');
+        });
+        // Clear Data When Modal Close
+        $('.remove-data-from-delete-form').on('click',function() {
+            $('body').find('.delete-form').find("input").remove();
+        });
+    }
+</script>
+@endsection
