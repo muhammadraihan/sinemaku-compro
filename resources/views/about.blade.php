@@ -52,37 +52,37 @@
     <div class="fixed top-0 left-0 w-full h-[140px] z-[290] pointer-events-none"
         style="background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);"></div>
 
-    <nav id="main-nav" class="fixed top-0 left-0 w-full z-[300]
-                                    flex justify-between items-center
-                                    px-4 md:px-12 py-6 md:py-8 transition-colors duration-500">
+    <nav class="fixed top-0 left-0 w-full z-[300]
+                        flex justify-between items-center
+                        px-4 md:px-12 py-6 md:py-8">
 
         {{-- Hamburger Button (Left) --}}
         <button id="menu-open-btn" class="flex flex-col items-start justify-center gap-1.5 group
-                                    text-white hover:opacity-75 transition-opacity cursor-pointer nav-element">
-            <span class="block w-6 h-[1.5px] bg-current transition-all duration-300"></span>
-            <span class="block w-6 h-[1.5px] bg-current transition-all duration-300"></span>
-            <span class="block w-6 h-[1.5px] bg-current transition-all duration-300"></span>
+                               text-white hover:opacity-75 transition-opacity cursor-pointer">
+            <span class="block w-6 h-[1.5px] bg-white transition-all duration-300"></span>
+            <span class="block w-6 h-[1.5px] bg-white transition-all duration-300"></span>
+            <span class="block w-6 h-[1.5px] bg-white transition-all duration-300"></span>
         </button>
 
         {{-- Center: Brand --}}
         <a href="/" class="absolute left-1/2 -translate-x-1/2
                                     text-white text-sm
                                     tracking-[0.3em] uppercase font-light
-                                    whitespace-nowrap transition-opacity hover:opacity-80 nav-element">
+                                    whitespace-nowrap transition-opacity hover:opacity-80">
             sinemaku pictures
         </a>
 
         {{-- Right: Get in Touch --}}
         {{-- Mobile: icon only, no border --}}
-        <a id="nav-cta-mobile" href="#get-in-touch" class="text-white hover:opacity-70 transition-opacity nav-element"
-            aria-label="Get in touch">
+        <a id="nav-cta-mobile" href="#get-in-touch" class="text-white hover:opacity-70 transition-opacity"
+           aria-label="Get in touch">
             <x-icons.mail class="w-7 h-7" />
         </a>
         {{-- Desktop: text + capsule --}}
         <a id="nav-cta-desktop" href="#get-in-touch" class="text-xs tracking-widest uppercase text-white
-                                    border border-white/40 px-5 py-2.5 rounded-full
-                                    hover:bg-white hover:text-black transition-colors duration-300
-                                    items-center whitespace-nowrap nav-element">
+                          border border-white/40 px-5 py-2.5 rounded-full
+                          hover:bg-white hover:text-black transition-colors duration-300
+                          items-center whitespace-nowrap">
             get in touch
         </a>
     </nav>
@@ -517,22 +517,6 @@
                     duration: 1,
                     ease: 'power3.out',
                     delay: 0.6
-                });
-
-                // Nav Scroll Listener
-                const nav = document.getElementById('main-nav');
-                const navElements = document.querySelectorAll('.nav-element');
-
-                window.addEventListener('scroll', () => {
-                    // If scrolling past hero OR on black section
-                    const isOverWhiteSection = window.scrollY > window.innerHeight - 100 && window.scrollY < window.innerHeight + 600;
-                    // Wait, simpler logic: just handle different sections based on their known bg
-                    // But for now, just keep it white since most sections are dark or alternate
-                    // Let's stick to the original logic but swapped back
-
-                    if (window.scrollY > 100) {
-                        // Nav background or just let it be transparent
-                    }
                 });
 
                 // MatchMedia for respecting 'prefers-reduced-motion'
