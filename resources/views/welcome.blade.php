@@ -66,7 +66,7 @@
 
         {{-- Center: Brand --}}
         <a href="/" class="absolute left-1/2 -translate-x-1/2
-                                    text-white text-xs md:text-sm
+                                    text-white text-sm
                                     tracking-[0.3em] uppercase font-light
                                     whitespace-nowrap transition-opacity hover:opacity-80">
             sinemaku pictures
@@ -76,7 +76,7 @@
         {{-- Mobile: icon only, no border --}}
         <a id="nav-cta-mobile" href="#get-in-touch" class="text-white hover:opacity-70 transition-opacity"
            aria-label="Get in touch">
-            ☝️
+            <x-icons.mail class="w-7 h-7" />
         </a>
         {{-- Desktop: text + capsule --}}
         <a id="nav-cta-desktop" href="#get-in-touch" class="text-xs tracking-widest uppercase text-white
@@ -471,7 +471,6 @@
         /* ── Nav CTA: responsive (mobile=icon, desktop=text capsule) ── */
         #nav-cta-mobile {
             display: inline-flex;
-            font-size: 1.5rem;
             line-height: 1;
             align-items: center;
         }
@@ -481,6 +480,7 @@
         @media (min-width: 768px) {
             #nav-cta-mobile  { display: none; }
             #nav-cta-desktop { display: inline-flex; }
+            #mobile-slide-indicator { display: none !important; }
         }
 
         /* ── Scroll indicator ── */
