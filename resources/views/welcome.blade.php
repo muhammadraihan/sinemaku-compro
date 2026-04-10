@@ -54,7 +54,7 @@
 
     <nav class="fixed top-0 left-0 w-full z-[300]
                         flex justify-between items-center
-                        px-6 md:px-12 py-8">
+                        px-4 md:px-12 py-6 md:py-8">
 
         {{-- Hamburger Button (Left) --}}
         <button id="menu-open-btn" class="flex flex-col items-start justify-center gap-1.5 group
@@ -73,10 +73,16 @@
         </a>
 
         {{-- Right: Get in Touch --}}
-        <a href="#get-in-touch" class="text-[10px] md:text-xs tracking-widest uppercase text-white
+        {{-- Mobile: icon only, no border --}}
+        <a id="nav-cta-mobile" href="#get-in-touch" class="text-white hover:opacity-70 transition-opacity"
+           aria-label="Get in touch">
+            ☝️
+        </a>
+        {{-- Desktop: text + capsule --}}
+        <a id="nav-cta-desktop" href="#get-in-touch" class="text-xs tracking-widest uppercase text-white
                           border border-white/40 px-5 py-2.5 rounded-full
                           hover:bg-white hover:text-black transition-colors duration-300
-                          inline-flex items-center">
+                          items-center whitespace-nowrap">
             get in touch
         </a>
     </nav>
@@ -460,6 +466,21 @@
         :root {
             --site-px: clamp(1.25rem, 6vw, 10rem);
             --site-py: clamp(5rem, 12vh, 12rem);
+        }
+
+        /* ── Nav CTA: responsive (mobile=icon, desktop=text capsule) ── */
+        #nav-cta-mobile {
+            display: inline-flex;
+            font-size: 1.5rem;
+            line-height: 1;
+            align-items: center;
+        }
+        #nav-cta-desktop {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            #nav-cta-mobile  { display: none; }
+            #nav-cta-desktop { display: inline-flex; }
         }
 
         /* ── Scroll indicator ── */
