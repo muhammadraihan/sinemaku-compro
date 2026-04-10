@@ -213,41 +213,61 @@
         @endif
     </section>
 
-    {{-- ── 2. FILM ── --}}
-    <section class="section-feature bg-[#fafafa]" data-section="film">
+    {{-- ── 2. FILM (Edge-to-Edge 75vh) ── --}}
+    {{-- NOTE: position:relative + content absolute bottom-0 left-0 = reliable bottom-left anchoring --}}
+    <section data-section="film"
+        style="position:relative; width:100%; overflow:hidden; height:75vh; min-height:650px; margin:0; padding:0; background:#000;">
         @if($latestFilm)
         @php $filmYear = \Carbon\Carbon::parse($latestFilm->release_date)->format('Y'); @endphp
-        <div class="feature-container">
-            <div class="feature-inner">
-                <div class="feature-image-wrap">
-                    <img src="{{ asset('photo/' . $latestFilm->photo) }}"
-                         alt="{{ $latestFilm->title }}"
-                         class="feature-img" loading="lazy">
-                    <div class="feature-img-overlay"></div>
-                    <span class="feature-badge">{{ $latestFilm->genre }}</span>
+
+        {{-- Background Image --}}
+        <img src="{{ asset('photo/' . $latestFilm->photo) }}"
+             alt="{{ $latestFilm->title }}"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
+
+        {{-- Gradient Overlay: dark at bottom, transparent at top --}}
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.35) 50%, transparent 100%); pointer-events:none;"></div>
+
+        {{-- ★ Content pinned to BOTTOM LEFT ★ --}}
+        <div style="position:absolute; bottom:0; left:0; width:100%; padding-bottom:5rem; padding-left:clamp(1.25rem,6vw,10rem); padding-right:clamp(1.25rem,6vw,10rem);" data-gsap="fade-up">
+            <div style="max-width:900px;">
+                {{-- Eyebrow --}}
+                <p style="font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin:0 0 0.75rem; font-weight:500;">Film Terbaru</p>
+
+                {{-- Title + Genre badge --}}
+                <h2 style="font-size:clamp(2.25rem,4.5vw,4rem); font-weight:500; line-height:1.05; letter-spacing:-0.025em; color:#fff; margin:0 0 1.25rem; display:flex; flex-wrap:wrap; align-items:center; gap:1rem;">
+                    {{ $latestFilm->title }}
+                    <span style="font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; background:rgba(255,255,255,0.18); color:#fff; padding:6px 14px; border-radius:2px; backdrop-filter:blur(8px);">
+                        {{ $latestFilm->genre }}
+                    </span>
+                </h2>
+
+                {{-- Meta pills --}}
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:1.5rem;">
+                    <span style="font-size:11px; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85); padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.15);">{{ $filmYear }}</span>
+                    @if($latestFilm->duration)
+                    <span style="font-size:11px; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85); padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.15);">{{ $latestFilm->duration }} menit</span>
+                    @endif
+                    @if($latestFilm->director)
+                    <span style="font-size:11px; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85); padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.15);">Sutradara: {{ $latestFilm->director }}</span>
+                    @endif
                 </div>
-                <div class="feature-content-wrap" data-gsap="fade-up">
-                    <span class="feature-eyebrow">Film Terbaru</span>
-                    <h2 class="feature-title">{{ $latestFilm->title }}</h2>
-                    <div class="feature-meta-row">
-                        <span class="feature-meta-pill">{{ $filmYear }}</span>
-                        @if($latestFilm->duration)
-                        <span class="feature-meta-pill">{{ $latestFilm->duration }} menit</span>
-                        @endif
-                        @if($latestFilm->director)
-                        <span class="feature-meta-pill">Sutradara: {{ $latestFilm->director }}</span>
-                        @endif
-                    </div>
-                    <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestFilm->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
-                    <a href="/movies" class="feature-cta">
-                        Lihat Semua Film
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
-                    </a>
-                </div>
+
+                {{-- Synopsis --}}
+                <p class="film-synopsis-responsive" style="font-size:1.05rem; line-height:1.65; color:rgba(255,255,255,0.75); margin:0 0 2.5rem; max-width:65ch;">
+                    {{ Str::limit(html_entity_decode(strip_tags($latestFilm->sinopsis), ENT_QUOTES | ENT_HTML5), 240) }}
+                </p>
+
+                {{-- CTA --}}
+                <a href="/movies" style="display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5); padding-bottom:4px; text-decoration:none;">
+                    Lihat Semua Film
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:14px;height:14px;"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
+                </a>
             </div>
         </div>
         @endif
     </section>
+
 
     {{-- ── 3. MERCH ── --}}
     <section class="section-feature bg-white" data-section="merch">
@@ -838,6 +858,16 @@
 
         .komunitas-cta:hover svg {
             transform: translateX(4px);
+        }
+
+        /* ── Film Section Responsive Synopsis ── */
+        .film-synopsis-responsive {
+            display: block;
+        }
+        @media (max-width: 767px) {
+            .film-synopsis-responsive {
+                display: none !important;
+            }
         }
     </style>
 
