@@ -28,8 +28,12 @@
         @endphp
         <div class="flex flex-col space-y-4 text-left font-display font-medium text-3xl text-white">
             @foreach($menuItems as $item)
+                @php
+                    // Check if current URL matches the item URL
+                    $isActive = request()->is(ltrim($item['url'], '/'));
+                @endphp
                 <a href="{{ $item['url'] }}"
-                    class="menu-link opacity-0 -translate-x-8 hover:text-white/40 transition-colors duration-300">
+                    class="menu-link opacity-0 -translate-x-8 transition-colors duration-300 {{ $isActive ? 'text-white' : 'text-white/40 hover:text-white/80' }}">
                     {{ $item['title'] }}
                 </a>
             @endforeach

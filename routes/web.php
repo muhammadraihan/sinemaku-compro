@@ -64,6 +64,10 @@ Route::get('/', function () {
 
 Auth::routes(['register' => false]);
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 Route::get('/movies', function () {
         return view('movies');
     })->name('movies');
