@@ -16,15 +16,50 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 
 Route::get('/', function () {
-    // check if user is auth then redirect to dashboard page
+    // Redirect authenticated users to the dashboard
     if (Auth::check()) {
         return redirect()->route('backoffice.dashboard');
     }
-    
-    // Fetch films for the hero slider, order by latest release
+
+    // Hero slider — latest 5 films
     $films = App\Models\Film::with('Categories')->orderBy('release_date', 'desc')->get();
-    
-    return view('welcome', compact('films'));
+
+    // Section: Events
+    $latestEvent = App\Models\Event::orderBy('tgl_event', 'desc')->first();
+
+    // Section: Film (kategori = "Film")
+    $latestFilm = App\Models\Film::with('Categories')
+        ->whereHas('Categories', fn($q) => $q->where('name', 'Film'))
+        ->orderBy('release_date', 'desc')
+        ->first();
+
+    // Section: Merch
+    $latestMerch = App\Models\Shop::latest()->first();
+
+    // Section: Serial (kategori = "Series")
+    $latestSerial = App\Models\Film::with('Categories')
+        ->whereHas('Categories', fn($q) => $q->where('name', 'Series'))
+        ->orderBy('release_date', 'desc')
+        ->first();
+
+    // Section: Artikel
+    $latestArtikel = App\Models\Article::orderBy('tgl_rilis', 'desc')->first();
+
+    // Section: Televisi (kategori = "Sinetron")
+    $latestTvShow = App\Models\Film::with('Categories')
+        ->whereHas('Categories', fn($q) => $q->where('name', 'Sinetron'))
+        ->orderBy('release_date', 'desc')
+        ->first();
+
+    return view('welcome', compact(
+        'films',
+        'latestEvent',
+        'latestFilm',
+        'latestMerch',
+        'latestSerial',
+        'latestArtikel',
+        'latestTvShow'
+    ));
 });
 
 Auth::routes(['register' => false]);
