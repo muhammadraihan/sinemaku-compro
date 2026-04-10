@@ -3,88 +3,8 @@
 
 @section('content')
 
-    {{-- ============================================================
-    SIDEBAR MENU (slides in from left)
-    ============================================================ --}}
-    <div id="sidebar-menu"
-        class="fixed top-0 left-0 w-[300px] md:w-[380px] h-full bg-[#0a0a0a] z-[200] flex flex-col justify-center px-10 md:px-14 border-r border-white/10 pt-20 transform -translate-x-full">
-        @php
-            $menuItems = [
-                ['title' => 'Film', 'url' => '/film'],
-                ['title' => 'Serial Web', 'url' => '/series'],
-                ['title' => 'Televisi', 'url' => '/tv'],
-                ['title' => 'Dokumenter', 'url' => '/documentary'],
-                ['title' => 'Events', 'url' => '/events'],
-                ['title' => 'Merch', 'url' => '/shop'],
-                ['title' => 'Komunitas', 'url' => '/community'],
-                ['title' => 'Artikel', 'url' => '/articles'],
-                ['title' => 'Karir', 'url' => '/careers'],
-            ];
-        @endphp
-        <div class="flex flex-col space-y-4 text-left font-display font-medium text-3xl text-white">
-            @foreach($menuItems as $item)
-                @php
-                    // Check if current URL matches the item URL
-                    $isActive = request()->is(ltrim($item['url'], '/'));
-                @endphp
-                <a href="{{ $item['url'] }}"
-                    class="menu-link opacity-0 -translate-x-8 transition-colors duration-300 {{ $isActive ? 'text-white' : 'text-white/40 hover:text-white/80' }}">
-                    {{ $item['title'] }}
-                </a>
-            @endforeach
-        </div>
-        <div
-            class="mt-16 flex space-x-6 opacity-0 menu-socials items-center text-white/50 text-[10px] tracking-widest uppercase">
-            <a href="#" class="hover:text-white transition-colors">IG</a>
-            <a href="#" class="hover:text-white transition-colors">X</a>
-            <a href="#" class="hover:text-white transition-colors">YT</a>
-        </div>
-    </div>
+    @include('partials.navbar')
 
-    {{-- Sidebar Backdrop --}}
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-[199] opacity-0 pointer-events-none"></div>
-
-
-    {{-- ============================================================
-    TOP NAV BAR
-    ============================================================ --}}
-    <div class="fixed top-0 left-0 w-full h-[140px] z-[290] pointer-events-none"
-        style="background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);"></div>
-
-    <nav class="fixed top-0 left-0 w-full z-[300]
-                        flex justify-between items-center
-                        px-4 md:px-12 py-6 md:py-8">
-
-        {{-- Hamburger Button (Left) --}}
-        <button id="menu-open-btn" class="flex flex-col items-start justify-center gap-1.5 group
-                               text-white hover:opacity-75 transition-opacity cursor-pointer">
-            <span class="block w-6 h-[1.5px] bg-white transition-all duration-300"></span>
-            <span class="block w-6 h-[1.5px] bg-white transition-all duration-300"></span>
-            <span class="block w-6 h-[1.5px] bg-white transition-all duration-300"></span>
-        </button>
-
-        {{-- Center: Brand --}}
-        <a href="/" class="absolute left-1/2 -translate-x-1/2
-                                    text-white text-sm
-                                    tracking-[0.3em] uppercase font-light
-                                    whitespace-nowrap transition-opacity hover:opacity-80">
-            sinemaku pictures
-        </a>
-
-        {{-- Right: Get in Touch --}}
-        {{-- Mobile: icon only, no border --}}
-        <a id="nav-cta-mobile" href="#get-in-touch" class="text-white hover:opacity-70 transition-opacity"
-           aria-label="Get in touch">
-            <x-icons.mail class="w-7 h-7" />
-        </a>
-        {{-- Desktop: text + capsule --}}
-        <a id="nav-cta-desktop" href="#get-in-touch" class="text-xs tracking-widest uppercase text-white
-                          border border-white/40 px-5 py-2.5 rounded-full
-                          hover:bg-white hover:text-black transition-colors duration-300
-                          items-center whitespace-nowrap">
-            get in touch
-        </a>
-    </nav>
 
 
     {{-- ============================================================
@@ -362,26 +282,7 @@
     STYLES & SCRIPTS
     ============================================================ --}}
     <style>
-        /* ── Nav CTA: responsive ── */
-        #nav-cta-mobile {
-            display: inline-flex;
-            line-height: 1;
-            align-items: center;
-        }
 
-        #nav-cta-desktop {
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            #nav-cta-mobile {
-                display: none;
-            }
-
-            #nav-cta-desktop {
-                display: inline-flex;
-            }
-        }
 
         /* ── Scroll indicator ── */
         @keyframes scrollDown {
@@ -394,15 +295,7 @@
             }
         }
 
-        /* ── Sidebar backdrop ── */
-        #sidebar-backdrop {
-            transition: opacity 0.4s ease;
-        }
 
-        #sidebar-backdrop.open {
-            opacity: 1;
-            pointer-events: auto;
-        }
 
         /* ── feature-cta override for dark bg ── */
         .feature-cta {
@@ -427,60 +320,6 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                // Sidebar menu elements
-                const sidebarBtn = document.getElementById('menu-open-btn');
-                const sidebarMenu = document.getElementById('sidebar-menu');
-                const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-
-                // Reusable animation timeline for sidebar
-                const tl = gsap.timeline({ paused: true, reversed: true });
-
-                tl.to(sidebarMenu, {
-                    x: 0,
-                    duration: 0.6,
-                    ease: 'power3.inOut'
-                })
-                    // Stagger in links
-                    .to('.menu-link', {
-                        x: 0,
-                        opacity: 1,
-                        duration: 0.5,
-                        stagger: 0.05,
-                        ease: 'power2.out'
-                    }, "-=0.3")
-                    // Fade in socials
-                    .to('.menu-socials', {
-                        opacity: 1,
-                        duration: 0.4
-                    }, "-=0.2");
-
-                function toggleMenu() {
-                    const isOpen = !tl.reversed();
-                    if (isOpen) { // Closing
-                        tl.reverse();
-                        sidebarBackdrop.classList.remove('open');
-                        document.body.style.overflow = '';
-
-                        // Transform hamburger lines back
-                        const spans = sidebarBtn.querySelectorAll('span');
-                        spans[0].style.transform = 'none';
-                        spans[1].style.opacity = '1';
-                        spans[2].style.transform = 'none';
-                    } else { // Opening
-                        tl.play();
-                        sidebarBackdrop.classList.add('open');
-                        document.body.style.overflow = 'hidden';
-
-                        // Transform hamburger to 'X'
-                        const spans = sidebarBtn.querySelectorAll('span');
-                        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                        spans[1].style.opacity = '0';
-                        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-                    }
-                }
-
-                sidebarBtn.addEventListener('click', toggleMenu);
-                sidebarBackdrop.addEventListener('click', toggleMenu);
 
                 // GSAP Scroll Animations
                 gsap.registerPlugin(ScrollTrigger);

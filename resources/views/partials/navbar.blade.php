@@ -1,878 +1,192 @@
-<style>
+{{-- resources/views/partials/navbar.blade.php --}}
 
- .custom-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  z-index: 12000;
-  height: 75px; /* lebih ramping */
-  background: transparent;
-  transition: 
-    background 0.46s cubic-bezier(.85,.14,.34,1),
-    box-shadow 0.44s cubic-bezier(.77,.09,.44,1),
-    opacity 0.33s,
-    transform 0.46s cubic-bezier(.85,.14,.34,1);
-  box-shadow: none;
-  backdrop-filter: none;
-  border-bottom: 1px solid transparent;
-  display: flex;
-  align-items: center;
-  opacity: 1;
-  will-change: background, box-shadow, opacity, transform;
-  pointer-events: auto;
-}
-
-.custom-navbar.navbar-glass {
-  background: radial-gradient(ellipse at 10% 40%, rgba(80,80,80,0.15) 0%, rgba(180,180,180,0.7) 95%);
-  box-shadow: 0 8px 36px 0 rgba(0,0,0,0.13);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-.custom-navbar.hide-navbar {
-  transform: translateY(-120%);
-  opacity: 0;
-  pointer-events: none;
-}
-.custom-navbar.show-navbar {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.navbar-inner {
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  padding: 0 16px; /* lebih sempit */
-  position: relative;
-}
-
-.navbar-btn {
-  background: none;
-  border: none;
-  outline: none;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 0;
-  transition: opacity 0.18s;
-  height: 56px;
-  width: 44px;
-  justify-content: center;
-}
-.navbar-btn:active { opacity: 0.7; }
-
-.navbar-logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 1.11rem;      /* Lebih kecil dan ramping */
-  font-weight: 800;
-  letter-spacing: 1.7px;
-  color: #fff;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.09);
-  white-space: nowrap;
-  text-transform: uppercase;
-  line-height: 1;
-  pointer-events:auto;          /* <-- boleh diklik */
-  text-decoration:none;         /* hilangkan underline */
-  padding:10px 14px;            /* area klik nyaman */
-  z-index:2;                    /* pastikan di atas bg navbar */
-}
-
-@media (max-width: 600px) {
-  .navbar-inner { padding: 0 7px; }
-  .navbar-logo { font-size: 0.89rem; }
-}
-
-.mega-menu-main .mega-menu-link {
-  opacity: 0;
-  transform: translateY(32px);
-  transition:
-    opacity 0.52s cubic-bezier(.71,.07,.37,.99),
-    transform 0.52s cubic-bezier(.71,.07,.37,.99);
-}
-
-.mega-menu-overlay.menu-animate .mega-menu-link {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Staggered delay effect */
-.mega-menu-link:nth-child(1) { transition-delay: 0.08s; }
-.mega-menu-link:nth-child(2) { transition-delay: 0.17s; }
-.mega-menu-link:nth-child(3) { transition-delay: 0.25s; }
-.mega-menu-link:nth-child(4) { transition-delay: 0.33s; }
-.mega-menu-link:nth-child(5) { transition-delay: 0.41s; }
-.mega-menu-link:nth-child(6) { transition-delay: 0.49s; }
-.mega-menu-link:nth-child(7) { transition-delay: 0.57s; }
-.mega-menu-link:nth-child(8) { transition-delay: 0.65s; }
-.mega-menu-link:nth-child(9) { transition-delay: 0.73s; }
-
-/* Reset transition-delay saat close supaya cepat hilang */
-.mega-menu-overlay:not(.menu-animate) .mega-menu-link {
-  transition-delay: 0s !important;
-}
-
-
-.mega-menu-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: radial-gradient(ellipse at 70% 60%, rgba(0,0,0,0.98) 80%, #000 100%);
-  /* sedikit efek vignette gelap */
-  display: none;
-  animation: fadeInMenu 0.54s cubic-bezier(.75,0,.2,1);
-  overflow-y: auto;
-}
-
-@keyframes fadeInMenu {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.mega-menu-content {
-  max-width: 1600px;
-  margin: 0 auto;
-  display: flex;
-  height: 100vh;
-  padding: 120px 80px 48px 80px;
-  box-sizing: border-box;
-  position: relative;
-}
-
-.mega-menu-main {
-  flex: 1 0 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 28px;
-  margin-right: 64px;
-  min-width: 480px;
-  z-index: 3;
-}
-
-/* Anchor link top-level */
-a.mega-menu-link {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 85px;
-  color: #D7D7D7;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  display: block;
-  position: relative;
-  line-height: 1.08;
-  cursor: pointer;
-  transition:
-    color 0.24s cubic-bezier(.75,0,.2,1),
-    transform 0.38s cubic-bezier(.63,.06,.25,1);
-  will-change: color, transform;
-}
-/* Button version (Shop trigger) — explicit styles so it doesn't get wiped by resets */
-button.mega-menu-link {
-  background: none;
-  border: 0;
-  padding: 0;
-  margin: 0;
-  font-family: 'Libre Baskerville', serif;
-  font-size: 85px;
-  color: #D7D7D7;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-  line-height: 1.08;
-  cursor: pointer;
-  transition:
-    color 0.24s cubic-bezier(.75,0,.2,1),
-    transform 0.38s cubic-bezier(.63,.06,.25,1);
-  will-change: color, transform;
-}
-
-button.mega-menu-link.active,
-button.mega-menu-link:hover {
-  color: #fff;
-}
-
-
-.mega-menu-copyright {
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 16px;
-  color: #999;
-  margin-top: 18px;
-  margin-bottom: 2px;
-}
-
-.mega-menu-aside {
-  opacity: 0;
-  transform: translateY(22px);
-  transition:
-    opacity 0.34s cubic-bezier(.71,.07,.37,.99),
-    transform 0.34s cubic-bezier(.71,.07,.37,.99);
-  transition-delay: 0.21s; /* Setelah menu kiri mulai muncul */
-  will-change: opacity, transform;
-}
-
-.mega-menu-overlay.menu-animate .mega-menu-aside {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Untuk bagian di dalam aside, kasih efek sedikit berurutan */
-/* Bagian dalam aside (staggered, lebih cepat) */
-.mega-menu-aside-inner > * {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: 
-    opacity 0.22s cubic-bezier(.61,.13,.41,1),
-    transform 0.22s cubic-bezier(.61,.13,.41,1);
-  transition-delay: 0s;
-}
-.mega-menu-overlay.menu-animate .mega-menu-aside-inner > *:nth-child(1) { 
-  opacity: 1; transform: translateY(0); transition-delay: 0.18s; 
-}
-.mega-menu-overlay.menu-animate .mega-menu-aside-inner > *:nth-child(2) { 
-  opacity: 1; transform: translateY(0); transition-delay: 0.27s; 
-}
-.mega-menu-overlay.menu-animate .mega-menu-aside-inner > *:nth-child(3) { 
-  opacity: 1; transform: translateY(0); transition-delay: 0.33s; 
-}
-
-.mega-menu-logo {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: 
-    opacity 0.18s cubic-bezier(.65,.11,.52,1),
-    transform 0.18s cubic-bezier(.65,.11,.52,1);
-  transition-delay: 0s;
-}
-.mega-menu-overlay.menu-animate .mega-menu-logo {
-  opacity: 1; 
-  transform: translateY(0);
-  transition-delay: 0.36s;
-}
-
-
-.mega-menu-aside-inner {
-  width: 340px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.mega-menu-contact {
-  font-family: 'Inter', Arial, sans-serif;
-  color: #fff;
-}
-
-.contact-title {
-  font-weight: 700;
-  font-size: 28px;
-  margin-bottom: 7px;
-}
-.contact-email,
-.contact-phone,
-.contact-address {
-  font-size: 19px;
-  margin-bottom: 4px;
-  color: #d9d9d9;
-}
-
-.mega-menu-social {
-  margin-top: 18px;
-}
-.follow-title {
-  color: #fff;
-  font-weight: 600;
-  font-size: 19px;
-  margin-bottom: 8px;
-}
-.social-links a {
-  color: #d9d9d9;
-  margin-right: 22px;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.2s;
-}
-.social-links a:hover { color: #fff; }
-
-.mega-menu-logo {
-  margin-top: 36px;
-  color: #8d99ae;
-}
-.logo-main {
-  font-weight: 800;
-  font-size: 29px;
-  font-family: 'Inter', Arial, sans-serif;
-  margin-bottom: 3px;
-}
-.logo-sub {
-  font-size: 15px;
-  letter-spacing: 1.3px;
-  font-family: 'Inter', Arial, sans-serif;
-}
-.creative-storytelling {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  font-family: 'Inter', Arial, sans-serif;
-  color: #46506a;
-  font-size: 15px;
-  position: absolute;
-  right: 0;
-  top: 25%;
-  letter-spacing: 2.8px;
-  opacity: 0.7;
-  z-index: 2;
-}
-
-@media (max-width: 1200px) {
-  .mega-menu-content { flex-direction: column; padding: 70px 16px 20px 16px; }
-  .mega-menu-main { min-width: 200px; margin-right: 0; }
-  a.mega-menu-link { font-size: 48px; }
-  button.mega-menu-link { font-size: 48px; }
-  .mega-menu-aside { min-width: 0; align-items: flex-start; }
-  .mega-menu-aside-inner { width: 100%; }
-  .creative-storytelling { display: none; }
-}
-
-/* underline accent for hover/active (both <a> and <button>) */
-a.mega-menu-link::after,
-button.mega-menu-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  height: 1px;
-  width: 0;
-  background: linear-gradient(90deg,#fff 0%,#3b3a3a 60%,rgba(255,255,255,0) 100%);
-  border-radius: 2px;
-  transition: width .28s cubic-bezier(.56,0,.27,1), opacity .22s;
-  opacity: 0;
-}
-a.mega-menu-link:hover::after,
-a.mega-menu-link.active::after,
-button.mega-menu-link:hover::after,
-button.mega-menu-link.active::after {
-  width: 140px;
-  opacity: 1;
-}
-
-/* wadah item yg punya submenu */
-.has-sub{ position: relative; }
-
-/* panah kecil di kanan teks Shop */
-button.mega-menu-link .chev{
-  width: 32px; height: 32px; margin-left: 14px;
-  opacity: .85; transform: rotate(0deg);
-  transition: transform .25s ease, opacity .2s ease;
-}
-.has-sub.open button.mega-menu-link .chev{ transform: rotate(180deg); }
-
-/* daftar submenu */
-.mega-sub{
-  margin: 6px 0 20px 8px;
-  padding-left: 18px;
-  border-left: 1px solid rgba(255,255,255,.12);
-}
-
-/* link submenu — tipografi lebih kecil */
-.mega-sub-link{
-  display:block;
-  padding:10px 0 10px 10px;
-  font: 500 clamp(16px, 2.2vw, 28px)/1.25 'Inter', Arial, sans-serif;
-  color:#d6d6d6; text-decoration:none;
-  transition: color .18s ease, transform .18s ease;
-}
-.mega-sub-link:hover{ color:#fff; transform: translateX(6px); }
-
-/* biar “Shop” tetap dapat efek hover garis */
-.has-sub a.mega-menu-link,
-.has-sub button.mega-menu-link {
-  display: inline-flex;
-  align-items: center;
-}
-
-
-/* opsional: fokus yang rapi */
-button.mega-menu-link:focus{ outline: none; }
-button.mega-menu-link:focus-visible{
-  outline: 2px solid rgba(255,255,255,.25);
-  outline-offset: 6px;
-}
-
-/* ===== SEARCH OVERLAY ===== */
-.search-overlay{
-  position: fixed; inset: 0; z-index: 13000; display: none;
-}
-.search-overlay.is-open{ display: block; }
-
-.search-overlay__backdrop{
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 70% 60%, rgba(0,0,0,0.98) 80%, #000 100%);
-  opacity: 0; transition: opacity .28s ease;
-}
-.search-overlay.is-anim .search-overlay__backdrop{ opacity: 1; }
-
-.search-overlay__panel{
-  position: relative;
-  max-width: 1100px; margin: 0 auto;
-  height: 100%; display: grid; place-content: center;
-  padding: 110px 16px 56px;
-  color: #e9e9e9;
-}
-
-.search-overlay__close{
-  position: absolute; top: 22px; right: 18px;
-  height: 42px; width: 42px; border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.08); color: #e9e9e9;
-  display: grid; place-items: center; cursor: pointer;
-  transition: background .2s ease;
-}
-.search-overlay__close:hover{ background: rgba(255,255,255,.12); }
-
-.search-title{
-  font-family: ui-serif, "Times New Roman", Georgia, serif;
-  font-weight: 600; letter-spacing: .5px;
-  font-size: clamp(34px, 5vw, 56px);
-  text-align: center; color: #f5f5f5; margin: 0 0 22px;
-}
-
-.search-wrap{
-  position: relative; width: min(1100px, 96vw);
-  border-radius: 14px; padding: 14px 60px 14px 24px;
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
-  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-}
-.search-input{
-  width: 100%; font-size: clamp(16px,2vw,22px);
-  color: #eaeaea; background: transparent; border: 0; outline: 0;
-}
-.search-input::placeholder{ color:#bdbdbd; opacity:.85; }
-.search-btn{
-  position: absolute; right: 8px; top: 50%; translate: 0 -50%;
-  height: 42px; width: 42px; border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.08); color:#e9e9e9;
-  display:grid; place-items:center; cursor:pointer;
-}
-.search-btn:hover{ background: rgba(255,255,255,.12); }
-
-.hint{ margin: 14px 0 18px; color:#b5b5b5; text-align:center; }
-
-.categories{
-  margin-top: 6px; display: grid; gap: 18px;
-  grid-template-columns: repeat(5, minmax(0,1fr));
-}
-@media (max-width: 820px){ .categories{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
-.cat-btn{
-  display:flex; align-items:center; justify-content:center; gap:10px;
-  height:56px; border-radius:12px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  color:#e9e9e9; text-decoration:none; font-size:15px; cursor:pointer;
-  transition: background .2s, border-color .2s, transform .06s;
-}
-.cat-btn:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
-.cat-btn:active{ transform: translateY(1px); }
-.cat-btn.active{ background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.32); }
-
-
-</style>
-
-<nav class="custom-navbar">
-    <div class="navbar-inner">
-    <a href="{{ route('welcome') }}" class="navbar-logo" aria-label="Go to homepage">
-      SINEMAKU PICTURES
-    </a>
-        <!-- Hamburger/Close button -->
-        <button class="navbar-btn" id="menuToggle" aria-label="Toggle menu">
-            <!-- Hamburger Icon (default) -->
-            <span class="icon-hamburger">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                    <rect y="5" width="24" height="2" rx="1" fill="white"/>
-                    <rect y="11" width="24" height="2" rx="1" fill="white"/>
-                    <rect y="17" width="24" height="2" rx="1" fill="white"/>
-                </svg>
-            </span>
-            <!-- Close Icon (hidden default) -->
-            <span class="icon-close" style="display:none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" viewBox="0 0 24 24">
-                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                </svg>
-            </span>
-        </button>
-        <button class="navbar-btn" id="searchToggle" aria-label="Toggle search" aria-expanded="false" aria-controls="searchOverlay">
-          <span class="icon-search">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <circle cx="11" cy="11" r="7" stroke="white" stroke-width="2"/>
-              <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <span class="icon-search-close" style="display:none;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M6 6l12 12M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </span>
-        </button>
+{{-- ============================================================
+    SIDEBAR MENU (slides in from left)
+    ============================================================ --}}
+<div id="sidebar-menu"
+    class="fixed top-0 left-0 w-[300px] md:w-[380px] h-full bg-[#0a0a0a] z-[200] flex flex-col justify-center px-10 md:px-14 border-r border-white/10 pt-20 transform -translate-x-full"
+    style="transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);">
+    @php
+        $menuItems = [
+            ['title' => 'About',      'url' => '/about'],
+            ['title' => 'Film',       'url' => '/film'],
+            ['title' => 'Serial Web', 'url' => '/series'],
+            ['title' => 'Televisi',   'url' => '/tv'],
+            ['title' => 'Dokumenter', 'url' => '/documentary'],
+            ['title' => 'Events',     'url' => '/event'],
+            ['title' => 'Merch',      'url' => '/shop'],
+            ['title' => 'Komunitas',  'url' => '/community'],
+            ['title' => 'Artikel',    'url' => '/articles'],
+            ['title' => 'Karir',      'url' => '/careers'],
+        ];
+    @endphp
+    <div class="flex flex-col space-y-4 text-left font-display font-medium text-3xl text-white">
+        @foreach($menuItems as $item)
+            @php
+                $isActive = request()->is(ltrim($item['url'], '/'));
+            @endphp
+            <a href="{{ $item['url'] }}"
+                class="menu-link opacity-0 -translate-x-8 transition-colors duration-300 {{ $isActive ? 'text-white' : 'text-white/40 hover:text-white/80' }}"
+                style="transition: color 0.3s ease, opacity 0.4s ease, transform 0.4s ease;">
+                {{ $item['title'] }}
+            </a>
+        @endforeach
     </div>
+
+    <div class="mt-16 flex space-x-6 opacity-0 menu-socials items-center text-white/50 text-[10px] tracking-widest uppercase"
+         style="transition: opacity 0.4s ease;">
+        <a href="#" class="hover:text-white transition-colors">IG</a>
+        <a href="#" class="hover:text-white transition-colors">X</a>
+        <a href="#" class="hover:text-white transition-colors">YT</a>
+    </div>
+</div>
+
+{{-- Sidebar Backdrop --}}
+<div id="sidebar-backdrop"
+     class="fixed inset-0 bg-black/50 z-[199] opacity-0 pointer-events-none"
+     style="transition: opacity 0.4s ease;"></div>
+
+
+{{-- ============================================================
+    TOP NAV BAR
+    ============================================================ --}}
+<div class="fixed top-0 left-0 w-full h-[140px] z-[290] pointer-events-none"
+    style="background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);"></div>
+
+<nav id="unified-navbar" class="fixed top-0 left-0 w-full z-[300]
+                    flex justify-between items-center
+                    px-4 md:px-12 py-6 md:py-8">
+
+    {{-- Hamburger Button (Left) — animates into X when menu opens --}}
+    <button id="menu-open-btn"
+            class="hamburger-btn flex flex-col items-start justify-center gap-1.5 group text-white hover:opacity-75 transition-opacity cursor-pointer focus:outline-none"
+            aria-label="Toggle menu">
+        <span class="ham-line block w-6 h-[1.5px] bg-white origin-center"
+              style="transition: transform 0.35s cubic-bezier(0.76,0,0.24,1), opacity 0.35s ease;"></span>
+        <span class="ham-line block w-6 h-[1.5px] bg-white origin-center"
+              style="transition: transform 0.35s cubic-bezier(0.76,0,0.24,1), opacity 0.35s ease;"></span>
+        <span class="ham-line block w-6 h-[1.5px] bg-white origin-center"
+              style="transition: transform 0.35s cubic-bezier(0.76,0,0.24,1), opacity 0.35s ease;"></span>
+    </button>
+    <style>
+        /* Hamburger → X morph */
+        .hamburger-btn.is-open .ham-line:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+        .hamburger-btn.is-open .ham-line:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger-btn.is-open .ham-line:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
+    </style>
+
+    {{-- Center: Brand --}}
+    <a href="/" class="absolute left-1/2 -translate-x-1/2
+                                text-white text-sm
+                                tracking-[0.3em] uppercase font-light
+                                whitespace-nowrap transition-opacity hover:opacity-80">
+        sinemaku pictures
+    </a>
+
+    {{-- Right: Get in Touch --}}
+    <div class="flex items-center">
+        {{-- Mobile: icon only, no border --}}
+        <a id="nav-cta-mobile" href="#get-in-touch" class="text-white hover:opacity-70 transition-opacity"
+           aria-label="Get in touch">
+            <x-icons.mail class="w-7 h-7" />
+        </a>
+        {{-- Desktop: text + capsule --}}
+        <a id="nav-cta-desktop" href="#get-in-touch" class="text-xs tracking-widest uppercase text-white
+                          border border-white/40 px-5 py-2.5 rounded-full
+                          hover:bg-white hover:text-black transition-colors duration-300
+                          items-center whitespace-nowrap">
+            get in touch
+        </a>
+    </div>
+
+    <style>
+        /* ── Nav CTA: responsive (mobile=icon, desktop=text capsule) ── */
+        #nav-cta-mobile {
+            display: inline-flex;
+            line-height: 1;
+            align-items: center;
+        }
+        #nav-cta-desktop {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            #nav-cta-mobile  { display: none; }
+            #nav-cta-desktop { display: inline-flex; }
+            /* This might belong elsewhere but kept as per user request snippet */
+            #mobile-slide-indicator { display: none !important; }
+        }
+    </style>
 </nav>
 
 
-<!-- Mega Menu Overlay -->
-<div class="mega-menu-overlay" style="display: none;">
-  <div class="mega-menu-content">
-    <!-- Bagian Kiri: Menu -->
-    <div class="mega-menu-main">
-      {{-- HOME --}}
-      <a href="{{ route('welcome') }}"
-        class="mega-menu-link {{ request()->routeIs('welcome') ? 'active' : '' }}"
-        data-desc="Back to homepage">Home</a>
 
-      {{-- FILMS --}}
-      <a href="{{ route('film') }}"
-        class="mega-menu-link {{ request()->routeIs('film','detail-film') ? 'active' : '' }}"
-        data-desc="Explore our cinematic works">Films</a>
-
-      {{-- SERIES --}}
-      <a href="{{ route('series') }}"
-        class="mega-menu-link {{ request()->routeIs('series','detail-series') ? 'active' : '' }}"
-        data-desc="Long-form storytelling">Series</a>
-
-      {{-- SHOP (top-level sebagai button) --}}
-      <div class="has-sub {{ request()->routeIs('shop','detail-kategori','detail-shop') ? 'open' : '' }}">
-        <button type="button"
-                class="mega-menu-link js-toggle-sub {{ request()->routeIs('shop','detail-kategori','detail-shop') ? 'active' : '' }}"
-                aria-expanded="{{ request()->routeIs('shop','detail-kategori','detail-shop') ? 'true' : 'false' }}">
-          Shop
-          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-
-        <div class="mega-sub" style="{{ request()->routeIs('shop','detail-kategori','detail-shop') ? '' : 'display:none' }}">
-          <a class="mega-sub-link {{ request()->routeIs('shop') ? 'active' : '' }}"
-            href="{{ route('shop') }}">All</a>
-
-          @isset($kategorishop)
-            @foreach ($kategorishop as $item)
-              <a class="mega-sub-link
-                        {{ request()->routeIs('detail-kategori') && request()->route('slug') == $item->uuid ? 'active' : '' }}"
-                href="{{ route('detail-kategori', $item->uuid) }}">
-                {{ $item->name }}
-              </a>
-            @endforeach
-          @endisset
-        </div>
-      </div>
-
-      {{-- ARTICLES --}}
-      <a href="{{ route('articles') }}"
-        class="mega-menu-link {{ request()->routeIs('articles','detail-articles') ? 'active' : '' }}"
-        data-desc="Stories and insights">Articles</a>
-
-      {{-- EVENTS --}}
-      <a href="{{ route('event') }}"
-        class="mega-menu-link {{ request()->routeIs('event','detail-event') ? 'active' : '' }}"
-        data-desc="Premieres and screenings">Events</a>
-
-      {{-- MEMBERSHIP --}}
-      <a href="{{ route('frontend.membership') }}"
-        class="mega-menu-link {{ request()->routeIs('frontend.membership') ? 'active' : '' }}"
-        data-desc="Join our inner circle">Membership</a>
-
-      {{-- CAREERS --}}
-      <a href="{{ route('careers') }}"
-        class="mega-menu-link {{ request()->routeIs('careers','detail-careers') ? 'active' : '' }}"
-        data-desc="Join our creative team">Careers</a>
-
-      {{-- BTS --}}
-      <a href="{{ route('bts') }}"
-        class="mega-menu-link {{ request()->routeIs('bts') ? 'active' : '' }}"
-        data-desc="Join our creative team">Behind The Scenes</a>
-
-      <div class="mega-menu-copyright">© 2024 Sinemaku Pictures. All rights reserved.</div>
-    </div>
-    <!-- Bagian Kanan: Kontak -->
-    <div class="mega-menu-aside">
-      <div class="mega-menu-aside-inner">
-        
-        <div class="mega-menu-social">
-         
-        </div>
-        
-      </div>
-      <div class="creative-storytelling">CREATIVE STORYTELLING</div>
-    </div>
-  </div>
-  <div class="mega-menu-desc"></div>
-</div>
-
-<!-- SEARCH OVERLAY -->
-<div class="search-overlay" id="searchOverlay" aria-hidden="true">
-  <div class="search-overlay__backdrop"></div>
-
-  <div class="search-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
-    <button class="search-overlay__close" id="searchClose" aria-label="Close search">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-
-    <h1 class="search-title" id="searchTitle">Search Sinemaku</h1>
-
-    <form id="globalSearchForm" method="GET" action="{{ route('search.index', [], false) }}">
-      <div class="search-wrap">
-        <input
-          id="globalSearchInput"
-          name="q"
-          type="text"
-          class="search-input"
-          placeholder="Search films, series, events, articles, and careers..."
-          autocomplete="off"
-          inputmode="search"
-        />
-        <button type="submit" class="search-btn" aria-label="Search">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
-
-      <p class="hint">Start typing to search across our content...</p>
-
-      <input type="hidden" id="globalSearchType" name="type" value="">
-      <div class="categories">
-        <button class="cat-btn" type="button" data-type="">All</button>
-        <button class="cat-btn" type="button" data-type="films"><i class="fa-solid fa-clapperboard"></i> Films &amp; Series</button>
-        <button class="cat-btn" type="button" data-type="events"><i class="fa-regular fa-calendar"></i> Events</button>
-        <button class="cat-btn" type="button" data-type="articles"><i class="fa-solid fa-user-group"></i> Articles</button>
-        <button class="cat-btn" type="button" data-type="careers"><i class="fa-solid fa-briefcase"></i> Careers</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-$(function(){
-  var $navbar = $('.custom-navbar');
-  var lastScroll = $(window).scrollTop();
-  $navbar.addClass('show-navbar');
-  
-  // Inisialisasi glass di reload
-  if($(window).scrollTop() > 24) $navbar.addClass('navbar-glass');
-  
-  $(window).on('scroll', function(){
-    var st = $(this).scrollTop();
-    
-    // GLASS EFFECT saat scroll > 24px
-    if(st > 24){
-      $navbar.addClass('navbar-glass');
-    } else {
-      $navbar.removeClass('navbar-glass');
+(function () {
+    const openBtn   = document.getElementById('menu-open-btn');
+    const sidebar   = document.getElementById('sidebar-menu');
+    const backdrop  = document.getElementById('sidebar-backdrop');
+    const menuLinks = document.querySelectorAll('.menu-link');
+    const socials   = document.querySelector('.menu-socials');
+
+    let isOpen = false;
+
+    function openMenu() {
+        isOpen = true;
+        openBtn.classList.add('is-open');
+
+        sidebar.style.transform = 'translateX(0)';
+        backdrop.style.opacity  = '1';
+        backdrop.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'hidden';
+
+        // Stagger menu links in
+        menuLinks.forEach(function(link, i) {
+            setTimeout(function() {
+                link.style.opacity = '1';
+                link.style.transform = 'translateX(0)';
+            }, 120 + i * 60);
+        });
+
+        // Fade in socials
+        setTimeout(function() {
+            if (socials) socials.style.opacity = '1';
+        }, 500);
     }
-    
-    // HIDE/SHOW NAVBAR saat scroll ke bawah/atas
-    if(st > lastScroll && st > 32){
-      $navbar.removeClass('show-navbar').addClass('hide-navbar');
-    } else {
-      $navbar.removeClass('hide-navbar').addClass('show-navbar');
+
+    function closeMenu() {
+        isOpen = false;
+        openBtn.classList.remove('is-open');
+
+        sidebar.style.transform = 'translateX(-100%)';
+        backdrop.style.opacity  = '0';
+        backdrop.style.pointerEvents = 'none';
+        document.body.style.overflow = '';
+
+        // Reset menu links
+        menuLinks.forEach(function(link) {
+            link.style.opacity = '0';
+            link.style.transform = 'translateX(-2rem)';
+        });
+
+        if (socials) socials.style.opacity = '0';
     }
-    lastScroll = st;
-  });
 
-  $(document).ready(function(){
-        // Toggle menu open/close
-        $('#menuToggle').on('click', function() {
-            var $hamb = $(this).find('.icon-hamburger');
-            var $close = $(this).find('.icon-close');
-            var $overlay = $('.mega-menu-overlay');
-            var isOpen = $overlay.is(':visible');
-
-            if (!isOpen) {
-                // Buka Mega Menu + animasi menu
-                $overlay.fadeIn(200, function(){
-                    setTimeout(function() {
-                        $overlay.addClass('menu-animate');
-                    }, 20); // memberi waktu agar transition berjalan
-                });
-                $hamb.fadeOut(150, function(){ $close.fadeIn(250); });
-                $('body').css('overflow', 'hidden');
-            } else {
-                // Tutup Mega Menu + hilangkan animasi
-                $overlay.removeClass('menu-animate');
-                $overlay.fadeOut(400);
-                $close.fadeOut(150, function(){ $hamb.fadeIn(250); });
-                $('body').css('overflow', '');
-            }
-        });
-
-        // ...dan di tempat close lain:
-        // $('.mega-menu-link').on('click', function(){
-        //     var $overlay = $('.mega-menu-overlay');
-        //     $overlay.removeClass('menu-animate');
-        //     $overlay.fadeOut(400);
-        //     $('#menuToggle .icon-close').fadeOut(150, function(){
-        //         $('#menuToggle .icon-hamburger').fadeIn(250);
-        //     });
-        //     $('body').css('overflow', '');
-        // });
-
-        $('a.mega-menu-link, .mega-sub-link').on('click', function(){
-          const $overlay = $('.mega-menu-overlay');
-          $overlay.removeClass('menu-animate').fadeOut(400);
-          $('#menuToggle .icon-close').fadeOut(150, function(){
-            $('#menuToggle .icon-hamburger').fadeIn(250);
-          });
-          $('body').css('overflow', '');
-        });
-
-        $('.mega-menu-overlay').on('click', function(e) {
-            if ($(e.target).is('.mega-menu-overlay')) {
-                var $overlay = $(this);
-                $overlay.removeClass('menu-animate');
-                $overlay.fadeOut(400);
-                $('#menuToggle .icon-close').fadeOut(150, function(){
-                    $('#menuToggle .icon-hamburger').fadeIn(250);
-                });
-                $('body').css('overflow', '');
-            }
-        });
-
-        $('.js-toggle-sub').on('click', function(e){
-          e.preventDefault();
-          e.stopPropagation();
-          const $btn = $(this);
-          const $wrap = $btn.closest('.has-sub');
-          const $sub  = $wrap.find('.mega-sub');
-          const open  = !$wrap.hasClass('open');
-
-          // (opsional) tutup submenu lain
-          // $('.has-sub.open').not($wrap).removeClass('open')
-          //   .find('.mega-sub').stop(true,true).slideUp(220)
-          //   .end().find('.js-toggle-sub').attr('aria-expanded','false');
-
-          // $wrap.toggleClass('open', open);
-          // $btn.attr('aria-expanded', open ? 'true' : 'false');
-          // $sub.stop(true,true).slideToggle(220);
-        });
+    openBtn.addEventListener('click', function() {
+        isOpen ? closeMenu() : openMenu();
     });
 
-    $(document).ready(function(){
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
 
-    // === A) Toggle submenu Shop ===
-    $('.js-toggle-sub').on('click', function(e){
-      e.preventDefault();
-      const $btn = $(this);
-      const $wrap = $btn.closest('.has-sub');
-      const $sub  = $wrap.find('.mega-sub');
-
-      const willOpen = !$wrap.hasClass('open');
-      // tutup yang lain (kalau nanti ada submenu lain)
-      $('.has-sub.open').not($wrap).removeClass('open')
-        .find('.mega-sub').stop(true,true).slideUp(220)
-        .end().find('.js-toggle-sub').attr('aria-expanded','false');
-
-      $wrap.toggleClass('open', willOpen);
-      $btn.attr('aria-expanded', willOpen ? 'true' : 'false');
-      $sub.stop(true,true).slideToggle(220);
+    // Close on ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isOpen) closeMenu();
     });
-
-    // === B) Close overlay saat klik link navigasi ===
-    // ganti selector lama $('.mega-menu-link') -> hanya <a> top-level & link submenu
-    $('a.mega-menu-link, .mega-sub-link').on('click', function(){
-      const $overlay = $('.mega-menu-overlay');
-      $overlay.removeClass('menu-animate').fadeOut(400);
-      $('#menuToggle .icon-close').fadeOut(150, function(){
-        $('#menuToggle .icon-hamburger').fadeIn(250);
-      });
-      $('body').css('overflow', '');
-    });
-  });
-
-});
-
-$(function(){
-  const $overlay   = $('#searchOverlay');
-  const $backdrop  = $overlay.find('.search-overlay__backdrop');
-  const $panel     = $overlay.find('.search-overlay__panel');
-  const $toggle    = $('#searchToggle');
-  const $closeBtn  = $('#searchClose');
-  const $input     = $('#globalSearchInput');
-  const $type      = $('#globalSearchType');
-  const $catBtns   = $overlay.find('.cat-btn');
-
-  function openSearch(){
-    // jika mega menu lagi terbuka, tutup dulu
-    const $mega = $('.mega-menu-overlay');
-    if ($mega.is(':visible')) {
-      $mega.removeClass('menu-animate').fadeOut(300);
-      $('#menuToggle .icon-close').hide();
-      $('#menuToggle .icon-hamburger').show();
-      $('body').css('overflow','');
-    }
-
-    $overlay.addClass('is-open');
-    // kecil delay agar anim jalan
-    setTimeout(()=> $overlay.addClass('is-anim'), 15);
-    $('body').css('overflow','hidden');
-    $toggle.attr('aria-expanded','true');
-    $toggle.find('.icon-search').hide();
-    $toggle.find('.icon-search-close').show();
-
-    // fokus input setelah frame berikutnya
-    setTimeout(()=> $input.trigger('focus'), 120);
-  }
-
-  function closeSearch(){
-    $overlay.removeClass('is-anim');
-    setTimeout(()=> $overlay.removeClass('is-open'), 180);
-    $('body').css('overflow','');
-    $toggle.attr('aria-expanded','false');
-    $toggle.find('.icon-search-close').hide();
-    $toggle.find('.icon-search').show();
-  }
-
-  // Toggle dari tombol navbar
-  $toggle.on('click', function(e){
-    e.preventDefault();
-    $overlay.hasClass('is-open') ? closeSearch() : openSearch();
-  });
-
-  // Close actions
-  $closeBtn.on('click', closeSearch);
-  $backdrop.on('click', closeSearch);
-  $(document).on('keydown', function(e){
-    if(e.key === 'Escape' && $overlay.hasClass('is-open')) closeSearch();
-  });
-
-  // Kategori filter
-  $catBtns.on('click', function(){
-    const t = $(this).data('type') || '';
-    if ($type.val() === t) {
-      $type.val(''); $catBtns.removeClass('active');
-    } else {
-      $type.val(t); $catBtns.removeClass('active'); $(this).addClass('active');
-    }
-    // auto submit jika sudah ada query
-    if ($input.val().trim().length) $('#globalSearchForm').trigger('submit');
-  });
-
-  // Submit via Enter sudah default; jaga-jaga:
-  $input.on('keydown', function(e){
-    if(e.key === 'Enter'){ e.preventDefault(); $('#globalSearchForm').trigger('submit'); }
-  });
-});
+})();
 </script>
-

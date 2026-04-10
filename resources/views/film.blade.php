@@ -21,34 +21,7 @@
   @media (prefers-reduced-motion: reduce){
     .reveal{ opacity:1 !important; transform:none !important; filter:none !important; }
   }
-    .navbar-logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Inter', Arial, sans-serif;
-    font-size: 1.11rem;      /* Lebih kecil dan ramping */
-    font-weight: 800;
-    letter-spacing: 1.7px;
-    color: #070707;
-    text-shadow: 0 1px 5px rgba(0,0,0,0.09);
-    white-space: nowrap;
-    text-transform: uppercase;
-    line-height: 1;
-    pointer-events:auto;          /* <-- boleh diklik */
-  text-decoration:none;         /* hilangkan underline */
-  padding:10px 14px;            /* area klik nyaman */
-  z-index:2;                    /* pastikan di atas bg navbar */
-    }
-    .icon-hamburger rect {
-    fill: #070707;
-    }
-    .icon-search circle {
-    stroke: #070707;
-    }
-    .icon-search line {
-    stroke: #070707;
-    }
+
     .title{
     margin: 0 0 36px;
     font-family: 'Inter', Arial, sans-serif;
