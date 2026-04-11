@@ -238,44 +238,94 @@
     </section>
 
     {{-- ── 4. SERIAL ── --}}
-    <section class="section-feature bg-[#fafafa]" data-section="serial">
+    {{-- The section itself uses 100vw + negative margin to break out of any inherited padding --}}
+    <section data-section="serial" style="
+        background:#fafafa;
+        padding-top: var(--site-py);
+        padding-bottom: var(--site-py);
+        overflow: visible;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+    ">
         @if($latestSerial)
         @php $serialYear = \Carbon\Carbon::parse($latestSerial->release_date)->format('Y'); @endphp
-        <div class="feature-container">
-            <div class="feature-inner">
-                <div class="feature-image-wrap">
+
+        {{-- Two-column layout: left image bleeds to screen edge, right has content --}}
+        <div style="
+            display: grid;
+            grid-template-columns: 58% 1fr;
+            min-height: 560px;
+            align-items: stretch;
+            overflow: hidden;
+        ">
+            {{-- LEFT: Landscape image — no padding, touches left viewport edge --}}
+            <div style="position:relative; overflow:hidden;">
+                <a href="{{ route('detail-series', $latestSerial->slug) }}" style="display:block; width:100%; height:100%;">
                     <img src="{{ asset('photo/' . $latestSerial->photo) }}"
                          alt="{{ $latestSerial->title }}"
-                         class="feature-img" loading="lazy">
-                    <div class="feature-img-overlay"></div>
-                    @if($latestSerial->episode)
-                    <span class="feature-badge">{{ $latestSerial->episode }} Episode</span>
+                         style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;"
+                         class="serial-bleed-img"
+                         loading="lazy">
+                    <div style="position:absolute; inset:0; background:linear-gradient(to right, transparent 55%, rgba(250,250,250,0.65) 100%); pointer-events:none;"></div>
+                </a>
+                @if($latestSerial->episode)
+                <span style="position:absolute; bottom:20px; left:20px; background:rgba(10,10,10,0.82); color:rgba(255,255,255,0.9); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; padding:5px 12px; font-weight:500;">
+                    {{ $latestSerial->episode }} Episode
+                </span>
+                @endif
+            </div>
+
+            {{-- RIGHT: Serial details --}}
+            <div style="
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                padding: 4rem clamp(1.5rem, 5vw, 6rem) 4rem clamp(1.5rem, 3vw, 3.5rem);
+                background:#fafafa;
+            " data-gsap="fade-up">
+                <span class="feature-eyebrow">Serial Web</span>
+                <h2 class="feature-title">
+                    <a href="{{ route('detail-series', $latestSerial->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestSerial->title }}</a>
+                </h2>
+                <div class="feature-meta-row">
+                    <span class="feature-meta-pill">{{ $serialYear }}</span>
+                    @if($latestSerial->season)
+                    <span class="feature-meta-pill">Season {{ $latestSerial->season }}</span>
+                    @endif
+                    @if($latestSerial->director)
+                    <span class="feature-meta-pill">{{ $latestSerial->director }}</span>
                     @endif
                 </div>
-                <div class="feature-content-wrap" data-gsap="fade-up">
-                    <span class="feature-eyebrow">Serial Web</span>
-                    <h2 class="feature-title">
-                        <a href="{{ route('detail-series', $latestSerial->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestSerial->title }}</a>
-                    </h2>
-                    <div class="feature-meta-row">
-                        <span class="feature-meta-pill">{{ $serialYear }}</span>
-                        @if($latestSerial->season)
-                        <span class="feature-meta-pill">Season {{ $latestSerial->season }}</span>
-                        @endif
-                        @if($latestSerial->director)
-                        <span class="feature-meta-pill">{{ $latestSerial->director }}</span>
-                        @endif
-                    </div>
-                    <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestSerial->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
-                    <a href="/serial" class="feature-cta">
-                        Lihat Serial Lainnya
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
-                    </a>
-                </div>
+                <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestSerial->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
+                <a href="/serial" class="feature-cta">
+                    Lihat Serial Lainnya
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
+                </a>
             </div>
         </div>
+
+        <style>
+            .serial-bleed-img { transition: transform 700ms cubic-bezier(0.4,0,0.2,1); }
+            [data-section="serial"]:hover .serial-bleed-img { transform: scale(1.04); }
+
+            @media (max-width: 767px) {
+                [data-section="serial"] {
+                    width: 100vw !important;
+                    margin-left: calc(50% - 50vw) !important;
+                }
+                [data-section="serial"] > div {
+                    grid-template-columns: 1fr !important;
+                    min-height: auto !important;
+                }
+                [data-section="serial"] > div > div:first-child {
+                    aspect-ratio: 16/9;
+                    min-height: 220px;
+                }
+            }
+        </style>
         @endif
     </section>
+
 
     {{-- ── 5. ARTIKEL ── --}}
     <section class="section-feature bg-white" data-section="artikel">
