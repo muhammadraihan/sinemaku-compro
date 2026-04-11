@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Casting;
 
@@ -82,6 +83,7 @@ class CastingController extends Controller
         // dd($request->photo);
 
         $casting = new casting();
+        $casting->slug = Str::slug($request->pemeran);
         $casting->pemeran = $request->pemeran;
         $casting->judul_film = $request->judul_film;
         $casting->gender = $request->gender;

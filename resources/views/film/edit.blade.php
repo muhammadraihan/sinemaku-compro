@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('release_date','Tanggal Rilis',['class' => 'required form-label'])}}
-                        {{ Form::text('release_date',$film->release_date,['placeholder' => 'Tanggal Rilis','class' => 'form-control '.($errors->has('release_date') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('release_date',$film->release_date,['placeholder' => 'Tanggal Rilis','class' => 'form-control release_date'.($errors->has('release_date') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('release_date'))
                         <div class="invalid-feedback">{{ $errors->first('release_date') }}</div>
                         @endif
@@ -109,7 +109,7 @@
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('cast','Cast',['class' => 'required form-label'])}}
-                        {{ Form::text('cast',$film->cast,['placeholder' => 'Cast','class' => 'form-control '.($errors->has('cast') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('cast',$film->cast,['placeholder' => 'e.g Umay, Prilly','class' => 'form-control '.($errors->has('cast') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('cast'))
                         <div class="invalid-feedback">{{ $errors->first('cast') }}</div>
                         @endif
@@ -119,6 +119,13 @@
                         {{ Form::text('link',$film->link,['placeholder' => 'Link Trailer','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('link'))
                         <div class="invalid-feedback">{{ $errors->first('link') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('link_watch','Link Watch Now / Buy Ticket',['class' => 'form-label'])}}
+                        {{ Form::text('link_watch',$film->link_watch,['placeholder' => 'https://www.netflix.com','class' => 'form-control '.($errors->has('link_watch') ? 'is-invalid':'')])}}
+                        @if ($errors->has('link_watch'))
+                        <div class="invalid-feedback">{{ $errors->first('link_watch') }}</div>
                         @endif
                     </div>
                 </div>
@@ -137,6 +144,21 @@
                     <div class="invalid-feedback">{{ $errors->first('photo') }}</div>
                     @endif
                 </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ Form::label('poster','poster',['class' => 'required form-label'])}}
+                    <input type="hidden" name="oldImage" value="{{ $film->poster }}"> 
+                    @if ($film->poster)
+                        <img src="{{ asset('photo/' . $film->poster) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+                    @else
+                        <img class="img-preview img-fluid mb-5 col-sm-5">
+                    @endif
+                    {{ Form::file('poster',null,['placeholder' => 'Poster','class' => 'form-control upload '.($errors->has('poster') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'poster'])}}
+                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    alt="preview image" style="max-height: 250px;">
+                    @if ($errors->has('poster'))
+                    <div class="invalid-feedback">{{ $errors->first('poster') }}</div>
+                    @endif
+                </div>
             <div
                 class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
                 <button class="btn btn-primary ml-auto" type="submit">Submit</button>
@@ -150,7 +172,7 @@
 @section('js')
 <script src="{{asset('js/formplugins/select2/select2.bundle.js')}}"></script>
 <script src="{{asset('js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
-<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script src="{{asset('js/formplugins/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){
         $('#kategori').select2();

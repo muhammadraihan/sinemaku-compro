@@ -23,11 +23,19 @@ class Film extends Model
         'director',
         'cast',
         'link',
-        'photo'
+        'link_watch',
+        'photo',
+        'poster'
     ];
 
     public function Categories(){
         return $this->belongsTo(Kategori::class, 'kategori', 'uuid');
+    }
+
+    public function bts()
+    {
+        // kolom foreign key di tabel bts = 'judul' yang berisi uuid film
+        return $this->hasMany(BehindTheScene::class, 'judul', 'uuid');
     }
 
     public function userCreate() {

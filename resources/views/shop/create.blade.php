@@ -41,6 +41,23 @@
                 'needs-validation','dropzone', 'forms','novalidate','enctype' => 'multipart/form-data']) !!}
                 <div class="row">
                     <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('kategorishop','Kategori',['class' => 'required form-label'])}}
+                        {!! Form::select('kategorishop', $kategorishop, '',
+                        ['id'=>'kategorishop','class'
+                        => 'custom-select'.($errors->has('kategorishop') ? 'is-invalid':'') ,'required'
+                        => '', 'placeholder' => 'Pilih Kategori ...'])!!}
+                        @if ($errors->has('kategorishop'))
+                        <div class="invalid-feedback">{{ $errors->first('kategorishop') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('merchandise','Merchandise',['class' => 'required form-label'])}}
+                        {{ Form::text('merchandise',null,['placeholder' => 'eg. Perayaan Mati Rasa','class' => 'form-control '.($errors->has('merchandise') ? 'is-invalid':''),'required'])}}
+                        @if ($errors->has('merchandise'))
+                        <div class="invalid-feedback">{{ $errors->first('merchandise') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('name','Judul',['class' => 'required form-label'])}}
                         {{ Form::text('name',null,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('name') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('name'))
@@ -79,7 +96,7 @@
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('link','Link',['class' => 'required form-label'])}}
-                        {{ Form::text('link',null,['placeholder' => 'Link Trailer','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('link',null,['placeholder' => 'Link Produk','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('link'))
                         <div class="invalid-feedback">{{ $errors->first('link') }}</div>
                         @endif
@@ -118,10 +135,10 @@
 <script src="{{asset('js/formplugins/select2/select2.bundle.js')}}"></script>
 <script src="{{asset('js/formplugins/dropzone/dropzone.js')}}"></script>
 <script src="{{asset('js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
-<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script src="{{asset('js/formplugins/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){
-        $('#kategori').select2();
+        $('#kategorishop').select2();
         $('#type').select2();
 
         CKEDITOR.replace('detail');

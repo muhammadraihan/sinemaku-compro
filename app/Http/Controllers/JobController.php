@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Job;
 
@@ -85,6 +86,7 @@ class JobController extends Controller
         // dd($request->photo);
 
         $job = new job();
+        $job->slug = Str::slug($request->position);
         $job->position = $request->position;
         $job->tim = $request->tim;
         $job->location = $request->location;
@@ -153,6 +155,7 @@ class JobController extends Controller
         $this->validate($request, $rules, $messages);
         
         $job = job::uuid($id);
+        $job->slug = Str::slug($request->position);
         $job->position = $request->position;
         $job->tim = $request->tim;
         $job->location = $request->location;

@@ -49,7 +49,9 @@
                 <th>Director</th>
                 <th>Cast</th>
                 <th>Link</th>
+                <th>Link Watch Now / Buy Ticket</th>
                 <th>Foto</th>
+                <th>Poster</th>
                 <th width="120px">Aksi</th>
                 </tr>
                         </thead>
@@ -126,7 +128,9 @@
             {data: 'director', name: 'director'},
             {data: 'cast', name: 'cast'},
             {data: 'link', name: 'link'},
+            {data: 'link_watch', name: 'link_watch'},
             {data: 'photo', name: 'photo'},
+            {data: 'poster', name: 'poster'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

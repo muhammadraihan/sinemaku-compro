@@ -38,6 +38,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Kategori</th>
+                                <th>Merchandise</th>
                                 <th>Nama Produk</th>
                                 <th>Judul</th>
                                 <th>Detail</th>
@@ -111,6 +113,8 @@
             },
             "columns": [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'kategorishop', name: 'kategorishop'},
+            {data: 'merchandise', name: 'merchandise'},
             {data: 'name', name: 'name'},
             {data: 'judul', name: 'judul'},
             {data: 'detail', name: 'detail'},

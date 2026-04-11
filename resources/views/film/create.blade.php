@@ -110,16 +110,23 @@
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('cast','Cast',['class' => 'required form-label'])}}
-                        {{ Form::text('cast',null,['placeholder' => 'Cast','class' => 'form-control '.($errors->has('cast') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('cast',null,['placeholder' => 'e.g Umay, Prilly','class' => 'form-control '.($errors->has('cast') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('cast'))
                         <div class="invalid-feedback">{{ $errors->first('cast') }}</div>
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('link','Link',['class' => 'required form-label'])}}
-                        {{ Form::text('link',null,['placeholder' => 'Link Trailer','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
+                        {{ Form::text('link',null,['placeholder' => 'https://www.youtube.com','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('link'))
                         <div class="invalid-feedback">{{ $errors->first('link') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('link_watch','Link Watch Now / Buy Ticket',['class' => 'form-label'])}}
+                        {{ Form::text('link_watch',null,['placeholder' => 'https://www.netflix.com','class' => 'form-control '.($errors->has('link_watch') ? 'is-invalid':'')])}}
+                        @if ($errors->has('link_watch'))
+                        <div class="invalid-feedback">{{ $errors->first('link_watch') }}</div>
                         @endif
                     </div>
                 </div>
@@ -130,6 +137,15 @@
                     alt="preview image" style="max-height: 250px;">
                     @if ($errors->has('photo'))
                     <div class="invalid-feedback">{{ $errors->first('photo') }}</div>
+                    @endif
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ Form::label('poster','Poster',['class' => 'required form-label'])}}
+                    {{ Form::file('poster',null,['placeholder' => 'Poster','class' => 'form-control upload '.($errors->has('poster') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'poster'])}}
+                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    alt="preview image" style="max-height: 250px;">
+                    @if ($errors->has('poster'))
+                    <div class="invalid-feedback">{{ $errors->first('poster') }}</div>
                     @endif
                 </div>
             <div
@@ -146,7 +162,7 @@
 <script src="{{asset('js/formplugins/select2/select2.bundle.js')}}"></script>
 <script src="{{asset('js/formplugins/dropzone/dropzone.js')}}"></script>
 <script src="{{asset('js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js')}}"></script>
-<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script src="{{asset('js/formplugins/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){
         $('#kategori').select2();
@@ -166,6 +182,19 @@
             reader.readAsDataURL(this.files[0]); 
            
            });
+
+        $('#poster').change(function(){
+            
+            let reader = new FileReader();
+            
+            reader.onload = (e) => { 
+            
+                $('#preview-image-before-upload').attr('src', e.target.result); 
+            }
+            
+            reader.readAsDataURL(this.files[0]); 
+            
+        });
 
            $('.release_date').datepicker({
             orientation: "bottom left",
