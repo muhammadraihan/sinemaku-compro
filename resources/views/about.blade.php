@@ -13,7 +13,7 @@
     <section id="about-hero" class="relative w-full overflow-hidden flex items-center"
         style="height: 100dvh; min-height: 600px;">
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('photo/20250911070125.photo.jpg') }}" alt="Sinemaku Studio"
+            <img src="{{ asset('photo/about_hero.png') }}" alt="Sinemaku Crew"
                 class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/40"></div>
         </div>
@@ -105,7 +105,7 @@
     ============================================================ --}}
     <section id="about-teams-photo" class="relative w-full overflow-hidden" style="height: 100dvh; min-height: 400px;">
         <!-- Background Image -->
-        <img src="{{ asset('photo/20250911070349.photo.jpg') }}" alt="Meet the team"
+        <img src="{{ asset('photo/about_secondary.png') }}" alt="Meet the team"
             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
 
         <!-- Subtle dark gradient at the bottom for text legibility -->
@@ -166,7 +166,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[250px]">
                 <!-- Item 1 (Span 2 cols, Span 2 rows) -->
                 <div class="gallery-item relative overflow-hidden group sm:col-span-2 sm:row-span-2 bg-gray-200">
-                    <img src="{{ asset('photo/20250911070125.photo.jpg') }}" alt="Sinemaku Team"
+                    <img src="{{ asset('photo/about_hero.png') }}" alt="Sinemaku Team"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -175,7 +175,7 @@
 
                 <!-- Item 2 -->
                 <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ asset('photo/20250831080926.jpg') }}" alt="Behind the scenes"
+                    <img src="{{ asset('photo/about_crew_1.png') }}" alt="Behind the scenes"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -184,7 +184,7 @@
 
                 <!-- Item 3 (Span 2 rows vertical) -->
                 <div class="gallery-item relative overflow-hidden group row-span-2 bg-gray-200">
-                    <img src="{{ asset('photo/20250904015648.jpeg') }}" alt="Set photo"
+                    <img src="{{ asset('photo/about_crew_2.png') }}" alt="Set photo"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -193,7 +193,7 @@
 
                 <!-- Item 4 -->
                 <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ asset('photo/20250831074325.jpg') }}" alt="Fun moment"
+                    <img src="{{ asset('photo/about_crew_3.png') }}" alt="Fun moment"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -202,7 +202,7 @@
 
                 <!-- Item 5 (Span 2 cols) -->
                 <div class="gallery-item relative overflow-hidden group sm:col-span-2 lg:col-span-2 bg-gray-200">
-                    <img src="{{ asset('photo/20250902092841.jpg') }}" alt="Sinemaku Event"
+                    <img src="{{ asset('photo/about_crew_4.png') }}" alt="Sinemaku Event"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                         style="object-position: center 30%;">
                     <div
@@ -212,7 +212,7 @@
 
                 <!-- Item 6 -->
                 <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ asset('photo/20250911070349.photo.jpg') }}" alt="Crew on set"
+                    <img src="{{ asset('photo/about_crew_5.png') }}" alt="Crew on set"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
