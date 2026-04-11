@@ -4,6 +4,91 @@
 
 @include('partials.navbar') --}}
 <style>
+    /* ===== Film Detail: Youtube Modal & Play Button ===== */
+    .play-btn-huge {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(8px);
+        border: 2px solid rgba(255,255,255,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+    .play-btn-huge:hover {
+        background: rgba(255,255,255,0.25);
+        transform: translate(-50%, -50%) scale(1.05);
+        border-color: #fff;
+    }
+    .play-btn-huge svg {
+        width: 40px;
+        height: 40px;
+        fill: #fff;
+        margin-left: 6px;
+    }
+
+    .yt-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: rgba(0,0,0,0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+    .yt-modal.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .yt-modal-close {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 50px;
+        font-weight: 300;
+        cursor: pointer;
+        line-height: 1;
+        z-index: 10000;
+        transition: transform 0.2s;
+    }
+    .yt-modal-close:hover {
+        transform: scale(1.1);
+    }
+    .yt-modal-content {
+        width: 90%;
+        max-width: 1200px;
+        aspect-ratio: 16/9;
+        background: #000;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .yt-modal-content iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    @media (max-width: 640px) {
+        .play-btn-huge { width: 70px; height: 70px; }
+        .play-btn-huge svg { width: 30px; height: 30px; margin-left: 4px; }
+        .yt-modal-close { top: 15px; right: 20px; }
+    }
+
 
 
     /* ===== Film Detail: HERO ===== */
@@ -369,8 +454,21 @@
   }
 }
 </style>
+@php
+  $video_id = '';
+  if (!empty($films->link) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $films->link, $match)) {
+      $video_id = $match[1];
+  }
+@endphp
 <!-- ===== Film Detail: HERO ===== -->
 <section class="film-hero" style="--hero-bg: url({{ asset('photo/' . $films->photo) }})">
+  
+  @if($video_id)
+    <!-- Big Play Button -->
+    <div class="play-btn-huge" onclick="openTrailerModal()">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </div>
+  @endif
 
   <!-- Content -->
   <div class="film-hero__inner">
@@ -405,10 +503,7 @@
     </p> --}}
 
     <div class="film-hero__actions reveal-m">
-      <a href="{{ $films->link }}" class="btn btn--primary" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" class="play"><path d="M8 5v14l11-7z"/></svg>
-        Trailer
-      </a>
+
       @if (!empty($films->link_watch))
         <a href="{{ $films->link_watch }}" class="btn btn--secondary" target="_blank" rel="noopener">
           Watch Now
@@ -504,6 +599,39 @@
     {!! $shopCollectionHtml !!}
   @endif
   @include('bts')
+
+@if($video_id)
+<div class="yt-modal" id="ytTrailerModal">
+    <button class="yt-modal-close" onclick="closeTrailerModal()">&times;</button>
+    <div class="yt-modal-content">
+        <iframe id="ytTrailerIframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    function openTrailerModal() {
+        var modal = document.getElementById('ytTrailerModal');
+        var iframe = document.getElementById('ytTrailerIframe');
+        modal.classList.add('is-open');
+        // Add autoplay parameter dynamically
+        iframe.src = "https://www.youtube.com/embed/{{ $video_id }}?autoplay=1&rel=0&showinfo=0";
+    }
+    function closeTrailerModal() {
+        var modal = document.getElementById('ytTrailerModal');
+        var iframe = document.getElementById('ytTrailerIframe');
+        modal.classList.remove('is-open');
+        // Clear src to stop video
+        iframe.src = "";
+    }
+    
+    // Close modal on escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === "Escape" && document.getElementById('ytTrailerModal').classList.contains('is-open')) {
+            closeTrailerModal();
+        }
+    });
+</script>
+@endif
 <script>
 (function(){
   const isMobile = window.matchMedia('(max-width: 640px)').matches;
