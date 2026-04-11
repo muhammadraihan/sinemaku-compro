@@ -179,10 +179,16 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('permissions', 'PermissionController');
     Route::resource('roles', 'RoleController');
     Route::resource('film', 'FilmController');
+    Route::resource('bts', 'BehindTheSceneController');
     Route::resource('kategori', 'KategoriController');
+    Route::resource('kategorishop', 'KategoriShopController');
     Route::resource('shop', 'ShopController');
+    Route::resource('event', 'EventController');
     Route::resource('article', 'ArticleController');
     Route::resource('job', 'JobController');
     Route::resource('casting', 'CastingController');
+    Route::resource('membership', 'MembershipController');
+    Route::resource('phyk', 'PhykController');
+    Route::resource('slide', 'SlideController');
     Route::get('get-kategori', [KategoriController::class,'show'])->name('ref.kategori');
 });
