@@ -25,30 +25,39 @@ class FrontEndController extends Controller
      */
     public function index()
     {
-        $kategori_film = Kategori::where('name', 'like', '%film%')->first();
-        $film = film::all()->where('kategori', $kategori_film->uuid);
-        $kategori_series = Kategori::where('name', 'like', '%series%')->first();
-        $series = film::all()->where('kategori', $kategori_series->uuid);
-        $shop = shop::select('uuid','name', 'photo', 'slug')
-                ->where('highlight', '=', 'Y')
-                ->get();
-        $article = article::select('uuid','kategori', 'link', 'photo', 'judul', 'title', 'created_at', 'slug')
-                            ->orderBy('created_at')
-                            ->limit(1)
-                            ->get();
-        $all_article = article::select('uuid','kategori', 'link', 'photo', 'judul', 'title', 'created_at', 'slug')
-                            ->where('uuid', '!=', $article[0]->uuid)
-                            ->limit(4)
-                            ->orderBy('created_at')
-                            ->get();
-        $careers = job::orderBy('created_at', 'DESC')->limit(6)->get();
-        $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
-                            ->get();
-        $spotlight1 = film::all()->random();
-        $spotlight2 = film::all()->random();
+        // Variables for the redesigned welcome.blade.php (v2-visual-restyle branch)
+        $films = Film::with('Categories')->orderBy('release_date', 'desc')->get();
+        $latestEvent = Event::orderBy('tgl_event', 'desc')->first();
+        $latestFilm = Film::with('Categories')
+            ->whereHas('Categories', fn($q) => $q->where('name', 'Film'))
+            ->orderBy('release_date', 'desc')
+            ->first();
+        $latestMerch = Shop::latest()->first();
+        $latestSerial = Film::with('Categories')
+            ->whereHas('Categories', fn($q) => $q->where('name', 'Series'))
+            ->orderBy('release_date', 'desc')
+            ->first();
+        $latestArtikel = Article::orderBy('tgl_rilis', 'desc')->first();
+        $latestTvShow = Film::with('Categories')
+            ->whereHas('Categories', fn($q) => $q->where('name', 'Sinetron'))
+            ->orderBy('release_date', 'desc')
+            ->first();
+
+        return view('welcome', compact(
+            'films',
+            'latestEvent',
+            'latestFilm',
+            'latestMerch',
+            'latestSerial',
+            'latestArtikel',
+            'latestTvShow'
+        ));
+    }
+
+    public function about()
+    {
         $kategorishop = KategoriShop::all();
-        return view('welcome',compact('film', 'shop', 'article', 'careers', 'all_article', 'coming_soon', 'spotlight1', 'spotlight2', 'kategorishop',
-                                        'series', 'kategori_film', 'kategori_series'));
+        return view('about', compact('kategorishop'));
     }
 
     public function film()

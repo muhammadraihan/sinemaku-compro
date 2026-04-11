@@ -19,7 +19,7 @@
                 <div class="lg:col-span-4 space-y-8">
                     <h3 class="text-lg font-semibold text-white">Navigation</h3>
                     <div class="grid grid-cols-2 gap-4">
-                        @foreach (['Home'=>'/', 'Films'=>'/movies', 'Series'=>'/series', 'Shop'=>'/shop', 'Articles'=>'/articles', 'Events'=>'/events', 'Careers'=>'/jobs'] as $name=>$path)
+                        @foreach (['Home'=>'/', 'Films'=>'/films', 'Serial'=>'/serial', 'Shop'=>'/shops', 'Articles'=>'/article', 'Events'=>'/events', 'Careers'=>'/career', 'Komunitas'=>'/memberships'] as $name=>$path)
                             <a href="{{ url($path) }}" class="text-gray-400 hover:text-white transition-colors duration-300 editorial-text text-base group">
                                 <span class="group-hover:translate-x-1 transition-transform duration-300 inline-block">
                                     {{ $name }}

@@ -1,194 +1,84 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+// ===== import controller =====
+use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\FilmController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KategoriShopController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\CastingController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\BehindTheSceneController;
+use App\Http\Controllers\PhykController;
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('backoffice.dashboard');
-    }
+// ===== home =====
+Route::get('/', [FrontEndController::class, 'index'])->name('welcome');
 
-    $films = App\Models\Film::with('Categories')->orderBy('release_date', 'desc')->get();
-    $latestEvent = App\Models\Event::orderBy('tgl_event', 'desc')->first();
-    $latestFilm = App\Models\Film::with('Categories')
-        ->whereHas('Categories', fn($q) => $q->where('name', 'Film'))
-        ->orderBy('release_date', 'desc')
-        ->first();
-    $latestMerch = App\Models\Shop::latest()->first();
-    $latestSerial = App\Models\Film::with('Categories')
-        ->whereHas('Categories', fn($q) => $q->where('name', 'Series'))
-        ->orderBy('release_date', 'desc')
-        ->first();
-    $latestArtikel = App\Models\Article::orderBy('tgl_rilis', 'desc')->first();
-    $latestTvShow = App\Models\Film::with('Categories')
-        ->whereHas('Categories', fn($q) => $q->where('name', 'Sinetron'))
-        ->orderBy('release_date', 'desc')
-        ->first();
-
-    return view('welcome', compact(
-        'films',
-        'latestEvent',
-        'latestFilm',
-        'latestMerch',
-        'latestSerial',
-        'latestArtikel',
-        'latestTvShow'
-    ));
-})->name('welcome');
+// ===== frontend =====
+Route::get('/about', [FrontEndController::class, 'about'])->name('about');
+Route::get('/films', [FrontEndController::class, 'film'])->name('film');
+Route::get('/detail-films/{slug}', [FrontEndController::class, 'detailfilm'])->name('detail-film');
+Route::get('/serial', [FrontEndController::class, 'series'])->name('series');
+Route::get('/detail-serial/{slug}', [FrontEndController::class, 'detailseries'])->name('detail-series');
+Route::get('/shops', [FrontEndController::class, 'shop'])->name('shop');
+Route::get('/detail-shops/{slug}', [FrontEndController::class, 'detailshop'])->name('detail-shop');
+Route::get('/detail-categories/{slug}', [FrontEndController::class, 'detailkategori'])->name('detail-kategori');
+Route::get('/article', [FrontEndController::class, 'articles'])->name('articles');
+Route::get('/detail-article/{slug}', [FrontEndController::class, 'detailarticles'])->name('detail-articles');
+Route::get('/events', [FrontEndController::class, 'event'])->name('event');
+Route::get('/detail-events/{slug}', [FrontEndController::class, 'detailevent'])->name('detail-event');
+Route::get('/memberships', [FrontEndController::class, 'membership'])->name('frontend.membership');
+Route::get('/career', [FrontEndController::class, 'careers'])->name('careers');
+Route::get('/detail-career/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
+Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
+Route::get('/tv', [FrontEndController::class, 'index'])->name('tv');
+Route::get('/documentary', [FrontEndController::class, 'index'])->name('documentary');
+Route::resource('membership', 'MembershipController');
+Route::get('/search', [FrontEndController::class, 'index'])->name('search.index');
 
 Auth::routes(['register' => false]);
-
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/film', function () {
-    $coming_soon = App\Models\Film::with('Categories')
-        ->whereHas('Categories', fn($q) => $q->where('name', 'Film'))
-        ->orderBy('release_date', 'desc')
-        ->take(2)
-        ->get();
-    $genre = App\Models\Film::with('Categories')
-        ->whereHas('Categories', fn($q) => $q->where('name', 'Film'))
-        ->get();
-    $chipGenres = ['Drama', 'Thriller', 'Romance', 'Comedy', 'Action', 'Horror'];
-    return view('film', compact('coming_soon', 'genre', 'chipGenres'));
-})->name('film');
-
-Route::get('/film/{slug}', function ($slug) {
-    $films = App\Models\Film::where('slug', $slug)->firstOrFail();
-    $all_film = App\Models\Film::where('slug', '!=', $slug)->take(3)->get();
-    $shopCollectionHtml = ''; 
-    return view('detail-film', compact('films', 'all_film', 'shopCollectionHtml'));
-})->name('detail-film');
-
-Route::get('/series', function () {
-    $coming_soon = App\Models\Film::with('Categories')
-        ->whereHas('Categories', fn($q) => $q->where('name', 'Series'))
-        ->orderBy('release_date', 'desc')
-        ->take(2)
-        ->get();
-    $genre = App\Models\Film::with('Categories')
-        ->whereHas('Categories', fn($q) => $q->where('name', 'Series'))
-        ->get();
-    $chipGenres = ['Drama', 'Thriller', 'Romance', 'Comedy', 'Action', 'Horror'];
-    return view('series', compact('coming_soon', 'genre', 'chipGenres'));
-})->name('series');
-
-Route::get('/series/{slug}', function ($slug) {
-    $series = App\Models\Film::where('slug', $slug)->firstOrFail();
-    return view('detail-series', compact('series'));
-})->name('detail-series');
-
-Route::get('/events', function () {
-    $event = App\Models\Event::orderBy('tgl_event', 'desc')->get();
-    $events = $event;
-    return view('event', compact('event', 'events'));
-})->name('event');
-
-Route::get('/events/{slug}', function ($slug) {
-    $event = App\Models\Event::where('slug', $slug)->firstOrFail();
-    return view('detail-event', compact('event'));
-})->name('detail-event');
-
-Route::get('/shop', function () {
-    $merchandise = App\Models\Shop::latest()->take(4)->get();
-    $all_merchandise = App\Models\Shop::all();
-    $kategorishop = App\Models\Kategori::all(); 
-    return view('shop', compact('merchandise', 'all_merchandise', 'kategorishop'));
-})->name('shop');
-
-Route::get('/shop/category/{slug}', function ($slug) {
-    $kategori = App\Models\Kategori::where('uuid', $slug)->firstOrFail();
-    return view('detail-kategori', compact('kategori'));
-})->name('detail-kategori');
-
-Route::get('/shop/product/{slug}', function ($slug) {
-    $shop = App\Models\Shop::where('slug', $slug)->firstOrFail();
-    return view('detail-shop', compact('shop'));
-})->name('detail-shop');
-
-Route::get('/community', function () {
-    return view('membership');
-})->name('frontend.membership');
-
-Route::post('/community/join', function () {
-    return redirect()->back()->with('success', 'Thank you for joining our community!');
-})->name('membership.store');
-
-Route::get('/articles', function () {
-    $all = App\Models\Article::orderBy('tgl_rilis', 'desc')->get();
-    $articles = $all->first();
-    $all_articles = $all->skip(1);
-    return view('articles', compact('articles', 'all_articles'));
-})->name('articles');
-
-Route::get('/articles/{slug}', function ($slug) {
-    $article = App\Models\Article::where('slug', $slug)->firstOrFail();
-    return view('detail-articles', compact('article'));
-})->name('detail-articles');
-
-Route::get('/careers', function () {
-    $careers = App\Models\Job::all();
-    $casting = App\Models\Casting::all();
-    return view('careers', compact('careers', 'casting'));
-})->name('careers');
-
-Route::get('/careers/{slug}', function ($slug) {
-    $job = App\Models\Job::where('slug', $slug)->firstOrFail();
-    return view('detail-careers', compact('job'));
-})->name('detail-careers');
-
-Route::get('/bts', function () {
-    return view('bts');
-})->name('bts');
-
-Route::get('/tv', function () {
-    return view('welcome');
-})->name('tv');
-
-Route::get('/documentary', function () {
-    return view('welcome');
-})->name('documentary');
-
-Route::get('/search', function () {
-    return view('welcome');
-})->name('search.index');
 
 Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::get('/', 'DashboardController@index');
     Route::get('dashboard', 'DashboardController@dashboard')->name('backoffice.dashboard');
+    // logs
     Route::get('logs', 'ActivityController@index')->name('logs');
+    // profile
     Route::get('profile', 'UserController@profile')->name('profile');
     Route::patch('profile/{user}/update', 'UserController@ProfileUpdate')->name('profile.update');
     Route::patch('profile/{user}/password', 'UserController@ChangePassword')->name('profile.password');
+    // resource
     Route::resource('menus', 'MenuController');
     Route::resource('users', 'UserController');
     Route::resource('permissions', 'PermissionController');
     Route::resource('roles', 'RoleController');
     Route::resource('film', 'FilmController');
-    Route::resource('bts', 'BehindTheSceneController');
     Route::resource('kategori', 'KategoriController');
     Route::resource('kategorishop', 'KategoriShopController');
     Route::resource('shop', 'ShopController');
-    Route::resource('event', 'EventController');
     Route::resource('article', 'ArticleController');
     Route::resource('job', 'JobController');
     Route::resource('casting', 'CastingController');
-    Route::resource('membership', 'MembershipController');
+    Route::resource('event', 'EventController');
     Route::resource('phyk', 'PhykController');
+    // Route::resource('membership', 'MembershipController');
+    Route::resource('bts', 'BehindTheSceneController');
     Route::resource('slide', 'SlideController');
-    Route::get('get-kategori', [KategoriController::class,'show'])->name('ref.kategori');
+    Route::get('get-kategori', [KategoriController::class, 'show'])->name('ref.kategori');
+    Route::get('membership/export', [MembershipController::class, 'export'])->name('membership.export');
+    Route::get('get-data', [MembershipController::class,'listData'])->name('membership.search');
+    Route::get('phyk/export', [PhykController::class, 'export'])->name('phyk.export');
+    Route::get('get-data-phyk', [PhykController::class,'listData'])->name('phyk.search');
 });

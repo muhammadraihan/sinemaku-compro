@@ -9,15 +9,15 @@
     @php
         $menuItems = [
             ['title' => 'About',      'url' => '/about'],
-            ['title' => 'Film',       'url' => '/film'],
-            ['title' => 'Serial Web', 'url' => '/series'],
+            ['title' => 'Film',       'url' => '/films'],
+            ['title' => 'Serial Web', 'url' => '/serial'],
             ['title' => 'Televisi',   'url' => '/tv'],
             ['title' => 'Dokumenter', 'url' => '/documentary'],
-            ['title' => 'Events',     'url' => '/event'],
-            ['title' => 'Merch',      'url' => '/shop'],
-            ['title' => 'Komunitas',  'url' => '/community'],
-            ['title' => 'Artikel',    'url' => '/articles'],
-            ['title' => 'Karir',      'url' => '/careers'],
+            ['title' => 'Events',     'url' => '/events'],
+            ['title' => 'Merch',      'url' => '/shops'],
+            ['title' => 'Komunitas',  'url' => '/memberships'],
+            ['title' => 'Artikel',    'url' => '/article'],
+            ['title' => 'Karir',      'url' => '/career'],
         ];
     @endphp
     <div class="flex flex-col space-y-4 text-left font-display font-medium text-3xl text-white">

@@ -193,7 +193,7 @@
                 </p>
 
                 {{-- CTA --}}
-                <a href="/movies" style="display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5); padding-bottom:4px; text-decoration:none;">
+                <a href="/films" style="display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5); padding-bottom:4px; text-decoration:none;">
                     Lihat Semua Film
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:14px;height:14px;"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                 </a>
@@ -298,7 +298,7 @@
                         @endif
                     </div>
                     <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestArtikel->detail), ENT_QUOTES | ENT_HTML5), 200) }}</p>
-                    <a href="/articles" class="feature-cta">
+                    <a href="/article" class="feature-cta">
                         Baca Artikel Lainnya
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                     </a>
@@ -370,7 +370,7 @@
                 </div>
                 @endforeach
             </div>
-            <a href="/community" class="komunitas-cta">
+            <a href="/memberships" class="komunitas-cta">
                 Gabung Komunitas
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
             </a>
