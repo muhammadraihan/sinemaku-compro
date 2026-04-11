@@ -50,12 +50,12 @@
 {{-- ============================================================
     TOP NAV BAR
     ============================================================ --}}
-<div class="fixed top-0 left-0 w-full h-[140px] z-[290] pointer-events-none"
+<div id="nav-overlay-gradient" class="fixed top-0 left-0 w-full h-[140px] z-[290] pointer-events-none transition-transform duration-500"
     style="background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);"></div>
 
 <nav id="unified-navbar" class="fixed top-0 left-0 w-full z-[300]
                     flex justify-between items-center
-                    px-4 md:px-12 py-6 md:py-8">
+                    px-4 md:px-12 py-6 md:py-8 transition-all duration-500 ease-in-out">
 
     {{-- Hamburger Button (Left) — animates into X when menu opens --}}
     <button id="menu-open-btn"
@@ -107,7 +107,14 @@
     </div>
 
     <style>
-        /* ── Nav CTA: responsive (mobile=icon, desktop=text capsule) ── */
+        /* ── Hidden state for scroll ── */
+        .is-nav-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ── Nav CTA: responsive ── */
         #nav-cta-mobile {
             display: inline-flex;
             line-height: 1;
@@ -188,5 +195,38 @@
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && isOpen) closeMenu();
     });
+
+    // ============================================================
+    // SMART NAVBAR: HIDE ON SCROLL DOWN, SHOW ON SCROLL UP
+    // ============================================================
+    const navbar = document.getElementById('unified-navbar');
+    const navOverlay = document.getElementById('nav-overlay-gradient');
+    let lastScrollTop = 0;
+    const scrollThreshold = 80; // Minimum scroll before hiding
+
+    window.addEventListener('scroll', function() {
+        if (isOpen) return; // Don't hide if menu is open
+
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Ensure it doesn't hide at the very top
+        if (scrollTop < 100) {
+            navbar.classList.remove('is-nav-hidden');
+            navOverlay.classList.remove('is-nav-hidden');
+            return;
+        }
+
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+            // Scrolling Down
+            navbar.classList.add('is-nav-hidden');
+            navOverlay.classList.add('is-nav-hidden');
+        } else {
+            // Scrolling Up
+            navbar.classList.remove('is-nav-hidden');
+            navOverlay.classList.remove('is-nav-hidden');
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, { passive: true });
 })();
 </script>

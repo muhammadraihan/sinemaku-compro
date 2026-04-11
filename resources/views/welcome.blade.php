@@ -653,8 +653,8 @@
 
         /* ── Title ── */
         .feature-title {
-            font-size: clamp(1.75rem, 3vw, 2.75rem);
-            font-weight: 500;
+            font-size: clamp(1.95rem, 3vw, 2.95rem);
+            font-weight: 700;
             line-height: 1.1;
             letter-spacing: -0.02em;
             color: #0a0a0a;

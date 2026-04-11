@@ -156,9 +156,9 @@
 
   /* ===== All Films ===== */
   .allfilms {
-    max-width: 1360px;
-    margin: 140px auto 96px;
-    padding: 0 24px;
+    max-width: 1740px;
+    margin: 140px auto 120px;
+    padding: 0 clamp(12px, 3vw, 32px);
   }
 
   .allfilms-head {
@@ -206,7 +206,7 @@
   /* --- MASONRY GRID (CSS Columns) --- */
   .allfilms-grid {
     columns: 3;
-    column-gap: clamp(16px, 2vw, 32px);
+    column-gap: clamp(32px, 4.5vw, 64px);
     margin-top: 24px;
   }
 
@@ -235,7 +235,7 @@
   /* Card */
   .filmitem {
     break-inside: avoid;
-    margin-bottom: clamp(24px, 3vw, 40px);
+    margin-bottom: clamp(48px, 6vw, 84px);
     display: block;
   }
 
@@ -326,24 +326,24 @@
 
   /* Caption */
   .filmitem-caption {
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 0;
     padding: 0;
   }
 
   .filmitem-title {
     margin: 0;
-    font: 500 15px/1.2 Inter, system-ui;
+    font: 700 23px/1.2 Inter, system-ui;
     color: #111;
     letter-spacing: -0.01em;
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 
   .filmitem-year {
     color: #888;
-    font: 300 11px/1 Inter, Arial, sans-serif;
+    font: 300 14px/1 Inter, Arial, sans-serif;
     letter-spacing: 0.04em;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
   }
 
   /* Hide when filtered */
@@ -858,15 +858,16 @@
 
     /* Card media & caption */
     .filmitem-caption {
-      margin-top: 8px;
+      margin-top: 14px;
     }
 
     .filmitem-title {
-      font: 600 13px/1.3 Inter, Arial, sans-serif;
+      font: 700 20px/1.3 Inter, Arial, sans-serif;
     }
 
     .filmitem-year {
-      font-size: 10.5px;
+      font-size: 13px;
+      margin-bottom: 8px;
     }
 
     /* Overlay on mobile: hidden for cleaner cards */
@@ -887,8 +888,8 @@
       font-size: 11px;
     }
 
-    .filmitem-title {
-      font-size: 12.5px;
+      font-size: 15.5px;
+      font-weight: 700;
     }
   }
 
