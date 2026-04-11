@@ -72,7 +72,7 @@
 
                         {{-- Film Title --}}
                         <span class="film-title font-display font-medium tracking-tight text-white">
-                            {{ $film->title }}
+                            <a href="{{ route('detail-film', $film->slug) }}" style="text-decoration: none; color: inherit;">{{ $film->title }}</a>
                         </span>
 
                         {{-- Year badge --}}
@@ -170,7 +170,7 @@
 
                 {{-- Title + Genre badge --}}
                 <h2 style="font-size:clamp(2.25rem,4.5vw,4rem); font-weight:500; line-height:1.05; letter-spacing:-0.025em; color:#fff; margin:0 0 1.25rem; display:flex; flex-wrap:wrap; align-items:center; gap:1rem;">
-                    {{ $latestFilm->title }}
+                    <a href="{{ route('detail-film', $latestFilm->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestFilm->title }}</a>
                     <span style="font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; background:rgba(255,255,255,0.18); color:#fff; padding:6px 14px; border-radius:2px; backdrop-filter:blur(8px);">
                         {{ $latestFilm->genre }}
                     </span>
@@ -254,7 +254,9 @@
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
                     <span class="feature-eyebrow">Serial Web</span>
-                    <h2 class="feature-title">{{ $latestSerial->title }}</h2>
+                    <h2 class="feature-title">
+                        <a href="{{ route('detail-series', $latestSerial->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestSerial->title }}</a>
+                    </h2>
                     <div class="feature-meta-row">
                         <span class="feature-meta-pill">{{ $serialYear }}</span>
                         @if($latestSerial->season)
