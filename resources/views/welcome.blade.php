@@ -240,7 +240,7 @@
     {{-- ── 4. SERIAL ── --}}
     {{-- The section itself uses 100vw + negative margin to break out of any inherited padding --}}
     <section data-section="serial" style="
-        background:#fafafa;
+        background:#ffffff;
         padding-top: var(--site-py);
         padding-bottom: var(--site-py);
         overflow: visible;
@@ -266,7 +266,7 @@
                          style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;"
                          class="serial-bleed-img"
                          loading="lazy">
-                    <div style="position:absolute; inset:0; background:linear-gradient(to right, transparent 55%, rgba(250,250,250,0.65) 100%); pointer-events:none;"></div>
+                    <div style="position:absolute; inset:0; background:transparent; pointer-events:none;"></div>
                 </a>
                 @if($latestSerial->episode)
                 <span style="position:absolute; bottom:20px; left:20px; background:rgba(10,10,10,0.82); color:rgba(255,255,255,0.9); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; padding:5px 12px; font-weight:500;">
@@ -281,7 +281,7 @@
                 flex-direction:column;
                 justify-content:center;
                 padding: 4rem clamp(1.5rem, 5vw, 6rem) 4rem clamp(1.5rem, 3vw, 3.5rem);
-                background:#fafafa;
+                background:#ffffff;
             " data-gsap="fade-up">
                 <span class="feature-eyebrow">Serial Web</span>
                 <h2 class="feature-title">
