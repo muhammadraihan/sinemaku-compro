@@ -2,6 +2,8 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
+
 @include('partials.navbar')
 <style>
 
@@ -25,7 +27,8 @@
 
   /* ===== Heading strip (tanpa tanggal di kanan) ===== */
   .event-list .section-heading{
-    font:800 clamp(28px,3vw,36px)/1.08 Inter,system-ui;
+    font:800 clamp(28px,3vw,36px)/1.08;
+
     padding:18px clamp(16px,5vw,64px);
     margin:0 0 clamp(12px,1.2vw,18px);
   }
@@ -68,7 +71,8 @@
     display:grid; gap:12px; align-content:start;
   }
   .card-title{
-    font:700 clamp(20px, 2vw, 24px)/1.2 Inter,system-ui;
+    font:700 clamp(20px, 2vw, 24px)/1.2;
+
     color:#111; text-decoration:none; letter-spacing:.1px;
     padding-top: 20px;
   }
@@ -80,7 +84,8 @@
   width: fit-content;                  /* shrink to text */
   max-width: 100%;
   text-decoration: none;
-  font:700 clamp(20px, 2vw, 24px)/1.2 Inter,system-ui;
+  font:700 clamp(20px, 2vw, 24px)/1.2;
+
   color:#111; letter-spacing:.1px;
   padding-top:20px;
   justify-self: start;                 /* if inside CSS Grid */
@@ -108,7 +113,8 @@
   .meta-chip{
     display:inline-flex; align-items:center; gap:8px;
     padding:6px 10px; border:1px solid var(--line); border-radius:6px;
-    background:#fff; font:600 12px/1 Inter,system-ui; color:#111;
+    background:#fff; font:600 12px/1; color:#111;
+
   }
 
   /* Kanan: pita vertikal klikable */
@@ -122,7 +128,8 @@
     width:100%; height:30%;
     display:flex; align-items:center; justify-content:center;
     color:#fff; text-decoration:none;
-    font:800 12px/1 Inter,system-ui; letter-spacing:.16em; text-transform:uppercase;
+    font:800 12px/1; letter-spacing:.16em; text-transform:uppercase;
+
     transition:background .18s ease;
     white-space: nowrap;
   }
@@ -272,3 +279,6 @@
   document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger').forEach(el=>io.observe(el));
 })();
 </script>
+
+@include('components.footer')
+@endsection

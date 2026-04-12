@@ -60,29 +60,29 @@
     box-shadow: 0 8px 26px rgba(16,24,40,.06);
   }
   .eyebrow{
-    font: 600 12px/1 'Inter',system-ui,Arial; letter-spacing:.01em;
+    font: 600 12px/1; letter-spacing:.01em;
     color:#4B5563; text-transform:uppercase; margin-bottom:10px;
   }
   .featured-title{
-    font-family:"Inter",sans-serif; font-weight:800; line-height:.95;
+    font-weight:800; line-height:.95;
     letter-spacing:-.01em; margin:0 0 clamp(10px,1.8vw,14px);
     font-size: clamp(22px, 3.0vw, 40px); color:#0A0A0A;
   }
   .featured-excerpt{
-    font-family:"Inter",sans-serif; color:#4a4a4a; font-size: clamp(14px, 1.1vw, 16px);
+    color:#4a4a4a; font-size: clamp(14px, 1.1vw, 16px);
     line-height:1.1; margin: 0 0 16px; max-width: 54ch;
   }
   .featured-meta{ display:flex; gap:12px 14px; flex-wrap:wrap; margin-bottom:14px; }
   .meta-chip{
     display:inline-flex; align-items:center; gap:8px;
     background:#F3F5F7; color:#374151; border-radius:999px;
-    padding:6px 10px; font-size:13px; font-family:"Inter",sans-serif;
+    padding:6px 10px; font-size:13px;
   }
 
   /* ====== Tombol Read More (diperkecil) ====== */
   
   .btn-primary{
-    font-family:"Inter",sans-serif; margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
+    margin-top:10px; display:inline-flex; align-items:center; gap:12px; padding:16px 22px;
   border-radius:10px; background:#fff; color:#111; text-decoration:none; font-weight:500; font-size:13px;
   letter-spacing:.2px; box-shadow:0 10px 24px rgba(0,0,0,.156);
   transition:transform .18s, box-shadow .18s, background .2s; width:auto; max-width: 160px;
@@ -106,7 +106,7 @@
 
   /* ======= list card (biarkan seperti sebelumnya) ======= */
   .articles-list .section-heading{
-    font: 300 clamp(15px,2.0vw,25px)/1.2 "Inter", sans-serif;
+    font: 300 clamp(15px,2.0vw,25px)/1.2;
       letter-spacing:.2px;
     margin: clamp(8px, 2vw, 18px) 0 clamp(14px, 3vw, 22px);
   }
@@ -129,13 +129,13 @@
   .article-card:hover .thumb img{ transform:scale(1.06); }
   .card-body{ padding:16px; }
   .card-title{
-    font-family:"Inter",sans-serif; font-weight:800; color:#111; text-decoration:none;
+    font-weight:800; color:#111; text-decoration:none;
     font-size:17px; line-height:1.1; letter-spacing:.2px;
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
   }
   .card-title:hover{ text-decoration:underline; }
   .card-excerpt{
-    font-family:"Inter",sans-serif;margin:8px 0 12px; color:#4b5563; font-size:14px; line-height:1.6;
+    margin:8px 0 12px; color:#4b5563; font-size:14px; line-height:1.6;
     display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
   }
   .card-meta{ display:flex; gap:12px; flex-wrap:wrap; }
@@ -383,3 +383,5 @@
   });
 })();
 </script>
+
+@include('components.footer')

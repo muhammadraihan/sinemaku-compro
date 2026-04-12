@@ -125,7 +125,8 @@
       line-height: .95;
       margin: 0 0 .3em 0;
       text-shadow: 0 10px 40px rgba(0,0,0,.45);
-      font: clamp(30px, 6.2vw, 58px) 'Inter', Arial, sans-serif;;
+      font-size: clamp(30px, 6.2vw, 58px);
+
     }
 
     .film-hero__meta{
@@ -136,7 +137,6 @@
     .film-hero__meta .dot{ opacity:.5 }
 
     .film-hero__meta .genre{
-      font-family: "Inter", sans-serif;
       font-weight: 500;
       line-height: .95;
       font-size: 15px;
@@ -148,15 +148,13 @@
     .star{ width:20px; height:20px; fill:transparent; stroke:#ffd965; stroke-width:1.4 }
     .star.filled{ fill:#ffd965; stroke:#ffd965 }
     .score{
-      color:#eaeaea; 
       font-weight:500; 
       font-size:16px;
-      font-family: "Inter", sans-serif;
     }
 
     .film-hero__desc{
-      font-family: "Inter", sans-serif;
       max-width: 900px;
+
       font-size: clamp(15px, 2.1vw, 20px);
       line-height: 1.7;
       color:#f1f1f1;
@@ -207,7 +205,6 @@
     .btn--ghost{ background:transparent }
 
     .film-hero__actions{
-      font-family: "Inter", sans-serif;
       display:flex; 
       gap:14px; 
       flex-wrap:wrap
@@ -264,10 +261,9 @@
       .film-about__grid{ grid-template-columns: 1fr; }
     }
 
-    .h2{ font-family:"Inter",sans-serif; font-size: clamp(18px,2.0vw,30px); line-height:1.05; margin: 0 0 .4em }
-    .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(13px,1.8vw,16px); margin: 0 0 .8em; font-weight: 500 }
+    .h2{ font-size: clamp(18px,2.0vw,30px); line-height:1.05; margin: 0 0 .4em }
+    .h3{ font-size: clamp(13px,1.8vw,16px); margin: 0 0 .8em; font-weight: 500 }
     .lead{ 
-    font-family:"Inter",sans-serif; 
     font-weight: 500;
     font-size: clamp(14px,2.0vw,16px); 
     line-height: 1.9; 
@@ -289,7 +285,7 @@
     .meta-list .ico svg{ width:22px; height:22px; fill:#889; opacity:.9 }
 
     /* simple list */
-    .plain-list{ font-family:"Inter",sans-serif; list-style:none; margin:0; padding:0; display:grid; gap:10px; color:#222 }
+    .plain-list{ list-style:none; margin:0; padding:0; display:grid; gap:10px; color:#222 }
 
     /* awards */
     .awards-list{ list-style:none; margin:0; padding:0; display:grid; gap:10px }
@@ -317,7 +313,7 @@
       width:78px; height:78px; border-radius:10px; object-fit:cover;
       box-shadow: 0 6px 16px rgba(0,0,0,.08);
     }
-    .suggest-item .title{ font-size: clamp(12px,1.5vw,15px); font-family:"Inter",sans-serif; font-weight:400; margin-bottom:6px; margin-top: 20px}
+    .suggest-item .title{ font-size: clamp(12px,1.5vw,15px); font-weight:400; margin-bottom:6px; margin-top: 20px}
     .small{ font-size:11px }
     .muted{ color:#6a6a6a }
     .rating{ display:flex; align-items:center; gap:6px; margin-top:3px }
@@ -333,7 +329,7 @@
     .btn-wide:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,.16); background:#000 }
     .btn-wide .arr{ width:18px; height:18px; fill:#fff }
     .detail{
-    font: 500 12px/1.25 Inter, Arial, sans-serif;
+    font: 500 12px/1.25;
     }
 
 
@@ -387,21 +383,18 @@
 }
 
   .lead h2 {
-    font-family: 'Inter', sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.6;
     margin-bottom: 1rem;
   }
   .lead h3 {
-    font-family: 'Inter', sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.6;
     margin-bottom: 1rem;
   }
   .lead blockquote {
-    font-family: 'Inter', sans-serif;
     font-size: 1.00rem;
     font-weight: 500;
     line-height: 1.6;
@@ -409,7 +402,6 @@
   }
 
   .lead ul {
-    font-family: 'Inter', sans-serif;
     font-size: 1.00rem;
     font-weight: 300;
     line-height: 1.6;
@@ -663,5 +655,7 @@
 //   }, { root: null, rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
 
 //   els.forEach(el => io.observe(el));
-// })();
+})();
 </script>
+
+@include('components.footer')

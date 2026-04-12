@@ -13,7 +13,11 @@ module.exports = {
     'pointer-events-auto'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['"Kumbh Sans"', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

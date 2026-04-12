@@ -2,6 +2,7 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
 @include('partials.navbar')
 
 <style>
@@ -9,7 +10,6 @@
 
 .title{
     margin: 0 0 36px;
-    font-family: 'Inter', Arial, sans-serif;
     font-weight: 300;
     line-height: .95;
     color: #0d0d0d;
@@ -36,12 +36,11 @@
 }
 .shop-detail__info{ padding-top:6px; }
 .shop-detail__title{
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   font-weight:500; line-height:.95; letter-spacing:-.5px;
   font-size:clamp(28px,3.2vw,44px); margin-top:150px;
 }
 .shop-detail__price{
-  font:500 clamp(18px,1.6vw,22px)/.95 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font:500 clamp(18px,1.6vw,22px)/.95;
   margin:6px 0 24px;
 }
 .shop-detail__cta{
@@ -60,7 +59,6 @@
 .shop-detail__cta svg{ width:20px; height:20px; transition:transform .22s; }
 .shop-detail__cta:hover svg{ transform:translateX(4px); }
 .shop-detail__note{
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   line-height:1.5; letter-spacing:-.2px; color:#6f6f6f; font-size:13px; margin:40px 0;
 }
 
@@ -91,7 +89,7 @@
 .kategori{
   display:block; width:var(--shelf-max);
   margin:16px auto 4px;
-  font:600 10px/1 Inter,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#6a6a6a;
+  font:600 10px/1; letter-spacing:.16em; text-transform:uppercase; color:#6a6a6a;
 }
 .shop-detail__divider2{ width:var(--shelf-max); margin: 0 auto 12px; height:1px; background:#111; opacity:.18; border:0; }
 
@@ -130,8 +128,8 @@
   border-radius: 0 !important;
 }
 .product-card:hover img{ transform:translateY(-4px); box-shadow:0 14px 38px rgba(0,0,0,.08); }
-.product-card .title{ margin:6px 0 2px; font:400 12px/1.35 Inter,Arial,sans-serif; }
-.product-card .price{ margin:0; color:#444; font:300 11px/1 Inter,Arial,sans-serif; }
+.product-card .title{ margin:6px 0 2px; font:400 12px/1.35; }
+.product-card .price{ margin:0; color:#444; font:300 11px/1; }
 
 /* tombol panah */
 .carousel-btn{
@@ -185,11 +183,11 @@
 /* caption & waktu agar lebih rapi */
 .product-card .title {
   margin-top: 8px;
-  font: 600 13px/1.4 Inter, system-ui;
+  font: 600 13px/1.4;
   color: #111;
 }
 .product-card .price {
-  font: 500 11.5px/1.3 Inter, system-ui;
+  font: 500 11.5px/1.3;
   color: #7b7f86;
 }
 
@@ -234,8 +232,8 @@
 
 /* Teks sekarang sejajar persis dengan lebar frame */
 .product-card{ display:grid; gap:8px; }
-.product-card .title{ font:600 13px/1.4 Inter,system-ui; margin:4px auto 0; width:88%; }
-.product-card .price{ font:500 11.5px/1.3 Inter,system-ui; color:#7b7f86; margin:0 auto; width:88%; }
+.product-card .title{ font:600 13px/1.4; margin:4px auto 0; width:88%; }
+.product-card .price{ font:500 11.5px/1.3; color:#7b7f86; margin:0 auto; width:88%; }
 
 /* pastikan wrapper tidak memberi bezel */
 .video-frame{
@@ -427,3 +425,6 @@ document.querySelectorAll('.carousel-wrapper').forEach((wrap) => {
   document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger').forEach(el=> io.observe(el));
 })();
 </script>
+
+@include('components.footer')
+@endsection

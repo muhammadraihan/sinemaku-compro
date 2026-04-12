@@ -1,11 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --font-main: "Kumbh Sans", sans-serif;
+  --font-display: "Kumbh Sans", sans-serif;
+}
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300..700&display=swap');
-
+/* Base Typography */
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-main);
+  letter-spacing: 0.02em;
+}
+
+body {
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 /* Smooth Scrolling */
@@ -14,9 +22,10 @@ html {
   scroll-padding-top: 0;
 }
 
-/* Custom Display Font (Replacing Neue Montreal/A24 bold) */
+/* Custom Display Font (Standardized to Kumbh Sans) */
 .font-display {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: 700;
 }
 
 /* Remove default margins for edge-to-edge content */
@@ -563,14 +572,14 @@ body {
 
 /* Enhanced Typography */
 .cinematic-title {
-  font-family: 'DM Serif Display', serif;
-  font-weight: 400;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 0.9;
 }
 
 .editorial-text {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
   font-weight: 300;
   line-height: 1.7;
   letter-spacing: 0.01em;
@@ -578,7 +587,7 @@ body {
 
 /* Article Content Styling */
 .editorial-content {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
   line-height: 1.8;
   color: #374151;
 }
@@ -592,16 +601,16 @@ body {
 }
 
 .editorial-content h2 {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Kumbh Sans', sans-serif;
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 700;
   color: #111827;
   margin: 3rem 0 1.5rem 0;
   line-height: 1.2;
 }
 
 .editorial-content h3 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #111827;

@@ -2,6 +2,8 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
+
 @include('partials.navbar')
 <style>
   body {
@@ -35,7 +37,7 @@
 
   .title {
     margin: 0 0 36px;
-    font-family: 'Inter', Arial, sans-serif;
+
     font-weight: 300;
     line-height: .95;
     color: #0d0d0d;
@@ -52,7 +54,7 @@
 
   .feature-title {
     margin: 0 0 36px;
-    font-family: 'Inter', Arial, sans-serif;
+
     font-weight: 300;
     line-height: .95;
     color: #0d0d0d;
@@ -156,9 +158,9 @@
 
   /* ===== All Films ===== */
   .allfilms {
-    max-width: 1360px;
-    margin: 140px auto 96px;
-    padding: 0 24px;
+    max-width: 1740px;
+    margin: 140px auto 120px;
+    padding: 0 clamp(12px, 3vw, 32px);
   }
 
   .allfilms-head {
@@ -170,7 +172,7 @@
   }
 
   .allfilms-title {
-    font: 400 18px/1.35 Inter, Arial, sans-serif;
+    font: 400 18px/1.35;
     letter-spacing: .0px;
     margin: 0;
   }
@@ -186,7 +188,7 @@
     border: 1px solid rgba(0, 0, 0, .12);
     background: #f5f6f7;
     color: #111;
-    font: 300 14px/1 Inter, Arial, sans-serif;
+    font: 300 14px/1;
     padding: 8px 14px;
     border-radius: 10px;
     cursor: pointer;
@@ -206,7 +208,7 @@
   /* --- MASONRY GRID (CSS Columns) --- */
   .allfilms-grid {
     columns: 3;
-    column-gap: clamp(16px, 2vw, 32px);
+    column-gap: clamp(32px, 4.5vw, 64px);
     margin-top: 24px;
   }
 
@@ -235,7 +237,7 @@
   /* Card */
   .filmitem {
     break-inside: avoid;
-    margin-bottom: clamp(24px, 3vw, 40px);
+    margin-bottom: clamp(72px, 8vw, 120px);
     display: block;
   }
 
@@ -279,7 +281,7 @@
     top: 12px;
     background: rgba(17, 17, 17, .82);
     color: #fff;
-    font: 600 12px/1 Inter, Arial, sans-serif;
+    font: 600 12px/1;
     letter-spacing: .05em;
     padding: 7px 10px;
     border-radius: 8px;
@@ -291,7 +293,7 @@
     top: 12px;
     background: #fff;
     color: #111;
-    font: 700 12px/1 Inter, Arial, sans-serif;
+    font: 700 12px/1;
     padding: 7px 10px;
     border-radius: 8px;
   }
@@ -320,28 +322,29 @@
     right: 12px;
     bottom: 12px;
     color: #fff;
-    font: 500 12px/1.2 Inter, Arial, sans-serif;
+    font: 500 12px/1.2;
     text-shadow: 0 1px 5px rgba(0, 0, 0, .45);
   }
 
   /* Caption */
   .filmitem-caption {
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 0;
     padding: 0;
   }
 
   .filmitem-title {
     margin: 0;
-    font: 500 15px/1.2 Inter, system-ui;
+    font: 800 clamp(24px, 2.2vw, 34px)/1.1 var(--font-display) !important;
+    font-weight: 800 !important;
     color: #111;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
   }
 
   .filmitem-year {
     color: #888;
-    font: 300 11px/1 Inter, Arial, sans-serif;
+    font: 300 14px/1;
     letter-spacing: 0.04em;
     margin-bottom: 4px;
   }
@@ -391,14 +394,14 @@
 
   .film-detail-label {
     color: rgba(255, 255, 255, .78);
-    font: 300 11px/1 Inter, Arial, sans-serif;
+    font: 300 11px/1;
     letter-spacing: .08em;
     text-transform: uppercase;
   }
 
   .film-detail-value {
     color: #fff;
-    font: 300 14px/1.25 Inter, Arial, sans-serif;
+    font: 300 14px/1.25;
   }
 
   /* Tampilkan saat hover (desktop/hover devices) */
@@ -580,7 +583,7 @@
   .film-detail-label {
     display: block;
     color: rgba(255, 255, 255, .68);
-    font: 600 clamp(12px, .8vw, 12px)/1.15 Inter, Arial, sans-serif;
+    font: 600 clamp(12px, .8vw, 12px)/1.15;
     letter-spacing: .08em;
     text-transform: uppercase;
     margin-bottom: clamp(4px, .5vw, 6px);
@@ -589,7 +592,7 @@
   .film-detail-value {
     display: block;
     color: #fff;
-    font: 500 clamp(14px, 1.25vw, 14px)/1.35 Inter, Arial, sans-serif;
+    font: 500 clamp(14px, 1.25vw, 14px)/1.35;
     text-shadow: 0 1px 2px rgba(0, 0, 0, .25);
     word-break: break-word;
     /* nama pemain panjang aman */
@@ -862,7 +865,8 @@
     }
 
     .filmitem-title {
-      font: 600 13px/1.3 Inter, Arial, sans-serif;
+      font: 600 13px/1.3;
+
     }
 
     .filmitem-year {
@@ -1016,7 +1020,7 @@
 
             <div class="filmitem-caption">
               <div class="filmitem-year">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</div>
-              <h3 class="filmitem-title">{{ $item->title }}</h3>
+              <h2 class="filmitem-title">{{ $item->title }}</h2>
             </div>
           </a>
         </article>
@@ -1132,3 +1136,6 @@
     }
   })();
 </script>
+
+@include('components.footer')
+@endsection

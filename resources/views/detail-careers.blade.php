@@ -2,6 +2,8 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
+
 @include('partials.navbar')
 <style>
   /* ---------- NAVBAR (tetap) ---------- */
@@ -30,7 +32,7 @@
 
   /* ===== Heading strip (tanpa tanggal di kanan) ===== */
   .event-list .section-heading {
-    font: 800 clamp(28px, 3vw, 36px)/1.08 Inter, system-ui;
+    font: 800 clamp(28px, 3vw, 36px)/1.08;
     padding: 18px clamp(16px, 5vw, 64px);
     margin: 0 0 clamp(12px, 1.2vw, 18px);
   }
@@ -97,7 +99,7 @@
     border-radius: 8px;
     background: #f3e7b8;
     color: #6a5312;
-    font: 700 12.5px/1 Inter, system-ui;
+    font: 700 12.5px/1;
     text-decoration: none;
     border: 1px solid #eadf9a;
   }
@@ -109,7 +111,7 @@
 
   .jobdetail__dept {
     color: #727a86;
-    font: 400 14px/1.2 Inter, system-ui;
+    font: 400 14px/1.2;
     margin-bottom: 10px;
   }
 
@@ -131,7 +133,7 @@
     border: 1px solid #eceef2;
     padding: 8px 12px;
     border-radius: 10px;
-    font: 600 13px/1 Inter, system-ui;
+    font: 600 13px/1;
   }
 
   .jobdetail__meta svg {
@@ -142,20 +144,20 @@
 
   /* Typo sections */
   .h2 {
-    font: 700 22px/1.24 Inter, system-ui;
+    font: 700 22px/1.24;
     margin: 18px 0 8px;
     color: #111317;
   }
 
   .h3 {
-    font: 700 16.5px/1.2 Inter, system-ui;
+    font: 700 16.5px/1.2;
     margin: 16px 0 8px;
     color: #111317;
   }
 
   .jobdetail__main p {
     color: #2b2f36;
-    font: 400 14.8px/1.7 Inter, system-ui;
+    font: 400 14.8px/1.7;
     margin: 0 0 12px;
   }
 
@@ -167,7 +169,7 @@
   .list li {
     margin: 6px 0;
     color: #2b2f36;
-    font: 400 14.6px/1.65 Inter, system-ui;
+    font: 400 14.6px/1.65;
   }
 
   /* Sidebar */
@@ -193,7 +195,7 @@
   }
 
   .applybox h4 {
-    font: 800 15px/1.1 Inter, system-ui;
+    font: 800 15px/1.1;
     margin: 0 0 10px;
     color: #101317;
   }
@@ -212,7 +214,7 @@
     gap: 12px;
     align-items: center;
     color: #505763;
-    font: 600 13px/1.1 Inter, system-ui;
+    font: 600 13px/1.1;
   }
 
   .applybox__meta svg {
@@ -236,7 +238,7 @@
     border: 1px solid #e8e9ed;
     background: #111317;
     color: #fff;
-    font: 800 12.8px/1 Inter, system-ui;
+    font: 800 12.8px/1;
     letter-spacing: .3px;
     text-decoration: none;
   }
@@ -255,7 +257,7 @@
   .applybox__note {
     margin: 10px 0 0;
     color: #7a808b;
-    font: 300 11px/1.45 Inter, system-ui
+    font: 300 11px/1.45
   }
 
   /* Others */
@@ -269,7 +271,7 @@
   }
 
   .others h4 {
-    font: 600 15px/1.1 Inter, system-ui;
+    font: 600 15px/1.1;
     margin: 0 0 8px
   }
 
@@ -301,7 +303,7 @@
   }
 
   .mini__title {
-    font: 700 13px/1.25 Inter, system-ui;
+    font: 700 13px/1.25;
     color: #111317;
     overflow-wrap: anywhere;
     /* bungkus kata panjang */
@@ -310,7 +312,7 @@
 
   .mini__meta {
     margin-top: 8px;
-    font: 600 10px/1.25 Inter, system-ui;
+    font: 600 10px/1.25;
     color: #6f7783;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -331,7 +333,7 @@
 
   /* Normal badge (kuning) */
   .mini__badge {
-    font: 600 10px/1 Inter, system-ui;
+    font: 600 10px/1;
     background: #f3e7b8;
     color: #6a5312;
     border: 1px solid #eadf9a;
@@ -339,7 +341,7 @@
 
   /* Danger badge (merah) — frame merah kembali */
   .mini__badge_danger {
-    font: 800 12px/1 Inter, system-ui;
+    font: 800 12px/1;
     background: #f3b8b8;
     color: #6a1212;
     border: 1px solid #ea9a9a;
@@ -406,7 +408,6 @@
   }
 
   .jobdetail__content h2 {
-    font-family: 'Inter', sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.6;
@@ -414,7 +415,6 @@
   }
 
   .jobdetail__content h3 {
-    font-family: 'Inter', sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.6;
@@ -422,7 +422,6 @@
   }
 
   .jobdetail__content blockquote {
-    font-family: 'Inter', sans-serif;
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.6;
@@ -430,7 +429,6 @@
   }
 
   .jobdetail__content ul {
-    font-family: 'Inter', sans-serif;
     font-size: 1.25rem;
     font-weight: 300;
     line-height: 1.6;
@@ -613,3 +611,6 @@
     });
   })();
 </script>
+
+@include('components.footer')
+@endsection

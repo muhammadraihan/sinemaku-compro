@@ -2,6 +2,8 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
+
 @include('partials.navbar')
 
 <style>
@@ -53,30 +55,30 @@ body{background:var(--bg)}
 .hero-media:hover img{ transform: scale(1.02); }
 
 .breadcrumbs{
-  font: 500 12.5px/1 'Inter',system-ui,Arial; color:var(--muted); display:flex; gap:8px; align-items:center;
+  font: 500 12.5px/1; color:var(--muted); display:flex; gap:8px; align-items:center;
   margin: 6px 2px 10px;
 }
 .breadcrumbs a{ color:inherit; text-decoration:none }
 .breadcrumbs .sep{ opacity:.6 }
 
 .article-title{
-  font: 500 clamp(26px,3.2vw,40px)/1.15 'Inter',system-ui,Arial;
+  font: 500 clamp(26px,3.2vw,40px)/1.15;
   letter-spacing: -.01em; margin: 4px 0 10px;
 }
 .article-sublead{ display:none; } /* tak dipakai pada gaya ini */
 
 .meta-row{
   display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-  font: 500 14px/1.2 'Inter',system-ui,Arial; color:var(--muted);
+  font: 500 14px/1.2; color:var(--muted);
   padding: 6px 0 2px; border-bottom: 1px solid var(--line);
   padding-bottom: 14px;
 }
 .meta-chip{
   display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
-  background:#eef2f7; color:#374151; font-size:12.5px; font-family:'Inter',Arial,sans-serif;
+  background:#eef2f7; color:#374151; font-size:12.5px;
 }
 .meta-dot{ opacity:.5 }
-.meta-brand{ font-weight:700; color:#111 ;font-family:'Inter',Arial,sans-serif; }
+.meta-brand{ font-weight:700; color:#111; }
 .meta-right{ margin-left:auto; display:flex; gap:8px; align-items:center }
 .btn-share{
   width:34px; height:34px; display:grid; place-items:center; border-radius:8px;
@@ -141,16 +143,16 @@ body{background:var(--bg)}
 }
 .article-content figure img{ display:block; }
 .article-content p, .article-content ul{
-  font: 400 16px/1.85 'Inter',system-ui,Arial; color:#2b2b2b; margin: 0 0 16px;
+  font: 400 16px/1.85; color:#2b2b2b; margin: 0 0 16px;
 }
 
 .article-content blockquote{
-  font: 500 16px/1.85 'Inter',system-ui,Arial; color:#2b2b2b; margin: 0 0 16px;
+  font: 500 16px/1.85; color:#2b2b2b; margin: 0 0 16px;
 }
-.article-content a{ font-family:'Inter',Arial,sans-serif; color:#0d63ff; text-decoration:none }
+.article-content a{ color:#0d63ff; text-decoration:none }
 .article-content a:hover{ text-decoration:underline }
 .article-content h2,.article-content h3{
-  font: 800 22px/1.15 'Inter',system-ui,Arial; margin: 26px 0 10px;
+  font: 800 22px/1.15; margin: 26px 0 10px;
 }
 
 /* tables & code blocks inside editor content */
@@ -175,7 +177,6 @@ body{background:var(--bg)}
   overflow: auto;
 }
 .article-content code{
-  font-family:'Inter',Arial,sans-serif;
   font-size: 90%;
 }
 
@@ -188,7 +189,7 @@ body{background:var(--bg)}
 /* Quote highlight ala news */
 .key-quote{
   border-left: 4px solid #111; padding: 10px 12px; margin: 12px 0 16px; background:#fafafa;
-  font: 700 18px/1.45 'Inter',system-ui,Arial; color:#111;
+  font: 700 18px/1.45; color:#111;
 }
 
 /* Image & caption in body */
@@ -196,13 +197,13 @@ body{background:var(--bg)}
   margin: 14px 0; border-radius: 12px; overflow:hidden; background:#f2f3f5; border:1px solid var(--line)
 }
 .figure img{ width:100%; height: clamp(200px, 38vw, 360px); object-fit:cover; display:block }
-.figure figcaption{ padding:8px 12px; font: 500 12px/1.4 'Inter',system-ui,Arial; color:#7b7b7b }
+.figure figcaption{ padding:8px 12px; font: 500 12px/1.4; color:#7b7b7b }
 
 /* Two-column list block */
 .list-block{
   background:#fafafa; border:1px solid var(--line); border-radius:12px; padding:14px;
 }
-.list-block h4{ margin: 0 0 10px; font: 600 15px/1.2 'Inter',system-ui,Arial; }
+.list-block h4{ margin: 0 0 10px; font: 600 15px/1.2; }
 .cols-2{ columns: 2; column-gap: 35px; padding-left: 18px; }
 .cols-2 li{ break-inside: avoid; margin:6px 0; }
 @media (max-width: 720px){ .cols-2{ columns:1 } }
@@ -214,7 +215,7 @@ body{background:var(--bg)}
   display:grid; gap:12px; background:var(--paper); padding:16px; border-radius: var(--radius);
   border:1px solid var(--line);
 }
-.widget-title{ font:500 15px/1.2 'Inter',system-ui,Arial; margin:0 0 4px; }
+.widget-title{ font:500 15px/1.2; margin:0 0 4px; }
 
 .story-mini{
   display:grid; grid-template-columns: 92px 1fr; gap:12px; text-decoration:none; color:inherit;
@@ -222,11 +223,11 @@ body{background:var(--bg)}
 }
 .story-mini:hover{ background:#fafafa; transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.06) }
 .story-mini img{ width:92px; height:72px; object-fit:cover; border-radius:10px; background:#eee }
-.story-meta{ font:300 12px/1.2 'Inter',system-ui,Arial; color:var(--muted) }
-.story-title{ font-size: clamp(12px,1.5vw,15px); font-family:"Inter",sans-serif; font-weight:400; margin-bottom:6px; margin-top: 10px}
+.story-meta{ font:300 12px/1.2; color:var(--muted) }
+.story-title{ font-size: clamp(12px,1.5vw,15px); font-weight:400; margin-bottom:6px; margin-top: 10px}
 
 /* Tiny helpers */
-.badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; color:var(--ink); border-radius:999px; font:500 15px/1 'Inter',system-ui,Arial }
+.badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; color:var(--ink); border-radius:999px; font:500 15px/1 }
 .hr{ height:1px; background:var(--line); border:0; margin: 14px 0; }
 
 /* --- Jarak antara HERO dan blok judul/meta --- */
@@ -420,3 +421,6 @@ body{background:var(--bg)}
   });
 })();
 </script>
+
+@include('components.footer')
+@endsection

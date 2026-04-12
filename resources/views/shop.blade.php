@@ -2,6 +2,7 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
 @include('partials.navbar')
 
 <style>
@@ -49,7 +50,7 @@
   }
 
   .shop-detail__title {
-    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
     font-weight: 500;
     line-height: .95;
     letter-spacing: -.5px;
@@ -64,7 +65,7 @@
   }
 
   .shop-detail__price {
-    font: 500 clamp(18px, 1.6vw, 22px)/.95 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font: 500 clamp(18px, 1.6vw, 22px)/.95;
     margin: 6px 0 24px;
   }
 
@@ -78,7 +79,7 @@
     background: #fff;
     color: #111;
     text-decoration: none;
-    font: 700 13px/.95 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font: 700 13px/.95;
     letter-spacing: .2px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, .156);
     transition: transform .18s, box-shadow .18s, background .2s;
@@ -107,7 +108,7 @@
   }
 
   .shop-detail__note {
-    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
     line-height: 1.5;
     letter-spacing: -.2px;
     color: #6f6f6f;
@@ -145,7 +146,7 @@
     display: block;
     width: var(--shelf-max);
     margin: clamp(18px, 3.6vw, 28px) auto 6px;
-    font: 600 10px/1 Inter, Arial, sans-serif;
+    font: 600 10px/1;
     letter-spacing: .16em;
     text-transform: uppercase;
     color: #6a6a6a;
@@ -252,13 +253,13 @@
 
   .product-card .title {
     margin: 6px 0 2px;
-    font: 400 12px/1.35 Inter, Arial, sans-serif;
+    font: 400 12px/1.35;
   }
 
   .product-card .price {
     margin: 0;
     color: #444;
-    font: 300 11px/1 Inter, Arial, sans-serif;
+    font: 300 11px/1;
   }
 
   /* tombol panah */
@@ -647,3 +648,6 @@
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
   })();
 </script>
+
+@include('components.footer')
+@endsection

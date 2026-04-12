@@ -2,6 +2,8 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
+
 @include('partials.navbar')
 <script>document.documentElement.classList.add('js');</script>
 <style>
@@ -554,3 +556,6 @@
     els.forEach(el => io.observe(el));
   })();
 </script>
+
+@include('components.footer')
+@endsection

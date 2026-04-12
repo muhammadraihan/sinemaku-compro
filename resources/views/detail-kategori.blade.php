@@ -2,6 +2,8 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
+
 @include('partials.navbar')
 
 <style>
@@ -58,7 +60,8 @@
     top: clamp(12px, 2.4vw, 28px);
     left: clamp(12px, 2.4vw, 28px);
     margin: 0;
-    font: 700 clamp(22px, 3.6vw, 44px)/.9 'Inter', system-ui, Arial;
+    font: 700 clamp(22px, 3.6vw, 44px)/.9;
+
     letter-spacing: .02em;
     color: #000;
     z-index: 2;
@@ -92,7 +95,6 @@
 
   .product-name {
     margin: 10px 0 6px;
-    font-family: 'Inter', Arial, sans-serif;
     font-size: clamp(13px, 0.5vw, 16px);
     font-weight: 200;
     line-height: 1.1;
@@ -104,7 +106,6 @@
 
   .product-price {
     margin: 0;
-    font-family: 'Inter', Arial, sans-serif;
     font-size: clamp(12px, 0.5vw, 13px);
     font-weight: 500;
     line-height: 1;
@@ -151,7 +152,8 @@
       position: static;
       margin-top: 52px;
       text-align: center;
-      font: 700 clamp(16px, 3vw, 24px)/1 'Inter', system-ui, Arial;
+      font: 700 clamp(16px, 3vw, 24px)/1;
+
       letter-spacing: .02em;
       color: #000;
       z-index: auto;
@@ -292,3 +294,6 @@
     els.forEach(el => io.observe(el));
   })();
 </script>
+
+@include('components.footer')
+@endsection

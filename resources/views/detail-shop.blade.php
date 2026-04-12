@@ -2,6 +2,8 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
+
 @include('partials.navbar')
 <style>
 
@@ -42,7 +44,6 @@
     .shop-detail__info { padding-top: 6px; }
 
     .shop-detail__title {
-    font-family: "Inter", sans-serif;
     font-weight: 800;
     line-height: .95;
     letter-spacing: -1px;
@@ -51,7 +52,6 @@
     }
 
     .shop-detail__price {
-    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     font-weight: 500;
     line-height: .95;
     letter-spacing: -0.5px;
@@ -89,7 +89,6 @@
     .shop-detail__cta:hover svg { transform: translateX(4px); }
 
     .shop-detail__note {
-    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     line-height: .95;
     letter-spacing: -0.5px;
     color: #6f6f6f;
@@ -152,7 +151,7 @@
     }
     }
     .detail{
-    font: 300 14px/1.25 Inter, Arial, sans-serif;
+    font: 300 14px/1.25;
     }
 
  /* ====== ABOUT LAYOUT ====== */
@@ -189,14 +188,14 @@
 }
 .shop-card__title{
   margin:0;
-  font: 700 clamp(18px, 2.6vw, 24px)/1.15 "Inter", system-ui, Arial, sans-serif;
+  font: 700 clamp(18px, 2.6vw, 24px)/1.15;
   letter-spacing:-.01em;
 }
 
 /* ====== TYPOGRAPHY (prose) ====== */
 .shop-desc{
   white-space: normal;
-  font: 400 16px/1.75 "Inter", system-ui, -apple-system, Arial, sans-serif;
+  font: 400 16px/1.75;
   color:#2a2f35;
 }
 .shop-desc p{ 
@@ -207,21 +206,21 @@
 }
 
 .shop-desc h2 {
-    font-family: 'Inter', sans-serif;
+
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.6;
     margin-bottom: 1rem;
   }
   .shop-desc h3 {
-    font-family: 'Inter', sans-serif;
+
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.6;
     margin-bottom: 1rem;
   }
   .shop-desc blockquote {
-    font-family: 'Inter', sans-serif;
+
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.6;
@@ -229,7 +228,7 @@
   }
 
   .shop-desc ul {
-    font-family: 'Inter', sans-serif;
+
     font-size: 1.25rem;
     font-weight: 300;
     line-height: 1.6;
@@ -245,7 +244,7 @@
     .meta-list .ico svg{ width:22px; height:22px; fill:#889; opacity:.9 }
 
     /* simple list */
-    .plain-list{ font-family:"Inter",sans-serif; list-style:none; margin:0; padding:0; display:grid; gap:10px; color:#222 }
+    .plain-list{ list-style:none; margin:0; padding:0; display:grid; gap:10px; color:#222 }
 
     .related-products {
     width: min(1280px, 92vw);
@@ -261,8 +260,8 @@
     }
 
     .rp__title {
-    font-family: "Inter", sans-serif;
-    font-size: 500 clamp(14px,2vw,25px)/1.08 "Inter", sans-serif;
+    font-family: inherit;
+    font-size: 500 clamp(14px,2vw,25px)/1.08;
     line-height: 1.1;
     margin: 0;
     line-height: .95;
@@ -325,7 +324,6 @@
     }
 
     .rp-card__meta {
-  font-family: "Inter", sans-serif;
   line-height: 1.4;
   letter-spacing: 0.5px;
   text-align: left;   /* ubah dari center ke left */
@@ -636,3 +634,6 @@ html.js .is-revealed{
   }, { capture: true });
 })();
 </script>
+
+@include('components.footer')
+@endsection

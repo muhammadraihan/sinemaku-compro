@@ -2,6 +2,8 @@
 
 @section('title', 'Home | Sinemaku Pictures')
 
+@section('content')
+
 @include('partials.navbar')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <style>
@@ -27,7 +29,8 @@
 
   /* ===== Heading strip (tanpa tanggal di kanan) ===== */
   .event-list .section-heading{
-    font:800 clamp(28px,3vw,36px)/1.08 Inter,system-ui;
+    font:800 clamp(28px,3vw,36px)/1.08;
+
     padding:18px clamp(16px,5vw,64px);
     margin:0 0 clamp(12px,1.2vw,18px);
   }
@@ -50,7 +53,8 @@
     padding: 0 24px;
   }
   .mb-title{
-    font: 500 clamp(25px,4.0vw,50px)/1.08 "Inter", sans-serif;
+    font: 500 clamp(25px,4.0vw,50px)/1.08;
+
     text-align:center;
     letter-spacing:.3px;
     margin: 40 0 12px;
@@ -60,7 +64,8 @@
     max-width: 860px;
     margin: 0 auto clamp(28px, 5vw, 46px);
     color:#484a50;
-    font: 400 clamp(13px, 2.0vw, 15px)/1.6 Inter, system-ui;
+    font: 400 clamp(13px, 2.0vw, 15px)/1.6;
+
   }
 
   /* grid */
@@ -98,7 +103,8 @@
   .mb-ico svg{ width:22px; height:22px; }
 
   .mb-badge{
-    font: 500 10px/1 Inter, system-ui;
+    font: 500 10px/1;
+
     text-transform: uppercase;
     letter-spacing:.4px;
     color:#fff;
@@ -109,13 +115,15 @@
 
   .mb-card-title{
     margin: 2px 0 6px;
-    font: 700 clamp(14px,1.8vw,16px)/1.3 Inter, system-ui;
+    font: 700 clamp(14px,1.8vw,16px)/1.3;
+
     color:#121212;
   }
   .mb-card-desc{
     margin:0;
     color:#565963;
-    font: 400 13px/1.55 Inter, system-ui;
+    font: 400 13px/1.55;
+
   }
 
   /* responsive */
@@ -138,7 +146,8 @@
     padding: 0 20px;
   }
   .jc-title{
-    font: 500 clamp(25px,4.0vw,50px)/1.08 "Inter", sans-serif;
+    font: 500 clamp(25px,4.0vw,50px)/1.08;
+
     text-align:center;
     margin: 0 0 10px;
   }
@@ -147,7 +156,8 @@
     color:#585d66;
     max-width: 640px;
     margin: 0 auto clamp(28px,5vw,40px);
-    font: 400 15px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto;
+    font: 400 15px/1.6;
+
   }
 
   /* Card */
@@ -159,7 +169,8 @@
     padding: clamp(18px, 3vw, 28px);
   }
   .jc-legend{
-    font:700 16px/1.2 Inter, system-ui;
+    font:700 16px/1.2;
+
     color:#1a1b1e;
     margin-bottom: 18px;
   }
@@ -180,7 +191,8 @@
   .jc-group{ margin-bottom: 16px; }
   .jc-group label{
     display:block;
-    font: 600 13px/1.4 Inter, system-ui;
+    font: 600 13px/1.4;
+
     color:#2b2e34;
     margin-bottom: 8px;
   }
@@ -202,7 +214,8 @@
     border-radius:10px;
     background:#fafbfc;
     padding: 0 14px 0 44px;
-    font: 500 15px/1 Inter, system-ui;
+    font: 500 15px/1;
+
     color:#15171a;
     outline:none;
     transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
@@ -223,7 +236,8 @@
     border:1px solid #e6e7eb;
     background:#0f0f10;
     color:#fff;
-    font: 800 14px/1 Inter, system-ui;
+    font: 800 14px/1;
+
     letter-spacing:.5px;
     text-transform:uppercase;
     display:flex; align-items:center; justify-content:center;
@@ -550,3 +564,6 @@
   });
 })();
 </script>
+
+@include('components.footer')
+@endsection

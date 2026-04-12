@@ -65,7 +65,7 @@
 
             <div class="flex flex-col">
                 <h3 class="text-2xl font-bold mb-6 text-black">Company</h3>
-                <p class="text-black font-serif leading-relaxed mb-8 text-sm md:text-base">
+                <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
                     Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam
                     membina sineas muda untuk ekosistem film Indonesia.
                 </p>
@@ -77,7 +77,7 @@
 
             <div class="flex flex-col">
                 <h3 class="text-2xl font-bold mb-6 text-black">Team</h3>
-                <p class="text-black font-serif leading-relaxed mb-8 text-sm md:text-base">
+                <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
                     Kenali tim dan kolaborator yang membentuk kami. Pelajari tentang orang-orang di balik proyek kami, peran
                     mereka, dan nilai-nilai yang memandu cara kami bekerja.
                 </p>
@@ -89,7 +89,7 @@
 
             <div class="flex flex-col">
                 <h3 class="text-2xl font-bold mb-6 text-black">For Press</h3>
-                <p class="text-black font-serif leading-relaxed mb-8 text-sm md:text-base">
+                <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
                     Temukan informasi resmi tentang Sinemaku Pictures, termasuk latar belakang perusahaan, press kit, logo,
                     dan kontak media untuk jurnalis.
                 </p>
@@ -135,7 +135,7 @@
         {{-- Container tetap di tengah dengan mx-auto --}}
         <div class="max-w-6xl mx-auto flex flex-col items-center">
 
-            <p class="text-black text-lg md:text-xl lg:text-2xl leading-[1.8] tracking-wider font-serif text-left max-w-4xl"
+            <p class="text-black text-lg md:text-xl lg:text-2xl leading-[1.8] tracking-wider text-left max-w-4xl"
                 data-gsap="fade-up">
                 Sinemaku Pictures bukan sekadar rumah produksi, melainkan ruang bermain bagi generasi baru pencerita
                 yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia. Kami percaya bahwa cerita

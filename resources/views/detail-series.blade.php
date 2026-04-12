@@ -139,7 +139,6 @@
     /* content */
     .film-hero__inner{ max-width: 1060px }
     .film-hero__title{
-      font-family: "Inter", sans-serif;
       font-weight: 500;
       line-height: .95;
       font-size: clamp(30px, 6vw, 90px);
@@ -155,7 +154,6 @@
     .film-hero__meta .dot{ opacity:.5 }
 
     .film-hero__meta .genre{
-      font-family: "Inter", sans-serif;
       font-weight: 500;
       line-height: .95;
       font-size: 15px;
@@ -170,11 +168,9 @@
       color:#eaeaea; 
       font-weight:500; 
       font-size:16px;
-      font-family: "Inter", sans-serif;
-    }
+      font-weight: 500;
+      font-size: 16px;
 
-    .film-hero__desc{
-      font-family: "Inter", sans-serif;
       max-width: 900px;
       font-size: clamp(15px, 2.1vw, 20px);
       line-height: 1.7;
@@ -226,7 +222,6 @@
     .btn--ghost{ background:transparent }
 
     .film-hero__actions{
-      font-family: "Inter", sans-serif;
       display:flex; 
       gap:14px; 
       flex-wrap:wrap
@@ -265,10 +260,9 @@
       .film-about__grid{ grid-template-columns: 1fr; }
     }
 
-    .h2{ font-family:"Inter",sans-serif; font-size: clamp(18px,2.0vw,30px); line-height:1.05; margin: 0 0 .4em }
-    .h3{ font-family:"Inter",system-ui,Arial,sans-serif; font-size: clamp(13px,1.8vw,16px); margin: 0 0 .8em; font-weight: 500 }
+    .h2{ font-size: clamp(18px,2.0vw,30px); line-height:1.05; margin: 0 0 .4em }
+    .h3{ font-size: clamp(13px,1.8vw,16px); margin: 0 0 .8em; font-weight: 500 }
     .lead{ 
-    font-family:"Inter",sans-serif; 
     font-weight: 500px;
     font-size: clamp(14px,2.0vw,16px); 
     line-height: 1.9; 
@@ -290,7 +284,7 @@
     .meta-list .ico svg{ width:22px; height:22px; fill:#889; opacity:.9 }
 
     /* simple list */
-    .plain-list{ font-family:"Inter",sans-serif; list-style:none; margin:0; padding:0; display:grid; gap:10px; color:#222 }
+    .plain-list{ list-style:none; margin:0; padding:0; display:grid; gap:10px; color:#222 }
 
     /* awards */
     .awards-list{ list-style:none; margin:0; padding:0; display:grid; gap:10px }
@@ -318,7 +312,7 @@
       width:78px; height:78px; border-radius:10px; object-fit:cover;
       box-shadow: 0 6px 16px rgba(0,0,0,.08);
     }
-    .suggest-item .title{ font-size: clamp(12px,1.5vw,15px); font-family:"Inter",sans-serif; font-weight:400; margin-bottom:6px; margin-top: 20px}
+    .suggest-item .title{ font-size: clamp(12px,1.5vw,15px); font-weight:400; margin-bottom:6px; margin-top: 20px}
     .small{ font-size:11px }
     .muted{ color:#6a6a6a }
     .rating{ display:flex; align-items:center; gap:6px; margin-top:3px }
@@ -364,7 +358,7 @@
     .btn-wide:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,.16); background:#000 }
     .btn-wide .arr{ width:18px; height:18px; fill:#fff }
     .detail{
-    font: 500 12px/1.25 Inter, Arial, sans-serif;
+    font: 500 12px/1.25;
     }
 
     /* ===== Mobile refinements for Film Detail ===== */
@@ -397,21 +391,18 @@
 }
 
 .lead h2 {
-    font-family: 'Inter', sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.6;
     margin-bottom: 1rem;
   }
   .lead h3 {
-    font-family: 'Inter', sans-serif;
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.6;
     margin-bottom: 1rem;
   }
   .lead blockquote {
-    font-family: 'Inter', sans-serif;
     font-size: 1.00rem;
     font-weight: 500;
     line-height: 1.6;
@@ -419,7 +410,6 @@
   }
 
   .lead ul {
-    font-family: 'Inter', sans-serif;
     font-size: 1.00rem;
     font-weight: 300;
     line-height: 1.6;
@@ -668,6 +658,8 @@
       });
     };
     const observer = new IntersectionObserver(onReveal, options);
-    nodes.forEach(el => observer.observe(el));
-  })();
+    // nodes.forEach(el => observer.observe(el));
+  // })();
 </script> -->
+
+@include('components.footer')

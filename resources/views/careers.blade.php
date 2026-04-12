@@ -27,7 +27,8 @@
   }
 
   .event-list .section-heading{
-    font:800 clamp(28px,3vw,36px)/1.08 Inter,system-ui;
+    font:800 clamp(28px,3vw,36px)/1.08;
+
     padding:18px clamp(16px,5vw,64px);
     margin:0 0 clamp(12px,1.2vw,18px);
   }
@@ -38,7 +39,8 @@
   .careers{ background:#fff; padding: clamp(40px,6vw,72px) 0; margin-top: 40px;}
   .careers-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px;}
   .judul-karir{
-    font: 700 clamp(20px,3vw,30px)/1.08 "Inter", system-ui, sans-serif;
+    font: 700 clamp(20px,3vw,30px)/1.08;
+
     margin: 0 0 clamp(20px,3vw,28px);
   }
 
@@ -53,25 +55,25 @@
   .job-card:hover{ box-shadow:0 14px 36px rgba(10,10,20,.09); transform: translateY(-1px); }
 
   .job-head{ display:flex; align-items:center; justify-content:space-between; gap: 12px; }
-  .job-title{ font: 700 20px/1.25 Inter, system-ui; color:#121316; margin:0; }
-  .job-time{ display:flex; align-items:center; gap:8px; color:#7b818c; font:500 13.5px/1 Inter, system-ui; white-space:nowrap; }
+  .job-title{ font: 700 20px/1.25; color:#121316; margin:0; }
+  .job-time{ display:flex; align-items:center; gap:8px; color:#7b818c; font:500 13.5px/1; white-space:nowrap; }
   .job-time svg{ width:18px; height:18px; color:#9aa0a6; }
 
-  .job-meta{ color:#5b606a; font:600 14px/1.6 Inter, system-ui; margin:6px 0 8px; }
-  .job-desc{ color:#2b2f36; font: 400 14.5px/1.65 Inter, system-ui; margin:0 0 12px; }
+  .job-meta{ color:#5b606a; font:600 14px/1.6; margin:6px 0 8px; }
+  .job-desc{ color:#2b2f36; font: 400 14.5px/1.65; margin:0 0 12px; }
 
   .job-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 14px; }
-  .tag{ display:inline-flex; align-items:center; padding:6px 10px; border-radius:8px; background:#f1f3f6; color:#475160; font:600 12.5px/1 Inter, system-ui; }
+  .tag{ display:inline-flex; align-items:center; padding:6px 10px; border-radius:8px; background:#f1f3f6; color:#475160; font:600 12.5px/1; }
   .tag-green{ background:#e9f8ec; color:#149b43; }
 
   .job-foot{ display:flex; align-items:center; gap:10px; padding-top:12px; border-top:1px solid #f0f1f3; flex-wrap:nowrap; }
-  .job-location{ display:flex; align-items:center; gap:8px; color:#5a6270; font:600 13.5px/1 Inter, system-ui; flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .job-location{ display:flex; align-items:center; gap:8px; color:#5a6270; font:600 13.5px/1; flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .job-location svg{ width:18px; height:18px; flex:0 0 18px; color:#9aa0a6; }
   
   .job-cta{
     display:inline-flex; align-items:center; gap:10px;
     background:#f7f8fa; color:#0f1115; border:1px solid #eceef2;
-    height:40px; padding:0 14px; border-radius:10px; font:700 12.5px/1 Inter, system-ui;
+    height:40px; padding:0 14px; border-radius:10px; font:700 12.5px/1;
     text-decoration:none; text-transform:uppercase; letter-spacing:.3px;
     transition: background .2s ease, box-shadow .2s ease, transform .08s ease;
     white-space:nowrap;            /* keep on one line */
@@ -83,7 +85,7 @@
   .job-cta{ margin-left:auto; }
 
   @media (max-width: 480px){
-    .job-cta{ height:36px; padding:0 12px; gap:8px; font:700 11.5px/1 Inter, system-ui; letter-spacing:.2px; }
+    .job-cta{ height:36px; padding:0 12px; gap:8px; font:700 11.5px/1; letter-spacing:.2px; }
     .job-cta svg{ width:16px; height:16px; }
     .job-foot{ gap:8px; }
     .job-location{ max-width: 60%; }
@@ -92,7 +94,8 @@
   .castings{ background:#fff; padding: clamp(32px,4.5vw,56px) 0; }
   .castings-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px; overflow-y: auto; max-height: calc(4 * 120px);}
   .castings-title{
-    font: 700 clamp(20px,3vw,30px)/1.08 "Inter", system-ui, sans-serif;
+    font: 700 clamp(20px,3vw,30px)/1.08;
+
     margin:0 0 clamp(18px,3vw,26px);
     margin-left: 200px;
   }
@@ -113,12 +116,12 @@
   .cast-card:hover{ box-shadow:0 14px 36px rgba(10,10,20,.09); }
 
   .cast-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-  .cast-title{ font:700 20px/1.25 Inter, system-ui; margin:0; color:#101316; }
-  .cast-time{ display:flex; align-items:center; gap:8px; color:#7b818c; font:500 13.5px/1 Inter, system-ui; white-space:nowrap; }
+  .cast-title{ font:700 20px/1.25; margin:0; color:#101316; }
+  .cast-time{ display:flex; align-items:center; gap:8px; color:#7b818c; font:500 13.5px/1; white-space:nowrap; }
   .cast-time svg{ width:18px; height:18px; color:#9aa0a6; }
 
-  .cast-desc{ color:#2b2f36; font:400 14.5px/1.65 Inter, system-ui; margin:10px 0 12px; }
-  .cast-project{ margin-top: 10px; display:flex; align-items:center; gap:8px; color:#69707e; font:400 13.5px/1 Inter, system-ui; margin-bottom:10px; }
+  .cast-desc{ color:#2b2f36; font:400 14.5px/1.65; margin:10px 0 12px; }
+  .cast-project{ margin-top: 10px; display:flex; align-items:center; gap:8px; color:#69707e; font:400 13.5px/1; margin-bottom:10px; }
   .cast-project svg{ width:16px; height:16px; color:#a0a6af; }
 
   .cast-tags{
@@ -129,7 +132,8 @@
   }
   .chip{
     background:#f2f5f9; color:#4f5a6a; border:1px solid #e6ebf2;
-    font:600 12.5px/1 Inter, system-ui; padding:7px 10px; border-radius:8px; margin-top: 0;
+    font:600 12.5px/1; padding:7px 10px; border-radius:8px; margin-top: 0;
+
   }
 
   @media (max-width: 720px){
@@ -164,7 +168,8 @@
     position:absolute; right: clamp(18px,2.8vw,24px); top: 75%; transform: translateY(-50%);
     display:inline-flex; align-items:center; gap:10px; height:40px; padding:0 14px;
     border-radius:10px; background:#f7f8fa; color:#0f1115; border:1px solid #eceef2;
-    font:800 12.5px/1 Inter, system-ui; text-decoration:none; letter-spacing:.35px;
+    font:800 12.5px/1; text-decoration:none; letter-spacing:.35px;
+
     transition: background .2s ease, box-shadow .2s ease, transform .08s ease;
   }
   .cast-cta svg{ width:18px; height:18px; }
@@ -297,3 +302,5 @@
   });
 })();
 </script>
+
+@include('components.footer')

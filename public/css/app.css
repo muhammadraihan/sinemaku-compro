@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300..700&display=swap);
 /*
 ! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com
 *//*
@@ -35,7 +34,7 @@ html {
   -moz-tab-size: 4; /* 3 */
   -o-tab-size: 4;
      tab-size: 4; /* 3 */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+  font-family: "Kumbh Sans", sans-serif; /* 4 */
   font-feature-settings: normal; /* 5 */
   font-variation-settings: normal; /* 6 */
 }
@@ -758,9 +757,6 @@ video {
 }
 .table {
   display: table;
-}
-.\!grid {
-  display: grid !important;
 }
 .grid {
   display: grid;
@@ -1545,10 +1541,7 @@ video {
   vertical-align: middle;
 }
 .font-sans {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-.font-serif {
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: "Kumbh Sans", sans-serif;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -1611,6 +1604,9 @@ video {
 .uppercase {
   text-transform: uppercase;
 }
+.capitalize {
+  text-transform: capitalize;
+}
 .italic {
   font-style: italic;
 }
@@ -1620,8 +1616,8 @@ video {
 .leading-\[1\.1\] {
   line-height: 1.1;
 }
-.leading-\[4\] {
-  line-height: 4;
+.leading-\[1\.8\] {
+  line-height: 1.8;
 }
 .leading-none {
   line-height: 1;
@@ -1841,8 +1837,13 @@ video {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
+/* Base Typography */
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: inherit;
+}
+
+body {
+  font-family: 'Kumbh Sans', sans-serif;
 }
 
 /* Smooth Scrolling */
@@ -1851,9 +1852,10 @@ html {
   scroll-padding-top: 0;
 }
 
-/* Custom Display Font (Replacing Neue Montreal/A24 bold) */
+/* Custom Display Font (Standardized to Kumbh Sans) */
 .font-display {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: 700;
 }
 
 /* Remove default margins for edge-to-edge content */
@@ -2405,14 +2407,14 @@ body {
 
 /* Enhanced Typography */
 .cinematic-title {
-  font-family: 'DM Serif Display', serif;
-  font-weight: 400;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 0.9;
 }
 
 .editorial-text {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
   font-weight: 300;
   line-height: 1.7;
   letter-spacing: 0.01em;
@@ -2420,7 +2422,7 @@ body {
 
 /* Article Content Styling */
 .editorial-content {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
   line-height: 1.8;
   color: #374151;
 }
@@ -2434,16 +2436,16 @@ body {
 }
 
 .editorial-content h2 {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Kumbh Sans', sans-serif;
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 700;
   color: #111827;
   margin: 3rem 0 1.5rem 0;
   line-height: 1.2;
 }
 
 .editorial-content h3 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #111827;
@@ -3348,9 +3350,9 @@ body {
     text-align: left;
   }
 
-  .lg\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+  .lg\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .lg\:text-6xl {
@@ -3366,11 +3368,6 @@ body {
   .lg\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
-  }
-
-  .lg\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
   }
 
   .group:hover .lg\:group-hover\:translate-x-4 {
@@ -3405,3 +3402,4 @@ body {
     line-height: 1;
   }
 }
+$correctOverride
