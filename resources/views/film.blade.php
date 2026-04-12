@@ -185,24 +185,26 @@
   }
 
   .chip {
-    border: 1px solid rgba(0, 0, 0, .12);
-    background: #f5f6f7;
-    color: #111;
+    border: none;
+    background: transparent;
+    color: #888;
     font: 300 14px/1;
     padding: 8px 14px;
-    border-radius: 10px;
+    border-radius: 0;
     cursor: pointer;
     transition: all .2s ease;
   }
 
   .chip:hover {
-    background: #eceff1;
+    background: transparent;
+    color: #111;
   }
 
   .chip.is-active {
-    background: #111;
-    color: #fff;
-    border-color: #111;
+    background: transparent;
+    color: #111;
+    border-color: transparent;
+    font-weight: 700;
   }
 
   /* --- MASONRY GRID (CSS Columns) --- */
@@ -849,7 +851,7 @@
       padding: 7px 10px;
       flex: 0 0 auto;
       /* keep width tight for scroll */
-      border-radius: 9px;
+      border-radius: 0;
     }
 
     /* Masonry columns: 1 on mobile devices */
