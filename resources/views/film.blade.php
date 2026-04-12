@@ -185,6 +185,7 @@
   }
 
   .chip {
+    position: relative;
     border: none;
     background: transparent;
     color: #888;
@@ -193,6 +194,22 @@
     border-radius: 0;
     cursor: pointer;
     transition: all .2s ease;
+  }
+
+  .chip::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 50%;
+    height: 1.5px;
+    background-color: #111;
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .chip.is-active::after {
+    transform: translateX(-50%) scaleX(1);
   }
 
   .chip:hover {
