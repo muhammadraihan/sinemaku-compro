@@ -45,7 +45,8 @@ Route::get('/memberships', [FrontEndController::class, 'membership'])->name('fro
 Route::get('/career', [FrontEndController::class, 'careers'])->name('careers');
 Route::get('/detail-career/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
 Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
-Route::get('/documentary', [FrontEndController::class, 'index'])->name('documentary');
+Route::get('/documentary', [FrontEndController::class, 'documentary'])->name('documentary');
+Route::get('/detail-documentary/{slug}', [FrontEndController::class, 'detaildocumentary'])->name('detail-documentary');
 Route::resource('membership', 'MembershipController');
 Route::get('/search', [FrontEndController::class, 'index'])->name('search.index');
 
