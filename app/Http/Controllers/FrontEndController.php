@@ -203,6 +203,70 @@ class FrontEndController extends Controller
         return view('detail-series', compact('films', 'all_film', 'kategorishop', 'bts', 'judul', 'film', 'shopCollectionHtml'));
     }
 
+    public function television()
+    {
+        $kategori = Kategori::where('name', 'like', '%sinetron%')->first();
+        $film = film::all()->where('kategori', $kategori->uuid);
+        $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
+                            ->where('kategori', $kategori->uuid)
+                            ->get();
+
+        $raw = Film::where('kategori', $kategori->uuid)->pluck('genre');
+
+        $chipGenres = $raw
+            ->flatMap(fn ($s) => preg_split('/\s*,\s*/', (string) $s)) 
+            ->map(fn ($g) => strtolower(trim($g)))
+            ->filter()
+            ->unique()
+            ->sort()
+            ->values();
+
+        $genre = Film::where('kategori', $kategori->uuid)
+            ->get()->map(function ($f) {
+            $f->genres_array = collect(preg_split('/\s*,\s*/', (string) $f->genre))
+                ->map(fn ($g) => strtolower(trim($g)))
+                ->filter()
+                ->values()
+                ->all();
+            return $f;
+        });
+
+        $kategorishop = KategoriShop::all();
+
+        return view('television', compact('film', 'genre', 'coming_soon', 'chipGenres', 'kategorishop'));
+    }
+
+    public function detailtelevision($id)
+    {
+        $kategori = Kategori::where('name', 'like', '%sinetron%')->first();
+        $films = film::all()->where('slug', 'like', $id)->first();
+        $all_film = film::all()
+                        ->where('kategori', $kategori->uuid)
+                        ->where('uuid', '!=', $films->uuid);
+        $kategorishop = KategoriShop::all();
+
+        //BTS
+        $bts = bts::all();
+        $judul = bts::selectRaw('distinct judul')->get();
+        $film = film::where('slug', 'like', $id)
+                    ->orderBy('created_at', 'DESC')->get();
+
+        //SHOP
+        $shopData = [
+            'shop' => shop::all()->random()->limit(1)->first(),
+            'kategorishop' => KategoriShop::all(),
+            'merchandise' => shop::selectRaw('distinct merchandise')->where('merchandise', '=', @$film[0]->title)->get(),
+            'all_merchandise' => shop::all(),
+            'kategorishop' => KategoriShop::all(),
+        ];
+
+        // --- [BARU] render sections dari shop.blade.php ---
+        $sections = view('shop', $shopData)->renderSections();
+        $shopCollectionHtml = $sections['collection'] ?? ''; 
+
+        return view('detail-television', compact('films', 'all_film', 'kategorishop', 'bts', 'judul', 'film', 'shopCollectionHtml'));
+    }
+
     public function shop()
     {
         $shop = shop::all()->random()->limit(1)->first();

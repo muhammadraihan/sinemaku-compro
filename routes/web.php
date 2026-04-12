@@ -32,6 +32,8 @@ Route::get('/films', [FrontEndController::class, 'film'])->name('film');
 Route::get('/detail-films/{slug}', [FrontEndController::class, 'detailfilm'])->name('detail-film');
 Route::get('/serial', [FrontEndController::class, 'series'])->name('series');
 Route::get('/detail-serial/{slug}', [FrontEndController::class, 'detailseries'])->name('detail-series');
+Route::get('/tv', [FrontEndController::class, 'television'])->name('tv');
+Route::get('/detail-tv/{slug}', [FrontEndController::class, 'detailtelevision'])->name('detail-tv');
 Route::get('/shops', [FrontEndController::class, 'shop'])->name('shop');
 Route::get('/detail-shops/{slug}', [FrontEndController::class, 'detailshop'])->name('detail-shop');
 Route::get('/detail-categories/{slug}', [FrontEndController::class, 'detailkategori'])->name('detail-kategori');
@@ -43,7 +45,6 @@ Route::get('/memberships', [FrontEndController::class, 'membership'])->name('fro
 Route::get('/career', [FrontEndController::class, 'careers'])->name('careers');
 Route::get('/detail-career/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
 Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
-Route::get('/tv', [FrontEndController::class, 'index'])->name('tv');
 Route::get('/documentary', [FrontEndController::class, 'index'])->name('documentary');
 Route::resource('membership', 'MembershipController');
 Route::get('/search', [FrontEndController::class, 'index'])->name('search.index');
