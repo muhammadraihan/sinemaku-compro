@@ -399,17 +399,16 @@
     <section class="section-komunitas bg-[#0a0a0a]" data-section="komunitas">
         <div class="komunitas-inner" data-gsap="fade-up">
             <span class="feature-eyebrow" style="color: rgba(255,255,255,0.4);">Komunitas</span>
-            <h2 class="komunitas-title">Bergabunglah dengan<br>komunitas sineas kami.</h2>
+            <h2 class="komunitas-title">Join the Movement</h2>
             <p class="komunitas-excerpt">
-                Sinemaku Pictures adalah rumah bagi para sineas, penonton setia, dan pecinta cerita.
-                Bergabunglah dalam forum diskusi, nonton bareng, dan workshop eksklusif bersama kami.
+                Be part of a community that celebrates bold storytelling and artistic vision. Get exclusive access to premieres, behind-the-scenes content, and limited releases.
             </p>
             <div class="komunitas-pillars">
                 @php
                     $pillars = [
-                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg>', 'label' => 'Forum Diskusi', 'desc' => 'Berbagi pendapat & ulasan film'],
-                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0 1 18 18.375m1.875-12.75c0-.621-.504-1.125-1.125-1.125H5.625c-.621 0-1.125.504-1.125 1.125m13.5 0v1.5c0 .621-.504 1.125-1.125 1.125M6 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h9.75m-9.75 0a1.125 1.125 0 0 0-1.125 1.125M7.125 8.25h9.75a1.125 1.125 0 0 1 1.125 1.125m0 0v1.5m-1.125-1.125a1.125 1.125 0 0 0-1.125 1.125M7.125 8.25a1.125 1.125 0 0 1 1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125"/></svg>', 'label' => 'Nonton Bareng', 'desc' => 'Screening eksklusif & premier'],
-                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>', 'label' => 'Workshop', 'desc' => 'Belajar langsung dari sineas'],
+                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" /></svg>', 'label' => 'Premieres', 'desc' => 'Exclusive early access'],
+                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" /></svg>', 'label' => 'Behind the Scenes', 'desc' => 'Direct process insights'],
+                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75m0 3v.75m0 3v.75m0 3V18M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 9.75h.007v.008H3.75V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12.75h.007v.008H3.75V12.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 15.75h.007v.008H3.75V15.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM4.5 4.875h15a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V7.125a2.25 2.25 0 012.25-2.25z" /></svg>', 'label' => 'Limited Releases', 'desc' => 'Special rare editions'],
                     ];
                 @endphp
                 @foreach($pillars as $p)
@@ -423,7 +422,7 @@
                 @endforeach
             </div>
             <a href="/memberships" class="komunitas-cta">
-                Gabung Komunitas
+                Unlock the Experience
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
             </a>
         </div>
