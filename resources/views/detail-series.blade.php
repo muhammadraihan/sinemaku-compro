@@ -399,11 +399,19 @@
   
   <div class="stills-slideshow" id="stills-series">
     <div class="stills-track">
-      @for($i=1; $i<=6; $i++)
-      <div class="slide-item">
-        <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}still{{ $i }}/1920/1080" alt="Still {{ $i }}" loading="lazy">
-      </div>
-      @endfor
+      @if($films->stillShots->count() > 0)
+        @foreach($films->stillShots as $gallery)
+        <div class="slide-item">
+          <img src="{{ asset('photo/' . $gallery->photo) }}" alt="Still" loading="lazy">
+        </div>
+        @endforeach
+      @else
+        @for($i=1; $i<=3; $i++)
+        <div class="slide-item">
+          <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}still{{ $i }}/1920/1080" alt="Still {{ $i }}" loading="lazy">
+        </div>
+        @endfor
+      @endif
     </div>
     <button class="slide-nav slide-nav--prev" onclick="slideMove('stills-series', -1)" aria-label="Previous">
       <svg viewBox="0 0 24 40"><path d="M20 4 L4 20 L20 36 Z" /></svg>
@@ -458,21 +466,23 @@
   </div>
   
   <div class="bts-grid">
-    <div class="g-item">
-      <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts1/800/800" alt="BTS 1">
-    </div>
-    <div class="g-item g-item--tall">
-      <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts2/800/1200" alt="BTS 2">
-    </div>
-    <div class="g-item">
-      <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts3/800/600" alt="BTS 3">
-    </div>
-    <div class="g-item">
-      <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts4/800/600" alt="BTS 4">
-    </div>
-    <div class="g-item">
-      <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts5/800/800" alt="BTS 5">
-    </div>
+    @if($films->btsGalleries->count() > 0)
+      @foreach($films->btsGalleries as $gallery)
+      <div class="g-item {{ $loop->iteration % 3 == 2 ? 'g-item--tall' : '' }}">
+        <img src="{{ asset('photo/' . $gallery->photo) }}" alt="BTS">
+      </div>
+      @endforeach
+    @else
+      <div class="g-item">
+        <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts1/800/800" alt="BTS 1">
+      </div>
+      <div class="g-item g-item--tall">
+        <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts2/800/1200" alt="BTS 2">
+      </div>
+      <div class="g-item">
+        <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts3/800/600" alt="BTS 3">
+      </div>
+    @endif
   </div>
 </section>
 

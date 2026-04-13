@@ -129,6 +129,31 @@ class FilmController extends Controller
         $film->created_at = now();
         $film->save();
 
+        // Handle Galleries
+        if ($request->hasFile('still_shots')) {
+            foreach ($request->file('still_shots') as $image) {
+                $filename = date('YmdHis') . "_still_" . Str::random(5) . "." . $image->getClientOriginalExtension();
+                $image->move('photo/', $filename);
+                \App\Models\FilmGallery::create([
+                    'film_uuid' => $film->uuid,
+                    'type' => 'still_shot',
+                    'photo' => $filename
+                ]);
+            }
+        }
+
+        if ($request->hasFile('bts_galleries')) {
+            foreach ($request->file('bts_galleries') as $image) {
+                $filename = date('YmdHis') . "_bts_" . Str::random(5) . "." . $image->getClientOriginalExtension();
+                $image->move('photo/', $filename);
+                \App\Models\FilmGallery::create([
+                    'film_uuid' => $film->uuid,
+                    'type' => 'bts',
+                    'photo' => $filename
+                ]);
+            }
+        }
+
         toastr()->success('New Film Name Added', 'Success');
         return redirect()->route('film.index');
     }
@@ -237,6 +262,44 @@ class FilmController extends Controller
         }
         $film->edited_by = Auth::user()->uuid;
         $film->save();
+
+        // Handle New Galleries
+        if ($request->hasFile('still_shots')) {
+            foreach ($request->file('still_shots') as $image) {
+                $filename = date('YmdHis') . "_still_" . Str::random(5) . "." . $image->getClientOriginalExtension();
+                $image->move('photo/', $filename);
+                \App\Models\FilmGallery::create([
+                    'film_uuid' => $film->uuid,
+                    'type' => 'still_shot',
+                    'photo' => $filename
+                ]);
+            }
+        }
+
+        if ($request->hasFile('bts_galleries')) {
+            foreach ($request->file('bts_galleries') as $image) {
+                $filename = date('YmdHis') . "_bts_" . Str::random(5) . "." . $image->getClientOriginalExtension();
+                $image->move('photo/', $filename);
+                \App\Models\FilmGallery::create([
+                    'film_uuid' => $film->uuid,
+                    'type' => 'bts',
+                    'photo' => $filename
+                ]);
+            }
+        }
+
+        // Handle Deletions
+        if ($request->has('delete_gallery') && is_array($request->delete_gallery)) {
+            foreach ($request->delete_gallery as $gUuid) {
+                $gallery = \App\Models\FilmGallery::where('uuid', $gUuid)->where('film_uuid', $film->uuid)->first();
+                if ($gallery) {
+                    if (file_exists(public_path('photo/') . $gallery->photo)) {
+                        unlink(public_path('photo/') . $gallery->photo);
+                    }
+                    $gallery->delete();
+                }
+            }
+        }
 
         toastr()->success('Film Edited', 'Success');
         return redirect()->route('film.index');

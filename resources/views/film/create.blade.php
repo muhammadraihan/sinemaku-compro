@@ -133,7 +133,7 @@
                 <div class="form-group col-md-4 mb-3">
                     {{ Form::label('photo','Photo',['class' => 'required form-label'])}}
                     {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
-                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    <img id="preview-image-before-upload-photo" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                     alt="preview image" style="max-height: 250px;">
                     @if ($errors->has('photo'))
                     <div class="invalid-feedback">{{ $errors->first('photo') }}</div>
@@ -142,11 +142,21 @@
                 <div class="form-group col-md-4 mb-3">
                     {{ Form::label('poster','Poster',['class' => 'required form-label'])}}
                     {{ Form::file('poster',null,['placeholder' => 'Poster','class' => 'form-control upload '.($errors->has('poster') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'poster'])}}
-                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    <img id="preview-image-before-upload-poster" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                     alt="preview image" style="max-height: 250px;">
                     @if ($errors->has('poster'))
                     <div class="invalid-feedback">{{ $errors->first('poster') }}</div>
                     @endif
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    {{ Form::label('still_shots','Still Shots (Bisa pilih banyak)',['class' => 'form-label'])}}
+                    <input type="file" name="still_shots[]" class="form-control" multiple accept="image/*">
+                    <small class="text-muted">Pilih satu atau lebih gambar untuk bagian Still Shots.</small>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    {{ Form::label('bts_galleries','Behind The Scenes (Bisa pilih banyak)',['class' => 'form-label'])}}
+                    <input type="file" name="bts_galleries[]" class="form-control" multiple accept="image/*">
+                    <small class="text-muted">Pilih satu atau lebih gambar untuk bagian Behind The Scenes.</small>
                 </div>
             <div
                 class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
@@ -176,7 +186,7 @@
          
             reader.onload = (e) => { 
          
-              $('#preview-image-before-upload').attr('src', e.target.result); 
+              $('#preview-image-before-upload-photo').attr('src', e.target.result); 
             }
          
             reader.readAsDataURL(this.files[0]); 
@@ -189,7 +199,7 @@
             
             reader.onload = (e) => { 
             
-                $('#preview-image-before-upload').attr('src', e.target.result); 
+                $('#preview-image-before-upload-poster').attr('src', e.target.result); 
             }
             
             reader.readAsDataURL(this.files[0]); 

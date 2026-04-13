@@ -134,11 +134,9 @@
                     <input type="hidden" name="oldImage" value="{{ $film->photo }}"> 
                     @if ($film->photo)
                         <img src="{{ asset('photo/' . $film->photo) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
-                    @else
-                        <img class="img-preview img-fluid mb-5 col-sm-5">
                     @endif
                     {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
-                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    <img id="preview-image-before-upload-photo" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                     alt="preview image" style="max-height: 250px;">
                     @if ($errors->has('photo'))
                     <div class="invalid-feedback">{{ $errors->first('photo') }}</div>
@@ -146,18 +144,61 @@
                 </div>
                 <div class="form-group col-md-4 mb-3">
                     {{ Form::label('poster','poster',['class' => 'required form-label'])}}
-                    <input type="hidden" name="oldImage" value="{{ $film->poster }}"> 
+                    <input type="hidden" name="oldPoster" value="{{ $film->poster }}"> 
                     @if ($film->poster)
                         <img src="{{ asset('photo/' . $film->poster) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
-                    @else
-                        <img class="img-preview img-fluid mb-5 col-sm-5">
                     @endif
                     {{ Form::file('poster',null,['placeholder' => 'Poster','class' => 'form-control upload '.($errors->has('poster') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'poster'])}}
-                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    <img id="preview-image-before-upload-poster" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                     alt="preview image" style="max-height: 250px;">
                     @if ($errors->has('poster'))
                     <div class="invalid-feedback">{{ $errors->first('poster') }}</div>
                     @endif
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <hr>
+                    <h4 class="mb-3">Gallery Management</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Existing Still Shots</label>
+                            <div class="row">
+                                @foreach($film->stillShots as $gallery)
+                                <div class="col-md-4 mb-2 text-center">
+                                    <img src="{{ asset('photo/' . $gallery->photo) }}" class="img-fluid mb-1" style="height: 100px; object-fit: cover;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="del_{{ $gallery->uuid }}" name="delete_gallery[]" value="{{ $gallery->uuid }}">
+                                        <label class="custom-control-label text-danger" for="del_{{ $gallery->uuid }}">Hapus</label>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <div class="mt-3">
+                                {{ Form::label('still_shots','Tambah Still Shots (Multi)',['class' => 'form-label'])}}
+                                <input type="file" name="still_shots[]" class="form-control" multiple accept="image/*">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Existing Behind The Scenes</label>
+                            <div class="row">
+                                @foreach($film->btsGalleries as $gallery)
+                                <div class="col-md-4 mb-2 text-center">
+                                    <img src="{{ asset('photo/' . $gallery->photo) }}" class="img-fluid mb-1" style="height: 100px; object-fit: cover;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="del_{{ $gallery->uuid }}" name="delete_gallery[]" value="{{ $gallery->uuid }}">
+                                        <label class="custom-control-label text-danger" for="del_{{ $gallery->uuid }}">Hapus</label>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <div class="mt-3">
+                                {{ Form::label('bts_galleries','Tambah BTS Photos (Multi)',['class' => 'form-label'])}}
+                                <input type="file" name="bts_galleries[]" class="form-control" multiple accept="image/*">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             <div
                 class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
@@ -186,12 +227,25 @@
          
             reader.onload = (e) => { 
          
-              $('#preview-image-before-upload').attr('src', e.target.result); 
+              $('#preview-image-before-upload-photo').attr('src', e.target.result); 
             }
          
             reader.readAsDataURL(this.files[0]); 
            
            });
+
+        $('#poster').change(function(){
+            
+            let reader = new FileReader();
+            
+            reader.onload = (e) => { 
+            
+                $('#preview-image-before-upload-poster').attr('src', e.target.result); 
+            }
+            
+            reader.readAsDataURL(this.files[0]); 
+            
+        });
 
            $('.release_date').datepicker({
             orientation: "bottom left",

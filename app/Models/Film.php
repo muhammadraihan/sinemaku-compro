@@ -45,6 +45,21 @@ class Film extends Model
                     ->orderBy('episode_number');
     }
 
+    public function galleries()
+    {
+        return $this->hasMany(FilmGallery::class, 'film_uuid', 'uuid');
+    }
+
+    public function stillShots()
+    {
+        return $this->hasMany(FilmGallery::class, 'film_uuid', 'uuid')->where('type', 'still_shot');
+    }
+
+    public function btsGalleries()
+    {
+        return $this->hasMany(FilmGallery::class, 'film_uuid', 'uuid')->where('type', 'bts');
+    }
+
     public function userCreate() {
         return $this->belongsTo(User::class, 'created_by', 'uuid');
     }
