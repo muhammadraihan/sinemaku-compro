@@ -43,4 +43,19 @@ class Episode extends Model
     {
         return $this->belongsTo(User::class, 'edited_by', 'uuid');
     }
+
+    public function galleries()
+    {
+        return $this->hasMany(FilmGallery::class, 'episode_uuid', 'uuid');
+    }
+
+    public function stillShots()
+    {
+        return $this->hasMany(FilmGallery::class, 'episode_uuid', 'uuid')->where('type', 'still_shot');
+    }
+
+    public function btsGalleries()
+    {
+        return $this->hasMany(FilmGallery::class, 'episode_uuid', 'uuid')->where('type', 'bts');
+    }
 }

@@ -69,11 +69,26 @@
                     </div>
                 </div>
 
-                <div class="form-group col-md-6 mb-3">
-                    {{ Form::label('photo', 'Thumbnail Episode', ['class' => 'form-label']) }}
-                    {{ Form::file('photo', ['class' => 'form-control', 'accept' => 'image/*', 'id' => 'photo']) }}
-                    <div class="mt-2">
-                        <img id="preview-image-before-upload" src="{{asset('img/placeholder.png')}}" alt="Preview" style="width:200px;height:auto;border-radius:4px;">
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        {{ Form::label('photo', 'Thumbnail Episode', ['class' => 'form-label']) }}
+                        {{ Form::file('photo', ['class' => 'form-control', 'accept' => 'image/*', 'id' => 'photo']) }}
+                        <div class="mt-2">
+                            <img id="preview-image-before-upload" src="{{asset('img/placeholder.png')}}" alt="Preview" style="width:200px;height:auto;border-radius:4px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="form-label">Still Shots (Bisa pilih banyak)</label>
+                        <input type="file" name="still_shots[]" class="form-control" accept="image/*" multiple>
+                        <small class="text-muted">Gunakan CTRL/Shift untuk memilih banyak foto</small>
+                    </div>
+                    <div class="form-group col-md-6 mb-3">
+                        <label class="form-label">Behind The Scenes (Bisa pilih banyak)</label>
+                        <input type="file" name="bts_galleries[]" class="form-control" accept="image/*" multiple>
+                        <small class="text-muted">Gunakan CTRL/Shift untuk memilih banyak foto</small>
                     </div>
                 </div>
 

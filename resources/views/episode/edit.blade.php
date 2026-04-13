@@ -82,6 +82,47 @@
                     </div>
                 </div>
 
+                <hr class="my-4">
+                <h4>Gallery Management</h4>
+                
+                <div class="row">
+                    <!-- Still Shots -->
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label font-weight-bold">Still Shots</label>
+                        <div class="row mb-3">
+                            @foreach($episode->stillShots as $gallery)
+                                <div class="col-4 mb-2 position-relative">
+                                    <img src="{{ asset('photo/'.$gallery->photo) }}" class="img-thumbnail" style="width:100%; height:80px; object-fit:cover;">
+                                    <div class="custom-control custom-checkbox mt-1">
+                                        <input type="checkbox" name="delete_gallery[]" value="{{ $gallery->uuid }}" class="custom-control-input" id="del_{{ $gallery->uuid }}">
+                                        <label class="custom-control-label text-danger" for="del_{{ $gallery->uuid }}">Hapus</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <input type="file" name="still_shots[]" class="form-control" accept="image/*" multiple>
+                        <small class="text-muted">Tambah foto baru (Bisa pilih banyak)</small>
+                    </div>
+
+                    <!-- BTS -->
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label font-weight-bold">Behind The Scenes</label>
+                        <div class="row mb-3">
+                            @foreach($episode->btsGalleries as $gallery)
+                                <div class="col-4 mb-2 position-relative">
+                                    <img src="{{ asset('photo/'.$gallery->photo) }}" class="img-thumbnail" style="width:100%; height:80px; object-fit:cover;">
+                                    <div class="custom-control custom-checkbox mt-1">
+                                        <input type="checkbox" name="delete_gallery[]" value="{{ $gallery->uuid }}" class="custom-control-input" id="del_{{ $gallery->uuid }}">
+                                        <label class="custom-control-label text-danger" for="del_{{ $gallery->uuid }}">Hapus</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <input type="file" name="bts_galleries[]" class="form-control" accept="image/*" multiple>
+                        <small class="text-muted">Tambah foto baru (Bisa pilih banyak)</small>
+                    </div>
+                </div>
+
                 <div class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
                     <button class="btn btn-primary ml-auto" type="submit">Update Episode</button>
                 </div>

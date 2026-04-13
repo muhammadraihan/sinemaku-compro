@@ -13,6 +13,7 @@ class FilmGallery extends Model
     protected $fillable = [
         'uuid',
         'film_uuid',
+        'episode_uuid',
         'type',
         'photo',
     ];
@@ -20,6 +21,11 @@ class FilmGallery extends Model
     public function film()
     {
         return $this->belongsTo(Film::class, 'film_uuid', 'uuid');
+    }
+
+    public function episode()
+    {
+        return $this->belongsTo(Episode::class, 'episode_uuid', 'uuid');
     }
 
     public static function uuid($uuid)

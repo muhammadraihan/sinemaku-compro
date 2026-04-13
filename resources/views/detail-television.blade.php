@@ -209,14 +209,15 @@
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
   
-  .ep-tooltip {
-    visibility: hidden; opacity: 0; position: absolute; bottom: calc(100% + 12px); left: 0;
-    width: 100%; max-width: 400px; background: #111; color: #fff; padding: 16px 20px;
-    border-radius: 12px; font-size: 14px; line-height: 1.6; font-weight: 300;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3); transition: all 0.25s ease; z-index: 100;
-    pointer-events: none;
-  }
   .ep-synopsis-wrap:hover .ep-tooltip { visibility: visible; opacity: 1; transform: translateY(-5px); }
+
+  /* Episode Dynamic Gallery */
+  .ep-gallery-sec { margin-top: 32px; border-top: 1px solid #f5f5f5; padding-top: 24px; }
+  .ep-gallery-label { font-size: 10px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; display: block; }
+  .ep-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-bottom: 24px; }
+  .ep-gal-item { aspect-ratio: 16/9; overflow: hidden; background: #eee; cursor: pointer; }
+  .ep-gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .ep-gal-item:hover img { transform: scale(1.05); }
 
   .ep-actions { display: flex; gap: 12px; margin-top: 24px; }
   .btn-ep {
@@ -480,6 +481,32 @@
           </button>
           @endif
         </div>
+
+        @if($ep->stillShots->count() > 0 || $ep->btsGalleries->count() > 0)
+        <div class="ep-gallery-sec">
+          @if($ep->stillShots->count() > 0)
+            <span class="ep-gallery-label">Still Shots</span>
+            <div class="ep-gallery-grid">
+              @foreach($ep->stillShots as $sg)
+                <div class="ep-gal-item">
+                  <img src="{{ asset('photo/'.$sg->photo) }}" alt="Still Shot">
+                </div>
+              @endforeach
+            </div>
+          @endif
+
+          @if($ep->btsGalleries->count() > 0)
+            <span class="ep-gallery-label">Behind The Scenes</span>
+            <div class="ep-gallery-grid">
+              @foreach($ep->btsGalleries as $bg)
+                <div class="ep-gal-item">
+                  <img src="{{ asset('photo/'.$bg->photo) }}" alt="BTS">
+                </div>
+              @endforeach
+            </div>
+          @endif
+        </div>
+        @endif
       </div>
     </div>
     @endforeach
