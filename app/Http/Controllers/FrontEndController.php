@@ -12,6 +12,7 @@ use App\Models\Event;
 use App\Models\Job;
 use App\Models\Kategori;
 use App\Models\KategoriShop;
+use App\Models\SiteSetting;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
 use Carbon\Carbon;
 
@@ -57,7 +58,8 @@ class FrontEndController extends Controller
     public function about()
     {
         $kategorishop = KategoriShop::all();
-        return view('about', compact('kategorishop'));
+        $settings     = SiteSetting::getGroup('about');
+        return view('about', compact('kategorishop', 'settings'));
     }
 
     public function film()

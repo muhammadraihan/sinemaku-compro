@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Article;
+use App\Models\ArtikelKategori;
 
 use Auth;
 use DataTables;
@@ -29,6 +30,9 @@ class ArticleController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->editColumn('artikel_kategori_uuid', function ($row) {
+                    return $row->artikelKategori->name ?? ($row->kategori ?? '-');
+                })
                 ->editColumn('photo', function ($row){
                     $url = asset('photo');
                     return '<image style="width: 150px; height: 150px;"  src="'.$url.'/'.$row->photo.'" alt="">';
@@ -54,7 +58,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('article.create');
+        $artikelKategoris = ArtikelKategori::all()->pluck('name', 'uuid');
+        return view('article.create', compact('artikelKategoris'));
     }
 
     /**
@@ -71,7 +76,7 @@ class ArticleController extends Controller
             'tgl_rilis' => 'required',
             'penulis' => 'required',
             'detail' => 'required',
-            'kategori' => 'required',
+            'artikel_kategori_uuid' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ];
 
@@ -92,7 +97,9 @@ class ArticleController extends Controller
         $article->tgl_rilis = $request->tgl_rilis;
         $article->penulis = $request->penulis;
         $article->detail = $request->detail;
-        $article->kategori = $request->kategori;
+        $kategoriObj = ArtikelKategori::where('uuid', $request->artikel_kategori_uuid)->first();
+        $article->kategori = $kategoriObj ? $kategoriObj->name : 'Uncategorized';
+        $article->artikel_kategori_uuid = $request->artikel_kategori_uuid;
         $article->link = $request->link;
 
         if ($image = $request->file('photo')) {
@@ -128,8 +135,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = article::uuid($id);
-        return view('article.edit', compact('article'));
+        $article          = article::uuid($id);
+        $artikelKategoris = ArtikelKategori::all()->pluck('name', 'uuid');
+        return view('article.edit', compact('article', 'artikelKategoris'));
     }
 
     /**
@@ -147,7 +155,7 @@ class ArticleController extends Controller
             'tgl_rilis' => 'required',
             'penulis' => 'required',
             'detail' => 'required',
-            'kategori' => 'required',
+            'artikel_kategori_uuid' => 'required',
         ];
 
         $messages = [
@@ -166,7 +174,9 @@ class ArticleController extends Controller
         $article->tgl_rilis = $request->tgl_rilis;
         $article->penulis = $request->penulis;
         $article->detail = $request->detail;
-        $article->kategori = $request->kategori;
+        $kategoriObj = ArtikelKategori::where('uuid', $request->artikel_kategori_uuid)->first();
+        $article->kategori = $kategoriObj ? $kategoriObj->name : 'Uncategorized';
+        $article->artikel_kategori_uuid = $request->artikel_kategori_uuid;
         $article->link = $request->link;
 
         if($request->hasFile('photo')){

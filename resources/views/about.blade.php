@@ -13,7 +13,7 @@
     <section id="about-hero" class="relative w-full overflow-hidden flex items-center"
         style="height: 100dvh; min-height: 600px;">
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('photo/about_hero.png') }}" alt="Sinemaku Crew"
+            <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : asset('photo/about_hero.png') }}" alt="Sinemaku Crew"
                 class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/40"></div>
         </div>
@@ -22,12 +22,12 @@
             <div class="max-w-2xl">
                 <p
                     class="hero-sub font-sans text-white text-lg md:text-xl font-medium mt-8 mb-0 opacity-0 translate-y-8 leading-none max-w-lg">
-                    about sinemaku pictures
+                    {{ $settings['about_hero_subtitle'] ?? 'about sinemaku pictures' }}
                 </p>
 
                 <h1 class="hero-tagline font-sans font-bold text-white leading-[1.1] md:leading-[0.9] mt-2 mb-6 opacity-0 translate-y-12"
                     style="font-size: clamp(3rem, 11vw, 6.5rem);">
-                    Here Comes<br>The Fun
+                    {!! nl2br(e($settings['about_hero_title'] ?? "Here Comes\nThe Fun")) !!}
                 </h1>
 
                 <div class="flex flex-row flex-wrap items-center gap-3 md:gap-5 hero-actions opacity-0 translate-y-8">
@@ -56,18 +56,16 @@
 
         <div class="max-w-4xl mb-12 md:mb-24" data-gsap="fade-up">
             <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-black tracking-tight">
-                Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman
-                Indonesia.
+                {{ $settings['about_identity_heading'] ?? 'Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.' }}
             </h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20" data-gsap="fade-up">
 
             <div class="flex flex-col">
-                <h3 class="text-2xl font-bold mb-6 text-black">Company</h3>
+                <h3 class="text-2xl font-bold mb-6 text-black">{{ $settings['about_studio_label'] ?? 'Company' }}</h3>
                 <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
-                    Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam
-                    membina sineas muda untuk ekosistem film Indonesia.
+                    {{ $settings['about_studio_body'] ?? 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.' }}
                 </p>
                 <a href="#"
                     class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
@@ -105,7 +103,7 @@
     ============================================================ --}}
     <section id="about-teams-photo" class="relative w-full overflow-hidden" style="height: 100dvh; min-height: 400px;">
         <!-- Background Image -->
-        <img src="{{ asset('photo/about_secondary.png') }}" alt="Meet the team"
+        <img src="{{ isset($settings['about_secondary_image']) ? asset($settings['about_secondary_image']) : asset('photo/about_secondary.png') }}" alt="Meet the team"
             style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
 
         <!-- Subtle dark gradient at the bottom for text legibility -->
@@ -137,13 +135,7 @@
 
             <p class="text-black text-lg md:text-xl lg:text-2xl leading-[1.8] tracking-wider text-left max-w-4xl"
                 data-gsap="fade-up">
-                Sinemaku Pictures bukan sekadar rumah produksi, melainkan ruang bermain bagi generasi baru pencerita
-                yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia. Kami percaya bahwa cerita
-                terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar
-                lebar, tanpa pernah melupakan semangat kolaborasi yang menghidupkan komunitas di setiap napas
-                produksinya. Bagi kami, keseriusan dalam mengejar kualitas visual premium hanyalah separuh cerita;
-                separuh lainnya adalah tentang merayakan imajinasi dan memastikan bahwa di setiap prosesnya,
-                <span class="italic font-bold text-black">Here Comes The Fun.</span>
+                {!! nl2br(e($settings['about_mission_statement'] ?? "Sinemaku Pictures bukan sekadar rumah produksi, melainkan ruang bermain bagi generasi baru pencerita yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia.\n\nKami percaya bahwa cerita terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar lebar, tanpa pernah melupakan semangat kolaborasi yang menghidupkan komunitas di setiap napas produksinya.\n\nBagi kami, keseriusan dalam mengejar kualitas visual premium hanyalah separuh cerita; separuh lainnya adalah tentang merayakan imajinasi dan memastikan bahwa di setiap prosesnya, Here Comes The Fun.")) !!}
             </p>
         </div>
     </section>
@@ -166,7 +158,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[250px]">
                 <!-- Item 1 (Span 2 cols, Span 2 rows) -->
                 <div class="gallery-item relative overflow-hidden group sm:col-span-2 sm:row-span-2 bg-gray-200">
-                    <img src="{{ asset('photo/about_hero.png') }}" alt="Sinemaku Team"
+                    <img src="{{ isset($settings['about_team_image_1']) ? asset($settings['about_team_image_1']) : asset('photo/about_hero.png') }}" alt="Sinemaku Team"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -175,7 +167,7 @@
 
                 <!-- Item 2 -->
                 <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ asset('photo/about_crew_1.png') }}" alt="Behind the scenes"
+                    <img src="{{ isset($settings['about_team_image_2']) ? asset($settings['about_team_image_2']) : asset('photo/about_crew_1.png') }}" alt="Behind the scenes"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -184,7 +176,7 @@
 
                 <!-- Item 3 (Span 2 rows vertical) -->
                 <div class="gallery-item relative overflow-hidden group row-span-2 bg-gray-200">
-                    <img src="{{ asset('photo/about_crew_2.png') }}" alt="Set photo"
+                    <img src="{{ isset($settings['about_team_image_3']) ? asset($settings['about_team_image_3']) : asset('photo/about_crew_2.png') }}" alt="Set photo"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -193,7 +185,7 @@
 
                 <!-- Item 4 -->
                 <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ asset('photo/about_crew_3.png') }}" alt="Fun moment"
+                    <img src="{{ isset($settings['about_team_image_4']) ? asset($settings['about_team_image_4']) : asset('photo/about_crew_3.png') }}" alt="Fun moment"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -202,7 +194,7 @@
 
                 <!-- Item 5 (Span 2 cols) -->
                 <div class="gallery-item relative overflow-hidden group sm:col-span-2 lg:col-span-2 bg-gray-200">
-                    <img src="{{ asset('photo/about_crew_4.png') }}" alt="Sinemaku Event"
+                    <img src="{{ isset($settings['about_team_image_5']) ? asset($settings['about_team_image_5']) : asset('photo/about_crew_4.png') }}" alt="Sinemaku Event"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                         style="object-position: center 30%;">
                     <div
@@ -212,7 +204,7 @@
 
                 <!-- Item 6 -->
                 <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ asset('photo/about_crew_5.png') }}" alt="Crew on set"
+                    <img src="{{ isset($settings['about_team_image_6']) ? asset($settings['about_team_image_6']) : asset('photo/about_crew_5.png') }}" alt="Crew on set"
                         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
                     <div
                         class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -276,9 +268,8 @@
                         class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
                         <x-icons.film class="w-5 h-5" />
                     </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">Film & Seri web</h3>
-                    <p class="text-gray-500 leading-relaxed font-light">Eksplorasi cerita layar lebar dan seri web dengan
-                        narasi segar, menghadirkan estetika visual yang menantang batas-batas konvensional.</p>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">{{ $settings['about_values_1_title'] ?? 'Film & Seri web' }}</h3>
+                    <p class="text-gray-500 leading-relaxed font-light">{{ $settings['about_values_1_body'] ?? 'Eksplorasi cerita layar lebar dan seri web dengan narasi segar, menghadirkan estetika visual yang menantang batas-batas konvensional.' }}</p>
                 </div>
 
                 <!-- Card 2 -->
@@ -288,9 +279,8 @@
                         class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
                         <x-icons.monitor class="w-5 h-5" />
                     </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">Tayangan Televisi</h3>
-                    <p class="text-gray-500 leading-relaxed font-light">Menghadirkan kisah-kisah hangat untuk ruang keluarga
-                        melalui produksi televisi yang berkualitas dan dekat dengan realitas sehari-hari.</p>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">{{ $settings['about_values_2_title'] ?? 'Tayangan Televisi' }}</h3>
+                    <p class="text-gray-500 leading-relaxed font-light">{{ $settings['about_values_2_body'] ?? 'Menghadirkan kisah-kisah hangat untuk ruang keluarga melalui produksi televisi yang berkualitas dan dekat dengan realitas sehari-hari.' }}</p>
                 </div>
 
                 <!-- Card 3 -->
@@ -300,9 +290,8 @@
                         class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
                         <x-icons.users class="w-5 h-5" />
                     </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">Komunitas & Event</h3>
-                    <p class="text-gray-500 leading-relaxed font-light">Rantai penghubung antarsineas dan penonton lewat
-                        Sinemaku Day, workshop, nobar bincang karya, dan program kerelawanan.</p>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">{{ $settings['about_values_3_title'] ?? 'Komunitas & Event' }}</h3>
+                    <p class="text-gray-500 leading-relaxed font-light">{{ $settings['about_values_3_body'] ?? 'Rantai penghubung antarsineas dan penonton lewat Sinemaku Day, workshop, nobar bincang karya, dan program kerelawanan.' }}</p>
                 </div>
             </div>
         </div>

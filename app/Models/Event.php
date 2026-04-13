@@ -24,7 +24,13 @@ class Event extends Model
         'photo',
         'link',
         'slug',
+        'event_kategori_uuid',
     ];
+
+    public function eventKategori()
+    {
+        return $this->belongsTo(EventKategori::class, 'event_kategori_uuid', 'uuid');
+    }
 
     public function userCreate() {
         return $this->belongsTo(User::class, 'created_by', 'uuid');

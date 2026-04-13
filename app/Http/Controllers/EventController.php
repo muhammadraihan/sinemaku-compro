@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Event;
+use App\Models\EventKategori;
 
 use Auth;
 use DataTables;
@@ -29,6 +30,9 @@ class EventController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->editColumn('event_kategori_uuid', function ($row) {
+                    return $row->eventKategori->name ?? '-';
+                })
                 ->editColumn('photo', function ($row){
                     $url = asset('photo');
                     return '<image style="width: 150px; height: 150px;"  src="'.$url.'/'.$row->photo.'" alt="">';
@@ -54,7 +58,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('event.create');
+        $eventKategoris = EventKategori::all()->pluck('name', 'uuid');
+        return view('event.create', compact('eventKategoris'));
     }
 
     /**
@@ -73,6 +78,7 @@ class EventController extends Controller
             'location' => 'required',
             'detail' => 'required',
             'link' => 'required',
+            'event_kategori_uuid' => 'required',
             'photo' => 'required|image'
         ];
 
@@ -96,6 +102,7 @@ class EventController extends Controller
         $event->harga = $request->harga;
         $event->detail = $request->detail;
         $event->link = $request->link;
+        $event->event_kategori_uuid = $request->event_kategori_uuid;
 
         if ($image = $request->file('photo')) {
             $destinationPath = 'photo/';
@@ -131,8 +138,9 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        $event = event::uuid($id);
-        return view('event.edit', compact('event'));
+        $event          = event::uuid($id);
+        $eventKategoris = EventKategori::all()->pluck('name', 'uuid');
+        return view('event.edit', compact('event', 'eventKategoris'));
     }
 
     /**
@@ -151,7 +159,8 @@ class EventController extends Controller
             'jam_event' => 'required',
             'location' => 'required',
             'detail' => 'required',
-            'link' => 'required'
+            'link' => 'required',
+            'event_kategori_uuid' => 'required'
         ];
 
         $messages = [
@@ -174,6 +183,7 @@ class EventController extends Controller
         $event->harga = $request->harga;
         $event->detail = $request->detail;
         $event->link = $request->link;
+        $event->event_kategori_uuid = $request->event_kategori_uuid;
 
         if($request->hasFile('photo')){
 

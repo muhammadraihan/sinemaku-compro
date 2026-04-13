@@ -18,9 +18,15 @@ class Article extends Model
         'penulis',
         'detail',
         'kategori',
+        'artikel_kategori_uuid',
         'link',
         'photo',
     ];
+
+    public function artikelKategori()
+    {
+        return $this->belongsTo(ArtikelKategori::class, 'artikel_kategori_uuid', 'uuid');
+    }
 
     public function userCreate() {
         return $this->belongsTo(User::class, 'created_by', 'uuid');

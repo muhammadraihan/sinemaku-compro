@@ -38,6 +38,13 @@ class Film extends Model
         return $this->hasMany(BehindTheScene::class, 'judul', 'uuid');
     }
 
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class, 'film_uuid', 'uuid')
+                    ->orderBy('season_number')
+                    ->orderBy('episode_number');
+    }
+
     public function userCreate() {
         return $this->belongsTo(User::class, 'created_by', 'uuid');
     }

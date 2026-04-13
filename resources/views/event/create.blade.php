@@ -77,21 +77,31 @@
                     @endif
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-4 mb-3">
+                    <div class="form-group col-md-3 mb-3">
+                        {{ Form::label('event_kategori_uuid','Kategori Event',['class' => 'required form-label'])}}
+                        {!! Form::select('event_kategori_uuid', $eventKategoris, '',
+                        ['id'=>'event_kategori_uuid','class'
+                        => 'custom-select'.($errors->has('event_kategori_uuid') ? 'is-invalid':'') ,'required'
+                        => '', 'placeholder' => 'Pilih Kategori ...'])!!}
+                        @if ($errors->has('event_kategori_uuid'))
+                        <div class="invalid-feedback">{{ $errors->first('event_kategori_uuid') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-3 mb-3">
                         {{ Form::label('location','Location',['class' => 'required form-label'])}}
                         {{ Form::text('location',null,['placeholder' => 'Location','class' => 'form-control '.($errors->has('location') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('location'))
                         <div class="invalid-feedback">{{ $errors->first('location') }}</div>
                         @endif
                     </div>
-                    <div class="form-group col-md-4 mb-3">
+                    <div class="form-group col-md-3 mb-3">
                         {{ Form::label('harga','Harga',['class' => 'required form-label'])}}
                         {{ Form::text('harga',null,['placeholder' => 'Harga','class' => 'form-control '.($errors->has('harga') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('harga'))
                         <div class="invalid-feedback">{{ $errors->first('harga') }}</div>
                         @endif
                     </div>
-                    <div class="form-group col-md-4 mb-3">
+                    <div class="form-group col-md-3 mb-3">
                         {{ Form::label('link','Link Tiket',['class' => 'required form-label'])}}
                         {{ Form::text('link',null,['placeholder' => 'Link Tiket','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('link'))
@@ -125,7 +135,8 @@
 <script src="{{asset('js/formplugins/ckeditor/ckeditor.js')}}"></script>
 <script>
     $(document).ready(function(){
-        $('#kategori').select2();
+        $('#event_kategori_uuid').select2();
+        $('#type').select2();
         $('#type').select2();
 
         CKEDITOR.replace('detail');

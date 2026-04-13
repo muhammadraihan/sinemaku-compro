@@ -22,6 +22,10 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\BehindTheSceneController;
 use App\Http\Controllers\PhykController;
+use App\Http\Controllers\SiteSettingController;
+use App\Http\Controllers\EpisodeController;
+use App\Http\Controllers\ArtikelKategoriController;
+use App\Http\Controllers\EventKategoriController;
 
 // ===== home =====
 Route::get('/', [FrontEndController::class, 'index'])->name('welcome');
@@ -83,4 +87,13 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::get('get-data', [MembershipController::class,'listData'])->name('membership.search');
     Route::get('phyk/export', [PhykController::class, 'export'])->name('phyk.export');
     Route::get('get-data-phyk', [PhykController::class,'listData'])->name('phyk.search');
+    // About page CMS
+    Route::get('settings/about', [SiteSettingController::class, 'aboutIndex'])->name('settings.about');
+    Route::post('settings/about', [SiteSettingController::class, 'aboutUpdate'])->name('settings.about.update');
+    // Episodes
+    Route::resource('episode', 'EpisodeController');
+    // Article categories
+    Route::resource('artikel-kategori', 'ArtikelKategoriController');
+    // Event categories
+    Route::resource('event-kategori', 'EventKategoriController');
 });
