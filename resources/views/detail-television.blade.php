@@ -160,6 +160,22 @@
   }
   .ep-watch-link:hover { border-bottom-color: #e51e25; }
 
+  /* Episode Playlist Play Overlay */
+  .ep-image-wrap { position: relative; width: 100%; aspect-ratio: 16/9; cursor: pointer; overflow: hidden; }
+  .ep-play-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.3);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: all 0.3s ease;
+  }
+  .ep-image-wrap:hover .ep-play-overlay { opacity: 1; background: rgba(0,0,0,0.5); }
+  .ep-play-btn {
+    width: 60px; height: 60px; border-radius: 50%; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    transform: scale(0.9); transition: transform 0.3s;
+  }
+  .ep-image-wrap:hover .ep-play-btn { transform: scale(1); }
+  .ep-play-btn svg { width: 24px; height: 24px; fill: #111; margin-left: 4px; }
+
   /* Trailer Button */
   .btn-trailer {
     display: inline-flex; align-items: center; gap: 14px;
@@ -427,35 +443,49 @@
 <section class="sec-episodes">
   <div class="ep-list-header">Daftar Episode</div>
 
-  @php
-    $episodes = [
-      ['no' => 1, 'title' => 'The Beginning of the End', 'desc' => 'In a world where secrets are buried deep beneath the surface, a group of unlikely allies must come together to face an ancient threat that has been dormant for centuries. The tension rises as the first signs of the coming storm appear on the horizon, threatening to destroy everything they hold dear.', 'yt' => 'h_D3VFfhvs4'],
-      ['no' => 2, 'title' => 'Shadows of the Past', 'desc' => 'As the group ventures further into the unknown, they are haunted by shadows of their past. Old wounds are reopened and loyalties are tested as they realize that the enemy they face might be closer than they ever imagined.', 'yt' => 'dQw4w9WgXcQ'],
-      ['no' => 3, 'title' => 'Broken Alliances', 'desc' => 'The fragility of their bond is exposed when a critical decision leads to a rift within the group. As they struggle to find common ground, a surprise attack from a rival faction forces them to rethink their strategy.', 'yt' => 'y6120QOlsfU'],
-      ['no' => 4, 'title' => 'The Silent Oath', 'desc' => 'Silent vows are made in the cold of night. The group prepares for a battle they know they might not win. Every character faces their inner demons before the real ones arrive.', 'yt' => 'h_D3VFfhvs4'],
-    ];
-  @endphp
-
-  @foreach($episodes as $ep)
-  <div class="ep-row">
-    <div class="ep-image">
-      <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}ep{{ $ep['no'] }}/800/450" alt="Episode {{ $ep['no'] }}">
-    </div>
-    <div class="ep-details">
-      <div class="ep-num">Episode {{ sprintf('%02d', $ep['no']) }}</div>
-      <h3 class="ep-heading">{{ $ep['title'] }}</h3>
-      <p class="ep-desc">{{ $ep['desc'] }}</p>
-      
-      <div class="ep-actions-row">
-        <a href="https://www.netflix.com" target="_blank" class="ep-watch-link">Watch now.</a>
-        <button class="btn-ep-trailer" onclick="openTrailerModal('{{ $ep['yt'] }}')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          Trailer
-        </button>
+  @if($films->episodes->count() > 0)
+    @foreach($films->episodes as $ep)
+    @php
+      $ep_yt_id = '';
+      if (!empty($ep->link_trailer) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $ep->link_trailer, $ep_match)) {
+          $ep_yt_id = $ep_match[1];
+      }
+    @endphp
+    <div class="ep-row">
+      <div class="ep-image-wrap" @if($ep_yt_id) onclick="openTrailerModal('{{ $ep_yt_id }}')" @endif>
+        <div class="ep-image">
+          <img src="{{ $ep->photo ? asset('photo/' . $ep->photo) : 'https://picsum.photos/seed/ep'.$ep->id.'/800/450' }}" alt="{{ $ep->title }}">
+        </div>
+        @if($ep_yt_id)
+        <div class="ep-play-overlay">
+          <div class="ep-play-btn">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        @endif
+      </div>
+      <div class="ep-details">
+        <div class="ep-num">Episode {{ sprintf('%02d', $ep->episode_number) }}</div>
+        <h3 class="ep-heading">{{ $ep->title }}</h3>
+        <p class="ep-desc">{{ $ep->sinopsis }}</p>
+        
+        <div class="ep-actions-row">
+          @if($ep->link)
+          <a href="{{ $ep->link }}" target="_blank" class="ep-watch-link">Watch now.</a>
+          @endif
+          @if($ep_yt_id)
+          <button class="btn-ep-trailer" onclick="openTrailerModal('{{ $ep_yt_id }}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Trailer
+          </button>
+          @endif
+        </div>
       </div>
     </div>
-  </div>
-  @endforeach
+    @endforeach
+  @else
+    <p class="text-muted">No episodes found.</p>
+  @endif
 </section>
 
 <!-- ===== BEHIND THE SCENES GALLERY (3 COLUMNS) ===== -->

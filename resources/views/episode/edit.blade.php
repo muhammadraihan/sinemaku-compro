@@ -58,9 +58,15 @@
                     {{ Form::textarea('sinopsis', $episode->sinopsis, ['placeholder' => 'Deskripsi singkat episode...', 'class' => 'form-control', 'rows' => 4]) }}
                 </div>
 
-                <div class="form-group col-md-12 mb-3">
-                    {{ Form::label('link', 'Link Streaming (YouTube / dll)', ['class' => 'form-label']) }}
-                    {{ Form::text('link', $episode->link, ['placeholder' => 'https://...', 'class' => 'form-control']) }}
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        {{ Form::label('link', 'Link Streaming (Netflix / dll)', ['class' => 'form-label']) }}
+                        {{ Form::text('link', $episode->link, ['placeholder' => 'https://...', 'class' => 'form-control']) }}
+                    </div>
+                    <div class="form-group col-md-6 mb-3">
+                        {{ Form::label('link_trailer', 'Link Trailer (YouTube)', ['class' => 'form-label']) }}
+                        {{ Form::text('link_trailer', $episode->link_trailer, ['placeholder' => 'https://...', 'class' => 'form-control']) }}
+                    </div>
                 </div>
 
                 <div class="form-group col-md-6 mb-3">

@@ -103,6 +103,7 @@ class EpisodeController extends Controller
         $episode->sinopsis       = $request->sinopsis;
         $episode->duration       = $request->duration;
         $episode->link           = $request->link;
+        $episode->link_trailer   = $request->link_trailer;
         $episode->slug           = $slug;
 
         if ($image = $request->file('photo')) {
@@ -173,6 +174,7 @@ class EpisodeController extends Controller
         $episode->sinopsis       = $request->sinopsis;
         $episode->duration       = $request->duration;
         $episode->link           = $request->link;
+        $episode->link_trailer   = $request->link_trailer;
 
         if ($request->hasFile('photo')) {
             if ($oldImage = $episode->photo) {

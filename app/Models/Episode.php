@@ -19,6 +19,7 @@ class Episode extends Model
         'sinopsis',
         'duration',
         'link',
+        'link_trailer',
         'photo',
         'slug',
         'created_by',
