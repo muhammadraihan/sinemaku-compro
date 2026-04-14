@@ -7,11 +7,7 @@ use App\Models\Slide;
 
 use Auth;
 use DataTables;
-use DB;
 use File;
-use Hash;
-use Image;
-use Response;
 use URL;
 
 class SlideController extends Controller
@@ -147,8 +143,10 @@ class SlideController extends Controller
             // delete existing (if set)
         
             if($oldImage = $slide->photo) {
-        
-                unlink(public_path('photo/') . $oldImage);
+                $oldPath = public_path('photo/') . $oldImage;
+                if(file_exists($oldPath)){
+                    unlink($oldPath);
+                }
             }
         
             // save the new image

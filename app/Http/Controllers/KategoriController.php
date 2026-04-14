@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Models\Kategori;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class KategoriController extends Controller
 {
@@ -22,7 +18,6 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::all();
         if (request()->ajax()) {
             $data = Kategori::get();
 

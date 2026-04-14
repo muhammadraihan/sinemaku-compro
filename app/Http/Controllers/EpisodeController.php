@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Episode;
 use App\Models\Film;
 use App\Models\Kategori;
+use App\Models\FilmGallery;
 
 use Auth;
 use DataTables;
@@ -123,7 +124,7 @@ class EpisodeController extends Controller
                 $filename = date('YmdHis') . '_' . Str::random(5) . '_still.' . $file->getClientOriginalExtension();
                 $file->move(public_path('photo/'), $filename);
 
-                \App\Models\FilmGallery::create([
+                FilmGallery::create([
                     'episode_uuid' => $episode->uuid,
                     'type'         => 'still_shot',
                     'photo'        => $filename
@@ -137,7 +138,7 @@ class EpisodeController extends Controller
                 $filename = date('YmdHis') . '_' . Str::random(5) . '_bts.' . $file->getClientOriginalExtension();
                 $file->move(public_path('photo/'), $filename);
 
-                \App\Models\FilmGallery::create([
+                FilmGallery::create([
                     'episode_uuid' => $episode->uuid,
                     'type'         => 'bts',
                     'photo'        => $filename
@@ -224,7 +225,7 @@ class EpisodeController extends Controller
         // Handle Deletions
         if ($request->has('delete_gallery') && is_array($request->delete_gallery)) {
             foreach ($request->delete_gallery as $gUuid) {
-                $gallery = \App\Models\FilmGallery::where('uuid', $gUuid)->where('episode_uuid', $episode->uuid)->first();
+                $gallery = FilmGallery::where('uuid', $gUuid)->where('episode_uuid', $episode->uuid)->first();
                 if ($gallery) {
                     if (file_exists(public_path('photo/') . $gallery->photo)) {
                         unlink(public_path('photo/') . $gallery->photo);
@@ -240,7 +241,7 @@ class EpisodeController extends Controller
                 $filename = date('YmdHis') . '_' . Str::random(5) . '_still.' . $file->getClientOriginalExtension();
                 $file->move(public_path('photo/'), $filename);
 
-                \App\Models\FilmGallery::create([
+                FilmGallery::create([
                     'episode_uuid' => $episode->uuid,
                     'type'         => 'still_shot',
                     'photo'        => $filename
@@ -253,7 +254,7 @@ class EpisodeController extends Controller
                 $filename = date('YmdHis') . '_' . Str::random(5) . '_bts.' . $file->getClientOriginalExtension();
                 $file->move(public_path('photo/'), $filename);
 
-                \App\Models\FilmGallery::create([
+                FilmGallery::create([
                     'episode_uuid' => $episode->uuid,
                     'type'         => 'bts',
                     'photo'        => $filename

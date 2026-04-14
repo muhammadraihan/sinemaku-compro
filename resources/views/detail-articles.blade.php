@@ -8,7 +8,12 @@
 
 <style>
 /* ---------------- NAV tetapkan ---------------- */
-
+#nav-overlay-gradient {
+  display: block !important;
+}
+#unified-navbar {
+  filter: none !important;
+}
 
 /* ---------------- THEME ---------------- */
 :root{

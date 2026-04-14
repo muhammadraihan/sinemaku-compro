@@ -20,14 +20,12 @@
     color: var(--text-primary);
   }
 
-  /* Remove navbar overlay gradient for this specific page */
+  /* Revert navbar to standard look to match other pages */
   #nav-overlay-gradient {
-    display: none !important;
+    display: block !important;
   }
-
-  /* Adjust navbar for white background */
   #unified-navbar {
-    filter: invert(1); /* Flip white to black elegantly */
+    filter: none !important;
   }
 
   .events-container {
@@ -301,5 +299,4 @@
 
 @include('components.footer')
 
-@endsection
-tion
+@endsection

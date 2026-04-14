@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class PhykController extends Controller
 {
@@ -24,9 +21,8 @@ class PhykController extends Controller
      */
     public function index()
     {
-        $phyk = phyk::all();
         if (request()->ajax()) {
-            $data = phyk::selectRaw("
+            $data = Phyk::selectRaw("
                         name, email, created_at, DATE(created_at) as created_date, TIME(created_at) as created_time,
                         CONCAT(
                         TIMESTAMPDIFF(MONTH, created_at, NOW()), ' bulan ',
@@ -141,7 +137,7 @@ class PhykController extends Controller
 
         // $rows = $q->orderBy('first_name')->get(['first_name','last_name','email','city','phone_number']);
 
-        $rows = phyk::selectRaw("
+        $rows = Phyk::selectRaw("
                         name, email, created_at, DATE(created_at) as created_date, TIME(created_at) as created_time,
                         CONCAT(
                         TIMESTAMPDIFF(MONTH, created_at, NOW()), ' bulan ',
@@ -178,7 +174,7 @@ class PhykController extends Controller
         // dd($request->all());
 
         // Ambil semua data dengan relasi yang dibutuhkan
-        $query = phyk::selectRaw("
+        $query = Phyk::selectRaw("
                         name, email, created_at
                     ");
     

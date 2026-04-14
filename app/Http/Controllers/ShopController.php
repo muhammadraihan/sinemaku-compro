@@ -5,15 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\KategoriShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use App\Models\Shop;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class ShopController extends Controller
 {
@@ -24,7 +20,6 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $shop = Shop::all();
         if (request()->ajax()) {
             $data = Shop::get();
 
@@ -58,7 +53,7 @@ class ShopController extends Controller
      */
     public function create()
     {
-        $kategorishop = kategorishop::all()->pluck('name', 'uuid');
+        $kategorishop = KategoriShop::all()->pluck('name', 'uuid');
         return view('shop.create', compact('kategorishop'));
     }
 
@@ -137,7 +132,7 @@ class ShopController extends Controller
     public function edit($id)
     {
         $shop = Shop::uuid($id);
-        $kategorishop = kategorishop::all()->pluck('name', 'uuid');
+        $kategorishop = KategoriShop::all()->pluck('name', 'uuid');
         return view('shop.edit', compact('shop', 'kategorishop'));
     }
 
@@ -188,8 +183,10 @@ class ShopController extends Controller
             // delete existing (if set)
         
             if($oldImage = $shop->photo) {
-        
-                unlink(public_path('photo/') . $oldImage);
+                $oldPath = public_path('photo/') . $oldImage;
+                if(file_exists($oldPath)){
+                    unlink($oldPath);
+                }
             }
         
             // save the new image

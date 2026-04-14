@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use App\Models\Casting;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class CastingController extends Controller
 {
@@ -23,9 +19,8 @@ class CastingController extends Controller
      */
     public function index()
     {
-        $casting = casting::all();
         if (request()->ajax()) {
-            $data = casting::get();
+            $data = Casting::get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -82,7 +77,7 @@ class CastingController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $casting = new casting();
+        $casting = new Casting();
         $casting->slug = Str::slug($request->pemeran);
         $casting->pemeran = $request->pemeran;
         $casting->judul_film = $request->judul_film;
@@ -120,7 +115,7 @@ class CastingController extends Controller
      */
     public function edit($id)
     {
-        $casting = casting::uuid($id);
+        $casting = Casting::uuid($id);
         return view('casting.edit', compact('casting'));
     }
 
@@ -153,7 +148,7 @@ class CastingController extends Controller
 
         $this->validate($request, $rules, $messages);
         
-        $casting = casting::uuid($id);
+        $casting = Casting::uuid($id);
         $casting->pemeran = $request->pemeran;
         $casting->judul_film = $request->judul_film;
         $casting->gender = $request->gender;
@@ -178,7 +173,7 @@ class CastingController extends Controller
      */
     public function destroy($id)
     {
-        $casting = casting::uuid($id);
+        $casting = Casting::uuid($id);
         $casting->delete();
 
         toastr()->success('Casting Name Deleted', 'Success');

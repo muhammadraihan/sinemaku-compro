@@ -20,14 +20,12 @@
     color: var(--text-primary) !important;
   }
 
-  /* Remove navbar overlay gradient */
+  /* Standard navbar look */
   #nav-overlay-gradient {
-    display: none !important;
+    display: block !important;
   }
-
-  /* Adjust navbar for white background */
   #unified-navbar {
-    filter: invert(1);
+    filter: none !important;
   }
 
   .articles-container {

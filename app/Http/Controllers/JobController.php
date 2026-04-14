@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use App\Models\Job;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class JobController extends Controller
 {
@@ -23,9 +19,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        $job = job::all();
         if (request()->ajax()) {
-            $data = job::get();
+            $data = Job::get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -85,7 +80,7 @@ class JobController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $job = new job();
+        $job = new Job();
         $job->slug = Str::slug($request->position);
         $job->position = $request->position;
         $job->tim = $request->tim;
@@ -122,7 +117,7 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        $job = job::uuid($id);
+        $job = Job::uuid($id);
         return view('job.edit', compact('job'));
     }
 
@@ -154,7 +149,7 @@ class JobController extends Controller
 
         $this->validate($request, $rules, $messages);
         
-        $job = job::uuid($id);
+        $job = Job::uuid($id);
         $job->slug = Str::slug($request->position);
         $job->position = $request->position;
         $job->tim = $request->tim;
@@ -179,7 +174,7 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        $job = job::uuid($id);
+        $job = Job::uuid($id);
         $job->delete();
 
         toastr()->success('Career Name Deleted', 'Success');

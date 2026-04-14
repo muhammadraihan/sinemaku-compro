@@ -4,16 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use App\Models\Article;
 use App\Models\ArtikelKategori;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class ArticleController extends Controller
 {
@@ -24,9 +20,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $article = article::all();
         if (request()->ajax()) {
-            $data = article::get();
+            $data = Article::get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -90,7 +85,7 @@ class ArticleController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $article = new article();
+        $article = new Article();
         $article->slug = Str::slug($request->judul);
         $article->judul = $request->judul;
         $article->title = $request->title;
@@ -135,7 +130,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $article          = article::uuid($id);
+        $article          = Article::uuid($id);
         $artikelKategoris = ArtikelKategori::all()->pluck('name', 'uuid');
         return view('article.edit', compact('article', 'artikelKategoris'));
     }
@@ -167,7 +162,7 @@ class ArticleController extends Controller
 
         $this->validate($request, $rules, $messages);
         
-        $article = article::uuid($id);
+        $article = Article::uuid($id);
         $article->slug = Str::slug($request->judul);
         $article->judul = $request->judul;
         $article->title = $request->title;
@@ -185,8 +180,10 @@ class ArticleController extends Controller
             // delete existing (if set)
         
             if($oldImage = $article->photo) {
-        
-                unlink(public_path('photo/') . $oldImage);
+                $oldPath = public_path('photo/') . $oldImage;
+                if(file_exists($oldPath)){
+                    unlink($oldPath);
+                }
             }
         
             // save the new image
@@ -211,7 +208,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $article = article::uuid($id);
+        $article = Article::uuid($id);
         $article->delete();
 
         toastr()->success('Article Name Deleted', 'Success');

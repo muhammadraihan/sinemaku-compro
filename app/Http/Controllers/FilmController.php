@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use App\Models\Film;
 use App\Models\Kategori;
+use App\Models\FilmGallery;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class FilmController extends Controller
 {
@@ -24,7 +21,6 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $film = Film::all();
         if (request()->ajax()) {
             $data = Film::get();
 
@@ -134,7 +130,7 @@ class FilmController extends Controller
             foreach ($request->file('still_shots') as $image) {
                 $filename = date('YmdHis') . "_still_" . Str::random(5) . "." . $image->getClientOriginalExtension();
                 $image->move('photo/', $filename);
-                \App\Models\FilmGallery::create([
+                FilmGallery::create([
                     'film_uuid' => $film->uuid,
                     'type' => 'still_shot',
                     'photo' => $filename
@@ -146,7 +142,7 @@ class FilmController extends Controller
             foreach ($request->file('bts_galleries') as $image) {
                 $filename = date('YmdHis') . "_bts_" . Str::random(5) . "." . $image->getClientOriginalExtension();
                 $image->move('photo/', $filename);
-                \App\Models\FilmGallery::create([
+                FilmGallery::create([
                     'film_uuid' => $film->uuid,
                     'type' => 'bts',
                     'photo' => $filename
@@ -231,8 +227,10 @@ class FilmController extends Controller
             // delete existing (if set)
         
             if($oldImage = $film->photo) {
-        
-                unlink(public_path('photo/') . $oldImage);
+                $oldPath = public_path('photo/') . $oldImage;
+                if(file_exists($oldPath)){
+                    unlink($oldPath);
+                }
             }
         
             // save the new image
@@ -249,8 +247,10 @@ class FilmController extends Controller
             // delete existing (if set)
         
             if($oldImage = $film->poster) {
-        
-                unlink(public_path('photo/') . $oldImage);
+                $oldPath = public_path('photo/') . $oldImage;
+                if(file_exists($oldPath)){
+                    unlink($oldPath);
+                }
             }
         
             // save the new image
@@ -268,7 +268,7 @@ class FilmController extends Controller
             foreach ($request->file('still_shots') as $image) {
                 $filename = date('YmdHis') . "_still_" . Str::random(5) . "." . $image->getClientOriginalExtension();
                 $image->move('photo/', $filename);
-                \App\Models\FilmGallery::create([
+                FilmGallery::create([
                     'film_uuid' => $film->uuid,
                     'type' => 'still_shot',
                     'photo' => $filename
@@ -280,7 +280,7 @@ class FilmController extends Controller
             foreach ($request->file('bts_galleries') as $image) {
                 $filename = date('YmdHis') . "_bts_" . Str::random(5) . "." . $image->getClientOriginalExtension();
                 $image->move('photo/', $filename);
-                \App\Models\FilmGallery::create([
+                FilmGallery::create([
                     'film_uuid' => $film->uuid,
                     'type' => 'bts',
                     'photo' => $filename
@@ -291,7 +291,7 @@ class FilmController extends Controller
         // Handle Deletions
         if ($request->has('delete_gallery') && is_array($request->delete_gallery)) {
             foreach ($request->delete_gallery as $gUuid) {
-                $gallery = \App\Models\FilmGallery::where('uuid', $gUuid)->where('film_uuid', $film->uuid)->first();
+                $gallery = FilmGallery::where('uuid', $gUuid)->where('film_uuid', $film->uuid)->first();
                 if ($gallery) {
                     if (file_exists(public_path('photo/') . $gallery->photo)) {
                         unlink(public_path('photo/') . $gallery->photo);

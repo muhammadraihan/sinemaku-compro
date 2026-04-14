@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Models\KategoriShop;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class KategoriShopController extends Controller
 {
@@ -22,9 +18,8 @@ class KategoriShopController extends Controller
      */
     public function index()
     {
-        $kategorishop = kategorishop::all();
         if (request()->ajax()) {
-            $data = kategorishop::get();
+            $data = KategoriShop::get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -75,7 +70,7 @@ class KategoriShopController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $kategorishop = new kategorishop();
+        $kategorishop = new KategoriShop();
         $kategorishop->name = $request->name;
         $kategorishop->created_by = Auth::user()->uuid;
         $kategorishop->created_at = now();
@@ -95,7 +90,7 @@ class KategoriShopController extends Controller
     {
         $kategorishop = $request->kategorishop;
 
-        $result  = kategorishop::select('name')
+        $result  = KategoriShop::select('name')
                     ->where('uuid', $kategorishop)
                     ->first();
 
@@ -110,7 +105,7 @@ class KategoriShopController extends Controller
      */
     public function edit($id)
     {
-        $kategorishop = kategorishop::uuid($id);
+        $kategorishop = KategoriShop::uuid($id);
         return view('kategorishop.edit', compact('kategorishop'));
     }
 
@@ -138,7 +133,7 @@ class KategoriShopController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $kategorishop = kategorishop::uuid($id);
+        $kategorishop = KategoriShop::uuid($id);
         $kategorishop->name = $request->name;
         $kategorishop->edited_by = Auth::user()->uuid;
         $kategorishop->save();
@@ -155,7 +150,7 @@ class KategoriShopController extends Controller
      */
     public function destroy($id)
     {
-        $kategorishop = kategorishop::uuid($id);
+        $kategorishop = KategoriShop::uuid($id);
         $kategorishop->delete();
 
         toastr()->success('Categori Name Deleted', 'Success');

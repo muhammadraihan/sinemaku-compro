@@ -4,16 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use App\Models\Event;
 use App\Models\EventKategori;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class EventController extends Controller
 {
@@ -24,9 +20,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        $event = event::all();
         if (request()->ajax()) {
-            $data = event::get();
+            $data = Event::get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -92,7 +87,7 @@ class EventController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $event = new event();
+        $event = new Event();
         $event->slug = Str::slug($request->judul);
         $event->judul = $request->judul;
         $event->title = $request->title;
@@ -138,7 +133,7 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        $event          = event::uuid($id);
+        $event          = Event::uuid($id);
         $eventKategoris = EventKategori::all()->pluck('name', 'uuid');
         return view('event.edit', compact('event', 'eventKategoris'));
     }
@@ -173,7 +168,7 @@ class EventController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
-        $event = event::uuid($id);
+        $event = Event::uuid($id);
         $event->slug = Str::slug($request->judul);
         $event->judul = $request->judul;
         $event->title = $request->title;
@@ -191,8 +186,10 @@ class EventController extends Controller
             // delete existing (if set)
         
             if($oldImage = $event->photo) {
-        
-                unlink(public_path('photo/') . $oldImage);
+                $oldPath = public_path('photo/') . $oldImage;
+                if(file_exists($oldPath)){
+                    unlink($oldPath);
+                }
             }
         
             // save the new image
@@ -219,7 +216,7 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        $event = event::uuid($id);
+        $event = Event::uuid($id);
         $event->delete();
 
         toastr()->success('Event Name Deleted', 'Success');

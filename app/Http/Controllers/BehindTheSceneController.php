@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Models\Film;
 use App\Models\BehindTheScene as bts;
 
 use Auth;
 use DataTables;
 use URL;
-use Helper;
-use Image;
-use Response;
 
 class BehindTheSceneController extends Controller
 {
@@ -23,7 +19,6 @@ class BehindTheSceneController extends Controller
      */
     public function index()
     {
-        $bts = bts::all();
         if (request()->ajax()) {
             $data = bts::get();
 
@@ -61,7 +56,7 @@ class BehindTheSceneController extends Controller
      */
     public function create()
     {
-        $film = film::all()->pluck('title', 'uuid');
+        $film = Film::all()->pluck('title', 'uuid');
         return view('bts.create', compact('film'));
     }
 
@@ -122,7 +117,7 @@ class BehindTheSceneController extends Controller
     public function edit($id)
     {
         $bts = bts::uuid($id);
-        $film = film::all()->pluck('title', 'uuid');
+        $film = Film::all()->pluck('title', 'uuid');
         return view('bts.edit', compact('bts','film'));
     }
 
