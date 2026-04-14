@@ -122,7 +122,9 @@
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
                     <span class="feature-eyebrow">Upcoming Events</span>
-                    <h2 class="feature-title">{{ $latestEvent->judul }}</h2>
+                    <h2 class="feature-title">
+                        <a href="{{ route('detail-event', $latestEvent->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestEvent->judul }}</a>
+                    </h2>
                     <div class="feature-meta-row">
                         <span class="feature-meta-pill">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5"/></svg>
@@ -216,7 +218,9 @@
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
                     <span class="feature-eyebrow">Sinemaku Store</span>
-                    <h2 class="feature-title">{{ $latestMerch->judul }}</h2>
+                    <h2 class="feature-title">
+                        <a href="{{ route('detail-shop', $latestMerch->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestMerch->judul }}</a>
+                    </h2>
                     <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestMerch->detail), ENT_QUOTES | ENT_HTML5), 160) }}</p>
                     <div class="feature-price-row">
                         @if($latestMerch->discount)
@@ -340,7 +344,9 @@
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
                     <span class="feature-eyebrow">Artikel Terbaru</span>
-                    <h2 class="feature-title">{{ $latestArtikel->judul }}</h2>
+                    <h2 class="feature-title">
+                        <a href="{{ route('detail-articles', $latestArtikel->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestArtikel->judul }}</a>
+                    </h2>
                     <div class="feature-meta-row">
                         @if($latestArtikel->penulis)
                         <span class="feature-meta-pill">Oleh {{ $latestArtikel->penulis }}</span>
@@ -374,7 +380,9 @@
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
                     <span class="feature-eyebrow">Tayangan Televisi</span>
-                    <h2 class="feature-title">{{ $latestTvShow->title }}</h2>
+                    <h2 class="feature-title">
+                        <a href="{{ route('detail-tv', $latestTvShow->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestTvShow->title }}</a>
+                    </h2>
                     <div class="feature-meta-row">
                         <span class="feature-meta-pill">{{ $tvYear }}</span>
                         @if($latestTvShow->episode)
@@ -575,7 +583,7 @@
             position: relative;
             overflow: hidden;
             aspect-ratio: 4/3;
-            background: #e5e7eb;
+            background: transparent;
         }
 
         @media (min-width: 768px) {
