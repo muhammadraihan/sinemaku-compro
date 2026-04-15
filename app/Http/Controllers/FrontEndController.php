@@ -428,10 +428,10 @@ class FrontEndController extends Controller
 
     public function membership()
     {
-        // $membership = membership::all();
         $kategorishop = KategoriShop::all();
+        $settings = \App\Models\SiteSetting::getGroup('membership');
 
-        return view('membership', compact('kategorishop'));
+        return view('membership', compact('kategorishop', 'settings'));
     }
 
     public function careers()

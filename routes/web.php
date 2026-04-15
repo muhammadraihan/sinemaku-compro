@@ -90,6 +90,9 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     // About page CMS
     Route::get('settings/about', [SiteSettingController::class, 'aboutIndex'])->name('settings.about');
     Route::post('settings/about', [SiteSettingController::class, 'aboutUpdate'])->name('settings.about.update');
+    // Membership page CMS
+    Route::get('settings/membership', [SiteSettingController::class, 'membershipIndex'])->name('settings.membership');
+    Route::post('settings/membership', [SiteSettingController::class, 'membershipUpdate'])->name('settings.membership.update');
     // Episodes
     Route::resource('episode', 'EpisodeController');
     // Article categories

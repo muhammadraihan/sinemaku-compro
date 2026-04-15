@@ -1,568 +1,382 @@
 @extends('layouts.app')
 
-@section('title', 'Home | Sinemaku Pictures')
+@section('title', 'Membership | Sinemaku Pictures')
 
 @section('content')
-
 @include('partials.navbar')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <style>
-
-
-  :root{
-    --ink:#0A0A0A;
-    --muted:#6b7280;
-    --line:#e6e6e6;
-    --surface:#ffffff;
-
-    /* layout */
-    --mediaW: 460px;     /* lebar kolom gambar (desktop) */
-    --ribbonW: 74px;     /* lebar pita vertikal kanan */
+  :root {
+    --ink: #0A0A0A;
+    --muted: #6b7280;
+    --line: #e6e6e6;
+    --surface: #ffffff;
   }
 
-  /* ===== Base (safe-area agar tidak nabrak navbar) ===== */
-  .event-page{
-    padding: clamp(88px, 11vh, 120px) 0 56px; /* top diberi ruang */
-    color: var(--ink);
-    background:#fff;
+  body {
+    background-color: var(--surface);
   }
 
-  /* ===== Heading strip (tanpa tanggal di kanan) ===== */
-  .event-list .section-heading{
-    font:800 clamp(28px,3vw,36px)/1.08;
-
-    padding:18px clamp(16px,5vw,64px);
-    margin:0 0 clamp(12px,1.2vw,18px);
+  /* ================= HERO SECTION ================= */
+  .hero-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 600px;
+    background-color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
-  /* ===== Grid ===== */
-  .stories-grid{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap:30px; /* edge-to-edge antar kartu */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.5;
   }
 
-  /* ================= MEMBERSHIP BENEFITS ================= */
-  .member-benefits{
-    background:#fff;
-    padding: clamp(40px, 6vw, 72px) 0;
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.4) 100%);
   }
-  .mb-container{
-    max-width: 1180px;
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: #fff;
+    max-width: 900px;
+    padding: 0 24px;
+    transform: translateY(20px);
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 11vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .hero-subtitle {
+    font: 400 clamp(16px, 2vw, 20px)/1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 auto 40px;
+    max-width: 650px;
+  }
+
+  .btn-join-now {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    color: #000;
+    font: 600 14px/1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 18px 36px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: transform 0.3s ease, background 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-join-now:hover {
+    background: #e6e6e6;
+    transform: translateY(-2px);
+  }
+
+  /* ================= REGISTRATION FORM SECTION ================= */
+  .registration-section {
+    padding: clamp(60px, 8vw, 100px) 0;
+    background: #fff;
+  }
+
+  .form-container {
+    max-width: 680px;
     margin: 0 auto;
     padding: 0 24px;
   }
-  .mb-title{
-    font: 500 clamp(25px,4.0vw,50px)/1.08;
 
-    text-align:center;
-    letter-spacing:.3px;
-    margin: 40 0 12px;
-  }
-  .mb-sub{
-    text-align:center;
-    max-width: 860px;
-    margin: 0 auto clamp(28px, 5vw, 46px);
-    color:#484a50;
-    font: 400 clamp(13px, 2.0vw, 15px)/1.6;
-
+  .form-header {
+    margin-bottom: 40px;
+    text-align: center;
   }
 
-  /* grid */
-  .mb-grid{
-    display:grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(16px, 3vw, 28px);
+  .form-header h2 {
+    font: 600 clamp(28px, 4vw, 42px)/1.1;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 12px;
   }
 
-  /* card */
-  .mb-card{
-    background: #f7f7f7;
-    border: 1px solid #ececec;
-    border-radius: 14px;
-    padding: 18px 18px 20px;
-    transition: box-shadow .25s ease, transform .22s ease, border-color .22s ease;
-  }
-  .mb-card:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(0,0,0,.08);
-    border-color:#e6e6e6;
+  .form-header p {
+    font: 400 16px/1.6;
+    color: var(--muted);
   }
 
-  .mb-card-head{
-    display:flex; align-items:center; justify-content:space-between;
-    margin-bottom: 14px;
+  .clean-form {
+    display: grid;
+    gap: 24px;
   }
-  .mb-ico{
-    width: 36px; height: 36px;
-    display:grid; place-items:center;
-    background:#fff;
-    border:1px solid #e7e7ea;
-    border-radius: 8px;
+
+  .clean-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
   }
-  .mb-ico svg{ width:22px; height:22px; }
 
-  .mb-badge{
-    font: 500 10px/1;
+  @media (max-width: 640px) {
+    .clean-row { grid-template-columns: 1fr; gap: 24px; }
+  }
 
+  .form-group-clean {
+    display: block;
+  }
+
+  .form-group-clean label {
+    display: block;
+    font: 600 13px/1;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    letter-spacing:.4px;
-    color:#fff;
-    background:#2a2a2a;
-    padding: 7px 10px;
-    border-radius: 7px;
-  }
-
-  .mb-card-title{
-    margin: 2px 0 6px;
-    font: 700 clamp(14px,1.8vw,16px)/1.3;
-
-    color:#121212;
-  }
-  .mb-card-desc{
-    margin:0;
-    color:#565963;
-    font: 400 13px/1.55;
-
-  }
-
-  /* responsive */
-  @media (max-width: 1024px){
-    .mb-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-  }
-  @media (max-width: 640px){
-    .mb-grid{ grid-template-columns: 1fr; }
-    .mb-badge{ padding:6px 9px; }
-  }
-
-  /* ============== JOIN COMMUNITY STYLES ============== */
-  .join-community{
-    background:#fff;
-    padding: clamp(48px,7vw,84px) 0;
-  }
-  .jc-wrap{
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  .jc-title{
-    font: 500 clamp(25px,4.0vw,50px)/1.08;
-
-    text-align:center;
-    margin: 0 0 10px;
-  }
-  .jc-sub{
-    text-align:center;
-    color:#585d66;
-    max-width: 640px;
-    margin: 0 auto clamp(28px,5vw,40px);
-    font: 400 15px/1.6;
-
-  }
-
-  /* Card */
-  .jc-card{
-    background:#fff;
-    border:1px solid #ececf0;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(10,10,20,.05);
-    padding: clamp(18px, 3vw, 28px);
-  }
-  .jc-legend{
-    font:700 16px/1.2;
-
-    color:#1a1b1e;
-    margin-bottom: 18px;
-  }
-  .jc-fieldset{
-    border:0; padding:0; margin:0;
-  }
-
-  /* Layout for name fields */
-  .jc-row{
-    display:grid; gap: 16px;
-  }
-  .jc-row-2{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-  @media (max-width: 640px){
-    .jc-row-2{ grid-template-columns: 1fr; }
-  }
-
-  /* Groups */
-  .jc-group{ margin-bottom: 16px; }
-  .jc-group label{
-    display:block;
-    font: 600 13px/1.4;
-
-    color:#2b2e34;
+    color: #333;
     margin-bottom: 8px;
   }
 
-  /* Input with icon */
-  .jc-input{
-    position: relative;
-  }
-  .jc-ico{
-    position:absolute; inset:0 auto 0 12px;
-    width:22px; height:22px; display:grid; place-items:center;
-    margin:auto 0;
-    pointer-events:none;
-  }
-  .jc-input input{
-    width:100%;
-    height:52px;
-    border:1px solid #e6e7eb;
-    border-radius:10px;
-    background:#fafbfc;
-    padding: 0 14px 0 44px;
-    font: 500 15px/1;
-
-    color:#15171a;
-    outline:none;
-    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
-  }
-  .jc-input input::placeholder{ color:#9aa0a6; font-weight:500; }
-  .jc-input input:focus{
-    border-color:#c9d2ff;
-    background:#fff;
-    box-shadow:0 0 0 4px rgba(80,102,255,.12);
+  .form-group-clean input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    padding: 12px 0;
+    font: 400 16px/1.5;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.3s ease;
   }
 
-  /* Button */
-  .jc-btn{
-    margin-top: 8px;
-    width:100%;
-    height:56px;
-    border-radius:10px;
-    border:1px solid #e6e7eb;
-    background:#0f0f10;
-    color:#fff;
-    font: 800 14px/1;
-
-    letter-spacing:.5px;
-    text-transform:uppercase;
-    display:flex; align-items:center; justify-content:center;
-    gap:10px;
-    transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
-  }
-  .jc-btn svg{ width:20px; height:20px; }
-  .jc-btn:hover{ background:#1a1a1f; box-shadow:0 10px 24px rgba(0,0,0,.12); }
-  .jc-btn:active{ transform: translateY(1px); }
-
-  /* ===== Reveal-on-Scroll (cinematic) ===== */
-  .reveal{
-    opacity:0;
-    transform: translateY(16px);
-    transition:
-      opacity .6s ease,
-      transform .6s cubic-bezier(.2,.7,.2,1);
-    will-change: opacity, transform;
-  }
-  .reveal.is-in{
-    opacity:1;
-    transform:none;
+  .form-group-clean input::placeholder {
+    color: #a0a0a0;
   }
 
-  .reveal-x{
-    opacity:0;
-    transform: translateX(24px);
-    transition:
-      opacity .6s ease,
-      transform .6s cubic-bezier(.2,.7,.2,1);
-    will-change: opacity, transform;
-  }
-  .reveal-x.left{ transform: translateX(-24px); }
-  .reveal-x.is-in{
-    opacity:1;
-    transform:none;
+  .form-group-clean input:focus {
+    border-bottom-color: var(--ink);
   }
 
-  /* Stagger: anak-anak muncul berurutan */
-  .reveal-stagger > *{
-    opacity:0;
-    transform: translateY(12px);
-    transition:
-      opacity .5s ease,
-      transform .5s cubic-bezier(.2,.7,.2,1);
-    will-change: opacity, transform;
-  }
-  .reveal-stagger.is-in > *{
-    opacity:1;
-    transform:none;
+  .btn-submit-clean {
+    margin-top: 24px;
+    width: 100%;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 18px 24px;
+    font: 600 15px/1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border-radius: 0;
   }
 
-  /* Hormati preferensi user */
-  @media (prefers-reduced-motion: reduce){
-    .reveal,
-    .reveal-x,
-    .reveal-stagger > *{
-      transition:none !important;
-      transform:none !important;
-      opacity:1 !important;
-    }
+  .btn-submit-clean:hover {
+    background: #2a2a2a;
   }
-  .reveal-m,
-.reveal-y,
-.reveal-x {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-}
+
+  .btn-submit-clean:active {
+    transform: translateY(1px);
+  }
+
+  /* Reveal Animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+  }
+
 </style>
-<!-- ================= MEMBERSHIP: MEMBER EXCLUSIVE BENEFITS ================ -->
-<section class="member-benefits" id="member-benefits">
-  <div class="mb-container">
-    <h2 class="mb-title reveal">Member Exclusive Benefits</h2>
-    <p class="mb-sub reveal">
-      As a Sinemaku Pictures member, you'll gain access to a world of exclusive
-      experiences and opportunities that bring you closer to the art of filmmaking.
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  @if(isset($settings['membership_hero_image']) && $settings['membership_hero_image'] != '')
+      <img src="{{ asset($settings['membership_hero_image']) }}" alt="Sinemaku Memberships" class="hero-bg reveal">
+  @else
+      <div class="hero-bg reveal" style="background: linear-gradient(45deg, #121212, #2a2a2a);"></div>
+  @endif
+  <div class="hero-overlay"></div>
+  
+  <div class="hero-content reveal" style="transition-delay: 0.1s;">
+    <h1 class="hero-title">
+      {!! nl2br(e($settings['membership_hero_title'] ?? "Ready to become part of our\ncreative family?")) !!}
+    </h1>
+    <p class="hero-subtitle">
+      {{ $settings['membership_hero_subtitle'] ?? 'Sign up today and get exclusive access to events and behind the scenes content.' }}
     </p>
-
-    <div class="mb-grid reveal-stagger">
-      <!-- Card -->
-      <article class="mb-card">
-        <div class="mb-card-head">
-          <span class="mb-badge">VIP Access</span>
-        </div>
-        <h3 class="mb-card-title">Exclusive Premiere</h3>
-        <p class="mb-card-desc">
-          First access to film screenings, gala premieres, and red carpet events before
-          general release.
-        </p>
-      </article>
-
-      <!-- Duplikasi kartu sesuai kebutuhan -->
-      <article class="mb-card">
-        <div class="mb-card-head">
-          <span class="mb-badge">VIP Access</span>
-        </div>
-        <h3 class="mb-card-title">Exclusive Premiere</h3>
-        <p class="mb-card-desc">
-          First access to film screenings, gala premieres, and red carpet events before
-          general release.
-        </p>
-      </article>
-
-      <article class="mb-card">
-        <div class="mb-card-head">
-          <span class="mb-badge">VIP Access</span>
-        </div>
-        <h3 class="mb-card-title">Exclusive Premiere</h3>
-        <p class="mb-card-desc">
-          First access to film screenings, gala premieres, and red carpet events before
-          general release.
-        </p>
-      </article>
-
-      <article class="mb-card">
-        <div class="mb-card-head">
-          <span class="mb-badge">VIP Access</span>
-        </div>
-        <h3 class="mb-card-title">Exclusive Premiere</h3>
-        <p class="mb-card-desc">
-          First access to film screenings, gala premieres, and red carpet events before
-          general release.
-        </p>
-      </article>
-
-      <article class="mb-card">
-        <div class="mb-card-head">
-          <span class="mb-badge">VIP Access</span>
-        </div>
-        <h3 class="mb-card-title">Exclusive Premiere</h3>
-        <p class="mb-card-desc">
-          First access to film screenings, gala premieres, and red carpet events before
-          general release.
-        </p>
-      </article>
-
-      <article class="mb-card">
-        <div class="mb-card-head">
-          <span class="mb-badge">VIP Access</span>
-        </div>
-        <h3 class="mb-card-title">Exclusive Premiere</h3>
-        <p class="mb-card-desc">
-          First access to film screenings, gala premieres, and red carpet events before
-          general release.
-        </p>
-      </article>
-    </div>
+    <a href="#registration-form" class="btn-join-now js-scroll-to">
+      Join Now
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+      </svg>
+    </a>
   </div>
 </section>
 
-<!-- ============== MEMBERSHIP: JOIN OUR COMMUNITY ============== -->
-<section class="join-community" id="join-community">
-  <div class="jc-wrap">
-    <h2 class="jc-title reveal">Join Our Community</h2>
-    <p class="jc-sub reveal">
-      Ready to become part of our creative family? Fill out the form below to start
-      your journey as a Sinemaku Pictures member. It's completely free and takes
-      less than 2 minutes.
-    </p>
+<!-- REGISTRATION FORM SECTION -->
+<section class="registration-section" id="registration-form">
+  <div class="form-container reveal">
+    <div class="form-header">
+      <h2>Personal Information</h2>
+      <p>Fill out the form below to start your journey as a Sinemaku Pictures member. It's completely free.</p>
+    </div>
 
-      @if ($errors->any())
-        <script>
-          @foreach ($errors->all() as $err)
-            toastr.error(@json($err), 'Validation Error');
-          @endforeach
-        </script>
-      @endif
-      {!! Form::open(['route' => 'membership.store','id'=>'forms','method' => 'POST','class' =>
-                'jc-card needs-validation reveal-stagger','dropzone', 'forms','novalidate','enctype' => 'multipart/form-data']) !!}
-      <fieldset class="jc-fieldset">
-        <legend class="jc-legend">Personal Information</legend>
 
-        <div class="jc-row jc-row-2">
-          <!-- First Name -->
-          <div class="jc-group">
-            <label for="first_name">First Name</label>
-            <div class="jc-input">
-              <span class="jc-ico">
-                <!-- person icon -->
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 12c2.9 0 5-2.3 5-5s-2.1-5-5-5-5 2.3-5 5 2.1 5 5 5Zm0 2c-4.2 0-8 2-8 5v1.5c0 .8.7 1.5 1.5 1.5h13c.8 0 1.5-.7 1.5-1.5V19c0-3-3.8-5-8-5Z" fill="#9aa0a6"/>
-                </svg>
-              </span>
-              <input id="first_name" name="first_name" type="text" placeholder="Enter your first name" value="{{ old('first_name') }}" required>
-              @error('first_name')
-                <small class="text-danger">{{ $message }}</small>
-              @enderror
-            </div>
-          </div>
-
-          <!-- Last Name -->
-          <div class="jc-group">
-            <label for="last_name">Last Name</label>
-            <div class="jc-input">
-              <span class="jc-ico">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 12c2.9 0 5-2.3 5-5s-2.1-5-5-5-5 2.3-5 5 2.1 5 5 5Zm0 2c-4.2 0-8 2-8 5v1.5c0 .8.7 1.5 1.5 1.5h13c.8 0 1.5-.7 1.5-1.5V19c0-3-3.8-5-8-5Z" fill="#9aa0a6"/>
-                </svg>
-              </span>
-              <input id="last_name" name="last_name" type="text" placeholder="Enter your last name" value="{{ old('last_name') }}" required>
-              @error('last_name')
-                <small class="text-danger">{{ $message }}</small>
-              @enderror
-            </div>
-          </div>
+    {!! Form::open(['route' => 'membership.store', 'method' => 'POST', 'class' => 'clean-form needs-validation', 'novalidate']) !!}
+      
+      <div class="clean-row">
+        <!-- First Name -->
+        <div class="form-group-clean">
+          <label for="first_name">First Name</label>
+          <small id="error-first_name" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('first_name') ? 'block' : 'none' }};">
+            {{ $errors->first('first_name') ?? 'Field first name tidak boleh kosong!' }}
+          </small>
+          <input id="first_name" name="first_name" type="text" placeholder="Jan" value="{{ old('first_name') }}" required>
         </div>
 
-        <!-- Email -->
-        <div class="jc-group">
-          <label for="email">Email Address</label>
-          <div class="jc-input">
-            <span class="jc-ico">
-              <!-- mail icon -->
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3.5 6.5h17a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 16V8a1.5 1.5 0 0 1 1.5-1.5Zm.8 1.9 6.9 4.3a2.5 2.5 0 0 0 2.6 0l6.9-4.3" fill="none" stroke="#9aa0a6" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <input id="email" name="email" type="email" placeholder="Enter your email address" value="{{ old('email') }}" required>
-            @error('email')
-                <small class="text-danger">{{ $message }}</small>
-              @enderror
-          </div>
+        <!-- Last Name -->
+        <div class="form-group-clean">
+          <label for="last_name">Last Name</label>
+          <small id="error-last_name" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('last_name') ? 'block' : 'none' }};">
+            {{ $errors->first('last_name') ?? 'Field last name tidak boleh kosong!' }}
+          </small>
+          <input id="last_name" name="last_name" type="text" placeholder="Maheswara" value="{{ old('last_name') }}" required>
         </div>
+      </div>
 
-        <!-- City -->
-        <div class="jc-group">
-          <label for="city">City</label>
-          <div class="jc-input">
-            <span class="jc-ico">
-              <!-- pin icon -->
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="#9aa0a6"/>
-              </svg>
-            </span>
-            <input id="city" name="city" type="text" placeholder="Enter your city" value="{{ old('city') }}" required>
-            @error('city')
-                <small class="text-danger">{{ $message }}</small>
-              @enderror
-          </div>
-        </div>
+      <!-- Email -->
+      <div class="form-group-clean">
+        <label for="email">Email Address</label>
+        <small id="error-email" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('email') ? 'block' : 'none' }};">
+          {{ $errors->first('email') ?? 'Field email tidak boleh kosong!' }}
+        </small>
+        <input id="email" name="email" type="email" placeholder="jan@example.com" value="{{ old('email') }}" required>
+      </div>
 
-        <!-- Mobile -->
-        <div class="jc-group">
-          <label for="phone_number">Mobile Phone</label>
-          <div class="jc-input">
-            <span class="jc-ico">
-              <!-- phone icon -->
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="7" y="2.5" width="10" height="19" rx="2" fill="none" stroke="#9aa0a6" stroke-width="1.8"/>
-                <circle cx="12" cy="18.5" r="1" fill="#9aa0a6"/>
-              </svg>
-            </span>
-            <input id="phone_number" name="phone_number" type="tel" placeholder="Enter your mobile phone number" value="{{ old('phone_number') }}" required>
-            @error('phone_number')
-                <small class="text-danger">{{ $message }}</small>
-              @enderror
-          </div>
-        </div>
+      <!-- City -->
+      <div class="form-group-clean">
+        <label for="city">City</label>
+        <small id="error-city" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('city') ? 'block' : 'none' }};">
+          {{ $errors->first('city') ?? 'Field city tidak boleh kosong!' }}
+        </small>
+        <input id="city" name="city" type="text" placeholder="Jakarta" value="{{ old('city') }}" required>
+      </div>
 
-        <button type="submit" class="jc-btn">
-          BECOME A MEMBER - FREE
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </fieldset>
+      <!-- Mobile Phone -->
+      <div class="form-group-clean">
+        <label for="phone_number">Mobile Phone</label>
+        <small id="error-phone_number" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('phone_number') ? 'block' : 'none' }};">
+          {{ $errors->first('phone_number') ?? 'Field phone number tidak boleh kosong!' }}
+        </small>
+        <input id="phone_number" name="phone_number" type="tel" placeholder="081234567890" value="{{ old('phone_number') }}" required>
+      </div>
+
+      <button type="submit" class="btn-submit-clean">
+        Count Me In
+      </button>
+
     {!! Form::close() !!}
   </div>
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <script>
+    // Toastr Notifications
     @if(session('success'))
         toastr.success("{{ session('success') }}", 'Success');
     @endif
-
     @if(session('error'))
         toastr.error("{{ session('error') }}", 'Error');
     @endif
 
-    @if ($errors->any())
-        @foreach ($errors->all() as $err)
-            toastr.error("{{ $err }}", 'Validation Error');
-        @endforeach
-    @endif
-</script>
-<script>
-// Reveal on Scroll
-(function(){
-  const opts = { root:null, rootMargin:'0px', threshold: 0.12 };
-  const io = new IntersectionObserver((entries, obs)=>{
-    entries.forEach(entry=>{
-      if(!entry.isIntersecting) return;
-      const el = entry.target;
-      // mark in
-      el.classList.add('is-in');
-
-      // Stagger children if needed
-      if(el.classList.contains('reveal-stagger')){
-        const kids = Array.from(el.children);
-        kids.forEach((child, i)=>{
-          child.style.transitionDelay = (i * 90) + 'ms';
-          // if child also has .reveal / base transition, ensure it becomes visible
-          requestAnimationFrame(()=> child.classList.add('is-in'));
+    // Smooth scroll for anchor links
+    document.querySelectorAll('.js-scroll-to').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                targetEl.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
-      }
-      obs.unobserve(el);
     });
-  }, opts);
 
-  document.querySelectorAll('.reveal, .reveal-x, .reveal-stagger').forEach(el=>{
-    // if user prefers-reduced-motion, show immediately
-    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduced){
-      el.classList.add('is-in');
-      if(el.classList.contains('reveal-stagger')){
-        Array.from(el.children).forEach(k=>{ k.classList.add('is-in'); k.style.transitionDelay = '0ms'; });
-      }
-      return;
+    // Form Validation (No Refresh if Invalid)
+    const membershipForm = document.querySelector('.clean-form');
+    if (membershipForm) {
+      membershipForm.addEventListener('submit', function(e) {
+        let isValid = true;
+        const requiredInputs = membershipForm.querySelectorAll('input[required]');
+        
+        requiredInputs.forEach(input => {
+          const errorEl = document.getElementById('error-' + input.id);
+          if (errorEl) {
+            if (!input.value.trim()) {
+              errorEl.textContent = 'Field ' + input.id.replace('_', ' ') + ' tidak boleh kosong !';
+              errorEl.style.display = 'block';
+              isValid = false;
+            } else {
+              errorEl.style.display = 'none';
+            }
+          }
+        });
+
+        if (!isValid) {
+          e.preventDefault();
+          // Scroll to the first error if needed
+          const firstError = membershipForm.querySelector('.error-msg[style*="display: block"]');
+          if (firstError) {
+            // firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      });
     }
-    io.observe(el);
-  });
-})();
+
+    // Reveal Animation Logic
+    (function(){
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if(!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          obs.unobserve(entry.target);
+        });
+      }, { root: null, rootMargin: '0px', threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        // Immediate show if reduce motion is preferred
+        const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(reduced) el.classList.add('is-in');
+        else observer.observe(el);
+      });
+    })();
 </script>
 
 @include('components.footer')

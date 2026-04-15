@@ -66,4 +66,40 @@ class SiteSettingController extends Controller
         toastr()->success('About page content updated!', 'Success');
         return redirect()->route('settings.about');
     }
+
+    /**
+     * Show the Membership page editor form.
+     */
+    public function membershipIndex()
+    {
+        $settings = SiteSetting::getGroup('membership');
+        return view('settings.membership', compact('settings'));
+    }
+
+    /**
+     * Save Membership page settings.
+     */
+    public function membershipUpdate(Request $request)
+    {
+        $keys = [
+            'membership_hero_title',
+            'membership_hero_subtitle',
+        ];
+
+        foreach ($keys as $key) {
+            if ($request->has($key)) {
+                SiteSetting::setValue($key, $request->input($key), 'membership');
+            }
+        }
+
+        if ($request->hasFile('membership_hero_image')) {
+            $file = $request->file('membership_hero_image');
+            $filename = 'membership_' . time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('photo'), $filename);
+            SiteSetting::setValue('membership_hero_image', 'photo/' . $filename, 'membership');
+        }
+
+        toastr()->success('Membership page content updated!', 'Success');
+        return redirect()->route('settings.membership');
+    }
 }
