@@ -1,306 +1,240 @@
 @extends('layouts.app')
 
-@section('title', 'Home | Sinemaku Pictures')
+@section('title', 'Careers | Sinemaku Pictures')
 
+@section('content')
 @include('partials.navbar')
+
 <style>
-  /* ===== Global page background putih ===== */
-  html, body { background:#fff; color:#0A0A0A; }
-
-  /* ---------- NAVBAR (tetap) ---------- */
-
-
-  :root{
-    --ink:#0A0A0A;
-    --muted:#6b7280;
-    --line:#e6e6e6;
-    --surface:#ffffff;
-    --mediaW: 460px;
-    --ribbonW: 74px;
+  :root {
+    --bg: #ffffff;
+    --text-primary: #0a0a0a;
+    --text-secondary: #6b7280;
+    --border-color: #eeeeee;
+    --editorial-pad: clamp(24px, 8vw, 120px);
   }
 
-  /* ===== Base spacing (safe area) ===== */
-  .event-page{
-    padding: clamp(88px, 11vh, 120px) 0 56px;
-    color: var(--ink);
-    background:#fff; /* putih */
+  body {
+    background-color: var(--bg);
+    color: var(--text-primary);
   }
 
-  .event-list .section-heading{
-    font:800 clamp(28px,3vw,36px)/1.08;
-
-    padding:18px clamp(16px,5vw,64px);
-    margin:0 0 clamp(12px,1.2vw,18px);
+  .careers-container {
+    padding-top: 140px;
+    padding-bottom: 120px;
   }
 
-  .stories-grid{ display:grid; grid-template-columns: 1fr; gap:30px; }
-
-  /* ============== CAREERS STYLES ============== */
-  .careers{ background:#fff; padding: clamp(40px,6vw,72px) 0; margin-top: 40px;}
-  .careers-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px;}
-  .judul-karir{
-    font: 700 clamp(20px,3vw,30px)/1.08;
-
-    margin: 0 0 clamp(20px,3vw,28px);
+  .careers-header {
+    padding: 0 var(--editorial-pad);
+    margin-bottom: 80px;
   }
 
-  .job-grid{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 28px; margin-top: 30px; }
-  @media (max-width: 920px){ .job-grid{ grid-template-columns: 1fr; } }
-
-  .job-card{
-    border:1px solid #eef0f3; border-radius: 12px; background:#fff;
-    box-shadow: 0 6px 22px rgba(10,10,20,.05);
-    padding: 22px; transition: box-shadow .2s ease, transform .08s ease;
+  .careers-header h1 {
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    margin: 0;
   }
-  .job-card:hover{ box-shadow:0 14px 36px rgba(10,10,20,.09); transform: translateY(-1px); }
 
-  .job-head{ display:flex; align-items:center; justify-content:space-between; gap: 12px; }
-  .job-title{ font: 700 20px/1.25; color:#121316; margin:0; }
-  .job-time{ display:flex; align-items:center; gap:8px; color:#7b818c; font:500 13.5px/1; white-space:nowrap; }
-  .job-time svg{ width:18px; height:18px; color:#9aa0a6; }
-
-  .job-meta{ color:#5b606a; font:600 14px/1.6; margin:6px 0 8px; }
-  .job-desc{ color:#2b2f36; font: 400 14.5px/1.65; margin:0 0 12px; }
-
-  .job-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 14px; }
-  .tag{ display:inline-flex; align-items:center; padding:6px 10px; border-radius:8px; background:#f1f3f6; color:#475160; font:600 12.5px/1; }
-  .tag-green{ background:#e9f8ec; color:#149b43; }
-
-  .job-foot{ display:flex; align-items:center; gap:10px; padding-top:12px; border-top:1px solid #f0f1f3; flex-wrap:nowrap; }
-  .job-location{ display:flex; align-items:center; gap:8px; color:#5a6270; font:600 13.5px/1; flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .job-location svg{ width:18px; height:18px; flex:0 0 18px; color:#9aa0a6; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    display: block;
+    position: relative;
+    padding-bottom: 10px;
+  }
   
-  .job-cta{
-    display:inline-flex; align-items:center; gap:10px;
-    background:#f7f8fa; color:#0f1115; border:1px solid #eceef2;
-    height:40px; padding:0 14px; border-radius:10px; font:700 12.5px/1;
-    text-decoration:none; text-transform:uppercase; letter-spacing:.3px;
-    transition: background .2s ease, box-shadow .2s ease, transform .08s ease;
-    white-space:nowrap;            /* keep on one line */
-    flex:0 0 auto;                 /* prevent shrinking */
+  .section-label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px;
+    height: 1.5px;
+    background: var(--text-primary);
   }
-  .job-cta svg{ width:18px; height:18px; }
-  .job-cta:hover{ background:#fff; box-shadow:0 8px 20px rgba(10,10,20,.08); }
-  .job-cta:active{ transform: translateY(1px); }
-  .job-cta{ margin-left:auto; }
 
-  @media (max-width: 480px){
-    .job-cta{ height:36px; padding:0 12px; gap:8px; font:700 11.5px/1; letter-spacing:.2px; }
-    .job-cta svg{ width:16px; height:16px; }
-    .job-foot{ gap:8px; }
-    .job-location{ max-width: 60%; }
+  /* Directory List Layout */
+  .directory-list {
+    margin-top: 40px;
   }
-  /* ============== CASTING STYLES ============== */
-  .castings{ background:#fff; padding: clamp(32px,4.5vw,56px) 0; }
-  .castings-wrap{ max-width: 1120px; margin:0 auto; padding:0 20px; overflow-y: auto; max-height: calc(4 * 120px);}
-  .castings-title{
-    font: 700 clamp(20px,3vw,30px)/1.08;
 
-    margin:0 0 clamp(18px,3vw,26px);
-    margin-left: 200px;
+  .directory-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 40px var(--editorial-pad);
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  @media (max-width: 720px){
-    .castings-title{
-      margin-left: 20px;
+
+  .directory-item:first-child {
+    border-top: 1px solid var(--border-color);
+  }
+
+  .directory-item:hover {
+    background-color: #f9f9f9;
+  }
+
+  .directory-item:hover .directory-item__title,
+  .directory-item:hover svg {
+    color: #000 !important;
+  }
+
+  .directory-item:hover .directory-item__meta {
+    color: #333 !important;
+  }
+
+  .directory-item__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .directory-item__title {
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .directory-item__meta {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .directory-item__arrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .directory-item:hover .directory-item__arrow {
+    transform: translateX(8px);
+  }
+
+  .directory-item__arrow svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.5;
+  }
+
+  .casting-section {
+    margin-top: 120px;
+  }
+
+  /* Reveal Animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-inview {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .directory-item {
+      padding: 30px var(--editorial-pad);
+    }
+    .directory-item__meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
     }
   }
-  @media (min-width: 721px) and (max-width: 1120px){
-    .castings-title{ margin-left: 20px; }
-  }
-
-  .cast-card{
-    position: relative; border:1px solid #eef0f3; border-radius: 12px;
-    padding: 22px clamp(18px,2.8vw,24px); background:#fff;
-    box-shadow: 0 6px 22px rgba(10,10,20,.05); margin-bottom: 20px;
-  }
-  .cast-card:hover{ box-shadow:0 14px 36px rgba(10,10,20,.09); }
-
-  .cast-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-  .cast-title{ font:700 20px/1.25; margin:0; color:#101316; }
-  .cast-time{ display:flex; align-items:center; gap:8px; color:#7b818c; font:500 13.5px/1; white-space:nowrap; }
-  .cast-time svg{ width:18px; height:18px; color:#9aa0a6; }
-
-  .cast-desc{ color:#2b2f36; font:400 14.5px/1.65; margin:10px 0 12px; }
-  .cast-project{ margin-top: 10px; display:flex; align-items:center; gap:8px; color:#69707e; font:400 13.5px/1; margin-bottom:10px; }
-  .cast-project svg{ width:16px; height:16px; color:#a0a6af; }
-
-  .cast-tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px 10px;
-    margin-top: 8px;
-  }
-  .chip{
-    background:#f2f5f9; color:#4f5a6a; border:1px solid #e6ebf2;
-    font:600 12.5px/1; padding:7px 10px; border-radius:8px; margin-top: 0;
-
-  }
-
-  @media (max-width: 720px){
-    .cast-card{
-      padding: 18px 16px;
-    }
-    .cast-project{
-      margin: 6px 0 6px;
-      font-size: 13px;
-    }
-    .cast-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;              /* compact spacing */
-    }
-    .chip{
-      padding: 6px 10px;
-      font-size: 12px;
-      flex:0 0 auto;          /* prevent stretching; width = content */
-      width:auto;
-    }
-    .cast-cta{
-      position: static;
-      transform: none;
-      margin-top: 12px;
-      width: 100%;
-      justify-content: center;
-    }
-  }
-
-  .cast-cta{
-    position:absolute; right: clamp(18px,2.8vw,24px); top: 75%; transform: translateY(-50%);
-    display:inline-flex; align-items:center; gap:10px; height:40px; padding:0 14px;
-    border-radius:10px; background:#f7f8fa; color:#0f1115; border:1px solid #eceef2;
-    font:800 12.5px/1; text-decoration:none; letter-spacing:.35px;
-
-    transition: background .2s ease, box-shadow .2s ease, transform .08s ease;
-  }
-  .cast-cta svg{ width:18px; height:18px; }
-  .cast-cta:hover{ background:#fff; box-shadow:0 8px 20px rgba(10,10,20,.08); }
-  .cast-cta:active{ transform: translate(0,-49%); }
-
-  @media (max-width: 720px){
-    .cast-cta{ position: static; transform:none; margin-top:14px; display:inline-flex; }
-  }
-  /* ===== Scroll-reveal cinematic animations (careers & castings) ===== */
-  .reveal{opacity:0; transform:translateY(18px); transition:opacity .68s cubic-bezier(.2,.7,.2,1), transform .68s cubic-bezier(.2,.7,.2,1), filter .68s cubic-bezier(.2,.7,.2,1); will-change:opacity,transform,filter;}
-  .reveal.is-inview{opacity:1; transform:none; filter:none;}
-  /* optional stagger: each element can get a CSS var --d (delay) */
-  .reveal{ transition-delay: var(--d, 0ms); }
-  /* Respect reduced motion */
-  @media (prefers-reduced-motion: reduce){
-    .reveal{ opacity:1 !important; transform:none !important; filter:none !important; transition:none !important; }
-  }
-  .reveal-m,
-.reveal-y,
-.reveal-x {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-}
 </style>
 
-<!-- ============== CAREERS: OPEN POSITIONS ============== -->
-<section class="careers" id="careers">
-  <div class="careers-wrap">
-    <h2 class="judul-karir reveal">Open Positions</h2>
+<div class="careers-container">
+  <!-- OPEN POSITIONS SECTION -->
+  <section class="careers-section">
+    <div class="careers-header reveal">
+      <span class="section-label">Join Our Team</span>
+      <h1>Open Positions</h1>
+    </div>
 
-    <div class="job-grid">
+    <div class="directory-list">
       @foreach ($careers as $item)
-        <article class="job-card reveal">
-          <header class="job-head">
-            <h3 class="job-title">{{ $item->position }}</h3>
-            <span class="job-time">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-              {{ $item->created_at->diffForHumans() }}
-            </span>
-          </header>
-
-          <div class="job-meta">{{ $item->tim }}</div>
-
-          <div class="job-tags">
-            <span class="tag tag-green">{{ $item->status }}</span>
-            <span class="tag">{{ $item->tim }}</span>
-          </div>
-
-          <footer class="job-foot">
-            <div class="job-location">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" fill="currentColor"/></svg>
-              {{ $item->location }}
+        <a href="{{ route('detail-careers', $item->slug) }}" class="directory-item reveal">
+          <div class="directory-item__content">
+            <h3 class="directory-item__title">{{ $item->position }}</h3>
+            <div class="directory-item__meta">
+              <span>{{ $item->tim }}</span>
+              <span>{{ $item->location }}</span>
+              <span>Posted {{ $item->created_at->diffForHumans() }}</span>
             </div>
-            <a class="job-cta" href="{{ route('detail-careers', $item->slug) }}">
-              See Details
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </footer>
-        </article>
+          </div>
+          <div class="directory-item__arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
       @endforeach
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============== CASTING: CURRENT CASTINGS ============== -->
-<section class="castings" id="castings">
-  <h2 class="castings-title reveal">Current Castings</h2>
-  <div class="castings-wrap">
-    @foreach ($casting as $item)
-      <article class="cast-card reveal">
-        <header class="cast-head">
-          <h3 class="cast-title">{{ $item->pemeran }}</h3>
-          <span class="cast-time">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-            {{ $item->created_at->diffForHumans() }}
-          </span>
-        </header>
+  <!-- CURRENT CASTINGS SECTION -->
+  <section class="casting-section">
+    <div class="careers-header reveal">
+      <span class="section-label">Casting Calls</span>
+      <h1>Current Castings</h1>
+    </div>
 
-        <div class="cast-project">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12a2 2 0 0 1 2 2v13l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2Z" fill="currentColor"/></svg>
-          {{ $item->judul_film }}
-        </div>
-
-          <div class="cast-tags">
-            <span class="chip">{{ $item->gender == 'L' ? 'Pria' : 'Wanita' }}</span>
-            <span class="chip">{{ $item->umur }} years</span>
-            <span class="chip">{{ $item->location }}</span>
+    <div class="directory-list">
+      @foreach ($casting as $item)
+        <a href="{{ route('detail-careers', $item->slug) }}" class="directory-item reveal">
+          <div class="directory-item__content">
+            <h3 class="directory-item__title">{{ $item->pemeran }}</h3>
+            <div class="directory-item__meta">
+              <span style="font-weight: 700;">{{ $item->judul_film }}</span>
+              <span>{{ $item->gender == 'L' ? 'Male' : 'Female' }}, {{ $item->umur }} Yrs</span>
+              <span>{{ $item->location }}</span>
+            </div>
           </div>
-
-        <a class="cast-cta" href="{{ route('detail-careers', $item->slug) }}">
-          SEE DETAILS
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="directory-item__arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
         </a>
-      </article>
-    @endforeach
-  </div>
-</section>
+      @endforeach
+    </div>
+  </section>
+</div>
+
 <script>
 (function(){
-  // Observer to toggle .is-inview
-  const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
-    entries.forEach((e)=>{
-      if(e.isIntersecting){
-        e.target.classList.add('is-inview');
-        io.unobserve(e.target);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-inview');
+        observer.unobserve(entry.target);
       }
     });
-  }, {root:null, rootMargin:'0px 0px -10% 0px', threshold:0.08}) : null;
+  }, { threshold: 0.1 });
 
-  // Collect all revealable elements
-  const reveals = Array.from(document.querySelectorAll('.reveal'));
-
-  // Stagger per group (job cards & cast cards)
-  const jobs = Array.from(document.querySelectorAll('.job-card.reveal'));
-  jobs.forEach((el, i)=> el.style.setProperty('--d', (120 + i*80) + 'ms'));
-
-  const casts = Array.from(document.querySelectorAll('.cast-card.reveal'));
-  casts.forEach((el, i)=> el.style.setProperty('--d', (120 + i*80) + 'ms'));
-
-  // Headings: a little sooner
-  const heads = Array.from(document.querySelectorAll('.judul-karir.reveal, .castings-title.reveal'));
-  heads.forEach((el)=> el.style.setProperty('--d', '40ms'));
-
-  // Observe or enable immediately if no IO
-  reveals.forEach((el)=>{
-    if(io){ io.observe(el); }
-    else{ el.classList.add('is-inview'); }
-  });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 })();
 </script>
 
 @include('components.footer')
+@endsection

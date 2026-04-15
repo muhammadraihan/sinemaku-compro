@@ -63,6 +63,7 @@
         <!-- app message -->
         <!-- app notification -->
         <!-- app user menu -->
+        @auth
         <div>
             <a href="#" data-toggle="dropdown" title="{{Auth::user()->email}}"
                 class="header-icon d-flex align-items-center justify-content-center ml-2">
@@ -114,5 +115,10 @@
                 </form>
             </div>
         </div>
+        @else
+        <div class="ml-auto d-flex align-items-center px-3">
+            <a href="{{ route('login') }}" class="btn btn-sm btn-outline-primary shadow-0">Login</a>
+        </div>
+        @endauth
     </div>
 </header>

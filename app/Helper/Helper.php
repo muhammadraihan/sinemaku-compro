@@ -28,6 +28,10 @@ class Helper
 
   public static function menu()
   {
+    if (!Auth::check()) {
+      return response()->json([]);
+    }
+
     $role_id = Auth::user()->roles->first()->id;
     $role_menus = MenuRole::select('menu_id')->where('role_id', $role_id)->get();
     $menu =  Menu::whereIn('id', $role_menus)->where('parent_id', '=', 0)->with('childs')->orderBy('order')->get();

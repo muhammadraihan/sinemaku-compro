@@ -51,7 +51,6 @@ Route::get('/detail-career/{slug}', [FrontEndController::class, 'detailcareers']
 Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
 Route::get('/documentary', [FrontEndController::class, 'documentary'])->name('documentary');
 Route::get('/detail-documentary/{slug}', [FrontEndController::class, 'detaildocumentary'])->name('detail-documentary');
-Route::resource('membership', 'MembershipController');
 Route::get('/search', [FrontEndController::class, 'index'])->name('search.index');
 
 Auth::routes(['register' => false]);
@@ -79,7 +78,7 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     Route::resource('casting', 'CastingController');
     Route::resource('event', 'EventController');
     Route::resource('phyk', 'PhykController');
-    // Route::resource('membership', 'MembershipController');
+    Route::resource('membership', 'MembershipController');
     Route::resource('bts', 'BehindTheSceneController');
     Route::resource('slide', 'SlideController');
     Route::get('get-kategori', [KategoriController::class, 'show'])->name('ref.kategori');
