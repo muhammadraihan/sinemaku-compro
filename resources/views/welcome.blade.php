@@ -36,48 +36,102 @@
         </div>
 
         {{-- ── Massive Slide Titles (Bottom Left - Flush) ── --}}
-        <div class="absolute bottom-0 left-0 w-full z-[10] pointer-events-none" style="padding-right: 280px;">
+        <div class="hero-title-container absolute bottom-0 left-0 w-full z-[10] pointer-events-none">
             @foreach($slides as $i => $film)
-                <h1 class="hero-title m-0 p-0 font-display font-bold tracking-tighter uppercase transition-all duration-1000 ease-in-out"
-                    style="font-size: clamp(3rem, 11vw, 11rem);
-                           line-height: 0.82;
-                           color: rgba(255,255,255,0.25);
-                           position: absolute;
-                           bottom: -0.12em;
-                           left: -0.03em;
-                           width: 100%;
-                           word-break: break-word;
-                           overflow-wrap: break-word;
-                           white-space: normal;
-                           display: -webkit-box;
-                           -webkit-line-clamp: 2;
-                           -webkit-box-orient: vertical;
-                           overflow: hidden;
-                           opacity: {{ $i === 0 ? '1' : '0' }}; 
-                           pointer-events: {{ $i === 0 ? 'auto' : 'none' }};">
-                    <a href="{{ route('detail-film', $film->slug) }}" style="text-decoration: none; color: inherit;">
+                @php $charCount = strlen($film->title); @endphp
+                <h2 class="hero-title m-0 p-0 font-display font-bold tracking-tighter uppercase transition-all duration-1000 ease-in-out opacity-{{ $i === 0 ? '100' : '0' }}"
+                    style="pointer-events: {{ $i === 0 ? 'auto' : 'none' }}; --char-count: {{ $charCount }};">
+                    <a href="{{ route('detail-film', $film->slug) }}" class="no-underline text-inherit">
                         {{ $film->title }}
                     </a>
-                </h1>
+                </h2>
             @endforeach
         </div>
 
         {{-- ── Slide Indicators (Bottom Right: 1/2/3/4/5) ── --}}
-        <div class="absolute bottom-0 right-0 z-[20] flex items-baseline font-display font-bold text-2xl md:text-3xl text-white/40 select-none"
-             style="bottom: -0.12em; right: 1.5%;">
+        <div class="hero-indicators-container absolute z-[20] flex items-baseline font-display font-bold text-white/40 select-none">
             @foreach($slides as $i => $film)
                 <button class="slide-indicator transition-colors duration-500 {{ $i === 0 ? 'text-white' : 'text-white/40' }} hover:text-white"
-                        style="border: none; background: transparent; cursor: pointer; padding: 0; line-height: 1;"
+                        style="border: none; background: transparent; cursor: pointer; padding: 0; line-height: 1.1;"
                         data-index="{{ $i }}">
                     {{ $i + 1 }}
                 </button>
                 @if(!$loop->last)
-                    <span class="mx-0.5 md:mx-1 opacity-50" style="line-height: 1;">/</span>
+                    <span class="indicator-separator mx-0.5 md:mx-1 opacity-50" style="line-height: 1.1;">/</span>
                 @endif
             @endforeach
         </div>
 
     </section>
+
+    <style>
+        /* Hero title defaults (Desktop) */
+        .hero-title-container {
+            padding-right: 280px;
+        }
+        .hero-title {
+            font-size: clamp(3rem, 11vw, 11rem);
+            line-height: 0.82;
+            color: rgba(255,255,255,0.25);
+            position: absolute;
+            bottom: -0.12em;
+            left: -0.03em;
+            width: 100%;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .hero-indicators-container {
+            bottom: -0.12em;
+            right: 1.5%;
+            font-size: 1.5rem; /* text-2xl equivalent */
+        }
+        @media (min-width: 768px) {
+            .hero-indicators-container {
+                font-size: 1.875rem; /* text-3xl equivalent */
+                right: 1.5%;
+            }
+        }
+
+        /* Mobile specific (Rotation) */
+        @media (max-width: 767px) {
+            .hero-title-container {
+                height: 100%;
+                width: auto;
+                padding-right: 0;
+            }
+            .hero-title {
+                writing-mode: vertical-lr;
+                text-orientation: mixed;
+                height: 100%;
+                width: auto;
+                left: -0.1em;
+                bottom: 0;
+                top: 0;
+                /* Dynamic font size based on characters to fit height perfectly */
+                font-size: clamp(2rem, calc(95vh / var(--char-count)), 5rem);
+                -webkit-line-clamp: unset;
+                display: block;
+                white-space: nowrap;
+                line-height: 1;
+                letter-spacing: -0.05em;
+            }
+            .hero-indicators-container {
+                writing-mode: vertical-rl;
+                transform: rotate(180deg);
+                right: 0;
+                bottom: 2%;
+                font-size: 2rem;
+            }
+            .indicator-separator {
+                margin: 0.25rem 0;
+            }
+        }
+    </style>
 
     {{-- Slide Show JS --}}
     <script>
@@ -101,7 +155,13 @@
                 
                 titles[currentIndex].style.opacity = '0';
                 titles[currentIndex].style.pointerEvents = 'none';
-                titles[currentIndex].style.transform = 'translateX(-5%)';
+                
+                // Adjust transform based on screen width
+                if (window.innerWidth < 768) {
+                    titles[currentIndex].style.transform = 'translateY(-20px)';
+                } else {
+                    titles[currentIndex].style.transform = 'translateX(-5%)';
+                }
                 
                 indicators[currentIndex].classList.replace('text-white', 'text-white/40');
 
@@ -112,7 +172,7 @@
                 backgrounds[currentIndex].style.filter = 'blur(0)';
                 backgrounds[currentIndex].style.transform = 'scale(1)';
                 
-                titles[currentIndex].style.transform = 'translateX(0)';
+                titles[currentIndex].style.transform = 'translateY(0) translateX(0)';
                 titles[currentIndex].style.opacity = '1';
                 titles[currentIndex].style.pointerEvents = 'auto';
 
@@ -143,9 +203,14 @@
 
             startSlideshow();
             
+            // Initial positioning override
             titles.forEach((title, i) => {
                 if(i !== currentIndex) {
-                    title.style.transform = 'translateX(5%)';
+                    if (window.innerWidth < 768) {
+                        title.style.transform = 'translateY(20px)';
+                    } else {
+                        title.style.transform = 'translateX(5%)';
+                    }
                 }
             });
         });
