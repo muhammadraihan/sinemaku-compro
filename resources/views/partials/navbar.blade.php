@@ -9,29 +9,62 @@
     @php
         $menuItems = [
             ['title' => 'About',      'url' => '/about'],
-            ['title' => 'Film',       'url' => '/films'],
-            ['title' => 'Serial Web', 'url' => '/serial'],
-            ['title' => 'Televisi',   'url' => '/tv'],
-            ['title' => 'Dokumenter', 'url' => '/documentary'],
+            [
+                'title' => 'Our Works', 
+                'url' => '#',
+                'id' => 'works-toggle',
+                'subItems' => [
+                    ['title' => 'Films',         'url' => '/films'],
+                    ['title' => 'Web Series',    'url' => '/serial'],
+                    ['title' => 'Television',    'url' => '/tv'],
+                    ['title' => 'Documentaries', 'url' => '/documentary'],
+                ]
+            ],
             ['title' => 'Events',     'url' => '/events'],
             ['title' => 'Merch',      'url' => '/shops'],
-            ['title' => 'Komunitas',  'url' => '/memberships'],
-            ['title' => 'Artikel',    'url' => '/article'],
-            ['title' => 'Karir',      'url' => '/career'],
+            ['title' => 'Community',  'url' => '/memberships'],
+            ['title' => 'Articles',   'url' => '/article'],
+            ['title' => 'Careers',    'url' => '/career'],
         ];
     @endphp
     <div class="flex flex-col space-y-4 text-left font-display font-medium text-3xl text-white">
         @foreach($menuItems as $item)
             @php
-                $isActive = request()->is(ltrim($item['url'], '/'));
+                $isActive = !isset($item['subItems']) && request()->is(ltrim($item['url'], '/'));
+                $hasSub = isset($item['subItems']);
             @endphp
-            <a href="{{ $item['url'] }}"
-                class="menu-link opacity-0 -translate-x-8 transition-colors duration-300 {{ $isActive ? 'text-white' : 'text-white/40 hover:text-white/80' }}"
-                style="transition: color 0.3s ease, opacity 0.4s ease, transform 0.4s ease;"
-                onmouseenter="if(!{{ $isActive ? 'true' : 'false' }}) this.style.color='#ed9520'"
-                onmouseleave="if(!{{ $isActive ? 'true' : 'false' }}) this.style.color='rgba(255,255,255,0.4)'">
-                {{ $item['title'] }}
-            </a>
+            
+            @if($hasSub)
+                <div class="flex flex-col">
+                    <button id="{{ $item['id'] }}"
+                        class="menu-link opacity-0 -translate-x-8 text-left transition-colors duration-300 text-white/40 hover:text-white group inline-flex items-center"
+                        style="transition: color 0.3s ease, opacity 0.4s ease, transform 0.4s ease;"
+                        onmouseenter="this.style.color='#ed9520'"
+                        onmouseleave="this.style.color='rgba(255,255,255,0.4)'">
+                        {{ $item['title'] }}
+                        <span class="ml-4 text-[18px] transition-transform duration-300 inline-block origin-center" id="works-arrow">▷</span>
+                    </button>
+                    
+                    <div id="works-submenu" class="flex flex-col space-y-2 mt-4 ml-6 overflow-hidden max-h-0 transition-all duration-500 ease-in-out opacity-0">
+                        @foreach($item['subItems'] as $sub)
+                            <a href="{{ $sub['url'] }}" 
+                               class="text-xl text-white/30 hover:text-white transition-colors duration-300"
+                               onmouseenter="this.style.color='#ed9520'"
+                               onmouseleave="this.style.color='rgba(255,255,255,0.3)'">
+                                {{ $sub['title'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @else
+                <a href="{{ $item['url'] }}"
+                    class="menu-link opacity-0 -translate-x-8 transition-colors duration-300 {{ $isActive ? 'text-white' : 'text-white/40 hover:text-white/80' }}"
+                    style="transition: color 0.3s ease, opacity 0.4s ease, transform 0.4s ease;"
+                    onmouseenter="if(!{{ $isActive ? 'true' : 'false' }}) this.style.color='#ed9520'"
+                    onmouseleave="if(!{{ $isActive ? 'true' : 'false' }}) this.style.color='rgba(255,255,255,0.4)'">
+                    {{ $item['title'] }}
+                </a>
+            @endif
         @endforeach
     </div>
 
@@ -90,7 +123,7 @@
     {{-- Center: Brand --}}
     <a href="/" class="absolute left-1/2 -translate-x-1/2
                                 text-white text-sm
-                                tracking-[0.3em] uppercase font-light
+                                tracking-[0.3em] uppercase font-bold
                                 whitespace-nowrap transition-opacity hover:opacity-80"
        style="transition: color 0.3s ease, opacity 0.3s ease;"
        onmouseenter="this.style.color='#ed9520'; this.style.opacity='1';"
@@ -198,9 +231,48 @@
 
     if (backdrop) backdrop.addEventListener('click', closeMenu);
 
+    // ============================================================
+    // OUR WORKS SUB-MENU TOGGLE
+    // ============================================================
+    const worksToggle = document.getElementById('works-toggle');
+    const worksSubmenu = document.getElementById('works-submenu');
+    const worksArrow = document.getElementById('works-arrow');
+    let subOpen = false;
+
+    if (worksToggle) {
+        worksToggle.addEventListener('click', function() {
+            subOpen = !subOpen;
+            if (subOpen) {
+                worksSubmenu.style.maxHeight = '500px';
+                worksSubmenu.style.opacity = '1';
+                worksSubmenu.style.marginTop = '1.5rem';
+                worksArrow.style.transform = 'rotate(90deg)';
+            } else {
+                worksSubmenu.style.maxHeight = '0';
+                worksSubmenu.style.opacity = '0';
+                worksSubmenu.style.marginTop = '0';
+                worksArrow.style.transform = 'rotate(0deg)';
+            }
+        });
+    }
+
+    // Close submen on sidebar close
+    function closeAllSubs() {
+        subOpen = false;
+        if (worksSubmenu) {
+            worksSubmenu.style.maxHeight = '0';
+            worksSubmenu.style.opacity = '0';
+            worksSubmenu.style.marginTop = '0';
+        }
+        if (worksArrow) worksArrow.style.transform = 'rotate(0deg)';
+    }
+
     // Close on ESC
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && isOpen) closeMenu();
+        if (e.key === 'Escape' && isOpen) {
+            closeMenu();
+            closeAllSubs();
+        }
     });
 
     // ============================================================
