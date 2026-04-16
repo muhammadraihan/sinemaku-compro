@@ -11,98 +11,145 @@
 
 
 
-    {{-- ============================================================
-    HERO SECTION
-    ============================================================ --}}
     <section id="hero" class="relative w-full overflow-hidden bg-[#0a0a0a]" style="height: 100dvh; min-height: 560px;">
 
-        {{-- ── Background layers (one per film) ── --}}
-        @php
-            $fallbacks = [
-                'from-[#0b0a1a] via-[#1a1640] to-[#26225e]',
-                'from-[#0b0a1a] via-[#221d55] to-[#120f2d]',
-                'from-[#0b0a1a] via-[#1a1640] to-[#332c80]',
-                'from-[#120f2d] via-[#221d55] to-[#0b0a1a]',
-                'from-[#0b0a1a] via-[#26225e] to-[#1a1640]',
-            ];
-        @endphp
-        <div class="absolute inset-0 z-0">
+        {{-- ── Background layers (Slideshow) ── --}}
+        <div id="hero-bg-container" class="absolute inset-0 z-0">
             @foreach($slides as $i => $film)
-                <div class="hero-bg absolute inset-0 w-full h-full"
-                     data-index="{{ $i }}"
+                <div class="hero-bg absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out"
                      style="opacity: {{ $i === 0 ? '1' : '0' }}; 
                             filter: {{ $i === 0 ? 'blur(0)' : 'blur(8px)' }};
-                            transition: opacity 600ms ease, filter 600ms ease;">
+                            transform: {{ $i === 0 ? 'scale(1)' : 'scale(1.05)' }};">
                     
-                    {{-- The actual background image --}}
                     <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
                          style="background-image: url('{{ asset('photo/' . $film->photo) }}');">
                     </div>
-
-                    {{-- Dark overlay for legibility --}}
-                    <div class="absolute inset-0 bg-black/40"></div>
+                    {{-- Dark overlay for contrast --}}
+                    <div class="absolute inset-0 bg-black/30"></div>
                 </div>
             @endforeach
         </div>
 
-        {{-- ── Cinematic vignette (bottom fade) ── --}}
+        {{-- ── Gradient overlay for text legibility ── --}}
         <div class="absolute inset-0 z-[1] pointer-events-none"
-            style="background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 45%, transparent 70%);">
+             style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);">
         </div>
 
-
-        {{-- ── Film list (bottom-left) ── --}}
-        <div class="absolute inset-x-0 bottom-0 z-[5] pointer-events-none"
-            style="height: 55%; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);">
+        {{-- ── Massive Slide Titles (Bottom Left - Flush) ── --}}
+        <div class="absolute bottom-0 left-0 w-full z-[10] pointer-events-none" style="padding-right: 280px;">
+            @foreach($slides as $i => $film)
+                <h1 class="hero-title m-0 p-0 font-display font-bold tracking-tighter uppercase transition-all duration-1000 ease-in-out"
+                    style="font-size: clamp(3rem, 11vw, 11rem);
+                           line-height: 0.82;
+                           color: rgba(255,255,255,0.25);
+                           position: absolute;
+                           bottom: -0.12em;
+                           left: -0.03em;
+                           width: 100%;
+                           word-break: break-word;
+                           overflow-wrap: break-word;
+                           white-space: normal;
+                           display: -webkit-box;
+                           -webkit-line-clamp: 2;
+                           -webkit-box-orient: vertical;
+                           overflow: hidden;
+                           opacity: {{ $i === 0 ? '1' : '0' }}; 
+                           pointer-events: {{ $i === 0 ? 'auto' : 'none' }};">
+                    <a href="{{ route('detail-film', $film->slug) }}" style="text-decoration: none; color: inherit;">
+                        {{ $film->title }}
+                    </a>
+                </h1>
+            @endforeach
         </div>
 
-        <div id="hero-content-wrapper" class="absolute z-[10]
-                            bottom-10 left-6
-                            md:bottom-12 md:left-10
-                            lg:left-14">
-
-            <ul id="film-list" class="list-none m-0 p-0">
-                @foreach($slides as $i => $film)
-                    @php
-                        $year = \Carbon\Carbon::parse($film->release_date)->format('Y');
-                    @endphp
-                    <li class="film-item flex items-baseline cursor-pointer select-none {{ $i === 0 ? 'is-active' : '' }}"
-                        data-index="{{ $i }}"
-                        style="padding: 3px 0; gap: 0.75rem;">
-
-                        {{-- Film Title --}}
-                        <span class="film-title font-display font-medium tracking-tight text-white">
-                            <a href="{{ route('detail-film', $film->slug) }}" style="text-decoration: none; color: inherit;">{{ $film->title }}</a>
-                        </span>
-
-                        {{-- Year badge --}}
-                        <span class="film-year font-light tracking-wider shrink-0 text-white"
-                              style="font-size: 0.625rem;
-                                     opacity: {{ $i === 0 ? '0.6' : '0' }};
-                                     transition: opacity 0.4s ease;">
-                            {{ $year }}
-                        </span>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-
-        {{-- ── Mobile Slide Indicator (bottom-right) ── --}}
-        <div id="mobile-slide-indicator" class="absolute z-[10] bottom-10 right-6 text-white text-xs tracking-widest font-light md:hidden">
-            <span id="current-slide">1</span> / {{ count($slides) }}
-        </div>
-
-        {{-- ── Scroll down indicator (bottom-right) ── --}}
-        <div class="absolute bottom-10 right-8 md:right-12 z-[10] hidden md:flex flex-col items-center gap-2">
-            <div class="w-[1px] h-12 relative overflow-hidden" style="background: rgba(237,149,32,0.2);">
-                <div id="scroll-line" class="absolute top-0 w-full"
-                    style="height: 40%; background: rgba(237,149,32,0.75); animation: scrollDown 2s ease-in-out infinite;"></div>
-            </div>
-            <span class="text-[9px] tracking-[0.2em] uppercase"
-                style="writing-mode: vertical-lr; color: rgba(237,149,32,0.4);">scroll</span>
+        {{-- ── Slide Indicators (Bottom Right: 1/2/3/4/5) ── --}}
+        <div class="absolute bottom-0 right-0 z-[20] flex items-baseline font-display font-bold text-2xl md:text-3xl text-white/40 select-none"
+             style="bottom: -0.12em; right: 1.5%;">
+            @foreach($slides as $i => $film)
+                <button class="slide-indicator transition-colors duration-500 {{ $i === 0 ? 'text-white' : 'text-white/40' }} hover:text-white"
+                        style="border: none; background: transparent; cursor: pointer; padding: 0; line-height: 1;"
+                        data-index="{{ $i }}">
+                    {{ $i + 1 }}
+                </button>
+                @if(!$loop->last)
+                    <span class="mx-0.5 md:mx-1 opacity-50" style="line-height: 1;">/</span>
+                @endif
+            @endforeach
         </div>
 
     </section>
+
+    {{-- Slide Show JS --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backgrounds = document.querySelectorAll('.hero-bg');
+            const titles = document.querySelectorAll('.hero-title');
+            const indicators = document.querySelectorAll('.slide-indicator');
+            const totalSlides = backgrounds.length;
+            if(totalSlides === 0) return;
+
+            let currentIndex = 0;
+            let slideInterval;
+
+            function goToSlide(index) {
+                if (index === currentIndex) return;
+
+                // Previous Slide
+                backgrounds[currentIndex].style.opacity = '0';
+                backgrounds[currentIndex].style.filter = 'blur(8px)';
+                backgrounds[currentIndex].style.transform = 'scale(1.05)';
+                
+                titles[currentIndex].style.opacity = '0';
+                titles[currentIndex].style.pointerEvents = 'none';
+                titles[currentIndex].style.transform = 'translateX(-5%)';
+                
+                indicators[currentIndex].classList.replace('text-white', 'text-white/40');
+
+                // Next Slide
+                currentIndex = index;
+
+                backgrounds[currentIndex].style.opacity = '1';
+                backgrounds[currentIndex].style.filter = 'blur(0)';
+                backgrounds[currentIndex].style.transform = 'scale(1)';
+                
+                titles[currentIndex].style.transform = 'translateX(0)';
+                titles[currentIndex].style.opacity = '1';
+                titles[currentIndex].style.pointerEvents = 'auto';
+
+                indicators[currentIndex].classList.replace('text-white/40', 'text-white');
+            }
+
+            function nextSlide() {
+                let nextIndex = (currentIndex + 1) % totalSlides;
+                goToSlide(nextIndex);
+            }
+
+            function startSlideshow() {
+                stopSlideshow();
+                slideInterval = setInterval(nextSlide, 6000);
+            }
+
+            function stopSlideshow() {
+                if(slideInterval) clearInterval(slideInterval);
+            }
+
+            indicators.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    goToSlide(index);
+                    startSlideshow();
+                });
+            });
+
+            startSlideshow();
+            
+            titles.forEach((title, i) => {
+                if(i !== currentIndex) {
+                    title.style.transform = 'translateX(5%)';
+                }
+            });
+        });
+    </script>
 
 
     {{-- ============================================================
