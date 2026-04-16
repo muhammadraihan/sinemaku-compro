@@ -8,7 +8,7 @@
     style="background: #0b0a1a; border-right-color: rgba(112,105,199,0.18); transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);">
     @php
         $menuItems = [
-            ['title' => 'About',      'url' => '/about'],
+            ['title' => 'About',      'url' => '/'],
             [
                 'title' => 'Our Works', 
                 'url' => '#',
@@ -121,7 +121,7 @@
     </style>
 
     {{-- Center: Brand --}}
-    <a href="/" class="absolute left-1/2 -translate-x-1/2
+    <a href="{{ route('welcome') }}" class="absolute left-1/2 -translate-x-1/2
                                 text-white text-sm
                                 tracking-[0.3em] uppercase font-bold
                                 whitespace-nowrap transition-opacity hover:opacity-80"

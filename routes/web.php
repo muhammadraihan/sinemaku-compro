@@ -27,11 +27,12 @@ use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\ArtikelKategoriController;
 use App\Http\Controllers\EventKategoriController;
 
-// ===== home =====
-Route::get('/', [FrontEndController::class, 'index'])->name('welcome');
+// ===== home (About page is now the main landing) =====
+Route::get('/', [FrontEndController::class, 'about'])->name('welcome');
+Route::get('/home', [FrontEndController::class, 'index'])->name('hero');
 
 // ===== frontend =====
-Route::get('/about', [FrontEndController::class, 'about'])->name('about');
+Route::get('/about', function() { return redirect()->route('welcome'); });
 Route::get('/films', [FrontEndController::class, 'film'])->name('film');
 Route::get('/detail-films/{slug}', [FrontEndController::class, 'detailfilm'])->name('detail-film');
 Route::get('/serial', [FrontEndController::class, 'series'])->name('series');
