@@ -19,11 +19,11 @@
         {{-- ── Background layers (one per film) ── --}}
         @php
             $fallbacks = [
-                'from-[#1c1c2e] via-[#16213e] to-[#0f3460]',
-                'from-[#1a1a1a] via-[#2d1b33] to-[#0d0d0d]',
-                'from-[#0d1b2a] via-[#1b2a3b] to-[#112233]',
-                'from-[#1a0a0a] via-[#2d1010] to-[#0d0505]',
-                'from-[#0a1a0a] via-[#1a2d1a] to-[#050d05]',
+                'from-[#0b0a1a] via-[#1a1640] to-[#26225e]',
+                'from-[#0b0a1a] via-[#221d55] to-[#120f2d]',
+                'from-[#0b0a1a] via-[#1a1640] to-[#332c80]',
+                'from-[#120f2d] via-[#221d55] to-[#0b0a1a]',
+                'from-[#0b0a1a] via-[#26225e] to-[#1a1640]',
             ];
         @endphp
         <div class="absolute inset-0 z-0">
@@ -94,12 +94,12 @@
 
         {{-- ── Scroll down indicator (bottom-right) ── --}}
         <div class="absolute bottom-10 right-8 md:right-12 z-[10] hidden md:flex flex-col items-center gap-2">
-            <div class="w-[1px] h-12 bg-white/20 relative overflow-hidden">
-                <div id="scroll-line" class="absolute top-0 w-full bg-white/60"
-                    style="height: 40%; animation: scrollDown 2s ease-in-out infinite;"></div>
+            <div class="w-[1px] h-12 relative overflow-hidden" style="background: rgba(237,149,32,0.2);">
+                <div id="scroll-line" class="absolute top-0 w-full"
+                    style="height: 40%; background: rgba(237,149,32,0.75); animation: scrollDown 2s ease-in-out infinite;"></div>
             </div>
-            <span class="text-white/30 text-[9px] tracking-[0.2em] uppercase"
-                style="writing-mode: vertical-lr">scroll</span>
+            <span class="text-[9px] tracking-[0.2em] uppercase"
+                style="writing-mode: vertical-lr; color: rgba(237,149,32,0.4);">scroll</span>
         </div>
 
     </section>
@@ -168,12 +168,12 @@
         <div style="position:absolute; bottom:0; left:0; width:100%; padding-bottom:5rem; padding-left:clamp(1.25rem,6vw,10rem); padding-right:clamp(1.25rem,6vw,10rem);" data-gsap="fade-up">
             <div style="max-width:900px;">
                 {{-- Eyebrow --}}
-                <p style="font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin:0 0 0.75rem; font-weight:500;">Film Terbaru</p>
+                <p style="font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--amber-500); margin:0 0 0.75rem; font-weight:500;">Film Terbaru</p>
 
                 {{-- Title + Genre badge --}}
                 <h2 style="font-size:clamp(2.25rem,4.5vw,4rem); font-weight:500; line-height:1.05; letter-spacing:-0.025em; color:#fff; margin:0 0 1.25rem; display:flex; flex-wrap:wrap; align-items:center; gap:1rem;">
                     <a href="{{ route('detail-film', $latestFilm->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestFilm->title }}</a>
-                    <span style="font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; background:rgba(255,255,255,0.18); color:#fff; padding:6px 14px; border-radius:2px; backdrop-filter:blur(8px);">
+                    <span style="font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; background:rgba(237,149,32,0.18); color:var(--amber-400); padding:6px 14px; border-radius:2px; border:1px solid rgba(237,149,32,0.35); backdrop-filter:blur(8px);">
                         {{ $latestFilm->genre }}
                     </span>
                 </h2>
@@ -195,7 +195,7 @@
                 </p>
 
                 {{-- CTA --}}
-                <a href="/films" style="display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5); padding-bottom:4px; text-decoration:none;">
+                <a href="/films" style="display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:var(--amber-500); border-bottom:1px solid rgba(237,149,32,0.45); padding-bottom:4px; text-decoration:none; transition: color 280ms ease, gap 280ms ease;">
                     Lihat Semua Film
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:14px;height:14px;"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                 </a>
@@ -404,9 +404,9 @@
     </section>
 
     {{-- ── 7. KOMUNITAS (Static Editorial) ── --}}
-    <section class="section-komunitas bg-[#0a0a0a]" data-section="komunitas">
+    <section class="section-komunitas" data-section="komunitas" style="background: var(--navy-950);">
         <div class="komunitas-inner" data-gsap="fade-up">
-            <span class="feature-eyebrow" style="color: rgba(255,255,255,0.4);">Komunitas</span>
+            <span class="feature-eyebrow" style="color: var(--amber-500); opacity: 0.8;">Komunitas</span>
             <h2 class="komunitas-title">Join the Movement</h2>
             <p class="komunitas-excerpt">
                 Be part of a community that celebrates bold storytelling and artistic vision. Get exclusive access to premieres, behind-the-scenes content, and limited releases.
@@ -653,7 +653,7 @@
             font-size: 10px;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: #9ca3af;
+            color: var(--amber-500);
             font-weight: 500;
             margin-bottom: 1rem;
         }
@@ -748,8 +748,8 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             font-weight: 500;
-            color: #0a0a0a;
-            border-bottom: 1px solid #0a0a0a;
+            color: var(--navy-600);
+            border-bottom: 1px solid rgba(38,34,94,0.5);
             padding-bottom: 2px;
             transition: color 300ms ease, border-color 300ms ease, gap 300ms ease;
             text-decoration: none;
@@ -757,8 +757,8 @@
         }
 
         .feature-cta:hover {
-            color: #6b7280;
-            border-color: #9ca3af;
+            color: var(--amber-600);
+            border-color: var(--amber-500);
             gap: 14px;
         }
 
@@ -822,7 +822,7 @@
             width: 36px;
             height: 36px;
             flex-shrink: 0;
-            color: rgba(255,255,255,0.6);
+            color: var(--amber-500);
             margin-top: 2px;
         }
 
@@ -840,7 +840,7 @@
 
         .komunitas-pillar-desc {
             font-size: 12px;
-            color: rgba(255,255,255,0.4);
+            color: var(--navy-200);
             line-height: 1.5;
         }
 
@@ -851,18 +851,19 @@
             font-size: 11px;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            font-weight: 500;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.3);
+            font-weight: 600;
+            color: var(--navy-950);
+            background: var(--amber-500);
+            border: 1px solid transparent;
             padding: 14px 28px;
             border-radius: 999px;
-            transition: background 300ms ease, color 300ms ease, gap 300ms ease;
+            transition: background 300ms ease, box-shadow 300ms ease, gap 300ms ease;
             text-decoration: none;
         }
 
         .komunitas-cta:hover {
-            background: #ffffff;
-            color: #0a0a0a;
+            background: var(--amber-400);
+            box-shadow: 0 0 24px rgba(237,149,32,0.35);
             gap: 16px;
         }
 

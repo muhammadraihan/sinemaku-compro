@@ -4,8 +4,8 @@
     SIDEBAR MENU (slides in from left)
     ============================================================ --}}
 <div id="sidebar-menu"
-    class="fixed top-0 left-0 w-[300px] md:w-[380px] h-full bg-[#0a0a0a] z-[200] flex flex-col justify-center px-10 md:px-14 border-r border-white/10 pt-20 transform -translate-x-full"
-    style="transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);">
+    class="fixed top-0 left-0 w-[300px] md:w-[380px] h-full z-[200] flex flex-col justify-center px-10 md:px-14 border-r border-white/10 pt-20 transform -translate-x-full"
+    style="background: #0b0a1a; border-right-color: rgba(112,105,199,0.18); transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);">
     @php
         $menuItems = [
             ['title' => 'About',      'url' => '/about'],
@@ -27,7 +27,9 @@
             @endphp
             <a href="{{ $item['url'] }}"
                 class="menu-link opacity-0 -translate-x-8 transition-colors duration-300 {{ $isActive ? 'text-white' : 'text-white/40 hover:text-white/80' }}"
-                style="transition: color 0.3s ease, opacity 0.4s ease, transform 0.4s ease;">
+                style="transition: color 0.3s ease, opacity 0.4s ease, transform 0.4s ease;"
+                onmouseenter="if(!{{ $isActive ? 'true' : 'false' }}) this.style.color='#ed9520'"
+                onmouseleave="if(!{{ $isActive ? 'true' : 'false' }}) this.style.color='rgba(255,255,255,0.4)'">
                 {{ $item['title'] }}
             </a>
         @endforeach
@@ -35,9 +37,12 @@
 
     <div class="mt-16 flex space-x-6 opacity-0 menu-socials items-center text-white/50 text-[10px] tracking-widest uppercase"
          style="transition: opacity 0.4s ease;">
-        <a href="#" class="hover:text-white transition-colors">IG</a>
-        <a href="#" class="hover:text-white transition-colors">X</a>
-        <a href="#" class="hover:text-white transition-colors">YT</a>
+        <a href="#" class="hover:text-white transition-colors"
+           onmouseenter="this.style.color='#ed9520'" onmouseleave="this.style.color='rgba(255,255,255,0.5)'">IG</a>
+        <a href="#" class="hover:text-white transition-colors"
+           onmouseenter="this.style.color='#ed9520'" onmouseleave="this.style.color='rgba(255,255,255,0.5)'">X</a>
+        <a href="#" class="hover:text-white transition-colors"
+           onmouseenter="this.style.color='#ed9520'" onmouseleave="this.style.color='rgba(255,255,255,0.5)'">YT</a>
     </div>
 </div>
 
@@ -86,22 +91,25 @@
     <a href="/" class="absolute left-1/2 -translate-x-1/2
                                 text-white text-sm
                                 tracking-[0.3em] uppercase font-light
-                                whitespace-nowrap transition-opacity hover:opacity-80">
+                                whitespace-nowrap transition-opacity hover:opacity-80"
+       style="transition: color 0.3s ease, opacity 0.3s ease;"
+       onmouseenter="this.style.color='#ed9520'; this.style.opacity='1';"
+       onmouseleave="this.style.color='#fff'; this.style.opacity='';">
         sinemaku pictures
     </a>
 
     {{-- Right: Get in Touch --}}
     <div class="flex items-center">
-        {{-- Mobile: icon only, no border --}}
+        {{-- Mobile: icon only --}}
         <a id="nav-cta-mobile" href="#get-in-touch" class="text-white hover:opacity-70 transition-opacity"
            aria-label="Get in touch">
             <x-icons.mail class="w-7 h-7" />
         </a>
         {{-- Desktop: text + capsule --}}
-        <a id="nav-cta-desktop" href="#get-in-touch" class="text-xs tracking-widest uppercase text-white
-                          border border-white/40 px-5 py-2.5 rounded-full
-                          hover:bg-white hover:text-black transition-colors duration-300
-                          items-center whitespace-nowrap">
+        <a id="nav-cta-desktop" href="#get-in-touch"
+           class="text-xs tracking-widest uppercase text-white border border-white/40 px-5 py-2.5 rounded-full items-center whitespace-nowrap transition-all duration-300"
+           onmouseenter="this.style.background='#ed9520'; this.style.color='#0b0a1a'; this.style.borderColor='#ed9520';"
+           onmouseleave="this.style.background=''; this.style.color='#fff'; this.style.borderColor='';">
             get in touch
         </a>
     </div>
@@ -126,7 +134,6 @@
         @media (min-width: 768px) {
             #nav-cta-mobile  { display: none; }
             #nav-cta-desktop { display: inline-flex; }
-            /* This might belong elsewhere but kept as per user request snippet */
             #mobile-slide-indicator { display: none !important; }
         }
     </style>
@@ -202,14 +209,13 @@
     const navbar = document.getElementById('unified-navbar');
     const navOverlay = document.getElementById('nav-overlay-gradient');
     let lastScrollTop = 0;
-    const scrollThreshold = 80; // Minimum scroll before hiding
+    const scrollThreshold = 80;
 
     window.addEventListener('scroll', function() {
-        if (isOpen) return; // Don't hide if menu is open
+        if (isOpen) return;
 
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Ensure it doesn't hide at the very top
+
         if (scrollTop < 100) {
             navbar.classList.remove('is-nav-hidden');
             navOverlay.classList.remove('is-nav-hidden');
@@ -217,15 +223,13 @@
         }
 
         if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-            // Scrolling Down
             navbar.classList.add('is-nav-hidden');
             navOverlay.classList.add('is-nav-hidden');
         } else {
-            // Scrolling Up
             navbar.classList.remove('is-nav-hidden');
             navOverlay.classList.remove('is-nav-hidden');
         }
-        
+
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, { passive: true });
 })();

@@ -1,4 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
+  /* ─────────────────────────────────────────────────────
+     SINEMAKU BRAND COLOR SYSTEM
+     Primary  : Indigo-Navy  — closest to Pantone 2756 C  (#26225e ≈ base)
+     Secondary: Amber-Orange — closest to Pantone 7549 C  (#ed9520 ≈ base)
+  ───────────────────────────────────────────────────── */
+
+  /* ── Navy / Indigo Scale ── */
+  --navy-950: #0b0a1a;   /* opening sequence, hardest dark */
+  --navy-900: #120f2d;   /* footer, mega-menu bg */
+  --navy-800: #1a1640;   /* card surfaces on dark sections */
+  --navy-700: #221d55;   /* one step below brand */
+  --navy-600: #26225e;   /* ★ Brand Primary — Pantone 2756 C approx */
+  --navy-500: #332c80;   /* hover state on primary */
+  --navy-400: #4a42aa;   /* interactive / links on dark bg */
+  --navy-300: #7069c7;   /* borders on dark bg */
+  --navy-200: #a39de0;   /* secondary text on dark bg */
+  --navy-100: #d4d1f2;   /* muted text on dark bg */
+  --navy-050: #eeedf9;   /* near-white tint */
+
+  /* ── Amber / Gold Scale ── */
+  --amber-900: #6b3d08;  /* darkest amber */
+  --amber-800: #9a5810;  /* deep amber */
+  --amber-700: #c47214;  /* warm amber */
+  --amber-600: #d9871a;  /* one below brand */
+  --amber-500: #ed9520;  /* ★ Brand Secondary — Pantone 7549 C approx */
+  --amber-400: #f2aa4a;  /* lighter amber / hover */
+  --amber-300: #f6c276;  /* soft amber */
+  --amber-200: #fada9e;  /* pale amber */
+  --amber-100: #fdeece;  /* near-white amber tint */
+
+  /* ── Neutral ── */
+  --ink:        #09090f;   /* body bg, deep dark — near-black with navy hue */
+  --ink-soft:   #111119;
+  --white-pure: #ffffff;
+  --white-warm: #f8f7f5;   /* white body bg with warmth */
+
+  /* ── Semantic Tokens ── */
+  --color-bg-deep:       var(--navy-950);
+  --color-bg-surface:    var(--navy-900);
+  --color-bg-card:       var(--navy-800);
+  --color-brand:         var(--navy-600);
+  --color-brand-hover:   var(--navy-500);
+  --color-accent:        var(--amber-500);
+  --color-accent-hover:  var(--amber-400);
+  --color-text-primary:  var(--white-pure);
+  --color-text-secondary:var(--navy-200);
+  --color-text-muted:    var(--navy-300);
+  --color-border-subtle: rgba(162,157,224,0.12);
+  --color-border-mid:    rgba(162,157,224,0.22);
+  --color-border-amber:  rgba(237,149,32,0.35);
+
+  /* ── Typography ── */
   --font-main: "Kumbh Sans", sans-serif;
   --font-display: "Kumbh Sans", sans-serif;
 }
@@ -354,10 +410,10 @@ body {
 
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(237, 149, 32, 0.35);
   }
   50% {
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 40px rgba(237, 149, 32, 0.65);
   }
 }
 
@@ -516,22 +572,22 @@ body {
   transform: translateY(0);
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — brand colors */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--navy-950);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--navy-600);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--amber-500);
 }
 
 /* Edge-to-edge container utilities */
@@ -718,7 +774,7 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #ffffff, transparent);
+  background: linear-gradient(90deg, var(--amber-500), transparent);
   transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -1017,3 +1073,156 @@ body {
     width: 100% !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════
+   SINEMAKU BRAND UTILITIES
+   Primary: var(--navy-600) #26225e  |  Accent: var(--amber-500) #ed9520
+══════════════════════════════════════════════════════ */
+
+/* ── Color helpers ── */
+.text-amber    { color: var(--amber-500); }
+.text-amber-lt { color: var(--amber-400); }
+.text-navy     { color: var(--navy-600); }
+.text-navy-lt  { color: var(--navy-200); }
+.bg-navy-deep  { background-color: var(--navy-950); }
+.bg-navy       { background-color: var(--navy-600); }
+.bg-amber      { background-color: var(--amber-500); }
+.border-amber  { border-color: var(--amber-500); }
+.border-navy   { border-color: var(--navy-600); }
+
+/* ── Button — Primary (gold fill + navy text) ── */
+.btn-brand-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--amber-500);
+  color: var(--navy-950);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 280ms ease, box-shadow 280ms ease, gap 280ms ease;
+}
+.btn-brand-primary:hover {
+  background: var(--amber-400);
+  box-shadow: 0 0 24px rgba(237,149,32,0.35);
+  gap: 14px;
+}
+.btn-brand-primary svg {
+  width: 14px; height: 14px;
+  transition: transform 280ms ease;
+}
+.btn-brand-primary:hover svg { transform: translateX(4px); }
+
+/* ── Button — Secondary (white outline) ── */
+.btn-brand-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 280ms ease, border-color 280ms ease, gap 280ms ease;
+}
+.btn-brand-secondary:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.65);
+  gap: 14px;
+}
+.btn-brand-secondary svg { width: 14px; height: 14px; }
+
+/* ── Button — Ghost (amber border) ── */
+.btn-brand-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--amber-400);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--color-border-amber);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 280ms ease, border-color 280ms ease, color 280ms ease, gap 280ms ease;
+}
+.btn-brand-ghost:hover {
+  background: rgba(237,149,32,0.08);
+  border-color: var(--amber-500);
+  color: var(--amber-500);
+  gap: 14px;
+}
+.btn-brand-ghost svg { width: 14px; height: 14px; }
+
+/* ── Inline CTA — underline style (dark sections) ── */
+.cta-amber-underline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--amber-500);
+  border-bottom: 1px solid rgba(237,149,32,0.45);
+  padding-bottom: 3px;
+  text-decoration: none;
+  transition: color 280ms ease, border-color 280ms ease, gap 280ms ease;
+}
+.cta-amber-underline:hover {
+  color: var(--amber-400);
+  border-color: var(--amber-400);
+  gap: 14px;
+}
+.cta-amber-underline svg { width: 14px; height: 14px; transition: transform 280ms ease; }
+.cta-amber-underline:hover svg { transform: translateX(4px); }
+
+/* ── Eyebrow — gold variant ── */
+.eyebrow-amber {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--amber-500);
+  font-weight: 500;
+  margin-bottom: 0.9rem;
+}
+
+/* ── Gold separator line ── */
+.gold-line {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--amber-500);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Amber glow card hover ── */
+.amber-glow-hover {
+  transition: box-shadow 300ms ease;
+}
+.amber-glow-hover:hover {
+  box-shadow: 0 0 0 1px rgba(237,149,32,0.4), 0 8px 32px rgba(237,149,32,0.12);
+}
+
+/* ── Focus ring — override to amber ── */
+:focus-visible {
+  outline: 2px solid var(--amber-500);
+  outline-offset: 3px;
+}

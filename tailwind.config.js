@@ -1,8 +1,9 @@
 module.exports = {
   content: [
-    './resources/**/*.blade.php',
-    './resources/**/*.js',
-    './resources/**/*.vue',
+    './resources/views/**/*.blade.php',
+    './resources/js/**/*.js',
+    './resources/css/**/*.css',
+    './app/Helper/Helper.php',
   ],
   safelist: [
     'visible',
