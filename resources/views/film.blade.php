@@ -1317,7 +1317,7 @@
 {{-- ================== SECTION ALL FILMS ================== --}}
 <section class="allfilms reveal">
   <div class="allfilms-head">
-    <h2 class="allfilms-title">Our Films</h2>
+    <h2 class="allfilms-title">OUR FILMS</h2>
 
     <div class="allfilms-filters" role="tablist" aria-label="Filter films by genre">
       <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>

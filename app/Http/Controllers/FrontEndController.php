@@ -291,6 +291,7 @@ class FrontEndController extends Controller
             $film = collect();
             $chipGenres = collect();
             $genre = collect();
+            $coming_soon = collect();
         } else {
             $film = Film::where('kategori', $kategori->uuid)->get();
             $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
