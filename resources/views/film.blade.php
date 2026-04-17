@@ -5,6 +5,198 @@
 @section('content')
 
 @include('partials.navbar')
+
+{{-- ============================================================
+    HERO SLIDESHOW SECTION — Film Strip Model
+    ============================================================ --}}
+<section id="film-hero" class="relative w-full overflow-hidden bg-[#0a0a0a]" style="height: 100dvh; min-height: 560px;">
+
+    {{-- ── Film Strip: all images side by side in a single wide row ── --}}
+    @php $totalFilm = count($film); @endphp
+    <div id="hero-strip"
+         style="position: absolute; inset: 0; display: flex; width: {{ $totalFilm * 100 }}%; height: 100%; transform: translateX(0); will-change: transform;">
+        @foreach($film as $i => $item)
+            <div class="hero-slide-img"
+                 style="position: relative; width: {{ 100 / $totalFilm }}%; height: 100%; flex-shrink: 0; background-image: url('{{ asset('photo/' . $item->photo) }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                {{-- Dark overlay --}}
+                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.30);"></div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- ── Gradient overlay for text legibility ── --}}
+    <div class="absolute inset-0 z-[1] pointer-events-none"
+         style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, transparent 55%);">
+    </div>
+
+    {{-- ── Slide Titles: individually slide in/out with quint easing ── --}}
+    <div class="hero-title-container absolute inset-0 z-[10] flex items-center px-6 md:px-16 pointer-events-none">
+        <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center;">
+            @foreach($film as $i => $item)
+                @php $charCount = strlen($item->title); @endphp
+                <h1 class="hero-title font-display font-bold tracking-tighter uppercase text-white m-0 p-0"
+                    style="--char-count: {{ $charCount }}; position: absolute; left: 0; top: 50%; transform: {{ $i === 0 ? 'translate(0, -50%)' : 'translate(100vw, -50%)' }}; pointer-events: {{ $i === 0 ? 'auto' : 'none' }};">
+                    <a href="{{ route('detail-film', $item->slug) }}" class="no-underline text-inherit">
+                        {{ $item->title }}
+                    </a>
+                </h1>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- ── Slide Indicators (Bottom Right: 1/2/3/4/5) ── --}}
+    <div class="hero-indicators-container absolute z-[20] flex items-baseline font-display font-bold select-none">
+        @foreach($film as $i => $item)
+            <button class="slide-indicator {{ $i === 0 ? 'text-white' : 'text-white/40' }} hover:text-white"
+                    style="border: none; background: transparent; cursor: pointer; padding: 0; line-height: 1.1; transition: color 0.4s ease;"
+                    data-index="{{ $i }}">
+                {{ $i + 1 }}
+            </button>
+            @if(!$loop->last)
+                <span style="opacity: 0.4; line-height: 1.1; margin: 0 2px;">/</span>
+            @endif
+        @endforeach
+    </div>
+
+</section>
+
+<style>
+    /* ── Hero Title ── */
+    .hero-title {
+        font-size: clamp(2.5rem, calc(160vw / var(--char-count)), 7.5rem);
+        line-height: 0.9;
+        width: 85vw;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        /* Default CSS transition is overridden by JS. This is a fallback. */
+        will-change: transform;
+    }
+    /* ── Indicators ── */
+    .hero-indicators-container {
+        bottom: 1.2rem;
+        right: 1.5%;
+        font-size: 1.5rem;
+    }
+    @media (min-width: 768px) {
+        .hero-indicators-container {
+            font-size: 1.875rem;
+        }
+    }
+    @media (max-width: 767px) {
+        .hero-title {
+            font-size: clamp(2rem, calc(120vw / var(--char-count)), 4rem);
+            width: 90vw;
+        }
+        .hero-indicators-container {
+            right: 4%;
+            bottom: 1rem;
+            font-size: 1.25rem;
+        }
+    }
+</style>
+
+<script>
+(function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        const totalSlides = {{ $totalFilm }};
+        if (totalSlides === 0) return;
+
+        const strip     = document.getElementById('hero-strip');
+        const titles    = document.querySelectorAll('#film-hero .hero-title');
+        const indicators = document.querySelectorAll('#film-hero .slide-indicator');
+
+        let current  = 0;
+        let timer    = null;
+        let busy     = false;
+
+        // Each slide occupies 1/(totalSlides) of the strip width.
+        // Strip translateX to show slide i: -(i / totalSlides * 100)%
+        const expoEase  = 'cubic-bezier(0.19, 1, 0.22, 1)';
+        const quintEase = 'cubic-bezier(0.23, 1, 0.32, 1)';
+
+        function slideStripTo(index, direction) {
+            const pct = -(index / totalSlides * 100);
+            strip.style.transition = `transform 1.2s ${expoEase}`;
+            strip.style.transform  = `translateX(${pct}%)`;
+        }
+
+        function slideTitle(fromIndex, toIndex, direction) {
+            const prevTitle = titles[fromIndex];
+            const nextTitle = titles[toIndex];
+
+            // Outgoing title
+            prevTitle.style.transition = `transform 1.2s ${quintEase}`;
+            prevTitle.style.transform  = `translate(${-100 * direction}vw, -50%)`;
+            prevTitle.style.pointerEvents = 'none';
+
+            // Position incoming title off-screen without transition
+            nextTitle.style.transition = 'none';
+            nextTitle.style.transform  = `translate(${100 * direction}vw, -50%)`;
+
+            // Force reflow
+            nextTitle.getBoundingClientRect();
+
+            // Slide incoming in
+            requestAnimationFrame(function() {
+                nextTitle.style.transition  = `transform 1.2s ${quintEase}`;
+                nextTitle.style.transform   = 'translate(0, -50%)';
+                nextTitle.style.pointerEvents = 'auto';
+            });
+        }
+
+        function goTo(index) {
+            if (index === current || busy) return;
+            busy = true;
+
+            const direction = index > current ? 1 : -1;
+            const prev      = current;
+            current         = index;
+
+            // Move the strip
+            slideStripTo(current, direction);
+
+            // Move the titles separately
+            slideTitle(prev, current, direction);
+
+            // Update indicators
+            indicators.forEach(function(btn, i) {
+                btn.classList.toggle('text-white',      i === current);
+                btn.classList.toggle('text-white/40',   i !== current);
+            });
+
+            setTimeout(function() { busy = false; }, 1200);
+        }
+
+        function autoAdvance() {
+            goTo((current + 1) % totalSlides);
+        }
+
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(autoAdvance, 6000);
+        }
+
+        // Indicator clicks
+        indicators.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const idx = parseInt(this.dataset.index, 10);
+                if (idx === current || busy) return;
+                goTo(idx);
+                startTimer();
+            });
+        });
+
+        // Pause when tab hidden, resume when visible
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) clearInterval(timer);
+            else startTimer();
+        });
+
+        startTimer();
+    });
+}());
+</script>
 <style>
   body {
     background-color: #ffffff !important;
@@ -172,9 +364,10 @@
   }
 
   .allfilms-title {
-    font: 400 18px/1.35;
-    letter-spacing: .0px;
+    font: 700 clamp(24px, 4vw, 36px)/1.1 var(--font-display);
+    letter-spacing: -0.02em;
     margin: 0;
+    text-transform: uppercase;
   }
 
   .allfilms-filters {
@@ -237,10 +430,7 @@
     }
   }
 
-  @media (max-width: 800px) {
-    .allfilms-title {
-      font-size: 44px;
-    }
+
 
     .allfilms-grid {
       columns: 2;
@@ -844,9 +1034,7 @@
       margin-bottom: 8px;
     }
 
-    .allfilms-title {
-      font-size: 14px;
-    }
+
 
     /* Chips: horizontal scroll on small screens */
     .allfilms-filters {
@@ -993,7 +1181,7 @@
 {{-- ================== SECTION ALL FILMS ================== --}}
 <section class="allfilms reveal">
   <div class="allfilms-head">
-    <h2 class="allfilms-title">All Films</h2>
+    <h2 class="allfilms-title">Our Films</h2>
 
     <div class="allfilms-filters" role="tablist" aria-label="Filter films by genre">
       <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
