@@ -2,6 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ================================================================
+   SINEMAKU BRAND FONTS  (from 2026 Design Guidelines)
+   Body / UI / Display : Helvetica (custom, local)
+   Special (intro only): Instrument Serif Modified — used ONLY in
+                         the "Here Comes The Fun" intro on About page
+================================================================ */
+
+/* Helvetica — Light */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+/* Helvetica — Regular */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Helvetica — Italic */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica-Oblique.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+/* Helvetica — Bold */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Helvetica — Bold Italic */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica-BoldOblique.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Instrument Serif Modified — Regular (condensed) */
+@font-face {
+  font-family: 'Instrument Serif Modified';
+  src: url('/fonts/instrument-serif/InstrumentSerif_cond_reg-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Instrument Serif Modified — Italic (condensed) */
+@font-face {
+  font-family: 'Instrument Serif Modified';
+  src: url('/fonts/instrument-serif/InstrumentSerif_cond_italic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   /* ─────────────────────────────────────────────────────
      SINEMAKU BRAND COLOR SYSTEM
@@ -55,8 +120,10 @@
   --color-border-amber:  rgba(237,149,32,0.35);
 
   /* ── Typography ── */
-  --font-main: "Kumbh Sans", sans-serif;
-  --font-display: "Kumbh Sans", sans-serif;
+  /* Helvetica is used for ALL text (body, UI, display, headlines) */
+  /* Instrument Serif Modified is reserved ONLY for the About intro animation */
+  --font-display: 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
+  --font-main:    'Helvetica', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Base Typography */
@@ -78,10 +145,15 @@ html {
   scroll-padding-top: 0;
 }
 
-/* Custom Display Font (Standardized to Kumbh Sans) */
+/* Display Font — Helvetica (same as body, per brand guidelines) */
 .font-display {
-  font-family: 'Kumbh Sans', sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
+}
+
+/* Utility class for explicit Helvetica body text */
+.font-body {
+  font-family: var(--font-main);
 }
 
 /* Remove default margins for edge-to-edge content */

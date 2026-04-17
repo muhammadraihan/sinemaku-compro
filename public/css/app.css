@@ -580,6 +580,9 @@ video {
 .left-8 {
   left: 2rem;
 }
+.right-0 {
+  right: 0px;
+}
 .right-4 {
   right: 1rem;
 }
@@ -995,10 +998,6 @@ video {
 }
 .translate-y-0 {
   --tw-translate-y: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-.translate-y-12 {
-  --tw-translate-y: 3rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .translate-y-4 {
@@ -1632,9 +1631,6 @@ video {
 .leading-\[1\.15\] {
   line-height: 1.15;
 }
-.leading-\[1\.1\] {
-  line-height: 1.1;
-}
 .leading-\[1\.2\] {
   line-height: 1.2;
 }
@@ -1891,6 +1887,71 @@ video {
   will-change: transform;
 }
 
+/* ================================================================
+   SINEMAKU BRAND FONTS  (from 2026 Design Guidelines)
+   Body / UI / Display : Helvetica (custom, local)
+   Special (intro only): Instrument Serif Modified — used ONLY in
+                         the "Here Comes The Fun" intro on About page
+================================================================ */
+
+/* Helvetica — Light */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+/* Helvetica — Regular */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Helvetica — Italic */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica-Oblique.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+/* Helvetica — Bold */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Helvetica — Bold Italic */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/helvetica/Helvetica-BoldOblique.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Instrument Serif Modified — Regular (condensed) */
+@font-face {
+  font-family: 'Instrument Serif Modified';
+  src: url('/fonts/instrument-serif/InstrumentSerif_cond_reg-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Instrument Serif Modified — Italic (condensed) */
+@font-face {
+  font-family: 'Instrument Serif Modified';
+  src: url('/fonts/instrument-serif/InstrumentSerif_cond_italic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   /* ─────────────────────────────────────────────────────
      SINEMAKU BRAND COLOR SYSTEM
@@ -1944,8 +2005,10 @@ video {
   --color-border-amber:  rgba(237,149,32,0.35);
 
   /* ── Typography ── */
-  --font-main: "Kumbh Sans", sans-serif;
-  --font-display: "Kumbh Sans", sans-serif;
+  /* Helvetica is used for ALL text (body, UI, display, headlines) */
+  /* Instrument Serif Modified is reserved ONLY for the About intro animation */
+  --font-display: 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
+  --font-main:    'Helvetica', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Base Typography */
@@ -1967,10 +2030,15 @@ html {
   scroll-padding-top: 0;
 }
 
-/* Custom Display Font (Standardized to Kumbh Sans) */
+/* Display Font — Helvetica (same as body, per brand guidelines) */
 .font-display {
-  font-family: 'Kumbh Sans', sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
+}
+
+/* Utility class for explicit Helvetica body text */
+.font-body {
+  font-family: var(--font-main);
 }
 
 /* Remove default margins for edge-to-edge content */
@@ -3441,10 +3509,6 @@ body {
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
-  }
-
-  .md\:leading-\[0\.9\] {
-    line-height: 0.9;
   }
 
   .group:hover .md\:group-hover\:w-24 {

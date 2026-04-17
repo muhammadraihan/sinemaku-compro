@@ -6,11 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Sinemaku Pictures')</title>
 
-  {{-- Google Fonts --}}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;500;600;700;800;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
-    rel="stylesheet">
+  {{-- Brand fonts loaded as local @font-face in resources/css/app.css
+       Body / Display : Helvetica (all pages)
+       Special        : Instrument Serif Modified (About intro animation only) --}}
 
 
   {{-- Main CSS --}}
@@ -25,37 +23,47 @@
   @stack('head')
 
   <style>
-    /* ── SINEMAKU BRAND COLOR TOKENS ─────────────────────
-       Primary  : Indigo-Navy  #26225e (Pantone 2756 C)
-       Secondary: Amber-Orange #ed9520 (Pantone 7549 C)
-    ──────────────────────────────────────────────────── */
+    /* ── SINEMAKU BRAND COLOR TOKENS (2026 Design Guidelines) ─────────
+       Font : Helvetica for ALL text. Instrument Serif Modified used
+              ONLY in the "Here Comes The Fun" intro on the About page.
+
+       Color — Orange palette:
+         CORE   #DB5F10  (R219 G95  B16)   ← guidelines orange core
+         TINT   #FFB150  (R255 G177 B80)   ← guidelines orange tint
+         LIGHT  #FFD8A8  (R255 G216 B168)  ← guidelines orange light
+
+       Color — Deep Breath palette:
+         CORE   #25225E  (R37  G34  B94)   ← guidelines navy core ✓
+         SHADE  #0E1633  (R14  G22  B51)   ← guidelines navy shade
+         TINT   #CACAEF  (R202 G202 B239)  ← guidelines navy tint
+    ──────────────────────────────────────────────────────────────────── */
     :root {
-      /* Navy scale */
+      /* Navy / Deep Breath scale — per guidelines */
       --navy-950: #0b0a1a;
-      --navy-900: #120f2d;
+      --navy-900: #0e1633;   /* ★ Shade (guidelines exact) */
       --navy-800: #1a1640;
       --navy-700: #221d55;
-      --navy-600: #26225e;
+      --navy-600: #25225e;   /* ★ Core (guidelines exact) */
       --navy-500: #332c80;
       --navy-400: #4a42aa;
       --navy-300: #7069c7;
       --navy-200: #a39de0;
-      --navy-100: #d4d1f2;
+      --navy-100: #cacaef;   /* ★ Tint (guidelines exact) */
       --navy-050: #eeedf9;
-      /* Amber scale */
+      /* Orange / Brand palette — per guidelines */
       --amber-900: #6b3d08;
       --amber-800: #9a5810;
       --amber-700: #c47214;
-      --amber-600: #d9871a;
-      --amber-500: #ed9520;
-      --amber-400: #f2aa4a;
+      --amber-600: #db5f10;  /* ★ Orange CORE (guidelines exact) */
+      --amber-500: #ed9520;  /* web-safe bright variant (previously used) */
+      --amber-400: #ffb150;  /* ★ Orange Tint (guidelines exact) */
       --amber-300: #f6c276;
-      --amber-200: #fada9e;
+      --amber-200: #ffd8a8;  /* ★ Orange Light (guidelines exact) */
       --amber-100: #fdeece;
       /* Semantic */
-      --color-border-subtle:  rgba(112,105,199,0.12);
-      --color-border-mid:     rgba(112,105,199,0.22);
-      --color-border-amber:   rgba(237,149,32,0.35);
+      --color-brand:         var(--navy-600);
+      --color-accent:        var(--amber-600);  /* primary orange = CORE */
+      --color-accent-hover:  var(--amber-400);  /* hover = Tint */
     }
 
     /* Global Cinematic Style: Noise Grain on images */

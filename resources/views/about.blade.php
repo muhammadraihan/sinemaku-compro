@@ -50,28 +50,28 @@
 
                 {{-- Row 1, Col 1 — "Here" (flies from RIGHT) --}}
                 <div id="w-here" style="grid-column: 1; grid-row: 1;
-                    font-family: 'Libre Baskerville', serif;
+                    font-family: 'Instrument Serif Modified', serif;
                     font-size: clamp(3.2rem, 11vw, 7.5rem);
                     color: #ed9520; font-weight: 700; line-height: 1.05;
                     white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="0">H</span><span class="ichar" data-ci="1">e</span><span class="ichar" data-ci="2">r</span><span class="ichar" data-ci="3">e</span></div>
 
                 {{-- Row 1, Col 3 — "Comes" (flies from RIGHT, col 2 stays empty = The's width) --}}
                 <div id="w-comes" style="grid-column: 3; grid-row: 1;
-                    font-family: 'Libre Baskerville', serif;
+                    font-family: 'Instrument Serif Modified', serif;
                     font-size: clamp(3.2rem, 11vw, 7.5rem);
                     color: #ed9520; font-weight: 700; line-height: 1.05;
                     white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="5">C</span><span class="ichar" data-ci="6">o</span><span class="ichar" data-ci="7">m</span><span class="ichar" data-ci="8">e</span><span class="ichar" data-ci="9">s</span></div>
 
                 {{-- Row 2, Col 2 — "The" (flies from LEFT, col 1 empty = Here's width) --}}
                 <div id="w-the" style="grid-column: 2; grid-row: 2;
-                    font-family: 'Libre Baskerville', serif;
+                    font-family: 'Instrument Serif Modified', serif;
                     font-size: clamp(3.2rem, 11vw, 7.5rem);
                     color: #ed9520; font-weight: 700; line-height: 1.05;
                     white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="10">T</span><span class="ichar" data-ci="11">h</span><span class="ichar" data-ci="12">e</span></div>
 
                 {{-- Row 2, Col 4 — "Fun." (flies from LEFT, col 3 empty = Comes' width) --}}
                 <div id="w-fun" style="grid-column: 4; grid-row: 2;
-                    font-family: 'Libre Baskerville', serif;
+                    font-family: 'Instrument Serif Modified', serif;
                     font-size: clamp(3.2rem, 11vw, 7.5rem);
                     color: #ed9520; font-weight: 700; line-height: 1.05;
                     white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="14">F</span><span class="ichar" data-ci="15">u</span><span class="ichar" data-ci="16">n</span><span class="ichar" data-ci="17">.</span></div>
