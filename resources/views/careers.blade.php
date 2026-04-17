@@ -11,7 +11,7 @@
     --text-primary: #0a0a0a;
     --text-secondary: #6b7280;
     --border-color: #eeeeee;
-    --editorial-pad: clamp(24px, 8vw, 120px);
+    --editorial-pad: clamp(24px, 15vw, 320px);
   }
 
   body {
@@ -22,6 +22,8 @@
   .careers-container {
     padding-top: 140px;
     padding-bottom: 120px;
+    max-width: 1800px;
+    margin: 0 auto;
   }
 
   .careers-header {
@@ -30,24 +32,24 @@
   }
 
   .careers-header h1 {
-    font-size: clamp(3rem, 10vw, 8rem);
-    font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     margin: 0;
   }
 
   .section-label {
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.35em;
     color: var(--text-primary);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     display: block;
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
   }
   
   .section-label::after {
@@ -55,25 +57,25 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 60px;
-    height: 1.5px;
+    width: 40px;
+    height: 1px;
     background: var(--text-primary);
   }
 
   /* Directory List Layout */
   .directory-list {
-    margin-top: 40px;
+    margin-top: 20px;
   }
 
   .directory-item {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    padding: 40px var(--editorial-pad);
+    padding: 64px var(--editorial-pad);
     border-bottom: 1px solid var(--border-color);
     text-decoration: none;
     color: inherit;
-    transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .directory-item:first-child {
@@ -81,7 +83,9 @@
   }
 
   .directory-item:hover {
-    background-color: #f9f9f9;
+    background-color: #fafafa;
+    padding-left: calc(var(--editorial-pad) + 12px);
+    padding-right: calc(var(--editorial-pad) - 12px);
   }
 
   .directory-item:hover .directory-item__title,
@@ -90,28 +94,32 @@
   }
 
   .directory-item:hover .directory-item__meta {
-    color: #333 !important;
+    color: #444 !important;
   }
 
   .directory-item__content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
   }
 
   .directory-item__title {
-    font-size: clamp(20px, 3vw, 32px);
-    font-weight: 700;
+    font-size: clamp(16px, 1.8vw, 20px);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     line-height: 1.2;
     margin: 0;
   }
 
   .directory-item__meta {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     color: var(--text-secondary);
     display: flex;
-    gap: 24px;
+    gap: 32px;
     align-items: center;
   }
 
@@ -121,17 +129,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.3;
   }
 
   .directory-item:hover .directory-item__arrow {
-    transform: translateX(8px);
+    transform: translateX(12px);
+    opacity: 1;
   }
 
   .directory-item__arrow svg {
-    width: 24px;
-    height: 24px;
-    stroke-width: 1.5;
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.2;
   }
 
   .casting-section {
