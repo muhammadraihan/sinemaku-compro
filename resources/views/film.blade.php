@@ -66,6 +66,16 @@
         @endforeach
     </div>
 
+    {{-- ── Minimalist Nav Arrows (Desktop Only) ── --}}
+    <div class="hero-nav-desktop absolute inset-y-0 inset-x-0 z-[15] pointer-events-none hidden md:flex items-center justify-between px-6 lg:px-10">
+        <button id="hero-prev" class="pointer-events-auto group bg-transparent border-none p-4 cursor-pointer opacity-40 hover:opacity-100 transition-opacity" aria-label="Previous Slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round" class="text-white transform group-hover:-translate-x-1 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button id="hero-next" class="pointer-events-auto group bg-transparent border-none p-4 cursor-pointer opacity-40 hover:opacity-100 transition-opacity" aria-label="Next Slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round" class="text-white transform group-hover:translate-x-1 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+    </div>
+
 </section>
 
 <style>
@@ -118,6 +128,9 @@
         }
         .indicator-slash {
             display: none;
+        }
+        .hero-nav-desktop {
+            display: none !important;
         }
     }
 </style>
@@ -200,10 +213,10 @@
 
         function startTimer() {
             clearInterval(timer);
-            timer = setInterval(autoAdvance, 6000);
+            timer = setInterval(autoAdvance, 8000); // Increased interval to allow more manual control
         }
 
-        // Indicator clicks
+        // Indicator & Nav Arrow clicks
         indicators.forEach(function(btn) {
             btn.addEventListener('click', function() {
                 const idx = parseInt(this.dataset.index, 10);
@@ -212,6 +225,86 @@
                 startTimer();
             });
         });
+
+        document.getElementById('hero-prev').addEventListener('click', () => {
+            if (busy) return;
+            goTo((current - 1 + totalSlides) % totalSlides);
+            startTimer();
+        });
+
+        document.getElementById('hero-next').addEventListener('click', () => {
+            if (busy) return;
+            goTo((current + 1) % totalSlides);
+            startTimer();
+        });
+
+        // ── Scroll-based slide transition logic ──
+        let lastScrollTime = 0;
+        const scrollCooldown = 1500; // ms between allow scroll-triggered slides
+
+        function handleScrollIntent(delta) {
+            const now = Date.now();
+            if (now - lastScrollTime < scrollCooldown || busy) return false;
+
+            if (delta > 30) { // Scrolling Down / Next
+                if (current < totalSlides - 1) {
+                    goTo(current + 1);
+                    lastScrollTime = now;
+                    startTimer();
+                    return true;
+                }
+            } else if (delta < -30) { // Scrolling Up / Prev
+                if (current > 0) {
+                    goTo(current - 1);
+                    lastScrollTime = now;
+                    startTimer();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        const heroElement = document.getElementById('film-hero');
+
+        // ── Touch swipe listener for Mobile (Scroll Hijacking) ──
+        let touchStartY = 0;
+        let isTouching = false;
+
+        heroElement.addEventListener('touchstart', function(e) {
+            if (window.scrollY <= 10) {
+                touchStartY = e.touches[0].clientY;
+                isTouching = true;
+            } else {
+                isTouching = false;
+            }
+        }, { passive: true });
+
+        heroElement.addEventListener('touchmove', function(e) {
+            if (!isTouching) return;
+
+            const touchEndY = e.touches[0].clientY;
+            const deltaY = touchStartY - touchEndY; // Positive translates to 'Scrolling Down'
+
+            // Ignore tiny accidental moves
+            if (Math.abs(deltaY) < 10) return;
+
+            // Allow natural scroll exactly at boundaries
+            if (current === totalSlides - 1 && deltaY > 0) {
+                isTouching = false; // release lock for subsequent moves
+                return; // let it scroll down page
+            }
+            if (current === 0 && deltaY < 0) {
+                isTouching = false; 
+                return; // let it bounce top
+            }
+
+            // We are locked in the hero. Prevent physical scroll.
+            if (e.cancelable) e.preventDefault();
+
+            // Try to trigger transition
+            handleScrollIntent(deltaY);
+        }, { passive: false });
+
 
         // Pause when tab hidden, resume when visible
         document.addEventListener('visibilitychange', function() {
