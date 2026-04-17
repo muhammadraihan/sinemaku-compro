@@ -13,6 +13,8 @@ use App\Models\Job;
 use App\Models\Kategori;
 use App\Models\KategoriShop;
 use App\Models\SiteSetting;
+use App\Models\ArtikelKategori;
+use App\Models\EventKategori;
 use Carbon\Carbon;
 
 class FrontEndController extends Controller
@@ -392,13 +394,14 @@ class FrontEndController extends Controller
 
     public function articles()
     {
-        $articles = Article::orderBy('tgl_rilis', 'DESC')->first();
-        $all_articles = Article::where('uuid', '!=', $articles->uuid)
+        $articles = Article::with('artikelKategori')->orderBy('tgl_rilis', 'DESC')->first();
+        $all_articles = Article::with('artikelKategori')->where('uuid', '!=', @$articles->uuid)
                         ->orderBy('tgl_rilis', 'DESC')
                         ->get();
         $kategorishop = KategoriShop::all();
+        $artikel_kategori = ArtikelKategori::all();
 
-        return view('articles', compact('articles', 'all_articles', 'kategorishop'));
+        return view('articles', compact('articles', 'all_articles', 'kategorishop', 'artikel_kategori'));
     }
 
     public function detailarticles($id)
@@ -412,10 +415,11 @@ class FrontEndController extends Controller
 
     public function event()
     {
-        $event = Event::all();
+        $event = Event::with('eventKategori')->get();
         $kategorishop = KategoriShop::all();
+        $event_kategori = EventKategori::all();
 
-        return view('event', compact('event', 'kategorishop'));
+        return view('event', compact('event', 'kategorishop', 'event_kategori'));
     }
 
     public function detailevent($id)

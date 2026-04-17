@@ -251,19 +251,20 @@
   
   {{-- FILTER KATEGORI --}}
   <div class="article-filters-section reveal">
-    <div class="article-filters">
-      <button class="chip is-active" data-filter="all">All Stories</button>
-      <button class="chip" data-filter="news">News</button>
-      <button class="chip" data-filter="press-release">Press Release</button>
-      <button class="chip" data-filter="behind-the-scenes">Behind the Scenes</button>
+    <div class="article-filters" role="tablist">
+      <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All Stories</button>
+      @foreach($artikel_kategori as $cat)
+        <button class="chip" data-filter="{{ $cat->uuid }}" role="tab">{{ $cat->name }}</button>
+      @endforeach
     </div>
   </div>
-
+ 
   <div class="article-list">
     {{-- FEATURED ARTICLE (Row 1) --}}
     @if($articles)
       <a href="{{ ($articles->kategori == 'external') ? $articles->link : route('detail-articles', $articles->slug) }}" 
          class="article-row reveal" 
+         data-category="{{ $articles->artikel_kategori_uuid }}"
          @if($articles->kategori == 'external') target="_blank" @endif>
         <div class="article-row__media">
           <img src="{{ asset('photo/' . $articles->photo) }}" alt="{{ $articles->judul }}" loading="lazy">
@@ -271,6 +272,10 @@
         <div class="article-row__content">
           <div class="article-row__header">
             <div class="article-row__meta">
+              @if($articles->artikelKategori)
+                <span style="color: #111; font-weight: 800;">{{ $articles->artikelKategori->name }}</span>
+                <span>&bull;</span>
+              @endif
               <span>{{ $articles->penulis }}</span>
               <span>&bull;</span>
               <span>{{ \Carbon\Carbon::parse($articles->tgl_rilis)->format('d M Y') }}</span>
@@ -287,11 +292,12 @@
         </div>
       </a>
     @endif
-
+ 
     {{-- REMAINING ARTICLES --}}
     @foreach($all_articles as $item)
       <a href="{{ ($item->kategori == 'external') ? $item->link : route('detail-articles', $item->slug) }}" 
          class="article-row reveal"
+         data-category="{{ $item->artikel_kategori_uuid }}"
          @if($item->kategori == 'external') target="_blank" @endif>
         <div class="article-row__media">
           <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy">
@@ -299,6 +305,10 @@
         <div class="article-row__content">
           <div class="article-row__header">
             <div class="article-row__meta">
+              @if($item->artikelKategori)
+                <span style="color: #111; font-weight: 800;">{{ $item->artikelKategori->name }}</span>
+                <span>&bull;</span>
+              @endif
               <span>{{ $item->penulis }}</span>
               <span>&bull;</span>
               <span>{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</span>
@@ -317,7 +327,7 @@
     @endforeach
   </div>
 </div>
-
+ 
 <script>
   (function() {
     // Scroll Reveal Intersection Observer
@@ -329,15 +339,34 @@
         }
       });
     }, { threshold: 0.1 });
-
+ 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Filter Chips (UI Only for now)
+ 
+    // Dynamic Filtering Logic
     const chips = document.querySelectorAll('.chip');
+    const articles = document.querySelectorAll('.article-row');
+ 
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
-        chips.forEach(c => c.classList.remove('is-active'));
-        chip.classList.add('is-active');
+        const filter = chip.getAttribute('data-filter');
+        
+        // UI State
+        chips.forEach(c => {
+          c.classList.toggle('is-active', c === chip);
+          c.setAttribute('aria-selected', c === chip ? 'true' : 'false');
+        });
+ 
+        // Logic
+        articles.forEach(article => {
+          const category = article.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            article.style.display = 'flex';
+            // Trigger reveal again in case it was hidden
+            setTimeout(() => article.classList.add('is-inview'), 10);
+          } else {
+            article.style.display = 'none';
+          }
+        });
       });
     });
   })();

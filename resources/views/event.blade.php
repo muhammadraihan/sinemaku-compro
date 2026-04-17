@@ -228,14 +228,11 @@
   
   {{-- FILTER KATEGORI --}}
   <div class="event-filters-section reveal">
-    <div class="event-filters">
-      <button class="chip is-active" data-filter="all">All</button>
-      <button class="chip" data-filter="sinemaku-day">Sinemaku Day</button>
-      <button class="chip" data-filter="special-events">Special Events</button>
-      <button class="chip" data-filter="gala-premiere">Gala Premiere</button>
-      <button class="chip" data-filter="trailer-launch">Trailer Launch</button>
-      <button class="chip" data-filter="roadshow">Roadshow</button>
-      <button class="chip" data-filter="volunteer">Daftar Volunteer</button>
+    <div class="event-filters" role="tablist">
+      <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+      @foreach($event_kategori as $cat)
+        <button class="chip" data-filter="{{ $cat->uuid }}" role="tab">{{ $cat->name }}</button>
+      @endforeach
     </div>
   </div>
 
@@ -243,20 +240,22 @@
     <!-- LISTING SECTION -->
     <div class="event-list">
       @foreach($event as $item)
-        <article class="event-row reveal">
+        <article class="event-row reveal" data-category="{{ $item->event_kategori_uuid }}">
           <div class="event-row__media">
             <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy">
           </div>
           <div class="event-row__content">
             <div class="event-row__header">
+              <div class="article-row__meta" style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); display: flex; gap: 20px; align-items: center; margin-bottom: 12px;">
+                @if($item->eventKategori)
+                  <span style="color: #111; font-weight: 800;">{{ $item->eventKategori->name }}</span>
+                  <span>&bull;</span>
+                @endif
+                <span>{{ \Carbon\Carbon::parse($item->tgl_event)->format('d M Y') }}</span>
+              </div>
               <h2 class="event-row__title">{{ $item->judul }}</h2>
               <div class="event-row__detail">
-                {{-- Detail event dengan efek fade --}}
-                @if($item->title)
-                  {{ $item->title }}. 
-                @endif
-                {{-- Example long text for fade demonstration --}}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                {{ $item->title }}
               </div>
             </div>
             <a href="{{ route('detail-event', $item->slug) }}" class="event-row__cta">Read More</a>
@@ -285,13 +284,30 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Filter Chips (UI Only)
+    // Filtering Logic
     const chips = document.querySelectorAll('.chip');
+    const rows = document.querySelectorAll('.event-row');
+
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
-        chips.forEach(c => c.classList.remove('is-active'));
-        chip.classList.add('is-active');
-        // Logic filter akan ditambahkan setelah database siap
+        const filter = chip.getAttribute('data-filter');
+        
+        // UI
+        chips.forEach(c => {
+          c.classList.toggle('is-active', c === chip);
+          c.setAttribute('aria-selected', c === chip ? 'true' : 'false');
+        });
+
+        // Filtering
+        rows.forEach(row => {
+          const category = row.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            row.style.display = 'flex';
+            setTimeout(() => row.classList.add('is-inview'), 10);
+          } else {
+            row.style.display = 'none';
+          }
+        });
       });
     });
   })();
