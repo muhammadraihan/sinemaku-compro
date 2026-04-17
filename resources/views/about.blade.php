@@ -20,9 +20,6 @@
 
         {{-- The dark background — this is the ONLY thing that slides down --}}
         <div id="intro-bg" class="absolute inset-0" style="background: #0b0a1a; z-index: 1;"></div>
-        {{-- Diagonal stripe pattern --}}
-        <div class="absolute inset-0 pointer-events-none" style="z-index: 2;
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(237,149,32,0.04) 30px, rgba(237,149,32,0.04) 62px);"></div>
         {{-- Radial amber glow from left --}}
         <div class="absolute inset-0 pointer-events-none" style="z-index: 2;
             background: radial-gradient(ellipse 90% 65% at 20% 50%, rgba(237,149,32,0.07) 0%, transparent 65%);"></div>
@@ -31,46 +28,55 @@
             background: linear-gradient(to top, rgba(90,35,0,0.65), transparent);"></div>
 
         {{-- TEXT LAYER: stays in viewport when BG slides down --}}
+        {{--
+            LAYOUT: CSS Grid stagger — 4 auto-sized columns, one per word.
+            Grid col widths are set by each word's own content width, so:
+              • Gap between [Here] and [Comes] = col2 width = "The"'s width  ✓
+              • Gap between [The]  and [Fun.]  = col3 width = "Comes"' width ✓
+              • "The" falls exactly in the gap between Here and Comes       ✓
+              • "Comes" falls exactly in the gap between The and Fun.       ✓
+            The whole grid is centered via outer flex justify-content:center.
+
+            CHAR INDEX MAP (must match hero h1 char order):
+              "Here Comes" → H=0 e=1 r=2 e=3 [space=4] C=5 o=6 m=7 e=8 s=9
+              "The Fun."   → T=10 h=11 e=12 [space=13] F=14 u=15 n=16 .=17
+        --}}
         <div class="absolute inset-0 pointer-events-none" style="z-index: 10;
-            display: flex; flex-direction: column; justify-content: center;
-            padding: 0 4vw;">
+            display: flex; align-items: center; justify-content: center;">
 
-            {{--
-                CHAR INDEX MAP (must match hero h1 char order):
-                "Here Comes" → H=0 e=1 r=2 e=3 [space=4, hidden] C=5 o=6 m=7 e=8 s=9
-                "The Fun."   → T=10 h=11 e=12 [space=13, hidden] F=14 u=15 n=16 .=17
-            --}}
+            <div style="display: inline-grid;
+                        grid-template-columns: auto auto auto auto;
+                        grid-template-rows: auto auto;">
 
-            {{-- LINE 1: "Here" left, "Comes" pushed right (both fly from right) --}}
-            <div style="display: flex; align-items: baseline; width: 100%;">
-                <div id="w-here" style="display: inline-block;
+                {{-- Row 1, Col 1 — "Here" (flies from RIGHT) --}}
+                <div id="w-here" style="grid-column: 1; grid-row: 1;
                     font-family: 'Libre Baskerville', serif;
                     font-size: clamp(3.2rem, 11vw, 7.5rem);
                     color: #ed9520; font-weight: 700; line-height: 1.05;
                     white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="0">H</span><span class="ichar" data-ci="1">e</span><span class="ichar" data-ci="2">r</span><span class="ichar" data-ci="3">e</span></div>
 
-                <div id="w-comes" style="display: inline-block; margin-left: auto; margin-right: 6%;
+                {{-- Row 1, Col 3 — "Comes" (flies from RIGHT, col 2 stays empty = The's width) --}}
+                <div id="w-comes" style="grid-column: 3; grid-row: 1;
                     font-family: 'Libre Baskerville', serif;
                     font-size: clamp(3.2rem, 11vw, 7.5rem);
                     color: #ed9520; font-weight: 700; line-height: 1.05;
                     white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="5">C</span><span class="ichar" data-ci="6">o</span><span class="ichar" data-ci="7">m</span><span class="ichar" data-ci="8">e</span><span class="ichar" data-ci="9">s</span></div>
-            </div>
 
-            {{-- LINE 2: "The" indented, "Fun." far right (both fly from left) --}}
-            <div style="display: flex; align-items: baseline; width: 100%;">
-                <div id="w-the" style="display: inline-block; margin-left: 21%;
+                {{-- Row 2, Col 2 — "The" (flies from LEFT, col 1 empty = Here's width) --}}
+                <div id="w-the" style="grid-column: 2; grid-row: 2;
                     font-family: 'Libre Baskerville', serif;
                     font-size: clamp(3.2rem, 11vw, 7.5rem);
                     color: #ed9520; font-weight: 700; line-height: 1.05;
                     white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="10">T</span><span class="ichar" data-ci="11">h</span><span class="ichar" data-ci="12">e</span></div>
 
-                <div id="w-fun" style="display: inline-block; margin-left: auto;
+                {{-- Row 2, Col 4 — "Fun." (flies from LEFT, col 3 empty = Comes' width) --}}
+                <div id="w-fun" style="grid-column: 4; grid-row: 2;
                     font-family: 'Libre Baskerville', serif;
                     font-size: clamp(3.2rem, 11vw, 7.5rem);
                     color: #ed9520; font-weight: 700; line-height: 1.05;
                     white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="14">F</span><span class="ichar" data-ci="15">u</span><span class="ichar" data-ci="16">n</span><span class="ichar" data-ci="17">.</span></div>
-            </div>
 
+            </div>
         </div>
     </div>
     @endif {{-- $introEnabled --}}
