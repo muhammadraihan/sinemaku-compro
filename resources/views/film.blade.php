@@ -29,17 +29,25 @@
          style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, transparent 55%);">
     </div>
 
-    {{-- ── Slide Titles: individually slide in/out with quint easing ── --}}
-    <div class="hero-title-container absolute inset-0 z-[10] flex items-center px-6 md:px-16 pointer-events-none">
-        <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center;">
+    {{-- ── Slide Content (Titles & Meta): individually slide in/out with quint easing ── --}}
+    <div class="hero-title-container absolute inset-0 z-[10] flex items-end pointer-events-none" style="padding: clamp(48px, 8vw, 120px) clamp(16px, 6vw, 84px);">
+        <div style="position: relative; width: 100%; max-width: 1600px; margin: 0 auto; height: 100%;">
             @foreach($film as $i => $item)
-                @php $charCount = strlen($item->title); @endphp
-                <h1 class="hero-title font-display font-bold tracking-tighter uppercase text-white m-0 p-0"
-                    style="--char-count: {{ $charCount }}; position: absolute; left: 0; top: 50%; transform: {{ $i === 0 ? 'translate(0, -50%)' : 'translate(100vw, -50%)' }}; pointer-events: {{ $i === 0 ? 'auto' : 'none' }};">
-                    <a href="{{ route('detail-film', $item->slug) }}" class="no-underline text-inherit">
-                        {{ $item->title }}
-                    </a>
-                </h1>
+                <div class="hero-slide-content text-left w-full"
+                    style="position: absolute; left: 0; bottom: 0; transform: {{ $i === 0 ? 'translateX(0)' : 'translateX(100vw)' }}; pointer-events: {{ $i === 0 ? 'auto' : 'none' }};">
+                    <h1 class="hero-film-title">
+                        <a href="{{ route('detail-film', $item->slug) }}" class="no-underline text-inherit hover:opacity-80 transition-opacity">
+                            {{ $item->title }}
+                        </a>
+                    </h1>
+                    <div class="hero-film-meta">
+                        <span>{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+                        <span class="dot">•</span>
+                        <span>{{ $item->genre }}</span>
+                        <span class="dot">•</span>
+                        <span>{{ $item->duration }} Min</span>
+                    </div>
+                </div>
             @endforeach
         </div>
     </div>
@@ -53,7 +61,7 @@
                 {{ $i + 1 }}
             </button>
             @if(!$loop->last)
-                <span style="opacity: 0.4; line-height: 1.1; margin: 0 2px;">/</span>
+                <span class="indicator-slash" style="color: rgba(255,255,255,0.4); line-height: 1.1; margin: 0 2px;">/</span>
             @endif
         @endforeach
     </div>
@@ -61,16 +69,29 @@
 </section>
 
 <style>
-    /* ── Hero Title ── */
-    .hero-title {
-        font-size: clamp(2.5rem, calc(160vw / var(--char-count)), 7.5rem);
-        line-height: 0.9;
-        width: 85vw;
-        word-break: break-word;
-        overflow-wrap: break-word;
-        white-space: normal;
-        /* Default CSS transition is overridden by JS. This is a fallback. */
+    /* ── Hero Slide Content ── */
+    .hero-slide-content {
         will-change: transform;
+    }
+    .hero-film-title {
+        font-family: var(--font-display);
+        font-weight: 800; 
+        line-height: 0.92; 
+        margin: 0 0 0.2em;
+        font-size: clamp(48px, 7.5vw, 110px);
+        letter-spacing: -0.04em; 
+        filter: drop-shadow(0 0 30px rgba(0,0,0,0.3));
+        text-transform: uppercase;
+        color: #fff;
+    }
+    .hero-film-meta {
+        display: flex; gap: 16px; align-items: center;
+        font-size: clamp(14px, 1.2vw, 18px); color: #ccc;
+        text-transform: uppercase; letter-spacing: 0.12em; font-weight: 400;
+        filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+    }
+    .hero-film-meta .dot {
+        font-size: 0.8em;
     }
     /* ── Indicators ── */
     .hero-indicators-container {
@@ -84,14 +105,19 @@
         }
     }
     @media (max-width: 767px) {
-        .hero-title {
-            font-size: clamp(2rem, calc(120vw / var(--char-count)), 4rem);
-            width: 90vw;
+        .hero-film-title {
+            font-size: clamp(36px, 12vw, 64px);
         }
         .hero-indicators-container {
             right: 4%;
-            bottom: 1rem;
+            bottom: 2.5rem;
             font-size: 1.25rem;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .indicator-slash {
+            display: none;
         }
     }
 </style>
@@ -103,7 +129,7 @@
         if (totalSlides === 0) return;
 
         const strip     = document.getElementById('hero-strip');
-        const titles    = document.querySelectorAll('#film-hero .hero-title');
+        const titles    = document.querySelectorAll('#film-hero .hero-slide-content');
         const indicators = document.querySelectorAll('#film-hero .slide-indicator');
 
         let current  = 0;
@@ -127,12 +153,12 @@
 
             // Outgoing title
             prevTitle.style.transition = `transform 1.2s ${quintEase}`;
-            prevTitle.style.transform  = `translate(${-100 * direction}vw, -50%)`;
+            prevTitle.style.transform  = `translateX(${-100 * direction}vw)`;
             prevTitle.style.pointerEvents = 'none';
 
             // Position incoming title off-screen without transition
             nextTitle.style.transition = 'none';
-            nextTitle.style.transform  = `translate(${100 * direction}vw, -50%)`;
+            nextTitle.style.transform  = `translateX(${100 * direction}vw)`;
 
             // Force reflow
             nextTitle.getBoundingClientRect();
@@ -140,7 +166,7 @@
             // Slide incoming in
             requestAnimationFrame(function() {
                 nextTitle.style.transition  = `transform 1.2s ${quintEase}`;
-                nextTitle.style.transform   = 'translate(0, -50%)';
+                nextTitle.style.transform   = 'translateX(0)';
                 nextTitle.style.pointerEvents = 'auto';
             });
         }
