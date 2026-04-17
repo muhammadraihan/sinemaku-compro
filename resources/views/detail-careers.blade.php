@@ -242,7 +242,13 @@
           @if($careers->salary)
             <div class="metadata-item">
               <span class="metadata-item__label">Salary Range</span>
-              <span class="metadata-item__value">Rp {{ number_format($careers->salary, 0, ',', '.') }}</span>
+              <span class="metadata-item__value">
+                @if(is_numeric($careers->salary))
+                  Rp {{ number_format($careers->salary, 0, ',', '.') }}
+                @else
+                  {{ $careers->salary }}
+                @endif
+              </span>
             </div>
           @endif
         @else
