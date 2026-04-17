@@ -1335,7 +1335,7 @@
       @foreach ($genre as $item)
         <article class="film-card flex flex-col no-underline shrink-0" data-genres='@json($item->genres_array)' style="scroll-snap-align: start;">
           <a href="{{ route('detail-film', $item->slug) }}" class="film-card__link block no-underline outline-none group text-inherit">
-            <div class="film-card__poster w-full overflow-hidden bg-[#111] mb-4 rounded-xl flex items-center justify-center relative shadow-md" style="aspect-ratio: 2/3;">
+            <div class="film-card__poster w-full overflow-hidden bg-[#111] mb-4 flex items-center justify-center relative" style="aspect-ratio: 2/3;">
               <img src="{{ asset('photo/' . $item->poster) }}" alt="{{ $item->title }}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 block !m-0">
             </div>
             <h3 class="film-card__title font-display font-extrabold uppercase text-[15px] sm:text-[16px] text-gray-900 leading-[1.2] tracking-[-0.02em] m-0 !m-0">{{ $item->title }}</h3>
@@ -1346,14 +1346,14 @@
 
     <!-- Controls -->
     <div class="films-carousel-controls flex items-center justify-between mt-8">
-      <button class="fc-nav-btn w-12 h-12 rounded-full border border-gray-900 bg-transparent text-gray-900 flex items-center justify-center cursor-pointer transition-colors duration-300 hover:bg-gray-900 hover:text-white" aria-label="Previous" id="our-films-prev">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <button class="fc-nav-btn w-10 h-10 rounded-full border-none bg-transparent text-gray-400 flex items-center justify-center cursor-pointer transition-colors duration-300 hover:text-gray-900" aria-label="Previous" id="our-films-prev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
 
-      <div class="fc-dots flex gap-2 flex-wrap justify-center items-center" id="our-films-dots"></div>
+      <div class="fc-dots flex gap-3 flex-wrap justify-center items-center" id="our-films-dots"></div>
 
-      <button class="fc-nav-btn w-12 h-12 rounded-full border border-gray-900 bg-transparent text-gray-900 flex items-center justify-center cursor-pointer transition-colors duration-300 hover:bg-gray-900 hover:text-white" aria-label="Next" id="our-films-next">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <button class="fc-nav-btn w-10 h-10 rounded-full border-none bg-transparent text-gray-400 flex items-center justify-center cursor-pointer transition-colors duration-300 hover:text-gray-900" aria-label="Next" id="our-films-next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M9 18l6-6-6-6"/></svg>
       </button>
     </div>
   </div>
@@ -1375,42 +1375,44 @@
         dotsWrap.innerHTML = '';
         
         if (visibleCards.length <= 1) {
-            if(prevBtn) prevBtn.style.opacity = '0.3';
-            if(nextBtn) nextBtn.style.opacity = '0.3';
+            if(prevBtn) prevBtn.style.visibility = 'hidden';
+            if(nextBtn) nextBtn.style.visibility = 'hidden';
             return;
+        } else {
+            if(prevBtn) prevBtn.style.visibility = 'visible';
+            if(nextBtn) nextBtn.style.visibility = 'visible';
         }
 
-        visibleCards.forEach((_, i) => {
+        const cardWidth = visibleCards[0].offsetWidth + 24; // width + gap
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        const numSteps = Math.ceil(maxScroll / cardWidth) + 1;
+
+        for (let i = 0; i < numSteps; i++) {
             const dot = document.createElement('button');
-            dot.className = 'w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-colors duration-300';
-            dot.style.background = i === 0 ? '#111' : '#ccc';
+            dot.className = 'w-1.5 h-1.5 rounded-full border-none p-0 cursor-pointer transition-all duration-300';
+            dot.style.background = i === 0 ? '#111' : '#ddd';
             dot.addEventListener('click', () => {
-                const scrollLeft = visibleCards[i].offsetLeft - track.offsetLeft;
-                track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                track.scrollTo({ left: i * cardWidth, behavior: 'smooth' });
             });
             dotsWrap.appendChild(dot);
-        });
+        }
 
-        const updateButtons = () => {
+        const updateUI = () => {
             const scrollLeft = track.scrollLeft;
-            const maxScroll = track.scrollWidth - track.clientWidth;
-            if(prevBtn) prevBtn.style.opacity = scrollLeft <= 10 ? '0.3' : '1';
-            if(nextBtn) nextBtn.style.opacity = scrollLeft >= maxScroll - 10 ? '0.3' : '1';
+            if(prevBtn) prevBtn.style.opacity = scrollLeft <= 10 ? '0' : '1';
+            if(nextBtn) nextBtn.style.opacity = scrollLeft >= maxScroll - 10 ? '0' : '1';
             
-            // Update dots
-            if (visibleCards.length > 0) {
-                const cardWidth = visibleCards[0].offsetWidth + 24; // approx gap
-                let currentIndex = Math.round(scrollLeft / cardWidth);
-                if(currentIndex >= visibleCards.length) currentIndex = visibleCards.length - 1;
-                
-                Array.from(dotsWrap.children).forEach((dot, i) => {
-                    dot.style.background = i === currentIndex ? '#111' : '#ccc';
-                });
-            }
+            // Update active dot
+            let currentIndex = Math.round(scrollLeft / cardWidth);
+            Array.from(dotsWrap.children).forEach((dot, i) => {
+                const isActive = i === currentIndex;
+                dot.style.background = isActive ? '#111' : '#ddd';
+                dot.style.transform = isActive ? 'scale(1.2)' : 'scale(1)';
+            });
         };
 
-        track.addEventListener('scroll', updateButtons, { passive: true });
-        updateButtons();
+        track.addEventListener('scroll', updateUI, { passive: true });
+        updateUI();
     }
 
     if(prevBtn) {
