@@ -1296,6 +1296,23 @@
       margin-top: 8px;
     }
   }
+
+  /* Carousel Sizing CSS */
+  .films-carousel-track::-webkit-scrollbar { display: none; }
+  
+  .film-card {
+    /* Desktop: 4 items */
+    flex: 0 0 calc(25% - 18px);
+  }
+  @media (max-width: 1024px) {
+    .film-card { flex: 0 0 calc(33.333% - 16px); }
+  }
+  @media (max-width: 768px) {
+    .film-card { flex: 0 0 calc(50% - 12px); }
+  }
+  @media (max-width: 480px) {
+    .film-card { flex: 0 0 calc(85%); }
+  }
 </style>
 {{-- ================== SECTION ALL FILMS ================== --}}
 <section class="allfilms reveal">
@@ -1313,46 +1330,32 @@
     </div>
   </div>
 
-  <div class="allfilms-grid">
-    @php
-      $ratios = ['2/3', '16/10', '3/4', '1/1', '4/5'];
-    @endphp
-    @foreach ($genre as $item)
-      <article class="filmitem" data-genres='@json($item->genres_array)'>
-        {{-- <article class="filmitem" data-genre="{{ strtolower($item->genre) }}"> --}}
-          <a href="{{ route('detail-film', $item->slug) }}" class="filmitem-link">
-            <figure class="filmitem-media has-overlay" style="aspect-ratio: {{ $ratios[$loop->index % 5] }}">
-              <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->title }}" loading="lazy">
-
-              <!-- badge/rate opsional (boleh dihapus kalau tidak dipakai) -->
-              <span class="film-badge">{{ $item->genre }}</span>
-
-              <!-- DETAIL OVERLAY (baru) -->
-              <div class="film-detail">
-                <div class="film-detail-row">
-                  <span class="film-detail-label">RELEASE DATE</span>
-                  <span class="film-detail-value">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
-                </div>
-                <div class="film-detail-row">
-                  <span class="film-detail-label">WRITTEN & DIRECTED BY</span>
-                  <span class="film-detail-value">{{ $item->director }}</span>
-                </div>
-                <div class="film-detail-row">
-                  <span class="film-detail-label">STARRING</span>
-                  <span class="film-detail-value">{{ $item->cast }}</span>
-                </div>
-              </div>
-            </figure>
-
-            <div class="filmitem-caption">
-              <div class="filmitem-year">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</div>
-              <h2 class="filmitem-title">{{ $item->title }}</h2>
+  <div class="films-carousel-wrap relative w-full mt-10">
+    <div class="films-carousel-track flex gap-6 overflow-x-auto pb-5" id="our-films-track" style="scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch;">
+      @foreach ($genre as $item)
+        <article class="film-card flex flex-col no-underline shrink-0" data-genres='@json($item->genres_array)' style="scroll-snap-align: start;">
+          <a href="{{ route('detail-film', $item->slug) }}" class="film-card__link block no-underline outline-none group text-inherit">
+            <div class="film-card__poster w-full overflow-hidden bg-[#111] mb-4 rounded-xl flex items-center justify-center relative shadow-md" style="aspect-ratio: 2/3;">
+              <img src="{{ asset('photo/' . $item->poster) }}" alt="{{ $item->title }}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 block !m-0">
             </div>
+            <h3 class="film-card__title font-display font-extrabold uppercase text-[15px] sm:text-[16px] text-gray-900 leading-[1.2] tracking-[-0.02em] m-0 !m-0">{{ $item->title }}</h3>
           </a>
         </article>
-    @endforeach
+      @endforeach
+    </div>
 
-      <!-- Tambah film lain di sini, set data-genre sesuai: drama | thriller | sci-fi | romance -->
+    <!-- Controls -->
+    <div class="films-carousel-controls flex items-center justify-between mt-8">
+      <button class="fc-nav-btn w-12 h-12 rounded-full border border-gray-900 bg-transparent text-gray-900 flex items-center justify-center cursor-pointer transition-colors duration-300 hover:bg-gray-900 hover:text-white" aria-label="Previous" id="our-films-prev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+
+      <div class="fc-dots flex gap-2 flex-wrap justify-center items-center" id="our-films-dots"></div>
+
+      <button class="fc-nav-btn w-12 h-12 rounded-full border border-gray-900 bg-transparent text-gray-900 flex items-center justify-center cursor-pointer transition-colors duration-300 hover:bg-gray-900 hover:text-white" aria-label="Next" id="our-films-next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -1360,7 +1363,73 @@
   (function () {
     const scope = document.querySelector('.allfilms') || document;
     const chips = scope.querySelectorAll('.chip');
-    const cards = scope.querySelectorAll('.filmitem');
+    const cards = scope.querySelectorAll('.film-card');
+    const track = document.getElementById('our-films-track');
+    const prevBtn = document.getElementById('our-films-prev');
+    const nextBtn = document.getElementById('our-films-next');
+    const dotsWrap = document.getElementById('our-films-dots');
+
+    function updateCarousel() {
+        if (!track) return;
+        const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+        dotsWrap.innerHTML = '';
+        
+        if (visibleCards.length <= 1) {
+            if(prevBtn) prevBtn.style.opacity = '0.3';
+            if(nextBtn) nextBtn.style.opacity = '0.3';
+            return;
+        }
+
+        visibleCards.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'w-2 h-2 rounded-full border-none p-0 cursor-pointer transition-colors duration-300';
+            dot.style.background = i === 0 ? '#111' : '#ccc';
+            dot.addEventListener('click', () => {
+                const scrollLeft = visibleCards[i].offsetLeft - track.offsetLeft;
+                track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            });
+            dotsWrap.appendChild(dot);
+        });
+
+        const updateButtons = () => {
+            const scrollLeft = track.scrollLeft;
+            const maxScroll = track.scrollWidth - track.clientWidth;
+            if(prevBtn) prevBtn.style.opacity = scrollLeft <= 10 ? '0.3' : '1';
+            if(nextBtn) nextBtn.style.opacity = scrollLeft >= maxScroll - 10 ? '0.3' : '1';
+            
+            // Update dots
+            if (visibleCards.length > 0) {
+                const cardWidth = visibleCards[0].offsetWidth + 24; // approx gap
+                let currentIndex = Math.round(scrollLeft / cardWidth);
+                if(currentIndex >= visibleCards.length) currentIndex = visibleCards.length - 1;
+                
+                Array.from(dotsWrap.children).forEach((dot, i) => {
+                    dot.style.background = i === currentIndex ? '#111' : '#ccc';
+                });
+            }
+        };
+
+        track.addEventListener('scroll', updateButtons, { passive: true });
+        updateButtons();
+    }
+
+    if(prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+            if(!visibleCards.length) return;
+            const cardWidth = visibleCards[0].offsetWidth + 24;
+            track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        });
+    }
+
+    if(nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+            if(!visibleCards.length) return;
+            const cardWidth = visibleCards[0].offsetWidth + 24;
+            track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        });
+    }
 
     function setActive(btn) {
       chips.forEach(c => {
@@ -1372,12 +1441,13 @@
 
     function applyFilter(key) {
       cards.forEach(card => {
-        // BACA ARRAY GENRE dari data-genres='["drama","thriller",...]'
         let genres = [];
         try { genres = JSON.parse(card.dataset.genres || '[]'); } catch (e) { }
         const match = (key === 'all') ? true : genres.includes(key);
-        card.classList.toggle('is-hidden', !match);
+        card.style.display = match ? 'flex' : 'none';
       });
+      if(track) track.scrollTo({ left: 0 });
+      setTimeout(updateCarousel, 50); // slight delay for layout recalculation
     }
 
     chips.forEach(btn => {
@@ -1386,13 +1456,11 @@
         setActive(btn);
         applyFilter(key);
       });
-      // akses keyboard
       btn.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
       });
     });
 
-    // initial state
     const first = scope.querySelector('.chip.is-active') || chips[0];
     if (first) {
       setActive(first);
