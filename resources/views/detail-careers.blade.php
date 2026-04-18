@@ -239,6 +239,7 @@
             <span class="metadata-item__label">Experience</span>
             <span class="metadata-item__value">{{ $careers->pengalaman }}</span>
           </div>
+          {{-- 
           @if($careers->salary)
             <div class="metadata-item">
               <span class="metadata-item__label">Salary Range</span>
@@ -250,7 +251,8 @@
                 @endif
               </span>
             </div>
-          @endif
+          @endif 
+          --}}
         @else
           <div class="metadata-item">
             <span class="metadata-item__label">Shoot Date</span>
