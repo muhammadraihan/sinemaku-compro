@@ -125,12 +125,12 @@
                 <div id="hero-actions" class="flex flex-row flex-wrap items-center gap-3 md:gap-5" style="opacity: 0; transform: translateY(20px);">
                     <a href="#about-intro"
                         class="inline-block text-center bg-white text-black px-6 sm:px-10 py-2 md:py-2.5 text-[10px] sm:text-xs font-bold tracking-[0.2em] hover:bg-gray-200 transition-colors duration-300 rounded-none border border-white">
-                        ABOUT OUR COMPANY
+                        <span data-i18n="about_cta_company">ABOUT OUR COMPANY</span>
                     </a>
 
                     <a href="#about-team"
                         class="inline-block text-center text-white px-6 sm:px-10 py-2 md:py-2.5 text-[10px] sm:text-xs font-bold tracking-[0.2em] hover:bg-white/10 transition-colors duration-300 rounded-none border border-white/30">
-                        MEET OUR TEAM
+                        <span data-i18n="about_cta_team">MEET OUR TEAM</span>
                     </a>
                 </div>
             </div>
@@ -161,7 +161,7 @@
                 </p>
                 <a href="#"
                     class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
-                    <span class="leading-none">→</span> Read More
+                    <span class="leading-none">→</span> <span data-i18n="about_read_more">Read More</span>
                 </a>
             </div>
 
@@ -173,7 +173,7 @@
                 </p>
                 <a href="#about-team"
                     class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
-                    <span class="leading-none">→</span> Read More
+                    <span class="leading-none">→</span> <span data-i18n="about_read_more">Read More</span>
                 </a>
             </div>
 
@@ -184,7 +184,7 @@
                     dan kontak media untuk jurnalis.
                 </p>
                 <span class="flex items-center gap-2 text-black font-bold text-sm">
-                    <span class="leading-none">→</span> Coming Soon
+                    <span class="leading-none">→</span> <span data-i18n="about_coming_soon">Coming Soon</span>
                 </span>
             </div>
         </div>
@@ -208,7 +208,7 @@
             <a href="#about-team"
                 style="color: white; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: all 0.3s;"
                 onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-                meet our team ...
+                <span data-i18n="about_meet_link">meet our team ...</span>
             </a>
         </div>
     </section>
@@ -242,8 +242,8 @@
                 ">
         <div class="max-w-[1540px] mx-auto">
             <div class="mb-16" data-gsap="fade-up">
-                <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4">Team</span>
-                <h2 class="text-4xl md:text-5xl font-display text-gray-900 tracking-tight">Orang-orang di balik kamera.</h2>
+                <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4"><span data-i18n="about_team_eyebrow">Team</span></span>
+                <h2 class="text-4xl md:text-5xl font-display text-gray-900 tracking-tight"><span data-i18n="about_team_heading">Orang-orang di balik kamera.</span></h2>
             </div>
 
             <!-- Dynamic Grid Layout -->
@@ -319,19 +319,19 @@
                 class="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 divide-x-0 lg:divide-x divide-white/10 text-center lg:text-left">
                 <div class="stat-block lg:px-8 first:pl-0" data-gsap="fade-up">
                     <p class="font-display text-5xl md:text-7xl text-white mb-2">XX+</p>
-                    <p class="text-sm tracking-widest uppercase text-gray-500">Karya Film</p>
+                    <p class="text-sm tracking-widest uppercase text-gray-500"><span data-i18n="about_numbers_films">Karya Film</span></p>
                 </div>
                 <div class="stat-block lg:px-8" data-gsap="fade-up">
                     <p class="font-display text-5xl md:text-7xl text-white mb-2">{{ date('Y') - 2020 }}</p>
-                    <p class="text-sm tracking-widest uppercase text-gray-500">Tahun Berdiri</p>
+                    <p class="text-sm tracking-widest uppercase text-gray-500"><span data-i18n="about_numbers_years">Tahun Berdiri</span></p>
                 </div>
                 <div class="stat-block lg:px-8" data-gsap="fade-up">
                     <p class="font-display text-5xl md:text-7xl text-white mb-2">XX+</p>
-                    <p class="text-sm tracking-widest uppercase text-gray-500">Anggota Komunitas</p>
+                    <p class="text-sm tracking-widest uppercase text-gray-500"><span data-i18n="about_numbers_comm">Anggota Komunitas</span></p>
                 </div>
                 <div class="stat-block lg:px-8" data-gsap="fade-up">
                     <p class="font-display text-5xl md:text-7xl text-white mb-2">XX+</p>
-                    <p class="text-sm tracking-widest uppercase text-gray-500">Kota Roadshow</p>
+                    <p class="text-sm tracking-widest uppercase text-gray-500"><span data-i18n="about_numbers_city">Kota Roadshow</span></p>
                 </div>
             </div>
         </div>
@@ -347,9 +347,9 @@
                                                                                     ">
         <div class="max-w-[1540px] mx-auto">
             <div class="mb-16 md:mb-24 flex flex-col items-center text-center" data-gsap="fade-up">
-                <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4">What We Do</span>
-                <h2 class="text-3xl md:text-5xl font-display text-gray-900 tracking-tight max-w-2xl">Bukan hanya sekadar
-                    membuat karya.</h2>
+                <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4"><span data-i18n="about_wwd_eyebrow">What We Do</span></span>
+                <h2 class="text-3xl md:text-5xl font-display text-gray-900 tracking-tight max-w-2xl"><span data-i18n="about_wwd_heading">Bukan hanya sekadar
+                    membuat karya.</span></h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
@@ -397,9 +397,9 @@
                                                                                         padding-bottom: clamp(14rem, 25vh, 28rem);
                                                                                     ">
         <div class="max-w-3xl mx-auto flex flex-col items-center" data-gsap="fade-up">
-            <span class="text-xs tracking-[0.2em] uppercase text-gray-500 font-medium mb-6">Kolaborasi</span>
-            <h2 class="font-display italic text-white text-4xl md:text-6xl mb-12">Ada proyek hebat yang bisa dikerjakan
-                bersama?</h2>
+            <span class="text-xs tracking-[0.2em] uppercase text-gray-500 font-medium mb-6"><span data-i18n="about_collab_eyebrow">Kolaborasi</span></span>
+            <h2 class="font-display italic text-white text-4xl md:text-6xl mb-12"><span data-i18n="about_collab_heading">Ada proyek hebat yang bisa dikerjakan
+                bersama?</span></h2>
 
             <a href="mailto:hello@sinemakupictures.com"
                 class="feature-cta !text-white !border-white/50 hover:!border-white group">

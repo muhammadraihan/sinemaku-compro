@@ -18,8 +18,8 @@
                         <span class="text-2xl font-bold tracking-tight text-white">SINEMAKU PICTURES</span>
                     </div>
                     <p class="editorial-text text-base leading-relaxed max-w-sm" style="color: #a39de0;">
-                        Creating cinematic experiences that challenge conventions and inspire new perspectives.
-                        We are storytellers, dreamers, and rebels with cameras.
+                        <span data-i18n="footer_brand_desc">Creating cinematic experiences that challenge conventions and inspire new perspectives.
+                        We are storytellers, dreamers, and rebels with cameras.</span>
                     </p>
                     {{-- Amber separator line --}}
                     <div style="width: 40px; height: 2px; background: #ed9520;"></div>
@@ -27,15 +27,27 @@
 
                 {{-- Navigation --}}
                 <div class="lg:col-span-4 space-y-6">
-                    <h3 class="text-lg font-semibold text-white">Navigation</h3>
+                    <h3 class="text-lg font-semibold text-white"><span data-i18n="footer_navigation">Navigation</span></h3>
                     <div class="grid grid-cols-2 gap-x-4 gap-y-3">
-                        @foreach (['Home'=>'/', 'Films'=>'/films', 'Serial'=>'/serial', 'Shop'=>'/shops', 'Articles'=>'/article', 'Events'=>'/events', 'Careers'=>'/career', 'Komunitas'=>'/memberships'] as $name=>$path)
-                            <a href="{{ url($path) }}"
+                        @php
+                            $footerNavItems = [
+                                ['label' => 'Home',      'i18n' => 'footer_home',      'path' => '/'],
+                                ['label' => 'Films',     'i18n' => 'footer_films',     'path' => '/films'],
+                                ['label' => 'Serial',    'i18n' => 'footer_serial',    'path' => '/serial'],
+                                ['label' => 'Shop',      'i18n' => 'footer_shop',      'path' => '/shops'],
+                                ['label' => 'Articles',  'i18n' => 'footer_articles',  'path' => '/article'],
+                                ['label' => 'Events',    'i18n' => 'footer_events',    'path' => '/events'],
+                                ['label' => 'Careers',   'i18n' => 'footer_careers',   'path' => '/career'],
+                                ['label' => 'Komunitas', 'i18n' => 'footer_community', 'path' => '/memberships'],
+                            ];
+                        @endphp
+                        @foreach($footerNavItems as $nav)
+                            <a href="{{ url($nav['path']) }}"
                                class="editorial-text text-sm transition-colors duration-300"
                                style="color: #a39de0;"
                                onmouseenter="this.style.color='#ed9520'"
                                onmouseleave="this.style.color='#a39de0'">
-                                {{ $name }}
+                                <span data-i18n="{{ $nav['i18n'] }}">{{ $nav['label'] }}</span>
                             </a>
                         @endforeach
                     </div>
@@ -43,7 +55,7 @@
 
                 {{-- Connect --}}
                 <div class="lg:col-span-3 space-y-6">
-                    <h3 class="text-lg font-semibold text-white">Connect</h3>
+                    <h3 class="text-lg font-semibold text-white"><span data-i18n="footer_connect">Connect</span></h3>
                     <div class="space-y-3">
                         <div class="flex items-center space-x-2">
                             <span class="iconify h-4 w-4 flex-shrink-0" data-icon="lucide:mail" style="color: #ed9520;"></span>
@@ -59,7 +71,7 @@
                     </div>
 
                     <div class="space-y-3">
-                        <h4 class="text-sm font-medium text-white">Follow Us</h4>
+                        <h4 class="text-sm font-medium text-white"><span data-i18n="footer_follow_us">Follow Us</span></h4>
                         <div class="flex space-x-2">
                             @foreach ([['Instagram','#','lucide:instagram'],['YouTube','#','lucide:youtube'],['Twitter','#','lucide:twitter']] as [$sName, $sUrl, $sIcon])
                                 <a href="{{ $sUrl }}"
@@ -83,16 +95,23 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
                     <p class="editorial-text text-sm" style="color: #7069c7;">
-                        © 2024 Sinemaku Pictures. All rights reserved.
+                        <span data-i18n="footer_copyright">© 2024 Sinemaku Pictures. All rights reserved.</span>
                     </p>
                     <div class="flex space-x-5">
-                        @foreach (['Privacy Policy', 'Terms of Service', 'Cookies'] as $link)
+                        @php
+                            $footerLinks = [
+                                ['label' => 'Privacy Policy', 'i18n' => 'footer_privacy'],
+                                ['label' => 'Terms of Service', 'i18n' => 'footer_terms'],
+                                ['label' => 'Cookies', 'i18n' => 'footer_cookies'],
+                            ];
+                        @endphp
+                        @foreach($footerLinks as $fl)
                             <a href="#"
                                class="editorial-text text-sm transition-colors duration-300"
                                style="color: #7069c7;"
                                onmouseenter="this.style.color='#ed9520'"
                                onmouseleave="this.style.color='#7069c7'">
-                                {{ $link }}
+                                <span data-i18n="{{ $fl['i18n'] }}">{{ $fl['label'] }}</span>
                             </a>
                         @endforeach
                     </div>

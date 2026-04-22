@@ -233,7 +233,7 @@
                     <div class="feature-img-overlay"></div>
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
-                    <span class="feature-eyebrow">Upcoming Events</span>
+                    <span class="feature-eyebrow"><span data-i18n="home_events_eyebrow">Upcoming Events</span></span>
                     <h2 class="feature-title">
                         <a href="{{ route('detail-event', $latestEvent->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestEvent->judul }}</a>
                     </h2>
@@ -252,7 +252,7 @@
                     <p class="feature-price">Rp {{ number_format($latestEvent->harga, 0, ',', '.') }}</p>
                     @endif
                     <a href="{{ $latestEvent->link ?? '#' }}" target="_blank" class="feature-cta">
-                        Dapatkan Tiket
+                        <span data-i18n="home_get_ticket">Dapatkan Tiket</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                     </a>
                 </div>
@@ -280,7 +280,7 @@
         <div style="position:absolute; bottom:0; left:0; width:100%; padding-bottom:5rem; padding-left:clamp(1.25rem,6vw,10rem); padding-right:clamp(1.25rem,6vw,10rem);" data-gsap="fade-up">
             <div style="max-width:900px;">
                 {{-- Eyebrow --}}
-                <p style="font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--amber-500); margin:0 0 0.75rem; font-weight:500;">Film Terbaru</p>
+                <p style="font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--amber-500); margin:0 0 0.75rem; font-weight:500;"><span data-i18n="home_latest_film">Film Terbaru</span></p>
 
                 {{-- Title + Genre badge --}}
                 <h2 style="font-size:clamp(2.25rem,4.5vw,4rem); font-weight:500; line-height:1.05; letter-spacing:-0.025em; color:#fff; margin:0 0 1.25rem; display:flex; flex-wrap:wrap; align-items:center; gap:1rem;">
@@ -308,7 +308,7 @@
 
                 {{-- CTA --}}
                 <a href="/films" style="display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:var(--amber-500); border-bottom:1px solid rgba(237,149,32,0.45); padding-bottom:4px; text-decoration:none; transition: color 280ms ease, gap 280ms ease;">
-                    Lihat Semua Film
+                    <span data-i18n="home_see_all_films">Lihat Semua Film</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:14px;height:14px;"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                 </a>
             </div>
@@ -329,7 +329,7 @@
                     <div class="feature-img-overlay"></div>
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
-                    <span class="feature-eyebrow">Sinemaku Store</span>
+                    <span class="feature-eyebrow"><span data-i18n="home_merch_eyebrow">Sinemaku Store</span></span>
                     <h2 class="feature-title">
                         <a href="{{ route('detail-shop', $latestMerch->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestMerch->judul }}</a>
                     </h2>
@@ -344,7 +344,7 @@
                         @endif
                     </div>
                     <a href="{{ $latestMerch->link ?? '/shop' }}" target="_blank" class="feature-cta">
-                        Beli Sekarang
+                        <span data-i18n="home_buy_now">Beli Sekarang</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                     </a>
                 </div>
@@ -399,7 +399,7 @@
                 padding: 4rem clamp(1.5rem, 5vw, 6rem) 4rem clamp(1.5rem, 3vw, 3.5rem);
                 background:#ffffff;
             " data-gsap="fade-up">
-                <span class="feature-eyebrow">Serial Web</span>
+                <span class="feature-eyebrow"><span data-i18n="home_serial_eyebrow">Serial Web</span></span>
                 <h2 class="feature-title">
                     <a href="{{ route('detail-series', $latestSerial->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestSerial->title }}</a>
                 </h2>
@@ -414,7 +414,7 @@
                 </div>
                 <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestSerial->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
                 <a href="/serial" class="feature-cta">
-                    Lihat Serial Lainnya
+                    <span data-i18n="home_see_serials">Lihat Serial Lainnya</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                 </a>
             </div>
@@ -455,7 +455,7 @@
                     <div class="feature-img-overlay"></div>
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
-                    <span class="feature-eyebrow">Artikel Terbaru</span>
+                    <span class="feature-eyebrow"><span data-i18n="home_article_eyebrow">Artikel Terbaru</span></span>
                     <h2 class="feature-title">
                         <a href="{{ route('detail-articles', $latestArtikel->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestArtikel->judul }}</a>
                     </h2>
@@ -469,7 +469,7 @@
                     </div>
                     <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestArtikel->detail), ENT_QUOTES | ENT_HTML5), 200) }}</p>
                     <a href="/article" class="feature-cta">
-                        Baca Artikel Lainnya
+                        <span data-i18n="home_read_articles">Baca Artikel Lainnya</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                     </a>
                 </div>
@@ -491,7 +491,7 @@
                     <div class="feature-img-overlay"></div>
                 </div>
                 <div class="feature-content-wrap" data-gsap="fade-up">
-                    <span class="feature-eyebrow">Tayangan Televisi</span>
+                    <span class="feature-eyebrow"><span data-i18n="home_tv_eyebrow">Tayangan Televisi</span></span>
                     <h2 class="feature-title">
                         <a href="{{ route('detail-tv', $latestTvShow->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestTvShow->title }}</a>
                     </h2>
@@ -506,7 +506,7 @@
                     </div>
                     <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestTvShow->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
                     <a href="/tv" class="feature-cta">
-                        Lihat Tayangan Lainnya
+                        <span data-i18n="home_see_tv">Lihat Tayangan Lainnya</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                     </a>
                 </div>
@@ -518,31 +518,31 @@
     {{-- ── 7. KOMUNITAS (Static Editorial) ── --}}
     <section class="section-komunitas" data-section="komunitas" style="background: var(--navy-950);">
         <div class="komunitas-inner" data-gsap="fade-up">
-            <span class="feature-eyebrow" style="color: var(--amber-500); opacity: 0.8;">Komunitas</span>
-            <h2 class="komunitas-title">Join the Movement</h2>
+            <span class="feature-eyebrow" style="color: var(--amber-500); opacity: 0.8;"><span data-i18n="home_community_eyebrow">Komunitas</span></span>
+            <h2 class="komunitas-title"><span data-i18n="home_community_title">Join the Movement</span></h2>
             <p class="komunitas-excerpt">
-                Be part of a community that celebrates bold storytelling and artistic vision. Get exclusive access to premieres, behind-the-scenes content, and limited releases.
+                <span data-i18n="home_community_desc">Be part of a community that celebrates bold storytelling and artistic vision. Get exclusive access to premieres, behind-the-scenes content, and limited releases.</span>
             </p>
             <div class="komunitas-pillars">
                 @php
                     $pillars = [
-                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" /></svg>', 'label' => 'Premieres', 'desc' => 'Exclusive early access'],
-                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" /></svg>', 'label' => 'Behind the Scenes', 'desc' => 'Direct process insights'],
-                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75m0 3v.75m0 3v.75m0 3V18M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 9.75h.007v.008H3.75V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12.75h.007v.008H3.75V12.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 15.75h.007v.008H3.75V15.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM4.5 4.875h15a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V7.125a2.25 2.25 0 012.25-2.25z" /></svg>', 'label' => 'Limited Releases', 'desc' => 'Special rare editions'],
+                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" /></svg>', 'label_i18n' => 'home_community_premieres', 'label' => 'Premieres', 'desc_i18n' => 'home_community_exc_access', 'desc' => 'Exclusive early access'],
+                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" /></svg>', 'label_i18n' => 'home_community_bts', 'label' => 'Behind the Scenes', 'desc_i18n' => 'home_community_insights', 'desc' => 'Direct process insights'],
+                        ['icon' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75m0 3v.75m0 3v.75m0 3V18M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 9.75h.007v.008H3.75V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12.75h.007v.008H3.75V12.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 15.75h.007v.008H3.75V15.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM4.5 4.875h15a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V7.125a2.25 2.25 0 012.25-2.25z" /></svg>', 'label_i18n' => 'home_community_limited', 'label' => 'Limited Releases', 'desc_i18n' => 'home_community_editions', 'desc' => 'Special rare editions'],
                     ];
                 @endphp
                 @foreach($pillars as $p)
                 <div class="komunitas-pillar">
                     <div class="komunitas-pillar-icon">{!! $p['icon'] !!}</div>
                     <div>
-                        <p class="komunitas-pillar-label">{{ $p['label'] }}</p>
-                        <p class="komunitas-pillar-desc">{{ $p['desc'] }}</p>
+                        <p class="komunitas-pillar-label"><span data-i18n="{{ $p['label_i18n'] }}">{{ $p['label'] }}</span></p>
+                        <p class="komunitas-pillar-desc"><span data-i18n="{{ $p['desc_i18n'] }}">{{ $p['desc'] }}</span></p>
                     </div>
                 </div>
                 @endforeach
             </div>
             <a href="/memberships" class="komunitas-cta">
-                Unlock the Experience
+                <span data-i18n="home_unlock_exp">Unlock the Experience</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
             </a>
         </div>
