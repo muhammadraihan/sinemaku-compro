@@ -474,34 +474,153 @@
         </div>
 
         {{-- ══════════════════════════════════════════════════════════
-             TEAM GALLERY MOSAIC (no translation needed)
+             DYNAMIC TEAM GALLERY
         ══════════════════════════════════════════════════════════ --}}
         <div class="panel settings-section-card">
             <div class="panel-hdr">
-                <h2><i class="fal fa-images mr-2"></i>Team Gallery Mosaic <span class="fw-300"><i>6 Gambar Kolase</i></span></h2>
+                <h2><i class="fal fa-users mr-2"></i>Team Gallery <span class="fw-300"><i>Kelola anggota tim secara dinamis</i></span></h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                 </div>
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    <div class="row">
-                        @foreach([1, 2, 3, 4, 5, 6] as $i)
-                        <div class="form-group col-md-4 mb-4">
-                            {{ Form::label("about_team_image_{$i}", "Gallery Image {$i}", ['class' => 'form-label']) }}
-                            @if(isset($settings["about_team_image_{$i}"]) && $settings["about_team_image_{$i}"] != "")
-                                <div class="mb-2">
-                                    <img src="{{ asset($settings["about_team_image_{$i}"]) }}" alt="preview" style="height: 60px; border-radius: 4px; display: block;">
+                    <div id="team-members-list">
+                        @php
+                            $i = 1;
+                            $hasData = true;
+                            $foundAny = false;
+                        @endphp
+                        @while($hasData)
+                            @php
+                                $img = $settings["about_team_image_$i"] ?? null;
+                                $name = $settings["about_team_name_$i"] ?? null;
+                                $role = $settings["about_team_role_$i"] ?? null;
+                                
+                                // If first item is empty, we still want to show one empty row
+                                if (!$img && !$name && !$role && $i > 1) { 
+                                    $hasData = false; 
+                                    break; 
+                                }
+                                $foundAny = true;
+                            @endphp
+                            <div class="team-member-item border p-3 mb-3 bg-faded" data-index="{{ $i-1 }}">
+                                <div class="row align-items-end">
+                                    <div class="col-md-3">
+                                        <label class="form-label font-weight-bold">Foto</label>
+                                        @if($img)
+                                            <div class="mb-2">
+                                                <img src="{{ asset($img) }}" class="img-thumbnail" style="height: 60px; border-radius: 4px;">
+                                            </div>
+                                        @endif
+                                        <input type="hidden" name="team_existing_images[]" value="{{ $img }}">
+                                        <input type="file" name="team_images_{{ $i-1 }}" class="form-control form-control-sm" accept="image/*">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label font-weight-bold">Nama</label>
+                                        <input type="text" name="team_names[]" class="form-control" value="{{ $name }}" placeholder="Nama Anggota (opsional)">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label font-weight-bold">Jabatan</label>
+                                        <input type="text" name="team_roles[]" class="form-control" value="{{ $role }}" placeholder="Jabatan (opsional)">
+                                    </div>
+                                    <div class="col-md-1 text-right">
+                                        <button type="button" class="btn btn-outline-danger btn-icon remove-team-member" title="Hapus Anggota">
+                                            <i class="fal fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            @endif
-                            <input type="file" name="about_team_image_{{ $i }}" class="form-control" accept="image/*">
-                        </div>
-                        @endforeach
+                            </div>
+                            @php $i++; @endphp
+                        @endwhile
+
+                        @if(!$foundAny)
+                            {{-- Row kosong jika belum ada data sama sekali --}}
+                            <div class="team-member-item border p-3 mb-3 bg-faded" data-index="0">
+                                <div class="row align-items-end">
+                                    <div class="col-md-3">
+                                        <label class="form-label font-weight-bold">Foto</label>
+                                        <input type="hidden" name="team_existing_images[]" value="">
+                                        <input type="file" name="team_images_0" class="form-control form-control-sm" accept="image/*">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label font-weight-bold">Nama</label>
+                                        <input type="text" name="team_names[]" class="form-control" placeholder="Nama Anggota (opsional)">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label font-weight-bold">Jabatan</label>
+                                        <input type="text" name="team_roles[]" class="form-control" placeholder="Jabatan (opsional)">
+                                    </div>
+                                    <div class="col-md-1 text-right">
+                                        <button type="button" class="btn btn-outline-danger btn-icon remove-team-member" title="Hapus Anggota">
+                                            <i class="fal fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
-                    <small class="text-muted">Gambar-gambar mosaic tim. Tidak perlu diterjemahkan.</small>
+                    
+                    <div class="mt-3">
+                        <button type="button" id="add-team-member" class="btn btn-success">
+                            <i class="fal fa-plus-circle mr-1"></i> Tambah Anggota Tim Baru
+                        </button>
+                    </div>
+                    <small class="text-muted mt-3 d-block">Anggota tim akan tampil dengan layout editorial di halaman About. Nama dan Jabatan akan tampil sebagai teks vertikal pada foto.</small>
                 </div>
             </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const list = document.getElementById('team-members-list');
+                const addBtn = document.getElementById('add-team-member');
+
+                addBtn.addEventListener('click', function() {
+                    const index = list.querySelectorAll('.team-member-item').length;
+                    const template = `
+                        <div class="team-member-item border p-3 mb-3 bg-faded" data-index="${index}">
+                            <div class="row align-items-end">
+                                <div class="col-md-3">
+                                    <label class="form-label font-weight-bold">Foto</label>
+                                    <input type="hidden" name="team_existing_images[]" value="">
+                                    <input type="file" name="team_images_${index}" class="form-control form-control-sm" accept="image/*">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label font-weight-bold">Nama</label>
+                                    <input type="text" name="team_names[]" class="form-control" placeholder="Nama Anggota (opsional)">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label font-weight-bold">Jabatan</label>
+                                    <input type="text" name="team_roles[]" class="form-control" placeholder="Jabatan (opsional)">
+                                </div>
+                                <div class="col-md-1 text-right">
+                                    <button type="button" class="btn btn-outline-danger btn-icon remove-team-member" title="Hapus Anggota">
+                                        <i class="fal fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    list.insertAdjacentHTML('beforeend', template);
+                });
+
+                list.addEventListener('click', function(e) {
+                    if (e.target.closest('.remove-team-member')) {
+                        const items = list.querySelectorAll('.team-member-item');
+                        if (items.length > 1) {
+                            e.target.closest('.team-member-item').remove();
+                            // Re-index file inputs to avoid gaps if needed, but the current controller approach handles it
+                        } else {
+                            // Jika tinggal 1, cukup kosongkan inputnya saja
+                            const row = e.target.closest('.team-member-item');
+                            row.querySelectorAll('input:not([type="hidden"])').forEach(i => i.value = '');
+                            row.querySelector('img')?.remove();
+                        }
+                    }
+                });
+            });
+        </script>
 
         {{-- SAVE BUTTON --}}
         <div class="panel">

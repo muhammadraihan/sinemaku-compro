@@ -43,6 +43,7 @@ class SiteSettingController extends Controller
             'about_collab_heading',
         ];
 
+        // Handle basic text keys
         foreach ($keys as $key) {
             if ($request->has($key)) {
                 $value_en = $request->input($key . '_en');
@@ -50,23 +51,43 @@ class SiteSettingController extends Controller
             }
         }
 
-        $imageKeys = [
-            'about_hero_image',
-            'about_secondary_image',
-            'about_team_image_1',
-            'about_team_image_2',
-            'about_team_image_3',
-            'about_team_image_4',
-            'about_team_image_5',
-            'about_team_image_6',
-        ];
-
-        foreach ($imageKeys as $imageKey) {
+        // Handle Images (Fixed Keys)
+        $fixedImageKeys = ['about_hero_image', 'about_secondary_image'];
+        foreach ($fixedImageKeys as $imageKey) {
             if ($request->hasFile($imageKey)) {
                 $file = $request->file($imageKey);
-                $filename = 'about_' . time() . '_' . $file->getClientOriginalName();
+                $filename = $imageKey . '_' . time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('photo'), $filename);
                 SiteSetting::setValue($imageKey, 'photo/' . $filename, 'about');
+            }
+        }
+
+        // Handle Dynamic Team Gallery
+        // 1. Clean up existing team keys first (optional but recommended for dynamic list)
+        SiteSetting::where('group', 'about')->where('key', 'like', 'about_team_image_%')->delete();
+        SiteSetting::where('group', 'about')->where('key', 'like', 'about_team_name_%')->delete();
+        SiteSetting::where('group', 'about')->where('key', 'like', 'about_team_role_%')->delete();
+
+        $teamNames = $request->input('team_names', []);
+        $teamRoles = $request->input('team_roles', []);
+        $teamExistingImages = $request->input('team_existing_images', []);
+
+        foreach ($teamNames as $i => $name) {
+            $index = $i + 1;
+            SiteSetting::setValue("about_team_name_$index", $name, 'about');
+            SiteSetting::setValue("about_team_role_$index", $teamRoles[$i] ?? '', 'about');
+            
+            $imagePath = $teamExistingImages[$i] ?? '';
+            $fileKey = "team_images_$i";
+            if ($request->hasFile($fileKey)) {
+                $file = $request->file($fileKey);
+                $filename = 'crew_' . time() . '_' . $index . '_' . $file->getClientOriginalName();
+                $file->move(public_path('photo'), $filename);
+                $imagePath = 'photo/' . $filename;
+            }
+            
+            if (!empty($imagePath)) {
+                SiteSetting::setValue("about_team_image_$index", $imagePath, 'about');
             }
         }
 

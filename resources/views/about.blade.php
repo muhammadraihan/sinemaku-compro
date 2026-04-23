@@ -274,59 +274,96 @@
                 </div>
             </div>
 
-            <!-- Print/Editorial Grid Container -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-x-12 relative pb-20">
+            <!-- Dynamic Editorial Grid Container -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-y-32 md:gap-x-12 relative pb-20">
+                @php
+                    // Truly dynamic detection from CMS settings
+                    $crewMembers = collect($settings)
+                        ->filter(fn($v, $k) => str_starts_with($k, 'about_team_image_') && !empty($v))
+                        ->map(function($v, $k) use ($settings) {
+                            $id = str_replace('about_team_image_', '', $k);
+                            return [
+                                'img' => $v,
+                                'name' => $settings["about_team_name_$id"] ?? ($id == 1 ? 'Prilly Latuconsina' : 'Sinemaku Crew'),
+                                'role' => $settings["about_team_role_$id"] ?? ($settings["about_team_role_{$id}_en"] ?? ($id == 1 ? 'Founder / Producer' : 'Team Member')),
+                                'index' => $id
+                            ];
+                        })
+                        ->sortBy('index')
+                        ->values()
+                        ->toArray();
 
-                <!-- Prilly L. -->
-                <div
-                    class="md:col-start-6 md:col-span-6 flex items-end gap-6 group reveal-image">
-                    <div
-                        class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
-                        Founder / Producer</div>
-                    <div class="w-full editorial-image-container aspect-[3/4] bg-tint-2/20">
-                        <img src="{{ isset($settings['about_team_image_1']) ? asset($settings['about_team_image_1']) : 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200&auto=format&fit=crop' }}"
-                            class="editorial-image para-img" alt="Prilly L.">
-                    </div>
-                    <h3
-                        class="absolute top-1/2 left-[-10%] md:left-auto md:right-[40%] transform -translate-y-1/2 font-serif text-7xl md:text-9xl text-tint-3 mix-blend-difference italic opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20">
-                        Prilly L.</h3>
-                </div>
+                    // Fallback if no images in CMS, use the files mentioned by user
+                    if (empty($crewMembers)) {
+                        $defaultNames = ['Prilly Latuconsina', 'Umar Shahab', 'Monty Tiwa', 'Yahni Damayanti', 'Sinemaku Crew'];
+                        $defaultRoles = ['Founder / Producer', 'Founder / Director', 'Creative Director', 'Producer', 'Team Member'];
+                        for ($i = 1; $i <= 5; $i++) {
+                             $crewMembers[] = [
+                                'img' => "photo/about_crew_$i.png",
+                                'name' => $defaultNames[$i-1] ?? 'Sinemaku Crew',
+                                'role' => $defaultRoles[$i-1] ?? 'Team Member',
+                                'index' => $i
+                             ];
+                        }
+                    }
+                @endphp
 
-                <!-- Crew 2 -->
-                <div
-                    class="md:col-start-2 md:col-span-3 flex items-end gap-4 group mt-0 md:-mt-32 reveal-image">
-                    <div
-                        class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
-                        Director</div>
-                    <div class="w-full editorial-image-container aspect-[4/5] bg-tint-2/20">
-                        <img src="{{ isset($settings['about_team_image_2']) ? asset($settings['about_team_image_2']) : 'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?q=80&w=800&auto=format&fit=crop' }}"
-                            class="editorial-image para-img" alt="Crew">
-                    </div>
-                </div>
+                @foreach($crewMembers as $index => $member)
+                    @php
+                        // Cycle through the 4 patterns from about_new3.html
+                        $pattern = $index % 4;
+                        $colSpan = '';
+                        $colStart = '';
+                        $marginTop = '';
+                        $aspect = '';
 
-                <!-- Crew 3 -->
-                <div
-                    class="md:col-start-4 md:col-span-5 flex items-start gap-4 group mt-12 md:mt-0 reveal-image">
-                    <div class="w-full editorial-image-container aspect-square bg-tint-2/20">
-                        <img src="{{ isset($settings['about_team_image_3']) ? asset($settings['about_team_image_3']) : 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000&auto=format&fit=crop' }}"
-                            class="editorial-image para-img" alt="Crew">
-                    </div>
-                    <div
-                        class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pt-4">
-                        Cinematographer</div>
-                </div>
+                        switch ($pattern) {
+                            case 0: // Large, offset right (Prilly style)
+                                $colStart = 'md:col-start-6';
+                                $colSpan = 'md:col-span-6';
+                                $aspect = 'aspect-[3/4]';
+                                break;
+                            case 1: // Small, offset left
+                                $colStart = 'md:col-start-2';
+                                $colSpan = 'md:col-span-3';
+                                $aspect = 'aspect-[4/5]';
+                                $marginTop = 'md:-mt-32';
+                                break;
+                            case 2: // Medium, center alignment
+                                $colStart = 'md:col-start-4';
+                                $colSpan = 'md:col-span-5';
+                                $aspect = 'aspect-square';
+                                $marginTop = 'md:mt-12';
+                                break;
+                            case 3: // Landscape, bottom right
+                                $colStart = 'md:col-start-8';
+                                $colSpan = 'md:col-span-5';
+                                $aspect = 'aspect-[16/9]';
+                                $marginTop = 'md:-mt-40';
+                                break;
+                        }
+                    @endphp
 
-                <!-- Crew 4 -->
-                <div
-                    class="md:col-start-8 md:col-span-5 flex items-end gap-4 group mt-12 md:-mt-40 reveal-image">
-                    <div
-                        class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
-                        Art Director</div>
-                    <div class="w-full editorial-image-container aspect-[16/9] bg-tint-2/20">
-                        <img src="{{ isset($settings['about_team_image_4']) ? asset($settings['about_team_image_4']) : 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop' }}"
-                            class="editorial-image para-img" alt="Crew">
+                    <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group">
+                        <div class="flex items-end">
+                            @if(!empty($member['name']))
+                                <div class="vertical-text font-serif text-3xl md:text-5xl text-brand-deepbreath pb-4 mr-3 whitespace-nowrap">
+                                    {{ $member['name'] }}
+                                </div>
+                            @endif
+                            @if(!empty($member['role']))
+                                <div class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
+                                    {{ $member['role'] }}
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="w-full editorial-image-container {{ $aspect }} bg-tint-2/20">
+                            <img src="{{ asset($member['img']) }}"
+                                class="editorial-image para-img" alt="{{ $member['name'] }}">
+                        </div>
                     </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
