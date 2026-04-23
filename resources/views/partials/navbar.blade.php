@@ -20,7 +20,7 @@ FULLSCREEN MENU OVERLAY
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
-            <span id="lang-label">EN</span>
+            <span class="lang-label">EN</span>
         </button>
     </div>
 
@@ -100,6 +100,15 @@ TOP NAVBAR
             <span>Est. 2020</span>
             <span>Jakarta, ID</span>
         </div>
+        
+        {{-- Top Nav Language Switcher --}}
+        <button class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath/50 hover:text-brand-deepbreath/90 transition-colors relative z-10"
+            onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
+            onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
+            onclick="window.__langToggle && window.__langToggle()">
+            <span class="lang-label">EN</span>
+        </button>
+
         <button id="menu-open-btn"
             class="hamburger-btn text-brand-deepbreath/60 hover:text-brand-orange transition-colors relative z-10">
             [ Menu ]
@@ -358,23 +367,9 @@ GLOBAL i18n ENGINE
             });
         }
 
-        function applyLang(lang) {
-            document.querySelectorAll('[data-i18n]').forEach(function (el) {
-                var key = el.getAttribute('data-i18n');
-                if (TRANSLATIONS[key] && TRANSLATIONS[key][lang]) el.textContent = TRANSLATIONS[key][lang];
-            });
-            document.querySelectorAll('.dynamic-i18n').forEach(function (el) {
-                var text = el.getAttribute('data-lang-' + lang);
-                if (text !== null && text !== '') el.innerHTML = text;
-            });
-            applyTextMap(lang);
-            var label = document.getElementById('lang-label');
-            if (label) label.textContent = lang.toUpperCase();
-        }
-
         // Ubah logika hover untuk JS (warna inline dibuang karena sudah pakai Tailwind Hover)
         window.__langSwitcherHover = function (btn, isEnter) {
-            var label = btn.querySelector('#lang-label');
+            var label = btn.querySelector('.lang-label');
             if (!label) return;
             if (isEnter) {
                 label.textContent = currentLang === 'en' ? 'ID' : 'EN';
@@ -388,6 +383,21 @@ GLOBAL i18n ENGINE
             localStorage.setItem(STORAGE_KEY, currentLang);
             applyLang(currentLang);
         };
+
+        function applyLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(function (el) {
+                var key = el.getAttribute('data-i18n');
+                if (TRANSLATIONS[key] && TRANSLATIONS[key][lang]) el.textContent = TRANSLATIONS[key][lang];
+            });
+            document.querySelectorAll('.dynamic-i18n').forEach(function (el) {
+                var text = el.getAttribute('data-lang-' + lang);
+                if (text !== null && text !== '') el.innerHTML = text;
+            });
+            applyTextMap(lang);
+            document.querySelectorAll('.lang-label').forEach(function(label) {
+                label.textContent = lang.toUpperCase();
+            });
+        }
 
         function init() { applyLang(currentLang); }
         if (document.readyState === 'loading') {
