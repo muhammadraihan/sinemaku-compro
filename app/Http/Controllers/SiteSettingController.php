@@ -29,12 +29,18 @@ class SiteSettingController extends Controller
             'about_vision_statement',
             'about_studio_label',
             'about_studio_body',
+            'about_team_label',
+            'about_team_body',
             'about_values_1_title',
             'about_values_1_body',
             'about_values_2_title',
             'about_values_2_body',
             'about_values_3_title',
             'about_values_3_body',
+            'about_wwd_eyebrow',
+            'about_wwd_heading',
+            'about_collab_eyebrow',
+            'about_collab_heading',
         ];
 
         foreach ($keys as $key) {

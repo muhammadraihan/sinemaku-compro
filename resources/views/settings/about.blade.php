@@ -246,27 +246,53 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab-id-studio" role="tabpanel">
                             <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <h5 class="fw-700 text-primary uppercase mb-2"><i class="fal fa-building mr-1"></i> 1. Company Column</h5>
+                                </div>
                                 <div class="form-group col-md-4 mb-3">
-                                    {{ Form::label('about_studio_label', 'Studio Label', ['class' => 'form-label']) }}
-                                    {{ Form::text('about_studio_label', $settings['about_studio_label'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: Tentang Studio']) }}
-                                    <small class="text-muted">Judul kecil kolom pertama.</small>
+                                    {{ Form::label('about_studio_label', 'Company Label', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_studio_label', $settings['about_studio_label'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: Company']) }}
                                 </div>
                                 <div class="form-group col-md-8 mb-3">
-                                    {{ Form::label('about_studio_body', 'Deskripsi Studio', ['class' => 'form-label']) }}
-                                    {{ Form::textarea('about_studio_body', $settings['about_studio_body'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Deskripsi studio dalam Bahasa Indonesia...']) }}
+                                    {{ Form::label('about_studio_body', 'Deskripsi Company', ['class' => 'form-label']) }}
+                                    {{ Form::textarea('about_studio_body', $settings['about_studio_body'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Deskripsi company dalam Bahasa Indonesia...']) }}
+                                </div>
+                                <div class="col-md-12 my-3 border-top pt-3">
+                                    <h5 class="fw-700 text-primary uppercase mb-2"><i class="fal fa-users mr-1"></i> 2. Team Column</h5>
+                                </div>
+                                <div class="form-group col-md-4 mb-3">
+                                    {{ Form::label('about_team_label', 'Team Label', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_team_label', $settings['about_team_label'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: Team']) }}
+                                </div>
+                                <div class="form-group col-md-8 mb-3">
+                                    {{ Form::label('about_team_body', 'Deskripsi Team', ['class' => 'form-label']) }}
+                                    {{ Form::textarea('about_team_body', $settings['about_team_body'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Deskripsi team dalam Bahasa Indonesia...']) }}
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="tab-en-studio" role="tabpanel">
                             <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <h5 class="fw-700 text-info uppercase mb-2"><i class="fal fa-building mr-1"></i> 1. Company Column (EN)</h5>
+                                </div>
                                 <div class="form-group col-md-4 mb-3">
-                                    {{ Form::label('about_studio_label_en', 'Studio Label (English)', ['class' => 'form-label']) }}
-                                    {{ Form::text('about_studio_label_en', $settings['about_studio_label_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'E.g.: About the Studio']) }}
-                                    <small class="text-muted">Small heading for the first column.</small>
+                                    {{ Form::label('about_studio_label_en', 'Company Label (English)', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_studio_label_en', $settings['about_studio_label_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'E.g.: Company']) }}
                                 </div>
                                 <div class="form-group col-md-8 mb-3">
-                                    {{ Form::label('about_studio_body_en', 'Studio Description (English)', ['class' => 'form-label']) }}
-                                    {{ Form::textarea('about_studio_body_en', $settings['about_studio_body_en'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Studio description in English...']) }}
+                                    {{ Form::label('about_studio_body_en', 'Company Description (English)', ['class' => 'form-label']) }}
+                                    {{ Form::textarea('about_studio_body_en', $settings['about_studio_body_en'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Company description in English...']) }}
+                                </div>
+                                <div class="col-md-12 my-3 border-top pt-3">
+                                    <h5 class="fw-700 text-info uppercase mb-2"><i class="fal fa-users mr-1"></i> 2. Team Column (EN)</h5>
+                                </div>
+                                <div class="form-group col-md-4 mb-3">
+                                    {{ Form::label('about_team_label_en', 'Team Label (English)', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_team_label_en', $settings['about_team_label_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'E.g.: Team']) }}
+                                </div>
+                                <div class="form-group col-md-8 mb-3">
+                                    {{ Form::label('about_team_body_en', 'Team Description (English)', ['class' => 'form-label']) }}
+                                    {{ Form::textarea('about_team_body_en', $settings['about_team_body_en'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Team description in English...']) }}
                                 </div>
                             </div>
                         </div>
@@ -302,6 +328,19 @@
                     <div class="tab-content">
                         {{-- Tab ID Values --}}
                         <div class="tab-pane fade show active" id="tab-id-values" role="tabpanel">
+                            <div class="row mb-4 border-bottom pb-3">
+                                <div class="col-md-12 mb-2">
+                                    <h5 class="fw-700 text-primary uppercase"><i class="fal fa-list mr-1"></i> Section Header (What We Do)</h5>
+                                </div>
+                                <div class="form-group col-md-4 mb-2">
+                                    {{ Form::label('about_wwd_eyebrow', 'Eyebrow Text', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_wwd_eyebrow', $settings['about_wwd_eyebrow'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: WHAT WE DO']) }}
+                                </div>
+                                <div class="form-group col-md-8 mb-2">
+                                    {{ Form::label('about_wwd_heading', 'Heading Text', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_wwd_heading', $settings['about_wwd_heading'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: Bukan hanya sekadar...']) }}
+                                </div>
+                            </div>
                             @foreach([1,2,3] as $i)
                             <div class="row mb-3 pb-3 {{ $i < 3 ? 'border-bottom' : '' }}">
                                 <div class="col-md-12 mb-2">
@@ -320,6 +359,19 @@
                         </div>
                         {{-- Tab EN Values --}}
                         <div class="tab-pane fade" id="tab-en-values" role="tabpanel">
+                            <div class="row mb-4 border-bottom pb-3">
+                                <div class="col-md-12 mb-2">
+                                    <h5 class="fw-700 text-info uppercase"><i class="fal fa-list mr-1"></i> Section Header (What We Do) (EN)</h5>
+                                </div>
+                                <div class="form-group col-md-4 mb-2">
+                                    {{ Form::label('about_wwd_eyebrow_en', 'Eyebrow Text (English)', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_wwd_eyebrow_en', $settings['about_wwd_eyebrow_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'E.g.: WHAT WE DO']) }}
+                                </div>
+                                <div class="form-group col-md-8 mb-2">
+                                    {{ Form::label('about_wwd_heading_en', 'Heading Text (English)', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_wwd_heading_en', $settings['about_wwd_heading_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'E.g.: More than just...']) }}
+                                </div>
+                            </div>
                             @foreach([1,2,3] as $i)
                             <div class="row mb-3 pb-3 {{ $i < 3 ? 'border-bottom' : '' }}">
                                 <div class="col-md-12 mb-2">
@@ -362,6 +414,60 @@
                         @endif
                         <input type="file" name="about_secondary_image" class="form-control" accept="image/*">
                         <small class="text-muted">Foto tim paralaks yang tampil edge-to-edge. Tidak perlu diterjemahkan.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- ══════════════════════════════════════════════════════════
+             COLLABORATION SECTION
+        ══════════════════════════════════════════════════════════ --}}
+        <div class="panel settings-section-card">
+            <div class="panel-hdr">
+                <h2><i class="fal fa-handshake mr-2"></i>Collaboration Section <span class="fw-300"><i>Bagian ajakan kerja sama</i></span></h2>
+                <div class="panel-toolbar">
+                    <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
+                </div>
+            </div>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <ul class="nav lang-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-id-collab" role="tab">
+                                <span class="lang-tab-badge badge-id">ID</span>🇮🇩 Bahasa Indonesia
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-en-collab" role="tab">
+                                <span class="lang-tab-badge badge-en">EN</span>🇺🇸 English
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-id-collab" role="tabpanel">
+                            <div class="row">
+                                <div class="form-group col-md-4 mb-3">
+                                    {{ Form::label('about_collab_eyebrow', 'Eyebrow Text', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_collab_eyebrow', $settings['about_collab_eyebrow'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: Kolaborasi']) }}
+                                </div>
+                                <div class="form-group col-md-8 mb-3">
+                                    {{ Form::label('about_collab_heading', 'Heading Text', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_collab_heading', $settings['about_collab_heading'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: Ada proyek hebat...']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-en-collab" role="tabpanel">
+                            <div class="row">
+                                <div class="form-group col-md-4 mb-3">
+                                    {{ Form::label('about_collab_eyebrow_en', 'Eyebrow Text (English)', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_collab_eyebrow_en', $settings['about_collab_eyebrow_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'E.g.: Collaboration']) }}
+                                </div>
+                                <div class="form-group col-md-8 mb-3">
+                                    {{ Form::label('about_collab_heading_en', 'Heading Text (English)', ['class' => 'form-label']) }}
+                                    {{ Form::text('about_collab_heading_en', $settings['about_collab_heading_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'E.g.: Have a great project...']) }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

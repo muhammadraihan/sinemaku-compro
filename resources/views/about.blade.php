@@ -87,7 +87,11 @@
                 <p id="hero-sub"
                     class="font-sans text-white text-lg md:text-xl font-medium mt-8 mb-0 leading-none max-w-lg"
                     style="opacity: 0; transform: translateY(20px);">
-                    {{ $settings['about_hero_subtitle'] ?? 'about sinemaku pictures' }}
+                    @php
+                        $subId = $settings['about_hero_subtitle'] ?? 'about sinemaku pictures';
+                        $subEn = $settings['about_hero_subtitle_en'] ?? 'about sinemaku pictures';
+                    @endphp
+                    <span class="dynamic-i18n" data-lang-id="{{ $subId }}" data-lang-en="{{ $subEn }}">{{ $subId }}</span>
                 </p>
 
                 {{--
@@ -100,26 +104,37 @@
                     class="font-sans font-bold text-white mt-2 mb-6"
                     style="font-size: clamp(3rem, 11vw, 6.5rem); line-height: 1.1; opacity: 0;">
                     @php
-                        $rawTitle  = $settings['about_hero_title'] ?? "Here Comes\nThe Fun.";
-                        $hlines    = explode("\n", str_replace(["<br />","<br>"], "\n", nl2br(e($rawTitle))));
-                        $hci       = 0;
-                        $hHtml     = '';
-                        foreach ($hlines as $hl) {
-                            $hl = trim($hl);
-                            if (!strlen($hl)) continue;
-                            // font-size:0 kills whitespace gaps between inline-block spans
-                            $hHtml .= '<span class="hline" style="display:block;font-size:0;line-height:1.1;">';
-                            foreach (mb_str_split($hl) as $hch) {
-                                $disp   = $hch === ' ' ? '&nbsp;' : htmlspecialchars($hch, ENT_HTML5, 'UTF-8');
-                                $hHtml .= '<span class="hchar" data-ci="'.$hci.'" style="display:inline-block;'
-                                        . 'font-size:clamp(3rem,11vw,6.5rem);font-weight:700;line-height:1.1;'
-                                        . 'opacity:0;">'.$disp.'</span>';
-                                $hci++;
+                        if (!function_exists('generateTaglineHtml')) {
+                            function generateTaglineHtml($title) {
+                                $hlines    = explode("\n", str_replace(["<br />","<br>"], "\n", nl2br(e($title))));
+                                $hci       = 0;
+                                $hHtml     = '';
+                                foreach ($hlines as $hl) {
+                                    $hl = trim($hl);
+                                    if (!strlen($hl)) continue;
+                                    $hHtml .= '<span class="hline" style="display:block;font-size:0;line-height:1.1;">';
+                                    foreach (mb_str_split($hl) as $hch) {
+                                        $disp   = $hch === ' ' ? '&nbsp;' : htmlspecialchars($hch, ENT_HTML5, 'UTF-8');
+                                        $hHtml .= '<span class="hchar" data-ci="'.$hci.'" style="display:inline-block;'
+                                                . 'font-size:clamp(3rem,11vw,6.5rem);font-weight:700;line-height:1.1;'
+                                                . 'opacity:0;">'.$disp.'</span>';
+                                        $hci++;
+                                    }
+                                    $hHtml .= '</span>';
+                                }
+                                return $hHtml;
                             }
-                            $hHtml .= '</span>';
                         }
+
+                        $titleId = $settings['about_hero_title'] ?? "Here Comes\nThe Fun.";
+                        $titleEn = $settings['about_hero_title_en'] ?? "Here Comes\nThe Fun.";
                     @endphp
-                    {!! $hHtml !!}
+                    <span class="tagline-container tagline-id" data-tagline-lang="id">
+                        {!! generateTaglineHtml($titleId) !!}
+                    </span>
+                    <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
+                        {!! generateTaglineHtml($titleEn) !!}
+                    </span>
                 </h1>
 
                 <div id="hero-actions" class="flex flex-row flex-wrap items-center gap-3 md:gap-5" style="opacity: 0; transform: translateY(20px);">
@@ -182,10 +197,20 @@
             </div>
 
             <div class="flex flex-col">
-                <h3 class="text-2xl font-bold mb-6 text-black">Team</h3>
+                <h3 class="text-2xl font-bold mb-6 text-black">
+                    @php
+                        $settings['about_team_label'] = isset($settings['about_team_label']) ? $settings['about_team_label'] : 'Team';
+                        $settings['about_team_label_en'] = isset($settings['about_team_label_en']) ? $settings['about_team_label_en'] : 'Team';
+                    @endphp
+                    @i18n($settings, 'about_team_label')
+                </h3>
                 <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
-                    Kenali tim dan kolaborator yang membentuk kami. Pelajari tentang orang-orang di balik proyek kami, peran
-                    mereka, dan nilai-nilai yang memandu cara kami bekerja.
+                    @php
+                        $defaultTeamBody = 'Kenali tim dan kolaborator yang membentuk kami. Pelajari tentang orang-orang di balik proyek kami, peran mereka, dan nilai-nilai yang memandu cara kami bekerja.';
+                        $settings['about_team_body'] = isset($settings['about_team_body']) ? $settings['about_team_body'] : $defaultTeamBody;
+                        $settings['about_team_body_en'] = isset($settings['about_team_body_en']) ? $settings['about_team_body_en'] : 'Meet the team and collaborators who shape us. Learn about the people behind our projects, their roles, and the values that guide how we work.';
+                    @endphp
+                    @i18n($settings, 'about_team_body')
                 </p>
                 <a href="#about-team"
                     class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
@@ -240,7 +265,7 @@
                     $missionHtml = nl2br(e($settings['about_mission_statement']));
                     $missionEnHtml = nl2br(e($settings['about_mission_statement_en']));
                 @endphp
-                <span class="dynamic-i18n" data-lang-id="{{ $missionHtml }}" data-lang-en="{{ $missionEnHtml }}">{!! $missionHtml !!}</span>
+                <span class="dynamic-i18n" data-lang-id="{!! $missionHtml !!}" data-lang-en="{!! $missionEnHtml !!}">{!! $missionHtml !!}</span>
             </p>
         </div>
     </section>
@@ -320,37 +345,6 @@
     </section>
 
     {{-- ============================================================
-    5. NUMBERS / MILESTONES
-    ============================================================ --}}
-    <section id="about-numbers" class="bg-[#0a0a0a] border-y border-white/5" style="
-                                                                                        padding-top:    clamp(12rem, 20vh, 22rem);
-                                                                                        padding-bottom: clamp(12rem, 20vh, 22rem);
-                                                                                        padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
-                                                                                    ">
-        <div class="max-w-[1540px] mx-auto">
-            <div
-                class="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 divide-x-0 lg:divide-x divide-white/10 text-center lg:text-left">
-                <div class="stat-block lg:px-8 first:pl-0" data-gsap="fade-up">
-                    <p class="font-display text-5xl md:text-7xl text-white mb-2">XX+</p>
-                    <p class="text-sm tracking-widest uppercase text-gray-500"><span data-i18n="about_numbers_films">Karya Film</span></p>
-                </div>
-                <div class="stat-block lg:px-8" data-gsap="fade-up">
-                    <p class="font-display text-5xl md:text-7xl text-white mb-2">{{ date('Y') - 2020 }}</p>
-                    <p class="text-sm tracking-widest uppercase text-gray-500"><span data-i18n="about_numbers_years">Tahun Berdiri</span></p>
-                </div>
-                <div class="stat-block lg:px-8" data-gsap="fade-up">
-                    <p class="font-display text-5xl md:text-7xl text-white mb-2">XX+</p>
-                    <p class="text-sm tracking-widest uppercase text-gray-500"><span data-i18n="about_numbers_comm">Anggota Komunitas</span></p>
-                </div>
-                <div class="stat-block lg:px-8" data-gsap="fade-up">
-                    <p class="font-display text-5xl md:text-7xl text-white mb-2">XX+</p>
-                    <p class="text-sm tracking-widest uppercase text-gray-500"><span data-i18n="about_numbers_city">Kota Roadshow</span></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- ============================================================
     6. WHAT WE DO
     ============================================================ --}}
     <section id="about-what-we-do" class="bg-[#fafafa] px-6 md:px-16" style="
@@ -360,9 +354,20 @@
                                                                                     ">
         <div class="max-w-[1540px] mx-auto">
             <div class="mb-16 md:mb-24 flex flex-col items-center text-center" data-gsap="fade-up">
-                <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4"><span data-i18n="about_wwd_eyebrow">What We Do</span></span>
-                <h2 class="text-3xl md:text-5xl font-display text-gray-900 tracking-tight max-w-2xl"><span data-i18n="about_wwd_heading">Bukan hanya sekadar
-                    membuat karya.</span></h2>
+                <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4">
+                    @php
+                        $settings['about_wwd_eyebrow'] = $settings['about_wwd_eyebrow'] ?? 'What We Do';
+                        $settings['about_wwd_eyebrow_en'] = $settings['about_wwd_eyebrow_en'] ?? 'What We Do';
+                    @endphp
+                    @i18n($settings, 'about_wwd_eyebrow')
+                </span>
+                <h2 class="text-3xl md:text-5xl font-display text-gray-900 tracking-tight max-w-2xl">
+                    @php
+                        $settings['about_wwd_heading'] = $settings['about_wwd_heading'] ?? 'Bukan hanya sekadar membuat karya.';
+                        $settings['about_wwd_heading_en'] = $settings['about_wwd_heading_en'] ?? 'More than just creating works.';
+                    @endphp
+                    @i18n($settings, 'about_wwd_heading')
+                </h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
@@ -446,9 +451,23 @@
                                                                                         padding-bottom: clamp(14rem, 25vh, 28rem);
                                                                                     ">
         <div class="max-w-3xl mx-auto flex flex-col items-center" data-gsap="fade-up">
-            <span class="text-xs tracking-[0.2em] uppercase text-gray-500 font-medium mb-6"><span data-i18n="about_collab_eyebrow">Kolaborasi</span></span>
-            <h2 class="font-display italic text-white text-4xl md:text-6xl mb-12"><span data-i18n="about_collab_heading">Ada proyek hebat yang bisa dikerjakan
-                bersama?</span></h2>
+            @php
+                $defaultCollabEyebrow = 'Kolaborasi';
+                $defaultCollabEyebrowEn = 'Collaboration';
+                $defaultCollabHeading = 'Ada proyek hebat yang bisa dikerjakan bersama?';
+                $defaultCollabHeadingEn = 'Have a great project to work on together?';
+
+                $collabEyebrow = $settings['about_collab_eyebrow'] ?? $defaultCollabEyebrow;
+                $collabEyebrowEn = $settings['about_collab_eyebrow_en'] ?? $defaultCollabEyebrowEn;
+                $collabHeading = $settings['about_collab_heading'] ?? $defaultCollabHeading;
+                $collabHeadingEn = $settings['about_collab_heading_en'] ?? $defaultCollabHeadingEn;
+            @endphp
+            <span class="text-xs tracking-[0.2em] uppercase text-gray-500 font-medium mb-6">
+                <span class="dynamic-i18n" data-lang-id="{{ $collabEyebrow }}" data-lang-en="{{ $collabEyebrowEn }}">{{ $collabEyebrow }}</span>
+            </span>
+            <h2 class="font-display italic text-white text-4xl md:text-6xl mb-12">
+                <span class="dynamic-i18n" data-lang-id="{{ $collabHeading }}" data-lang-en="{{ $collabHeadingEn }}">{{ $collabHeading }}</span>
+            </h2>
 
             <a href="mailto:hello@sinemakupictures.com"
                 class="feature-cta !text-white !border-white/50 hover:!border-white group">
@@ -567,7 +586,8 @@
 
                     ichars.forEach((ic) => {
                         const ci = parseInt(ic.dataset.ci, 10);
-                        const hc = document.querySelector('.hchar[data-ci="' + ci + '"]');
+                        // Only target the visible tagline container
+                        const hc = heroTag.querySelector('.tagline-container:not([style*="display: none"]) .hchar[data-ci="' + ci + '"]');
                         if (!hc) return;
 
                         const ir = ic.getBoundingClientRect();
@@ -595,7 +615,8 @@
 
                     // Cross-fade: hero chars fade IN, intro chars fade OUT
                     const crossAt = 0.55;   // seconds after callback fires
-                    gsap.to('.hchar', {
+                    // Only animate visible characters
+                    gsap.to('.tagline-container:not([style*="display: none"]) .hchar', {
                         opacity: 1,
                         duration: 0.3,
                         stagger: { each: 0.018, from: 'start' },
@@ -633,7 +654,7 @@
                 const heroAct = document.getElementById('hero-actions');
 
                 gsap.set(heroTag, { opacity: 1 });
-                gsap.to('.hchar', {
+                gsap.to('.tagline-container:not([style*="display: none"]) .hchar', {
                     opacity: 1,
                     duration: 0.7, stagger: 0.018,
                     ease: 'power3.out', delay: 0.4
@@ -675,6 +696,30 @@
                 );
             });
         });
+
+        // ─── LANGUAGE SYNC FOR HERO TAGLINE ───────────────────────────
+        function syncTaglineWithLang() {
+            const currentLang = (window.__i18n && window.__i18n.getCurrent) 
+                ? window.__i18n.getCurrent() 
+                : (localStorage.getItem('SINEMAKU_LANG') || 'id');
+            
+            document.querySelectorAll('.tagline-container').forEach(el => {
+                // Use block or inline-block for spans to maintain layout
+                el.style.display = (el.dataset.taglineLang === currentLang) ? 'block' : 'none';
+            });
+        }
+
+        // Hook into the global language toggle if it exists
+        if (window.__langToggle) {
+            const oldToggle = window.__langToggle;
+            window.__langToggle = function() {
+                oldToggle();
+                syncTaglineWithLang();
+            };
+        }
+
+        // Initial sync
+        syncTaglineWithLang();
         </script>
     @endpush
 @endsection

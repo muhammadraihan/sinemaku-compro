@@ -34,9 +34,9 @@ class SiteSetting extends Model
     /**
      * Set (upsert) a single setting by key.
      */
-    public static function setValue(string $key, string $value, string $group = 'general', ?string $value_en = null): void
+    public static function setValue(string $key, ?string $value, string $group = 'general', ?string $value_en = null): void
     {
-        $data = ['value' => $value, 'group' => $group];
+        $data = ['value' => $value ?? '', 'group' => $group];
         if ($value_en !== null) {
             $data['value_en'] = $value_en;
         }

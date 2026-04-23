@@ -1,4 +1,4 @@
-﻿{{-- resources/views/partials/navbar.blade.php --}}
+{{-- resources/views/partials/navbar.blade.php --}}
 
 {{-- ============================================================
     SIDEBAR MENU (slides in from left)
@@ -421,8 +421,8 @@
         about_numbers_city:  { en: 'Kota Roadshow',      id: 'Kota Roadshow' },
         about_wwd_eyebrow:   { en: 'What We Do',         id: 'Apa yang Kami Lakukan' },
         about_wwd_heading:   { en: 'Bukan hanya sekadar membuat karya.', id: 'Bukan hanya sekadar membuat karya.' },
-        about_collab_eyebrow:{ en: 'Kolaborasi',         id: 'Kolaborasi' },
-        about_collab_heading:{ en: 'Ada proyek hebat yang bisa dikerjakan bersama?', id: 'Ada proyek hebat yang bisa dikerjakan bersama?' },
+        about_collab_eyebrow:{ en: 'Collaboration',      id: 'Kolaborasi' },
+        about_collab_heading:{ en: 'Have a great project to work on together?', id: 'Ada proyek hebat yang bisa dikerjakan bersama?' },
 
         // ── General shared ──────────────────────────────────────────
         label_director:      { en: 'Director',      id: 'Sutradara' },
