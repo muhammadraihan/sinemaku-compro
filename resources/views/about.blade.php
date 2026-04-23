@@ -54,6 +54,7 @@
             margin: 0;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            cursor: none;
         }
 
         /* ── EFEK LIGHT LEAK & GRAIN ── */
@@ -130,6 +131,35 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(37, 34, 94, 0.5);
         }
+
+        /* ── CUSTOM CURSOR (EDITORIAL RING) ── */
+        #cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #FFB150;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: multiply;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 4px;
+            background-color: #25225E;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
     </style>
 </head>
 
@@ -139,6 +169,10 @@
     <div class="cinematic-grain"></div>
     <div id="leak-1" class="light-leak w-[50vw] h-[50vw] top-[-10vw] left-[-10vw]"></div>
     <div id="leak-2" class="light-leak w-[40vw] h-[40vw] bottom-10 right-[-10vw]"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-ring"></div>
+    <div id="cursor-dot"></div>
 
 
 
@@ -186,7 +220,7 @@
 
         <!-- Hero Cinematic Image -->
         <div class="mt-16 w-full flex justify-center hero-reveal">
-            <div class="editorial-image-container w-full md:w-[60%] aspect-[21/9] bg-tint-2/30">
+            <div class="editorial-image-container w-full md:w-[60%] aspect-[21/9] bg-tint-2/30 cursor-none hover-target">
                 <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
                     alt="Cinematic Setup" class="editorial-image para-img">
             </div>
@@ -344,7 +378,7 @@
                         }
                     @endphp
 
-                    <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group">
+                    <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group cursor-none hover-target">
                         <div class="flex items-end">
                             @if(!empty($member['name']))
                                 <div
@@ -388,7 +422,7 @@
                 <div class="flex flex-col">
 
                     <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
+                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row cursor-none hover-target">
                         <h3
                             class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-all duration-500">
                             @php
@@ -408,7 +442,7 @@
                     </a>
 
                     <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
+                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row cursor-none hover-target">
                         <h3
                             class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-all duration-500">
                             @php
@@ -532,6 +566,56 @@
         }
 
         syncTaglineWithLang();
+
+        // ─── CUSTOM CURSOR LOGIC ──────────────────────────────────────
+        (function() {
+            const cursorRing = document.getElementById('cursor-ring');
+            const cursorDot = document.getElementById('cursor-dot');
+            if(!cursorRing || !cursorDot) return;
+
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let ringX = mouseX;
+            let ringY = mouseY;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1, ease: "none" });
+            });
+
+            gsap.ticker.add(() => {
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+                gsap.set(cursorRing, { x: ringX, y: ringY });
+            });
+
+            function bindHovers() {
+                const hoverTargets = document.querySelectorAll('.hover-target, a, button');
+                hoverTargets.forEach(target => {
+                    if (target.dataset.cursorBound) return;
+                    target.dataset.cursorBound = "true";
+                    
+                    target.addEventListener('mouseenter', () => {
+                        gsap.to(cursorRing, {
+                            width: 60, height: 60,
+                            backgroundColor: "rgba(255, 177, 80, 0.15)",
+                            duration: 0.4, ease: "power2.out"
+                        });
+                    });
+                    target.addEventListener('mouseleave', () => {
+                        gsap.to(cursorRing, {
+                            width: 30, height: 30,
+                            backgroundColor: "transparent",
+                            duration: 0.4, ease: "power2.out"
+                        });
+                    });
+                });
+            }
+            bindHovers();
+            // Re-bind occasionally if dynamic content
+            setTimeout(bindHovers, 1000);
+        })();
     </script>
 </body>
 
