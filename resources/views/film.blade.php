@@ -16,24 +16,24 @@
         1. EDITORIAL HERO SLIDESHOW
         ============================================================ --}}
         <section
-            class="relative w-full h-[100svh] pt-32 pb-12 px-8 md:px-16 flex flex-col justify-end z-10 max-w-[1800px] mx-auto">
+            class="relative w-full h-[100svh] pt-28 md:pt-32 pb-12 px-8 md:px-16 flex flex-col justify-end z-10 max-w-[1800px] mx-auto">
 
             <!-- Slides Container -->
-            <div id="hero-slider-container" class="absolute inset-0 px-8 md:px-16 pt-32 pb-24 flex items-center">
+            <div id="hero-slider-container" class="absolute inset-0 px-8 md:px-16 pt-28 md:pt-32 pb-24 flex items-center">
 
                 @foreach($film as $i => $item)
                     <div
-                        class="hero-slide absolute inset-0 px-8 md:px-16 pt-32 pb-32 flex flex-col-reverse md:flex-row items-end md:items-center justify-between w-full h-full {{ $i === 0 ? 'opacity-100 visible z-20 pointer-events-auto' : 'opacity-0 invisible z-10 pointer-events-none' }}">
+                        class="hero-slide absolute inset-0 px-8 md:px-16 pt-28 md:pt-32 pb-28 md:pb-32 flex flex-col-reverse md:flex-row items-end md:items-center justify-between w-full h-full {{ $i === 0 ? 'opacity-100 visible z-20 pointer-events-auto' : 'opacity-0 invisible z-10 pointer-events-none' }}">
 
                         <!-- Kiri: Teks -->
-                        <div class="w-full md:w-[45%] z-20 pb-10 md:pb-0">
+                        <div class="w-full md:w-[45%] z-20 pb-4 md:pb-0 flex-shrink-0">
                             <span class="block font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange slide-meta">
                                 {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • @i18n($item, 'genre')
                             </span>
                             <!-- Masking Teks dengan Overflow Hidden -->
                             <div class="overflow-hidden mt-4 pb-2">
                                 <h1
-                                    class="font-serif text-[12vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter slide-title">
+                                    class="font-serif text-[10vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter slide-title">
                                     <a href="{{ route('detail-film', $item->slug) }}"
                                         class="hover-target cursor-none hover:text-brand-orange transition-colors">
                                         @i18n($item, 'title')
@@ -41,7 +41,7 @@
                                 </h1>
                             </div>
                             <p
-                                class="font-sans text-sm font-light leading-relaxed text-brand-deepbreath/60 mt-8 max-w-sm slide-desc opacity-0">
+                                class="font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/60 mt-4 md:mt-8 max-w-sm slide-desc opacity-0">
                                 {{-- Jika ada sinopsis singkat dari CMS, bisa diletakkan di sini. Sementara menggunakan Durasi.
                                 --}}
                                 Durasi: {{ $item->duration }} Menit.
@@ -49,7 +49,7 @@
                         </div>
 
                         <!-- Kanan: Gambar Frame -->
-                        <div class="w-full md:w-[50%] h-[50vh] md:h-[80vh] flex justify-end items-center relative">
+                        <div class="w-full md:w-[50%] flex-1 md:h-[80vh] min-h-[30vh] flex justify-end items-center relative mb-4 md:mb-0">
                             <a href="{{ route('detail-film', $item->slug) }}"
                                 class="w-full md:w-[85%] h-full bg-tint-2/20 overflow-hidden relative slide-image-container hover-target cursor-none group block">
                                 <img src="{{ asset('photo/' . $item->photo) }}"
@@ -64,10 +64,10 @@
             </div>
 
             <!-- Hero Navigation Controls -->
-            <div class="relative z-30 flex justify-between items-end border-t hairline-border pt-6 mt-auto">
+            <div class="relative z-30 flex justify-between items-center border-t hairline-border pt-6 mt-auto">
 
                 <!-- Indicators Dinamis -->
-                <div class="flex gap-4 font-serif text-3xl text-brand-deepbreath/40" id="hero-indicators">
+                <div class="flex gap-2 md:gap-4 font-serif text-2xl md:text-3xl text-brand-deepbreath/40" id="hero-indicators">
                     @foreach($film as $i => $item)
                         <button
                             class="slide-indicator hover-target cursor-none transition-colors {{ $i === 0 ? 'text-brand-deepbreath' : 'hover:text-brand-deepbreath' }}"
@@ -78,11 +78,9 @@
                 </div>
 
                 <!-- Next / Prev -->
-                <div class="flex gap-8 font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath">
-                    <button id="hero-prev" class="hover-target cursor-none hover:text-brand-orange transition-colors">[ Prev
-                        ]</button>
-                    <button id="hero-next" class="hover-target cursor-none hover:text-brand-orange transition-colors">[ Next
-                        ]</button>
+                <div class="flex gap-3 md:gap-8 font-sans text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-bold text-brand-deepbreath">
+                    <button id="hero-prev" class="hover-target cursor-none hover:text-brand-orange transition-colors whitespace-nowrap">[ Prev ]</button>
+                    <button id="hero-next" class="hover-target cursor-none hover:text-brand-orange transition-colors whitespace-nowrap">[ Next ]</button>
                 </div>
 
             </div>
