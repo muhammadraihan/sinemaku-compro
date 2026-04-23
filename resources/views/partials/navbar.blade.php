@@ -52,14 +52,14 @@ FULLSCREEN MENU OVERLAY
             @if(isset($item['isDropdown']))
                 <div class="relative w-max flex flex-col">
                     <button type="button" onclick="toggleDropdown('dropdown-{{ $index }}')"
-                        class="menu-link flex items-center gap-4 transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange hover:italic leading-[1.05] text-left">
+                        class="menu-link flex items-center gap-4 transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange leading-[1.05] text-left">
                         <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                         <span id="icon-dropdown-{{ $index }}" class="font-sans text-xl md:text-3xl font-light transform transition-transform duration-300">+</span>
                     </button>
                     <div id="dropdown-{{ $index }}" class="hidden flex-col pl-8 md:pl-16 space-y-1 md:space-y-2 mt-2 mb-4 overflow-hidden">
                         @foreach($item['children'] as $child)
                             <a href="{{ $child['url'] }}"
-                                class="inline-block w-max transition-all duration-300 text-[clamp(1.5rem,4vw,3.5rem)] text-brand-deepbreath/70 hover:text-brand-orange hover:italic leading-[1.1]">
+                                class="inline-block w-max transition-all duration-300 text-[clamp(1.5rem,4vw,3.5rem)] text-brand-deepbreath/70 hover:text-brand-orange leading-[1.1]">
                                 <span data-i18n="{{ $child['i18n'] }}">{{ $child['title'] }}</span>
                             </a>
                         @endforeach
@@ -67,7 +67,7 @@ FULLSCREEN MENU OVERLAY
                 </div>
             @else
                 <a href="{{ $item['url'] }}"
-                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange hover:italic leading-[1.05]">
+                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange leading-[1.05]">
                     <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                 </a>
             @endif

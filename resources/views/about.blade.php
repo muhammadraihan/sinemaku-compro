@@ -388,7 +388,7 @@
                     <a href="#"
                         class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
                         <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:italic group-hover:text-brand-orange transition-all duration-500">
+                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-all duration-500">
                             @php
                                 $settings['about_values_1_title'] = $settings['about_values_1_title'] ?? 'Film & Seri Web';
                                 $settings['about_values_1_title_en'] = $settings['about_values_1_title_en'] ?? 'Film & Web Series';
@@ -408,7 +408,7 @@
                     <a href="#"
                         class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
                         <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:italic group-hover:text-brand-orange transition-all duration-500">
+                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-all duration-500">
                             @php
                                 $settings['about_values_2_title'] = $settings['about_values_2_title'] ?? 'Tayangan Televisi';
                                 $settings['about_values_2_title_en'] = $settings['about_values_2_title_en'] ?? 'Television Shows';
@@ -428,7 +428,7 @@
                     <a href="#"
                         class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
                         <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:italic group-hover:text-brand-orange transition-all duration-500">
+                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-all duration-500">
                             @php
                                 $settings['about_values_3_title'] = $settings['about_values_3_title'] ?? 'Komunitas & Event';
                                 $settings['about_values_3_title_en'] = $settings['about_values_3_title_en'] ?? 'Community & Events';
@@ -463,7 +463,7 @@
                     data-lang-en="{{ $collabEyebrowEn }}">{{ $collabEyebrow }}</span>
             </span>
             <a href="mailto:hello@sinemakupictures.com"
-                class="font-serif text-5xl md:text-8xl text-brand-deepbreath hover:italic hover:text-brand-orange transition-all duration-500">
+                class="font-serif text-5xl md:text-8xl text-brand-deepbreath hover:text-brand-orange transition-all duration-500">
                 hello@sinemakupictures.com
             </a>
         </div>
