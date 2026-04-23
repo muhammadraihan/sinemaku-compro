@@ -1,725 +1,337 @@
 @extends('layouts.app')
 @section('title', 'About — Sinemaku Pictures')
 
+@push('head')
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+body { background-color: #F1F1F1; color: #25225E; cursor: none; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+::selection { background-color: #25225E; color: #F1F1F1; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F1F1F1; }
+::-webkit-scrollbar-thumb { background: rgba(37,34,94,0.2); }
+#cursor-ring {
+    position: fixed; top: 0; left: 0; width: 30px; height: 30px;
+    border: 1px solid #FFB150; border-radius: 50%; pointer-events: none;
+    z-index: 10000; transform: translate(-50%,-50%);
+    transition: width .3s, height .3s, background-color .3s; mix-blend-mode: multiply;
+}
+#cursor-dot {
+    position: fixed; top: 0; left: 0; width: 4px; height: 4px;
+    background: #25225E; border-radius: 50%; pointer-events: none;
+    z-index: 10000; transform: translate(-50%,-50%);
+}
+.cinematic-grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+}
+.light-leak { position: fixed; border-radius: 50%; filter: blur(150px); opacity: 0.15; pointer-events: none; z-index: 0; }
+.hairline { border-color: rgba(37,34,94,0.15); }
+.editorial-img-wrap { overflow: hidden; position: relative; }
+.editorial-img { width: 100%; height: 120%; object-fit: cover; filter: grayscale(100%) contrast(1.1); transition: filter .8s ease; }
+.editorial-img-wrap:hover .editorial-img { filter: grayscale(0%) contrast(1.05); }
+.vertical-text { writing-mode: vertical-rl; transform: rotate(180deg); }
+a, button { cursor: none; }
+</style>
+@endpush
+
 @section('content')
 
-    {{-- ============================================================
-    TOGGLE: ubah $introEnabled ke false untuk menonaktifkan intro.
-    Satu baris ini cukup untuk mengaktifkan/menonaktifkan animasi.
-    ============================================================ --}}
-    @php $introEnabled = true; @endphp
+<div class="cinematic-grain"></div>
+<div class="light-leak w-[50vw] h-[50vw] bg-[#FFB150] top-[-10vw] left-[-10vw]" id="leak-1"></div>
+<div class="light-leak w-[40vw] h-[40vw] bg-[#DB5F10] bottom-10 right-[-10vw]" id="leak-2"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
 
+@include('partials.navbar')
 
-    @include('partials.navbar')
-
-
-
-    {{-- ============================================================
-    1. HERO SECTION
-    ============================================================ --}}
-    <section id="about-hero" class="relative w-full overflow-hidden flex items-center"
-        style="height: 100dvh; min-height: 600px;">
-
-        @if($introEnabled)
-        {{-- ============================================================
-        CINEMATIC INTRO OVERLAY
-        Moved to Absolute so it scrolls with the hero section.
-        ============================================================ --}}
-        <div id="intro-overlay" class="absolute inset-0 z-[200] overflow-hidden" style="pointer-events: auto;">
-
-            {{-- The dark background — this is the ONLY thing that slides down --}}
-            <div id="intro-bg" class="absolute inset-0" style="background: #0b0a1a; z-index: 1;"></div>
-            {{-- Radial amber glow from left --}}
-            <div class="absolute inset-0 pointer-events-none" style="z-index: 2;
-                background: radial-gradient(ellipse 90% 65% at 20% 50%, rgba(237,149,32,0.07) 0%, transparent 65%);"></div>
-            {{-- Bottom amber vignette (like the image) --}}
-            <div class="absolute bottom-0 left-0 right-0 pointer-events-none" style="z-index: 2; height: 45%;
-                background: linear-gradient(to top, rgba(90,35,0,0.65), transparent);"></div>
-
-            {{-- TEXT LAYER: stays in viewport when BG slides down --}}
-            <div class="absolute inset-0 pointer-events-none" style="z-index: 10;
-                display: flex; align-items: center; justify-content: center;">
-
-                <div style="display: inline-grid;
-                            grid-template-columns: auto auto auto auto;
-                            grid-template-rows: auto auto;">
-
-                    {{-- Row 1, Col 1 — "Here" (flies from RIGHT) --}}
-                    <div id="w-here" style="grid-column: 1; grid-row: 1;
-                        font-family: 'Instrument Serif Modified', serif;
-                        font-size: clamp(3.2rem, 11vw, 7.5rem);
-                        color: #ed9520; font-weight: 700; line-height: 1.05;
-                        white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="0">H</span><span class="ichar" data-ci="1">e</span><span class="ichar" data-ci="2">r</span><span class="ichar" data-ci="3">e</span></div>
-
-                    {{-- Row 1, Col 3 — "Comes" (flies from RIGHT, col 2 stays empty = The's width) --}}
-                    <div id="w-comes" style="grid-column: 3; grid-row: 1;
-                        font-family: 'Instrument Serif Modified', serif;
-                        font-size: clamp(3.2rem, 11vw, 7.5rem);
-                        color: #ed9520; font-weight: 700; line-height: 1.05;
-                        white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="5">C</span><span class="ichar" data-ci="6">o</span><span class="ichar" data-ci="7">m</span><span class="ichar" data-ci="8">e</span><span class="ichar" data-ci="9">s</span></div>
-
-                    {{-- Row 2, Col 2 — "The" (flies from LEFT, col 1 empty = Here's width) --}}
-                    <div id="w-the" style="grid-column: 2; grid-row: 2;
-                        font-family: 'Instrument Serif Modified', serif;
-                        font-size: clamp(3.2rem, 11vw, 7.5rem);
-                        color: #ed9520; font-weight: 700; line-height: 1.05;
-                        white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="10">T</span><span class="ichar" data-ci="11">h</span><span class="ichar" data-ci="12">e</span></div>
-
-                    {{-- Row 2, Col 4 — "Fun." (flies from LEFT, col 3 empty = Comes' width) --}}
-                    <div id="w-fun" style="grid-column: 4; grid-row: 2;
-                        font-family: 'Instrument Serif Modified', serif;
-                        font-size: clamp(3.2rem, 11vw, 7.5rem);
-                        color: #ed9520; font-weight: 700; line-height: 1.05;
-                        white-space: nowrap; will-change: transform;"><span class="ichar" data-ci="14">F</span><span class="ichar" data-ci="15">u</span><span class="ichar" data-ci="16">n</span><span class="ichar" data-ci="17">.</span></div>
-
-                </div>
-            </div>
-        </div>
-        @endif
-        <div class="absolute inset-0 z-0">
-            <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : asset('photo/about_hero.png') }}" alt="Sinemaku Crew"
-                class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black/40"></div>
-        </div>
-
-        <div class="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-16 pt-20">
-            <div class="max-w-2xl">
-                <p id="hero-sub"
-                    class="font-sans text-white text-lg md:text-xl font-medium mt-8 mb-0 leading-none max-w-lg"
-                    style="opacity: 0; transform: translateY(20px);">
-                    @php
-                        $subId = $settings['about_hero_subtitle'] ?? 'about sinemaku pictures';
-                        $subEn = $settings['about_hero_subtitle_en'] ?? 'about sinemaku pictures';
-                    @endphp
-                    <span class="dynamic-i18n" data-lang-id="{{ $subId }}" data-lang-en="{{ $subEn }}">{{ $subId }}</span>
-                </p>
-
-                {{--
-                    Hero title: each character is wrapped for the FLIP morph animation.
-                    PHP generates markup without any whitespace between spans
-                    (font-size:0 on .hline eliminates the inline-block gap bug).
-                    data-ci must match the ichar data-ci values in the intro overlay.
-                --}}
-                <h1 id="hero-tagline"
-                    class="font-sans font-bold text-white mt-2 mb-6"
-                    style="font-size: clamp(3rem, 11vw, 6.5rem); line-height: 1.1; opacity: 0;">
-                    @php
-                        if (!function_exists('generateTaglineHtml')) {
-                            function generateTaglineHtml($title) {
-                                $hlines    = explode("\n", str_replace(["<br />","<br>"], "\n", nl2br(e($title))));
-                                $hci       = 0;
-                                $hHtml     = '';
-                                foreach ($hlines as $hl) {
-                                    $hl = trim($hl);
-                                    if (!strlen($hl)) continue;
-                                    $hHtml .= '<span class="hline" style="display:block;font-size:0;line-height:1.1;">';
-                                    foreach (mb_str_split($hl) as $hch) {
-                                        $disp   = $hch === ' ' ? '&nbsp;' : htmlspecialchars($hch, ENT_HTML5, 'UTF-8');
-                                        $hHtml .= '<span class="hchar" data-ci="'.$hci.'" style="display:inline-block;'
-                                                . 'font-size:clamp(3rem,11vw,6.5rem);font-weight:700;line-height:1.1;'
-                                                . 'opacity:0;">'.$disp.'</span>';
-                                        $hci++;
-                                    }
-                                    $hHtml .= '</span>';
-                                }
-                                return $hHtml;
-                            }
-                        }
-
-                        $titleId = $settings['about_hero_title'] ?? "Here Comes\nThe Fun.";
-                        $titleEn = $settings['about_hero_title_en'] ?? "Here Comes\nThe Fun.";
-                    @endphp
-                    <span class="tagline-container tagline-id" data-tagline-lang="id">
-                        {!! generateTaglineHtml($titleId) !!}
-                    </span>
-                    <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
-                        {!! generateTaglineHtml($titleEn) !!}
-                    </span>
-                </h1>
-
-                <div id="hero-actions" class="flex flex-row flex-wrap items-center gap-3 md:gap-5" style="opacity: 0; transform: translateY(20px);">
-                    <a href="#about-intro"
-                        class="inline-block text-center bg-white text-black px-6 sm:px-10 py-2 md:py-2.5 text-[10px] sm:text-xs font-bold tracking-[0.2em] hover:bg-gray-200 transition-colors duration-300 rounded-none border border-white">
-                        <span data-i18n="about_cta_company">ABOUT OUR COMPANY</span>
-                    </a>
-
-                    <a href="#about-team"
-                        class="inline-block text-center text-white px-6 sm:px-10 py-2 md:py-2.5 text-[10px] sm:text-xs font-bold tracking-[0.2em] hover:bg-white/10 transition-colors duration-300 rounded-none border border-white/30">
-                        <span data-i18n="about_cta_team">MEET OUR TEAM</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- ============================================================
-    2. INTRO SECTION - Who We Are (Studio Antelope Style - High Contrast)
-    ============================================================ --}}
-    <section id="about-intro" class="bg-white px-6 md:px-16" style="
-                                                                                        padding-top:    clamp(12rem, 20vh, 22rem);
-                                                                                        padding-bottom: clamp(12rem, 20vh, 22rem);
-                                                                                        padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
-                                                                                    ">
-
-        <div class="max-w-4xl mb-12 md:mb-24" data-gsap="fade-up">
-            <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-black tracking-tight">
+{{-- ══════════════════════════════════════════
+     1. HERO SECTION
+══════════════════════════════════════════ --}}
+<section class="relative w-full min-h-[100svh] flex flex-col justify-center px-8 md:px-16 pb-16 z-10" style="padding-top: clamp(8rem, 18vh, 14rem);">
+    <div class="flex flex-col md:flex-row justify-between items-end gap-12 w-full">
+        <div class="w-full md:w-3/4 hero-reveal">
+            <h1 class="font-serif text-[15vw] md:text-[12vw] leading-[0.85] tracking-tighter m-0"
+                style="font-family:'Instrument Serif',serif; color:#25225E;">
                 @php
-                    $defaultIdHeading = 'Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.';
-                    $settings['about_identity_heading'] = isset($settings['about_identity_heading']) ? $settings['about_identity_heading'] : $defaultIdHeading;
-                    $settings['about_identity_heading_en'] = isset($settings['about_identity_heading_en']) ? $settings['about_identity_heading_en'] : 'Sinemaku Pictures is here to empower a new generation of storytellers and change the landscape of Indonesian cinema.';
+                    $titleId = $settings['about_hero_title'] ?? "Here Comes";
+                    $titleEn = $settings['about_hero_title_en'] ?? "Here Comes";
                 @endphp
-                @i18n($settings, 'about_identity_heading')
-            </h2>
+                <span class="dynamic-i18n" data-lang-id="{{ $titleId }}" data-lang-en="{{ $titleEn }}">{{ $titleId }}</span><br>
+                <span class="italic pl-[5vw]" style="color:#FFB150;">The Fun.</span>
+            </h1>
         </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 6rem);" data-gsap="fade-up">
-
-            <div class="flex flex-col">
-                <h3 class="text-2xl font-bold mb-6 text-black">
-                    @php
-                        $settings['about_studio_label'] = isset($settings['about_studio_label']) ? $settings['about_studio_label'] : 'Company';
-                        $settings['about_studio_label_en'] = isset($settings['about_studio_label_en']) ? $settings['about_studio_label_en'] : 'Company';
-                    @endphp
-                    @i18n($settings, 'about_studio_label')
-                </h3>
-                <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
-                    @php
-                        $defaultStudioBody = 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.';
-                        $settings['about_studio_body'] = isset($settings['about_studio_body']) ? $settings['about_studio_body'] : $defaultStudioBody;
-                        $settings['about_studio_body_en'] = isset($settings['about_studio_body_en']) ? $settings['about_studio_body_en'] : 'Learn how Sinemaku operates. Explore our identity, our approach, and our role in nurturing young filmmakers for the Indonesian film ecosystem.';
-                    @endphp
-                    @i18n($settings, 'about_studio_body')
-                </p>
-                <a href="#about-mission"
-                    class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
-                    <span class="leading-none">→</span> <span data-i18n="about_read_more">Read More</span>
-                </a>
-            </div>
-
-            <div class="flex flex-col">
-                <h3 class="text-2xl font-bold mb-6 text-black">
-                    @php
-                        $settings['about_team_label'] = isset($settings['about_team_label']) ? $settings['about_team_label'] : 'Team';
-                        $settings['about_team_label_en'] = isset($settings['about_team_label_en']) ? $settings['about_team_label_en'] : 'Team';
-                    @endphp
-                    @i18n($settings, 'about_team_label')
-                </h3>
-                <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
-                    @php
-                        $defaultTeamBody = 'Kenali tim dan kolaborator yang membentuk kami. Pelajari tentang orang-orang di balik proyek kami, peran mereka, dan nilai-nilai yang memandu cara kami bekerja.';
-                        $settings['about_team_body'] = isset($settings['about_team_body']) ? $settings['about_team_body'] : $defaultTeamBody;
-                        $settings['about_team_body_en'] = isset($settings['about_team_body_en']) ? $settings['about_team_body_en'] : 'Meet the team and collaborators who shape us. Learn about the people behind our projects, their roles, and the values that guide how we work.';
-                    @endphp
-                    @i18n($settings, 'about_team_body')
-                </p>
-                <a href="#about-team"
-                    class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
-                    <span class="leading-none">→</span> <span data-i18n="about_read_more">Read More</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    {{-- ============================================================
-    2.5 TEAMS PHOTO SECTION (Edge to Edge)
-    ============================================================ --}}
-    <section id="about-teams-photo" class="relative w-full overflow-hidden" style="height: 100dvh; min-height: 400px;">
-        <!-- Background Image -->
-        <img src="{{ isset($settings['about_secondary_image']) ? asset($settings['about_secondary_image']) : asset('photo/about_secondary.png') }}" alt="Meet the team"
-            style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
-
-        <!-- Subtle dark gradient at the bottom for text legibility -->
-        <div
-            style="position: absolute; left: 0; right: 0; bottom: 0; height: 50%; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); pointer-events: none;">
-        </div>
-
-        <!-- Text Link Bottom Right -->
-        <div style="position: absolute; bottom: 3rem; right: 10vw; z-index: 10;">
-            <a href="#about-team"
-                style="color: white; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: all 0.3s;"
-                onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-                <span data-i18n="about_meet_link">meet our team ...</span>
-            </a>
-        </div>
-    </section>
-
-    {{-- ============================================================
-    3. MISSION STATEMENT (Premium Editorial Style)
-    ============================================================ --}}
-    <section id="about-mission" class="bg-white px-6 md:px-16" style="
-                        padding-top:    clamp(14rem, 25vh, 28rem);
-                        padding-bottom: clamp(5rem, 8vh, 10rem);
-                        padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
-                    ">
-
-        {{-- Container tetap di tengah dengan mx-auto --}}
-        <div class="max-w-6xl mx-auto flex flex-col items-center">
-
-            <p class="text-black text-lg md:text-xl lg:text-2xl leading-[1.8] tracking-wider text-left max-w-4xl"
-                data-gsap="fade-up">
-                @php
-                    $defaultMission = "Sinemaku Pictures bukan sekadar rumah produksi, melainkan ruang bermain bagi generasi baru pencerita yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia.\n\nKami percaya bahwa cerita terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar lebar, tanpa pernah melupakan semangat kolaborasi yang menghidupkan komunitas di setiap napas produksinya.\n\nBagi kami, keseriusan dalam mengejar kualitas visual premium hanyalah separuh cerita; separuh lainnya adalah tentang merayakan imajinasi dan memastikan bahwa di setiap prosesnya, Here Comes The Fun.";
-                    $defaultMissionEn = "Sinemaku Pictures is not just a production house, but a playground for a new generation of storytellers who dare to break rigid traditions to change the landscape of Indonesian cinema.\n\nWe believe that the best stories are born from the courage to explore crazy ideas and magically transform reality onto the big screen, without ever forgetting the spirit of collaboration that brings communities to life in every breath of its production.\n\nFor us, seriousness in pursuing premium visual quality is only half the story; the other half is about celebrating imagination and ensuring that in every process, Here Comes The Fun.";
-                    $settings['about_mission_statement'] = isset($settings['about_mission_statement']) ? $settings['about_mission_statement'] : $defaultMission;
-                    $settings['about_mission_statement_en'] = isset($settings['about_mission_statement_en']) ? $settings['about_mission_statement_en'] : $defaultMissionEn;
-                    $missionHtml = nl2br(e($settings['about_mission_statement']));
-                    $missionEnHtml = nl2br(e($settings['about_mission_statement_en']));
-                @endphp
-                <span class="dynamic-i18n" data-lang-id="{!! $missionHtml !!}" data-lang-en="{!! $missionEnHtml !!}">{!! $missionHtml !!}</span>
-            </p>
-        </div>
-    </section>
-
-    {{-- ============================================================
-    4. TEAM GALLERY MOSAIC
-    ============================================================ --}}
-    <section id="about-team" class="bg-white px-6 md:px-16" style="
-                    padding-top:    clamp(12rem, 20vh, 22rem);
-                    padding-bottom: clamp(12rem, 20vh, 22rem);
-                    padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
-                ">
-        <div class="max-w-[1540px] mx-auto">
-            <div class="mb-16" data-gsap="fade-up">
-                <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4"><span data-i18n="about_team_eyebrow">Team</span></span>
-                <h2 class="text-4xl md:text-5xl font-display text-gray-900 tracking-tight"><span data-i18n="about_team_heading">Orang-orang di balik kamera.</span></h2>
-            </div>
-
-            <!-- Dynamic Grid Layout -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[250px]">
-                <!-- Item 1 (Span 2 cols, Span 2 rows) -->
-                <div class="gallery-item relative overflow-hidden group sm:col-span-2 sm:row-span-2 bg-gray-200">
-                    <img src="{{ isset($settings['about_team_image_1']) ? asset($settings['about_team_image_1']) : asset('photo/about_hero.png') }}" alt="Sinemaku Team"
-                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    <div
-                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ isset($settings['about_team_image_2']) ? asset($settings['about_team_image_2']) : asset('photo/about_crew_1.png') }}" alt="Behind the scenes"
-                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    <div
-                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    </div>
-                </div>
-
-                <!-- Item 3 (Span 2 rows vertical) -->
-                <div class="gallery-item relative overflow-hidden group row-span-2 bg-gray-200">
-                    <img src="{{ isset($settings['about_team_image_3']) ? asset($settings['about_team_image_3']) : asset('photo/about_crew_2.png') }}" alt="Set photo"
-                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    <div
-                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    </div>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ isset($settings['about_team_image_4']) ? asset($settings['about_team_image_4']) : asset('photo/about_crew_3.png') }}" alt="Fun moment"
-                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    <div
-                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    </div>
-                </div>
-
-                <!-- Item 5 (Span 2 cols) -->
-                <div class="gallery-item relative overflow-hidden group sm:col-span-2 lg:col-span-2 bg-gray-200">
-                    <img src="{{ isset($settings['about_team_image_5']) ? asset($settings['about_team_image_5']) : asset('photo/about_crew_4.png') }}" alt="Sinemaku Event"
-                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                        style="object-position: center 30%;">
-                    <div
-                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    </div>
-                </div>
-
-                <!-- Item 6 -->
-                <div class="gallery-item relative overflow-hidden group bg-gray-200">
-                    <img src="{{ isset($settings['about_team_image_6']) ? asset($settings['about_team_image_6']) : asset('photo/about_crew_5.png') }}" alt="Crew on set"
-                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    <div
-                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- ============================================================
-    6. WHAT WE DO
-    ============================================================ --}}
-    <section id="about-what-we-do" class="bg-[#fafafa] px-6 md:px-16" style="
-                                                                                        padding-top:    clamp(12rem, 20vh, 22rem);
-                                                                                        padding-bottom: clamp(12rem, 20vh, 22rem);
-                                                                                        padding-left: clamp(1.25rem, 6vw, 10rem); padding-right: clamp(1.25rem, 6vw, 10rem);
-                                                                                    ">
-        <div class="max-w-[1540px] mx-auto">
-            <div class="mb-16 md:mb-24 flex flex-col items-center text-center" data-gsap="fade-up">
-                <span class="text-xs tracking-[0.25em] uppercase text-gray-400 font-medium block mb-4">
-                    @php
-                        $settings['about_wwd_eyebrow'] = $settings['about_wwd_eyebrow'] ?? 'What We Do';
-                        $settings['about_wwd_eyebrow_en'] = $settings['about_wwd_eyebrow_en'] ?? 'What We Do';
-                    @endphp
-                    @i18n($settings, 'about_wwd_eyebrow')
-                </span>
-                <h2 class="text-3xl md:text-5xl font-display text-gray-900 tracking-tight max-w-2xl">
-                    @php
-                        $settings['about_wwd_heading'] = $settings['about_wwd_heading'] ?? 'Bukan hanya sekadar membuat karya.';
-                        $settings['about_wwd_heading_en'] = $settings['about_wwd_heading_en'] ?? 'More than just creating works.';
-                    @endphp
-                    @i18n($settings, 'about_wwd_heading')
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-                <!-- Card 1 -->
-                <div class="bg-white p-10 border border-gray-100 hover:shadow-xl hover:shadow-black/5 transition-shadow duration-300 group"
-                    data-gsap="fade-up">
-                    <div
-                        class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
-                        <x-icons.film class="w-5 h-5" />
-                    </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">
-                        @php
-                            $settings['about_values_1_title'] = isset($settings['about_values_1_title']) ? $settings['about_values_1_title'] : 'Film & Seri web';
-                            $settings['about_values_1_title_en'] = isset($settings['about_values_1_title_en']) ? $settings['about_values_1_title_en'] : 'Film & Web Series';
-                        @endphp
-                        @i18n($settings, 'about_values_1_title')
-                    </h3>
-                    <p class="text-gray-500 leading-relaxed font-light">
-                        @php
-                            $settings['about_values_1_body'] = isset($settings['about_values_1_body']) ? $settings['about_values_1_body'] : 'Eksplorasi cerita layar lebar dan seri web dengan narasi segar, menghadirkan estetika visual yang menantang batas-batas konvensional.';
-                            $settings['about_values_1_body_en'] = isset($settings['about_values_1_body_en']) ? $settings['about_values_1_body_en'] : 'Exploring big screen stories and web series with fresh narratives, presenting visual aesthetics that challenge conventional boundaries.';
-                        @endphp
-                        @i18n($settings, 'about_values_1_body')
-                    </p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white p-10 border border-gray-100 hover:shadow-xl hover:shadow-black/5 transition-shadow duration-300 group"
-                    data-gsap="fade-up">
-                    <div
-                        class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
-                        <x-icons.monitor class="w-5 h-5" />
-                    </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">
-                        @php
-                            $settings['about_values_2_title'] = isset($settings['about_values_2_title']) ? $settings['about_values_2_title'] : 'Tayangan Televisi';
-                            $settings['about_values_2_title_en'] = isset($settings['about_values_2_title_en']) ? $settings['about_values_2_title_en'] : 'Television Shows';
-                        @endphp
-                        @i18n($settings, 'about_values_2_title')
-                    </h3>
-                    <p class="text-gray-500 leading-relaxed font-light">
-                        @php
-                            $settings['about_values_2_body'] = isset($settings['about_values_2_body']) ? $settings['about_values_2_body'] : 'Menghadirkan kisah-kisah hangat untuk ruang keluarga melalui produksi televisi yang berkualitas dan dekat dengan realitas sehari-hari.';
-                            $settings['about_values_2_body_en'] = isset($settings['about_values_2_body_en']) ? $settings['about_values_2_body_en'] : 'Bringing warm stories to the family room through quality television productions that are close to everyday reality.';
-                        @endphp
-                        @i18n($settings, 'about_values_2_body')
-                    </p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white p-10 border border-gray-100 hover:shadow-xl hover:shadow-black/5 transition-shadow duration-300 group"
-                    data-gsap="fade-up">
-                    <div
-                        class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
-                        <x-icons.users class="w-5 h-5" />
-                    </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">
-                        @php
-                            $settings['about_values_3_title'] = isset($settings['about_values_3_title']) ? $settings['about_values_3_title'] : 'Komunitas & Event';
-                            $settings['about_values_3_title_en'] = isset($settings['about_values_3_title_en']) ? $settings['about_values_3_title_en'] : 'Community & Events';
-                        @endphp
-                        @i18n($settings, 'about_values_3_title')
-                    </h3>
-                    <p class="text-gray-500 leading-relaxed font-light">
-                        @php
-                            $settings['about_values_3_body'] = isset($settings['about_values_3_body']) ? $settings['about_values_3_body'] : 'Rantai penghubung antarsineas dan penonton lewat Sinemaku Day, workshop, nobar bincang karya, dan program kerelawanan.';
-                            $settings['about_values_3_body_en'] = isset($settings['about_values_3_body_en']) ? $settings['about_values_3_body_en'] : 'The connecting chain between filmmakers and audiences through Sinemaku Day, workshops, screening discussions, and volunteer programs.';
-                        @endphp
-                        @i18n($settings, 'about_values_3_body')
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- ============================================================
-    7. GET IN TOUCH CTA
-    ============================================================ --}}
-    <section id="get-in-touch" class="bg-[#0a0a0a] px-6 text-center" style="
-                                                                                        padding-top:    clamp(14rem, 25vh, 28rem);
-                                                                                        padding-bottom: clamp(14rem, 25vh, 28rem);
-                                                                                    ">
-        <div class="max-w-3xl mx-auto flex flex-col items-center" data-gsap="fade-up">
+        <div class="w-full md:w-1/4 pb-4 hero-reveal">
             @php
-                $defaultCollabEyebrow = 'Kolaborasi';
-                $defaultCollabEyebrowEn = 'Collaboration';
-                $defaultCollabHeading = 'Ada proyek hebat yang bisa dikerjakan bersama?';
-                $defaultCollabHeadingEn = 'Have a great project to work on together?';
-
-                $collabEyebrow = $settings['about_collab_eyebrow'] ?? $defaultCollabEyebrow;
-                $collabEyebrowEn = $settings['about_collab_eyebrow_en'] ?? $defaultCollabEyebrowEn;
-                $collabHeading = $settings['about_collab_heading'] ?? $defaultCollabHeading;
-                $collabHeadingEn = $settings['about_collab_heading_en'] ?? $defaultCollabHeadingEn;
+                $subId = $settings['about_hero_subtitle'] ?? 'Sebuah ruang bermain bagi generasi baru pencerita yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia.';
+                $subEn = $settings['about_hero_subtitle_en'] ?? 'A playground for a new generation of storytellers who dare to break rigid traditions to change the landscape of Indonesian cinema.';
             @endphp
-            <span class="text-xs tracking-[0.2em] uppercase text-gray-500 font-medium mb-6">
-                <span class="dynamic-i18n" data-lang-id="{{ $collabEyebrow }}" data-lang-en="{{ $collabEyebrowEn }}">{{ $collabEyebrow }}</span>
-            </span>
-            <h2 class="font-display italic text-white text-4xl md:text-6xl mb-12">
-                <span class="dynamic-i18n" data-lang-id="{{ $collabHeading }}" data-lang-en="{{ $collabHeadingEn }}">{{ $collabHeading }}</span>
-            </h2>
-
-            <a href="mailto:hello@sinemakupictures.com"
-                class="feature-cta !text-white !border-white/50 hover:!border-white group">
-                <span class="group-hover:text-gray-300 transition-colors">hello@sinemakupictures.com</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-4 h-4 ml-2 group-hover:text-gray-300 transition-colors">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                </svg>
-            </a>
+            <p class="font-sans text-xs md:text-sm font-light leading-relaxed" style="color:rgba(37,34,94,0.7);">
+                <span class="dynamic-i18n" data-lang-id="{{ $subId }}" data-lang-en="{{ $subEn }}">{{ $subId }}</span>
+            </p>
+            <div class="mt-8 pt-4 border-t hairline flex justify-between font-sans text-[9px] tracking-widest uppercase" style="color:rgba(37,34,94,0.5);">
+                <span>Scroll to explore</span><span>↓</span>
+            </div>
         </div>
-    </section>
+    </div>
+    <div class="mt-16 w-full flex justify-center hero-reveal">
+        <div class="editorial-img-wrap w-full md:w-[60%] bg-[#CACAEF]/30" style="aspect-ratio:21/9;">
+            <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
+                alt="Sinemaku" class="editorial-img para-img">
+        </div>
+    </div>
+</section>
 
-    {{-- Footer --}}
-    @include('components.footer')
+{{-- ══════════════════════════════════════════
+     2. MANIFESTO (01 — Misi)
+══════════════════════════════════════════ --}}
+<section id="about-mission" class="py-32 px-8 md:px-16 z-10 relative bg-[#F1F1F1]">
+    <div class="border-t hairline pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
+        <div class="w-full md:w-1/12">
+            <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold block mb-4" style="color:#FFB150;">01 — Misi</span>
+        </div>
+        <div class="w-full md:w-11/12 flex flex-col gap-24">
+            @php
+                $missionHeading = $settings['about_identity_heading'] ?? 'Bukan sekadar rumah produksi, kami menghidupkan narasi segar dengan visual premium tanpa pernah melupakan semangat kolaborasi.';
+                $missionHeadingEn = $settings['about_identity_heading_en'] ?? 'Not just a production house — we bring fresh narratives to life with premium visuals without ever forgetting the spirit of collaboration.';
+            @endphp
+            <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight max-w-4xl text-reveal"
+                style="font-family:'Instrument Serif',serif; color:#25225E;">
+                <span class="dynamic-i18n" data-lang-id="{{ $missionHeading }}" data-lang-en="{{ $missionHeadingEn }}">{{ $missionHeading }}</span>
+            </h2>
+            <div class="flex flex-col md:flex-row gap-16 md:gap-32 w-full md:w-4/5 ml-auto">
+                <div class="flex-1 text-reveal">
+                    <span class="font-serif italic text-3xl mb-6 block" style="font-family:'Instrument Serif',serif; color:#FFB150;">Company.</span>
+                    <p class="font-sans text-sm md:text-base font-light leading-loose" style="color:rgba(37,34,94,0.8);">
+                        @php
+                            $studioBody = $settings['about_studio_body'] ?? 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.';
+                            $studioBodyEn = $settings['about_studio_body_en'] ?? 'Learn how Sinemaku operates. Explore our identity, our approach, and our role in nurturing young filmmakers for the Indonesian film ecosystem.';
+                        @endphp
+                        <span class="dynamic-i18n" data-lang-id="{{ $studioBody }}" data-lang-en="{{ $studioBodyEn }}">{{ $studioBody }}</span>
+                    </p>
+                </div>
+                <div class="flex-1 text-reveal">
+                    <span class="font-serif italic text-3xl mb-6 block" style="font-family:'Instrument Serif',serif; color:#FFB150;">Culture.</span>
+                    <p class="font-sans text-sm md:text-base font-light leading-loose" style="color:rgba(37,34,94,0.8);">
+                        @php
+                            $cultureBody = $settings['about_team_body'] ?? 'Kami percaya bahwa cerita terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar lebar.';
+                            $cultureBodyEn = $settings['about_team_body_en'] ?? 'We believe the best stories are born from the courage to explore crazy ideas and magically transform reality onto the big screen.';
+                        @endphp
+                        <span class="dynamic-i18n" data-lang-id="{{ $cultureBody }}" data-lang-en="{{ $cultureBodyEn }}">{{ $cultureBody }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+{{-- ══════════════════════════════════════════
+     3. THE CREW (02 — Kru)
+══════════════════════════════════════════ --}}
+<section id="about-team" class="py-32 px-8 md:px-16 z-10 relative bg-[#F1F1F1]">
+    <div class="border-t hairline pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24">
+        <div class="w-full md:w-1/12">
+            <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold block mb-4" style="color:#FFB150;">
+                02 — <span data-i18n="about_team_eyebrow">Kru</span>
+            </span>
+        </div>
+        <div class="w-full md:w-11/12">
+            <h2 class="font-serif text-5xl md:text-8xl leading-none tracking-tighter text-reveal"
+                style="font-family:'Instrument Serif',serif; color:#25225E;">
+                Orang-orang di<br>balik <span class="italic" style="color:#FFB150;">kamera.</span>
+            </h2>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-x-12 relative pb-20">
+        <div class="md:col-start-6 md:col-span-6 flex items-end gap-6 group reveal-image relative">
+            <div class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase pb-4" style="color:rgba(37,34,94,0.4);">Founder / Producer</div>
+            <div class="w-full editorial-img-wrap bg-[#CACAEF]/20" style="aspect-ratio:3/4;">
+                <img src="{{ isset($settings['about_team_image_1']) ? asset($settings['about_team_image_1']) : 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200&auto=format&fit=crop' }}"
+                    class="editorial-img para-img" alt="Team">
+            </div>
+        </div>
+        <div class="md:col-start-2 md:col-span-3 flex items-end gap-4 group md:-mt-32 reveal-image">
+            <div class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase pb-4" style="color:rgba(37,34,94,0.4);">Director</div>
+            <div class="w-full editorial-img-wrap bg-[#CACAEF]/20" style="aspect-ratio:4/5;">
+                <img src="{{ isset($settings['about_team_image_2']) ? asset($settings['about_team_image_2']) : 'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?q=80&w=800&auto=format&fit=crop' }}"
+                    class="editorial-img para-img" alt="Team">
+            </div>
+        </div>
+        <div class="md:col-start-4 md:col-span-5 flex items-start gap-4 group reveal-image">
+            <div class="w-full editorial-img-wrap bg-[#CACAEF]/20" style="aspect-ratio:1/1;">
+                <img src="{{ isset($settings['about_team_image_3']) ? asset($settings['about_team_image_3']) : 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000&auto=format&fit=crop' }}"
+                    class="editorial-img para-img" alt="Team">
+            </div>
+            <div class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase pt-4" style="color:rgba(37,34,94,0.4);">Cinematographer</div>
+        </div>
+        <div class="md:col-start-8 md:col-span-5 flex items-end gap-4 group md:-mt-40 reveal-image">
+            <div class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase pb-4" style="color:rgba(37,34,94,0.4);">Art Director</div>
+            <div class="w-full editorial-img-wrap bg-[#CACAEF]/20" style="aspect-ratio:16/9;">
+                <img src="{{ isset($settings['about_team_image_4']) ? asset($settings['about_team_image_4']) : 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop' }}"
+                    class="editorial-img para-img" alt="Team">
+            </div>
+        </div>
+    </div>
+</section>
 
-    {{-- ============================================================
-    STYLES & SCRIPTS
-    ============================================================ --}}
-    <style>
-        /* ── Scroll indicator ── */
-        @keyframes scrollDown {
-            0%   { top: -40%; }
-            100% { top: 140%; }
-        }
+{{-- ══════════════════════════════════════════
+     4. WHAT WE DO (03 — Fokus)
+══════════════════════════════════════════ --}}
+<section id="about-what-we-do" class="py-32 px-8 md:px-16 z-10 relative bg-[#F1F1F1]">
+    <div class="border-t hairline pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
+        <div class="w-full md:w-1/12">
+            <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold block mb-4" style="color:#FFB150;">03 — Fokus</span>
+        </div>
+        <div class="w-full md:w-11/12">
+            <div class="flex flex-col">
+                @php
+                    $wwdItems = [
+                        [
+                            'title'    => $settings['about_values_1_title'] ?? 'Film & Seri Web',
+                            'title_en' => $settings['about_values_1_title_en'] ?? 'Film & Web Series',
+                            'body'     => $settings['about_values_1_body'] ?? 'Estetika visual yang menantang batas-batas konvensional.',
+                            'body_en'  => $settings['about_values_1_body_en'] ?? 'Visual aesthetics that challenge conventional boundaries.',
+                        ],
+                        [
+                            'title'    => $settings['about_values_2_title'] ?? 'Tayangan Televisi',
+                            'title_en' => $settings['about_values_2_title_en'] ?? 'Television Shows',
+                            'body'     => $settings['about_values_2_body'] ?? 'Kisah hangat untuk ruang keluarga yang dekat dengan realitas.',
+                            'body_en'  => $settings['about_values_2_body_en'] ?? 'Warm stories for the family room, close to reality.',
+                        ],
+                        [
+                            'title'    => $settings['about_values_3_title'] ?? 'Komunitas & Event',
+                            'title_en' => $settings['about_values_3_title_en'] ?? 'Community & Events',
+                            'body'     => $settings['about_values_3_body'] ?? 'Rantai penghubung antarsineas lewat Sinemaku Day.',
+                            'body_en'  => $settings['about_values_3_body_en'] ?? 'Connecting filmmakers through Sinemaku Day.',
+                        ],
+                    ];
+                @endphp
+                @foreach($wwdItems as $item)
+                <div class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline list-row">
+                    <h3 class="font-serif text-5xl md:text-7xl transition-all duration-500"
+                        style="font-family:'Instrument Serif',serif; color:#25225E;"
+                        onmouseenter="this.style.fontStyle='italic'; this.style.color='#FFB150'"
+                        onmouseleave="this.style.fontStyle=''; this.style.color='#25225E'">
+                        <span class="dynamic-i18n" data-lang-id="{{ $item['title'] }}" data-lang-en="{{ $item['title_en'] }}">{{ $item['title'] }}</span>
+                    </h3>
+                    <p class="font-sans font-light text-sm md:w-1/3 mt-4 md:mt-0 leading-relaxed text-left md:text-right" style="color:rgba(37,34,94,0.5);">
+                        <span class="dynamic-i18n" data-lang-id="{{ $item['body'] }}" data-lang-en="{{ $item['body_en'] }}">{{ $item['body'] }}</span>
+                    </p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
 
-        /* ── feature-cta override for dark bg ── */
-        .feature-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 11px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            font-weight: 500;
-            border-bottom: 1px solid;
-            padding-bottom: 4px;
-            transition: all 400ms ease;
-            text-decoration: none;
-        }
-        .feature-cta:hover { gap: 16px; }
+{{-- ══════════════════════════════════════════
+     5. FOOTER COLOPHON
+══════════════════════════════════════════ --}}
+<footer id="get-in-touch" class="bg-[#F1F1F1] pt-32 pb-12 px-8 md:px-16 z-20 relative">
+    <div class="border-t hairline pt-16 flex flex-col items-center text-center mb-32">
+        @php
+            $collabEyebrow   = $settings['about_collab_eyebrow'] ?? 'Kolaborasi';
+            $collabEyebrowEn = $settings['about_collab_eyebrow_en'] ?? 'Collaboration';
+        @endphp
+        <span class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold mb-8 block" style="color:rgba(37,34,94,0.4);">
+            <span class="dynamic-i18n" data-lang-id="{{ $collabEyebrow }}" data-lang-en="{{ $collabEyebrowEn }}">{{ $collabEyebrow }}</span>
+        </span>
+        <a href="mailto:hello@sinemakupictures.com"
+            class="font-serif text-5xl md:text-8xl transition-all duration-500"
+            style="font-family:'Instrument Serif',serif; color:#25225E; text-decoration:none;"
+            onmouseenter="this.style.fontStyle='italic'; this.style.color='#FFB150'"
+            onmouseleave="this.style.fontStyle=''; this.style.color='#25225E'">
+            hello@sinemakupictures.com
+        </a>
+    </div>
+    <div class="w-full flex flex-col md:flex-row justify-between items-end gap-12 border-t hairline pt-8">
+        <div class="flex gap-8 md:gap-16 font-sans text-[9px] font-bold uppercase tracking-[0.2em]" style="color:rgba(37,34,94,0.6);">
+            <a href="#" style="color:rgba(37,34,94,0.6); text-decoration:none;" onmouseenter="this.style.color='#FFB150'" onmouseleave="this.style.color='rgba(37,34,94,0.6)'">Instagram</a>
+            <a href="#" style="color:rgba(37,34,94,0.6); text-decoration:none;" onmouseenter="this.style.color='#FFB150'" onmouseleave="this.style.color='rgba(37,34,94,0.6)'">YouTube</a>
+            <a href="#" style="color:rgba(37,34,94,0.6); text-decoration:none;" onmouseenter="this.style.color='#FFB150'" onmouseleave="this.style.color='rgba(37,34,94,0.6)'">Twitter</a>
+        </div>
+        <div class="flex flex-col items-end gap-2 text-right">
+            <h2 class="font-serif text-2xl m-0" style="font-family:'Instrument Serif',serif; color:#25225E;">Sinemaku Pictures</h2>
+            <span class="font-sans text-[9px] tracking-[0.2em] uppercase" style="color:rgba(37,34,94,0.4);">© 2026 Hak Cipta Dilindungi</span>
+        </div>
+    </div>
+</footer>
 
-        /* Mobile: skip the overlay entirely */
-        @media (max-width: 768px) {
-            #intro-overlay { display: none !important; }
-        }
-    </style>
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
 
-    @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-        <script>
-        document.addEventListener('DOMContentLoaded', () => {
+// 1. Custom Cursor
+const cursorRing = document.getElementById('cursor-ring');
+const cursorDot  = document.getElementById('cursor-dot');
+let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+let ringX = mouseX, ringY = mouseY;
 
-            gsap.registerPlugin(ScrollTrigger);
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1, ease: 'none' });
+});
+gsap.ticker.add(() => {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    gsap.set(cursorRing, { x: ringX, y: ringY });
+});
+document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        gsap.to(cursorRing, { scale: 1.8, backgroundColor: 'rgba(255,177,80,0.2)', duration: 0.3 });
+        gsap.to(cursorDot,  { scale: 0, duration: 0.2 });
+    });
+    el.addEventListener('mouseleave', () => {
+        gsap.to(cursorRing, { scale: 1, backgroundColor: 'transparent', duration: 0.3 });
+        gsap.to(cursorDot,  { scale: 1, duration: 0.2 });
+    });
+});
 
-            // Injected from PHP — change $introEnabled in blade to toggle the animation
-            const INTRO_ENABLED = {{ $introEnabled ? 'true' : 'false' }};
+// 2. Light Leak Parallax
+document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 100;
+    const y = (e.clientY / window.innerHeight - 0.5) * 100;
+    gsap.to('#leak-1', { x: x * 1.5, y: y * 1.5, duration: 3, ease: 'power1.out' });
+    gsap.to('#leak-2', { x: -x * 2,  y: -y * 2,  duration: 4, ease: 'power1.out' });
+});
 
-            /* ================================================================
-               DESKTOP CINEMATIC INTRO  (viewport > 768 px)
+// 3. Editorial Image Parallax
+gsap.utils.toArray('.editorial-img-wrap').forEach(container => {
+    const img = container.querySelector('.para-img');
+    if (!img) return;
+    gsap.to(img, {
+        yPercent: 15, ease: 'none',
+        scrollTrigger: { trigger: container, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+});
 
-               Timeline:
-               0.00s  – Words fly in from opposite sides (different easing per word)
-               ~1.1s  – All words settled  →  hold ~1 second
-               2.10s  – #intro-bg slides DOWN alone (the text chars stay put)
-               2.15s  – Each intro char (ichar) performs a FLIP:
-                          • Moves from its current viewport position to the
-                            matching hero char's (hchar) viewport position
-                          • Scales to match hero char size
-                          • Color transitions orange → white
-               2.75s  – Hero chars (.hchar) crossfade IN while intro chars fade OUT
-               3.10s  – Intro overlay hidden; hero sub-heading + CTA fade in
-            ================================================================ */
-            if (INTRO_ENABLED && window.innerWidth > 768) {
+// 4. Hero Reveal
+gsap.from('.hero-reveal', { y: 40, opacity: 0, stagger: 0.2, duration: 1.5, ease: 'expo.out', delay: 0.2 });
 
-                const wHere    = document.getElementById('w-here');
-                const wComes   = document.getElementById('w-comes');
-                const wThe     = document.getElementById('w-the');
-                const wFun     = document.getElementById('w-fun');
-                const introBg  = document.getElementById('intro-bg');
-                const overlay  = document.getElementById('intro-overlay');
-                const heroTag  = document.getElementById('hero-tagline');
-                const heroSub  = document.getElementById('hero-sub');
-                const heroAct  = document.getElementById('hero-actions');
+// 5. Text Reveals
+gsap.utils.toArray('.text-reveal').forEach(el => {
+    gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        y: 30, opacity: 0, duration: 1.5, ease: 'power3.out'
+    });
+});
 
-                // Set starting positions via GSAP (overrides any inline CSS transforms)
-                gsap.set(wHere,  { x: '115vw' });
-                gsap.set(wComes, { x: '125vw' });   // slightly more offset → stagger feel
-                gsap.set(wThe,   { x: '-115vw' });
-                gsap.set(wFun,   { x: '-125vw' });
+// 6. Image Grid Reveals
+gsap.utils.toArray('.reveal-image').forEach(el => {
+    gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        y: 50, opacity: 0, duration: 1.5, ease: 'power2.out'
+    });
+});
 
-                const tl = gsap.timeline({ defaults: { overwrite: 'auto' } });
-
-                // ── PHASE 1: Fly in — different easing per word ──────────────────
-                tl.to(wHere,  { x: 0, duration: 0.9,  ease: 'expo.out'   }, 0);
-                tl.to(wComes, { x: 0, duration: 1.1,  ease: 'power4.out' }, 0.08);
-                tl.to(wThe,   { x: 0, duration: 1.0,  ease: 'expo.out'   }, 0.05);
-                tl.to(wFun,   { x: 0, duration: 1.15, ease: 'circ.out'   }, 0.14);
-
-                // ── PHASE 2: Hold (gap in timeline ~1 second) ──────────────────
-                // Last word settles ≈ t=1.15+0.14=1.29s → next action at t=2.1s
-
-                // ── PHASE 3a: Background slides DOWN alone ────────────────────
-                tl.to(introBg, {
-                    yPercent: 100,
-                    duration: 0.9,
-                    ease: 'expo.inOut'
-                }, 2.1);
-
-                // ── PHASE 3b: FLIP — intro chars move to hero char positions ──
-                //   Fired as a callback so we can measure live rects
-                tl.set(heroTag, { opacity: 1 }, 2.1);  // h1 visible (chars still opacity:0)
-
-                tl.call(() => {
-                    const ichars = document.querySelectorAll('.ichar');
-
-                    ichars.forEach((ic) => {
-                        const ci = parseInt(ic.dataset.ci, 10);
-                        // Only target the visible tagline container
-                        const hc = heroTag.querySelector('.tagline-container:not([style*="display: none"]) .hchar[data-ci="' + ci + '"]');
-                        if (!hc) return;
-
-                        const ir = ic.getBoundingClientRect();
-                        const hr = hc.getBoundingClientRect();
-                        if (!ir.width || !hr.width) return;
-
-                        // Center-to-center delta (works correctly with scale)
-                        const dx = (hr.left + hr.width  / 2) - (ir.left + ir.width  / 2);
-                        const dy = (hr.top  + hr.height / 2) - (ir.top  + ir.height / 2);
-                        const sx = hr.width  / ir.width;
-                        const sy = hr.height / ir.height;
-
-                        // Stagger outward from char index
-                        const delay = ci * 0.018;
-
-                        gsap.to(ic, {
-                            x: dx, y: dy,
-                            scaleX: sx, scaleY: sy,
-                            color: '#ffffff',
-                            duration: 0.75,
-                            ease: 'expo.inOut',
-                            delay: delay
-                        });
-                    });
-
-                    // Cross-fade: hero chars fade IN, intro chars fade OUT
-                    const crossAt = 0.55;   // seconds after callback fires
-                    // Only animate visible characters
-                    gsap.to('.tagline-container:not([style*="display: none"]) .hchar', {
-                        opacity: 1,
-                        duration: 0.3,
-                        stagger: { each: 0.018, from: 'start' },
-                        delay: crossAt
-                    });
-                    gsap.to('.ichar', {
-                        opacity: 0,
-                        duration: 0.25,
-                        delay: crossAt + 0.05
-                    });
-
-                    // Remove overlay after everything settles
-                    gsap.delayedCall(crossAt + 0.6, () => {
-                        overlay.style.display = 'none';
-                    });
-
-                }, [], 2.15);
-
-                // ── PHASE 4: Supporting hero elements ────────────────────────
-                tl.to(heroSub, {
-                    y: 0, opacity: 1,
-                    duration: 0.7, ease: 'power3.out'
-                }, 3.15);
-                tl.to(heroAct, {
-                    y: 0, opacity: 1,
-                    duration: 0.7, ease: 'power3.out'
-                }, 3.35);
-
-            } else {
-                /* ============================================================
-                   INTRO DISABLED or MOBILE: no overlay, just reveal hero cleanly
-                ============================================================ */
-                const heroTag = document.getElementById('hero-tagline');
-                const heroSub = document.getElementById('hero-sub');
-                const heroAct = document.getElementById('hero-actions');
-
-                gsap.set(heroTag, { opacity: 1 });
-                gsap.to('.tagline-container:not([style*="display: none"]) .hchar', {
-                    opacity: 1,
-                    duration: 0.7, stagger: 0.018,
-                    ease: 'power3.out', delay: 0.4
-                });
-                gsap.to(heroSub, {
-                    y: 0, opacity: 1,
-                    duration: 0.6, ease: 'power3.out', delay: 0.9
-                });
-                gsap.to(heroAct, {
-                    y: 0, opacity: 1,
-                    duration: 0.6, ease: 'power3.out', delay: 1.1
-                });
-            }
-
-            /* ================================================================
-               SCROLL ANIMATIONS
-            ================================================================ */
-            gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-                document.querySelectorAll('[data-gsap="fade-up"]').forEach(el => {
-                    gsap.fromTo(el,
-                        { y: 40, opacity: 0 },
-                        {
-                            y: 0, opacity: 1,
-                            duration: 0.8, ease: 'power3.out',
-                            scrollTrigger: {
-                                trigger: el, start: 'top 85%',
-                                toggleActions: 'play none none none'
-                            }
-                        }
-                    );
-                });
-                gsap.fromTo('.gallery-item',
-                    { y: 30, opacity: 0 },
-                    {
-                        y: 0, opacity: 1,
-                        duration: 0.8, stagger: 0.1, ease: 'power3.out',
-                        scrollTrigger: { trigger: '#about-team', start: 'top 75%' }
-                    }
-                );
-            });
-        });
-
-        // ─── LANGUAGE SYNC FOR HERO TAGLINE ───────────────────────────
-        function syncTaglineWithLang() {
-            const currentLang = (window.__i18n && window.__i18n.getCurrent) 
-                ? window.__i18n.getCurrent() 
-                : (localStorage.getItem('SINEMAKU_LANG') || 'id');
-            
-            document.querySelectorAll('.tagline-container').forEach(el => {
-                // Use block or inline-block for spans to maintain layout
-                el.style.display = (el.dataset.taglineLang === currentLang) ? 'block' : 'none';
-            });
-        }
-
-        // Hook into the global language toggle if it exists
-        if (window.__langToggle) {
-            const oldToggle = window.__langToggle;
-            window.__langToggle = function() {
-                oldToggle();
-                syncTaglineWithLang();
-            };
-        }
-
-        // Initial sync
-        syncTaglineWithLang();
-        </script>
-    @endpush
+// 7. List Row Reveals
+gsap.utils.toArray('.list-row').forEach((row, i) => {
+    gsap.from(row, {
+        scrollTrigger: { trigger: row, start: 'top 90%' },
+        opacity: 0, y: 20, duration: 1, delay: i * 0.1, ease: 'power2.out'
+    });
+});
+</script>
+@endpush
 @endsection

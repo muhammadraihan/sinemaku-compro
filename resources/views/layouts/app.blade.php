@@ -84,7 +84,7 @@
 
 </head>
 
-<body class="text-white antialiased" style="background: #0b0a1a;">
+<body class="antialiased">
   <!-- SVG Filter for Cinematic Grain -->
   <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" xmlns="http://www.w3.org/2000/svg">
     <filter id="cinematic-grain">
