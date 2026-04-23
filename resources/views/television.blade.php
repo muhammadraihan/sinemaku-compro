@@ -438,7 +438,7 @@
 
 <section class="allfilms reveal">
   <div class="allfilms-head">
-    <h2 class="allfilms-title">OUR TV SHOWS</h2>
+    <h2 class="allfilms-title"><span data-i18n="page_our_tv">OUR TV SHOWS</span></h2>
 
     <div class="allfilms-filters" role="tablist" aria-label="Filter television by genre">
       <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>

@@ -1,4 +1,4 @@
-{{-- resources/views/partials/navbar.blade.php --}}
+﻿{{-- resources/views/partials/navbar.blade.php --}}
 
 {{-- ============================================================
     SIDEBAR MENU (slides in from left)
@@ -429,6 +429,12 @@
         label_minutes:       { en: 'minutes',        id: 'menit' },
         label_episode:       { en: 'Episode',        id: 'Episode' },
         label_season:        { en: 'Season',         id: 'Musim' },
+
+        // -- Page section headings ------------------------------------------
+        page_our_films:      { en: 'OUR FILMS',         id: 'FILM KAMI' },
+        page_our_series:     { en: 'OUR SERIES',        id: 'SERIAL KAMI' },
+        page_our_tv:         { en: 'OUR TV SHOWS',      id: 'TAYANGAN TV KAMI' },
+        page_our_docs:       { en: 'OUR DOCUMENTARIES', id: 'DOKUMENTER KAMI' },
     };
 
     // ─── STATE ──────────────────────────────────────────────────────
@@ -502,6 +508,7 @@
             // ── Detail Film/Series/TV/Documentary ─────────────────────
             'DIRECTED BY': 'SUTRADARA',
             'STARRING': 'PEMERAN',
+            'YEAR': 'TAHUN',
             'SEASON': 'MUSIM',
             'Director': 'Sutradara',
             'Duration': 'Durasi',

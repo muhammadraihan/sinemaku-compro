@@ -439,7 +439,7 @@
 {{-- ================== SECTION OUR SERIES ================== --}}
 <section class="allfilms reveal">
   <div class="allfilms-head">
-    <h2 class="allfilms-title">OUR SERIES</h2>
+    <h2 class="allfilms-title"><span data-i18n="page_our_series">OUR SERIES</span></h2>
 
     <div class="allfilms-filters" role="tablist" aria-label="Filter series by genre">
       <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>

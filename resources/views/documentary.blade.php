@@ -439,7 +439,7 @@
 {{-- ================== SECTION OUR DOCUMENTARIES ================== --}}
 <section class="allfilms reveal">
   <div class="allfilms-head">
-    <h2 class="allfilms-title">OUR DOCUMENTARIES</h2>
+    <h2 class="allfilms-title"><span data-i18n="page_our_docs">OUR DOCUMENTARIES</span></h2>
 
     <div class="allfilms-filters" role="tablist" aria-label="Filter documentary by genre">
       <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
