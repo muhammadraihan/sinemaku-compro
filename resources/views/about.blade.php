@@ -254,7 +254,7 @@
     <!-- 3. THE CREW (ASYMMETRICAL PRINT GRID) -->
     <section id="crew" class="py-32 px-8 md:px-16 z-10 relative bg-tint-3">
         <div class="w-full">
-        <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24">
+            <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24">
                 <div class="w-full md:w-1/12">
                     <span
                         class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
@@ -280,7 +280,7 @@
                     // Truly dynamic detection from CMS settings
                     $crewMembers = collect($settings)
                         ->filter(fn($v, $k) => str_starts_with($k, 'about_team_image_') && !empty($v))
-                        ->map(function($v, $k) use ($settings) {
+                        ->map(function ($v, $k) use ($settings) {
                             $id = str_replace('about_team_image_', '', $k);
                             return [
                                 'img' => $v,
@@ -298,12 +298,12 @@
                         $defaultNames = ['Prilly Latuconsina', 'Umar Shahab', 'Monty Tiwa', 'Yahni Damayanti', 'Sinemaku Crew'];
                         $defaultRoles = ['Founder / Producer', 'Founder / Director', 'Creative Director', 'Producer', 'Team Member'];
                         for ($i = 1; $i <= 5; $i++) {
-                             $crewMembers[] = [
+                            $crewMembers[] = [
                                 'img' => "photo/about_crew_$i.png",
-                                'name' => $defaultNames[$i-1] ?? 'Sinemaku Crew',
-                                'role' => $defaultRoles[$i-1] ?? 'Team Member',
+                                'name' => $defaultNames[$i - 1] ?? 'Sinemaku Crew',
+                                'role' => $defaultRoles[$i - 1] ?? 'Team Member',
                                 'index' => $i
-                             ];
+                            ];
                         }
                     }
                 @endphp
@@ -347,20 +347,22 @@
                     <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group">
                         <div class="flex items-end">
                             @if(!empty($member['name']))
-                                <div class="vertical-text font-serif text-3xl md:text-5xl text-brand-deepbreath pb-4 mr-3 whitespace-nowrap">
+                                <div
+                                    class="vertical-text font-serif text-3xl md:text-5xl text-brand-deepbreath pb-4 mr-3 whitespace-nowrap">
                                     {{ $member['name'] }}
                                 </div>
                             @endif
                             @if(!empty($member['role']))
-                                <div class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
+                                <div
+                                    class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
                                     {{ $member['role'] }}
                                 </div>
                             @endif
                         </div>
 
                         <div class="w-full editorial-image-container {{ $aspect }} bg-tint-2/20">
-                            <img src="{{ asset($member['img']) }}"
-                                class="editorial-image para-img" alt="{{ $member['name'] }}">
+                            <img src="{{ asset($member['img']) }}" class="editorial-image para-img"
+                                alt="{{ $member['name'] }}">
                         </div>
                     </div>
                 @endforeach
@@ -450,39 +452,7 @@
         </div>
     </section>
 
-    <!-- FOOTER (COLOPHON STYLE) -->
-    <footer id="contact" class="bg-tint-3 pt-32 pb-12 px-8 md:px-16 z-20 relative">
-        <div class="border-t hairline-border pt-16 flex flex-col items-center text-center mb-32">
-            <span
-                class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath/40 mb-8 block">
-                @php
-                    $collabEyebrow = $settings['about_collab_eyebrow'] ?? 'Kolaborasi';
-                    $collabEyebrowEn = $settings['about_collab_eyebrow_en'] ?? 'Collaboration';
-                @endphp
-                <span class="dynamic-i18n" data-lang-id="{{ $collabEyebrow }}"
-                    data-lang-en="{{ $collabEyebrowEn }}">{{ $collabEyebrow }}</span>
-            </span>
-            <a href="mailto:hello@sinemakupictures.com"
-                class="font-serif text-5xl md:text-8xl text-brand-deepbreath hover:text-brand-orange transition-all duration-500">
-                hello@sinemakupictures.com
-            </a>
-        </div>
-
-        <div class="w-full flex flex-col md:flex-row justify-between items-end gap-12 border-t hairline-border pt-8">
-            <div
-                class="flex gap-8 md:gap-16 font-sans text-[9px] font-bold uppercase tracking-[0.2em] text-brand-deepbreath/60">
-                <a href="#" class="hover:text-brand-orange transition-colors hover-target">Instagram</a>
-                <a href="#" class="hover:text-brand-orange transition-colors hover-target">YouTube</a>
-                <a href="#" class="hover:text-brand-orange transition-colors relative z-10">Twitter</a>
-            </div>
-
-            <div class="flex flex-col items-end gap-2 text-right">
-                <h1 class="font-serif text-2xl text-brand-deepbreath m-0">Sinemaku Pictures</h1>
-                <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-brand-deepbreath/40">© 2026 Hak Cipta
-                    Dilindungi</span>
-            </div>
-        </div>
-    </footer>
+    @include('components.footer')
 
     <!-- GSAP Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
