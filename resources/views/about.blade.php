@@ -54,7 +54,6 @@
             margin: 0;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            cursor: none;
         }
 
         /* ── EFEK LIGHT LEAK & GRAIN ── */
@@ -74,40 +73,17 @@
         .light-leak {
             position: fixed;
             border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.15;
             pointer-events: none;
             z-index: 0;
-            transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0.15;
         }
 
-        /* ── CUSTOM CURSOR (EDITORIAL RING) ── */
-        #cursor-ring {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 30px;
-            height: 30px;
-            border: 1px solid #FFB150;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s;
-            mix-blend-mode: multiply;
+        #leak-1 {
+            background: radial-gradient(circle, #FFB150 0%, transparent 70%);
         }
 
-        #cursor-dot {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 4px;
-            background-color: #25225E;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
+        #leak-2 {
+            background: radial-gradient(circle, #DB5F10 0%, transparent 70%);
         }
 
         /* ── TYPOGRAPHY & LAYOUT ── */
@@ -138,11 +114,6 @@
             filter: grayscale(0%) contrast(1.05);
         }
 
-        ::selection {
-            background-color: #25225E;
-            color: #F1F1F1;
-        }
-
         /* Sembunyikan scrollbar native untuk kesan bersih */
         ::-webkit-scrollbar {
             width: 6px;
@@ -166,48 +137,27 @@
 
     <!-- Efek Grain & Light Leak Global -->
     <div class="cinematic-grain"></div>
-    <div id="leak-1" class="light-leak w-[50vw] h-[50vw] bg-brand-orange top-[-10vw] left-[-10vw]"></div>
-    <div id="leak-2" class="light-leak w-[40vw] h-[40vw] bg-shade-1 bottom-10 right-[-10vw]"></div>
+    <div id="leak-1" class="light-leak w-[50vw] h-[50vw] top-[-10vw] left-[-10vw]"></div>
+    <div id="leak-2" class="light-leak w-[40vw] h-[40vw] bottom-10 right-[-10vw]"></div>
 
-    <!-- Custom Cursor -->
-    <div id="cursor-ring"></div>
-    <div id="cursor-dot"></div>
+
 
     <!-- ── MINIMALIST HEADER ── -->
     @include('partials.navbar')
 
     <!-- 1. EDITORIAL HERO SECTION -->
     <section class="relative w-full min-h-[100svh] flex flex-col justify-center px-8 md:px-16 pt-32 pb-16 z-10">
-        <div class="flex flex-col md:flex-row justify-between items-end gap-12 w-full max-w-[1600px] mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end gap-12 w-full">
 
             <!-- Huge Typography -->
             <div class="w-full md:w-3/4">
-                @php
-                    $titleId = $settings['about_hero_title'] ?? "Here Comes\nThe Fun.";
-                    $titleEn = $settings['about_hero_title_en'] ?? "Here Comes\nThe Fun.";
-
-                    if (!function_exists('renderEditorialTagline')) {
-                        function renderEditorialTagline($title)
-                        {
-                            $lines = explode("\n", str_replace(["<br />", "<br>"], "\n", $title));
-                            $html = '';
-                            if (count($lines) > 0) {
-                                $html .= trim($lines[0]) . "<br>";
-                            }
-                            if (count($lines) > 1) {
-                                $html .= '<span class="italic text-brand-orange pl-[5vw]">' . trim($lines[1]) . '</span>';
-                            }
-                            return $html;
-                        }
-                    }
-                @endphp
                 <h1
                     class="font-serif text-[15vw] md:text-[12vw] leading-[0.8] text-brand-deepbreath tracking-tighter m-0 hero-reveal">
                     <span class="tagline-container tagline-id" data-tagline-lang="id">
-                        {!! renderEditorialTagline($titleId) !!}
+                        Here Comes<br><span class="italic text-brand-orange pl-[5vw]">The Fun.</span>
                     </span>
                     <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
-                        {!! renderEditorialTagline($titleEn) !!}
+                        Here Comes<br><span class="italic text-brand-orange pl-[5vw]">The Fun.</span>
                     </span>
                 </h1>
             </div>
@@ -219,8 +169,12 @@
                     $subEn = $settings['about_hero_subtitle_en'] ?? 'A playground for a new generation of storytellers who dare to break rigid traditions to change the landscape of Indonesian cinema.';
                 @endphp
                 <p class="font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/70">
-                    <span class="dynamic-i18n" data-lang-id="{{ $subId }}"
-                        data-lang-en="{{ $subEn }}">{{ $subId }}</span>
+                    <span class="tagline-container tagline-id" data-tagline-lang="id">
+                        {{ $subId }}
+                    </span>
+                    <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
+                        {{ $subEn }}
+                    </span>
                 </p>
                 <div
                     class="mt-8 pt-4 border-t hairline-border flex justify-between font-sans text-[9px] tracking-widest uppercase text-brand-deepbreath/50">
@@ -231,7 +185,7 @@
         </div>
 
         <!-- Hero Cinematic Image -->
-        <div class="mt-16 w-full flex justify-center hero-reveal max-w-[1600px] mx-auto">
+        <div class="mt-16 w-full flex justify-center hero-reveal">
             <div class="editorial-image-container w-full md:w-[60%] aspect-[21/9] bg-tint-2/30">
                 <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
                     alt="Cinematic Setup" class="editorial-image para-img">
@@ -241,7 +195,7 @@
 
     <!-- 2. MANIFESTO (MUSEUM LAYOUT) -->
     <section id="manifesto" class="py-32 px-8 md:px-16 z-10 relative bg-tint-3">
-        <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 max-w-[1600px] mx-auto">
+        <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
 
             <!-- Section Marker -->
             <div class="w-full md:w-1/12">
@@ -299,8 +253,8 @@
 
     <!-- 3. THE CREW (ASYMMETRICAL PRINT GRID) -->
     <section id="crew" class="py-32 px-8 md:px-16 z-10 relative bg-tint-3">
-        <div class="max-w-[1600px] mx-auto">
-            <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24">
+        <div class="w-full">
+        <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24">
                 <div class="w-full md:w-1/12">
                     <span
                         class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
@@ -310,12 +264,12 @@
                 <div class="w-full md:w-11/12">
                     <h2
                         class="font-serif text-5xl md:text-8xl leading-none text-brand-deepbreath tracking-tighter text-reveal">
-                        @php
-                            $settings['about_team_heading'] = isset($settings['about_team_heading']) ? $settings['about_team_heading'] : 'Orang-orang di<br>balik <span class="italic text-brand-orange">kamera.</span>';
-                            $settings['about_team_heading_en'] = isset($settings['about_team_heading_en']) ? $settings['about_team_heading_en'] : 'The people<br>behind the <span class="italic text-brand-orange">camera.</span>';
-                        @endphp
-                        <span class="dynamic-i18n" data-lang-id="{!! $settings['about_team_heading'] !!}"
-                            data-lang-en="{!! $settings['about_team_heading_en'] !!}">{!! $settings['about_team_heading'] !!}</span>
+                        <span class="tagline-container tagline-id" data-tagline-lang="id">
+                            Orang-orang di<br>balik <span class="italic text-brand-orange">kamera.</span>
+                        </span>
+                        <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
+                            The people<br>behind the <span class="italic text-brand-orange">camera.</span>
+                        </span>
                     </h2>
                 </div>
             </div>
@@ -325,7 +279,7 @@
 
                 <!-- Prilly L. -->
                 <div
-                    class="md:col-start-6 md:col-span-6 flex items-end gap-6 group hover-target cursor-none reveal-image">
+                    class="md:col-start-6 md:col-span-6 flex items-end gap-6 group reveal-image">
                     <div
                         class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
                         Founder / Producer</div>
@@ -340,7 +294,7 @@
 
                 <!-- Crew 2 -->
                 <div
-                    class="md:col-start-2 md:col-span-3 flex items-end gap-4 group hover-target cursor-none mt-0 md:-mt-32 reveal-image">
+                    class="md:col-start-2 md:col-span-3 flex items-end gap-4 group mt-0 md:-mt-32 reveal-image">
                     <div
                         class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
                         Director</div>
@@ -352,7 +306,7 @@
 
                 <!-- Crew 3 -->
                 <div
-                    class="md:col-start-4 md:col-span-5 flex items-start gap-4 group hover-target cursor-none mt-12 md:mt-0 reveal-image">
+                    class="md:col-start-4 md:col-span-5 flex items-start gap-4 group mt-12 md:mt-0 reveal-image">
                     <div class="w-full editorial-image-container aspect-square bg-tint-2/20">
                         <img src="{{ isset($settings['about_team_image_3']) ? asset($settings['about_team_image_3']) : 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000&auto=format&fit=crop' }}"
                             class="editorial-image para-img" alt="Crew">
@@ -364,7 +318,7 @@
 
                 <!-- Crew 4 -->
                 <div
-                    class="md:col-start-8 md:col-span-5 flex items-end gap-4 group hover-target cursor-none mt-12 md:-mt-40 reveal-image">
+                    class="md:col-start-8 md:col-span-5 flex items-end gap-4 group mt-12 md:-mt-40 reveal-image">
                     <div
                         class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
                         Art Director</div>
@@ -380,7 +334,7 @@
 
     <!-- 4. WHAT WE DO (MINIMAL TABLE) -->
     <section class="py-32 px-8 md:px-16 z-10 relative bg-tint-3">
-        <div class="max-w-[1600px] mx-auto border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
+        <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
             <div class="w-full md:w-1/12">
                 <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
                     @php
@@ -395,7 +349,7 @@
                 <div class="flex flex-col">
 
                     <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border cursor-none hover-target list-row">
+                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
                         <h3
                             class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:italic group-hover:text-brand-orange transition-all duration-500">
                             @php
@@ -415,7 +369,7 @@
                     </a>
 
                     <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border cursor-none hover-target list-row">
+                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
                         <h3
                             class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:italic group-hover:text-brand-orange transition-all duration-500">
                             @php
@@ -435,7 +389,7 @@
                     </a>
 
                     <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border cursor-none hover-target list-row">
+                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
                         <h3
                             class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:italic group-hover:text-brand-orange transition-all duration-500">
                             @php
@@ -461,7 +415,7 @@
 
     <!-- FOOTER (COLOPHON STYLE) -->
     <footer id="contact" class="bg-tint-3 pt-32 pb-12 px-8 md:px-16 z-20 relative">
-        <div class="max-w-[1600px] mx-auto border-t hairline-border pt-16 flex flex-col items-center text-center mb-32">
+        <div class="border-t hairline-border pt-16 flex flex-col items-center text-center mb-32">
             <span
                 class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath/40 mb-8 block">
                 @php
@@ -472,18 +426,17 @@
                     data-lang-en="{{ $collabEyebrowEn }}">{{ $collabEyebrow }}</span>
             </span>
             <a href="mailto:hello@sinemakupictures.com"
-                class="font-serif text-5xl md:text-8xl text-brand-deepbreath hover:italic hover:text-brand-orange transition-all duration-500 cursor-none hover-target">
+                class="font-serif text-5xl md:text-8xl text-brand-deepbreath hover:italic hover:text-brand-orange transition-all duration-500">
                 hello@sinemakupictures.com
             </a>
         </div>
 
-        <div
-            class="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row justify-between items-end gap-12 border-t hairline-border pt-8">
+        <div class="w-full flex flex-col md:flex-row justify-between items-end gap-12 border-t hairline-border pt-8">
             <div
                 class="flex gap-8 md:gap-16 font-sans text-[9px] font-bold uppercase tracking-[0.2em] text-brand-deepbreath/60">
-                <a href="#" class="hover:text-brand-orange transition-colors cursor-none hover-target">Instagram</a>
-                <a href="#" class="hover:text-brand-orange transition-colors cursor-none hover-target">YouTube</a>
-                <a href="#" class="hover:text-brand-orange transition-colors cursor-none hover-target">Twitter</a>
+                <a href="#" class="hover:text-brand-orange transition-colors hover-target">Instagram</a>
+                <a href="#" class="hover:text-brand-orange transition-colors hover-target">YouTube</a>
+                <a href="#" class="hover:text-brand-orange transition-colors relative z-10">Twitter</a>
             </div>
 
             <div class="flex flex-col items-end gap-2 text-right">
@@ -501,56 +454,13 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // 1. Editorial Custom Cursor (Ring & Dot)
-        const cursorRing = document.getElementById('cursor-ring');
-        const cursorDot = document.getElementById('cursor-dot');
 
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let ringX = mouseX;
-        let ringY = mouseY;
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            gsap.to(cursorDot, {
-                x: mouseX,
-                y: mouseY,
-                duration: 0.1,
-                ease: "none"
-            });
-        });
-
-        gsap.ticker.add(() => {
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
-            gsap.set(cursorRing, { x: ringX, y: ringY });
-        });
-
-        const hoverTargets = document.querySelectorAll('.hover-target, a, button');
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
-                gsap.to(cursorRing, { scale: 1.8, backgroundColor: 'rgba(255, 177, 80, 0.2)', duration: 0.3 });
-                gsap.to(cursorDot, { scale: 0, duration: 0.2 });
-            });
-            target.addEventListener('mouseleave', () => {
-                gsap.to(cursorRing, { scale: 1, backgroundColor: 'transparent', duration: 0.3 });
-                gsap.to(cursorDot, { scale: 1, duration: 0.2 });
-            });
-        });
-
-        // 2. Subtle Light Leak Parallax
+        // 2. Subtle Light Leak Parallax (Simplified for Performance)
         const leak1 = document.getElementById('leak-1');
         const leak2 = document.getElementById('leak-2');
 
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 100;
-            const y = (e.clientY / window.innerHeight - 0.5) * 100;
-
-            gsap.to(leak1, { x: x * 1.5, y: y * 1.5, duration: 3, ease: "power1.out" });
-            gsap.to(leak2, { x: -x * 2, y: -y * 2, duration: 4, ease: "power1.out" });
-        });
+        // Mouse move logic removed to prevent lag caused by filter:blur animations
 
         // 3. Image Parallax
         gsap.utils.toArray('.editorial-image-container').forEach(container => {

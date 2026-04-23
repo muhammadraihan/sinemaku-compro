@@ -9,14 +9,14 @@ FULLSCREEN MENU OVERLAY
 
     <!-- Tombol Close -->
     <button id="close-menu-btn"
-        class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target">
+        class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange transition-colors">
         [ Close ]
     </button>
 
     {{-- Language Switcher inside menu --}}
     <div class="absolute top-10 left-8 md:left-16 flex items-center gap-4">
         <button id="lang-switcher" aria-label="Switch language"
-            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath/50 hover:text-brand-deepbreath/90 transition-colors cursor-none hover-target"
+            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath/50 hover:text-brand-deepbreath/90 transition-colors"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
@@ -52,14 +52,14 @@ FULLSCREEN MENU OVERLAY
             @if(isset($item['isDropdown']))
                 <div class="relative w-max flex flex-col">
                     <button type="button" onclick="toggleDropdown('dropdown-{{ $index }}')"
-                        class="menu-link flex items-center gap-4 transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange hover:italic leading-[1.05] cursor-none hover-target text-left">
+                        class="menu-link flex items-center gap-4 transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange hover:italic leading-[1.05] text-left">
                         <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                         <span id="icon-dropdown-{{ $index }}" class="font-sans text-xl md:text-3xl font-light transform transition-transform duration-300">+</span>
                     </button>
                     <div id="dropdown-{{ $index }}" class="hidden flex-col pl-8 md:pl-16 space-y-1 md:space-y-2 mt-2 mb-4 overflow-hidden">
                         @foreach($item['children'] as $child)
                             <a href="{{ $child['url'] }}"
-                                class="inline-block w-max transition-all duration-300 text-[clamp(1.5rem,4vw,3.5rem)] text-brand-deepbreath/70 hover:text-brand-orange hover:italic leading-[1.1] cursor-none hover-target">
+                                class="inline-block w-max transition-all duration-300 text-[clamp(1.5rem,4vw,3.5rem)] text-brand-deepbreath/70 hover:text-brand-orange hover:italic leading-[1.1]">
                                 <span data-i18n="{{ $child['i18n'] }}">{{ $child['title'] }}</span>
                             </a>
                         @endforeach
@@ -67,7 +67,7 @@ FULLSCREEN MENU OVERLAY
                 </div>
             @else
                 <a href="{{ $item['url'] }}"
-                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange hover:italic leading-[1.05] cursor-none hover-target">
+                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange hover:italic leading-[1.05]">
                     <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                 </a>
             @endif
@@ -89,7 +89,7 @@ TOP NAVBAR
 
     {{-- Brand (Left) --}}
     <a href="{{ route('welcome') ?? '/' }}"
-        class="font-serif text-3xl tracking-tight leading-none relative z-10 transition-colors duration-300 text-brand-deepbreath hover:text-brand-orange cursor-none hover-target">
+        class="font-serif text-3xl tracking-tight leading-none relative z-10 transition-colors duration-300 text-brand-deepbreath hover:text-brand-orange">
         Sinemaku<br>Pictures.
     </a>
 
@@ -101,7 +101,7 @@ TOP NAVBAR
             <span>Jakarta, ID</span>
         </div>
         <button id="menu-open-btn"
-            class="hamburger-btn text-brand-deepbreath/60 hover:text-brand-orange transition-colors relative z-10 cursor-none hover-target">
+            class="hamburger-btn text-brand-deepbreath/60 hover:text-brand-orange transition-colors relative z-10">
             [ Menu ]
         </button>
     </div>
