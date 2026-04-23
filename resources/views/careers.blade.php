@@ -183,7 +183,7 @@
       @foreach ($careers as $item)
         <a href="{{ route('detail-careers', $item->slug) }}" class="directory-item reveal">
           <div class="directory-item__content">
-            <h3 class="directory-item__title">{{ $item->position }}</h3>
+            <h3 class="directory-item__title">@i18n($item, 'position')</h3>
             <div class="directory-item__meta">
               <span>{{ $item->tim }}</span>
               <span>{{ $item->location }}</span>
@@ -212,7 +212,7 @@
       @foreach ($casting as $item)
         <a href="{{ route('detail-careers', $item->slug) }}" class="directory-item reveal">
           <div class="directory-item__content">
-            <h3 class="directory-item__title">{{ $item->pemeran }}</h3>
+            <h3 class="directory-item__title">@i18n($item, 'pemeran')</h3>
             <div class="directory-item__meta">
               <span style="font-weight: 700;">{{ $item->judul_film }}</span>
               <span>{{ $item->gender == 'L' ? 'Male' : 'Female' }}, {{ $item->umur }} Yrs</span>

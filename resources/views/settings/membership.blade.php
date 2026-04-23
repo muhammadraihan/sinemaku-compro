@@ -38,13 +38,21 @@
                     <div class="row">
                         <div class="form-group col-md-4 mb-3">
                             {{ Form::label('membership_hero_title', 'Hero Title', ['class' => 'form-label']) }}
-                            {{ Form::text('membership_hero_title', $settings['membership_hero_title'] ?? 'Ready to become part of our creative family?', ['class' => 'form-control', 'placeholder' => 'Misal: Join Our Community']) }}
+                            {{ Form::text('membership_hero_title', $settings['membership_hero_title'] ?? 'Siap menjadi bagian dari keluarga kreatif kami?', ['class' => 'form-control', 'placeholder' => 'Misal: Join Our Community']) }}
                             <small class="text-muted">Judul besar yang muncul pertama kali di hero.</small>
                         </div>
                         <div class="form-group col-md-4 mb-3">
+                            {{ Form::label('membership_hero_title_en', 'Hero Title (EN)', ['class' => 'form-label']) }}
+                            {{ Form::text('membership_hero_title_en', $settings['membership_hero_title_en'] ?? 'Ready to become part of our creative family?', ['class' => 'form-control', 'placeholder' => 'Misal: Join Our Community']) }}
+                        </div>
+                        <div class="form-group col-md-4 mb-3">
                             {{ Form::label('membership_hero_subtitle', 'Hero Subtitle', ['class' => 'form-label']) }}
-                            {{ Form::text('membership_hero_subtitle', $settings['membership_hero_subtitle'] ?? 'Sign up today and get exclusive access to events and behind the scenes content.', ['class' => 'form-control', 'placeholder' => 'Subjudul hero']) }}
+                            {{ Form::text('membership_hero_subtitle', $settings['membership_hero_subtitle'] ?? 'Daftar hari ini dan dapatkan akses eksklusif ke acara dan konten di balik layar.', ['class' => 'form-control', 'placeholder' => 'Subjudul hero']) }}
                             <small class="text-muted">Teks kecil di bawah judul hero.</small>
+                        </div>
+                        <div class="form-group col-md-4 mb-3">
+                            {{ Form::label('membership_hero_subtitle_en', 'Hero Subtitle (EN)', ['class' => 'form-label']) }}
+                            {{ Form::text('membership_hero_subtitle_en', $settings['membership_hero_subtitle_en'] ?? 'Sign up today and get exclusive access to events and behind the scenes content.', ['class' => 'form-control', 'placeholder' => 'Subjudul hero']) }}
                         </div>
                         <div class="form-group col-md-4 mb-3">
                             {{ Form::label('membership_hero_image', 'Hero Image', ['class' => 'form-label']) }}

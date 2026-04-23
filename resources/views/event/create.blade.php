@@ -48,6 +48,13 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('judul_en','Judul (EN)',['class' => 'form-label'])}}
+                        {{ Form::text('judul_en',null,['placeholder' => 'Judul (EN)','class' => 'form-control '.($errors->has('judul_en') ? 'is-invalid':'')])}}
+                        @if ($errors->has('judul_en'))
+                        <div class="invalid-feedback">{{ $errors->first('judul_en') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('title','Title',['class' => 'required form-label'])}}
                         {{ Form::text('title',null,['placeholder' => 'Title','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('title'))
@@ -76,6 +83,13 @@
                     <div class="invalid-feedback">{{ $errors->first('detail') }}</div>
                     @endif
                 </div>
+                <div class="form-group col-md-12 mb-3">
+                    {{ Form::label('detail_en','Detail (EN)',['class' => 'form-label'])}}
+                    {{ Form::textarea('detail_en',null,['placeholder' => 'Detail (EN)','class' => 'form-control '.($errors->has('detail_en') ? 'is-invalid':''), 'id' => 'detail_en'])}}
+                    @if ($errors->has('detail_en'))
+                    <div class="invalid-feedback">{{ $errors->first('detail_en') }}</div>
+                    @endif
+                </div>
                 <div class="row">
                     <div class="form-group col-md-3 mb-3">
                         {{ Form::label('event_kategori_uuid','Kategori Event',['class' => 'required form-label'])}}
@@ -92,6 +106,13 @@
                         {{ Form::text('location',null,['placeholder' => 'Location','class' => 'form-control '.($errors->has('location') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('location'))
                         <div class="invalid-feedback">{{ $errors->first('location') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-3 mb-3">
+                        {{ Form::label('location_en','Location (EN)',['class' => 'form-label'])}}
+                        {{ Form::text('location_en',null,['placeholder' => 'Location (EN)','class' => 'form-control '.($errors->has('location_en') ? 'is-invalid':'')])}}
+                        @if ($errors->has('location_en'))
+                        <div class="invalid-feedback">{{ $errors->first('location_en') }}</div>
                         @endif
                     </div>
                     <div class="form-group col-md-3 mb-3">
@@ -140,6 +161,7 @@
         $('#type').select2();
 
         CKEDITOR.replace('detail');
+        CKEDITOR.replace('detail_en');
 
         $('#photo').change(function(){
             

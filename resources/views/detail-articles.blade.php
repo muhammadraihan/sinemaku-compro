@@ -332,7 +332,7 @@ body{background:var(--bg)}
         <a href="#">World</a>
       </nav> -->
 
-      <h1 class="article-title reveal-y" data-reveal="0.06">{{ $article->judul }}</h1>
+      <h1 class="article-title reveal-y" data-reveal="0.06">@i18n($article, 'judul')</h1>
 
       <div class="meta-row reveal-y" data-reveal="0.12">
         <span class="meta-brand">Sinemaku Article</span>
@@ -361,7 +361,7 @@ body{background:var(--bg)}
 
       <!-- CONTENT -->
       <article class="article-content reveal-y" data-reveal="0.14">
-        {!! $article->detail !!}
+        @i18n($article, 'detail')
       </article>
 
       <!-- SIDEBAR -->
@@ -374,7 +374,7 @@ body{background:var(--bg)}
               <a class="story-mini" href="{{ url($item->link) }}">
                 <img src="{{ asset('photo/' . $item->photo) }}" alt="">
                 <div>
-                  <div class="story-title">{{ $item->judul }}</div>
+                  <div class="story-title">@i18n($item, 'judul')</div>
                   <div class="story-meta">{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</div>
                 </div>
               </a>
@@ -382,7 +382,7 @@ body{background:var(--bg)}
               <a class="story-mini" href="{{ route('detail-articles', $item->slug) }}">
                 <img src="{{ asset('photo/' . $item->photo) }}" alt="">
                 <div>
-                  <div class="story-title">{{ $item->judul }}</div>
+                  <div class="story-title">@i18n($item, 'judul')</div>
                   <div class="story-meta">{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</div>
                 </div>
               </a>

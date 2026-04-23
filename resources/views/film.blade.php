@@ -37,13 +37,13 @@
                     style="position: absolute; left: 0; bottom: 0; transform: {{ $i === 0 ? 'translateX(0)' : 'translateX(100vw)' }}; pointer-events: {{ $i === 0 ? 'auto' : 'none' }};">
                     <h1 class="hero-film-title">
                         <a href="{{ route('detail-film', $item->slug) }}" class="no-underline text-inherit hover:opacity-80 transition-opacity">
-                            {{ $item->title }}
+                            @i18n($item, 'title')
                         </a>
                     </h1>
                     <div class="hero-film-meta">
                         <span>{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
                         <span class="dot">•</span>
-                        <span>{{ $item->genre }}</span>
+                        <span>@i18n($item, 'genre')</span>
                         <span class="dot">•</span>
                         <span>{{ $item->duration }} Min</span>
                     </div>
@@ -1338,7 +1338,7 @@
             <div class="film-card__poster w-full overflow-hidden bg-[#111] mb-4 flex items-center justify-center relative" style="aspect-ratio: 2/3;">
               <img src="{{ asset('photo/' . $item->poster) }}" alt="{{ $item->title }}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 block !m-0">
             </div>
-            <h3 class="film-card__title font-display font-extrabold uppercase text-[15px] sm:text-[16px] text-gray-900 leading-[1.2] tracking-[-0.02em] m-0 !m-0">{{ $item->title }}</h3>
+            <h3 class="film-card__title font-display font-extrabold uppercase text-[15px] sm:text-[16px] text-gray-900 leading-[1.2] tracking-[-0.02em] m-0 !m-0">@i18n($item, 'title')</h3>
           </a>
         </article>
       @endforeach

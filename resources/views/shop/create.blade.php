@@ -58,17 +58,31 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('name','Judul',['class' => 'required form-label'])}}
-                        {{ Form::text('name',null,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('name') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('name','Nama Produk',['class' => 'required form-label'])}}
+                        {{ Form::text('name',null,['placeholder' => 'Nama Produk','class' => 'form-control '.($errors->has('name') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('name'))
                         <div class="invalid-feedback">{{ $errors->first('name') }}</div>
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('judul','Title',['class' => 'required form-label'])}}
-                        {{ Form::text('judul',null,['placeholder' => 'Title','class' => 'form-control '.($errors->has('judul') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('name_en','Nama Produk (EN)',['class' => 'form-label'])}}
+                        {{ Form::text('name_en',null,['placeholder' => 'Nama Produk (EN)','class' => 'form-control '.($errors->has('name_en') ? 'is-invalid':'')])}}
+                        @if ($errors->has('name_en'))
+                        <div class="invalid-feedback">{{ $errors->first('name_en') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('judul','Judul',['class' => 'required form-label'])}}
+                        {{ Form::text('judul',null,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('judul') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('judul'))
                         <div class="invalid-feedback">{{ $errors->first('judul') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('judul_en','Judul (EN)',['class' => 'form-label'])}}
+                        {{ Form::text('judul_en',null,['placeholder' => 'Judul (EN)','class' => 'form-control '.($errors->has('judul_en') ? 'is-invalid':'')])}}
+                        @if ($errors->has('judul_en'))
+                        <div class="invalid-feedback">{{ $errors->first('judul_en') }}</div>
                         @endif
                     </div>
                 </div>
@@ -77,6 +91,13 @@
                     {{ Form::textarea('detail',null,['placeholder' => 'Detail','class' => 'form-control '.($errors->has('detail') ? 'is-invalid':''),'required'])}}
                     @if ($errors->has('detail'))
                     <div class="invalid-feedback">{{ $errors->first('detail') }}</div>
+                    @endif
+                </div>
+                <div class="form-group col-md-12 mb-3">
+                    {{ Form::label('detail_en','Detail (EN)',['class' => 'form-label'])}}
+                    {{ Form::textarea('detail_en',null,['placeholder' => 'Detail (EN)','class' => 'form-control '.($errors->has('detail_en') ? 'is-invalid':''), 'id' => 'detail_en'])}}
+                    @if ($errors->has('detail_en'))
+                    <div class="invalid-feedback">{{ $errors->first('detail_en') }}</div>
                     @endif
                 </div>
                 <div class="row">
@@ -142,6 +163,7 @@
         $('#type').select2();
 
         CKEDITOR.replace('detail');
+        CKEDITOR.replace('detail_en');
 
         $('#photo').change(function(){
             

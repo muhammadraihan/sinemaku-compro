@@ -15,12 +15,15 @@ class Event extends Model
 
     protected $fillable = [
         'judul',
+        'judul_en',
         'title',
         'tgl_event',
         'jam_event',
         'location',
+        'location_en',
         'harga',
         'detail',
+        'detail_en',
         'photo',
         'link',
         'slug',

@@ -373,7 +373,7 @@ html.js .is-revealed{
     <!-- Info Produk -->
     <div class="shop-detail__info">
       <h1 class="shop-detail__title">
-        {{ $shop->name }}
+        @i18n($shop, 'name')
       </h1>
 
       <div class="shop-detail__price">{{ $shop->harga ? 'Rp'.''.str_replace(',', '.', number_format($shop->harga)) : '' }}</div>
@@ -411,7 +411,7 @@ html.js .is-revealed{
         <!-- JANGAN pakai <p> untuk detail yang berisi list/heading.
              Pakai <div> agar semua markup bawaan tetap valid. -->
         <div class="shop-desc">
-          {!! $shop->detail !!}
+          @i18n($shop, 'detail')
         </div>
       </article>
 
@@ -431,7 +431,7 @@ html.js .is-revealed{
             <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->name }}">
           </div>
           <div class="rp-card__meta">
-            <div class="rp-card__name">{{ $item->name }}</div>
+            <div class="rp-card__name">@i18n($item, 'name')</div>
             <div class="rp-card__price">{{ $item->harga ? 'Rp'.''.str_replace(',', '.', number_format($item->harga)) : '' }}</div>
           </div>
         </a>

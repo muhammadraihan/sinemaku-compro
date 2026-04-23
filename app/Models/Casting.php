@@ -13,11 +13,13 @@ class Casting extends Model
 
     protected $fillable = [
         'pemeran',
+        'pemeran_en',
         'judul_film',
         'gender',
         'umur',
         'location',
         'detail',
+        'detail_en',
         'deadline',
         'link',
         'shoot_date',

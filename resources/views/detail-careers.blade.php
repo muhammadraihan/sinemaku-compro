@@ -213,12 +213,22 @@
     <main class="career-main">
       <header class="career-header reveal">
         <span class="career-label">Opportunities</span>
-        <h1 class="career-title">{{ $careers->position ?? $casting->pemeran }}</h1>
+        <h1 class="career-title">
+          @if(isset($careers->position))
+            @i18n($careers, 'position')
+          @else
+            @i18n($casting, 'pemeran')
+          @endif
+        </h1>
         <div class="career-dept">{{ $careers->tim ?? $casting->judul_film }}</div>
       </header>
 
       <div class="career-main-content reveal" style="transition-delay: 0.1s;">
-        {!! $careers->detail ?? $casting->detail !!}
+        @if(isset($careers->detail))
+          @i18n($careers, 'detail')
+        @else
+          @i18n($casting, 'detail')
+        @endif
       </div>
     </main>
 
@@ -279,14 +289,14 @@
         @if (!empty($careers->status))
           @foreach ($all_careers as $item)
             <a href="{{ route('detail-careers', $item->slug) }}" class="mini-career-link">
-              <div class="mini-career-title">{{ $item->position }}</div>
+              <div class="mini-career-title">@i18n($item, 'position')</div>
               <div class="mini-career-meta">{{ $item->tim }} · {{ $item->location }}</div>
             </a>
           @endforeach
         @else
           @foreach ($all_casting as $item)
             <a href="{{ route('detail-careers', $item->slug) }}" class="mini-career-link">
-              <div class="mini-career-title">{{ $item->pemeran }}</div>
+              <div class="mini-career-title">@i18n($item, 'pemeran')</div>
               <div class="mini-career-meta">{{ $item->judul_film }} · {{ $item->location }}</div>
             </a>
           @endforeach

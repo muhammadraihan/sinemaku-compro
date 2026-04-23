@@ -48,10 +48,24 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('judul_en','Judul (EN)',['class' => 'form-label'])}}
+                        {{ Form::text('judul_en',null,['placeholder' => 'Judul (EN)','class' => 'form-control '.($errors->has('judul_en') ? 'is-invalid':'')])}}
+                        @if ($errors->has('judul_en'))
+                        <div class="invalid-feedback">{{ $errors->first('judul_en') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('title','Title',['class' => 'required form-label'])}}
                         {{ Form::text('title',null,['placeholder' => 'Title','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('title'))
                         <div class="invalid-feedback">{{ $errors->first('title') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('title_en','Title (EN)',['class' => 'form-label'])}}
+                        {{ Form::text('title_en',null,['placeholder' => 'Title (EN)','class' => 'form-control '.($errors->has('title_en') ? 'is-invalid':'')])}}
+                        @if ($errors->has('title_en'))
+                        <div class="invalid-feedback">{{ $errors->first('title_en') }}</div>
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
@@ -74,6 +88,13 @@
                     {{ Form::textarea('detail',null,['placeholder' => 'Detail','class' => 'form-control '.($errors->has('detail') ? 'is-invalid':''),'required'])}}
                     @if ($errors->has('detail'))
                     <div class="invalid-feedback">{{ $errors->first('detail') }}</div>
+                    @endif
+                </div>
+                <div class="form-group col-md-12 mb-3">
+                    {{ Form::label('detail_en','Detail (EN)',['class' => 'form-label'])}}
+                    {{ Form::textarea('detail_en',null,['placeholder' => 'Detail (EN)','class' => 'form-control '.($errors->has('detail_en') ? 'is-invalid':''), 'id' => 'detail_en'])}}
+                    @if ($errors->has('detail_en'))
+                    <div class="invalid-feedback">{{ $errors->first('detail_en') }}</div>
                     @endif
                 </div>
                 <div class="row">
@@ -125,6 +146,7 @@
         $('#type').select2();
 
         CKEDITOR.replace('detail');
+        CKEDITOR.replace('detail_en');
 
         $('#photo').change(function(){
             

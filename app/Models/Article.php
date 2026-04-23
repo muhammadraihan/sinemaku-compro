@@ -13,10 +13,13 @@ class Article extends Model
 
     protected $fillable = [
         'judul',
+        'judul_en',
         'title',
+        'title_en',
         'tgl_rilis',
         'penulis',
         'detail',
+        'detail_en',
         'kategori',
         'artikel_kategori_uuid',
         'link',

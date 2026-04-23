@@ -39,7 +39,8 @@ class SiteSettingController extends Controller
 
         foreach ($keys as $key) {
             if ($request->has($key)) {
-                SiteSetting::setValue($key, $request->input($key), 'about');
+                $value_en = $request->input($key . '_en');
+                SiteSetting::setValue($key, $request->input($key), 'about', $value_en);
             }
         }
 
@@ -88,7 +89,8 @@ class SiteSettingController extends Controller
 
         foreach ($keys as $key) {
             if ($request->has($key)) {
-                SiteSetting::setValue($key, $request->input($key), 'membership');
+                $value_en = $request->input($key . '_en');
+                SiteSetting::setValue($key, $request->input($key), 'membership', $value_en);
             }
         }
 

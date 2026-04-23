@@ -48,6 +48,13 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('pemeran_en','Pemeran (EN)',['class' => 'form-label'])}}
+                        {{ Form::text('pemeran_en',null,['placeholder' => 'Pemeran (EN)','class' => 'form-control '.($errors->has('pemeran_en') ? 'is-invalid':'')])}}
+                        @if ($errors->has('pemeran_en'))
+                        <div class="invalid-feedback">{{ $errors->first('pemeran_en') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('judul_film','Judul Film',['class' => 'required form-label'])}}
                         {{ Form::text('judul_film',null,['placeholder' => 'Judul Film','class' => 'form-control '.($errors->has('judul_film') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('judul_film'))
@@ -100,6 +107,13 @@
                     <div class="invalid-feedback">{{ $errors->first('detail') }}</div>
                     @endif
                 </div>
+                <div class="form-group col-md-12 mb-3">
+                    {{ Form::label('detail_en','Detail (EN)',['class' => 'form-label'])}}
+                    {{ Form::textarea('detail_en',null,['placeholder' => 'Detail (EN)','class' => 'form-control '.($errors->has('detail_en') ? 'is-invalid':''), 'id' => 'detail_en'])}}
+                    @if ($errors->has('detail_en'))
+                    <div class="invalid-feedback">{{ $errors->first('detail_en') }}</div>
+                    @endif
+                </div>
             <div
                 class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
                 <button class="btn btn-primary ml-auto" type="submit">Submit</button>
@@ -121,6 +135,7 @@
         $('#type').select2();
 
         CKEDITOR.replace('detail');
+        CKEDITOR.replace('detail_en');
 
         $('#photo').change(function(){
             

@@ -48,6 +48,13 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('position_en','Posisi (EN)',['class' => 'form-label'])}}
+                        {{ Form::text('position_en',null,['placeholder' => 'Posisi (EN)','class' => 'form-control '.($errors->has('position_en') ? 'is-invalid':'')])}}
+                        @if ($errors->has('position_en'))
+                        <div class="invalid-feedback">{{ $errors->first('position_en') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('tim','Tim',['class' => 'required form-label'])}}
                         {{ Form::text('tim',null,['placeholder' => 'Tim','class' => 'form-control '.($errors->has('tim') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('tim'))
@@ -81,6 +88,13 @@
                     {{ Form::textarea('detail',null,['placeholder' => 'Detail','class' => 'form-control '.($errors->has('detail') ? 'is-invalid':''),'required'])}}
                     @if ($errors->has('detail'))
                     <div class="invalid-feedback">{{ $errors->first('detail') }}</div>
+                    @endif
+                </div>
+                <div class="form-group col-md-12 mb-3">
+                    {{ Form::label('detail_en','Detail (EN)',['class' => 'form-label'])}}
+                    {{ Form::textarea('detail_en',null,['placeholder' => 'Detail (EN)','class' => 'form-control '.($errors->has('detail_en') ? 'is-invalid':''), 'id' => 'detail_en'])}}
+                    @if ($errors->has('detail_en'))
+                    <div class="invalid-feedback">{{ $errors->first('detail_en') }}</div>
                     @endif
                 </div>
                 <div class="row">
@@ -120,6 +134,7 @@
         $('#type').select2();
 
         CKEDITOR.replace('detail');
+        CKEDITOR.replace('detail_en');
 
         $('#photo').change(function(){
             

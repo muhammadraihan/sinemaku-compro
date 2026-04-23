@@ -285,7 +285,7 @@
     </a>
     <div class="merch-hero__info">
       <h2 class="merch-hero__title">
-        <a href="{{ route('detail-shop', $shop->slug) }}">{{ $shop->name }}</a>
+        <a href="{{ route('detail-shop', $shop->slug) }}">@i18n($shop, 'name')</a>
       </h2>
       <a href="{{ $shop->link }}" target="_blank" class="btn-buy-now">Buy Now</a>
     </div>
@@ -311,7 +311,7 @@
                 </a>
                 <div class="merch-card__info">
                   <a href="{{ route('detail-shop', $product->slug) }}" style="text-decoration:none; color:inherit;">
-                    <h3 class="merch-card__title">{{ $product->name }}</h3>
+                    <h3 class="merch-card__title">@i18n($product, 'name')</h3>
                   </a>
                   <span class="merch-card__price">
                     {{ $product->harga ? 'Rp' . number_format($product->harga, 0, ',', '.') : 'Price on request' }}
@@ -333,7 +333,7 @@
                 </a>
                 <div class="merch-card__info">
                   <a href="{{ route('detail-shop', $product->slug) }}" style="text-decoration:none; color:inherit;">
-                    <h3 class="merch-card__title">{{ $product->name }}</h3>
+                    <h3 class="merch-card__title">@i18n($product, 'name')</h3>
                   </a>
                   <span class="merch-card__price">
                     {{ $product->harga ? 'Rp' . number_format($product->harga, 0, ',', '.') : 'Price on request' }}

@@ -252,12 +252,12 @@
   @endif
 
   <div class="film-hero__inner">
-    <h1 class="film-hero__title">{{ $films->title }}</h1>
+    <h1 class="film-hero__title">@i18n($films, 'title')</h1>
 
     <div class="film-hero__meta">
       <span>{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</span>
       <span class="dot">•</span>
-      <span>{{ $films->genre }}</span>
+      <span>@i18n($films, 'genre')</span>
       <span class="dot">•</span>
       <span>{{ $films->duration }} Min</span>
     </div>
@@ -296,7 +296,7 @@
   <div class="syn-content">
     <span class="syn-label">Sinopsis</span>
     <div class="syn-text">
-      {!! $films->sinopsis !!}
+      @i18n($films, 'sinopsis')
     </div>
   </div>
 </section>
@@ -375,9 +375,9 @@
         <div class="rec-img">
           <img src="{{ asset('photo/' . $item->poster) }}" alt="{{ $item->title }}" loading="lazy">
         </div>
-        <h4 class="rec-title">{{ $item->title }}</h4>
+        <h4 class="rec-title">@i18n($item, 'title')</h4>
         <div class="rec-meta">
-          {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • {{ $item->genre }}
+          {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • @i18n($item, 'genre')
         </div>
       </a>
     @endforeach

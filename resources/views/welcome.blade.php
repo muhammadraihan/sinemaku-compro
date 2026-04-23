@@ -235,7 +235,7 @@
                 <div class="feature-content-wrap" data-gsap="fade-up">
                     <span class="feature-eyebrow"><span data-i18n="home_events_eyebrow">Upcoming Events</span></span>
                     <h2 class="feature-title">
-                        <a href="{{ route('detail-event', $latestEvent->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestEvent->judul }}</a>
+                        <a href="{{ route('detail-event', $latestEvent->slug) }}" style="text-decoration: none; color: inherit;">@i18n($latestEvent, 'judul')</a>
                     </h2>
                     <div class="feature-meta-row">
                         <span class="feature-meta-pill">
@@ -284,9 +284,9 @@
 
                 {{-- Title + Genre badge --}}
                 <h2 style="font-size:clamp(2.25rem,4.5vw,4rem); font-weight:500; line-height:1.05; letter-spacing:-0.025em; color:#fff; margin:0 0 1.25rem; display:flex; flex-wrap:wrap; align-items:center; gap:1rem;">
-                    <a href="{{ route('detail-film', $latestFilm->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestFilm->title }}</a>
+                    <a href="{{ route('detail-film', $latestFilm->slug) }}" style="text-decoration: none; color: inherit;">@i18n($latestFilm, 'title')</a>
                     <span style="font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; background:rgba(237,149,32,0.18); color:var(--amber-400); padding:6px 14px; border-radius:2px; border:1px solid rgba(237,149,32,0.35); backdrop-filter:blur(8px);">
-                        {{ $latestFilm->genre }}
+                        @i18n($latestFilm, 'genre')
                     </span>
                 </h2>
 
@@ -331,7 +331,7 @@
                 <div class="feature-content-wrap" data-gsap="fade-up">
                     <span class="feature-eyebrow"><span data-i18n="home_merch_eyebrow">Sinemaku Store</span></span>
                     <h2 class="feature-title">
-                        <a href="{{ route('detail-shop', $latestMerch->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestMerch->judul }}</a>
+                        <a href="{{ route('detail-shop', $latestMerch->slug) }}" style="text-decoration: none; color: inherit;">@i18n($latestMerch, 'judul')</a>
                     </h2>
                     <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestMerch->detail), ENT_QUOTES | ENT_HTML5), 160) }}</p>
                     <div class="feature-price-row">
@@ -457,7 +457,7 @@
                 <div class="feature-content-wrap" data-gsap="fade-up">
                     <span class="feature-eyebrow"><span data-i18n="home_article_eyebrow">Artikel Terbaru</span></span>
                     <h2 class="feature-title">
-                        <a href="{{ route('detail-articles', $latestArtikel->slug) }}" style="text-decoration: none; color: inherit;">{{ $latestArtikel->judul }}</a>
+                        <a href="{{ route('detail-articles', $latestArtikel->slug) }}" style="text-decoration: none; color: inherit;">@i18n($latestArtikel, 'judul')</a>
                     </h2>
                     <div class="feature-meta-row">
                         @if($latestArtikel->penulis)

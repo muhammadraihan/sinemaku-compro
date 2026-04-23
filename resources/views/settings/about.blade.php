@@ -43,9 +43,17 @@
                             <small class="text-muted">Judul besar yang muncul pertama kali di hero.</small>
                         </div>
                         <div class="form-group col-md-4 mb-3">
+                            {{ Form::label('about_hero_title_en', 'Hero Title (EN)', ['class' => 'form-label']) }}
+                            {{ Form::text('about_hero_title_en', $settings['about_hero_title_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'Judul utama hero (EN)']) }}
+                        </div>
+                        <div class="form-group col-md-4 mb-3">
                             {{ Form::label('about_hero_subtitle', 'Hero Subtitle', ['class' => 'form-label']) }}
                             {{ Form::text('about_hero_subtitle', $settings['about_hero_subtitle'] ?? '', ['class' => 'form-control', 'placeholder' => 'Subjudul hero']) }}
                             <small class="text-muted">Teks kecil di bawah judul hero.</small>
+                        </div>
+                        <div class="form-group col-md-4 mb-3">
+                            {{ Form::label('about_hero_subtitle_en', 'Hero Subtitle (EN)', ['class' => 'form-label']) }}
+                            {{ Form::text('about_hero_subtitle_en', $settings['about_hero_subtitle_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'Subjudul hero (EN)']) }}
                         </div>
                         <div class="form-group col-md-4 mb-3">
                             {{ Form::label('about_hero_image', 'Hero Image', ['class' => 'form-label']) }}
@@ -70,10 +78,14 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="row">
-                        <div class="form-group col-md-12 mb-3">
+                        <div class="form-group col-md-6 mb-3">
                             {{ Form::label('about_identity_heading', 'Identity Heading', ['class' => 'form-label']) }}
                             {{ Form::text('about_identity_heading', $settings['about_identity_heading'] ?? '', ['class' => 'form-control', 'placeholder' => 'Judul seksi identitas']) }}
                             <small class="text-muted">Ini adalah satu-satunya teks untuk seksi Identity.</small>
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            {{ Form::label('about_identity_heading_en', 'Identity Heading (EN)', ['class' => 'form-label']) }}
+                            {{ Form::text('about_identity_heading_en', $settings['about_identity_heading_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'Judul seksi identitas (EN)']) }}
                         </div>
                     </div>
                 </div>
@@ -96,8 +108,16 @@
                             {{ Form::textarea('about_mission_statement', $settings['about_mission_statement'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Pernyataan misi...']) }}
                         </div>
                         <div class="form-group col-md-6 mb-3">
+                            {{ Form::label('about_mission_statement_en', 'Mission Statement (EN)', ['class' => 'form-label']) }}
+                            {{ Form::textarea('about_mission_statement_en', $settings['about_mission_statement_en'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Pernyataan misi (EN)...']) }}
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
                             {{ Form::label('about_vision_statement', 'Vision Statement', ['class' => 'form-label']) }}
                             {{ Form::textarea('about_vision_statement', $settings['about_vision_statement'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Pernyataan visi...']) }}
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            {{ Form::label('about_vision_statement_en', 'Vision Statement (EN)', ['class' => 'form-label']) }}
+                            {{ Form::textarea('about_vision_statement_en', $settings['about_vision_statement_en'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Pernyataan visi (EN)...']) }}
                         </div>
                     </div>
                 </div>
@@ -115,13 +135,21 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="row">
-                        <div class="form-group col-md-4 mb-3">
+                        <div class="form-group col-md-6 mb-3">
                             {{ Form::label('about_studio_label', 'Studio Label', ['class' => 'form-label']) }}
                             {{ Form::text('about_studio_label', $settings['about_studio_label'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: The Studio']) }}
                         </div>
-                        <div class="form-group col-md-8 mb-3">
+                        <div class="form-group col-md-6 mb-3">
+                            {{ Form::label('about_studio_label_en', 'Studio Label (EN)', ['class' => 'form-label']) }}
+                            {{ Form::text('about_studio_label_en', $settings['about_studio_label_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: The Studio (EN)']) }}
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
                             {{ Form::label('about_studio_body', 'Studio Description', ['class' => 'form-label']) }}
                             {{ Form::textarea('about_studio_body', $settings['about_studio_body'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Deskripsi studio...']) }}
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            {{ Form::label('about_studio_body_en', 'Studio Description (EN)', ['class' => 'form-label']) }}
+                            {{ Form::textarea('about_studio_body_en', $settings['about_studio_body_en'] ?? '', ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'Deskripsi studio (EN)...']) }}
                         </div>
                     </div>
                 </div>
@@ -140,13 +168,21 @@
                 <div class="panel-content">
                     @foreach([1,2,3] as $i)
                     <div class="row mb-2 pb-2 {{ $i < 3 ? 'border-bottom' : '' }}">
-                        <div class="form-group col-md-4 mb-2">
+                        <div class="form-group col-md-6 mb-2">
                             {{ Form::label("about_values_{$i}_title", "Value #{$i} — Judul", ['class' => 'form-label']) }}
                             {{ Form::text("about_values_{$i}_title", $settings["about_values_{$i}_title"] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: Authenticity']) }}
                         </div>
-                        <div class="form-group col-md-8 mb-2">
+                        <div class="form-group col-md-6 mb-2">
+                            {{ Form::label("about_values_{$i}_title_en", "Value #{$i} — Judul (EN)", ['class' => 'form-label']) }}
+                            {{ Form::text("about_values_{$i}_title_en", $settings["about_values_{$i}_title_en"] ?? '', ['class' => 'form-control', 'placeholder' => 'Misal: Authenticity (EN)']) }}
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
                             {{ Form::label("about_values_{$i}_body", "Value #{$i} — Deskripsi", ['class' => 'form-label']) }}
                             {{ Form::text("about_values_{$i}_body", $settings["about_values_{$i}_body"] ?? '', ['class' => 'form-control', 'placeholder' => 'Deskripsi singkat nilai...']) }}
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
+                            {{ Form::label("about_values_{$i}_body_en", "Value #{$i} — Deskripsi (EN)", ['class' => 'form-label']) }}
+                            {{ Form::text("about_values_{$i}_body_en", $settings["about_values_{$i}_body_en"] ?? '', ['class' => 'form-control', 'placeholder' => 'Deskripsi singkat nilai (EN)...']) }}
                         </div>
                     </div>
                     @endforeach

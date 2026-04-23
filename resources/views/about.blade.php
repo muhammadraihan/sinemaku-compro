@@ -148,16 +148,32 @@
 
         <div class="max-w-4xl mb-12 md:mb-24" data-gsap="fade-up">
             <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-black tracking-tight">
-                {{ $settings['about_identity_heading'] ?? 'Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.' }}
+                @php
+                    $defaultIdHeading = 'Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.';
+                    $settings['about_identity_heading'] = isset($settings['about_identity_heading']) ? $settings['about_identity_heading'] : $defaultIdHeading;
+                    $settings['about_identity_heading_en'] = isset($settings['about_identity_heading_en']) ? $settings['about_identity_heading_en'] : 'Sinemaku Pictures is here to empower a new generation of storytellers and change the landscape of Indonesian cinema.';
+                @endphp
+                @i18n($settings, 'about_identity_heading')
             </h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20" data-gsap="fade-up">
 
             <div class="flex flex-col">
-                <h3 class="text-2xl font-bold mb-6 text-black">{{ $settings['about_studio_label'] ?? 'Company' }}</h3>
+                <h3 class="text-2xl font-bold mb-6 text-black">
+                    @php
+                        $settings['about_studio_label'] = isset($settings['about_studio_label']) ? $settings['about_studio_label'] : 'Company';
+                        $settings['about_studio_label_en'] = isset($settings['about_studio_label_en']) ? $settings['about_studio_label_en'] : 'Company';
+                    @endphp
+                    @i18n($settings, 'about_studio_label')
+                </h3>
                 <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
-                    {{ $settings['about_studio_body'] ?? 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.' }}
+                    @php
+                        $defaultStudioBody = 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.';
+                        $settings['about_studio_body'] = isset($settings['about_studio_body']) ? $settings['about_studio_body'] : $defaultStudioBody;
+                        $settings['about_studio_body_en'] = isset($settings['about_studio_body_en']) ? $settings['about_studio_body_en'] : 'Learn how Sinemaku operates. Explore our identity, our approach, and our role in nurturing young filmmakers for the Indonesian film ecosystem.';
+                    @endphp
+                    @i18n($settings, 'about_studio_body')
                 </p>
                 <a href="#"
                     class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
@@ -227,7 +243,15 @@
 
             <p class="text-black text-lg md:text-xl lg:text-2xl leading-[1.8] tracking-wider text-left max-w-4xl"
                 data-gsap="fade-up">
-                {!! nl2br(e($settings['about_mission_statement'] ?? "Sinemaku Pictures bukan sekadar rumah produksi, melainkan ruang bermain bagi generasi baru pencerita yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia.\n\nKami percaya bahwa cerita terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar lebar, tanpa pernah melupakan semangat kolaborasi yang menghidupkan komunitas di setiap napas produksinya.\n\nBagi kami, keseriusan dalam mengejar kualitas visual premium hanyalah separuh cerita; separuh lainnya adalah tentang merayakan imajinasi dan memastikan bahwa di setiap prosesnya, Here Comes The Fun.")) !!}
+                @php
+                    $defaultMission = "Sinemaku Pictures bukan sekadar rumah produksi, melainkan ruang bermain bagi generasi baru pencerita yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia.\n\nKami percaya bahwa cerita terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar lebar, tanpa pernah melupakan semangat kolaborasi yang menghidupkan komunitas di setiap napas produksinya.\n\nBagi kami, keseriusan dalam mengejar kualitas visual premium hanyalah separuh cerita; separuh lainnya adalah tentang merayakan imajinasi dan memastikan bahwa di setiap prosesnya, Here Comes The Fun.";
+                    $defaultMissionEn = "Sinemaku Pictures is not just a production house, but a playground for a new generation of storytellers who dare to break rigid traditions to change the landscape of Indonesian cinema.\n\nWe believe that the best stories are born from the courage to explore crazy ideas and magically transform reality onto the big screen, without ever forgetting the spirit of collaboration that brings communities to life in every breath of its production.\n\nFor us, seriousness in pursuing premium visual quality is only half the story; the other half is about celebrating imagination and ensuring that in every process, Here Comes The Fun.";
+                    $settings['about_mission_statement'] = isset($settings['about_mission_statement']) ? $settings['about_mission_statement'] : $defaultMission;
+                    $settings['about_mission_statement_en'] = isset($settings['about_mission_statement_en']) ? $settings['about_mission_statement_en'] : $defaultMissionEn;
+                    $missionHtml = nl2br(e($settings['about_mission_statement']));
+                    $missionEnHtml = nl2br(e($settings['about_mission_statement_en']));
+                @endphp
+                <span class="dynamic-i18n" data-lang-id="{{ $missionHtml }}" data-lang-en="{{ $missionEnHtml }}">{!! $missionHtml !!}</span>
             </p>
         </div>
     </section>
@@ -360,8 +384,20 @@
                         class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
                         <x-icons.film class="w-5 h-5" />
                     </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">{{ $settings['about_values_1_title'] ?? 'Film & Seri web' }}</h3>
-                    <p class="text-gray-500 leading-relaxed font-light">{{ $settings['about_values_1_body'] ?? 'Eksplorasi cerita layar lebar dan seri web dengan narasi segar, menghadirkan estetika visual yang menantang batas-batas konvensional.' }}</p>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">
+                        @php
+                            $settings['about_values_1_title'] = isset($settings['about_values_1_title']) ? $settings['about_values_1_title'] : 'Film & Seri web';
+                            $settings['about_values_1_title_en'] = isset($settings['about_values_1_title_en']) ? $settings['about_values_1_title_en'] : 'Film & Web Series';
+                        @endphp
+                        @i18n($settings, 'about_values_1_title')
+                    </h3>
+                    <p class="text-gray-500 leading-relaxed font-light">
+                        @php
+                            $settings['about_values_1_body'] = isset($settings['about_values_1_body']) ? $settings['about_values_1_body'] : 'Eksplorasi cerita layar lebar dan seri web dengan narasi segar, menghadirkan estetika visual yang menantang batas-batas konvensional.';
+                            $settings['about_values_1_body_en'] = isset($settings['about_values_1_body_en']) ? $settings['about_values_1_body_en'] : 'Exploring big screen stories and web series with fresh narratives, presenting visual aesthetics that challenge conventional boundaries.';
+                        @endphp
+                        @i18n($settings, 'about_values_1_body')
+                    </p>
                 </div>
 
                 <!-- Card 2 -->
@@ -371,8 +407,20 @@
                         class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
                         <x-icons.monitor class="w-5 h-5" />
                     </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">{{ $settings['about_values_2_title'] ?? 'Tayangan Televisi' }}</h3>
-                    <p class="text-gray-500 leading-relaxed font-light">{{ $settings['about_values_2_body'] ?? 'Menghadirkan kisah-kisah hangat untuk ruang keluarga melalui produksi televisi yang berkualitas dan dekat dengan realitas sehari-hari.' }}</p>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">
+                        @php
+                            $settings['about_values_2_title'] = isset($settings['about_values_2_title']) ? $settings['about_values_2_title'] : 'Tayangan Televisi';
+                            $settings['about_values_2_title_en'] = isset($settings['about_values_2_title_en']) ? $settings['about_values_2_title_en'] : 'Television Shows';
+                        @endphp
+                        @i18n($settings, 'about_values_2_title')
+                    </h3>
+                    <p class="text-gray-500 leading-relaxed font-light">
+                        @php
+                            $settings['about_values_2_body'] = isset($settings['about_values_2_body']) ? $settings['about_values_2_body'] : 'Menghadirkan kisah-kisah hangat untuk ruang keluarga melalui produksi televisi yang berkualitas dan dekat dengan realitas sehari-hari.';
+                            $settings['about_values_2_body_en'] = isset($settings['about_values_2_body_en']) ? $settings['about_values_2_body_en'] : 'Bringing warm stories to the family room through quality television productions that are close to everyday reality.';
+                        @endphp
+                        @i18n($settings, 'about_values_2_body')
+                    </p>
                 </div>
 
                 <!-- Card 3 -->
@@ -382,8 +430,20 @@
                         class="h-12 w-12 bg-gray-50 rounded-full flex items-center justify-center mb-8 text-gray-800 group-hover:bg-black group-hover:text-white transition-colors duration-300">
                         <x-icons.users class="w-5 h-5" />
                     </div>
-                    <h3 class="text-xl font-medium text-gray-900 mb-4">{{ $settings['about_values_3_title'] ?? 'Komunitas & Event' }}</h3>
-                    <p class="text-gray-500 leading-relaxed font-light">{{ $settings['about_values_3_body'] ?? 'Rantai penghubung antarsineas dan penonton lewat Sinemaku Day, workshop, nobar bincang karya, dan program kerelawanan.' }}</p>
+                    <h3 class="text-xl font-medium text-gray-900 mb-4">
+                        @php
+                            $settings['about_values_3_title'] = isset($settings['about_values_3_title']) ? $settings['about_values_3_title'] : 'Komunitas & Event';
+                            $settings['about_values_3_title_en'] = isset($settings['about_values_3_title_en']) ? $settings['about_values_3_title_en'] : 'Community & Events';
+                        @endphp
+                        @i18n($settings, 'about_values_3_title')
+                    </h3>
+                    <p class="text-gray-500 leading-relaxed font-light">
+                        @php
+                            $settings['about_values_3_body'] = isset($settings['about_values_3_body']) ? $settings['about_values_3_body'] : 'Rantai penghubung antarsineas dan penonton lewat Sinemaku Day, workshop, nobar bincang karya, dan program kerelawanan.';
+                            $settings['about_values_3_body_en'] = isset($settings['about_values_3_body_en']) ? $settings['about_values_3_body_en'] : 'The connecting chain between filmmakers and audiences through Sinemaku Day, workshops, screening discussions, and volunteer programs.';
+                        @endphp
+                        @i18n($settings, 'about_values_3_body')
+                    </p>
                 </div>
             </div>
         </div>

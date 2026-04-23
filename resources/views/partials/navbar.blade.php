@@ -663,7 +663,16 @@
             }
         });
 
-        // 2. Auto text-node replacement for all other pages
+        // 2. Database-hydrated dynamic content (.dynamic-i18n)
+        document.querySelectorAll('.dynamic-i18n').forEach(function(el) {
+            var text = el.getAttribute('data-lang-' + lang);
+            if (text !== null && text !== '') {
+                // Use innerHTML in case the database content contains rich text like <br> or <p>
+                el.innerHTML = text;
+            }
+        });
+
+        // 3. Auto text-node replacement for all other pages
         applyTextMap(lang);
 
         // 3. Update switcher label

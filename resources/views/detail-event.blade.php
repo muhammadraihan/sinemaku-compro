@@ -251,7 +251,7 @@
     <!-- METADATA & TITLE -->
     <header class="reveal">
       <span class="event-meta-top">{{ \Carbon\Carbon::parse($event->tgl_event)->format('F d, Y') }}</span>
-      <h1 class="event-h1">{{ $event->judul }}</h1>
+      <h1 class="event-h1">@i18n($event, 'judul')</h1>
     </header>
 
     <!-- SHARE BAR -->
@@ -270,7 +270,7 @@
 
     <!-- MAIN BODY CONTENT -->
     <div class="event-editorial-body reveal">
-      {!! $event->detail !!}
+      @i18n($event, 'detail')
     </div>
   </div>
 
@@ -285,7 +285,7 @@
           <div class="event-card-small__media">
             <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy">
           </div>
-          <h3 class="event-card-small__title">{{ $item->judul }}</h3>
+          <h3 class="event-card-small__title">@i18n($item, 'judul')</h3>
         </a>
       @endforeach
     </div>

@@ -253,7 +253,7 @@
                 @endif
                 <span>{{ \Carbon\Carbon::parse($item->tgl_event)->format('d M Y') }}</span>
               </div>
-              <h2 class="event-row__title">{{ $item->judul }}</h2>
+              <h2 class="event-row__title">@i18n($item, 'judul')</h2>
               <div class="event-row__detail">
                 {{ $item->title }}
               </div>

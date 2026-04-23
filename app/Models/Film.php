@@ -14,9 +14,12 @@ class Film extends Model
     protected $fillable = [
         'kategori',
         'title',
+        'title_en',
         'genre',
+        'genre_en',
         'release_date',
         'sinopsis',
+        'sinopsis_en',
         'duration',
         'season',
         'episode',

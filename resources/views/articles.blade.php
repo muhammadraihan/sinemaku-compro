@@ -280,9 +280,9 @@
               <span>&bull;</span>
               <span>{{ \Carbon\Carbon::parse($articles->tgl_rilis)->format('d M Y') }}</span>
             </div>
-            <h2 class="article-row__title">{{ $articles->judul }}</h2>
+            <h2 class="article-row__title">@i18n($articles, 'judul')</h2>
             <div class="article-row__excerpt">
-              {{ $articles->title }}
+              @i18n($articles, 'title')
             </div>
           </div>
           <div class="article-row__cta">
@@ -313,9 +313,9 @@
               <span>&bull;</span>
               <span>{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</span>
             </div>
-            <h2 class="article-row__title">{{ $item->judul }}</h2>
+            <h2 class="article-row__title">@i18n($item, 'judul')</h2>
             <div class="article-row__excerpt">
-              {{ $item->title }}
+              @i18n($item, 'title')
             </div>
           </div>
           <div class="article-row__cta">

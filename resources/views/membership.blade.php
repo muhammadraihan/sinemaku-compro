@@ -222,13 +222,26 @@
   
   <div class="hero-content reveal" style="transition-delay: 0.1s;">
     <h1 class="hero-title">
-      {!! nl2br(e($settings['membership_hero_title'] ?? "Ready to become part of our\ncreative family?")) !!}
+      @php
+        $defaultTitleId = "Siap menjadi bagian dari\nkeluarga kreatif kami?";
+        $settings['membership_hero_title'] = isset($settings['membership_hero_title']) ? $settings['membership_hero_title'] : $defaultTitleId;
+        $settings['membership_hero_title_en'] = isset($settings['membership_hero_title_en']) ? $settings['membership_hero_title_en'] : "Ready to become part of our\ncreative family?";
+      @endphp
+      @i18n($settings, 'membership_hero_title')
     </h1>
     <p class="hero-subtitle">
-      {{ $settings['membership_hero_subtitle'] ?? 'Sign up today and get exclusive access to events and behind the scenes content.' }}
+      @php
+        $defaultSubtitleId = "Daftar hari ini dan dapatkan akses eksklusif ke acara dan konten di balik layar.";
+        $settings['membership_hero_subtitle'] = isset($settings['membership_hero_subtitle']) ? $settings['membership_hero_subtitle'] : $defaultSubtitleId;
+        $settings['membership_hero_subtitle_en'] = isset($settings['membership_hero_subtitle_en']) ? $settings['membership_hero_subtitle_en'] : 'Sign up today and get exclusive access to events and behind the scenes content.';
+      @endphp
+      @i18n($settings, 'membership_hero_subtitle')
     </p>
     <a href="#registration-form" class="btn-join-now js-scroll-to">
-      Join Now
+      @php
+        $joinBtn = ['text' => 'Gabung Sekarang', 'text_en' => 'Join Now'];
+      @endphp
+      @i18n($joinBtn, 'text')
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <polyline points="19 12 12 19 5 12"></polyline>
@@ -241,8 +254,11 @@
 <section class="registration-section" id="registration-form">
   <div class="form-container reveal">
     <div class="form-header">
-      <h2>Personal Information</h2>
-      <p>Fill out the form below to start your journey as a Sinemaku Pictures member. It's completely free.</p>
+      @php
+        $personalInfo = ['title' => 'Informasi Pribadi', 'title_en' => 'Personal Information', 'desc' => 'Isi formulir di bawah ini untuk memulai perjalanan Anda sebagai anggota Sinemaku Pictures. Ini sepenuhnya gratis.', 'desc_en' => "Fill out the form below to start your journey as a Sinemaku Pictures member. It's completely free."];
+      @endphp
+      <h2>@i18n($personalInfo, 'title')</h2>
+      <p>@i18n($personalInfo, 'desc')</p>
     </div>
 
 
@@ -251,7 +267,8 @@
       <div class="clean-row">
         <!-- First Name -->
         <div class="form-group-clean">
-          <label for="first_name">First Name</label>
+          @php $firstNameText = ['label' => 'Nama Depan', 'label_en' => 'First Name']; @endphp
+          <label for="first_name">@i18n($firstNameText, 'label')</label>
           <small id="error-first_name" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('first_name') ? 'block' : 'none' }};">
             {{ $errors->first('first_name') ?? 'Field first name tidak boleh kosong!' }}
           </small>
@@ -260,7 +277,8 @@
 
         <!-- Last Name -->
         <div class="form-group-clean">
-          <label for="last_name">Last Name</label>
+          @php $lastNameText = ['label' => 'Nama Belakang', 'label_en' => 'Last Name']; @endphp
+          <label for="last_name">@i18n($lastNameText, 'label')</label>
           <small id="error-last_name" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('last_name') ? 'block' : 'none' }};">
             {{ $errors->first('last_name') ?? 'Field last name tidak boleh kosong!' }}
           </small>
@@ -270,7 +288,8 @@
 
       <!-- Email -->
       <div class="form-group-clean">
-        <label for="email">Email Address</label>
+        @php $emailText = ['label' => 'Alamat Email', 'label_en' => 'Email Address']; @endphp
+        <label for="email">@i18n($emailText, 'label')</label>
         <small id="error-email" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('email') ? 'block' : 'none' }};">
           {{ $errors->first('email') ?? 'Field email tidak boleh kosong!' }}
         </small>
@@ -279,7 +298,8 @@
 
       <!-- City -->
       <div class="form-group-clean">
-        <label for="city">City</label>
+        @php $cityText = ['label' => 'Kota', 'label_en' => 'City']; @endphp
+        <label for="city">@i18n($cityText, 'label')</label>
         <small id="error-city" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('city') ? 'block' : 'none' }};">
           {{ $errors->first('city') ?? 'Field city tidak boleh kosong!' }}
         </small>
@@ -288,7 +308,8 @@
 
       <!-- Mobile Phone -->
       <div class="form-group-clean">
-        <label for="phone_number">Mobile Phone</label>
+        @php $phoneText = ['label' => 'Nomor HP', 'label_en' => 'Mobile Phone']; @endphp
+        <label for="phone_number">@i18n($phoneText, 'label')</label>
         <small id="error-phone_number" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('phone_number') ? 'block' : 'none' }};">
           {{ $errors->first('phone_number') ?? 'Field phone number tidak boleh kosong!' }}
         </small>
@@ -296,7 +317,8 @@
       </div>
 
       <button type="submit" class="btn-submit-clean">
-        Count Me In
+        @php $btnSubmit = ['text' => 'Daftarkan Saya', 'text_en' => 'Count Me In']; @endphp
+        @i18n($btnSubmit, 'text')
       </button>
 
     {!! Form::close() !!}

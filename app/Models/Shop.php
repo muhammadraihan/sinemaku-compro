@@ -13,8 +13,11 @@ class Shop extends Model
 
     protected $fillable = [
         'name',
+        'name_en',
         'judul',
+        'judul_en',
         'detail',
+        'detail_en',
         'harga',
         'discount',
         'link',
