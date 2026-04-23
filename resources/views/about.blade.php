@@ -157,7 +157,7 @@
             </h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20" data-gsap="fade-up">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 6rem);" data-gsap="fade-up">
 
             <div class="flex flex-col">
                 <h3 class="text-2xl font-bold mb-6 text-black">
@@ -175,7 +175,7 @@
                     @endphp
                     @i18n($settings, 'about_studio_body')
                 </p>
-                <a href="#"
+                <a href="#about-mission"
                     class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
                     <span class="leading-none">→</span> <span data-i18n="about_read_more">Read More</span>
                 </a>
@@ -191,17 +191,6 @@
                     class="flex items-center gap-2 text-black font-bold text-sm hover:gap-4 transition-all duration-300">
                     <span class="leading-none">→</span> <span data-i18n="about_read_more">Read More</span>
                 </a>
-            </div>
-
-            <div class="flex flex-col">
-                <h3 class="text-2xl font-bold mb-6 text-black">For Press</h3>
-                <p class="text-black leading-relaxed mb-8 text-sm md:text-base">
-                    Temukan informasi resmi tentang Sinemaku Pictures, termasuk latar belakang perusahaan, press kit, logo,
-                    dan kontak media untuk jurnalis.
-                </p>
-                <span class="flex items-center gap-2 text-black font-bold text-sm">
-                    <span class="leading-none">→</span> <span data-i18n="about_coming_soon">Coming Soon</span>
-                </span>
             </div>
         </div>
     </section>
