@@ -229,7 +229,6 @@
   {{-- FILTER KATEGORI --}}
   <div class="event-filters-section reveal">
     <div class="event-filters" role="tablist">
-      <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All</button>
       @foreach($event_kategori as $cat)
         <button class="chip" data-filter="{{ $cat->uuid }}" role="tab">{{ $cat->name }}</button>
       @endforeach
@@ -291,17 +290,27 @@
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
         const filter = chip.getAttribute('data-filter');
+        const isAlreadyActive = chip.classList.contains('is-active');
         
-        // UI
+        // UI: Toggle active state
         chips.forEach(c => {
-          c.classList.toggle('is-active', c === chip);
-          c.setAttribute('aria-selected', c === chip ? 'true' : 'false');
+          c.classList.remove('is-active');
+          c.setAttribute('aria-selected', 'false');
         });
+
+        let currentFilter = filter;
+        if (isAlreadyActive) {
+          // If clicking active, deactivate it -> show all
+          currentFilter = 'all';
+        } else {
+          chip.classList.add('is-active');
+          chip.setAttribute('aria-selected', 'true');
+        }
 
         // Filtering
         rows.forEach(row => {
           const category = row.getAttribute('data-category');
-          if (filter === 'all' || category === filter) {
+          if (currentFilter === 'all' || category === currentFilter) {
             row.style.display = 'flex';
             setTimeout(() => row.classList.add('is-inview'), 10);
           } else {

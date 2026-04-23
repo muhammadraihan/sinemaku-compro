@@ -252,7 +252,6 @@
   {{-- FILTER KATEGORI --}}
   <div class="article-filters-section reveal">
     <div class="article-filters" role="tablist">
-      <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">All Stories</button>
       @foreach($artikel_kategori as $cat)
         <button class="chip" data-filter="{{ $cat->uuid }}" role="tab">{{ $cat->name }}</button>
       @endforeach
@@ -349,17 +348,27 @@
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
         const filter = chip.getAttribute('data-filter');
+        const isAlreadyActive = chip.classList.contains('is-active');
         
         // UI State
         chips.forEach(c => {
-          c.classList.toggle('is-active', c === chip);
-          c.setAttribute('aria-selected', c === chip ? 'true' : 'false');
+          c.classList.remove('is-active');
+          c.setAttribute('aria-selected', 'false');
         });
+ 
+        let currentFilter = filter;
+        if (isAlreadyActive) {
+          // If clicking active, deactivate it -> show all
+          currentFilter = 'all';
+        } else {
+          chip.classList.add('is-active');
+          chip.setAttribute('aria-selected', 'true');
+        }
  
         // Logic
         articles.forEach(article => {
           const category = article.getAttribute('data-category');
-          if (filter === 'all' || category === filter) {
+          if (currentFilter === 'all' || category === currentFilter) {
             article.style.display = 'flex';
             // Trigger reveal again in case it was hidden
             setTimeout(() => article.classList.add('is-inview'), 10);
