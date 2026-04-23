@@ -1,106 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Sinemaku Pictures')</title>
 
-  {{-- Brand fonts loaded as local @font-face in resources/css/app.css
-       Body / Display : Helvetica (all pages)
-       Special        : Instrument Serif Modified (About intro animation only) --}}
-
-
-  {{-- Main CSS --}}
+  {{-- Main CSS (Laravel) --}}
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-  {{-- Iconify for all Lucide icons --}}
+  {{-- Tailwind CSS CDN & Config (Prestige Editorial Theme) --}}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FFB150',
+              deepbreath: '#25225E',
+            },
+            shade: {
+              1: '#DB5F10',
+              2: '#0E1633',
+              3: '#000000',
+            },
+            tint: {
+              1: '#FFD8A8',
+              2: '#CACAEF',
+              3: '#F1F1F1',
+            }
+          },
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'serif'],
+            sans: ['Helvetica', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  {{-- Google Fonts --}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  {{-- Iconify --}}
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
-  {{-- Meta Theme --}}
-  <meta name="theme-color" content="#26225e">
+  {{-- Meta Theme (Menggunakan warna Tint 3) --}}
+  <meta name="theme-color" content="#F1F1F1">
 
   @stack('head')
 
   <style>
-    /* ── SINEMAKU BRAND COLOR TOKENS (2026 Design Guidelines) ─────────
-       Font : Helvetica for ALL text. Instrument Serif Modified used
-              ONLY in the "Here Comes The Fun" intro on the About page.
-
-       Color — Orange palette:
-         CORE   #DB5F10  (R219 G95  B16)   ← guidelines orange core
-         TINT   #FFB150  (R255 G177 B80)   ← guidelines orange tint
-         LIGHT  #FFD8A8  (R255 G216 B168)  ← guidelines orange light
-
-       Color — Deep Breath palette:
-         CORE   #25225E  (R37  G34  B94)   ← guidelines navy core ✓
-         SHADE  #0E1633  (R14  G22  B51)   ← guidelines navy shade
-         TINT   #CACAEF  (R202 G202 B239)  ← guidelines navy tint
-    ──────────────────────────────────────────────────────────────────── */
-    :root {
-      /* Navy / Deep Breath scale — per guidelines */
-      --navy-950: #0b0a1a;
-      --navy-900: #0e1633;   /* ★ Shade (guidelines exact) */
-      --navy-800: #1a1640;
-      --navy-700: #221d55;
-      --navy-600: #25225e;   /* ★ Core (guidelines exact) */
-      --navy-500: #332c80;
-      --navy-400: #4a42aa;
-      --navy-300: #7069c7;
-      --navy-200: #a39de0;
-      --navy-100: #cacaef;   /* ★ Tint (guidelines exact) */
-      --navy-050: #eeedf9;
-      /* Orange / Brand palette — per guidelines */
-      --amber-900: #6b3d08;
-      --amber-800: #9a5810;
-      --amber-700: #c47214;
-      --amber-600: #db5f10;  /* ★ Orange CORE (guidelines exact) */
-      --amber-500: #ed9520;  /* web-safe bright variant (previously used) */
-      --amber-400: #ffb150;  /* ★ Orange Tint (guidelines exact) */
-      --amber-300: #f6c276;
-      --amber-200: #ffd8a8;  /* ★ Orange Light (guidelines exact) */
-      --amber-100: #fdeece;
-      /* Semantic */
-      --color-brand:         var(--navy-600);
-      --color-accent:        var(--amber-600);  /* primary orange = CORE */
-      --color-accent-hover:  var(--amber-400);  /* hover = Tint */
+    /* ── PENGATURAN DASAR GLOBAL ── */
+    body {
+      background-color: #F1F1F1;
+      /* Tint 3 */
+      color: #25225E;
+      /* Deep Breath */
+      margin: 0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+      /* Menyembunyikan kursor bawaan untuk semua halaman */
     }
 
-    /* Global Cinematic Style: Noise Grain on images */
-    img,
-    .hero-bg,
-    .serial-bleed-img,
-    [style*="background-image"] {
-      filter: sepia(0.2) url(#cinematic-grain);
-      transition: filter 0.3s ease;
+    /* ── EFEK CINEMATIC GRAIN GLOBAL ── */
+    .cinematic-grain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
     }
 
-    a:hover img,
-    .section-feature:hover .feature-img,
-    .serial-bleed-img:hover {
-      filter: sepia(0.1) url(#cinematic-grain);
+    /* ── CUSTOM CURSOR (EDITORIAL RING) GLOBAL ── */
+    #cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      border: 1px solid #FFB150;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background-color 0.3s;
+      mix-blend-mode: multiply;
+    }
+
+    #cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 4px;
+      background-color: #25225E;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ── UTILITAS EDITORIAL GLOBAL ── */
+    .hairline-border {
+      border-color: rgba(37, 34, 94, 0.15);
+    }
+
+    .vertical-text {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    ::selection {
+      background-color: #25225E;
+      color: #F1F1F1;
+    }
+
+    /* ── CUSTOM SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #F1F1F1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(37, 34, 94, 0.2);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(37, 34, 94, 0.5);
     }
   </style>
-
 </head>
 
-<body class="antialiased">
-  <!-- SVG Filter for Cinematic Grain -->
-  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" xmlns="http://www.w3.org/2000/svg">
-    <filter id="cinematic-grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" stitchTiles="stitch" result="noise" />
-      <feColorMatrix in="noise" type="saturate" values="0.5" result="monoNoise" />
-      <feComponentTransfer in="monoNoise" result="subtleNoise">
-        <feFuncA type="linear" slope="0.05" />
-      </feComponentTransfer>
-      <feBlend in="SourceGraphic" in2="subtleNoise" mode="screen" />
-    </filter>
-  </svg>
+<body class="font-sans">
 
+  <!-- Efek Grain Global (Terpasang di semua halaman) -->
+  <div class="cinematic-grain"></div>
+
+  <!-- Custom Cursor Global -->
+  <div id="cursor-ring"></div>
+  <div id="cursor-dot"></div>
+
+  {{-- KONTEN UTAMA DARI HALAMAN LAIN AKAN MASUK KE SINI --}}
   @yield('content')
 
-  {{-- GSAP JS --}}
+  {{-- GSAP JS (Load Global) --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  {{-- SCRIPT KURSOR GLOBAL --}}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cursorRing = document.getElementById('cursor-ring');
+      const cursorDot = document.getElementById('cursor-dot');
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let ringX = mouseX;
+      let ringY = mouseY;
+
+      // Dot mengikuti langsung
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        gsap.to(cursorDot, {
+          x: mouseX,
+          y: mouseY,
+          duration: 0.1,
+          ease: "none"
+        });
+      });
+
+      // Ring mengikuti dengan delay (Lerp)
+      gsap.ticker.add(() => {
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        gsap.set(cursorRing, { x: ringX, y: ringY });
+      });
+
+      // Re-bind hover logic function agar bisa dipanggil ulang jika ada konten dinamis (AJAX/Livewire)
+      window.bindCursorHoverEffects = function () {
+        const hoverTargets = document.querySelectorAll('.hover-target, a, button');
+        hoverTargets.forEach(target => {
+          // Hindari binding ganda
+          if (target.dataset.cursorBound) return;
+          target.dataset.cursorBound = "true";
+
+          target.addEventListener('mouseenter', () => {
+            gsap.to(cursorRing, { scale: 1.8, backgroundColor: 'rgba(255, 177, 80, 0.2)', duration: 0.3 });
+            gsap.to(cursorDot, { scale: 0, duration: 0.2 });
+          });
+          target.addEventListener('mouseleave', () => {
+            gsap.to(cursorRing, { scale: 1, backgroundColor: 'transparent', duration: 0.3 });
+            gsap.to(cursorDot, { scale: 1, duration: 0.2 });
+          });
+        });
+      };
+
+      // Inisiasi awal
+      bindCursorHoverEffects();
+    });
+  </script>
+
+  {{-- Script spesifik halaman --}}
   @stack('scripts')
 </body>
 

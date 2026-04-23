@@ -174,47 +174,7 @@
     <div id="cursor-dot"></div>
 
     <!-- ── MINIMALIST HEADER ── -->
-    <nav
-        class="fixed top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 mix-blend-multiply text-brand-deepbreath">
-        <a href="{{ url('/') }}"
-            class="font-serif text-3xl tracking-tight leading-none cursor-none relative z-10 hover-target">
-            Sinemaku<br>Pictures.
-        </a>
-
-        <div class="flex gap-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath/60">
-            <div class="hidden md:flex flex-col gap-2">
-                <span>Est. 2020</span>
-                <span>Jakarta, ID</span>
-            </div>
-            <button id="menu-btn"
-                class="hover:text-brand-orange transition-colors cursor-none hover-target relative z-10">
-                [ Menu ]
-            </button>
-        </div>
-    </nav>
-
-    <!-- FULLSCREEN MENU OVERLAY -->
-    <div id="fullscreen-menu"
-        class="fixed inset-0 bg-tint-3 z-[400] flex flex-col justify-center px-8 md:px-32 transform -translate-y-full transition-transform duration-1000 ease-[cubic-bezier(0.85,0,0.15,1)]">
-        <button id="close-menu-btn"
-            class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange cursor-none hover-target">
-            [ Close ]
-        </button>
-
-        <div class="flex flex-col space-y-2 font-serif text-6xl md:text-8xl text-brand-deepbreath">
-            <a href="{{ url('/') }}"
-                class="hover:italic hover:text-brand-orange transition-all cursor-none hover-target origin-left inline-block w-max">Home</a>
-            <a href="#manifesto"
-                class="hover:italic hover:text-brand-orange transition-all cursor-none hover-target origin-left inline-block w-max"
-                onclick="document.getElementById('close-menu-btn').click();">Manifesto</a>
-            <a href="#crew"
-                class="hover:italic hover:text-brand-orange transition-all cursor-none hover-target origin-left inline-block w-max"
-                onclick="document.getElementById('close-menu-btn').click();">The Crew</a>
-            <a href="#contact"
-                class="hover:italic hover:text-brand-orange transition-all cursor-none hover-target origin-left inline-block w-max"
-                onclick="document.getElementById('close-menu-btn').click();">Contact</a>
-        </div>
-    </div>
+    @include('partials.navbar')
 
     <!-- 1. EDITORIAL HERO SECTION -->
     <section class="relative w-full min-h-[100svh] flex flex-col justify-center px-8 md:px-16 pt-32 pb-16 z-10">
@@ -633,23 +593,7 @@
             });
         });
 
-        // 5. Fullscreen Menu Logic
-        const menuBtn = document.getElementById('menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const menu = document.getElementById('fullscreen-menu');
-        const links = menu.querySelectorAll('a');
 
-        menuBtn.addEventListener('click', () => {
-            menu.style.transform = 'translateY(0)';
-            gsap.fromTo(links,
-                { y: 50, opacity: 0, skewY: 5 },
-                { y: 0, opacity: 1, skewY: 0, duration: 1, stagger: 0.1, ease: "power4.out", delay: 0.4 }
-            );
-        });
-
-        closeMenuBtn.addEventListener('click', () => {
-            menu.style.transform = 'translateY(-100%)';
-        });
 
         // ─── LANGUAGE SYNC FOR HERO TAGLINE ───────────────────────────
         function syncTaglineWithLang() {
