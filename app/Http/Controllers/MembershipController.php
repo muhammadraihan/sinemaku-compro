@@ -27,7 +27,7 @@ class MembershipController extends Controller
         $membership = membership::all();
         if (request()->ajax()) {
             $data = membership::selectRaw("
-                        first_name, last_name, email, city, phone_number,created_at, DATE(created_at) as created_date, TIME(created_at) as created_time,
+                        first_name, last_name, birth_date, email, city, phone_number,created_at, DATE(created_at) as created_date, TIME(created_at) as created_time,
                         CONCAT(
                         TIMESTAMPDIFF(MONTH, created_at, NOW()), ' bulan ',
                         DATEDIFF(
@@ -79,6 +79,7 @@ class MembershipController extends Controller
         $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
+            'birth_date' => 'required|date',
             'email' => 'required|email|unique:memberships,email',
             'city' => 'required',
             'phone_number' => 'required|numeric|unique:memberships,phone_number'
@@ -100,6 +101,7 @@ class MembershipController extends Controller
         $membership = new membership();
         $membership->first_name = $request->first_name;
         $membership->last_name = $request->last_name;
+        $membership->birth_date = $request->birth_date;
         $membership->email = $request->email;
         $membership->city = $request->city;
         $membership->phone_number = $request->phone_number;
@@ -173,7 +175,7 @@ class MembershipController extends Controller
         // $rows = $q->orderBy('first_name')->get(['first_name','last_name','email','city','phone_number']);
 
         $rows = membership::selectRaw("
-                        first_name, last_name, email, city, phone_number,created_at, DATE(created_at) as created_date, TIME(created_at) as created_time,
+                        first_name, last_name, birth_date, email, city, phone_number,created_at, DATE(created_at) as created_date, TIME(created_at) as created_time,
                         CONCAT(
                         TIMESTAMPDIFF(MONTH, created_at, NOW()), ' bulan ',
                         DATEDIFF(
@@ -199,6 +201,7 @@ class MembershipController extends Controller
                 'Duration'      => $r->durasi,
                 'First Name'    => $r->first_name,
                 'Last Name'     => $r->last_name,
+                'Birth Date'    => $r->birth_date,
                 'Email'         => $r->email,
                 'City'          => $r->city,
                 'Phone'         => $r->phone_number,
@@ -213,7 +216,7 @@ class MembershipController extends Controller
 
         // Ambil semua data dengan relasi yang dibutuhkan
         $query = Membership::selectRaw("
-                        first_name, last_name, email, city, phone_number,created_at
+                        first_name, last_name, birth_date, email, city, phone_number,created_at
                     ");
     
         if (!empty($request->tgl_mulai) && !empty($request->tgl_akhir)) {

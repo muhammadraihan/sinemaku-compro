@@ -76,6 +76,7 @@
                                 <th>Durasi</th>
                                 <th>Nama Pertama</th>
                                 <th>Nama Terakhir</th>
+                                <th>Tanggal Lahir</th>
                                 <th>Email</th>
                                 <th>Kota</th>
                                 <th>No Handphone</th>
@@ -165,6 +166,7 @@
                         {data: 'durasi', name: 'durasi'},
                         {data: 'first_name', name: 'first_name'},
                         {data: 'last_name', name: 'last_name'},
+                        {data: 'birth_date', name: 'birth_date'},
                         {data: 'email', name: 'email'},
                         {data: 'city', name: 'city'},
                         {data: 'phone_number', name: 'phone_number'},
@@ -239,6 +241,7 @@
             {data: 'durasi', name: 'durasi'},
             {data: 'first_name', name: 'first_name'},
             {data: 'last_name', name: 'last_name'},
+            {data: 'birth_date', name: 'birth_date'},
             {data: 'email', name: 'email'},
             {data: 'city', name: 'city'},
             {data: 'phone_number', name: 'phone_number'},

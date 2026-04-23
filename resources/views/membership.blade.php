@@ -286,6 +286,16 @@
         </div>
       </div>
 
+      <!-- Birth Date -->
+      <div class="form-group-clean">
+        @php $birthDateText = ['label' => 'Tanggal Lahir', 'label_en' => 'Date of Birth']; @endphp
+        <label for="birth_date">@i18n($birthDateText, 'label')</label>
+        <small id="error-birth_date" class="error-msg" style="color:red; font-size:12px; margin-bottom:4px; display: {{ $errors->has('birth_date') ? 'block' : 'none' }};">
+          {{ $errors->first('birth_date') ?? 'Field birth date tidak boleh kosong!' }}
+        </small>
+        <input id="birth_date" name="birth_date" type="date" value="{{ old('birth_date') }}" required>
+      </div>
+
       <!-- Email -->
       <div class="form-group-clean">
         @php $emailText = ['label' => 'Alamat Email', 'label_en' => 'Email Address']; @endphp
