@@ -96,9 +96,12 @@ class FilmController extends Controller
         $film->slug = Str::slug($request->title);
         $film->kategori = $request->kategori;
         $film->title = $request->title;
+        $film->title_en = $request->title_en;
         $film->genre = $request->genre;
+        $film->genre_en = $request->genre_en;
         $film->release_date = $request->release_date;
         $film->sinopsis = $request->sinopsis;
+        $film->sinopsis_en = $request->sinopsis_en;
         $film->duration = $request->duration;
         $film->season = $request->season;
         $film->episode = $request->episode;
@@ -210,9 +213,12 @@ class FilmController extends Controller
         $film->slug = Str::slug($request->title);
         $film->kategori = $request->kategori;
         $film->title = $request->title;
+        $film->title_en = $request->title_en;
         $film->genre = $request->genre;
+        $film->genre_en = $request->genre_en;
         $film->release_date = $request->release_date;
         $film->sinopsis = $request->sinopsis;
+        $film->sinopsis_en = $request->sinopsis_en;
         $film->duration = $request->duration;
         $film->season = $request->season;
         $film->episode = $request->episode;

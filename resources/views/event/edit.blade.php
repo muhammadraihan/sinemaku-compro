@@ -6,6 +6,28 @@
 <link rel="stylesheet" media="screen, print" href="{{asset('css/formplugins/select2/select2.bundle.css')}}">
 <link rel="stylesheet" media="screen, print"
     href="{{asset('css/formplugins/bootstrap-datepicker/bootstrap-datepicker.css')}}">
+<style>
+/* ── Lang Tab Styling ── */
+.lang-tabs { border-bottom: 2px solid #e9ecef; margin-bottom: 1.5rem; }
+.lang-tabs .nav-link {
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #6c757d;
+    padding: 0.6rem 1.25rem; border: none; border-bottom: 3px solid transparent;
+    margin-bottom: -2px; border-radius: 0; background: none;
+}
+.lang-tabs .nav-link:hover { color: #343a40; background: #f8f9fa; }
+.lang-tabs .nav-link.active { color: #343a40; background: none; }
+.lang-tabs .nav-link[href*="tab-id"].active { border-bottom-color: #e5b030; color: #b8860b; }
+.lang-tabs .nav-link[href*="tab-en"].active { border-bottom-color: #0088cc; color: #0056b3; }
+.lang-tab-badge {
+    display: inline-block; font-size: 0.7rem; padding: 1px 7px;
+    border-radius: 3px; margin-right: 6px; font-weight: 800;
+}
+.badge-id { background: #fff3cd; color: #856404; }
+.badge-en { background: #cce5ff; color: #004085; }
+.tab-pane { animation: fadeInTab 0.2s ease; }
+@keyframes fadeInTab { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+</style>
 @endsection
 
 @section('content')
@@ -39,94 +61,88 @@
                 {!! Form::open(['route' => ['event.update',$event->uuid],'method' => 'PUT','class' =>
                 'needs-validation','novalidate', 'enctype' => 'multipart/form-data']) !!}
                 <div class="row">
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('judul','Judul',['class' => 'required form-label'])}}
-                        {{ Form::text('judul',$event->judul,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('judul') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('judul'))
-                        <div class="invalid-feedback">{{ $errors->first('judul') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('judul_en','Judul (EN)',['class' => 'form-label'])}}
-                        {{ Form::text('judul_en',$event->judul_en,['placeholder' => 'Judul (EN)','class' => 'form-control '.($errors->has('judul_en') ? 'is-invalid':'')])}}
-                        @if ($errors->has('judul_en'))
-                        <div class="invalid-feedback">{{ $errors->first('judul_en') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('title','Title',['class' => 'required form-label'])}}
-                        {{ Form::text('title',$event->title,['placeholder' => 'Title','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('title'))
-                        <div class="invalid-feedback">{{ $errors->first('title') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('tgl_event','Tanggal Event',['class' => 'required form-label'])}}
-                        {{ Form::text('tgl_event',$event->tgl_event,['placeholder' => 'Tanggal Event','class' => 'form-control tgl_event'.($errors->has('tgl_event') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('tgl_event'))
-                        <div class="invalid-feedback">{{ $errors->first('tgl_event') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('jam_event','Jam Event',['class' => 'required form-label'])}}
-                        {{ Form::time('jam_event',$event->jam_event,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('jam_event'))
-                        <div class="invalid-feedback">{{ $errors->first('jam_event') }}</div>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group col-md-12 mb-3">
-                    {{ Form::label('detail','Detail',['class' => 'required form-label'])}}
-                    {{ Form::textarea('detail',$event->detail,['placeholder' => 'Detail','class' => 'form-control '.($errors->has('detail') ? 'is-invalid':''),'required'])}}
-                    @if ($errors->has('detail'))
-                    <div class="invalid-feedback">{{ $errors->first('detail') }}</div>
-                    @endif
-                </div>
-                <div class="form-group col-md-12 mb-3">
-                    {{ Form::label('detail_en','Detail (EN)',['class' => 'form-label'])}}
-                    {{ Form::textarea('detail_en',$event->detail_en,['placeholder' => 'Detail (EN)','class' => 'form-control '.($errors->has('detail_en') ? 'is-invalid':''), 'id' => 'detail_en'])}}
-                    @if ($errors->has('detail_en'))
-                    <div class="invalid-feedback">{{ $errors->first('detail_en') }}</div>
-                    @endif
-                </div>
-                <div class="row">
                     <div class="form-group col-md-3 mb-3">
                         {{ Form::label('event_kategori_uuid','Kategori Event',['class' => 'required form-label'])}}
                         {!! Form::select('event_kategori_uuid', $eventKategoris, $event->event_kategori_uuid,
                         ['id'=>'event_kategori_uuid','class'
                         => 'custom-select'.($errors->has('event_kategori_uuid') ? 'is-invalid':'') ,'required'
                         => '', 'placeholder' => 'Pilih Kategori ...'])!!}
-                        @if ($errors->has('event_kategori_uuid'))
-                        <div class="invalid-feedback">{{ $errors->first('event_kategori_uuid') }}</div>
-                        @endif
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('location','Location',['class' => 'required form-label'])}}
-                        {{ Form::text('location',$event->location,['placeholder' => 'Location','class' => 'form-control '.($errors->has('location') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('location'))
-                        <div class="invalid-feedback">{{ $errors->first('location') }}</div>
-                        @endif
+                        {{ Form::label('tgl_event','Tanggal Event',['class' => 'required form-label'])}}
+                        {{ Form::text('tgl_event',$event->tgl_event,['placeholder' => 'Tanggal Event','class' => 'form-control tgl_event'.($errors->has('tgl_event') ? 'is-invalid':''),'required'])}}
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('location_en','Location (EN)',['class' => 'form-label'])}}
-                        {{ Form::text('location_en',$event->location_en,['placeholder' => 'Location (EN)','class' => 'form-control '.($errors->has('location_en') ? 'is-invalid':'')])}}
-                        @if ($errors->has('location_en'))
-                        <div class="invalid-feedback">{{ $errors->first('location_en') }}</div>
-                        @endif
+                        {{ Form::label('jam_event','Jam Event',['class' => 'required form-label'])}}
+                        {{ Form::time('jam_event',$event->jam_event,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':''),'required'])}}
                     </div>
                     <div class="form-group col-md-3 mb-3">
                         {{ Form::label('harga','Harga',['class' => 'required form-label'])}}
                         {{ Form::text('harga',$event->harga,['placeholder' => 'Harga','class' => 'form-control '.($errors->has('harga') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('harga'))
-                        <div class="invalid-feedback">{{ $errors->first('harga') }}</div>
-                        @endif
                     </div>
-                    <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('link','Link Tiket',['class' => 'required form-label'])}}
+                </div>
+
+                <div class="panel-tag bg-white border-faded mb-4">
+                    <ul class="nav lang-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-id-event" role="tab">
+                                <span class="lang-tab-badge badge-id">ID</span>🇮🇩 Bahasa Indonesia
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-en-event" role="tab">
+                                <span class="lang-tab-badge badge-en">EN</span>🇺🇸 English
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        {{-- Tab ID --}}
+                        <div class="tab-pane fade show active" id="tab-id-event" role="tabpanel">
+                            <div class="row">
+                                <div class="form-group col-md-6 mb-3">
+                                    {{ Form::label('judul','Judul Event (ID)',['class' => 'required form-label'])}}
+                                    {{ Form::text('judul',$event->judul,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('judul') ? 'is-invalid':''),'required'])}}
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    {{ Form::label('location','Lokasi (ID)',['class' => 'required form-label'])}}
+                                    {{ Form::text('location',$event->location,['placeholder' => 'Lokasi','class' => 'form-control '.($errors->has('location') ? 'is-invalid':''),'required'])}}
+                                </div>
+                                <div class="form-group col-md-12 mb-3">
+                                    {{ Form::label('detail','Detail Event (ID)',['class' => 'required form-label'])}}
+                                    {{ Form::textarea('detail',$event->detail,['placeholder' => 'Detail','class' => 'form-control '.($errors->has('detail') ? 'is-invalid':''),'required'])}}
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Tab EN --}}
+                        <div class="tab-pane fade" id="tab-en-event" role="tabpanel">
+                            <div class="row">
+                                <div class="form-group col-md-6 mb-3">
+                                    {{ Form::label('judul_en','Judul Event (EN)',['class' => 'form-label'])}}
+                                    {{ Form::text('judul_en',$event->judul_en,['placeholder' => 'Event Title in English','class' => 'form-control'])}}
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    {{ Form::label('location_en','Lokasi (EN)',['class' => 'form-label'])}}
+                                    {{ Form::text('location_en',$event->location_en,['placeholder' => 'Location in English','class' => 'form-control'])}}
+                                </div>
+                                <div class="form-group col-md-12 mb-3">
+                                    {{ Form::label('detail_en','Detail Event (EN)',['class' => 'form-label'])}}
+                                    {{ Form::textarea('detail_en',$event->detail_en,['placeholder' => 'Event Detail in English','class' => 'form-control', 'id' => 'detail_en'])}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6 mb-3">
+                        {{ Form::label('link','Link Tiket / Pendaftaran',['class' => 'required form-label'])}}
                         {{ Form::text('link',$event->link,['placeholder' => 'Link Tiket','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('link'))
-                        <div class="invalid-feedback">{{ $errors->first('link') }}</div>
-                        @endif
+                    </div>
+                    <div class="form-group col-md-6 mb-3">
+                        {{ Form::label('title','Slug / Unique Title',['class' => 'required form-label'])}}
+                        {{ Form::text('title',$event->title,['placeholder' => 'Slug','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
                     </div>
                 </div>
                 <div class="form-group col-md-4 mb-3">

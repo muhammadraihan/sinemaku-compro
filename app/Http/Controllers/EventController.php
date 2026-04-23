@@ -90,12 +90,15 @@ class EventController extends Controller
         $event = new Event();
         $event->slug = Str::slug($request->judul);
         $event->judul = $request->judul;
+        $event->judul_en = $request->judul_en;
         $event->title = $request->title;
         $event->tgl_event = $request->tgl_event;
         $event->jam_event = $request->jam_event;
         $event->location = $request->location;
+        $event->location_en = $request->location_en;
         $event->harga = $request->harga;
         $event->detail = $request->detail;
+        $event->detail_en = $request->detail_en;
         $event->link = $request->link;
         $event->event_kategori_uuid = $request->event_kategori_uuid;
 
@@ -171,12 +174,15 @@ class EventController extends Controller
         $event = Event::uuid($id);
         $event->slug = Str::slug($request->judul);
         $event->judul = $request->judul;
+        $event->judul_en = $request->judul_en;
         $event->title = $request->title;
         $event->tgl_event = $request->tgl_event;
         $event->jam_event = $request->jam_event;
         $event->location = $request->location;
+        $event->location_en = $request->location_en;
         $event->harga = $request->harga;
         $event->detail = $request->detail;
+        $event->detail_en = $request->detail_en;
         $event->link = $request->link;
         $event->event_kategori_uuid = $request->event_kategori_uuid;
 

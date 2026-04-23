@@ -7,6 +7,28 @@
 <link rel="stylesheet" media="screen, print" href="{{asset('css/formplugins/dropzone/dropzone.css')}}">
 <link rel="stylesheet" media="screen, print"
     href="{{asset('css/formplugins/bootstrap-datepicker/bootstrap-datepicker.css')}}">
+<style>
+/* ── Lang Tab Styling ── */
+.lang-tabs { border-bottom: 2px solid #e9ecef; margin-bottom: 1.5rem; }
+.lang-tabs .nav-link {
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #6c757d;
+    padding: 0.6rem 1.25rem; border: none; border-bottom: 3px solid transparent;
+    margin-bottom: -2px; border-radius: 0; background: none;
+}
+.lang-tabs .nav-link:hover { color: #343a40; background: #f8f9fa; }
+.lang-tabs .nav-link.active { color: #343a40; background: none; }
+.lang-tabs .nav-link[href*="tab-id"].active { border-bottom-color: #e5b030; color: #b8860b; }
+.lang-tabs .nav-link[href*="tab-en"].active { border-bottom-color: #0088cc; color: #0056b3; }
+.lang-tab-badge {
+    display: inline-block; font-size: 0.7rem; padding: 1px 7px;
+    border-radius: 3px; margin-right: 6px; font-weight: 800;
+}
+.badge-id { background: #fff3cd; color: #856404; }
+.badge-en { background: #cce5ff; color: #004085; }
+.tab-pane { animation: fadeInTab 0.2s ease; }
+@keyframes fadeInTab { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+</style>
 @endsection
 
 @section('content')
@@ -40,7 +62,7 @@
                 {!! Form::open(['route' => 'film.store','id'=>'forms','method' => 'POST','class' =>
                 'needs-validation','dropzone', 'forms','novalidate','enctype' => 'multipart/form-data']) !!}
                 <div class="row">
-                    <div class="form-group col-md-4 mb-3">
+                    <div class="form-group col-md-6 mb-3">
                         {{ Form::label('kategori','kategori',['class' => 'required form-label'])}}
                         {!! Form::select('kategori', $kategori, '',
                         ['id'=>'kategori','class'
@@ -50,35 +72,7 @@
                         <div class="invalid-feedback">{{ $errors->first('kategori') }}</div>
                         @endif
                     </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('title','Judul',['class' => 'required form-label'])}}
-                        {{ Form::text('title',null,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('title'))
-                        <div class="invalid-feedback">{{ $errors->first('title') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('title_en','Judul (EN)',['class' => 'form-label'])}}
-                        {{ Form::text('title_en',null,['placeholder' => 'Judul (EN)','class' => 'form-control '.($errors->has('title_en') ? 'is-invalid':'')])}}
-                        @if ($errors->has('title_en'))
-                        <div class="invalid-feedback">{{ $errors->first('title_en') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('genre','Genre',['class' => 'required form-label'])}}
-                        {{ Form::text('genre',null,['placeholder' => 'Genre','class' => 'form-control '.($errors->has('genre') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('genre'))
-                        <div class="invalid-feedback">{{ $errors->first('genre') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('genre_en','Genre (EN)',['class' => 'form-label'])}}
-                        {{ Form::text('genre_en',null,['placeholder' => 'Genre (EN)','class' => 'form-control '.($errors->has('genre_en') ? 'is-invalid':'')])}}
-                        @if ($errors->has('genre_en'))
-                        <div class="invalid-feedback">{{ $errors->first('genre_en') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
+                    <div class="form-group col-md-6 mb-3">
                         {{ Form::label('release_date','Tanggal Rilis',['class' => 'required form-label'])}}
                         {{ Form::text('release_date',null,['placeholder' => 'Tanggal Rilis','class' => 'form-control release_date'.($errors->has('release_date') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('release_date'))
@@ -86,19 +80,61 @@
                         @endif
                     </div>
                 </div>
-                <div class="form-group col-md-12 mb-3">
-                    {{ Form::label('sinopsis','Sinopsis',['class' => 'required form-label'])}}
-                    {{ Form::textarea('sinopsis',null,['placeholder' => 'Sinopsis','class' => 'form-control '.($errors->has('sinopsis') ? 'is-invalid':''),'required'])}}
-                    @if ($errors->has('sinopsis'))
-                    <div class="invalid-feedback">{{ $errors->first('sinopsis') }}</div>
-                    @endif
-                </div>
-                <div class="form-group col-md-12 mb-3">
-                    {{ Form::label('sinopsis_en','Sinopsis (EN)',['class' => 'form-label'])}}
-                    {{ Form::textarea('sinopsis_en',null,['placeholder' => 'Sinopsis (EN)','class' => 'form-control '.($errors->has('sinopsis_en') ? 'is-invalid':''), 'id' => 'sinopsis_en'])}}
-                    @if ($errors->has('sinopsis_en'))
-                    <div class="invalid-feedback">{{ $errors->first('sinopsis_en') }}</div>
-                    @endif
+
+                <div class="panel-tag bg-white border-faded mb-4">
+                    <ul class="nav lang-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-id-film" role="tab">
+                                <span class="lang-tab-badge badge-id">ID</span>🇮🇩 Bahasa Indonesia
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-en-film" role="tab">
+                                <span class="lang-tab-badge badge-en">EN</span>🇺🇸 English
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        {{-- Tab ID --}}
+                        <div class="tab-pane fade show active" id="tab-id-film" role="tabpanel">
+                            <div class="row">
+                                <div class="form-group col-md-6 mb-3">
+                                    {{ Form::label('title','Judul (ID)',['class' => 'required form-label'])}}
+                                    {{ Form::text('title',null,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
+                                    @if ($errors->has('title'))<div class="invalid-feedback">{{ $errors->first('title') }}</div>@endif
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    {{ Form::label('genre','Genre (ID)',['class' => 'required form-label'])}}
+                                    {{ Form::text('genre',null,['placeholder' => 'Genre','class' => 'form-control '.($errors->has('genre') ? 'is-invalid':''),'required'])}}
+                                    @if ($errors->has('genre'))<div class="invalid-feedback">{{ $errors->first('genre') }}</div>@endif
+                                </div>
+                                <div class="form-group col-md-12 mb-3">
+                                    {{ Form::label('sinopsis','Sinopsis (ID)',['class' => 'required form-label'])}}
+                                    {{ Form::textarea('sinopsis',null,['placeholder' => 'Sinopsis','class' => 'form-control '.($errors->has('sinopsis') ? 'is-invalid':''),'required'])}}
+                                    @if ($errors->has('sinopsis'))<div class="invalid-feedback">{{ $errors->first('sinopsis') }}</div>@endif
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Tab EN --}}
+                        <div class="tab-pane fade" id="tab-en-film" role="tabpanel">
+                            <div class="row">
+                                <div class="form-group col-md-6 mb-3">
+                                    {{ Form::label('title_en','Judul (EN)',['class' => 'form-label'])}}
+                                    {{ Form::text('title_en',null,['placeholder' => 'Title in English','class' => 'form-control'])}}
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    {{ Form::label('genre_en','Genre (EN)',['class' => 'form-label'])}}
+                                    {{ Form::text('genre_en',null,['placeholder' => 'Genre in English','class' => 'form-control'])}}
+                                </div>
+                                <div class="form-group col-md-12 mb-3">
+                                    {{ Form::label('sinopsis_en','Sinopsis (EN)',['class' => 'form-label'])}}
+                                    {{ Form::textarea('sinopsis_en',null,['placeholder' => 'Synopsis in English','class' => 'form-control', 'id' => 'sinopsis_en'])}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-4 mb-3 duration">

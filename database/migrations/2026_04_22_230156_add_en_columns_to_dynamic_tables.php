@@ -59,6 +59,13 @@ class AddEnColumnsToDynamicTables extends Migration
             });
         }
 
+        if (!Schema::hasColumn('episodes', 'title_en')) {
+            Schema::table('episodes', function (Blueprint $table) {
+                $table->string('title_en')->nullable()->after('title');
+                $table->text('sinopsis_en')->nullable()->after('sinopsis');
+            });
+        }
+
         if (!Schema::hasColumn('site_settings', 'value_en')) {
             Schema::table('site_settings', function (Blueprint $table) {
                 $table->text('value_en')->nullable()->after('value');
@@ -95,6 +102,10 @@ class AddEnColumnsToDynamicTables extends Migration
 
         Schema::table('shops', function (Blueprint $table) {
             $table->dropColumn(['name_en', 'judul_en', 'detail_en']);
+        });
+
+        Schema::table('episodes', function (Blueprint $table) {
+            $table->dropColumn(['title_en', 'sinopsis_en']);
         });
 
         Schema::table('site_settings', function (Blueprint $table) {

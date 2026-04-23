@@ -101,7 +101,9 @@ class EpisodeController extends Controller
         $episode->season_number  = $request->season_number;
         $episode->episode_number = $request->episode_number;
         $episode->title          = $request->title;
+        $episode->title_en       = $request->title_en;
         $episode->sinopsis       = $request->sinopsis;
+        $episode->sinopsis_en    = $request->sinopsis_en;
         $episode->duration       = $request->duration;
         $episode->link           = $request->link;
         $episode->link_trailer   = $request->link_trailer;
@@ -200,7 +202,9 @@ class EpisodeController extends Controller
         $episode->season_number  = $request->season_number;
         $episode->episode_number = $request->episode_number;
         $episode->title          = $request->title;
+        $episode->title_en       = $request->title_en;
         $episode->sinopsis       = $request->sinopsis;
+        $episode->sinopsis_en    = $request->sinopsis_en;
         $episode->duration       = $request->duration;
         $episode->link           = $request->link;
         $episode->link_trailer   = $request->link_trailer;

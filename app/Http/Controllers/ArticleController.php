@@ -88,10 +88,13 @@ class ArticleController extends Controller
         $article = new Article();
         $article->slug = Str::slug($request->judul);
         $article->judul = $request->judul;
+        $article->judul_en = $request->judul_en;
         $article->title = $request->title;
+        $article->title_en = $request->title_en;
         $article->tgl_rilis = $request->tgl_rilis;
         $article->penulis = $request->penulis;
         $article->detail = $request->detail;
+        $article->detail_en = $request->detail_en;
         $kategoriObj = ArtikelKategori::where('uuid', $request->artikel_kategori_uuid)->first();
         $article->kategori = $kategoriObj ? $kategoriObj->name : 'Uncategorized';
         $article->artikel_kategori_uuid = $request->artikel_kategori_uuid;
@@ -165,10 +168,13 @@ class ArticleController extends Controller
         $article = Article::uuid($id);
         $article->slug = Str::slug($request->judul);
         $article->judul = $request->judul;
+        $article->judul_en = $request->judul_en;
         $article->title = $request->title;
+        $article->title_en = $request->title_en;
         $article->tgl_rilis = $request->tgl_rilis;
         $article->penulis = $request->penulis;
         $article->detail = $request->detail;
+        $article->detail_en = $request->detail_en;
         $kategoriObj = ArtikelKategori::where('uuid', $request->artikel_kategori_uuid)->first();
         $article->kategori = $kategoriObj ? $kategoriObj->name : 'Uncategorized';
         $article->artikel_kategori_uuid = $request->artikel_kategori_uuid;
