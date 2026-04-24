@@ -10,7 +10,7 @@
                 <span data-i18n="footer_connect">Connect</span>
             </span>
             <a href="mailto:hello@sinemakupictures.com"
-                class="font-serif text-[clamp(1.5rem,7vw,6rem)] leading-none text-brand-deepbreath hover:italic hover:text-brand-orange transition-all duration-500 cursor-none hover-target break-all md:break-normal px-4">
+                class="font-serif text-[clamp(1.5rem,7vw,6rem)] leading-none text-brand-deepbreath cursor-none hover-target break-all md:break-normal px-4 smooth-italic hover:text-brand-orange transition-colors duration-500">
                 hello@sinemakupictures.com
             </a>
         </div>

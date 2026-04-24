@@ -160,6 +160,35 @@
             z-index: 10000;
             transform: translate(-50%, -50%);
         }
+
+        /* ── SMOOTH ITALIC ANIMATION ── */
+        .smooth-italic {
+            display: inline-block;
+            transform-origin: center;
+            animation: unskewToNormal 0.4s forwards;
+        }
+        .smooth-italic:hover,
+        .group:hover .group-smooth-italic {
+            animation: skewToItalic 0.4s forwards;
+        }
+        .group-smooth-italic {
+            display: inline-block;
+            transform-origin: center;
+            animation: unskewToNormal 0.4s forwards;
+        }
+
+        @keyframes skewToItalic {
+            0% { transform: skewX(0deg) scale(1); font-style: normal; }
+            49% { transform: skewX(-12deg) scale(1); font-style: normal; }
+            50% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+            100% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+        }
+        @keyframes unskewToNormal {
+            0% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+            49% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+            50% { transform: skewX(-12deg) scale(1); font-style: normal; }
+            100% { transform: skewX(0deg) scale(1); font-style: normal; }
+        }
     </style>
 </head>
 
@@ -424,7 +453,7 @@
                     <a href="#"
                         class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row cursor-none hover-target">
                         <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-all duration-500">
+                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-colors duration-500 group-smooth-italic">
                             @php
                                 $settings['about_values_1_title'] = $settings['about_values_1_title'] ?? 'Film & Seri Web';
                                 $settings['about_values_1_title_en'] = $settings['about_values_1_title_en'] ?? 'Film & Web Series';
@@ -444,7 +473,7 @@
                     <a href="#"
                         class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row cursor-none hover-target">
                         <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-all duration-500">
+                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-colors duration-500 group-smooth-italic">
                             @php
                                 $settings['about_values_2_title'] = $settings['about_values_2_title'] ?? 'Tayangan Televisi';
                                 $settings['about_values_2_title_en'] = $settings['about_values_2_title_en'] ?? 'Television Shows';
@@ -462,9 +491,9 @@
                     </a>
 
                     <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row">
+                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row cursor-none hover-target">
                         <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-all duration-500">
+                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-colors duration-500 group-smooth-italic">
                             @php
                                 $settings['about_values_3_title'] = $settings['about_values_3_title'] ?? 'Komunitas & Event';
                                 $settings['about_values_3_title_en'] = $settings['about_values_3_title_en'] ?? 'Community & Events';

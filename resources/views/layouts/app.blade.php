@@ -125,6 +125,35 @@
       color: #F1F1F1;
     }
 
+    /* ── SMOOTH ITALIC ANIMATION ── */
+    .smooth-italic {
+        display: inline-block;
+        transform-origin: center;
+        animation: unskewToNormal 0.4s forwards;
+    }
+    .smooth-italic:hover,
+    .group:hover .group-smooth-italic {
+        animation: skewToItalic 0.4s forwards;
+    }
+    .group-smooth-italic {
+        display: inline-block;
+        transform-origin: center;
+        animation: unskewToNormal 0.4s forwards;
+    }
+
+    @keyframes skewToItalic {
+        0% { transform: skewX(0deg) scale(1); font-style: normal; }
+        49% { transform: skewX(-12deg) scale(1); font-style: normal; }
+        50% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+        100% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+    }
+    @keyframes unskewToNormal {
+        0% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+        49% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+        50% { transform: skewX(-12deg) scale(1); font-style: normal; }
+        100% { transform: skewX(0deg) scale(1); font-style: normal; }
+    }
+
     /* ── CUSTOM SCROLLBAR ── */
     ::-webkit-scrollbar {
       width: 6px;
