@@ -192,16 +192,12 @@ STYLES & SCRIPTS
         /* ── CINEMATIC HERO IMAGE BOX ── */
         .hero-img-box {
             transition: width 800ms cubic-bezier(0.25, 1, 0.5, 1), right 800ms cubic-bezier(0.25, 1, 0.5, 1);
+            right: 0;
         }
         .hero-slide.cinematic .hero-img-box {
-            width: 100vw !important;
+            width: var(--cinematic-width, 100vw) !important;
             max-width: none !important;
-            right: -2rem !important;
-        }
-        @media (min-width: 768px) {
-            .hero-slide.cinematic .hero-img-box {
-                right: -4rem !important;
-            }
+            right: var(--right-offset, -4rem) !important;
         }
 
         /* Image: grayscale default, color on cinematic */
@@ -381,13 +377,28 @@ STYLES & SCRIPTS
             }
 
             /* ─── 2. CINEMATIC HOVER LOGIC ─── */
-            // Hover langsung pada image box — ketika image melebar 100vw,
+            // Hover langsung pada image box — ketika image melebar,
             // mouse tetap di atas image sehingga mouseleave tidak terpicu prematur.
             document.querySelectorAll('.hero-img-box').forEach(imgBox => {
                 const slide = imgBox.closest('.hero-slide');
                 if (!slide) return;
-                imgBox.addEventListener('mouseenter', () => slide.classList.add('cinematic'));
-                imgBox.addEventListener('mouseleave', () => slide.classList.remove('cinematic'));
+                
+                imgBox.addEventListener('mouseenter', () => {
+                    // Kalkulasi akurat pixel untuk mencapai ujung viewport
+                    // Memperhitungkan max-width container, padding, dan scrollbar
+                    const parentRect = imgBox.parentElement.getBoundingClientRect();
+                    const viewportWidth = document.documentElement.clientWidth;
+                    const distanceToRight = viewportWidth - parentRect.right;
+                    
+                    imgBox.style.setProperty('--right-offset', `-${distanceToRight}px`);
+                    imgBox.style.setProperty('--cinematic-width', `${viewportWidth}px`);
+                    
+                    slide.classList.add('cinematic');
+                });
+                
+                imgBox.addEventListener('mouseleave', () => {
+                    slide.classList.remove('cinematic');
+                });
             });
 
             // Play button click
