@@ -109,8 +109,10 @@
             <!-- Header & Filters Dinamis -->
             <div
                 class="flex flex-col lg:flex-row justify-between items-start lg:items-end border-b hairline-border pb-12 mb-16 gap-8">
-                <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">Katalog <span
-                        class="italic text-brand-orange">Karya.</span></h2>
+                <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">
+                    <span data-i18n="page_catalog_1">Katalog</span> 
+                    <span data-i18n="page_catalog_2" class="italic text-brand-orange">Karya.</span>
+                </h2>
 
                 <div class="flex gap-6 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 flex-wrap"
                     id="film-filters">
@@ -166,8 +168,8 @@
     {{-- ============================================================
     TRAILER MODAL
     ============================================================ --}}
-    <div id="hero-trailer-modal" class="fixed inset-0 z-[100] bg-black opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4 md:p-16">
-        <button onclick="closeHeroTrailer()" class="absolute top-8 right-8 text-white text-4xl hover:text-brand-orange transition-colors z-[110]">&times;</button>
+    <div id="hero-trailer-modal" class="fixed inset-0 z-[20000] bg-black opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4 md:p-16">
+        <button onclick="closeHeroTrailer()" class="absolute top-8 right-8 text-white text-4xl hover:text-brand-orange transition-colors z-[20010]">&times;</button>
         <div class="w-full max-w-6xl aspect-video bg-black relative shadow-2xl overflow-hidden">
             <iframe id="hero-trailer-iframe" src="" class="absolute inset-0 w-full h-full border-0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
         </div>

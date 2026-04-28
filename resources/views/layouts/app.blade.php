@@ -156,7 +156,7 @@
       border: 1px solid #FFB150;
       border-radius: 50%;
       pointer-events: none;
-      z-index: 10000;
+      z-index: 999999;
       transform: translate(-50%, -50%);
       transition: width 0.3s, height 0.3s, background-color 0.3s;
       mix-blend-mode: multiply;
@@ -172,7 +172,7 @@
       backdrop-filter: invert(1) grayscale(1) contrast(100);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 10001;
+      z-index: 1000000;
       transform: translate(-50%, -50%);
     }
 

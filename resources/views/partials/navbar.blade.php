@@ -298,6 +298,8 @@ GLOBAL i18n ENGINE
             page_our_series: { en: 'OUR SERIES', id: 'SERIAL KAMI' },
             page_our_tv: { en: 'OUR TV SHOWS', id: 'TAYANGAN TV KAMI' },
             page_our_docs: { en: 'OUR DOCUMENTARIES', id: 'DOKUMENTER KAMI' },
+            page_catalog_1: { en: 'Work', id: 'Katalog' },
+            page_catalog_2: { en: 'Catalogue.', id: 'Karya.' },
         };
 
         const STORAGE_KEY = 'sinemaku_lang';
