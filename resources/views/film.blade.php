@@ -22,18 +22,24 @@
             <div id="hero-slider-container" class="absolute inset-0 px-8 md:px-16 pt-28 md:pt-32 pb-24 flex items-center">
 
                 @foreach($film as $i => $item)
+                    @php
+                        $video_id = '';
+                        if (!empty($item->link) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $item->link, $match)) {
+                            $video_id = $match[1];
+                        }
+                    @endphp
                     <div
-                        class="hero-slide absolute inset-0 px-8 md:px-16 pt-28 md:pt-32 pb-28 md:pb-32 flex flex-col-reverse md:flex-row items-end md:items-center justify-between w-full h-full {{ $i === 0 ? 'opacity-100 visible z-20 pointer-events-auto' : 'opacity-0 invisible z-10 pointer-events-none' }}">
+                        class="hero-slide group/hero absolute inset-0 px-8 md:px-16 pt-28 md:pt-32 pb-28 md:pb-32 flex flex-col-reverse md:flex-row items-end md:items-center justify-between w-full h-full transition-all duration-1000 {{ $i === 0 ? 'opacity-100 visible z-20 pointer-events-auto' : 'opacity-0 invisible z-10 pointer-events-none' }}">
 
                         <!-- Kiri: Teks -->
-                        <div class="w-full md:w-[45%] z-20 pb-4 md:pb-0 flex-shrink-0">
+                        <div class="w-full md:w-[45%] z-30 pb-4 md:pb-0 flex-shrink-0 transition-all duration-700 group-hover/hero:translate-x-4">
                             <span class="block font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange slide-meta">
                                 {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • @i18n($item, 'genre')
                             </span>
                             <!-- Masking Teks dengan Overflow Hidden -->
                             <div class="overflow-hidden mt-4 pb-2">
                                 <h1
-                                    class="font-serif text-[10vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter slide-title">
+                                    class="font-serif text-[10vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter slide-title transition-all duration-700 group-hover/hero:text-white group-hover/hero:drop-shadow-2xl">
                                     <a href="{{ route('detail-film', $item->slug) }}"
                                         class="hover-target cursor-none hover:text-brand-orange transition-colors">
                                         @i18n($item, 'title')
@@ -41,21 +47,31 @@
                                 </h1>
                             </div>
                             <p
-                                class="font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/60 mt-4 md:mt-8 max-w-sm slide-desc opacity-0">
-                                {{-- Jika ada sinopsis singkat dari CMS, bisa diletakkan di sini. Sementara menggunakan Durasi.
-                                --}}
+                                class="font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/60 mt-4 md:mt-8 max-w-sm slide-desc opacity-0 transition-all duration-700 group-hover/hero:text-white/80 group-hover/hero:translate-x-2">
                                 Durasi: {{ $item->duration }} Menit.
                             </p>
                         </div>
-
                         <!-- Kanan: Gambar Frame -->
-                        <div class="w-full md:w-[50%] flex-1 md:h-[80vh] min-h-[30vh] flex justify-end items-center relative mb-4 md:mb-0">
-                            <a href="{{ route('detail-film', $item->slug) }}"
-                                class="w-full md:w-[85%] h-full bg-tint-2/20 overflow-hidden relative slide-image-container hover-target cursor-none group block">
+                        <div class="w-full md:w-[50%] flex-1 md:h-[80vh] min-h-[30vh] flex justify-end items-center relative mb-4 md:mb-0 z-10">
+                            <div class="absolute right-0 h-full w-full md:w-[85%] bg-tint-2/20 overflow-hidden slide-image-container transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/hero:w-[100vw] group-hover/hero:max-w-none group-hover/hero:-right-8 md:group-hover/hero:-right-16 z-10">
+                                
+                                {{-- Play Button overlay --}}
+                                @if($video_id)
+                                    <button onclick="openHeroTrailer('{{ $video_id }}')" 
+                                            class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover/hero:opacity-100 transition-opacity duration-500 delay-200 cursor-none hover-target">
+                                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-white/30 bg-white/10 backdrop-blur-md flex items-center justify-center hover:scale-110 hover:bg-white hover:text-brand-deepbreath transition-all duration-300 text-white shadow-2xl">
+                                            <span class="iconify w-8 h-8 md:w-10 md:h-10 ml-1" data-icon="lucide:play" data-inline="false"></span>
+                                        </div>
+                                    </button>
+                                @endif
+
                                 <img src="{{ asset('photo/' . $item->photo) }}"
-                                    class="w-full h-full object-cover filter grayscale contrast-110 slide-image group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                    class="w-full h-full object-cover filter grayscale contrast-110 slide-image transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/hero:grayscale-0 group-hover/hero:scale-105"
                                     alt="@i18n($item, 'title')">
-                            </a>
+                                
+                                {{-- Overlay gradient saat cinematic --}}
+                                <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-brand-deepbreath/90 via-brand-deepbreath/40 to-transparent opacity-0 group-hover/hero:opacity-100 transition-opacity duration-700 z-10"></div>
+                            </div>
                         </div>
 
                     </div>
@@ -147,6 +163,16 @@
         </section>
 
     </div> {{-- End Editorial Wrapper --}}
+
+    {{-- ============================================================
+    TRAILER MODAL
+    ============================================================ --}}
+    <div id="hero-trailer-modal" class="fixed inset-0 z-[100] bg-black opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4 md:p-16">
+        <button onclick="closeHeroTrailer()" class="absolute top-8 right-8 text-white text-4xl hover:text-brand-orange transition-colors z-[110]">&times;</button>
+        <div class="w-full max-w-6xl aspect-video bg-black relative shadow-2xl overflow-hidden">
+            <iframe id="hero-trailer-iframe" src="" class="absolute inset-0 w-full h-full border-0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
 
     @include('components.footer')
 
@@ -364,6 +390,33 @@ STYLES & SCRIPTS
                         ease: "power2.out"
                     });
                 });
+            });
+            /* ─── 4. HERO TRAILER MODAL LOGIC ─── */
+            window.openHeroTrailer = function(videoId) {
+                const modal = document.getElementById('hero-trailer-modal');
+                const iframe = document.getElementById('hero-trailer-iframe');
+                if (modal && iframe) {
+                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+                    modal.classList.remove('opacity-0', 'pointer-events-none');
+                    modal.classList.add('opacity-100', 'pointer-events-auto');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            window.closeHeroTrailer = function() {
+                const modal = document.getElementById('hero-trailer-modal');
+                const iframe = document.getElementById('hero-trailer-iframe');
+                if (modal && iframe) {
+                    iframe.src = '';
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                    modal.classList.remove('opacity-100', 'pointer-events-auto');
+                    document.body.style.overflow = '';
+                }
+            };
+
+            // Close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeHeroTrailer();
             });
         });
     </script>
