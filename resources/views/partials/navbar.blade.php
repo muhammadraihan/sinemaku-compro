@@ -5,18 +5,18 @@
 FULLSCREEN MENU OVERLAY
 ════════════════════════════════════════════════════════════════ --}}
 <div id="fullscreen-menu"
-    class="fixed inset-0 z-[400] flex flex-col justify-center px-8 md:px-32 bg-tint-3 transform -translate-y-full transition-transform duration-1000 ease-[cubic-bezier(0.85,0,0.15,1)]">
+    class="fixed inset-0 z-[400] flex flex-col justify-center px-8 md:px-32 bg-brand-deepbreath transform -translate-y-full transition-transform duration-1000 ease-[cubic-bezier(0.85,0,0.15,1)]">
 
     <!-- Tombol Close -->
     <button id="close-menu-btn"
-        class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target">
+        class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white/50 hover:text-white transition-colors cursor-none hover-target">
         [ Close ]
     </button>
 
     {{-- Language Switcher inside menu --}}
     <div class="absolute top-10 left-8 md:left-16 flex items-center gap-4">
         <button id="lang-switcher" aria-label="Switch language"
-            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath/50 hover:text-brand-deepbreath/90 transition-colors cursor-none hover-target"
+            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white/50 hover:text-white transition-colors cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
@@ -52,14 +52,14 @@ FULLSCREEN MENU OVERLAY
             @if(isset($item['isDropdown']))
                 <div class="relative w-max flex flex-col">
                     <button type="button" onclick="toggleDropdown('dropdown-{{ $index }}')"
-                        class="menu-link flex items-center gap-4 transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange leading-[1.05] text-left cursor-none hover-target">
+                        class="menu-link flex items-center gap-4 transition-all duration-500 opacity-0 transform translate-y-[50px] text-[clamp(2.5rem,6vw,5rem)] text-white hover:text-brand-orange leading-[1.05] text-left cursor-none hover-target font-serif not-italic">
                         <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
-                        <span id="icon-dropdown-{{ $index }}" class="font-sans text-xl md:text-3xl font-light transform transition-transform duration-300">+</span>
+                        <span id="icon-dropdown-{{ $index }}" class="font-sans text-xl md:text-3xl font-light transform transition-transform duration-300 text-brand-orange">+</span>
                     </button>
                     <div id="dropdown-{{ $index }}" class="hidden flex-col pl-8 md:pl-16 space-y-1 md:space-y-2 mt-2 mb-4 overflow-hidden">
                         @foreach($item['children'] as $child)
                             <a href="{{ $child['url'] }}"
-                                class="inline-block w-max transition-all duration-300 text-[clamp(1.5rem,4vw,3.5rem)] text-brand-deepbreath/70 hover:text-brand-orange leading-[1.1] cursor-none hover-target">
+                                class="inline-block w-max transition-all duration-300 text-[clamp(1.5rem,4vw,3.5rem)] text-white/60 hover:text-brand-orange leading-[1.1] cursor-none hover-target font-serif not-italic">
                                 <span data-i18n="{{ $child['i18n'] }}">{{ $child['title'] }}</span>
                             </a>
                         @endforeach
@@ -67,7 +67,7 @@ FULLSCREEN MENU OVERLAY
                 </div>
             @else
                 <a href="{{ $item['url'] }}"
-                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-y-[50px] skew-y-[5deg] text-[clamp(2.5rem,6vw,5rem)] text-brand-deepbreath hover:text-brand-orange leading-[1.05] cursor-none hover-target">
+                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-y-[50px] text-[clamp(2.5rem,6vw,5rem)] text-white hover:text-brand-orange leading-[1.05] cursor-none hover-target font-serif not-italic">
                     <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                 </a>
             @endif
@@ -76,8 +76,7 @@ FULLSCREEN MENU OVERLAY
 
     <!-- Info Watermark Bawah -->
     <div class="absolute bottom-10 right-8 md:right-16">
-        <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-brand-deepbreath/40">EST. 2020 • Jakarta,
-            ID</span>
+        <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-white/30">EST. 2020 • Jakarta, ID</span>
     </div>
 </div>
 
@@ -150,7 +149,7 @@ NAVBAR JAVASCRIPT
             // GSAP animate links in
             if (window.gsap) {
                 gsap.to(menuLinks, {
-                    y: 0, opacity: 1, skewY: 0,
+                    y: 0, opacity: 1,
                     duration: 1, stagger: 0.07, ease: 'power4.out', delay: 0.35,
                     onStart: function () {
                         menuLinks.forEach(function (l) { l.style.opacity = '0'; });
@@ -160,7 +159,7 @@ NAVBAR JAVASCRIPT
                 menuLinks.forEach(function (l, i) {
                     setTimeout(function () {
                         l.style.opacity = '1';
-                        l.style.transform = 'translateY(0) skewY(0)';
+                        l.style.transform = 'translateY(0)';
                     }, 350 + i * 70);
                 });
             }
@@ -173,7 +172,7 @@ NAVBAR JAVASCRIPT
             // Reset for next open
             menuLinks.forEach(function (l) {
                 l.style.opacity = '0';
-                l.style.transform = 'translateY(50px) skewY(5deg)';
+                l.style.transform = 'translateY(50px)';
             });
             // Reset dropdowns
             document.querySelectorAll('[id^="dropdown-"]').forEach(function(el) {
