@@ -211,9 +211,9 @@
     <!-- 1. EDITORIAL HERO SECTION -->
     <section id="hero-section" class="relative w-full h-[100svh] flex flex-col justify-start px-8 md:px-16 pt-32 pb-16 z-10 overflow-hidden">
         <!-- Text Container (z-30) -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 w-full z-30 relative hero-text-wrapper">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 w-full z-30 relative hero-text-wrapper pointer-events-none">
             <!-- Huge Typography -->
-            <div class="w-full md:w-3/4">
+            <div class="w-full md:w-3/4 pointer-events-auto">
                 <h1 class="hero-title font-serif text-[15vw] md:text-[12vw] leading-[0.8] text-brand-deepbreath tracking-tighter m-0 hero-reveal">
                     <span class="tagline-container tagline-id" data-tagline-lang="id">
                         Here Comes<br><span class="hero-title-italic italic text-brand-orange pl-[5vw]">The Fun.</span>
@@ -225,7 +225,7 @@
             </div>
 
             <!-- Context Text -->
-            <div class="w-full md:w-1/4 pb-4 hero-reveal hero-context">
+            <div class="w-full md:w-1/4 pb-4 hero-reveal hero-context pointer-events-auto">
                 @php
                     $subId = $settings['about_hero_subtitle'] ?? 'Sebuah ruang bermain bagi generasi baru pencerita yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia.';
                     $subEn = $settings['about_hero_subtitle_en'] ?? 'A playground for a new generation of storytellers who dare to break rigid traditions to change the landscape of Indonesian cinema.';
@@ -246,10 +246,10 @@
         </div>
 
         <!-- Absolute Image Container (z-20) -->
-        <div class="hero-image-container group absolute bottom-8 md:bottom-16 left-1/2 -translate-x-1/2 w-[90%] md:w-[60%] aspect-[21/9] md:aspect-auto md:h-[40vh] z-20 overflow-hidden rounded-md cursor-none hover-target shadow-2xl">
+        <div class="hero-image-container group absolute bottom-8 md:bottom-16 left-1/2 -translate-x-1/2 w-[90%] md:w-[60%] h-[30vh] md:h-[45vh] z-20 overflow-hidden rounded-md cursor-none hover-target shadow-2xl">
             <div class="hero-image-overlay absolute inset-0 bg-brand-deepbreath/60 opacity-0 z-10 pointer-events-none"></div>
             <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
-                alt="Cinematic Setup" class="absolute inset-0 w-full h-full object-cover z-0 hero-img-inner filter grayscale contrast-110 transition-all duration-700 group-hover:grayscale-0 group-hover:contrast-105 pointer-events-none">
+                alt="Cinematic Setup" class="absolute inset-0 w-full h-full object-cover z-0 hero-img-inner filter grayscale contrast-110 transition-[filter] duration-700 group-hover:grayscale-0 group-hover:contrast-105 pointer-events-none">
         </div>
     </section>
 
@@ -526,7 +526,7 @@
             scrollTrigger: {
                 trigger: "#hero-section",
                 start: "top top",
-                end: "+=60%", // Scroll distance reduced to 60% of screen height
+                end: "+=80%", // Increased scroll distance to accommodate the hold
                 pin: true,
                 scrub: 1, // Smooth scrub
             }
@@ -538,44 +538,47 @@
             height: "94vh",
             bottom: "3vh", // Vertically center
             borderRadius: "24px",
-            duration: 1,
-            ease: "power2.inOut"
+            duration: 0.8, // Finish at 80% of scroll
+            ease: "none"
         }, 0);
 
         // Darken overlay
         heroTl.to(".hero-image-overlay", {
             opacity: 0.7,
-            duration: 1,
-            ease: "power2.inOut"
+            duration: 0.8,
+            ease: "none"
         }, 0);
 
         // Color text to white/bright
         heroTl.to(".hero-title", {
             color: "#F1F1F1", // tint-3
-            duration: 1,
-            ease: "power2.inOut"
+            duration: 0.8,
+            ease: "none"
         }, 0);
 
         // Fade out context text
         heroTl.to(".hero-context", {
             opacity: 0,
             y: -20,
-            duration: 0.5,
-            ease: "power2.inOut"
+            duration: 0.4, // Finish earlier
+            ease: "none"
         }, 0);
 
-        // Move text block down slightly for better composition
+        // Move text block down significantly for better composition
         heroTl.to(".hero-text-wrapper", {
-            y: "10vh",
-            duration: 1,
-            ease: "power2.inOut"
+            y: "30vh", // Keeping user's manual change
+            duration: 0.8,
+            ease: "none"
         }, 0);
         
         // Slightly scale image inner to give parallax feel
         heroTl.fromTo(".hero-img-inner", 
             { scale: 1.1 },
-            { scale: 1, duration: 1, ease: "power2.inOut" }, 
+            { scale: 1, duration: 0.8, ease: "none" }, 
         0);
+
+        // Add a "hold" period where nothing happens for the last 20% of scroll
+        heroTl.to({}, { duration: 0.2 });
         // ────────────────────────────────────────────────────────────────
 
         // 2. Subtle Light Leak Parallax (Simplified for Performance)
