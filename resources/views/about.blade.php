@@ -301,11 +301,11 @@
     </section>
 
     <!-- 2. MANIFESTO (MUSEUM LAYOUT) -->
-    <section id="manifesto" class="py-32 px-8 md:px-16 z-10 relative">
+    <section id="manifesto" class="pt-8 pb-[40vh] px-8 md:px-16 z-10 relative">
         <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
 
             <!-- Section Marker -->
-            <div class="w-full md:w-1/12">
+            <div class="w-full md:w-1/12 manifesto-marker">
                 <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
                     01 — Misi
                 </span>
@@ -314,7 +314,7 @@
             <!-- Content Area -->
             <div class="w-full md:w-11/12 flex flex-col gap-24">
                 <h2
-                    class="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] text-brand-deepbreath tracking-tight max-w-4xl text-reveal">
+                    class="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] text-brand-deepbreath tracking-tight max-w-4xl manifesto-title">
                     @php
                         $defaultIdHeading = 'Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.';
                         $settings['about_identity_heading'] = isset($settings['about_identity_heading']) ? $settings['about_identity_heading'] : $defaultIdHeading;
@@ -324,7 +324,7 @@
                 </h2>
 
                 <div class="flex flex-col md:flex-row gap-16 md:gap-32 w-full md:w-4/5 ml-auto">
-                    <div class="flex-1 text-reveal">
+                    <div class="flex-1 manifesto-col-1">
                         <span class="font-serif italic text-3xl text-brand-orange mb-6 block">
                             @php
                                 $settings['about_studio_label'] = isset($settings['about_studio_label']) ? $settings['about_studio_label'] : 'Company.';
@@ -341,7 +341,7 @@
                             @i18n($settings, 'about_studio_body')
                         </p>
                     </div>
-                    <div class="flex-1 text-reveal">
+                    <div class="flex-1 manifesto-col-2">
                         <span class="font-serif italic text-3xl text-brand-orange mb-6 block">Culture.</span>
                         <p class="font-sans text-sm md:text-base font-light leading-loose text-brand-deepbreath/80">
                             @php
@@ -359,7 +359,7 @@
     </section>
 
     <!-- 2.5 SECONDARY CREW PHOTO (Edge-to-Edge Parallax) -->
-    <section class="secondary-photo-section relative w-full h-[60vh] md:h-[75vh] overflow-hidden z-10">
+    <section class="secondary-photo-section relative w-full h-[60vh] md:h-[75vh] overflow-hidden z-10 mt-24">
         @php
             $secondaryImg = $settings['about_secondary_image'] ?? null;
         @endphp
@@ -702,6 +702,38 @@
         gsap.from(".hero-reveal", {
             y: 40, opacity: 0, stagger: 0.2, duration: 1.5, ease: "expo.out", delay: 0.2
         });
+
+        // 3.7 Manifesto Section Parallax (Slow down effect)
+        const manifestoSection = document.querySelector('#manifesto');
+        if (manifestoSection) {
+            // Overall container moves down slightly to "stay" longer
+            gsap.to('#manifesto > div', {
+                y: 150,
+                ease: "none",
+                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
+            });
+            
+            gsap.to('.manifesto-marker', {
+                y: 100,
+                ease: "none",
+                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
+            });
+            gsap.to('.manifesto-title', {
+                y: 50,
+                ease: "none",
+                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
+            });
+            gsap.to('.manifesto-col-1', {
+                y: 80,
+                ease: "none",
+                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
+            });
+            gsap.to('.manifesto-col-2', {
+                y: 40,
+                ease: "none",
+                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
+            });
+        }
 
         gsap.utils.toArray('.text-reveal').forEach(text => {
             gsap.from(text, {
