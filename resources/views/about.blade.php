@@ -783,7 +783,7 @@
                 opacity: 0,
                 duration: 0.35, // Exit phase
                 ease: "power2.in"
-            }, "+=0.5"); // The hold duration
+            }, "+=0.1"); // The hold duration
         });
 
         gsap.utils.toArray('.list-row').forEach((row, i) => {
