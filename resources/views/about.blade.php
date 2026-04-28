@@ -469,7 +469,7 @@
                         }
                     @endphp
 
-                    <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group cursor-none hover-target">
+                    <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group cursor-none hover-target sticky top-8 h-fit">
                         <div class="flex items-end">
                             @if(!empty($member['name']))
                                 <div
@@ -710,11 +710,48 @@
             });
         });
 
-        gsap.utils.toArray('.reveal-image').forEach(img => {
-            gsap.from(img, {
-                scrollTrigger: { trigger: img, start: "top 85%" },
-                y: 50, opacity: 0, duration: 1.5, ease: "power2.out"
+        // 4. Dynamic Crew Member "Stacking Cards" Animation
+        const crewCards = gsap.utils.toArray('.reveal-image');
+        crewCards.forEach((card, i) => {
+            const nextCard = crewCards[i + 1];
+            
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: card,
+                    // Start animation when it enters viewport
+                    start: "top bottom", 
+                    // End when the NEXT card has entered significantly
+                    endTrigger: nextCard || card,
+                    end: nextCard ? "top 20%" : "bottom top-=500",
+                    scrub: 1,
+                }
             });
+
+            tl.fromTo(card, 
+                { 
+                    y: 250, 
+                    rotation: i % 2 === 0 ? -8 : 8,
+                    opacity: 0,
+                    scale: 0.85
+                },
+                { 
+                    y: 0, 
+                    rotation: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.25, // Entry phase
+                    ease: "power2.out"
+                }
+            )
+            // It will now stay "sticky" due to CSS 'sticky top-32'
+            // We just wait for the right moment to trigger the exit
+            .to(card, {
+                y: -600, // Accelerated exit
+                rotation: i % 2 === 0 ? 5 : -5,
+                opacity: 0,
+                duration: 0.35, // Exit phase
+                ease: "power2.in"
+            }, "+=0.5"); // The hold duration
         });
 
         gsap.utils.toArray('.list-row').forEach((row, i) => {
