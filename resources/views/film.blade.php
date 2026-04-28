@@ -37,30 +37,37 @@
                                 {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • @i18n($item, 'genre')
                             </span>
                             <div class="overflow-hidden mt-4 pb-2">
-                                <h1 class="slide-title font-serif text-[10vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter">
+                                <h1
+                                    class="slide-title font-serif text-[10vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter">
                                     <a href="{{ route('detail-film', $item->slug) }}"
                                         class="hover-target cursor-none hover:text-brand-orange transition-colors duration-300">
                                         @i18n($item, 'title')
                                     </a>
                                 </h1>
                             </div>
-                            <p class="slide-desc font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/60 mt-4 md:mt-8 max-w-sm opacity-0">
+                            <p
+                                class="slide-desc font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/60 mt-4 md:mt-8 max-w-sm opacity-0">
                                 Durasi: {{ $item->duration }} Menit.
                             </p>
                         </div>
 
                         <!-- Kanan: Gambar Frame -->
-                        <div class="w-full md:w-[50%] flex-1 md:h-[80vh] min-h-[30vh] flex justify-end items-center relative mb-4 md:mb-0 z-10 cursor-none">
+                        <div
+                            class="w-full md:w-[50%] flex-1 md:h-[80vh] min-h-[30vh] flex justify-end items-center relative mb-4 md:mb-0 z-10 cursor-none">
 
                             {{-- Gambar Container (Absolute terhadap flex container) --}}
-                            <div class="hero-img-box slide-image-container absolute right-0 h-full w-full md:w-[85%] overflow-hidden bg-tint-2/20 z-10">
+                            <div
+                                class="hero-img-box slide-image-container absolute right-0 h-full w-full md:w-[85%] overflow-hidden bg-tint-2/20 z-10">
 
                                 {{-- Play Button --}}
                                 @if($video_id)
-                                    <button class="play-btn-hero absolute inset-0 z-20 flex items-center justify-center opacity-0 hover-target"
-                                            data-video="{{ $video_id }}">
-                                        <div class="play-btn-circle w-20 h-20 md:w-24 md:h-24 rounded-full border border-white/40 bg-white/10 backdrop-blur-md flex items-center justify-center text-white shadow-2xl">
-                                            <span class="iconify w-8 h-8 md:w-10 md:h-10 ml-1" data-icon="lucide:play" data-inline="false"></span>
+                                    <button
+                                        class="play-btn-hero absolute inset-0 z-20 flex items-center justify-center opacity-0 hover-target"
+                                        data-video="{{ $video_id }}">
+                                        <div
+                                            class="play-btn-circle w-20 h-20 md:w-24 md:h-24 rounded-full border border-white/40 bg-white/10 backdrop-blur-md flex items-center justify-center text-white shadow-2xl">
+                                            <span class="iconify w-8 h-8 md:w-10 md:h-10 ml-1" data-icon="lucide:play"
+                                                data-inline="false"></span>
                                         </div>
                                     </button>
                                 @endif
@@ -69,7 +76,9 @@
                                     class="slide-image w-full h-full object-cover filter grayscale contrast-110"
                                     alt="@i18n($item, 'title')">
 
-                                <div class="cinematic-overlay absolute inset-0 bg-gradient-to-r from-brand-deepbreath/90 via-brand-deepbreath/40 to-transparent opacity-0 z-10 pointer-events-none"></div>
+                                <div
+                                    class="cinematic-overlay absolute inset-0 bg-gradient-to-r from-brand-deepbreath/90 via-brand-deepbreath/40 to-transparent opacity-0 z-10 pointer-events-none">
+                                </div>
                             </div>
                         </div>
 
@@ -82,7 +91,8 @@
             <div class="relative z-30 flex justify-between items-center border-t hairline-border pt-6 mt-auto">
 
                 <!-- Indicators Dinamis -->
-                <div class="flex gap-2 md:gap-4 font-serif text-2xl md:text-3xl text-brand-deepbreath/40" id="hero-indicators">
+                <div class="flex gap-2 md:gap-4 font-serif text-2xl md:text-3xl text-brand-deepbreath/40"
+                    id="hero-indicators">
                     @foreach($film as $i => $item)
                         <button
                             class="slide-indicator hover-target cursor-none transition-colors {{ $i === 0 ? 'text-brand-deepbreath' : 'hover:text-brand-deepbreath' }}"
@@ -93,9 +103,14 @@
                 </div>
 
                 <!-- Next / Prev -->
-                <div class="flex gap-3 md:gap-8 font-sans text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-bold text-brand-deepbreath">
-                    <button id="hero-prev" class="hover-target cursor-none hover:text-brand-orange transition-colors whitespace-nowrap">[ Prev ]</button>
-                    <button id="hero-next" class="hover-target cursor-none hover:text-brand-orange transition-colors whitespace-nowrap">[ Next ]</button>
+                <div
+                    class="flex gap-3 md:gap-8 font-sans text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-bold text-brand-deepbreath">
+                    <button id="hero-prev"
+                        class="hover-target cursor-none hover:text-brand-orange transition-colors whitespace-nowrap">[ Prev
+                        ]</button>
+                    <button id="hero-next"
+                        class="hover-target cursor-none hover:text-brand-orange transition-colors whitespace-nowrap">[ Next
+                        ]</button>
                 </div>
 
             </div>
@@ -110,7 +125,7 @@
             <div
                 class="flex flex-col lg:flex-row justify-between items-start lg:items-end border-b hairline-border pb-12 mb-16 gap-8">
                 <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">
-                    <span data-i18n="page_catalog_1">Katalog</span> 
+                    <span data-i18n="page_catalog_1">Katalog</span>
                     <span data-i18n="page_catalog_2" class="italic text-brand-orange">Karya.</span>
                 </h2>
 
@@ -131,35 +146,101 @@
                     @endforeach
                 </div>
             </div>
-
-            <!-- The Grid (Menggunakan CSS Columns) -->
-            <div class="columns-1 sm:columns-2 lg:columns-3 gap-8 md:gap-16 space-y-16" id="film-grid">
-
+            <!-- The Grid (Editorial Bento Grid) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-x-12 gap-y-24" id="film-grid">
                 @foreach ($genre as $index => $item)
                     @php
-                        // Variasi Aspect Ratio secara acak terstruktur agar Masonry terlihat estetis & tidak monoton
-                        $aspectClasses = ['aspect-[2/3]', 'aspect-[3/4]', 'aspect-[4/5]'];
-                        $aspect = $aspectClasses[$index % 3];
+                        // Pattern logic for bento feel (tidy but staggered)
+                        $pattern = $index % 5;
+                        $colSpan = 'md:col-span-4';
+                        $aspect = 'aspect-[3/4]';
+                        $marginTop = '';
+
+                        switch ($pattern) {
+                            case 0:
+                                $colSpan = 'md:col-span-7';
+                                $aspect = 'aspect-[16/10]';
+                                break;
+                            case 1:
+                                $colSpan = 'md:col-span-5';
+                                $aspect = 'aspect-[4/5]';
+                                $marginTop = 'md:mt-12';
+                                break;
+                            case 2:
+                                $colSpan = 'md:col-span-4';
+                                $aspect = 'aspect-[3/4]';
+                                break;
+                            case 3:
+                                $colSpan = 'md:col-span-4';
+                                $aspect = 'aspect-square';
+                                $marginTop = 'md:-mt-12';
+                                break;
+                            case 4:
+                                $colSpan = 'md:col-span-4';
+                                $aspect = 'aspect-[3/4]';
+                                break;
+                        }
                     @endphp
 
                     <a href="{{ route('detail-film', $item->slug) }}"
-                        class="film-card block break-inside-avoid group cursor-none hover-target"
+                        class="film-card group relative block {{ $colSpan }} {{ $marginTop }} cursor-none hover-target reveal-card"
                         data-genres='@json($item->genres_array)'>
-                        <div class="w-full {{ $aspect }} overflow-hidden mb-6 bg-tint-2/20 relative">
-                            <img src="{{ asset('photo/' . $item->poster) }}"
-                                class="w-full h-full object-cover filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+
+                        {{-- Image Container --}}
+                        <div
+                            class="relative w-full {{ $aspect }} overflow-hidden rounded-[2rem] bg-tint-2/20 shadow-sm transition-all duration-700 group-hover:shadow-2xl">
+
+                            {{-- Thumbnail Image --}}
+                            <img src="{{ asset('photo/' . $item->photo) }}"
+                                class="w-full h-full object-cover filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 ease-expo"
                                 alt="@i18n($item, 'title')">
+
+                            {{-- A24-Style Hover Details Overlay --}}
+                            <div
+                                class="absolute inset-0 bg-brand-deepbreath/95 flex flex-col justify-between p-10 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm transform translate-y-4 group-hover:translate-y-0">
+
+                                {{-- Top: Genre --}}
+                                <div class="overflow-hidden">
+                                    <span
+                                        class="block font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                                        @i18n($item, 'genre')
+                                    </span>
+                                </div>
+
+                                {{-- Middle: Title --}}
+                                <div class="flex-grow flex items-center">
+                                    <h3 class="font-serif text-4xl md:text-5xl text-white leading-tight">
+                                        <span class="italic block group-hover:text-brand-orange transition-colors">@i18n($item,
+                                            'title')</span>
+                                    </h3>
+                                </div>
+
+                                {{-- Bottom: Year & Details --}}
+                                <div class="border-t border-white/10 pt-6 flex justify-between items-end">
+                                    <div class="flex flex-col gap-1">
+                                        <span class="font-sans text-[9px] tracking-widest uppercase text-white/40">Release
+                                            Year</span>
+                                        <span
+                                            class="font-sans text-sm text-white">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+                                    </div>
+                                    <div class="flex flex-col gap-1 text-right">
+                                        <span
+                                            class="font-sans text-[9px] tracking-widest uppercase text-white/40">Duration</span>
+                                        <span class="font-sans text-sm text-white">{{ $item->duration }} Min.</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3
-                            class="font-serif text-4xl text-brand-deepbreath group-hover:italic group-hover:text-brand-orange transition-colors leading-tight">
-                            @i18n($item, 'title')
-                        </h3>
-                        <p class="font-sans text-[10px] tracking-[0.2em] uppercase text-brand-deepbreath/50 mt-3">
-                            {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • @i18n($item, 'genre')
-                        </p>
+
+                        {{-- Minimalist Label (Visible always for clean editorial feel) --}}
+                        <div
+                            class="mt-6 flex justify-between items-start group-hover:opacity-0 transition-opacity duration-300">
+                            <h4 class="font-serif text-2xl text-brand-deepbreath leading-none">@i18n($item, 'title')</h4>
+                            <span
+                                class="font-sans text-[10px] tracking-widest text-brand-deepbreath/40">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+                        </div>
                     </a>
                 @endforeach
-
             </div>
         </section>
 
@@ -168,10 +249,13 @@
     {{-- ============================================================
     TRAILER MODAL
     ============================================================ --}}
-    <div id="hero-trailer-modal" class="fixed inset-0 z-[20000] bg-black opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4 md:p-16">
-        <button onclick="closeHeroTrailer()" class="absolute top-8 right-8 text-white text-4xl hover:text-brand-orange transition-colors z-[20010]">&times;</button>
+    <div id="hero-trailer-modal"
+        class="fixed inset-0 z-[20000] bg-black opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4 md:p-16">
+        <button onclick="closeHeroTrailer()"
+            class="absolute top-8 right-8 text-white text-4xl hover:text-brand-orange transition-colors z-[20010]">&times;</button>
         <div class="w-full max-w-6xl aspect-video bg-black relative shadow-2xl overflow-hidden">
-            <iframe id="hero-trailer-iframe" src="" class="absolute inset-0 w-full h-full border-0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="hero-trailer-iframe" src="" class="absolute inset-0 w-full h-full border-0"
+                allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -185,17 +269,32 @@ STYLES & SCRIPTS
 @push('head')
     <style>
         /* UTILITIES SPESIFIK HALAMAN FILM */
-        .bg-tint-3 { background-color: #F1F1F1; }
-        .text-brand-deepbreath { color: #25225E; }
-        .text-brand-orange { color: #FFB150; }
-        .bg-tint-2 { background-color: #CACAEF; }
-        .hairline-border { border-color: rgba(37, 34, 94, 0.15); }
+        .bg-tint-3 {
+            background-color: #F1F1F1;
+        }
+
+        .text-brand-deepbreath {
+            color: #25225E;
+        }
+
+        .text-brand-orange {
+            color: #FFB150;
+        }
+
+        .bg-tint-2 {
+            background-color: #CACAEF;
+        }
+
+        .hairline-border {
+            border-color: rgba(37, 34, 94, 0.15);
+        }
 
         /* ── CINEMATIC HERO IMAGE BOX ── */
         .hero-img-box {
             transition: width 800ms cubic-bezier(0.25, 1, 0.5, 1), right 800ms cubic-bezier(0.25, 1, 0.5, 1);
             right: 0;
         }
+
         .hero-slide.cinematic .hero-img-box {
             width: var(--cinematic-width, 100vw) !important;
             max-width: none !important;
@@ -208,6 +307,7 @@ STYLES & SCRIPTS
                 filter 750ms cubic-bezier(0.25, 1, 0.5, 1),
                 transform 750ms cubic-bezier(0.25, 1, 0.5, 1);
         }
+
         .hero-slide.cinematic .hero-img-box .slide-image {
             filter: grayscale(0%) contrast(1.05);
             transform: scale(1.04);
@@ -217,6 +317,7 @@ STYLES & SCRIPTS
         .hero-img-box .cinematic-overlay {
             transition: opacity 600ms ease;
         }
+
         .hero-slide.cinematic .hero-img-box .cinematic-overlay {
             opacity: 1;
         }
@@ -225,15 +326,18 @@ STYLES & SCRIPTS
         .hero-img-box .play-btn-hero {
             transition: opacity 500ms ease 200ms;
         }
+
         .hero-slide.cinematic .hero-img-box .play-btn-hero {
             opacity: 1;
         }
+
         .play-btn-circle {
             transition: transform 250ms ease, background-color 250ms ease;
         }
+
         .play-btn-hero:hover .play-btn-circle {
             transform: scale(1.1);
-            background-color: rgba(255,255,255,0.9);
+            background-color: rgba(255, 255, 255, 0.9);
             color: #25225E;
         }
 
@@ -241,19 +345,24 @@ STYLES & SCRIPTS
         .hero-slide-text {
             transition: transform 700ms cubic-bezier(0.25, 1, 0.5, 1);
         }
+
         .hero-slide.cinematic .hero-slide-text {
             transform: translateX(1rem);
         }
+
         .hero-slide.cinematic .slide-title {
             color: #fff;
-            text-shadow: 0 0 40px rgba(0,0,0,0.3);
+            text-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
         }
+
         .hero-slide.cinematic .slide-desc {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
         }
+
         .slide-title {
             transition: color 700ms ease, text-shadow 700ms ease;
         }
+
         .slide-desc {
             transition: color 700ms ease;
         }
@@ -384,20 +493,20 @@ STYLES & SCRIPTS
             document.querySelectorAll('.hero-img-box').forEach(imgBox => {
                 const slide = imgBox.closest('.hero-slide');
                 if (!slide) return;
-                
+
                 imgBox.addEventListener('mouseenter', () => {
                     // Kalkulasi akurat pixel untuk mencapai ujung viewport
                     // Memperhitungkan max-width container, padding, dan scrollbar
                     const parentRect = imgBox.parentElement.getBoundingClientRect();
                     const viewportWidth = document.documentElement.clientWidth;
                     const distanceToRight = viewportWidth - parentRect.right;
-                    
+
                     imgBox.style.setProperty('--right-offset', `-${distanceToRight}px`);
                     imgBox.style.setProperty('--cinematic-width', `${viewportWidth}px`);
-                    
+
                     slide.classList.add('cinematic');
                 });
-                
+
                 imgBox.addEventListener('mouseleave', () => {
                     slide.classList.remove('cinematic');
                 });
@@ -465,22 +574,21 @@ STYLES & SCRIPTS
             });
 
             /* ─── 3. INITIAL SCROLL REVEAL UNTUK KARTU FILM ─── */
-            gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-                gsap.utils.toArray('.film-card').forEach(card => {
-                    gsap.from(card, {
-                        scrollTrigger: {
-                            trigger: card,
-                            start: "top 85%",
-                        },
-                        y: 50,
-                        opacity: 0,
-                        duration: 1.2,
-                        ease: "power2.out"
-                    });
+            if (document.querySelector('#film-grid')) {
+                gsap.from('.reveal-card', {
+                    scrollTrigger: {
+                        trigger: '#film-grid',
+                        start: "top 85%",
+                    },
+                    y: 100,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "power3.out"
                 });
-            });
+            }
             /* ─── 4. HERO TRAILER MODAL LOGIC ─── */
-            window.openHeroTrailer = function(videoId) {
+            window.openHeroTrailer = function (videoId) {
                 const modal = document.getElementById('hero-trailer-modal');
                 const iframe = document.getElementById('hero-trailer-iframe');
                 if (modal && iframe) {
@@ -491,7 +599,7 @@ STYLES & SCRIPTS
                 }
             };
 
-            window.closeHeroTrailer = function() {
+            window.closeHeroTrailer = function () {
                 const modal = document.getElementById('hero-trailer-modal');
                 const iframe = document.getElementById('hero-trailer-iframe');
                 if (modal && iframe) {
