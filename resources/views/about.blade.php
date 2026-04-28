@@ -496,83 +496,82 @@
         </div>
     </section>
 
-    <!-- 4. WHAT WE DO (MINIMAL TABLE) -->
+    <!-- 4. WHAT WE DO (MODERN GRID) -->
     <section class="py-32 px-8 md:px-16 z-10 relative">
-        <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
-            <div class="w-full md:w-1/12">
-                <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-24">
+                <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-6">
                     @php
                         $settings['about_wwd_eyebrow'] = $settings['about_wwd_eyebrow'] ?? '03 — Fokus';
                         $settings['about_wwd_eyebrow_en'] = $settings['about_wwd_eyebrow_en'] ?? '03 — Focus';
                     @endphp
                     @i18n($settings, 'about_wwd_eyebrow')
                 </span>
+                <h2 class="font-serif text-5xl md:text-7xl text-brand-deepbreath max-w-4xl mx-auto leading-tight">
+                    @php
+                        $settings['about_wwd_heading'] = $settings['about_wwd_heading'] ?? 'Lebih dari sekadar menciptakan karya.';
+                        $settings['about_wwd_heading_en'] = $settings['about_wwd_heading_en'] ?? 'More than just creating works.';
+                    @endphp
+                    @i18n($settings, 'about_wwd_heading')
+                </h2>
             </div>
 
-            <div class="w-full md:w-11/12">
-                <div class="flex flex-col">
+            <!-- Grid -->
+            <div id="wwd-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                @php
+                    $wwdItems = [
+                        [
+                            'icon' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>',
+                            'title_key' => 'about_values_1_title',
+                            'body_key' => 'about_values_1_body',
+                            'default_title' => 'Film & Seri Web',
+                            'default_title_en' => 'Film & Web Series',
+                            'default_body' => 'Estetika visual yang menantang batas-batas konvensional.',
+                            'default_body_en' => 'Visual aesthetics that challenge conventional boundaries.'
+                        ],
+                        [
+                            'icon' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>',
+                            'title_key' => 'about_values_2_title',
+                            'body_key' => 'about_values_2_body',
+                            'default_title' => 'Tayangan Televisi',
+                            'default_title_en' => 'Television Shows',
+                            'default_body' => 'Kisah hangat untuk ruang keluarga yang dekat dengan realitas.',
+                            'default_body_en' => 'Warm stories for the family room that are close to reality.'
+                        ],
+                        [
+                            'icon' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 005.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+                            'title_key' => 'about_values_3_title',
+                            'body_key' => 'about_values_3_body',
+                            'default_title' => 'Komunitas & Event',
+                            'default_title_en' => 'Community & Events',
+                            'default_body' => 'Rantai penghubung antarsineas lewat Sinemaku Day.',
+                            'default_body_en' => 'Connecting filmmakers through Sinemaku Day.'
+                        ]
+                    ];
+                @endphp
 
-                    <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row cursor-none hover-target">
-                        <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-colors duration-500 group-smooth-italic">
+                @foreach($wwdItems as $item)
+                    <div class="bg-white/40 backdrop-blur-sm border border-white/30 p-10 md:p-12 rounded-xl group hover:bg-white/80 transition-[background-color,box-shadow] duration-500 hover:shadow-2xl reveal-card">
+                        <div class="w-14 h-14 bg-brand-deepbreath/5 rounded-full flex items-center justify-center text-brand-deepbreath mb-8 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-500">
+                            {!! $item['icon'] !!}
+                        </div>
+                        <h3 class="font-serif text-2xl md:text-3xl text-brand-deepbreath mb-4">
                             @php
-                                $settings['about_values_1_title'] = $settings['about_values_1_title'] ?? 'Film & Seri Web';
-                                $settings['about_values_1_title_en'] = $settings['about_values_1_title_en'] ?? 'Film & Web Series';
+                                $settings[$item['title_key']] = $settings[$item['title_key']] ?? $item['default_title'];
+                                $settings[$item['title_key'].'_en'] = $settings[$item['title_key'].'_en'] ?? $item['default_title_en'];
                             @endphp
-                            @i18n($settings, 'about_values_1_title')
+                            @i18n($settings, $item['title_key'])
                         </h3>
-                        <p
-                            class="font-sans font-light text-sm text-brand-deepbreath/50 md:w-1/3 mt-4 md:mt-0 leading-relaxed text-left md:text-right group-hover:text-brand-deepbreath transition-colors">
+                        <p class="font-sans text-sm md:text-base font-light leading-relaxed text-brand-deepbreath/60">
                             @php
-                                $settings['about_values_1_body'] = $settings['about_values_1_body'] ?? 'Estetika visual yang menantang batas-batas konvensional.';
-                                $settings['about_values_1_body_en'] = $settings['about_values_1_body_en'] ?? 'Visual aesthetics that challenge conventional boundaries.';
+                                $settings[$item['body_key']] = $settings[$item['body_key']] ?? $item['default_body'];
+                                $settings[$item['body_key'].'_en'] = $settings[$item['body_key'].'_en'] ?? $item['default_body_en'];
                             @endphp
-                            @i18n($settings, 'about_values_1_body')
+                            @i18n($settings, $item['body_key'])
                         </p>
-                    </a>
-
-                    <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row cursor-none hover-target">
-                        <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-colors duration-500 group-smooth-italic">
-                            @php
-                                $settings['about_values_2_title'] = $settings['about_values_2_title'] ?? 'Tayangan Televisi';
-                                $settings['about_values_2_title_en'] = $settings['about_values_2_title_en'] ?? 'Television Shows';
-                            @endphp
-                            @i18n($settings, 'about_values_2_title')
-                        </h3>
-                        <p
-                            class="font-sans font-light text-sm text-brand-deepbreath/50 md:w-1/3 mt-4 md:mt-0 leading-relaxed text-left md:text-right group-hover:text-brand-deepbreath transition-colors">
-                            @php
-                                $settings['about_values_2_body'] = $settings['about_values_2_body'] ?? 'Kisah hangat untuk ruang keluarga yang dekat dengan realitas.';
-                                $settings['about_values_2_body_en'] = $settings['about_values_2_body_en'] ?? 'Warm stories for the family room that are close to reality.';
-                            @endphp
-                            @i18n($settings, 'about_values_2_body')
-                        </p>
-                    </a>
-
-                    <a href="#"
-                        class="group flex flex-col md:flex-row justify-between items-start md:items-center py-10 md:py-16 border-b hairline-border list-row cursor-none hover-target">
-                        <h3
-                            class="font-serif text-5xl md:text-7xl text-brand-deepbreath group-hover:text-brand-orange transition-colors duration-500 group-smooth-italic">
-                            @php
-                                $settings['about_values_3_title'] = $settings['about_values_3_title'] ?? 'Komunitas & Event';
-                                $settings['about_values_3_title_en'] = $settings['about_values_3_title_en'] ?? 'Community & Events';
-                            @endphp
-                            @i18n($settings, 'about_values_3_title')
-                        </h3>
-                        <p
-                            class="font-sans font-light text-sm text-brand-deepbreath/50 md:w-1/3 mt-4 md:mt-0 leading-relaxed text-left md:text-right group-hover:text-brand-deepbreath transition-colors">
-                            @php
-                                $settings['about_values_3_body'] = $settings['about_values_3_body'] ?? 'Rantai penghubung antarsineas lewat Sinemaku Day.';
-                                $settings['about_values_3_body_en'] = $settings['about_values_3_body_en'] ?? 'Connecting filmmakers through Sinemaku Day.';
-                            @endphp
-                            @i18n($settings, 'about_values_3_body')
-                        </p>
-                    </a>
-
-                </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -815,6 +814,21 @@
                 ease: "power2.in"
             }, "+=0.1"); // The hold duration
         });
+
+        // 5. Grid Cards Reveal (What We Do)
+        if (document.querySelector('#wwd-grid')) {
+            gsap.from('.reveal-card', {
+                scrollTrigger: {
+                    trigger: '#wwd-grid',
+                    start: "top 80%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+        }
 
         gsap.utils.toArray('.list-row').forEach((row, i) => {
             gsap.from(row, {
