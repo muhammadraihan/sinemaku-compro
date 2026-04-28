@@ -18,11 +18,11 @@
         <section class="relative w-full h-[90vh] md:h-[100vh] flex flex-col justify-end overflow-hidden z-10">
             <!-- Background Image with Parallax -->
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset('photo/' . $films->photo) }}" 
-                     alt="{{ $films->title }}" 
-                     class="w-full h-[120%] object-cover filter grayscale contrast-110 brightness-75 hero-parallax-img"
-                     style="transform: translateY(-10%);">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#F1F1F1] via-transparent to-transparent opacity-80"></div>
+                <img src="{{ asset('photo/' . $films->photo) }}" alt="{{ $films->title }}"
+                    class="w-full h-[120%] object-cover filter grayscale contrast-110 brightness-75 hero-parallax-img"
+                    style="transform: translateY(-10%);">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#F1F1F1] via-transparent to-transparent opacity-80">
+                </div>
                 <div class="absolute inset-0 bg-brand-deepbreath/20 mix-blend-multiply"></div>
             </div>
 
@@ -30,14 +30,16 @@
             <div class="relative z-10 px-8 md:px-16 pb-20 max-w-[1800px] mx-auto w-full">
                 <div class="flex flex-col md:flex-row items-end justify-between gap-8">
                     <div class="w-full md:w-2/3">
-                        <span class="block font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange mb-6 hero-reveal">
+                        <span
+                            class="block font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange mb-6 hero-reveal">
                             {{ \Carbon\Carbon::parse($films->release_date)->format('Y') }} • @i18n($films, 'genre')
                         </span>
-                        <h1 class="font-serif text-[12vw] md:text-[8vw] leading-[0.85] text-brand-deepbreath tracking-tighter hero-reveal">
+                        <h1
+                            class="font-serif text-[12vw] md:text-[8vw] leading-[0.85] text-brand-deepbreath tracking-tighter hero-reveal">
                             <span class="block">@i18n($films, 'title')</span>
                         </h1>
                     </div>
-                    
+
                     @php
                         $video_id = '';
                         if (!empty($films->link) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $films->link, $match)) {
@@ -46,15 +48,18 @@
                     @endphp
 
                     @if($video_id)
-                    <div class="w-full md:w-auto hero-reveal">
-                        <button onclick="openHeroTrailer('{{ $video_id }}')" 
+                        <div class="w-full md:w-auto hero-reveal">
+                            <button onclick="openHeroTrailer('{{ $video_id }}')"
                                 class="group flex items-center gap-6 hover-target cursor-none">
-                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-brand-deepbreath/20 flex items-center justify-center group-hover:bg-brand-deepbreath group-hover:text-white transition-all duration-500">
-                                <span class="iconify w-8 h-8" data-icon="lucide:play"></span>
-                            </div>
-                            <span data-i18n="detail_watch_trailer" class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath">Watch Trailer</span>
-                        </button>
-                    </div>
+                                <div
+                                    class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-brand-deepbreath/20 flex items-center justify-center group-hover:bg-brand-deepbreath group-hover:text-white transition-all duration-500">
+                                    <span class="iconify w-8 h-8" data-icon="lucide:play"></span>
+                                </div>
+                                <span data-i18n="detail_watch_trailer"
+                                    class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath">Watch
+                                    Trailer</span>
+                            </button>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -64,33 +69,41 @@
         2. FILM METADATA (ASYMMETRICAL STRIP)
         ============================================================ --}}
         <section class="py-24 px-8 md:px-16 z-10 relative bg-[#F1F1F1]/80 backdrop-blur-md">
-            <div class="max-w-[1800px] mx-auto border-t border-b border-brand-deepbreath/10 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
-                
+            <div
+                class="max-w-[1800px] mx-auto border-t border-b border-brand-deepbreath/10 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+
                 <div class="metadata-item">
-                    <span data-i18n="detail_director" class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Director</span>
+                    <span data-i18n="detail_director"
+                        class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Director</span>
                     <h3 class="font-serif text-3xl text-brand-deepbreath italic">{{ $films->director }}</h3>
                 </div>
 
                 <div class="metadata-item">
-                    <span data-i18n="detail_cast" class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Cast</span>
+                    <span data-i18n="detail_cast"
+                        class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Cast</span>
                     <div class="flex flex-col gap-1">
                         @foreach(array_slice(explode(',', $films->cast), 0, 3) as $cast)
                             <span class="font-sans text-sm font-medium text-brand-deepbreath">{{ trim($cast) }}</span>
                         @endforeach
                         @if(count(explode(',', $films->cast)) > 3)
-                            <span data-i18n="detail_and_more" class="font-sans text-[10px] text-brand-orange italic mt-1">and more...</span>
+                            <span data-i18n="detail_and_more" class="font-sans text-[10px] text-brand-orange italic mt-1">and
+                                more...</span>
                         @endif
                     </div>
                 </div>
 
                 <div class="metadata-item">
-                    <span data-i18n="detail_duration" class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Duration</span>
-                    <h3 class="font-sans text-2xl font-light text-brand-deepbreath">{{ $films->duration }} <span data-i18n="label_minutes" class="text-sm uppercase tracking-widest opacity-40">Min</span></h3>
+                    <span data-i18n="detail_duration"
+                        class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Duration</span>
+                    <h3 class="font-sans text-2xl font-light text-brand-deepbreath">{{ $films->duration }} <span
+                            data-i18n="label_minutes" class="text-sm uppercase tracking-widest opacity-40">Min</span></h3>
                 </div>
 
                 <div class="metadata-item">
-                    <span data-i18n="detail_language" class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Language</span>
-                    <h3 data-i18n="detail_lang_value" class="font-sans text-2xl font-light text-brand-deepbreath">Bahasa Indonesia</h3>
+                    <span data-i18n="detail_language"
+                        class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Language</span>
+                    <h3 data-i18n="detail_lang_value" class="font-sans text-2xl font-light text-brand-deepbreath">Bahasa
+                        Indonesia</h3>
                 </div>
 
             </div>
@@ -101,20 +114,22 @@
         ============================================================ --}}
         <section class="py-32 px-8 md:px-16 z-10 relative">
             <div class="max-w-[1800px] mx-auto flex flex-col md:flex-row gap-20 md:gap-32 items-center">
-                
+
                 <!-- Poster Side (Editorial Frame) -->
                 <div class="w-full md:w-2/5 reveal-image">
                     <div class="aspect-[2/3] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-tint-2/20">
-                        <img src="{{ asset('photo/' . $films->poster) }}" 
-                             alt="{{ $films->title }} Poster"
-                             class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-1000">
+                        <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
+                            class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-1000">
                     </div>
                 </div>
 
                 <!-- Text Side -->
                 <div class="w-full md:w-3/5">
-                    <span data-i18n="detail_narrative" class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The Narrative.</span>
-                    <div class="font-serif text-xl md:text-2xl leading-[1.8] font-light text-brand-deepbreath/80 split-text-synopsis max-w-3xl">
+                    <span data-i18n="detail_narrative"
+                        class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The
+                        Narrative.</span>
+                    <div
+                        class="font-serif text-xl md:text-2xl leading-[1.8] font-light text-brand-deepbreath/80 split-text-synopsis max-w-3xl">
                         @i18n($films, 'sinopsis')
                     </div>
                 </div>
@@ -128,7 +143,8 @@
         <section class="py-32 px-8 md:px-16 z-10 relative bg-brand-deepbreath text-white rounded-t-[4rem] -mt-20">
             <div class="max-w-[1800px] mx-auto mb-20">
                 <div class="flex justify-between items-end border-b border-white/10 pb-12">
-                    <h2 class="font-serif text-6xl md:text-8xl tracking-tighter italic"><span data-i18n="detail_still_shots">Still Shots.</span></h2>
+                    <h2 class="font-serif text-6xl md:text-8xl tracking-tighter italic"><span
+                            data-i18n="detail_still_shots">Still Shots.</span></h2>
                     <span class="font-sans text-[10px] tracking-[0.4em] uppercase opacity-40 pb-4">Gallery 01</span>
                 </div>
             </div>
@@ -136,13 +152,13 @@
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 max-w-[1800px] mx-auto">
                 @php
                     $shots = $films->stillShots;
-                    if($shots->count() == 0) {
+                    if ($shots->count() == 0) {
                         // Fallback dummy shots if empty
                         $shots = collect([
-                            (object)['photo' => 'https://picsum.photos/seed/1/1200/800'],
-                            (object)['photo' => 'https://picsum.photos/seed/2/800/1200'],
-                            (object)['photo' => 'https://picsum.photos/seed/3/1200/800'],
-                            (object)['photo' => 'https://picsum.photos/seed/4/1200/800'],
+                            (object) ['photo' => 'https://picsum.photos/seed/1/1200/800'],
+                            (object) ['photo' => 'https://picsum.photos/seed/2/800/1200'],
+                            (object) ['photo' => 'https://picsum.photos/seed/3/1200/800'],
+                            (object) ['photo' => 'https://picsum.photos/seed/4/1200/800'],
                         ]);
                     }
                 @endphp
@@ -151,14 +167,22 @@
                     @php
                         $span = 'md:col-span-6';
                         $aspect = 'aspect-video';
-                        if($idx % 4 == 1) { $span = 'md:col-span-4'; $aspect = 'aspect-[3/4]'; }
-                        elseif($idx % 4 == 2) { $span = 'md:col-span-8'; $aspect = 'aspect-video'; }
-                        elseif($idx % 4 == 3) { $span = 'md:col-span-6'; $aspect = 'aspect-[16/10]'; }
+                        if ($idx % 4 == 1) {
+                            $span = 'md:col-span-4';
+                            $aspect = 'aspect-[3/4]';
+                        } elseif ($idx % 4 == 2) {
+                            $span = 'md:col-span-8';
+                            $aspect = 'aspect-video';
+                        } elseif ($idx % 4 == 3) {
+                            $span = 'md:col-span-6';
+                            $aspect = 'aspect-[16/10]';
+                        }
                     @endphp
-                    <div class="{{ $span }} {{ $aspect }} overflow-hidden rounded-[2rem] reveal-shot group cursor-none hover-target">
-                        <img src="{{ str_contains($shot->photo, 'http') ? $shot->photo : asset('photo/' . $shot->photo) }}" 
-                             class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                             alt="Still Shot">
+                    <div
+                        class="{{ $span }} {{ $aspect }} overflow-hidden rounded-[2rem] reveal-shot group cursor-none hover-target">
+                        <img src="{{ str_contains($shot->photo, 'http') ? $shot->photo : asset('photo/' . $shot->photo) }}"
+                            class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                            alt="Still Shot">
                     </div>
                 @endforeach
             </div>
@@ -169,18 +193,21 @@
         ============================================================ --}}
         <section class="py-32 px-8 md:px-16 z-10 relative bg-[#F1F1F1]">
             <div class="max-w-[1800px] mx-auto mb-20 border-t border-brand-deepbreath/10 pt-16">
-                <h2 data-i18n="detail_recommendations" class="font-serif text-5xl text-brand-deepbreath tracking-tight">You might also enjoy.</h2>
+                <h2 data-i18n="detail_recommendations" class="font-serif text-5xl text-brand-deepbreath tracking-tight">You
+                    might also enjoy.</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-[1800px] mx-auto">
                 @foreach ($all_film->where('id', '!=', $films->id)->take(4) as $item)
                     <a href="{{ route('detail-film', $item->slug) }}" class="group block cursor-none hover-target reveal-rec">
                         <div class="aspect-[4/5] w-full overflow-hidden rounded-[2rem] bg-tint-2/20 mb-6">
-                            <img src="{{ asset('photo/' . $item->photo) }}" 
-                                 class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                                 alt="@i18n($item, 'title')">
+                            <img src="{{ asset('photo/' . $item->photo) }}"
+                                class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                alt="@i18n($item, 'title')">
                         </div>
-                        <h4 class="font-serif text-2xl text-brand-deepbreath leading-tight group-hover:text-brand-orange transition-colors">@i18n($item, 'title')</h4>
+                        <h4
+                            class="font-serif text-2xl text-brand-deepbreath leading-tight group-hover:text-brand-orange transition-colors">
+                            @i18n($item, 'title')</h4>
                         <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-brand-deepbreath/40 mt-2 block">
                             {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • @i18n($item, 'genre')
                         </span>
@@ -194,10 +221,13 @@
     {{-- ============================================================
     TRAILER MODAL (Consistent with Film Page)
     ============================================================ --}}
-    <div id="hero-trailer-modal" class="fixed inset-0 z-[20000] bg-black opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4 md:p-16">
-        <button onclick="closeHeroTrailer()" class="absolute top-8 right-8 text-white text-4xl hover:text-brand-orange transition-colors z-[20010]">&times;</button>
+    <div id="hero-trailer-modal"
+        class="fixed inset-0 z-[20000] bg-black opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4 md:p-16">
+        <button onclick="closeHeroTrailer()"
+            class="absolute top-8 right-8 text-white text-4xl hover:text-brand-orange transition-colors z-[20010]">&times;</button>
         <div class="w-full max-w-6xl aspect-video bg-black relative shadow-2xl overflow-hidden">
-            <iframe id="hero-trailer-iframe" src="" class="absolute inset-0 w-full h-full border-0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="hero-trailer-iframe" src="" class="absolute inset-0 w-full h-full border-0"
+                allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -207,10 +237,21 @@
 
 @push('head')
     <style>
-        .text-brand-deepbreath { color: #25225E; }
-        .text-brand-orange { color: #FFB150; }
-        .bg-tint-2 { background-color: #CACAEF; }
-        .ease-expo { transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
+        .text-brand-deepbreath {
+            color: #25225E;
+        }
+
+        .text-brand-orange {
+            color: #FFB150;
+        }
+
+        .bg-tint-2 {
+            background-color: #CACAEF;
+        }
+
+        .ease-expo {
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
     </style>
 @endpush
 
@@ -218,7 +259,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof gsap === 'undefined') return;
-            
+
             gsap.registerPlugin(ScrollTrigger);
 
             // 1. Hero Reveal Animations
@@ -231,15 +272,15 @@
                 delay: 0.3
             });
 
-            // 2. Hero Parallax
+            // 2. Hero Parallax (Delayed & Slower for depth)
             gsap.to(".hero-parallax-img", {
-                y: "20%",
+                y: "300%",
                 ease: "none",
                 scrollTrigger: {
                     trigger: ".film-hero",
                     start: "top top",
                     end: "bottom top",
-                    scrub: true
+                    scrub: 1.5
                 }
             });
 
@@ -285,7 +326,7 @@
             });
 
             /* ─── TRAILER MODAL LOGIC ─── */
-            window.openHeroTrailer = function(videoId) {
+            window.openHeroTrailer = function (videoId) {
                 const modal = document.getElementById('hero-trailer-modal');
                 const iframe = document.getElementById('hero-trailer-iframe');
                 if (modal && iframe) {
@@ -296,7 +337,7 @@
                 }
             };
 
-            window.closeHeroTrailer = function() {
+            window.closeHeroTrailer = function () {
                 const modal = document.getElementById('hero-trailer-modal');
                 const iframe = document.getElementById('hero-trailer-iframe');
                 if (modal && iframe) {
