@@ -101,12 +101,13 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 4px;
-      height: 4px;
-      background-color: #25225E;
+      width: 8px;
+      height: 8px;
+      background-color: transparent;
+      backdrop-filter: invert(1) grayscale(1) contrast(100);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 10000;
+      z-index: 10001;
       transform: translate(-50%, -50%);
     }
 
@@ -230,7 +231,7 @@
 
           target.addEventListener('mouseenter', () => {
             gsap.to(cursorRing, { scale: 1.8, backgroundColor: 'rgba(255, 177, 80, 0.2)', duration: 0.3 });
-            gsap.to(cursorDot, { scale: 0, duration: 0.2 });
+            gsap.to(cursorDot, { scale: 0.5, duration: 0.2 });
           });
           target.addEventListener('mouseleave', () => {
             gsap.to(cursorRing, { scale: 1, backgroundColor: 'transparent', duration: 0.3 });
