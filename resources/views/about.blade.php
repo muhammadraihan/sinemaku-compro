@@ -209,24 +209,23 @@
     @include('partials.navbar')
 
     <!-- 1. EDITORIAL HERO SECTION -->
-    <section class="relative w-full min-h-[100svh] flex flex-col justify-center px-8 md:px-16 pt-32 pb-16 z-10">
-        <div class="flex flex-col md:flex-row justify-between items-end gap-12 w-full">
-
+    <section id="hero-section" class="relative w-full h-[100svh] flex flex-col justify-start px-8 md:px-16 pt-32 pb-16 z-10 overflow-hidden">
+        <!-- Text Container (z-30) -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 w-full z-30 relative hero-text-wrapper">
             <!-- Huge Typography -->
             <div class="w-full md:w-3/4">
-                <h1
-                    class="font-serif text-[15vw] md:text-[12vw] leading-[0.8] text-brand-deepbreath tracking-tighter m-0 hero-reveal">
+                <h1 class="hero-title font-serif text-[15vw] md:text-[12vw] leading-[0.8] text-brand-deepbreath tracking-tighter m-0 hero-reveal">
                     <span class="tagline-container tagline-id" data-tagline-lang="id">
-                        Here Comes<br><span class="italic text-brand-orange pl-[5vw]">The Fun.</span>
+                        Here Comes<br><span class="hero-title-italic italic text-brand-orange pl-[5vw]">The Fun.</span>
                     </span>
                     <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
-                        Here Comes<br><span class="italic text-brand-orange pl-[5vw]">The Fun.</span>
+                        Here Comes<br><span class="hero-title-italic italic text-brand-orange pl-[5vw]">The Fun.</span>
                     </span>
                 </h1>
             </div>
 
             <!-- Context Text -->
-            <div class="w-full md:w-1/4 pb-4 hero-reveal">
+            <div class="w-full md:w-1/4 pb-4 hero-reveal hero-context">
                 @php
                     $subId = $settings['about_hero_subtitle'] ?? 'Sebuah ruang bermain bagi generasi baru pencerita yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia.';
                     $subEn = $settings['about_hero_subtitle_en'] ?? 'A playground for a new generation of storytellers who dare to break rigid traditions to change the landscape of Indonesian cinema.';
@@ -239,20 +238,18 @@
                         {{ $subEn }}
                     </span>
                 </p>
-                <div
-                    class="mt-8 pt-4 border-t hairline-border flex justify-between font-sans text-[9px] tracking-widest uppercase text-brand-deepbreath/50">
+                <div class="hero-scroll-indicator mt-8 pt-4 border-t hairline-border flex justify-between font-sans text-[9px] tracking-widest uppercase text-brand-deepbreath/50">
                     <span>Scroll to explore</span>
                     <span>↓</span>
                 </div>
             </div>
         </div>
 
-        <!-- Hero Cinematic Image -->
-        <div class="mt-16 w-full flex justify-center hero-reveal">
-            <div class="editorial-image-container w-full md:w-[60%] aspect-[21/9] bg-tint-2/30 cursor-none hover-target">
-                <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
-                    alt="Cinematic Setup" class="editorial-image para-img">
-            </div>
+        <!-- Absolute Image Container (z-20) -->
+        <div class="hero-image-container group absolute bottom-8 md:bottom-16 left-1/2 -translate-x-1/2 w-[90%] md:w-[60%] aspect-[21/9] md:aspect-auto md:h-[40vh] z-20 overflow-hidden rounded-md cursor-none hover-target shadow-2xl">
+            <div class="hero-image-overlay absolute inset-0 bg-brand-deepbreath/60 opacity-0 z-10 pointer-events-none"></div>
+            <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
+                alt="Cinematic Setup" class="absolute inset-0 w-full h-full object-cover z-0 hero-img-inner filter grayscale contrast-110 transition-all duration-700 group-hover:grayscale-0 group-hover:contrast-105 pointer-events-none">
         </div>
     </section>
 
@@ -524,7 +521,62 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
+        // ─── HERO SCROLL ANIMATION ──────────────────────────────────────
+        let heroTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#hero-section",
+                start: "top top",
+                end: "+=60%", // Scroll distance reduced to 60% of screen height
+                pin: true,
+                scrub: 1, // Smooth scrub
+            }
+        });
 
+        // Expand image
+        heroTl.to(".hero-image-container", {
+            width: "96vw",
+            height: "94vh",
+            bottom: "3vh", // Vertically center
+            borderRadius: "24px",
+            duration: 1,
+            ease: "power2.inOut"
+        }, 0);
+
+        // Darken overlay
+        heroTl.to(".hero-image-overlay", {
+            opacity: 0.7,
+            duration: 1,
+            ease: "power2.inOut"
+        }, 0);
+
+        // Color text to white/bright
+        heroTl.to(".hero-title", {
+            color: "#F1F1F1", // tint-3
+            duration: 1,
+            ease: "power2.inOut"
+        }, 0);
+
+        // Fade out context text
+        heroTl.to(".hero-context", {
+            opacity: 0,
+            y: -20,
+            duration: 0.5,
+            ease: "power2.inOut"
+        }, 0);
+
+        // Move text block down slightly for better composition
+        heroTl.to(".hero-text-wrapper", {
+            y: "10vh",
+            duration: 1,
+            ease: "power2.inOut"
+        }, 0);
+        
+        // Slightly scale image inner to give parallax feel
+        heroTl.fromTo(".hero-img-inner", 
+            { scale: 1.1 },
+            { scale: 1, duration: 1, ease: "power2.inOut" }, 
+        0);
+        // ────────────────────────────────────────────────────────────────
 
         // 2. Subtle Light Leak Parallax (Simplified for Performance)
         const leak1 = document.getElementById('leak-1');
