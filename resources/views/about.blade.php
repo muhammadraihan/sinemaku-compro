@@ -443,9 +443,9 @@
                         $aspect = '';
 
                         switch ($pattern) {
-                            case 0: // Large, offset right (Prilly style)
-                                $colStart = 'md:col-start-6';
-                                $colSpan = 'md:col-span-6';
+                            case 0: // Large, offset right (Prilly style) - Reduced size
+                                $colStart = 'md:col-start-7';
+                                $colSpan = 'md:col-span-4';
                                 $aspect = 'aspect-[3/4]';
                                 break;
                             case 1: // Small, offset left
