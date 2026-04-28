@@ -323,6 +323,24 @@
         </div>
     </section>
 
+    <!-- 2.5 SECONDARY CREW PHOTO (Edge-to-Edge Parallax) -->
+    <section class="secondary-photo-section relative w-full h-[60vh] md:h-[75vh] overflow-hidden z-10">
+        @php
+            $secondaryImg = $settings['about_secondary_image'] ?? null;
+        @endphp
+        @if($secondaryImg)
+        <img src="{{ asset($secondaryImg) }}"
+            alt="Sinemaku Team"
+            class="secondary-para-img absolute left-0 w-full object-cover"
+            style="height: 150%; top: 0;">
+        @else
+        <img src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop"
+            alt="Sinemaku Team"
+            class="secondary-para-img absolute left-0 w-full object-cover"
+            style="height: 150%; top: 0;">
+        @endif
+    </section>
+
     <!-- 3. THE CREW (ASYMMETRICAL PRINT GRID) -->
     <section id="crew" class="py-32 px-8 md:px-16 z-10 relative bg-tint-3">
         <div class="w-full">
@@ -624,6 +642,26 @@
                 }
             });
         });
+
+        // 3.5 Secondary Crew Photo Parallax
+        // Image is 150% tall. When section enters from bottom: show top of image (y=0).
+        // When section exits at top: show bottom of image (y=-50%).
+        const secondaryImg = document.querySelector('.secondary-para-img');
+        if (secondaryImg) {
+            gsap.fromTo(secondaryImg,
+                { y: "0%" },
+                {
+                    y: "-50%",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: '.secondary-photo-section',
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                }
+            );
+        }
 
         // 4. Reveal Animations
         gsap.from(".hero-reveal", {
