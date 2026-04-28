@@ -469,7 +469,7 @@
                         }
                     @endphp
 
-                    <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group cursor-none hover-target sticky top-8 h-fit">
+                    <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group cursor-none hover-target sticky top-[20vh] md:top-8 h-fit">
                         <div class="flex items-end">
                             @if(!empty($member['name']))
                                 <div
