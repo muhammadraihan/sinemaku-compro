@@ -10,7 +10,7 @@
     EDITORIAL WRAPPER
     Menjaga gaya kanvas terang (Tint 3) khusus untuk halaman ini
     ============================================================ --}}
-    <div id="editorial-wrapper" class="bg-tint-3 text-brand-deepbreath relative overflow-hidden w-full font-sans">
+    <div id="editorial-wrapper" class="bg-tint-3 text-brand-deepbreath relative w-full font-sans">
 
         {{-- ============================================================
         1. EDITORIAL HERO SLIDESHOW
@@ -29,48 +29,47 @@
                         }
                     @endphp
                     <div
-                        class="hero-slide group/hero absolute inset-0 px-8 md:px-16 pt-28 md:pt-32 pb-28 md:pb-32 flex flex-col-reverse md:flex-row items-end md:items-center justify-between w-full h-full transition-all duration-1000 {{ $i === 0 ? 'opacity-100 visible z-20 pointer-events-auto' : 'opacity-0 invisible z-10 pointer-events-none' }}">
+                        class="hero-slide absolute inset-0 px-8 md:px-16 pt-28 md:pt-32 pb-28 md:pb-32 flex flex-col-reverse md:flex-row items-end md:items-center justify-between w-full h-full {{ $i === 0 ? 'opacity-100 visible z-20 pointer-events-auto' : 'opacity-0 invisible z-10 pointer-events-none' }}">
 
                         <!-- Kiri: Teks -->
-                        <div class="w-full md:w-[45%] z-30 pb-4 md:pb-0 flex-shrink-0 transition-all duration-700 group-hover/hero:translate-x-4">
+                        <div class="hero-slide-text w-full md:w-[45%] z-30 pb-4 md:pb-0 flex-shrink-0 relative">
                             <span class="block font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange slide-meta">
                                 {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • @i18n($item, 'genre')
                             </span>
-                            <!-- Masking Teks dengan Overflow Hidden -->
                             <div class="overflow-hidden mt-4 pb-2">
-                                <h1
-                                    class="font-serif text-[10vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter slide-title transition-all duration-700 group-hover/hero:text-white group-hover/hero:drop-shadow-2xl">
+                                <h1 class="slide-title font-serif text-[10vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter">
                                     <a href="{{ route('detail-film', $item->slug) }}"
-                                        class="hover-target cursor-none hover:text-brand-orange transition-colors">
+                                        class="hover-target cursor-none hover:text-brand-orange transition-colors duration-300">
                                         @i18n($item, 'title')
                                     </a>
                                 </h1>
                             </div>
-                            <p
-                                class="font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/60 mt-4 md:mt-8 max-w-sm slide-desc opacity-0 transition-all duration-700 group-hover/hero:text-white/80 group-hover/hero:translate-x-2">
+                            <p class="slide-desc font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/60 mt-4 md:mt-8 max-w-sm opacity-0">
                                 Durasi: {{ $item->duration }} Menit.
                             </p>
                         </div>
+
                         <!-- Kanan: Gambar Frame -->
-                        <div class="w-full md:w-[50%] flex-1 md:h-[80vh] min-h-[30vh] flex justify-end items-center relative mb-4 md:mb-0 z-10">
-                            <div class="absolute right-0 h-full w-full md:w-[85%] bg-tint-2/20 overflow-hidden slide-image-container transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/hero:w-[100vw] group-hover/hero:max-w-none group-hover/hero:-right-8 md:group-hover/hero:-right-16 z-10">
-                                
-                                {{-- Play Button overlay --}}
+                        <div class="w-full md:w-[50%] flex-1 md:h-[80vh] min-h-[30vh] flex justify-end items-center relative mb-4 md:mb-0 z-10 cursor-none">
+
+                            {{-- Gambar Container (Absolute terhadap flex container) --}}
+                            <div class="hero-img-box slide-image-container absolute right-0 h-full w-full md:w-[85%] overflow-hidden bg-tint-2/20 z-10">
+
+                                {{-- Play Button --}}
                                 @if($video_id)
-                                    <button onclick="openHeroTrailer('{{ $video_id }}')" 
-                                            class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover/hero:opacity-100 transition-opacity duration-500 delay-200 cursor-none hover-target">
-                                        <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-white/30 bg-white/10 backdrop-blur-md flex items-center justify-center hover:scale-110 hover:bg-white hover:text-brand-deepbreath transition-all duration-300 text-white shadow-2xl">
+                                    <button class="play-btn-hero absolute inset-0 z-20 flex items-center justify-center opacity-0 hover-target"
+                                            data-video="{{ $video_id }}">
+                                        <div class="play-btn-circle w-20 h-20 md:w-24 md:h-24 rounded-full border border-white/40 bg-white/10 backdrop-blur-md flex items-center justify-center text-white shadow-2xl">
                                             <span class="iconify w-8 h-8 md:w-10 md:h-10 ml-1" data-icon="lucide:play" data-inline="false"></span>
                                         </div>
                                     </button>
                                 @endif
 
                                 <img src="{{ asset('photo/' . $item->photo) }}"
-                                    class="w-full h-full object-cover filter grayscale contrast-110 slide-image transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/hero:grayscale-0 group-hover/hero:scale-105"
+                                    class="slide-image w-full h-full object-cover filter grayscale contrast-110"
                                     alt="@i18n($item, 'title')">
-                                
-                                {{-- Overlay gradient saat cinematic --}}
-                                <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-brand-deepbreath/90 via-brand-deepbreath/40 to-transparent opacity-0 group-hover/hero:opacity-100 transition-opacity duration-700 z-10"></div>
+
+                                <div class="cinematic-overlay absolute inset-0 bg-gradient-to-r from-brand-deepbreath/90 via-brand-deepbreath/40 to-transparent opacity-0 z-10 pointer-events-none"></div>
                             </div>
                         </div>
 
@@ -181,27 +180,84 @@
 {{-- ============================================================
 STYLES & SCRIPTS
 ============================================================ --}}
-@push('styles')
+@push('head')
     <style>
         /* UTILITIES SPESIFIK HALAMAN FILM */
-        .bg-tint-3 {
-            background-color: #F1F1F1;
+        .bg-tint-3 { background-color: #F1F1F1; }
+        .text-brand-deepbreath { color: #25225E; }
+        .text-brand-orange { color: #FFB150; }
+        .bg-tint-2 { background-color: #CACAEF; }
+        .hairline-border { border-color: rgba(37, 34, 94, 0.15); }
+
+        /* ── CINEMATIC HERO IMAGE BOX ── */
+        .hero-img-box {
+            transition: width 800ms cubic-bezier(0.25, 1, 0.5, 1), right 800ms cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .hero-slide.cinematic .hero-img-box {
+            width: 100vw !important;
+            max-width: none !important;
+            right: -2rem !important;
+        }
+        @media (min-width: 768px) {
+            .hero-slide.cinematic .hero-img-box {
+                right: -4rem !important;
+            }
         }
 
-        .text-brand-deepbreath {
+        /* Image: grayscale default, color on cinematic */
+        .hero-img-box .slide-image {
+            transition:
+                filter 750ms cubic-bezier(0.25, 1, 0.5, 1),
+                transform 750ms cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .hero-slide.cinematic .hero-img-box .slide-image {
+            filter: grayscale(0%) contrast(1.05);
+            transform: scale(1.04);
+        }
+
+        /* Overlay gradient: hidden default, shows on cinematic */
+        .hero-img-box .cinematic-overlay {
+            transition: opacity 600ms ease;
+        }
+        .hero-slide.cinematic .hero-img-box .cinematic-overlay {
+            opacity: 1;
+        }
+
+        /* Play button: hidden default, shows on cinematic */
+        .hero-img-box .play-btn-hero {
+            transition: opacity 500ms ease 200ms;
+        }
+        .hero-slide.cinematic .hero-img-box .play-btn-hero {
+            opacity: 1;
+        }
+        .play-btn-circle {
+            transition: transform 250ms ease, background-color 250ms ease;
+        }
+        .play-btn-hero:hover .play-btn-circle {
+            transform: scale(1.1);
+            background-color: rgba(255,255,255,0.9);
             color: #25225E;
         }
 
-        .text-brand-orange {
-            color: #FFB150;
+        /* Text: transitions for cinematic state */
+        .hero-slide-text {
+            transition: transform 700ms cubic-bezier(0.25, 1, 0.5, 1);
         }
-
-        .bg-tint-2 {
-            background-color: #CACAEF;
+        .hero-slide.cinematic .hero-slide-text {
+            transform: translateX(1rem);
         }
-
-        .hairline-border {
-            border-color: rgba(37, 34, 94, 0.15);
+        .hero-slide.cinematic .slide-title {
+            color: #fff;
+            text-shadow: 0 0 40px rgba(0,0,0,0.3);
+        }
+        .hero-slide.cinematic .slide-desc {
+            color: rgba(255,255,255,0.8);
+        }
+        .slide-title {
+            transition: color 700ms ease, text-shadow 700ms ease;
+        }
+        .slide-desc {
+            transition: color 700ms ease;
         }
     </style>
 @endpush
@@ -324,7 +380,26 @@ STYLES & SCRIPTS
                 });
             }
 
-            /* ─── 2. LOGIKA FILTER KATALOG (JSON ARRAY PARSING) ─── */
+            /* ─── 2. CINEMATIC HOVER LOGIC ─── */
+            // Hover langsung pada image box — ketika image melebar 100vw,
+            // mouse tetap di atas image sehingga mouseleave tidak terpicu prematur.
+            document.querySelectorAll('.hero-img-box').forEach(imgBox => {
+                const slide = imgBox.closest('.hero-slide');
+                if (!slide) return;
+                imgBox.addEventListener('mouseenter', () => slide.classList.add('cinematic'));
+                imgBox.addEventListener('mouseleave', () => slide.classList.remove('cinematic'));
+            });
+
+            // Play button click
+            document.querySelectorAll('.play-btn-hero').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const videoId = btn.getAttribute('data-video');
+                    if (videoId) openHeroTrailer(videoId);
+                });
+            });
+
+            /* ─── 3. LOGIKA FILTER KATALOG (JSON ARRAY PARSING) ─── */
             const filterBtns = document.querySelectorAll('.filter-btn');
             const filmCards = document.querySelectorAll('.film-card');
 
