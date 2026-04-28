@@ -112,8 +112,8 @@
         {{-- ============================================================
         3. SYNOPSIS & CORE VISUAL
         ============================================================ --}}
-        <section class="py-32 px-8 md:px-16 z-10 relative">
-            <div class="max-w-[1800px] mx-auto flex flex-col md:flex-row gap-20 md:gap-32 items-center">
+        <section id="synopsis-section" class="py-32 px-8 md:px-16 z-10 relative">
+            <div class="max-w-[1800px] mx-auto flex flex-col md:flex-row gap-20 md:gap-32 items-start">
 
                 <!-- Poster Side (Editorial Frame) -->
                 <div class="w-full md:w-2/5 reveal-image">
@@ -123,14 +123,16 @@
                     </div>
                 </div>
 
-                <!-- Text Side -->
+                <!-- Text Side (Sticky Wrapper to maintain layout) -->
                 <div class="w-full md:w-3/5">
-                    <span data-i18n="detail_narrative"
-                        class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The
-                        Narrative.</span>
-                    <div
-                        class="font-serif text-xl md:text-2xl leading-[1.8] font-light text-brand-deepbreath/80 split-text-synopsis max-w-3xl">
-                        @i18n($films, 'sinopsis')
+                    <div id="sticky-narrative" class="w-full">
+                        <span data-i18n="detail_narrative"
+                            class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The
+                            Narrative.</span>
+                        <div
+                            class="font-serif text-xl md:text-2xl leading-[1.8] font-light text-brand-deepbreath/80 split-text-synopsis max-w-3xl">
+                            @i18n($films, 'sinopsis')
+                        </div>
                     </div>
                 </div>
 
@@ -323,6 +325,20 @@
                 y: 30,
                 duration: 1.5,
                 ease: "power3.out"
+            });
+
+            // 6. Sticky Narrative Pinning (Desktop Only)
+            ScrollTrigger.matchMedia({
+                "(min-width: 768px)": function() {
+                    ScrollTrigger.create({
+                        trigger: "#synopsis-section",
+                        start: "top 15%",
+                        end: "bottom bottom",
+                        pin: "#sticky-narrative",
+                        pinSpacing: false,
+                        invalidateOnRefresh: true
+                    });
+                }
             });
 
             /* ─── TRAILER MODAL LOGIC ─── */
