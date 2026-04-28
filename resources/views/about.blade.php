@@ -252,7 +252,7 @@
         </div>
 
         <!-- Absolute Image Container (z-20) -->
-        <div class="hero-image-container group absolute bottom-8 md:bottom-16 left-1/2 -translate-x-1/2 w-[90%] md:w-[60%] h-[30vh] md:h-[45vh] z-20 overflow-hidden rounded-md cursor-none hover-target shadow-2xl">
+        <div class="hero-image-container group absolute bottom-4 md:bottom-16 left-1/2 -translate-x-1/2 w-[90%] aspect-[16/9] md:aspect-none md:w-[60%] md:h-[45vh] z-20 overflow-hidden rounded-md cursor-none hover-target shadow-2xl">
             <div class="hero-image-overlay absolute inset-0 bg-brand-deepbreath/60 opacity-0 z-10 pointer-events-none"></div>
             
             <!-- Base Image (Full Color) -->
