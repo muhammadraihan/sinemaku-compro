@@ -314,7 +314,7 @@
             <!-- Content Area -->
             <div class="w-full md:w-11/12 flex flex-col gap-24">
                 <h2
-                    class="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] text-brand-deepbreath tracking-tight max-w-4xl manifesto-title">
+                    class="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] text-brand-deepbreath tracking-tight max-w-4xl manifesto-title split-text">
                     @php
                         $defaultIdHeading = 'Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.';
                         $settings['about_identity_heading'] = isset($settings['about_identity_heading']) ? $settings['about_identity_heading'] : $defaultIdHeading;
@@ -332,7 +332,7 @@
                             @endphp
                             @i18n($settings, 'about_studio_label')
                         </span>
-                        <p class="font-sans text-sm md:text-base font-light leading-loose text-brand-deepbreath/80">
+                        <p class="font-sans text-sm md:text-base font-light leading-loose text-brand-deepbreath/80 split-text">
                             @php
                                 $defaultStudioBody = 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.';
                                 $settings['about_studio_body'] = isset($settings['about_studio_body']) ? $settings['about_studio_body'] : $defaultStudioBody;
@@ -343,7 +343,7 @@
                     </div>
                     <div class="flex-1 manifesto-col-2">
                         <span class="font-serif italic text-3xl text-brand-orange mb-6 block">Culture.</span>
-                        <p class="font-sans text-sm md:text-base font-light leading-loose text-brand-deepbreath/80">
+                        <p class="font-sans text-sm md:text-base font-light leading-loose text-brand-deepbreath/80 split-text">
                             @php
                                 $defaultMission = "Kami percaya bahwa cerita terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar lebar, tanpa pernah melupakan semangat kolaborasi.";
                                 $settings['about_mission_statement'] = isset($settings['about_mission_statement']) ? $settings['about_mission_statement'] : $defaultMission;
@@ -702,6 +702,36 @@
         gsap.from(".hero-reveal", {
             y: 40, opacity: 0, stagger: 0.2, duration: 1.5, ease: "expo.out", delay: 0.2
         });
+
+        // 3.8 Split Text Word Reveal (Emerging from mask effect)
+        function initSplitText() {
+            document.querySelectorAll('.split-text').forEach(el => {
+                if (!el.dataset.split) {
+                    const text = el.innerText;
+                    // Wrap words in double spans: Outer is the mask (overflow-hidden), inner is the moving text
+                    el.innerHTML = text.split(/\s+/).map(word => 
+                        `<span class="inline-block overflow-hidden pt-1 -mt-1">
+                            <span class="split-word inline-block translate-y-[110%]">${word}</span>
+                        </span>`
+                    ).join(' ');
+                    el.dataset.split = "true";
+                }
+
+                const words = el.querySelectorAll('.split-word');
+                gsap.to(words, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "restart none none reset"
+                    },
+                    y: "0%",
+                    duration: 0.8,
+                    stagger: 0.03,
+                    ease: "expo.out"
+                });
+            });
+        }
+        initSplitText();
 
         // 3.7 Manifesto Section Parallax (Slow down effect)
         const manifestoSection = document.querySelector('#manifesto');
