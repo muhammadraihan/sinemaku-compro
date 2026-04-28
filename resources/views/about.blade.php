@@ -31,7 +31,9 @@
                         }
                     },
                     fontFamily: {
+                        // Buat pindah pindah apa mau serif atau Helvetica semua, tinggal kasih comment aja di yang ga kepake
                         serif: ['"Instrument Serif"', 'serif'],
+                        // serif: ['Helvetica', 'Arial', 'sans-serif'], /* Saat ini memaksa semua serif menjadi Helvetica */
                         sans: ['Helvetica', 'Arial', 'sans-serif'],
                     }
                 }
