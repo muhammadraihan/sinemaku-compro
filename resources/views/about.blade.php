@@ -49,12 +49,31 @@
 
     <style>
         body {
-            background-color: #F1F1F1;
+            background-color: #EDECEA;
             color: #25225E;
             margin: 0;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             cursor: none;
+        }
+
+        /* ── INTERACTIVE GRADIENT BACKGROUND ── */
+        #interactive-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(
+                    ellipse 70vw 70vh at var(--mx, 25%) var(--my, 55%),
+                    rgba(255, 177, 80, 0.25) 0%,
+                    transparent 70%
+                ),
+                radial-gradient(
+                    ellipse 55vw 55vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
+                    rgba(37, 34, 94, 0.15) 0%,
+                    transparent 70%
+                );
         }
 
         /* ── EFEK LIGHT LEAK & GRAIN ── */
@@ -76,15 +95,28 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.15;
+            opacity: 0.10;
+        }
+
+        @keyframes float-blob-1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            40%       { transform: translate(4%, 3%) scale(1.06); }
+            70%       { transform: translate(-3%, 5%) scale(0.96); }
+        }
+        @keyframes float-blob-2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            35%       { transform: translate(-5%, -2%) scale(1.04); }
+            65%       { transform: translate(3%, -4%) scale(0.98); }
         }
 
         #leak-1 {
             background: radial-gradient(circle, #FFB150 0%, transparent 70%);
+            animation: float-blob-1 18s ease-in-out infinite;
         }
 
         #leak-2 {
-            background: radial-gradient(circle, #DB5F10 0%, transparent 70%);
+            background: radial-gradient(circle, #25225E 0%, transparent 70%);
+            animation: float-blob-2 24s ease-in-out infinite;
         }
 
         /* ── TYPOGRAPHY & LAYOUT ── */
@@ -200,6 +232,9 @@
 
 <body class="font-sans">
 
+    <!-- Interactive Gradient Background -->
+    <div id="interactive-bg"></div>
+
     <!-- Efek Grain & Light Leak Global -->
     <div class="cinematic-grain"></div>
     <div id="leak-1" class="light-leak w-[50vw] h-[50vw] top-[-10vw] left-[-10vw]"></div>
@@ -266,7 +301,7 @@
     </section>
 
     <!-- 2. MANIFESTO (MUSEUM LAYOUT) -->
-    <section id="manifesto" class="py-32 px-8 md:px-16 z-10 relative bg-tint-3">
+    <section id="manifesto" class="py-32 px-8 md:px-16 z-10 relative">
         <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
 
             <!-- Section Marker -->
@@ -342,7 +377,7 @@
     </section>
 
     <!-- 3. THE CREW (ASYMMETRICAL PRINT GRID) -->
-    <section id="crew" class="py-32 px-8 md:px-16 z-10 relative bg-tint-3">
+    <section id="crew" class="py-32 px-8 md:px-16 z-10 relative">
         <div class="w-full">
             <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24">
                 <div class="w-full md:w-1/12">
@@ -462,7 +497,7 @@
     </section>
 
     <!-- 4. WHAT WE DO (MINIMAL TABLE) -->
-    <section class="py-32 px-8 md:px-16 z-10 relative bg-tint-3">
+    <section class="py-32 px-8 md:px-16 z-10 relative">
         <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
             <div class="w-full md:w-1/12">
                 <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
@@ -722,6 +757,8 @@
             let mouseY = window.innerHeight / 2;
             let ringX = mouseX;
             let ringY = mouseY;
+            let bgX = mouseX;
+            let bgY = mouseY;
 
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
@@ -730,9 +767,16 @@
             });
 
             gsap.ticker.add(() => {
+                // Ring interpolation
                 ringX += (mouseX - ringX) * 0.15;
                 ringY += (mouseY - ringY) * 0.15;
                 gsap.set(cursorRing, { x: ringX, y: ringY });
+
+                // Background gradient interpolation (smoother/slower)
+                bgX += (mouseX - bgX) * 0.05;
+                bgY += (mouseY - bgY) * 0.05;
+                document.body.style.setProperty('--mx', (bgX / window.innerWidth * 100) + '%');
+                document.body.style.setProperty('--my', (bgY / window.innerHeight * 100) + '%');
             });
 
             function bindHovers() {
