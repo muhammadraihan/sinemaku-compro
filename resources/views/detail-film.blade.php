@@ -52,7 +52,7 @@
                             <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-brand-deepbreath/20 flex items-center justify-center group-hover:bg-brand-deepbreath group-hover:text-white transition-all duration-500">
                                 <span class="iconify w-8 h-8" data-icon="lucide:play"></span>
                             </div>
-                            <span class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath">Watch Trailer</span>
+                            <span data-i18n="detail_watch_trailer" class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath">Watch Trailer</span>
                         </button>
                     </div>
                     @endif
@@ -67,30 +67,30 @@
             <div class="max-w-[1800px] mx-auto border-t border-b border-brand-deepbreath/10 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
                 
                 <div class="metadata-item">
-                    <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Director</span>
+                    <span data-i18n="detail_director" class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Director</span>
                     <h3 class="font-serif text-3xl text-brand-deepbreath italic">{{ $films->director }}</h3>
                 </div>
 
                 <div class="metadata-item">
-                    <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Cast</span>
+                    <span data-i18n="detail_cast" class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Cast</span>
                     <div class="flex flex-col gap-1">
                         @foreach(array_slice(explode(',', $films->cast), 0, 3) as $cast)
                             <span class="font-sans text-sm font-medium text-brand-deepbreath">{{ trim($cast) }}</span>
                         @endforeach
                         @if(count(explode(',', $films->cast)) > 3)
-                            <span class="font-sans text-[10px] text-brand-orange italic mt-1">and more...</span>
+                            <span data-i18n="detail_and_more" class="font-sans text-[10px] text-brand-orange italic mt-1">and more...</span>
                         @endif
                     </div>
                 </div>
 
                 <div class="metadata-item">
-                    <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Duration</span>
-                    <h3 class="font-sans text-2xl font-light text-brand-deepbreath">{{ $films->duration }} <span class="text-sm uppercase tracking-widest opacity-40">Min</span></h3>
+                    <span data-i18n="detail_duration" class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Duration</span>
+                    <h3 class="font-sans text-2xl font-light text-brand-deepbreath">{{ $films->duration }} <span data-i18n="label_minutes" class="text-sm uppercase tracking-widest opacity-40">Min</span></h3>
                 </div>
 
                 <div class="metadata-item">
-                    <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Language</span>
-                    <h3 class="font-sans text-2xl font-light text-brand-deepbreath">Bahasa Indonesia</h3>
+                    <span data-i18n="detail_language" class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Language</span>
+                    <h3 data-i18n="detail_lang_value" class="font-sans text-2xl font-light text-brand-deepbreath">Bahasa Indonesia</h3>
                 </div>
 
             </div>
@@ -113,7 +113,7 @@
 
                 <!-- Text Side -->
                 <div class="w-full md:w-3/5">
-                    <span class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The Narrative.</span>
+                    <span data-i18n="detail_narrative" class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The Narrative.</span>
                     <div class="font-serif text-xl md:text-2xl leading-[1.8] font-light text-brand-deepbreath/80 split-text-synopsis max-w-3xl">
                         @i18n($films, 'sinopsis')
                     </div>
@@ -128,7 +128,7 @@
         <section class="py-32 px-8 md:px-16 z-10 relative bg-brand-deepbreath text-white rounded-t-[4rem] -mt-20">
             <div class="max-w-[1800px] mx-auto mb-20">
                 <div class="flex justify-between items-end border-b border-white/10 pb-12">
-                    <h2 class="font-serif text-6xl md:text-8xl tracking-tighter italic">Still <span class="text-brand-orange not-italic">Shots.</span></h2>
+                    <h2 class="font-serif text-6xl md:text-8xl tracking-tighter italic"><span data-i18n="detail_still_shots">Still Shots.</span></h2>
                     <span class="font-sans text-[10px] tracking-[0.4em] uppercase opacity-40 pb-4">Gallery 01</span>
                 </div>
             </div>
@@ -169,7 +169,7 @@
         ============================================================ --}}
         <section class="py-32 px-8 md:px-16 z-10 relative bg-[#F1F1F1]">
             <div class="max-w-[1800px] mx-auto mb-20 border-t border-brand-deepbreath/10 pt-16">
-                <h2 class="font-serif text-5xl text-brand-deepbreath tracking-tight">You might also <span class="italic text-brand-orange">enjoy.</span></h2>
+                <h2 data-i18n="detail_recommendations" class="font-serif text-5xl text-brand-deepbreath tracking-tight">You might also enjoy.</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-[1800px] mx-auto">

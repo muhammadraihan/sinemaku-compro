@@ -300,6 +300,16 @@ GLOBAL i18n ENGINE
             page_our_docs: { en: 'OUR DOCUMENTARIES', id: 'DOKUMENTER KAMI' },
             page_catalog_1: { en: 'Work', id: 'Katalog' },
             page_catalog_2: { en: 'Catalogue.', id: 'Karya.' },
+            detail_watch_trailer: { en: 'Watch Trailer', id: 'Tonton Trailer' },
+            detail_director: { en: 'Director', id: 'Sutradara' },
+            detail_cast: { en: 'Cast', id: 'Pemeran' },
+            detail_duration: { en: 'Duration', id: 'Durasi' },
+            detail_language: { en: 'Language', id: 'Bahasa' },
+            detail_and_more: { en: 'and more...', id: 'dan lainnya...' },
+            detail_lang_value: { en: 'Indonesian', id: 'Bahasa Indonesia' },
+            detail_narrative: { en: 'The Narrative.', id: 'Narasi.' },
+            detail_still_shots: { en: 'Still Shots.', id: 'Cuplikan.' },
+            detail_recommendations: { en: 'You might also enjoy.', id: 'Mungkin Anda juga suka.' },
         };
 
         const STORAGE_KEY = 'sinemaku_lang';
