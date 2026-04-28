@@ -486,7 +486,7 @@
                             @endif
                         </div>
 
-                        <div class="w-full editorial-image-container {{ $aspect }} bg-tint-2/20">
+                        <div class="w-full editorial-image-container {{ $aspect }} bg-tint-2/20 rounded-[2rem] overflow-hidden">
                             <img src="{{ asset($member['img']) }}" class="editorial-image para-img"
                                 alt="{{ $member['name'] }}">
                         </div>
@@ -666,16 +666,21 @@
         // 3. Image Parallax
         gsap.utils.toArray('.editorial-image-container').forEach(container => {
             const img = container.querySelector('.para-img');
-            gsap.to(img, {
-                yPercent: 15,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: container,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
+            if (img) {
+                gsap.fromTo(img, 
+                    { yPercent: -10 },
+                    {
+                        yPercent: 10,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: container,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true
+                        }
+                    }
+                );
+            }
         });
 
         // 3.5 Secondary Crew Photo Parallax

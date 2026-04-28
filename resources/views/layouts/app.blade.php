@@ -81,6 +81,71 @@
       mix-blend-mode: multiply;
     }
 
+    /* ── INTERACTIVE GRADIENT BACKGROUND GLOBAL ── */
+    #interactive-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 70vw 70vh at var(--mx, 25%) var(--my, 55%),
+          rgba(255, 177, 80, 0.2) 0%,
+          transparent 70%),
+        radial-gradient(ellipse 55vw 55vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
+          rgba(37, 34, 94, 0.1) 0%,
+          transparent 70%);
+    }
+
+    .light-leak {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.08;
+    }
+
+    #leak-1 {
+      background: radial-gradient(circle, #FFB150 0%, transparent 70%);
+      animation: float-blob-1 18s ease-in-out infinite;
+    }
+
+    #leak-2 {
+      background: radial-gradient(circle, #25225E 0%, transparent 70%);
+      animation: float-blob-2 24s ease-in-out infinite;
+    }
+
+    @keyframes float-blob-1 {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      40% {
+        transform: translate(4%, 3%) scale(1.06);
+      }
+
+      70% {
+        transform: translate(-3%, 5%) scale(0.96);
+      }
+    }
+
+    @keyframes float-blob-2 {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      35% {
+        transform: translate(-5%, -2%) scale(1.04);
+      }
+
+      65% {
+        transform: translate(3%, -4%) scale(0.98);
+      }
+    }
+
     /* ── CUSTOM CURSOR (EDITORIAL RING) GLOBAL ── */
     #cursor-ring {
       position: fixed;
@@ -128,31 +193,64 @@
 
     /* ── SMOOTH ITALIC ANIMATION ── */
     .smooth-italic {
-        display: inline-block;
-        transform-origin: center;
-        animation: unskewToNormal 0.4s forwards;
+      display: inline-block;
+      transform-origin: center;
+      animation: unskewToNormal 0.4s forwards;
     }
+
     .smooth-italic:hover,
     .group:hover .group-smooth-italic {
-        animation: skewToItalic 0.4s forwards;
+      animation: skewToItalic 0.4s forwards;
     }
+
     .group-smooth-italic {
-        display: inline-block;
-        transform-origin: center;
-        animation: unskewToNormal 0.4s forwards;
+      display: inline-block;
+      transform-origin: center;
+      animation: unskewToNormal 0.4s forwards;
     }
 
     @keyframes skewToItalic {
-        0% { transform: skewX(0deg) scale(1); font-style: normal; }
-        49% { transform: skewX(-12deg) scale(1); font-style: normal; }
-        50% { transform: skewX(0deg) scale(0.94); font-style: italic; }
-        100% { transform: skewX(0deg) scale(0.94); font-style: italic; }
+      0% {
+        transform: skewX(0deg) scale(1);
+        font-style: normal;
+      }
+
+      49% {
+        transform: skewX(-12deg) scale(1);
+        font-style: normal;
+      }
+
+      50% {
+        transform: skewX(0deg) scale(0.94);
+        font-style: italic;
+      }
+
+      100% {
+        transform: skewX(0deg) scale(0.94);
+        font-style: italic;
+      }
     }
+
     @keyframes unskewToNormal {
-        0% { transform: skewX(0deg) scale(0.94); font-style: italic; }
-        49% { transform: skewX(0deg) scale(0.94); font-style: italic; }
-        50% { transform: skewX(-12deg) scale(1); font-style: normal; }
-        100% { transform: skewX(0deg) scale(1); font-style: normal; }
+      0% {
+        transform: skewX(0deg) scale(0.94);
+        font-style: italic;
+      }
+
+      49% {
+        transform: skewX(0deg) scale(0.94);
+        font-style: italic;
+      }
+
+      50% {
+        transform: skewX(-12deg) scale(1);
+        font-style: normal;
+      }
+
+      100% {
+        transform: skewX(0deg) scale(1);
+        font-style: normal;
+      }
     }
 
     /* ── CUSTOM SCROLLBAR ── */
@@ -176,8 +274,13 @@
 
 <body class="font-sans">
 
-  <!-- Efek Grain Global (Terpasang di semua halaman) -->
+  <!-- Interactive Gradient Background Global -->
+  <div id="interactive-bg"></div>
+
+  <!-- Efek Grain & Light Leak Global -->
   <div class="cinematic-grain"></div>
+  <div id="leak-1" class="light-leak w-[50vw] h-[50vw] top-[-10vw] left-[-10vw]"></div>
+  <div id="leak-2" class="light-leak w-[40vw] h-[40vw] bottom-10 right-[-10vw]"></div>
 
   <!-- Custom Cursor Global -->
   <div id="cursor-ring"></div>
@@ -200,6 +303,8 @@
       let mouseY = window.innerHeight / 2;
       let ringX = mouseX;
       let ringY = mouseY;
+      let bgX = mouseX;
+      let bgY = mouseY;
 
       // Dot mengikuti langsung
       document.addEventListener('mousemove', (e) => {
@@ -214,11 +319,18 @@
         });
       });
 
-      // Ring mengikuti dengan delay (Lerp)
+      // Animasi mengikuti dengan delay (Lerp)
       gsap.ticker.add(() => {
+        // Ring
         ringX += (mouseX - ringX) * 0.15;
         ringY += (mouseY - ringY) * 0.15;
         gsap.set(cursorRing, { x: ringX, y: ringY });
+
+        // Background gradient (lebih lambat/halus)
+        bgX += (mouseX - bgX) * 0.05;
+        bgY += (mouseY - bgY) * 0.05;
+        document.body.style.setProperty('--mx', (bgX / window.innerWidth * 100) + '%');
+        document.body.style.setProperty('--my', (bgY / window.innerHeight * 100) + '%');
       });
 
       // Re-bind hover logic function agar bisa dipanggil ulang jika ada konten dinamis (AJAX/Livewire)

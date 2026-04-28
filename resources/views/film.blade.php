@@ -10,7 +10,7 @@
     EDITORIAL WRAPPER
     Menjaga gaya kanvas terang (Tint 3) khusus untuk halaman ini
     ============================================================ --}}
-    <div id="editorial-wrapper" class="bg-tint-3 text-brand-deepbreath relative w-full font-sans">
+    <div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans">
 
         {{-- ============================================================
         1. EDITORIAL HERO SLIDESHOW
