@@ -84,24 +84,24 @@ FULLSCREEN MENU OVERLAY
 TOP NAVBAR
 ════════════════════════════════════════════════════════════════ --}}
 <nav id="unified-navbar"
-    class="fixed top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 transition-all duration-500 mix-blend-multiply text-brand-deepbreath">
+    class="fixed top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 transition-all duration-500 text-brand-deepbreath nav-light">
 
     {{-- Brand (Left) --}}
-    <a href="{{ route('welcome') ?? '/' }}"
-        class="font-serif text-3xl tracking-tight leading-none relative z-10 transition-colors duration-300 text-brand-deepbreath hover:text-brand-orange cursor-none hover-target">
+    <a href="{{ route('welcome') ?? '/' }}" id="nav-logo"
+        class="font-serif text-3xl tracking-tight leading-none relative z-10 transition-colors duration-500 text-inherit hover:text-brand-orange cursor-none hover-target">
         Sinemaku<br>Pictures.
     </a>
 
     {{-- Right Controls --}}
-    <div
-        class="flex gap-12 md:gap-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold items-start text-brand-deepbreath/60">
-        <div class="hidden md:flex flex-col gap-1 text-right">
+    <div id="nav-controls"
+        class="flex gap-12 md:gap-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold items-start text-inherit transition-colors duration-500">
+        <div class="hidden md:flex flex-col gap-1 text-right opacity-90">
             <span>Est. 2020</span>
             <span>Jakarta, ID</span>
         </div>
         
         {{-- Top Nav Language Switcher --}}
-        <button class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-brand-deepbreath/50 hover:text-brand-deepbreath/90 transition-colors relative z-10 cursor-none hover-target"
+        <button class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-inherit opacity-60 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
@@ -109,7 +109,7 @@ TOP NAVBAR
         </button>
 
         <button id="menu-open-btn"
-            class="hamburger-btn text-brand-deepbreath/60 hover:text-brand-orange transition-colors relative z-10 cursor-none hover-target">
+            class="hamburger-btn text-inherit opacity-60 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target">
             [ Menu ]
         </button>
     </div>
@@ -453,4 +453,57 @@ GLOBAL i18n ENGINE
 
         window.__i18n = { apply: applyLang, t: TRANSLATIONS, getCurrent: function () { return currentLang; } };
     })();
+</script>
+
+<style>
+    /* Navbar Theme Styles */
+    #unified-navbar.nav-light {
+        color: #25225E; /* Brand Blue */
+    }
+    #unified-navbar.nav-dark {
+        color: #FFB150; /* Brand Orange */
+    }
+    
+    /* Ensure the hamburger button also inherits color */
+    #menu-toggle-btn {
+        color: inherit;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait for GSAP to be available
+    setTimeout(() => {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+        const navbar = document.getElementById('unified-navbar');
+        
+        // Function to switch navbar theme
+        const setNavTheme = (isDark) => {
+            if (isDark) {
+                navbar.classList.remove('nav-light');
+                navbar.classList.add('nav-dark');
+            } else {
+                navbar.classList.remove('nav-dark');
+                navbar.classList.add('nav-light');
+            }
+        };
+
+        // Automatically detect dark sections
+        // Refined selectors: include almost all media containers and dark backgrounds
+        const darkSections = document.querySelectorAll('.bg-brand-deepbreath, section.hero-media, .bg-black, section.relative.h-\\[60vh\\], section.relative.h-\\[80vh\\], .reveal-image, .img-container, .hero-parallax-img');
+        
+        darkSections.forEach(section => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top 100px", // Trigger when the section reaches the bottom of the logo
+                end: "bottom 100px",
+                onEnter: () => setNavTheme(true),
+                onLeave: () => setNavTheme(false),
+                onEnterBack: () => setNavTheme(true),
+                onLeaveBack: () => setNavTheme(false)
+            });
+        });
+    }, 500);
+});
 </script>
