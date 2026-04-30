@@ -3,323 +3,194 @@
 @section('title', (isset($careers->position) ? $careers->position : $casting->pemeran) . ' | Sinemaku Pictures')
 
 @section('content')
+
 @include('partials.navbar')
 
+@push('head')
 <style>
-  :root {
-    --bg: #ffffff;
-    --text-primary: #0a0a0a;
-    --text-secondary: #6b7280;
-    --border-color: #eeeeee;
-    --editorial-pad: clamp(24px, 8vw, 120px);
-  }
-
-  body {
-    background-color: var(--bg);
-    color: var(--text-primary);
-  }
-
-  .career-detail-container {
-    padding-top: 160px;
-    padding-bottom: 120px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding-left: var(--editorial-pad);
-    padding-right: var(--editorial-pad);
-  }
-
-  .career-layout {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 80px;
-  }
-
-  /* Header */
-  .career-header {
-    margin-bottom: 60px;
-  }
-
-  .career-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .career-title {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -0.04em;
-    margin: 0 0 24px;
-    text-transform: uppercase;
-  }
-
-  .career-dept {
-    font-size: 18px;
-    font-weight: 400;
-    color: var(--text-secondary);
-  }
-
-  /* Main Content */
-  .career-main-content {
-    font-size: 16px;
-    line-height: 1.8;
-  }
-
-  .career-main-content h2, 
-  .career-main-content h3 {
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    font-weight: 800;
-  }
-
-  .career-main-content p {
-    margin-bottom: 24px;
-    color: #333;
-  }
-
-  .career-main-content ul {
-    margin-bottom: 32px;
-    padding-left: 20px;
-  }
-
-  .career-main-content li {
-    margin-bottom: 12px;
-  }
-
-  /* Sidebar */
-  .career-sidebar {
-    position: sticky;
-    top: 140px;
-    height: fit-content;
-  }
-
-  .metadata-block {
-    border-top: 1px solid var(--text-primary);
-    padding-top: 32px;
-    margin-bottom: 48px;
-  }
-
-  .metadata-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .metadata-item__label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-  }
-
-  .metadata-item__value {
-    font-size: 14px;
-    font-weight: 600;
-    text-align: right;
-  }
-
-  .btn-apply {
-    display: block;
-    width: 100%;
-    background: var(--text-primary);
-    color: #fff;
-    text-align: center;
-    padding: 24px;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-decoration: none;
-    transition: background 0.3s;
-    margin-top: 40px;
-  }
-
-  .btn-apply:hover {
-    background: #333;
-  }
-
-  /* Others Section */
-  .others-section {
-    margin-top: 80px;
-  }
-
-  .others-section h4 {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 32px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--text-primary);
-  }
-
-  .mini-career-link {
-    display: block;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border-color);
-    text-decoration: none;
-    color: inherit;
-    transition: opacity 0.3s;
-  }
-
-  .mini-career-link:hover {
-    opacity: 0.6;
-  }
-
-  .mini-career-title {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-
-  .mini-career-meta {
-    font-size: 12px;
-    color: var(--text-secondary);
-  }
-
-  /* Reveal Animations */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.is-inview {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 960px) {
-    .career-layout {
-      grid-template-columns: 1fr;
-      gap: 60px;
+    body { background-color: #EDECEA !important; }
+    
+    /* Clean career content styling */
+    .career-content h2, .career-content h3 {
+        font-family: 'Instrument Serif', serif;
+        font-size: 2.5rem;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+        color: #25225E;
+        font-style: italic;
     }
-    .career-sidebar {
-      position: static;
+    .career-content p {
+        font-family: 'Helvetica', sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: rgba(37, 34, 94, 0.8);
+        margin-bottom: 1.5rem;
     }
-  }
+    .career-content ul {
+        margin-bottom: 2rem;
+        padding-left: 1.5rem;
+    }
+    .career-content li {
+        margin-bottom: 0.75rem;
+        position: relative;
+        list-style: none;
+        padding-left: 1.5rem;
+    }
+    .career-content li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.6em;
+        width: 6px;
+        height: 6px;
+        background: #FFB150;
+        border-radius: 50%;
+    }
 </style>
+@endpush
 
-<div class="career-detail-container">
-  <div class="career-layout">
-    <!-- MAIN COLUMN -->
-    <main class="career-main">
-      <header class="career-header reveal">
-        <span class="career-label">Opportunities</span>
-        <h1 class="career-title">
-          @if(isset($careers->position))
-            @i18n($careers, 'position')
-          @else
-            @i18n($casting, 'pemeran')
-          @endif
-        </h1>
-        <div class="career-dept">{{ $careers->tim ?? $casting->judul_film }}</div>
-      </header>
+{{-- ============================================================
+EDITORIAL WRAPPER
+============================================================ --}}
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen pt-40 md:pt-48 pb-32">
 
-      <div class="career-main-content reveal" style="transition-delay: 0.1s;">
-        @if(isset($careers->detail))
-          @i18n($careers, 'detail')
-        @else
-          @i18n($casting, 'detail')
-        @endif
-      </div>
-    </main>
+    <div class="max-w-[1800px] mx-auto px-8 md:px-16">
+        
+        <!-- Header -->
+        <header class="mb-20 md:mb-32 reveal-text">
+            <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange mb-8 block">
+                Opportunities
+            </span>
+            <h1 class="font-serif text-6xl md:text-9xl text-brand-deepbreath leading-[0.9] tracking-tighter mb-8 max-w-5xl">
+                @if(isset($careers->position))
+                    @i18n($careers, 'position')
+                @else
+                    @i18n($casting, 'pemeran')
+                @endif
+            </h1>
+            <div class="font-sans text-lg md:text-2xl text-brand-deepbreath/40 uppercase tracking-widest font-bold">
+                {{ $careers->tim ?? $casting->judul_film }}
+            </div>
+        </header>
 
-    <!-- SIDEBAR COLUMN -->
-    <aside class="career-sidebar reveal" style="transition-delay: 0.2s;">
-      <div class="metadata-block">
-        <div class="metadata-item">
-          <span class="metadata-item__label">Location</span>
-          <span class="metadata-item__value">{{ $careers->location ?? $casting->location }}</span>
+        <!-- Main Layout -->
+        <div class="flex flex-col lg:flex-row gap-20 lg:gap-40 items-start">
+            
+            <!-- Content Column -->
+            <main class="w-full lg:w-2/3 career-content reveal-text">
+                @if(isset($careers->detail))
+                    @i18n($careers, 'detail')
+                @else
+                    @i18n($casting, 'detail')
+                @endif
+            </main>
+
+            <!-- Sidebar Column (Sticky) -->
+            <aside class="w-full lg:w-1/3 lg:sticky lg:top-40 reveal-rec">
+                <div class="bg-brand-deepbreath text-[#EDECEA] p-12 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
+                    <!-- Background Accent -->
+                    <div class="absolute -top-20 -right-20 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl"></div>
+                    
+                    <div class="relative z-10 flex flex-col gap-12">
+                        <!-- Metadata List -->
+                        <div class="flex flex-col gap-8">
+                            <!-- Location -->
+                            <div class="flex flex-col gap-2">
+                                <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-white/40">Location</span>
+                                <span class="text-xl font-bold tracking-tight">{{ $careers->location ?? $casting->location }}</span>
+                            </div>
+
+                            @if (!empty($careers->status))
+                                <!-- Type -->
+                                <div class="flex flex-col gap-2 border-t border-white/10 pt-8">
+                                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-white/40">Type</span>
+                                    <span class="text-xl font-bold tracking-tight">{{ $careers->status }}</span>
+                                </div>
+                                <!-- Experience -->
+                                <div class="flex flex-col gap-2 border-t border-white/10 pt-8">
+                                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-white/40">Experience</span>
+                                    <span class="text-xl font-bold tracking-tight">{{ $careers->pengalaman }}</span>
+                                </div>
+                            @else
+                                <!-- Shoot Date -->
+                                <div class="flex flex-col gap-2 border-t border-white/10 pt-8">
+                                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-white/40">Shoot Date</span>
+                                    <span class="text-xl font-bold tracking-tight">{{ \Carbon\Carbon::parse($casting->shoot_date)->format('d M Y') }}</span>
+                                </div>
+                                <!-- Gender / Age -->
+                                <div class="flex flex-col gap-2 border-t border-white/10 pt-8">
+                                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-white/40">Gender / Age</span>
+                                    <span class="text-xl font-bold tracking-tight">{{ $casting->gender == 'L' ? 'Male' : 'Female' }}, {{ $casting->umur }} Yrs</span>
+                                </div>
+                                <!-- Deadline -->
+                                <div class="flex flex-col gap-2 border-t border-white/10 pt-8">
+                                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-white/40">Deadline</span>
+                                    <span class="text-xl font-bold tracking-tight text-brand-orange">{{ \Carbon\Carbon::parse($casting->deadline)->format('d M Y') }}</span>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- CTA -->
+                        <a href="{{ $careers->link ?? $casting->link }}" target="_blank" class="bg-[#EDECEA] text-brand-deepbreath font-sans text-xs tracking-[0.2em] uppercase font-bold py-6 px-8 text-center hover:bg-brand-orange hover:text-white transition-all duration-500 cursor-none hover-target shadow-xl" data-i18n="label_apply_now">
+                            Apply For This Position
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Others Section -->
+                <div class="mt-20">
+                    <h4 class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-deepbreath/40 mb-8 border-b hairline-border pb-4" data-i18n="label_other_openings">Other Openings</h4>
+                    <div class="flex flex-col gap-8">
+                        @if (!empty($careers->status))
+                            @foreach ($all_careers->take(3) as $item)
+                                <a href="{{ route('detail-careers', $item->slug) }}" class="group flex flex-col gap-2 cursor-none hover-target">
+                                    <span class="font-serif text-2xl text-brand-deepbreath group-hover:text-brand-orange transition-colors">@i18n($item, 'position')</span>
+                                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/30">{{ $item->tim }} · {{ $item->location }}</span>
+                                </a>
+                            @endforeach
+                        @else
+                            @foreach ($all_casting->take(3) as $item)
+                                <a href="{{ route('detail-careers', $item->slug) }}" class="group flex flex-col gap-2 cursor-none hover-target">
+                                    <span class="font-serif text-2xl text-brand-deepbreath group-hover:text-brand-orange transition-colors">@i18n($item, 'pemeran')</span>
+                                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/30">{{ $item->judul_film }} · {{ $item->location }}</span>
+                                </a>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            </aside>
+
         </div>
 
-        @if (!empty($careers->status))
-          <div class="metadata-item">
-            <span class="metadata-item__label">Type</span>
-            <span class="metadata-item__value">{{ $careers->status }}</span>
-          </div>
-          <div class="metadata-item">
-            <span class="metadata-item__label">Experience</span>
-            <span class="metadata-item__value">{{ $careers->pengalaman }}</span>
-          </div>
-          {{-- 
-          @if($careers->salary)
-            <div class="metadata-item">
-              <span class="metadata-item__label">Salary Range</span>
-              <span class="metadata-item__value">
-                @if(is_numeric($careers->salary))
-                  Rp {{ number_format($careers->salary, 0, ',', '.') }}
-                @else
-                  {{ $careers->salary }}
-                @endif
-              </span>
-            </div>
-          @endif 
-          --}}
-        @else
-          <div class="metadata-item">
-            <span class="metadata-item__label">Shoot Date</span>
-            <span class="metadata-item__value">{{ \Carbon\Carbon::parse($casting->shoot_date)->format('d M Y') }}</span>
-          </div>
-          <div class="metadata-item">
-            <span class="metadata-item__label">Gender / Age</span>
-            <span class="metadata-item__value">{{ $casting->gender == 'L' ? 'Male' : 'Female' }}, {{ $casting->umur }} Yrs</span>
-          </div>
-          <div class="metadata-item">
-            <span class="metadata-item__label">Deadline</span>
-            <span class="metadata-item__value">{{ \Carbon\Carbon::parse($casting->deadline)->format('d M Y') }}</span>
-          </div>
-        @endif
-      </div>
+    </div>
 
-      <a href="{{ $careers->link ?? $casting->link }}" class="btn-apply" target="_blank">
-        Apply For This Position
-      </a>
-
-      <!-- OTHER POSITIONS -->
-      <div class="others-section">
-        <h4>Other Openings</h4>
-        @if (!empty($careers->status))
-          @foreach ($all_careers as $item)
-            <a href="{{ route('detail-careers', $item->slug) }}" class="mini-career-link">
-              <div class="mini-career-title">@i18n($item, 'position')</div>
-              <div class="mini-career-meta">{{ $item->tim }} · {{ $item->location }}</div>
-            </a>
-          @endforeach
-        @else
-          @foreach ($all_casting as $item)
-            <a href="{{ route('detail-careers', $item->slug) }}" class="mini-career-link">
-              <div class="mini-career-title">@i18n($item, 'pemeran')</div>
-              <div class="mini-career-meta">{{ $item->judul_film }} · {{ $item->location }}</div>
-            </a>
-          @endforeach
-        @endif
-      </div>
-    </aside>
-  </div>
 </div>
 
+{{-- Scripts --}}
+@push('scripts')
 <script>
-(function(){
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('is-inview');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof gsap === 'undefined') return;
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-})();
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Content Reveals
+    document.querySelectorAll('.reveal-text, .reveal-rec').forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out"
+        });
+    });
+});
 </script>
+@endpush
 
 @include('components.footer')
+
 @endsection

@@ -3,248 +3,162 @@
 @section('title', 'Careers | Sinemaku Pictures')
 
 @section('content')
+
 @include('partials.navbar')
 
+@push('head')
 <style>
-  :root {
-    --bg: #ffffff;
-    --text-primary: #0a0a0a;
-    --text-secondary: #6b7280;
-    --border-color: #eeeeee;
-    --editorial-pad: clamp(24px, 15vw, 320px);
-  }
-
-  body {
-    background-color: var(--bg);
-    color: var(--text-primary);
-  }
-
-  .careers-container {
-    padding-top: 140px;
-    padding-bottom: 120px;
-    max-width: 1800px;
-    margin: 0 auto;
-  }
-
-  .careers-header {
-    padding: 0 var(--editorial-pad);
-    margin-bottom: 80px;
-  }
-
-  .careers-header h1 {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    margin: 0;
-  }
-
-  .section-label {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.35em;
-    color: var(--text-primary);
-    margin-bottom: 20px;
-    display: block;
-    position: relative;
-    padding-bottom: 12px;
-  }
-  
-  .section-label::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 40px;
-    height: 1px;
-    background: var(--text-primary);
-  }
-
-  /* Directory List Layout */
-  .directory-list {
-    margin-top: 20px;
-  }
-
-  .directory-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    padding: 64px var(--editorial-pad);
-    border-bottom: 1px solid var(--border-color);
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .directory-item:first-child {
-    border-top: 1px solid var(--border-color);
-  }
-
-  .directory-item:hover {
-    background-color: #fafafa;
-    padding-left: calc(var(--editorial-pad) + 12px);
-    padding-right: calc(var(--editorial-pad) - 12px);
-  }
-
-  .directory-item:hover .directory-item__title,
-  .directory-item:hover svg {
-    color: #000 !important;
-  }
-
-  .directory-item:hover .directory-item__meta {
-    color: #444 !important;
-  }
-
-  .directory-item__content {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .directory-item__title {
-    font-size: clamp(16px, 1.8vw, 20px);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    line-height: 1.2;
-    margin: 0;
-  }
-
-  .directory-item__meta {
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    display: flex;
-    gap: 32px;
-    align-items: center;
-  }
-
-  .directory-item__arrow {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0.3;
-  }
-
-  .directory-item:hover .directory-item__arrow {
-    transform: translateX(12px);
-    opacity: 1;
-  }
-
-  .directory-item__arrow svg {
-    width: 20px;
-    height: 20px;
-    stroke-width: 1.2;
-  }
-
-  .casting-section {
-    margin-top: 120px;
-  }
-
-  /* Reveal Animations */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.is-inview {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    .directory-item {
-      padding: 30px var(--editorial-pad);
-    }
-    .directory-item__meta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-    }
-  }
+    body { background-color: #EDECEA !important; }
 </style>
+@endpush
 
-<div class="careers-container">
-  <!-- OPEN POSITIONS SECTION -->
-  <section class="careers-section">
-    <div class="careers-header reveal">
-      <span class="section-label">Join Our Team</span>
-      <h1>Open Positions</h1>
-    </div>
+{{-- ============================================================
+EDITORIAL WRAPPER
+============================================================ --}}
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
 
-    <div class="directory-list">
-      @foreach ($careers as $item)
-        <a href="{{ route('detail-careers', $item->slug) }}" class="directory-item reveal">
-          <div class="directory-item__content">
-            <h3 class="directory-item__title">@i18n($item, 'position')</h3>
-            <div class="directory-item__meta">
-              <span>{{ $item->tim }}</span>
-              <span>{{ $item->location }}</span>
-              <span>Posted {{ $item->created_at->diffForHumans() }}</span>
+    {{-- ============================================================
+    HERO SECTION (Clean Editorial)
+    ============================================================ --}}
+    <section class="relative w-full h-[50vh] md:h-[60vh] overflow-hidden flex items-center justify-center pt-20">
+        <!-- Content Overlay -->
+        <div class="relative z-20 text-center px-8 max-w-6xl mx-auto">
+            <div class="flex flex-col items-center">
+                <span class="hero-reveal font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange mb-8 block">
+                    Join the Family
+                </span>
+                <h1 class="hero-reveal font-serif text-6xl md:text-9xl text-brand-deepbreath leading-[0.85] tracking-tighter mb-8">
+                    <span data-i18n="page_careers_1">Our</span> <span data-i18n="page_careers_2" class="italic text-brand-orange">Careers.</span>
+                </h1>
             </div>
-          </div>
-          <div class="directory-item__arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
-        </a>
-      @endforeach
-    </div>
-  </section>
+        </div>
+    </section>
 
-  <!-- CURRENT CASTINGS SECTION -->
-  <section class="casting-section">
-    <div class="careers-header reveal">
-      <span class="section-label">Casting Calls</span>
-      <h1>Current Castings</h1>
-    </div>
-
-    <div class="directory-list">
-      @foreach ($casting as $item)
-        <a href="{{ route('detail-careers', $item->slug) }}" class="directory-item reveal">
-          <div class="directory-item__content">
-            <h3 class="directory-item__title">@i18n($item, 'pemeran')</h3>
-            <div class="directory-item__meta">
-              <span style="font-weight: 700;">{{ $item->judul_film }}</span>
-              <span>{{ $item->gender == 'L' ? 'Male' : 'Female' }}, {{ $item->umur }} Yrs</span>
-              <span>{{ $item->location }}</span>
+    {{-- ============================================================
+    OPEN POSITIONS SECTION
+    ============================================================ --}}
+    <section class="pb-32 px-8 md:px-16 max-w-[1800px] mx-auto relative z-10">
+        <!-- Section Header (Static) -->
+        <div class="flex items-start gap-8 mb-16 md:mb-24 reveal-text">
+            <div class="flex flex-col">
+                <span class="font-serif text-7xl md:text-9xl text-brand-deepbreath/10 leading-none">01</span>
+                <div class="flex items-center gap-4 -mt-4 md:-mt-8">
+                    <span class="vertical-text font-sans text-[9px] tracking-[0.4em] uppercase font-bold text-brand-orange">Opportunities</span>
+                    <h2 class="font-serif text-4xl md:text-6xl text-brand-deepbreath italic" data-i18n="label_open_positions">Open Positions</h2>
+                </div>
             </div>
-          </div>
-          <div class="directory-item__arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </div>
-        </a>
-      @endforeach
-    </div>
-  </section>
+        </div>
+
+        <div class="flex flex-col md:pl-32 lg:pl-48">
+            @foreach ($careers as $index => $item)
+            <a href="{{ route('detail-careers', $item->slug) }}" class="group flex flex-col md:flex-row justify-between items-start md:items-center py-12 md:py-20 border-b hairline-border hover:bg-brand-deepbreath/[0.02] transition-all duration-700 cursor-none hover-target reveal-item" style="transition-delay: {{ $index * 0.1 }}s">
+                <div class="flex flex-col gap-4">
+                    <h3 class="font-serif text-3xl md:text-5xl text-brand-deepbreath group-hover:text-brand-orange transition-colors duration-500">@i18n($item, 'position')</h3>
+                    <div class="flex gap-6 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">
+                        <span>{{ $item->tim }}</span>
+                        <span class="opacity-30">•</span>
+                        <span>{{ $item->location }}</span>
+                        <span class="opacity-30">•</span>
+                        <span>Posted {{ $item->created_at->diffForHumans() }}</span>
+                    </div>
+                </div>
+                <div class="mt-8 md:mt-0 opacity-20 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-700">
+                    <span class="iconify text-4xl" data-icon="lucide:arrow-right"></span>
+                </div>
+            </a>
+            @endforeach
+        </div>
+    </section>
+
+    {{-- ============================================================
+    CASTING CALLS SECTION
+    ============================================================ --}}
+    <section class="pb-40 px-8 md:px-16 max-w-[1800px] mx-auto relative z-10">
+        <!-- Section Header (Static) -->
+        <div class="flex items-start gap-8 mb-16 md:mb-24 reveal-text">
+            <div class="flex flex-col">
+                <span class="font-serif text-7xl md:text-9xl text-brand-deepbreath/10 leading-none">02</span>
+                <div class="flex items-center gap-4 -mt-4 md:-mt-8">
+                    <span class="vertical-text font-sans text-[9px] tracking-[0.4em] uppercase font-bold text-brand-orange">Castings</span>
+                    <h2 class="font-serif text-4xl md:text-6xl text-brand-deepbreath italic" data-i18n="label_casting_calls">Casting Calls</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:pl-32 lg:pl-48">
+            @foreach ($casting as $index => $item)
+            <a href="{{ route('detail-careers', $item->slug) }}" class="group flex flex-col md:flex-row justify-between items-start md:items-center py-12 md:py-20 border-b hairline-border hover:bg-brand-deepbreath/[0.02] transition-all duration-700 cursor-none hover-target reveal-item" style="transition-delay: {{ $index * 0.1 }}s">
+                <div class="flex flex-col gap-4">
+                    <h3 class="font-serif text-3xl md:text-5xl text-brand-deepbreath group-hover:text-brand-orange transition-colors duration-500">@i18n($item, 'pemeran')</h3>
+                    <div class="flex flex-wrap gap-6 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">
+                        <span class="text-brand-orange">{{ $item->judul_film }}</span>
+                        <span class="opacity-30">•</span>
+                        <span>{{ $item->gender == 'L' ? 'Male' : 'Female' }}</span>
+                        <span class="opacity-30">•</span>
+                        <span>{{ $item->umur }} Yrs</span>
+                        <span class="opacity-30">•</span>
+                        <span>{{ $item->location }}</span>
+                    </div>
+                </div>
+                <div class="mt-8 md:mt-0 opacity-20 group-hover:opacity-100 group-hover:translate-x-4 transition-all duration-700">
+                    <span class="iconify text-4xl" data-icon="lucide:arrow-right"></span>
+                </div>
+            </a>
+            @endforeach
+        </div>
+    </section>
+
 </div>
 
+{{-- Scripts --}}
+@push('scripts')
 <script>
-(function(){
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('is-inview');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof gsap === 'undefined') return;
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-})();
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Hero Reveal Animations
+    gsap.from(".hero-reveal", {
+        y: 50,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "power4.out",
+        delay: 0.3
+    });
+
+    // 2. Section Headings Reveal
+    document.querySelectorAll('.reveal-text').forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+            },
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+
+    // 3. List Items Staggered Reveal
+    document.querySelectorAll('.reveal-item').forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 95%",
+            },
+            y: 40,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out"
+        });
+    });
+});
 </script>
+@endpush
 
 @include('components.footer')
+
 @endsection
