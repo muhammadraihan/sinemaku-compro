@@ -50,8 +50,8 @@ EDITORIAL WRAPPER
                 @php
                     $isEven = $index % 2 != 0; 
                     $flexDir = $isEven ? 'md:flex-row-reverse' : 'md:flex-row';
-                    $url = ($item->kategori == 'external') ? $item->link : route('detail-articles', $item->slug);
-                    $target = ($item->kategori == 'external') ? '_blank' : '_self';
+                    $url = route('detail-articles', $item->slug);
+                    $target = '_self';
                 @endphp
                 <article class="article-row flex flex-col {{ $flexDir }} items-stretch gap-8 md:gap-20 group relative" data-category="{{ $item->artikel_kategori_uuid }}" id="article-row-{{ $index }}">
                     

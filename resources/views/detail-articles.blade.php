@@ -1,431 +1,202 @@
 @extends('layouts.app')
 
-@section('title', 'Home | Sinemaku Pictures')
+@section('title', $article->judul . ' | Sinemaku Articles')
 
 @section('content')
 
 @include('partials.navbar')
 
+@push('head')
 <style>
-/* ---------------- NAV tetapkan ---------------- */
-#nav-overlay-gradient {
-  display: block !important;
-}
-#unified-navbar {
-  filter: none !important;
-}
-
-/* ---------------- THEME ---------------- */
-:root{
-  --wrap: min(1180px, 94vw);
-  --ink: #0f0f0f;
-  --muted: #6b7280;
-  --line: #e5e7eb;
-  --bg: #ffff;
-  --paper: #fff;
-  --radius: 14px;
-  --shadow: 0 14px 40px rgba(0,0,0,.10);
-}
-*{box-sizing:border-box}
-body{background:var(--bg)}
-
-/* ---------------- PAGE ---------------- */
-.article-detail{ padding: 28px 0 80px; color:var(--ink); }
-.article-detail .container{ width:var(--wrap); margin:0 auto; }
-
-/* ---------------- HERO ---------------- */
-.article-head{ margin-top: 86px; margin-bottom: 22px; }
-.hero-media{
-  /* full-bleed hero */
-  width: 90vw;
-  margin-left: calc(50% - 45vw);
-  margin-right: calc(50% - 45vw);
-  margin-bottom: clamp(20px, 3.2vw, 56px);
-  border-radius: 0;
-  overflow: hidden;
-  box-shadow: none;
-  background: #000;
-}
-
-.hero-media img{
-  width: 100%;
-  height: clamp(300px, 45vw, 560px);
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  transform: none;
-  transition: transform .6s cubic-bezier(.2,.8,.2,1);
-}
-
-.hero-media:hover img{ transform: scale(1.02); }
-
-.breadcrumbs{
-  font: 500 12.5px/1; color:var(--muted); display:flex; gap:8px; align-items:center;
-  margin: 6px 2px 10px;
-}
-.breadcrumbs a{ color:inherit; text-decoration:none }
-.breadcrumbs .sep{ opacity:.6 }
-
-.article-title{
-  font: 500 clamp(26px,3.2vw,40px)/1.15;
-  letter-spacing: -.01em; margin: 4px 0 10px;
-}
-.article-sublead{ display:none; } /* tak dipakai pada gaya ini */
-
-.meta-row{
-  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-  font: 500 14px/1.2; color:var(--muted);
-  padding: 6px 0 2px; border-bottom: 1px solid var(--line);
-  padding-bottom: 14px;
-}
-.meta-chip{
-  display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
-  background:#eef2f7; color:#374151; font-size:12.5px;
-}
-.meta-dot{ opacity:.5 }
-.meta-brand{ font-weight:700; color:#111; }
-.meta-right{ margin-left:auto; display:flex; gap:8px; align-items:center }
-.btn-share{
-  width:34px; height:34px; display:grid; place-items:center; border-radius:8px;
-  border:1px solid var(--line); background:#fff; cursor:pointer;
-  transition:transform .18s, box-shadow .18s, background .2s;
-}
-.btn-share:hover{ transform:translateY(-1px); box-shadow:0 8px 22px rgba(0,0,0,.08); background:#fafafa }
-
-/* better word-wrap in narrow screens */
-.article-title,
-.article-content{
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-
-/* ---------------- GRID ---------------- */
-.article-grid{
-  display:grid; grid-template-columns: 1.65fr .9fr; gap: clamp(22px, 3.8vw, 42px); align-items:start;
-  margin-top: 18px;
-}
-@media (max-width: 980px){
-  .article-grid{ grid-template-columns:1fr; }
-  .meta-right{ margin-left:0 }
-}
-@media (max-width: 980px){
-  .widget{ position: static; top: auto; }
-}
-
-/* ========== KEMBALIKAN FRAME ARTIKEL (kartu) ========== */
-.article-grid{ gap: clamp(22px, 3.2vw, 42px); }   /* beri jarak dg sidebar */
-
-/* ---------------- CONTENT ---------------- */
-/* Pastikan kontainer memotong isi jika lebih besar */
-.article-content{
-  background: var(--paper);            /* latar kartu */
-  border: 1px solid var(--line);       /* garis frame */
-  border-radius: var(--radius);        /* sudut */
-  box-shadow: 0 5px 8px rgba(2,8,23,.06); /* bayangan halus */
-  padding: clamp(16px,2.2vw,22px) clamp(18px,2.4vw,26px);
-  overflow: hidden;                    /* gambar tetap di dalam kartu */
-}
-
-/* jaga semua media tetap di dalam kartu */
-.article-content :where(img, video, iframe){
-  max-width:100% !important;
-  height:auto !important;
-  display:block;
-}
-/* Jika ada inline style width/height dari editor */
-.article-content img[style*="width"],
-.article-content img[width]{
-  max-width: 100% !important;
-  height: auto !important;
-}
-/* Figure bawaan editor */
-.article-content figure{
-  margin: 14px 0;
-  border-radius: 12px;
-  overflow: hidden;                  /* crop sudut */
-  background: #f2f3f5;
-  border: 1px solid var(--line);
-}
-.article-content figure img{ display:block; }
-.article-content p, .article-content ul{
-  font: 400 16px/1.85; color:#2b2b2b; margin: 0 0 16px;
-}
-
-.article-content blockquote{
-  font: 500 16px/1.85; color:#2b2b2b; margin: 0 0 16px;
-}
-.article-content a{ color:#0d63ff; text-decoration:none }
-.article-content a:hover{ text-decoration:underline }
-.article-content h2,.article-content h3{
-  font: 800 22px/1.15; margin: 26px 0 10px;
-}
-
-/* tables & code blocks inside editor content */
-.article-content table{
-  width: 100%;
-  border-collapse: collapse;
-  margin: 14px 0;
-  display: table;
-}
-.article-content th,
-.article-content td{
-  border: 1px solid var(--line);
-  padding: 10px;
-  text-align: left;
-  vertical-align: top;
-}
-.article-content pre{
-  background: #0b0b0b0d;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 12px;
-  overflow: auto;
-}
-.article-content code{
-  font-size: 90%;
-}
-
-/* Embed (YouTube, dll.) agar responsif */
-.article-content iframe{
-  width: 100% !important;
-  aspect-ratio: 16 / 9;
-  border: 0;
-}
-/* Quote highlight ala news */
-.key-quote{
-  border-left: 4px solid #111; padding: 10px 12px; margin: 12px 0 16px; background:#fafafa;
-  font: 700 18px/1.45; color:#111;
-}
-
-/* Image & caption in body */
-.figure{
-  margin: 14px 0; border-radius: 12px; overflow:hidden; background:#f2f3f5; border:1px solid var(--line)
-}
-.figure img{ width:100%; height: clamp(200px, 38vw, 360px); object-fit:cover; display:block }
-.figure figcaption{ padding:8px 12px; font: 500 12px/1.4; color:#7b7b7b }
-
-/* Two-column list block */
-.list-block{
-  background:#fafafa; border:1px solid var(--line); border-radius:12px; padding:14px;
-}
-.list-block h4{ margin: 0 0 10px; font: 600 15px/1.2; }
-.cols-2{ columns: 2; column-gap: 35px; padding-left: 18px; }
-.cols-2 li{ break-inside: avoid; margin:6px 0; }
-@media (max-width: 720px){ .cols-2{ columns:1 } }
-
-/* ---------------- SIDEBAR ---------------- */
-.article-sidebar{ min-width:0; }
-.widget{
-  position: sticky; top: 92px;
-  display:grid; gap:12px; background:var(--paper); padding:16px; border-radius: var(--radius);
-  border:1px solid var(--line);
-}
-.widget-title{ font:500 15px/1.2; margin:0 0 4px; }
-
-.story-mini{
-  display:grid; grid-template-columns: 92px 1fr; gap:12px; text-decoration:none; color:inherit;
-  padding:10px; border-radius:12px; transition: background .18s, transform .18s, box-shadow .18s;
-}
-.story-mini:hover{ background:#fafafa; transform:translateY(-1px); box-shadow:0 10px 24px rgba(0,0,0,.06) }
-.story-mini img{ width:92px; height:72px; object-fit:cover; border-radius:10px; background:#eee }
-.story-meta{ font:300 12px/1.2; color:var(--muted) }
-.story-title{ font-size: clamp(12px,1.5vw,15px); font-weight:400; margin-bottom:6px; margin-top: 10px}
-
-/* Tiny helpers */
-.badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 10px; color:var(--ink); border-radius:999px; font:500 15px/1 }
-.hr{ height:1px; background:var(--line); border:0; margin: 14px 0; }
-
-/* --- Jarak antara HERO dan blok judul/meta --- */
-.hero-media{
-  /* full-bleed yang kemarin */
-  width:90vw;
-  margin-left:calc(50% - 45vw);
-  margin-right:calc(50% - 45vw);
-
-  /* 👉 tambahkan jarak bawah */
-  margin-bottom: clamp(20px, 3.2vw, 56px);
-}
-
-/* Kalau hero-mu pakai <figure class="article-figure">, pakai ini juga */
-.article-figure{
-  margin-bottom: clamp(20px, 3.2vw, 56px) !important;
-  /* opsional: reset margin lain supaya rapi */
-  /* margin-top: 0; margin-left: 0; margin-right: 0; */
-}
-
-@media (max-width: 720px){
-  .article-title{
-    font-size: clamp(18px, 5.8vw, 25px);
-    line-height: 1.2;
-    text-align: center;
-  }
-  .meta-row{
-    gap: 10px;
-  }
-  .story-mini{
-    grid-template-columns: 76px 1fr;
-  }
-  .story-mini img{
-    width: 76px; height: 60px;
-  }
-}
-
-/* ================= Scroll Reveal (Detail Article) ================= */
-/* Hide only when JS is enabled */
-.js .reveal-y{ opacity:0; transform: translateY(18px); transition: opacity .3s cubic-bezier(.2,.7,.2,1), transform .3s cubic-bezier(.2,.7,.2,1); }
-.js .reveal-x{ opacity:0; transform: translateX(18px); transition: opacity .3s cubic-bezier(.2,.7,.2,1), transform .3s cubic-bezier(.2,.7,.2,1); }
-.js .reveal-stagger > *{ opacity:0; transform: translateY(14px); transition: opacity .3s cubic-bezier(.2,.7,.2,1), transform .3s cubic-bezier(.2,.7,.2,1); }
-
-.is-visible{ opacity:1 !important; transform:none !important; }
-
-/* Reduced motion: show everything without animation */
-@media (prefers-reduced-motion: reduce){
-  .reveal-y, .reveal-x, .reveal-stagger > *{ opacity:1 !important; transform:none !important; transition:none !important; }
-}
-.reveal-m,
-.reveal-y,
-.reveal-x {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-}
-/* ================= Tablet/iPad sizing for Top Stories ================= */
-@media (min-width: 768px) and (max-width: 960px){
-  /* Sidebar card spacing */
-  .widget{
-    padding: 20px 18px;
-    gap: 14px;
-    border-radius: 16px;
-  }
-  .badge,
-  .widget-title{ font-size: 16px; }
-
-  /* Story item: bigger thumbnail + roomier spacing */
-  .story-mini{
-    grid-template-columns: 120px 1fr;
-    gap: 14px;
-    padding: 12px;
-    border-radius: 14px;
-  }
-  .story-mini img{
-    width: 120px;
-    height: 88px;
-    border-radius: 12px;
-  }
-  .story-title{ font-size: clamp(15px, 2.2vw, 18px); }
-  .story-meta{ font-size: 13px; }
-}
+    body { background-color: #EDECEA !important; }
+    
+    /* Clean article content styling */
+    .article-content h2, .article-content h3 {
+        font-family: 'Instrument Serif', serif;
+        font-size: 2.5rem;
+        margin-top: 3.5rem;
+        margin-bottom: 1.5rem;
+        color: #25225E;
+        font-style: italic;
+    }
+    .article-content p {
+        font-family: 'Helvetica', sans-serif;
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: rgba(37, 34, 94, 0.8);
+        margin-bottom: 2rem;
+    }
+    .article-content img {
+        border-radius: 2rem;
+        margin: 3rem 0;
+        width: 100%;
+        height: auto;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    .article-content blockquote {
+        border-left: 4px solid #FFB150;
+        padding-left: 2rem;
+        font-family: 'Instrument Serif', serif;
+        font-size: 2rem;
+        font-style: italic;
+        color: #25225E;
+        margin: 3rem 0;
+        line-height: 1.3;
+    }
 </style>
-<script>document.documentElement.classList.add('js');</script>
+@endpush
 
-<section class="article-detail">
-  <div class="container">
+{{-- ============================================================
+EDITORIAL WRAPPER
+============================================================ --}}
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
 
-    <!-- HERO -->
-    <header class="article-head">
-      <figure class="hero-media reveal-y">
-        <img src="{{ asset('photo/' . $article->photo) }}" alt="Sinemaku Day">
-      </figure>
-
-      <!-- <nav class="breadcrumbs">
-        <a href="#">Home</a> <span class="sep">›</span>
-        <a href="#">World</a>
-      </nav> -->
-
-      <h1 class="article-title reveal-y" data-reveal="0.06">@i18n($article, 'judul')</h1>
-
-      <div class="meta-row reveal-y" data-reveal="0.12">
-        <span class="meta-brand">Sinemaku Article</span>
-        <span class="meta-dot">•</span>
-        <span class="meta-item">by {{ $article->penulis }}</span>
-        <span class="meta-dot">•</span>
-        <span class="meta-item">{{ \Carbon\Carbon::parse($article->tgl_rilis)->format('d M Y') }}</span>
-        <span class="meta-dot">•</span>
-
-        {{-- <div class="meta-right">
-          <button class="btn-share" title="Share to X" aria-label="Share to X">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.5 3h-3.1l-3 4.3L9.3 3H5.5l5 7.3L5 21h3.1l3.4-4.9 3.4 4.9H19l-5.3-7.6L18.5 3Z"/></svg>
-          </button>
-          <button class="btn-share" title="Share to Facebook" aria-label="Share to Facebook">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h2.8l.4-3H13V9.1c0-.9.3-1.5 1.6-1.5H16V5.1c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.3-3.8 3.9V11H7v3h3v8h3Z"/></svg>
-          </button>
-          <button class="btn-share" title="Copy Link" aria-label="Copy link">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12a5 5 0 0 1 5-5h4v2H8a3 3 0 0 0 0 6h4v2H8a5 5 0 0 1-5-5Zm8-3h5a5 5 0 1 1 0 10h-5v-2h5a3 3 0 1 0 0-6h-5V9Z"/></svg>
-          </button>
-        </div> --}}
-      </div>
-    </header>
-
-    <!-- GRID -->
-    <div class="article-grid">
-
-      <!-- CONTENT -->
-      <article class="article-content reveal-y" data-reveal="0.14">
-        @i18n($article, 'detail')
-      </article>
-
-      <!-- SIDEBAR -->
-      <aside class="article-sidebar">
-        <div class="widget reveal-y reveal-stagger" data-reveal="0.18">
-          <div class="badge">Top Stories</div>
-
-          @foreach ($all_article as $item)
-            @if ($item->kategori == 'external')
-              <a class="story-mini" href="{{ url($item->link) }}">
-                <img src="{{ asset('photo/' . $item->photo) }}" alt="">
-                <div>
-                  <div class="story-title">@i18n($item, 'judul')</div>
-                  <div class="story-meta">{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</div>
-                </div>
-              </a>
-            @else
-              <a class="story-mini" href="{{ route('detail-articles', $item->slug) }}">
-                <img src="{{ asset('photo/' . $item->photo) }}" alt="">
-                <div>
-                  <div class="story-title">@i18n($item, 'judul')</div>
-                  <div class="story-meta">{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</div>
-                </div>
-              </a>
-            @endif
-                
-          @endforeach
+    {{-- ============================================================
+    HERO SECTION (Parallax)
+    ============================================================ --}}
+    <section class="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-end pt-20">
+        <!-- Parallax Image -->
+        <div class="absolute inset-0 w-full h-[120%] -top-[10%] z-0">
+            <img src="{{ asset('photo/' . $article->photo) }}" alt="{{ $article->judul }}" 
+                 class="hero-parallax-img w-full h-full object-cover grayscale contrast-110 opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#EDECEA] via-[#EDECEA]/20 to-transparent z-10"></div>
         </div>
-      </aside>
 
-    </div>
-  </div>
-</section>
+        <!-- Title Overlay -->
+        <div class="relative z-20 px-8 md:px-16 max-w-[1800px] mx-auto w-full pb-16 md:pb-24">
+            <div class="flex flex-col gap-6 md:gap-8 max-w-5xl reveal-text">
+                <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange block">
+                    {{ $article->artikelKategori->name ?? 'Article' }}
+                </span>
+                <h1 class="font-serif text-5xl md:text-8xl text-brand-deepbreath leading-[0.9] tracking-tighter">
+                    @i18n($article, 'judul')
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    {{-- ============================================================
+    ARTICLE BODY
+    ============================================================ --}}
+    <section class="px-8 md:px-16 pb-40 max-w-[1800px] mx-auto relative z-10">
+        
+        <div class="flex flex-col lg:flex-row gap-20 lg:gap-32 items-start">
+            
+            <!-- Left: Content Column -->
+            <main class="w-full lg:w-[65%] reveal-text">
+                <!-- Meta Info Mobile -->
+                <div class="flex lg:hidden flex-wrap gap-8 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 mb-12 pb-12 border-b hairline-border">
+                    <div class="flex flex-col gap-2">
+                        <span class="text-brand-orange/50">Written By</span>
+                        <span class="text-brand-deepbreath">{{ $article->penulis }}</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <span class="text-brand-orange/50">Released On</span>
+                        <span class="text-brand-deepbreath">{{ \Carbon\Carbon::parse($article->tgl_rilis)->format('d M Y') }}</span>
+                    </div>
+                </div>
+
+                <!-- Main Text -->
+                <article class="article-content">
+                    @i18n($article, 'detail')
+                </article>
+
+                <!-- External Source (Subtle) -->
+                @if($article->kategori == 'external' && $article->link)
+                <div class="mt-20 pt-12 border-t hairline-border flex flex-col items-start gap-6">
+                    <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-deepbreath/40" data-i18n="label_article_ref">Article Reference</span>
+                    <a href="{{ $article->link }}" target="_blank" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath border border-brand-deepbreath/20 py-4 px-8 hover:bg-brand-deepbreath hover:text-white transition-all cursor-none hover-target inline-flex items-center gap-4">
+                        <span data-i18n="label_read_full_story">Read Full Story</span> <span class="iconify" data-icon="lucide:external-link"></span>
+                    </a>
+                </div>
+                @endif
+            </main>
+
+            <!-- Right: Sidebar Column (Sticky) -->
+            <aside class="w-full lg:w-[35%] lg:sticky lg:top-40 reveal-rec">
+                
+                <!-- Meta Info Desktop -->
+                <div class="hidden lg:flex flex-col gap-12 mb-20 border-b hairline-border pb-12">
+                    <div class="flex flex-col gap-2">
+                        <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange" data-i18n="label_author">Author</span>
+                        <span class="font-serif text-3xl text-brand-deepbreath italic">{{ $article->penulis }}</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange" data-i18n="label_date">Date</span>
+                        <span class="font-serif text-3xl text-brand-deepbreath italic">{{ \Carbon\Carbon::parse($article->tgl_rilis)->format('d M Y') }}</span>
+                    </div>
+                </div>
+
+                <!-- Top Stories Widget -->
+                <div>
+                    <h4 class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-deepbreath/40 mb-10 border-b hairline-border pb-4" data-i18n="label_top_stories">Top Stories</h4>
+                    <div class="flex flex-col gap-12">
+                        @foreach ($all_article->take(5) as $item)
+                        <a href="{{ route('detail-articles', $item->slug) }}" class="group flex gap-6 items-start cursor-none hover-target">
+                            <div class="w-24 md:w-32 aspect-square shrink-0 overflow-hidden rounded-2xl bg-tint-2/20">
+                                <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <span class="font-sans text-[8px] tracking-[0.2em] uppercase font-bold text-brand-orange/60">{{ $item->artikelKategori->name ?? 'Update' }}</span>
+                                <h5 class="font-serif text-xl md:text-2xl text-brand-deepbreath group-hover:text-brand-orange transition-colors leading-tight">@i18n($item, 'judul')</h5>
+                            </div>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Back to Articles -->
+                <div class="mt-20 pt-12 border-t hairline-border">
+                    <a href="{{ route('articles') }}" class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-deepbreath/60 hover:text-brand-orange transition-colors flex items-center gap-4">
+                        <span class="iconify" data-icon="lucide:arrow-left"></span> <span data-i18n="label_back_to_articles">Back to Articles</span>
+                    </a>
+                </div>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+</div>
+
+{{-- Scripts --}}
+@push('scripts')
 <script>
-(function(){
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // no animation for reduce-motion
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach((e)=>{
-      if(e.isIntersecting){
-        const el = e.target;
-        const delay = parseFloat(el.getAttribute('data-reveal')||'0');
-        el.style.transitionDelay = delay ? delay+'s' : '';
-        el.classList.add('is-visible');
-        io.unobserve(el);
-      }
-    });
-  },{
-    root:null, threshold:0.16, rootMargin:'0px 0px -8% 0px'
-  });
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof gsap === 'undefined') return;
 
-  document.querySelectorAll('.reveal-y, .reveal-x').forEach(el=>io.observe(el));
+    gsap.registerPlugin(ScrollTrigger);
 
-  // Stagger children of containers marked with .reveal-stagger
-  document.querySelectorAll('.reveal-stagger').forEach(box=>{
-    const kids = Array.from(box.children);
-    kids.forEach((kid, i)=>{
-      kid.style.transitionDelay = (parseFloat(box.getAttribute('data-reveal')||'0') + i*0.06) + 's';
-      io.observe(kid);
+    // 1. Hero Parallax
+    gsap.to(".hero-parallax-img", {
+        y: "20%",
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".hero-parallax-img",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+        }
     });
-    // Also reveal the container itself if it also has reveal-y/x
-    if(box.classList.contains('reveal-y')||box.classList.contains('reveal-x')) io.observe(box);
-  });
-})();
+
+    // 2. Content Reveals
+    document.querySelectorAll('.reveal-text, .reveal-rec').forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+            },
+            y: 40,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out"
+        });
+    });
+});
 </script>
+@endpush
 
 @include('components.footer')
+
 @endsection
