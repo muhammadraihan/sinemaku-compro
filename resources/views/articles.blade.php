@@ -6,379 +6,162 @@
 
 @include('partials.navbar')
 
+@push('head')
 <style>
-  :root {
-    --editorial-pad: clamp(32px, 8vw, 160px);
-    --bg: #ffffff;
-    --text-primary: #0a0a0a;
-    --text-secondary: #4b5563;
-    --text-muted: #9ca3af;
-  }
-
-  body {
-    background-color: var(--bg) !important;
-    color: var(--text-primary) !important;
-  }
-
-  /* Standard navbar look */
-  #nav-overlay-gradient {
-    display: block !important;
-  }
-  #unified-navbar {
-    filter: none !important;
-  }
-
-  .articles-container {
-    padding-top: 140px;
-    padding-bottom: 120px;
-    overflow-x: hidden;
-    background-color: var(--bg);
-  }
-
-  /* ===== CATEGORY FILTERS ===== */
-  .article-filters-section {
-    padding: 0 var(--editorial-pad);
-    margin-bottom: 80px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .article-filters {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .chip {
-    position: relative;
-    border: none;
-    background: transparent;
-    color: #888;
-    font: 300 12px/1;
-    padding: 6px 16px;
-    cursor: pointer;
-    transition: all .2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-  }
-
-  .chip::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 60%;
-    height: 1.5px;
-    background-color: #111;
-    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-
-  .chip.is-active::after {
-    transform: translateX(-50%) scaleX(1);
-  }
-
-  .chip.is-active, .chip:hover {
-    color: #111;
-    font-weight: 700;
-  }
-
-  /* ===== LISTING SECTION ===== */
-  .article-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15vh;
-  }
-
-  .article-row {
-    display: flex;
-    align-items: stretch;
-    min-height: 70vh;
-    border: none;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  /* Alternating: Image Left/Right */
-  .article-row:nth-child(even) {
-    flex-direction: row-reverse;
-  }
-
-  .article-row__media {
-    flex: 0 0 45%; 
-    background: #fbfbfb;
-    overflow: hidden;
-  }
-
-  .article-row__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .article-row:hover .article-row__media img {
-    transform: scale(1.05);
-  }
-
-  .article-row__content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 60px var(--editorial-pad);
-    background-color: var(--bg);
-  }
-
-  /* Text padding for alternating layout */
-  .article-row:nth-child(odd) .article-row__content {
-    padding-left: clamp(40px, 8vw, 120px);
-  }
-
-  .article-row:nth-child(even) .article-row__content {
-    padding-right: clamp(40px, 8vw, 120px);
-  }
-
-  .article-row__header {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .article-row__meta {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-
-  .article-row__title {
-    font-size: clamp(32px, 5vw, 64px);
-    font-weight: 800;
-    line-height: 1.05;
-    margin: 0;
-    letter-spacing: -0.04em;
-    color: var(--text-primary);
-    text-transform: uppercase;
-  }
-
-  .article-row__excerpt {
-    font-size: clamp(15px, 1.25vw, 18px);
-    font-weight: 300;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    max-width: 65ch;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .article-row__cta {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding-bottom: 4px;
-    border-bottom: 2px solid #efefef;
-    align-self: flex-start;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .article-row__cta svg {
-    transition: transform 0.3s ease;
-  }
-
-  .article-row:hover .article-row__cta {
-    border-bottom-color: var(--text-primary);
-  }
-
-  .article-row:hover .article-row__cta svg {
-    transform: translateX(4px);
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 1024px) {
-    .article-row__media { flex: 0 0 50%; }
-    .article-row__content { padding: 40px 48px !important; }
-    .article-filters-section { padding: 0 32px; }
-  }
-
-  @media (max-width: 768px) {
-    .article-row {
-      flex-direction: column !important;
-      min-height: auto;
-    }
-    .article-row__media {
-      width: 100%;
-      aspect-ratio: 16/10;
-    }
-    .article-row__content {
-      padding: 40px 24px !important;
-      min-height: auto;
-    }
-    .article-row__title { font-size: 38px; }
-    .articles-container { padding-top: 100px; }
-    .article-list { gap: 8vh; }
-    .article-row__header { gap: 16px; }
-  }
-
-  /* Scroll Reveal Animation */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.is-inview {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    body { background-color: #EDECEA !important; }
 </style>
+@endpush
 
-<div class="articles-container">
-  
-  {{-- FILTER KATEGORI --}}
-  <div class="article-filters-section reveal">
-    <div class="article-filters" role="tablist">
-      @foreach($artikel_kategori as $cat)
-        <button class="chip" data-filter="{{ $cat->uuid }}" role="tab">{{ $cat->name }}</button>
-      @endforeach
-    </div>
-  </div>
- 
-  <div class="article-list">
-    {{-- FEATURED ARTICLE (Row 1) --}}
-    @if($articles)
-      <a href="{{ ($articles->kategori == 'external') ? $articles->link : route('detail-articles', $articles->slug) }}" 
-         class="article-row reveal" 
-         data-category="{{ $articles->artikel_kategori_uuid }}"
-         @if($articles->kategori == 'external') target="_blank" @endif>
-        <div class="article-row__media">
-          <img src="{{ asset('photo/' . $articles->photo) }}" alt="{{ $articles->judul }}" loading="lazy">
-        </div>
-        <div class="article-row__content">
-          <div class="article-row__header">
-            <div class="article-row__meta">
-              @if($articles->artikelKategori)
-                <span style="color: #111; font-weight: 800;">{{ $articles->artikelKategori->name }}</span>
-                <span>&bull;</span>
-              @endif
-              <span>{{ $articles->penulis }}</span>
-              <span>&bull;</span>
-              <span>{{ \Carbon\Carbon::parse($articles->tgl_rilis)->format('d M Y') }}</span>
+{{-- ============================================================
+EDITORIAL WRAPPER
+============================================================ --}}
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
+
+    {{-- ============================================================
+    HEADER & FILTERS
+    ============================================================ --}}
+    <section class="pt-40 md:pt-48 px-8 md:px-16 max-w-[1800px] mx-auto relative z-10">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end border-b hairline-border pb-12 mb-20 gap-8">
+            <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">
+                <span data-i18n="page_articles_1">Our</span> <span data-i18n="page_articles_2" class="italic text-brand-orange">Articles.</span>
+            </h2>
+
+            <div class="flex gap-6 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 flex-wrap" id="article-filters">
+                @foreach($artikel_kategori as $cat)
+                <button class="filter-btn border-b border-transparent hover:text-brand-deepbreath pb-1 hover-target cursor-none transition-all" data-filter="{{ $cat->uuid }}">{{ $cat->name }}</button>
+                @endforeach
             </div>
-            <h2 class="article-row__title">@i18n($articles, 'judul')</h2>
-            <div class="article-row__excerpt">
-              @i18n($articles, 'title')
-            </div>
-          </div>
-          <div class="article-row__cta">
-            Read Story
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </div>
         </div>
-      </a>
-    @endif
- 
-    {{-- REMAINING ARTICLES --}}
-    @foreach($all_articles as $item)
-      <a href="{{ ($item->kategori == 'external') ? $item->link : route('detail-articles', $item->slug) }}" 
-         class="article-row reveal"
-         data-category="{{ $item->artikel_kategori_uuid }}"
-         @if($item->kategori == 'external') target="_blank" @endif>
-        <div class="article-row__media">
-          <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy">
-        </div>
-        <div class="article-row__content">
-          <div class="article-row__header">
-            <div class="article-row__meta">
-              @if($item->artikelKategori)
-                <span style="color: #111; font-weight: 800;">{{ $item->artikelKategori->name }}</span>
-                <span>&bull;</span>
-              @endif
-              <span>{{ $item->penulis }}</span>
-              <span>&bull;</span>
-              <span>{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</span>
+    </section>
+
+    {{-- ============================================================
+    ARTICLE LIST (ALTERNATING BENTO)
+    ============================================================ --}}
+    <section class="px-8 md:px-16 pb-32 max-w-[1800px] mx-auto relative z-10" id="article-list">
+        @php
+            $displayItems = collect();
+            if($articles) $displayItems->push($articles);
+            foreach($all_articles as $item) $displayItems->push($item);
+        @endphp
+
+        @if($displayItems->count() > 0)
+            <div class="flex flex-col gap-24 md:gap-40">
+                @foreach($displayItems as $index => $item)
+                @php
+                    $isEven = $index % 2 != 0; 
+                    $flexDir = $isEven ? 'md:flex-row-reverse' : 'md:flex-row';
+                    $url = ($item->kategori == 'external') ? $item->link : route('detail-articles', $item->slug);
+                    $target = ($item->kategori == 'external') ? '_blank' : '_self';
+                @endphp
+                <article class="article-row flex flex-col {{ $flexDir }} items-stretch gap-8 md:gap-20 group relative" data-category="{{ $item->artikel_kategori_uuid }}" id="article-row-{{ $index }}">
+                    
+                    <!-- Media / Poster -->
+                    <div class="w-full md:w-[45%] shrink-0 reveal-image">
+                        <a href="{{ $url }}" target="{{ $target }}" class="block w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-[2rem] bg-tint-2/20 cursor-none hover-target shadow-xl">
+                            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                        </a>
+                    </div>
+
+                    <!-- Content (Sticky Wrapper) -->
+                    <div class="w-full md:w-[55%] py-4 md:py-12 relative">
+                        <div class="sticky-content w-full md:sticky md:top-40 reveal-text">
+                            <!-- Meta -->
+                            <div class="flex gap-4 items-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/50 mb-6 md:mb-8">
+                                @if($item->artikelKategori)
+                                    <span class="text-brand-orange">{{ $item->artikelKategori->name }}</span>
+                                    <span class="opacity-30">•</span>
+                                @endif
+                                <span>{{ $item->penulis }}</span>
+                                <span class="opacity-30">•</span>
+                                <span>{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</span>
+                            </div>
+
+                            <!-- Title -->
+                            <h2 class="font-serif text-5xl md:text-7xl leading-[0.9] text-brand-deepbreath tracking-tight mb-6 md:mb-8 group-hover:text-brand-orange transition-colors duration-500">
+                                <a href="{{ $url }}" target="{{ $target }}" class="cursor-none hover-target">@i18n($item, 'judul')</a>
+                            </h2>
+
+                            <!-- Excerpt -->
+                            <div class="font-sans text-base md:text-lg font-light text-brand-deepbreath/70 leading-relaxed mb-10 md:mb-12 max-w-2xl line-clamp-4">
+                                @i18n($item, 'title')
+                            </div>
+
+                            <!-- CTA -->
+                            <a href="{{ $url }}" target="{{ $target }}" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath border-b border-brand-deepbreath/30 pb-2 hover:border-brand-deepbreath hover:text-brand-orange transition-all cursor-none hover-target inline-flex items-center gap-4 self-start">
+                                <span data-i18n="label_read_story">Read Story</span> <span class="iconify" data-icon="lucide:arrow-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </article>
+                @endforeach
             </div>
-            <h2 class="article-row__title">@i18n($item, 'judul')</h2>
-            <div class="article-row__excerpt">
-              @i18n($item, 'title')
+        @else
+            <div class="py-40 text-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">
+                No articles available at this moment.
             </div>
-          </div>
-          <div class="article-row__cta">
-            Read Story
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </div>
-        </div>
-      </a>
-    @endforeach
-  </div>
+        @endif
+    </section>
+
 </div>
- 
+
+{{-- Scripts --}}
 <script>
-  (function() {
-    // Scroll Reveal Intersection Observer
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-inview');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
- 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
- 
-    // Dynamic Filtering Logic
-    const chips = document.querySelectorAll('.chip');
-    const articles = document.querySelectorAll('.article-row');
- 
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        const filter = chip.getAttribute('data-filter');
-        const isAlreadyActive = chip.classList.contains('is-active');
-        
-        // UI State
-        chips.forEach(c => {
-          c.classList.remove('is-active');
-          c.setAttribute('aria-selected', 'false');
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Reveal Animations using GSAP
+        document.querySelectorAll('.reveal-text, .reveal-image').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power4.out"
+            });
         });
- 
-        let currentFilter = filter;
-        if (isAlreadyActive) {
-          // If clicking active, deactivate it -> show all
-          currentFilter = 'all';
-        } else {
-          chip.classList.add('is-active');
-          chip.setAttribute('aria-selected', 'true');
-        }
- 
-        // Logic
-        articles.forEach(article => {
-          const category = article.getAttribute('data-category');
-          if (currentFilter === 'all' || category === currentFilter) {
-            article.style.display = 'flex';
-            // Trigger reveal again in case it was hidden
-            setTimeout(() => article.classList.add('is-inview'), 10);
-          } else {
-            article.style.display = 'none';
-          }
+    }
+
+    // Filtering Logic (Toggle System)
+    const btns = document.querySelectorAll('.filter-btn');
+    const rows = document.querySelectorAll('.article-row');
+    let activeFilter = 'all';
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            
+            if (activeFilter === filter) {
+                activeFilter = 'all';
+                btn.classList.remove('text-brand-deepbreath', 'border-brand-deepbreath');
+                btn.classList.add('border-transparent', 'text-brand-deepbreath/40');
+            } else {
+                btns.forEach(b => {
+                    b.classList.remove('text-brand-deepbreath', 'border-brand-deepbreath');
+                    b.classList.add('border-transparent', 'text-brand-deepbreath/40');
+                });
+                btn.classList.add('text-brand-deepbreath', 'border-brand-deepbreath');
+                btn.classList.remove('border-transparent', 'text-brand-deepbreath/40');
+                activeFilter = filter;
+            }
+
+            rows.forEach(row => {
+                const category = row.getAttribute('data-category');
+                if (activeFilter === 'all' || category === activeFilter) {
+                    row.style.display = 'flex';
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                } else {
+                    row.style.display = 'none';
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                }
+            });
         });
-      });
     });
-  })();
+});
 </script>
 
 @include('components.footer')
