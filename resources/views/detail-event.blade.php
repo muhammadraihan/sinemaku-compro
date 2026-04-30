@@ -6,308 +6,214 @@
 
 @include('partials.navbar')
 
-<style>
-  :root {
-    --bg-white: #ffffff;
-    --text-core: #0a0a0a;
-    --text-muted: #888888;
-    --content-max-w: 860px; /* Editorial narrow column */
-    --side-pad: clamp(24px, 5vw, 120px);
-  }
+{{-- ============================================================
+EDITORIAL WRAPPER
+============================================================ --}}
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans bg-[#EDECEA] min-h-screen">
 
-  body {
-    background-color: var(--bg-white) !important;
-    color: var(--text-core) !important;
-  }
+    {{-- ============================================================
+    HERO SECTION (Editorial Parallax)
+    ============================================================ --}}
+    <section class="relative w-full h-[80vh] md:h-screen overflow-hidden flex items-center justify-center pt-20">
+        <!-- Parallax Background Image -->
+        <div class="absolute inset-0 w-full h-[120%] -top-[10%] z-0">
+            <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}" 
+                 class="hero-parallax-img w-full h-full object-cover grayscale contrast-110 opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#EDECEA]/0 via-[#EDECEA]/20 to-[#EDECEA] z-10"></div>
+        </div>
 
-  /* Revert Navbar to standard state (as on other pages) */
-  #unified-navbar {
-    filter: none !important;
-  }
-  #nav-overlay-gradient {
-    display: block !important;
-  }
+        <!-- Content Overlay -->
+        <div class="relative z-20 text-center px-8 max-w-6xl mx-auto">
+            <div class="flex flex-col items-center">
+                <span class="hero-reveal font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange mb-8 block">
+                    {{ \Carbon\Carbon::parse($event->tgl_event)->format('F d, Y') }}
+                </span>
+                <h1 class="hero-reveal font-serif text-6xl md:text-9xl text-brand-deepbreath leading-[0.85] tracking-tighter mb-12">
+                    @i18n($event, 'judul')
+                </h1>
+            </div>
+        </div>
 
-  .event-page {
-    padding-bottom: 120px;
-  }
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4 opacity-40">
+            <div class="w-[1px] h-20 bg-brand-deepbreath origin-top scale-y-0 scroll-line"></div>
+        </div>
+    </section>
 
-  /* ===== HERO SECTION ===== */
-  .event-hero-bleed {
-    width: 100%;
-    height: clamp(50vh, 75vh, 900px);
-    overflow: hidden;
-    position: relative;
-    background: #f1f1f1;
-    margin-bottom: 80px; /* Increased margin for editorial breathing room */
-  }
+    {{-- ============================================================
+    DETAIL STRIP (Metadata & Share)
+    ============================================================ --}}
+    <section class="detail-strip border-y hairline-border py-8 md:py-12 px-8 md:px-16 z-20 relative bg-[#EDECEA]">
+        <div class="max-w-[1800px] mx-auto flex flex-wrap justify-between items-center gap-8">
+            <div class="flex flex-wrap gap-12 md:gap-24">
+                <!-- Date -->
+                <div class="metadata-item flex flex-col gap-2">
+                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">Date</span>
+                    <span class="font-sans text-xs md:text-sm font-bold text-brand-deepbreath uppercase tracking-wider">
+                        {{ \Carbon\Carbon::parse($event->tgl_event)->format('d M Y') }}
+                    </span>
+                </div>
 
-  .event-hero-bleed img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+                <!-- Category -->
+                @if($event->eventKategori)
+                <div class="metadata-item flex flex-col gap-2">
+                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">Category</span>
+                    <span class="font-sans text-xs md:text-sm font-bold text-brand-deepbreath uppercase tracking-wider">
+                        {{ $event->eventKategori->name }}
+                    </span>
+                </div>
+                @endif
 
-  .event-hero-bleed:hover img {
-    transform: scale(1.03);
-  }
+                <!-- Share -->
+                <div class="metadata-item flex flex-col gap-2">
+                    <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">Share</span>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target">
+                            <span class="iconify" data-icon="simple-icons:instagram" data-width="16"></span>
+                        </a>
+                        <a href="#" class="text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target">
+                            <span class="iconify" data-icon="simple-icons:x" data-width="16"></span>
+                        </a>
+                        <a href="#" class="text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target">
+                            <span class="iconify" data-icon="lucide:link" data-width="16"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  /* ===== CONTENT HEADER ===== */
-  .event-content-container {
-    max-width: 1200px; /* Wider for left-aligned impact */
-    margin: 0 auto;
-    padding: 0 clamp(1.25rem, 6vw, 10rem); /* Matches About page padding */
-  }
+    {{-- ============================================================
+    EDITORIAL CONTENT (Sticky Narrative)
+    ============================================================ --}}
+    <section id="synopsis-section" class="py-32 px-8 md:px-16 z-10 relative">
+        <div class="max-w-[1800px] mx-auto flex flex-col md:flex-row gap-20 md:gap-32 items-stretch">
 
-  .event-meta-top {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-    display: block;
-    text-align: left; /* Rata Kiri */
-  }
+            <!-- Poster Side (Editorial Frame) -->
+            <div class="w-full md:w-[45%] reveal-image">
+                <div class="aspect-[4/5] md:aspect-[3/4] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-tint-2/20">
+                    <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}"
+                         class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-1000">
+                </div>
+            </div>
 
-  .event-h1 {
-    font-size: clamp(32px, 5vw, 72px);
-    font-weight: 800;
-    line-height: 1.05;
-    margin: 0 0 40px;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-    text-align: left; /* Rata Kiri */
-    max-width: 900px;
-  }
+            <!-- Text Side (Sticky Content) -->
+            <div class="w-full md:w-[55%] relative">
+                <div class="sticky-content md:sticky md:top-40 w-full reveal-text">
+                    <span class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The Event.</span>
+                    <div class="font-serif text-2xl md:text-3xl leading-[1.6] font-light text-brand-deepbreath/80 max-w-3xl detail-content">
+                        @i18n($event, 'detail')
+                    </div>
+                </div>
+            </div>
 
-  /* ===== SHARE BAR ===== */
-  .event-share-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Rata Kiri */
-    gap: 24px;
-    margin-bottom: 80px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    padding: 24px 0;
-  }
+        </div>
+    </section>
 
-  .share-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-core);
-  }
+    {{-- ============================================================
+    DISCOVER MORE (Bento Grid)
+    ============================================================ --}}
+    @if($all_event->count() > 0)
+    <section class="py-32 px-8 md:px-16 border-t hairline-border bg-tint-3/30 relative z-10">
+        <div class="max-w-[1800px] mx-auto">
+            <div class="flex justify-between items-end mb-16">
+                <h3 class="font-serif text-5xl md:text-7xl text-brand-deepbreath tracking-tighter italic">
+                    Discover <span class="text-brand-orange not-italic">More.</span>
+                </h3>
+            </div>
 
-  .share-icon {
-    color: var(--text-core);
-    text-decoration: none;
-    transition: opacity 0.3s;
-    display: flex;
-    align-items: center;
-  }
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                @foreach($all_event->take(3) as $item)
+                <a href="{{ route('detail-event', $item->slug) }}" class="group reveal-rec flex flex-col gap-6 cursor-none hover-target">
+                    <div class="aspect-[16/10] overflow-hidden rounded-3xl bg-tint-2/20 shadow-lg">
+                        <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" 
+                             class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+                    </div>
+                    <div>
+                        <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 mb-2 block">
+                            {{ \Carbon\Carbon::parse($item->tgl_event)->format('F d, Y') }}
+                        </span>
+                        <h4 class="font-serif text-2xl text-brand-deepbreath leading-tight group-hover:text-brand-orange transition-colors">
+                            @i18n($item, 'judul')
+                        </h4>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
 
-  .share-icon:hover {
-    opacity: 0.5;
-  }
+</div>
 
-  /* ===== EDITORIAL BODY ===== */
-  .event-editorial-body {
-    font-size: clamp(17px, 1.2vw, 20px);
-    line-height: 1.7;
-    font-weight: 400;
-    color: #222;
-  }
-
-  .event-editorial-body p {
-    margin-bottom: 2em;
-  }
-
-  .event-editorial-body h2 {
-    font-size: clamp(24px, 3vw, 40px);
-    font-weight: 800;
-    margin: 2.5em 0 1em;
-    letter-spacing: -0.02em;
-    color: var(--text-core);
-  }
-
-  .event-editorial-body blockquote {
-    margin: 4em 0;
-    font-size: clamp(22px, 2.5vw, 32px);
-    font-style: italic;
-    font-weight: 300;
-    line-height: 1.4;
-    text-align: center;
-    color: var(--text-core);
-    padding: 0 40px;
-    position: relative;
-  }
-
-  .event-editorial-body blockquote footer {
-    font-size: 12px;
-    font-style: normal;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-top: 20px;
-    color: var(--text-muted);
-  }
-
-  .event-editorial-body img {
-    width: 100%;
-    height: auto;
-    margin: 3em 0;
-    display: block;
-    background: #f9f9f9;
-  }
-
-  /* ===== BOTTOM / OTHER EVENTS ===== */
-  .more-events-section {
-    margin-top: 120px;
-    padding: 100px var(--side-pad) 0;
-    border-top: 1px solid #eee;
-  }
-
-  .more-events-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 40px;
-  }
-
-  .more-events-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  .more-events-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-  }
-
-  .event-card-small {
-    text-decoration: none;
-    color: var(--text-core);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .event-card-small__media {
-    aspect-ratio: 16/10;
-    overflow: hidden;
-    background: #f5f5f5;
-  }
-
-  .event-card-small__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s;
-  }
-
-  .event-card-small:hover img {
-    transform: scale(1.05);
-  }
-
-  .event-card-small__title {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.3;
-    margin: 0;
-    text-transform: uppercase;
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 900px) {
-    .event-hero-bleed { height: 50vh; }
-    .more-events-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 600px) {
-    .more-events-grid { grid-template-columns: 1fr; }
-    .event-editorial-body { font-size: 17px; }
-  }
-
-  /* Animations */
-  .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-  .reveal.is-inview { opacity: 1; transform: translateY(0); }
-</style>
-
-<article class="event-page">
-  
-  <!-- FULL BLEED HERO -->
-  <header class="event-hero-bleed reveal">
-    <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}">
-  </header>
-
-  <div class="event-content-container">
-    <!-- METADATA & TITLE -->
-    <header class="reveal">
-      <span class="event-meta-top">{{ \Carbon\Carbon::parse($event->tgl_event)->format('F d, Y') }}</span>
-      <h1 class="event-h1">@i18n($event, 'judul')</h1>
-    </header>
-
-    <!-- SHARE BAR -->
-    <div class="event-share-row reveal">
-      <span class="share-label">Share</span>
-      <a href="#" class="share-icon" aria-label="Share on Instagram">
-        <span class="iconify" data-icon="simple-icons:instagram" data-width="18"></span>
-      </a>
-      <a href="#" class="share-icon" aria-label="Share on X">
-        <span class="iconify" data-icon="simple-icons:x" data-width="18"></span>
-      </a>
-      <a href="#" class="share-icon" aria-label="Copy Link">
-        <span class="iconify" data-icon="lucide:link" data-width="18"></span>
-      </a>
-    </div>
-
-    <!-- MAIN BODY CONTENT -->
-    <div class="event-editorial-body reveal">
-      @i18n($event, 'detail')
-    </div>
-  </div>
-
-  <!-- OTHER EVENTS -->
-  <section class="more-events-section reveal">
-    <div class="more-events-header">
-      <span class="more-events-title">Discover More</span>
-    </div>
-    <div class="more-events-grid">
-      @foreach($all_event->take(3) as $item)
-        <a href="{{ route('detail-event', $item->slug) }}" class="event-card-small">
-          <div class="event-card-small__media">
-            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy">
-          </div>
-          <h3 class="event-card-small__title">@i18n($item, 'judul')</h3>
-        </a>
-      @endforeach
-    </div>
-  </section>
-
-</article>
-
-<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+{{-- Scripts --}}
+@push('scripts')
 <script>
-  (function() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-inview');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof gsap === 'undefined') return;
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  })();
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Hero Reveal Animations
+    gsap.from(".hero-reveal", {
+        y: 50,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "power4.out",
+        delay: 0.3
+    });
+
+    // 2. Hero Parallax
+    gsap.to(".hero-parallax-img", {
+        y: "20%",
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".hero-parallax-img",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+        }
+    });
+
+    // 3. Metadata staggered reveal
+    gsap.from(".metadata-item", {
+        scrollTrigger: {
+            trigger: ".detail-strip",
+            start: "top 85%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power3.out"
+    });
+
+    // 4. Content Reveals
+    document.querySelectorAll('.reveal-text, .reveal-image, .reveal-rec').forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out"
+        });
+    });
+
+    // 5. Scroll Line Animation
+    gsap.to(".scroll-line", {
+        scaleY: 1,
+        duration: 1.5,
+        ease: "expo.inOut",
+        repeat: -1,
+        repeatDelay: 0.5
+    });
+});
 </script>
+@endpush
 
 @include('components.footer')
 
