@@ -127,9 +127,16 @@
 }
 
 /* Base Typography */
-* {
+/* * {
   font-family: var(--font-main);
   letter-spacing: 0.02em;
+} */
+
+/* ── FONT SERIF TOGGLE ──
+   Ganti nilai --brand-serif di layouts/app.blade.php untuk switch font global.
+   Ini hanya fallback agar class font-serif selalu bekerja di semua halaman. */
+.font-serif {
+  font-family: var(--brand-serif, 'Instrument Serif'), serif !important;
 }
 
 body {

@@ -32,15 +32,31 @@
             }
           },
           fontFamily: {
-            // Buat pindah pindah apa mau serif atau Helvetica semua, tinggal kasih comment aja di yang ga kepake
-            serif: ['"Instrument Serif"', 'serif'],
-            // serif: ['Helvetica', 'Arial', 'sans-serif'], /* Saat ini memaksa semua serif menjadi Helvetica */
+            serif: ['var(--brand-serif)', 'serif'],
             sans: ['Helvetica', 'Arial', 'sans-serif'],
           }
         }
       }
     }
   </script>
+
+  @php
+    /*
+     * ========================================
+     * SINEMAKU FONT TOGGLE — edit di sini
+     * Pilih salah satu (hapus // di depannya):
+     * ========================================
+     */
+    $brandSerif = "'Instrument Serif', serif";   // <== AKTIF: Instrument Serif
+    // $brandSerif = "'Helvetica', 'Arial', sans-serif"; // <== aktifkan untuk Helvetica penuh
+  @endphp
+
+  <style>
+    .font-serif,
+    .font-serif * {
+      font-family: {!! $brandSerif !!} !important;
+    }
+  </style>
 
   {{-- Google Fonts --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">

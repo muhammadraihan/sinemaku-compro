@@ -19,11 +19,17 @@
             <!-- Background Image with Parallax -->
             <div class="absolute inset-0 z-0">
                 <img src="{{ asset('photo/' . $films->photo) }}" alt="{{ $films->title }}"
-                    class="w-full h-[120%] object-cover filter grayscale contrast-110 brightness-75 hero-parallax-img"
+                    class="w-full h-[120%] object-cover filter sepia-[0.2] saturate-[1.1] hero-parallax-img"
                     style="transform: translateY(-10%);">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#F1F1F1] via-transparent to-transparent opacity-80">
+                
+                {{-- Local Film Grain Overlay --}}
+                <div class="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-soft-light z-10"
+                    style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E');">
                 </div>
-                <div class="absolute inset-0 bg-brand-deepbreath/20 mix-blend-multiply"></div>
+
+                <div class="absolute inset-0 bg-gradient-to-t from-[#F1F1F1] via-transparent to-transparent opacity-80 z-20">
+                </div>
+                <div class="absolute inset-0 bg-brand-deepbreath/5 mix-blend-multiply z-20"></div>
             </div>
 
             <!-- Content -->
