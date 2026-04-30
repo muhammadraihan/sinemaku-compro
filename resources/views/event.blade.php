@@ -6,322 +6,159 @@
 
 @include('partials.navbar')
 
+@push('head')
 <style>
-  :root {
-    --editorial-pad: clamp(32px, 8vw, 160px);
-    --bg: #ffffff;
-    --text-primary: #0a0a0a;
-    --text-secondary: #888888;
-    --text-muted: #b0b0b0;
-  }
-
-  body {
-    background-color: var(--bg);
-    color: var(--text-primary);
-  }
-
-  /* Revert navbar to standard look to match other pages */
-  #nav-overlay-gradient {
-    display: block !important;
-  }
-  #unified-navbar {
-    filter: none !important;
-  }
-
-  .events-container {
-    padding-top: 140px;
-    overflow-x: hidden;
-    background-color: var(--bg);
-  }
-
-  /* ===== CATEGORY FILTERS ===== */
-  .event-filters-section {
-    padding: 0 var(--editorial-pad);
-    margin-bottom: 60px;
-    display: flex;
-    justify-content: center; /* Center filters */
-  }
-
-  .event-filters {
-    display: flex;
-    gap: 8px; /* Slightly tighter gap */
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .chip {
-    position: relative;
-    border: none;
-    background: transparent;
-    color: #888;
-    font: 300 12px/1; /* Smaller font size (12px) */
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: all .2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .chip::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 60%;
-    height: 1.5px;
-    background-color: #111;
-    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-
-  .chip.is-active::after {
-    transform: translateX(-50%) scaleX(1);
-  }
-
-  .chip.is-active, .chip:hover {
-    color: #111;
-    font-weight: 700;
-  }
-
-  /* ===== LISTING SECTION ===== */
-  .event-list {
-    display: flex;
-    flex-direction: column;
-    gap: 18vh; /* Large spacing between events */
-  }
-
-  .event-row {
-    display: flex;
-    align-items: stretch;
-    min-height: 70vh;
-    border: none;
-  }
-
-  /* Alternating: Image Left/Right */
-  .event-row:nth-child(even) {
-    flex-direction: row-reverse;
-  }
-
-  .event-row__media {
-    flex: 0 0 40%; /* 2:3 ratio — Image is 40% (less dominant) */
-    background: #fcfcfc;
-    overflow: hidden;
-  }
-
-  .event-row__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .event-row:hover .event-row__media img {
-    transform: scale(1.04);
-  }
-
-  .event-row__content {
-    flex: 1; /* 2:3 ratio — Text is 60% (more dominant) */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 60px var(--editorial-pad);
-    background-color: var(--bg);
-  }
-
-  /* Text padding to ensure NOT hitting the edge or image */
-  .event-row:nth-child(odd) .event-row__content {
-    padding-left: clamp(40px, 8vw, 120px);
-  }
-
-  .event-row:nth-child(even) .event-row__content {
-    padding-right: clamp(40px, 8vw, 120px);
-  }
-
-  .event-row__header {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .event-row__title {
-    font-size: clamp(28px, 4.5vw, 60px);
-    font-weight: 800;
-    line-height: 1.0;
-    margin: 0;
-    letter-spacing: -0.04em;
-    color: var(--text-primary);
-    text-transform: uppercase;
-  }
-
-  /* Faded event details */
-  .event-row__detail {
-    font-size: clamp(14px, 1.2vw, 16px);
-    font-weight: 300;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    max-width: 65ch;
-    position: relative;
-    max-height: 120px; /* Limit height to trigger fade */
-    overflow: hidden;
-    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-  }
-
-  .event-row__cta {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid transparent;
-    align-self: flex-start;
-  }
-
-  .event-row__cta:hover {
-    color: var(--text-primary);
-    border-bottom-color: var(--text-primary);
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 1024px) {
-    .event-row__media { flex: 0 0 45%; }
-    .event-row__content { padding: 40px 32px !important; }
-    .event-filters-section { padding: 0 24px; }
-  }
-
-  @media (max-width: 768px) {
-    .event-row {
-      flex-direction: column !important;
-      min-height: auto;
-    }
-    .event-row__media {
-      width: 100%;
-      aspect-ratio: 4/3;
-    }
-    .event-row__content {
-      padding: 40px 24px !important;
-      min-height: 250px;
-    }
-    .event-row__title { font-size: 36px; }
-    .events-container { padding-top: 100px; }
-    .event-list { gap: 10vh; }
-  }
-
-  /* Animation */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.is-inview {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    body { background-color: #EDECEA !important; }
 </style>
+@endpush
 
-<div class="events-container">
-  
-  {{-- FILTER KATEGORI --}}
-  <div class="event-filters-section reveal">
-    <div class="event-filters" role="tablist">
-      @foreach($event_kategori as $cat)
-        <button class="chip" data-filter="{{ $cat->uuid }}" role="tab">{{ $cat->name }}</button>
-      @endforeach
-    </div>
-  </div>
+{{-- ============================================================
+EDITORIAL WRAPPER
+============================================================ --}}
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
 
-  @if($event->count() > 0)
-    <!-- LISTING SECTION -->
-    <div class="event-list">
-      @foreach($event as $item)
-        <article class="event-row reveal" data-category="{{ $item->event_kategori_uuid }}">
-          <div class="event-row__media">
-            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy">
-          </div>
-          <div class="event-row__content">
-            <div class="event-row__header">
-              <div class="article-row__meta" style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); display: flex; gap: 20px; align-items: center; margin-bottom: 12px;">
-                @if($item->eventKategori)
-                  <span style="color: #111; font-weight: 800;">{{ $item->eventKategori->name }}</span>
-                  <span>&bull;</span>
-                @endif
-                <span>{{ \Carbon\Carbon::parse($item->tgl_event)->format('d M Y') }}</span>
-              </div>
-              <h2 class="event-row__title">@i18n($item, 'judul')</h2>
-              <div class="event-row__detail">
-                {{ $item->title }}
-              </div>
+    {{-- ============================================================
+    HEADER & FILTERS
+    ============================================================ --}}
+    <section class="pt-40 md:pt-48 px-8 md:px-16 max-w-[1800px] mx-auto relative z-10">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end border-b hairline-border pb-12 mb-20 gap-8">
+            <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">
+                Our <span class="italic text-brand-orange">Events.</span>
+            </h2>
+
+            <div class="flex gap-6 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 flex-wrap" id="event-filters">
+                @foreach($event_kategori as $cat)
+                <button class="filter-btn border-b border-transparent hover:text-brand-deepbreath pb-1 hover-target cursor-none transition-all" data-filter="{{ $cat->uuid }}">{{ $cat->name }}</button>
+                @endforeach
             </div>
-            <a href="{{ route('detail-event', $item->slug) }}" class="event-row__cta">Read More</a>
-          </div>
-        </article>
-      @endforeach
-    </div>
-  @else
-    <div style="padding: 160px 24px; text-align: center; color: #888; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;">
-      No events available at this moment.
-    </div>
-  @endif
+        </div>
+    </section>
+
+    {{-- ============================================================
+    EVENT LIST (ALTERNATING BENTO)
+    ============================================================ --}}
+    <section class="px-8 md:px-16 pb-32 max-w-[1800px] mx-auto relative z-10" id="event-list">
+        @if($event->count() > 0)
+            <div class="flex flex-col gap-24 md:gap-40">
+                @foreach($event as $index => $item)
+                @php
+                    // Alternate row direction for editorial rhythm
+                    $isEven = $index % 2 != 0; 
+                    $flexDir = $isEven ? 'md:flex-row-reverse' : 'md:flex-row';
+                @endphp
+                <article class="event-row flex flex-col {{ $flexDir }} items-stretch gap-8 md:gap-20 group relative" data-category="{{ $item->event_kategori_uuid }}" id="event-row-{{ $index }}">
+                    
+                    <!-- Media / Poster -->
+                    <div class="w-full md:w-[45%] shrink-0 reveal-image">
+                        <a href="{{ route('detail-event', $item->slug) }}" class="block w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-[2rem] bg-tint-2/20 cursor-none hover-target shadow-xl">
+                            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                        </a>
+                    </div>
+
+                    <!-- Content (Sticky Wrapper) -->
+                    <div class="w-full md:w-[55%] py-4 md:py-12 relative">
+                        <div class="sticky-content w-full md:sticky md:top-40 reveal-text">
+                            <!-- Meta -->
+                            <div class="flex gap-4 items-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/50 mb-6 md:mb-8">
+                                @if($item->eventKategori)
+                                    <span class="text-brand-orange">{{ $item->eventKategori->name }}</span>
+                                    <span class="opacity-30">•</span>
+                                @endif
+                                <span>{{ \Carbon\Carbon::parse($item->tgl_event)->format('d M Y') }}</span>
+                            </div>
+
+                            <!-- Title -->
+                            <h2 class="font-serif text-5xl md:text-7xl leading-[0.9] text-brand-deepbreath tracking-tight mb-6 md:mb-8 group-hover:text-brand-orange transition-colors duration-500">
+                                <a href="{{ route('detail-event', $item->slug) }}" class="cursor-none hover-target">@i18n($item, 'judul')</a>
+                            </h2>
+
+                            <!-- Excerpt -->
+                            <div class="font-sans text-base md:text-lg font-light text-brand-deepbreath/70 leading-relaxed mb-10 md:mb-12 max-w-2xl line-clamp-3">
+                                {{ $item->title }}
+                            </div>
+
+                            <!-- CTA -->
+                            <a href="{{ route('detail-event', $item->slug) }}" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath border-b border-brand-deepbreath/30 pb-2 hover:border-brand-deepbreath hover:text-brand-orange transition-all cursor-none hover-target inline-flex items-center gap-4 self-start">
+                                <span data-i18n="label_explore_event">Explore Event</span> <span class="iconify" data-icon="lucide:arrow-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </article>
+                @endforeach
+            </div>
+        @else
+            <div class="py-40 text-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">
+                No events available at this moment.
+            </div>
+        @endif
+    </section>
+
 </div>
 
+{{-- Scripts --}}
 <script>
-  (function() {
-    // Scroll Reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-inview');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // Reveal Animations using GSAP for better control
+        document.querySelectorAll('.reveal-text, .reveal-image').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power4.out"
+            });
+        });
+    }
 
-    // Filtering Logic
-    const chips = document.querySelectorAll('.chip');
+    // Filtering Logic (Toggle System)
+    const btns = document.querySelectorAll('.filter-btn');
     const rows = document.querySelectorAll('.event-row');
+    let activeFilter = 'all';
 
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        const filter = chip.getAttribute('data-filter');
-        const isAlreadyActive = chip.classList.contains('is-active');
-        
-        // UI: Toggle active state
-        chips.forEach(c => {
-          c.classList.remove('is-active');
-          c.setAttribute('aria-selected', 'false');
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            
+            if (activeFilter === filter) {
+                // Toggle off -> Show all
+                activeFilter = 'all';
+                btn.classList.remove('text-brand-deepbreath', 'border-brand-deepbreath');
+                btn.classList.add('border-transparent', 'text-brand-deepbreath/40');
+            } else {
+                // Update active states
+                btns.forEach(b => {
+                    b.classList.remove('text-brand-deepbreath', 'border-brand-deepbreath');
+                    b.classList.add('border-transparent', 'text-brand-deepbreath/40');
+                });
+                btn.classList.add('text-brand-deepbreath', 'border-brand-deepbreath');
+                btn.classList.remove('border-transparent', 'text-brand-deepbreath/40');
+                activeFilter = filter;
+            }
+
+            // Filter rows
+            rows.forEach(row => {
+                const category = row.getAttribute('data-category');
+                if (activeFilter === 'all' || category === activeFilter) {
+                    row.style.display = 'flex';
+                    // Re-trigger refresh for ScrollTrigger since layout changed
+                    ScrollTrigger.refresh();
+                } else {
+                    row.style.display = 'none';
+                    ScrollTrigger.refresh();
+                }
+            });
         });
-
-        let currentFilter = filter;
-        if (isAlreadyActive) {
-          // If clicking active, deactivate it -> show all
-          currentFilter = 'all';
-        } else {
-          chip.classList.add('is-active');
-          chip.setAttribute('aria-selected', 'true');
-        }
-
-        // Filtering
-        rows.forEach(row => {
-          const category = row.getAttribute('data-category');
-          if (currentFilter === 'all' || category === currentFilter) {
-            row.style.display = 'flex';
-            setTimeout(() => row.classList.add('is-inview'), 10);
-          } else {
-            row.style.display = 'none';
-          }
-        });
-      });
     });
-  })();
+});
 </script>
 
 @include('components.footer')
 
-@endsection
+@endsection

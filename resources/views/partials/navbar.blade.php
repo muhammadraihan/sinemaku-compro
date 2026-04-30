@@ -307,6 +307,7 @@ GLOBAL i18n ENGINE
             page_docs_1: { en: 'Our', id: 'Katalog' },
             page_docs_2: { en: 'Documentaries.', id: 'Dokumenter.' },
             detail_episodes: { en: 'Episodes List.', id: 'Daftar Episode.' },
+            label_explore_event: { en: 'Explore Event', id: 'Eksplorasi Event' },
             detail_watch_trailer: { en: 'Watch Trailer', id: 'Tonton Trailer' },
             detail_director: { en: 'Director', id: 'Sutradara' },
             detail_cast: { en: 'Cast', id: 'Pemeran' },
