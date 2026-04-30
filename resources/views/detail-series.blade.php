@@ -1,635 +1,442 @@
 @extends('layouts.app')
 
-@section('title', 'Series Details | Sinemaku Pictures')
-
-@include('partials.navbar')
+@section('title', $films->title . ' | Sinemaku Pictures')
 
 @section('content')
-<style>
-  /* ===== Global Editorial Variables ===== */
-  :root {
-    --side-pad: clamp(16px, 6vw, 84px);
-    --sec-pad: clamp(48px, 8vw, 120px);
-    --border-color: #e8e8e8;
-  }
 
-  /* ===== Youtube Modal & Play Button ===== */
-  .play-btn-huge {
-    position: absolute;
-    top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 100px; height: 100px; border-radius: 50%;
-    background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
-    border: 2px solid rgba(255,255,255,0.4);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: all 0.3s ease; z-index: 10;
-  }
-  .play-btn-huge:hover {
-    background: rgba(255,255,255,0.25); transform: translate(-50%, -50%) scale(1.05);
-    border-color: #fff;
-  }
-  .play-btn-huge svg { width: 40px; height: 40px; fill: #fff; margin-left: 6px; }
+    @include('partials.navbar')
 
-  .yt-modal {
-    position: fixed; inset: 0; z-index: 99999;
-    background: rgba(0,0,0,0.95);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-  }
-  .yt-modal.is-open { opacity: 1; pointer-events: auto; }
-  .yt-modal-close {
-    position: absolute; top: 30px; right: 40px;
-    background: none; border: none; color: #fff;
-    font-size: 50px; font-weight: 300; cursor: pointer; line-height: 1;
-    z-index: 10000; transition: transform 0.2s;
-  }
-  .yt-modal-close:hover { transform: scale(1.1); }
-  .yt-modal-content {
-    width: 90%; max-width: 1200px; aspect-ratio: 16/9;
-    background: #000; position: relative;
-    box-shadow: none; border-radius: 0; overflow: hidden;
-  }
-  .yt-modal-content iframe { width: 100%; height: 100%; border: none; }
+    {{-- ============================================================
+    EDITORIAL WRAPPER
+    Consistent with Film & About pages
+    ============================================================ --}}
+    <div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans">
 
-  /* ===== SERIES DETAIL: HERO ===== */
-  .film-hero {
-    margin-top: 85px; position: relative; min-height: 100vh;
-    color: #fff; overflow: hidden; display: flex; align-items: flex-end;
-  }
-  .film-hero__bg-wrap { position: absolute; inset: 0; z-index: 0; }
-  .film-hero__bg {
-    width: 100%; height: 100%; object-fit: cover;
-    transform: scale(1.0); transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .film-hero:hover .film-hero__bg { transform: scale(1.04); }
-  
-  .film-hero__overlay {
-    position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 100%);
-  }
-
-  .film-hero__inner {
-    position: relative; z-index: 2; width: 100%;
-    padding: var(--sec-pad) var(--side-pad);
-    max-width: 1600px;
-  }
-
-  .film-hero__title {
-    font-weight: 800; line-height: 0.92; margin: 0 0 0.2em;
-    font-size: clamp(48px, 7.5vw, 110px);
-    letter-spacing: -0.04em; filter: drop-shadow(0 0 30px rgba(0,0,0,0.3));
-  }
-
-  .film-hero__meta {
-    display: flex; gap: 16px; align-items: center;
-    font-size: clamp(14px, 1.2vw, 18px); color: #ccc;
-    text-transform: uppercase; letter-spacing: 0.12em; font-weight: 400;
-  }
-
-  /* ===== DETAIL STRIP ===== */
-  .detail-strip {
-    background: #fff; padding: 64px var(--side-pad);
-    border-bottom: 1px solid var(--border-color);
-  }
-  .detail-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
-  }
-  .detail-item { border-left: 1px solid var(--border-color); padding-left: 32px; }
-  .detail-item:first-child { border-left: none; padding-left: 0; }
-  
-  .detail-label {
-    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: #888; font-weight: 600; margin-bottom: 12px; display: block;
-  }
-  .detail-value {
-    font-size: clamp(20px, 2.2vw, 32px); font-weight: 800; color: #111;
-    line-height: 1.1; display: block;
-  }
-  .detail-value--small { font-size: clamp(14px, 1.2vw, 18px); color: #444; margin-top: 4px; }
-
-
-  /* ===== SYNOPSIS & EPISODES ===== */
-  .synopsis-sec {
-    padding: var(--sec-pad) var(--side-pad); background: #fff;
-    display: grid; grid-template-columns: 1fr 2fr; gap: clamp(40px, 8vw, 120px);
-    align-items: start;
-  }
-  .syn-poster img {
-    width: 100%; border-radius: 0; box-shadow: none;
-    aspect-ratio: 2/3; object-fit: cover;
-  }
-  .syn-content { max-width: 800px; width: 100%; }
-  .syn-label {
-    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: #aaa; margin-bottom: 24px; display: block;
-  }
-  .syn-text {
-    font-size: clamp(17px, 1.8vw, 21px); line-height: 1.8; color: #2c2c2c;
-    font-weight: 300; letter-spacing: -0.01em; margin-bottom: 80px;
-  }
-
-  /* Dedicated Episode List Section */
-  .sec-episodes { padding: var(--sec-pad) var(--side-pad); background: #fff; }
-  .ep-list-header {
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: #888; margin-bottom: 60px; display: flex; align-items: center; gap: 20px;
-  }
-  .ep-list-header::after { content: ""; height: 1px; flex: 1; background: var(--border-color); }
-
-  .ep-row {
-    display: grid; grid-template-columns: 1.2fr 2fr; gap: clamp(30px, 5vw, 60px);
-    margin-bottom: 80px; align-items: start;
-  }
-  .ep-image {
-    width: 100%; aspect-ratio: 16/9; border-radius: 0; overflow: hidden;
-    background: #f5f5f5; box-shadow: none;
-  }
-  .ep-image img { width: 100%; height: 100%; object-fit: cover; }
-
-  .ep-details { max-width: 750px; }
-  .ep-num { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 0.12em; margin-bottom: 8px; text-transform: uppercase; }
-  .ep-heading { font-size: clamp(24px, 2.5vw, 32px); font-weight: 800; color: #111; margin-bottom: 20px; letter-spacing: -0.02em; }
-  .ep-desc {
-    font-size: 16px; line-height: 1.7; color: #444; font-weight: 300;
-    margin-bottom: 24px;
-  }
-  .ep-actions-row { display: flex; align-items: center; gap: 24px; }
-  
-  .ep-watch-link {
-    color: #e51e25; text-decoration: none; font-weight: 800; font-size: 14px;
-    letter-spacing: 0.02em; border-bottom: 2px solid transparent; transition: all 0.2s;
-  }
-  .ep-watch-link:hover { border-bottom-color: #e51e25; }
-
-  /* Episode Playlist Play Overlay */
-  .ep-image-wrap { position: relative; width: 100%; aspect-ratio: 16/9; cursor: pointer; overflow: hidden; }
-  .ep-play-overlay {
-    position: absolute; inset: 0; background: rgba(0,0,0,0.3);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: all 0.3s ease;
-  }
-  .ep-image-wrap:hover .ep-play-overlay { opacity: 1; background: rgba(0,0,0,0.5); }
-  .ep-play-btn {
-    width: 60px; height: 60px; border-radius: 50%; background: #fff;
-    display: flex; align-items: center; justify-content: center;
-    transform: scale(0.9); transition: transform 0.3s;
-  }
-  .ep-image-wrap:hover .ep-play-btn { transform: scale(1); }
-  .ep-play-btn svg { width: 24px; height: 24px; fill: #111; margin-left: 4px; }
-
-  /* Trailer Button */
-  .btn-trailer {
-    display: inline-flex; align-items: center; gap: 14px;
-    padding: 18px 32px; background: #fff; color: #111;
-    border-radius: 0; text-decoration: none; font-weight: 700;
-    font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
-    transition: all 0.3s ease; box-shadow: none;
-    cursor: pointer; border: none;
-  }
-  .btn-trailer:hover { transform: translateY(-3px); background: #f0f0f0; }
-  .btn-trailer svg { width: 18px; height: 18px; fill: currentColor; }
-
-  .ep-item { margin-bottom: 48px; border-bottom: 1px solid #f2f2f2; padding-bottom: 48px; }
-  .ep-item:last-child { border-bottom: none; }
-  
-  .ep-card { display: flex; gap: 32px; align-items: flex-start; }
-  .ep-thumb {
-    width: 240px; min-width: 240px; aspect-ratio: 16/9;
-    border-radius: 8px; overflow: hidden; background: #eee;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative;
-  }
-  .ep-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  
-  .ep-info { flex: 1; }
-  .ep-meta { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 0.1em; margin-bottom: 8px; }
-  .ep-title { font-size: 24px; font-weight: 800; color: #111; margin-bottom: 14px; letter-spacing: -0.02em; }
-  
-  .ep-synopsis-wrap { position: relative; cursor: pointer; }
-  .ep-synopsis {
-    font-size: 15px; line-height: 1.7; color: #555; font-weight: 300;
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  }
-  
-  .ep-synopsis-wrap:hover .ep-tooltip { visibility: visible; opacity: 1; transform: translateY(-5px); }
-
-  /* Episode Dynamic Gallery */
-  .ep-gallery-sec { margin-top: 32px; border-top: 1px solid #f5f5f5; padding-top: 24px; }
-  .ep-gallery-label { font-size: 10px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; display: block; }
-  .ep-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-bottom: 24px; }
-  .ep-gal-item { aspect-ratio: 16/9; overflow: hidden; background: #eee; cursor: pointer; }
-  .ep-gal-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-  .ep-gal-item:hover img { transform: scale(1.05); }
-
-  .ep-actions { display: flex; gap: 12px; margin-top: 24px; }
-  .btn-ep {
-    display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 20px; border-radius: 40px;
-    text-decoration: none; transition: all 0.2s;
-  }
-  .btn-ep--trailer { background: #f5f5f5; color: #111; border: none; cursor: pointer; }
-  .btn-ep--trailer:hover { background: #e8e8e8; }
-  .btn-ep--watch { background: #111; color: #fff; }
-  .btn-ep--watch:hover { opacity: 0.9; transform: translateY(-2px); }
-
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-
-  /* ===== GALLERY SECTIONS ===== */
-  .sec-gallery { padding: var(--sec-pad) var(--side-pad); background: #fff; }
-  .sec-label-wrap { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; }
-  .sec-label-wrap span { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #888; white-space: nowrap; }
-  .sec-label-wrap .line { height: 1px; flex: 1; background: var(--border-color); }
-
-  /* Edge-to-Edge Stills Slideshow */
-  .sec-stills { padding: var(--sec-pad) 0 0; background: #fff; }
-  .sec-stills .sec-label-wrap { padding: 0 var(--side-pad); margin-bottom: 40px; }
-  
-  .stills-slideshow {
-    position: relative; width: 100%; overflow: hidden;
-    background: #111;
-  }
-  .stills-track {
-    display: flex;
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
-  }
-  .slide-item {
-    flex: 0 0 100%; width: 100%;
-    aspect-ratio: 16/9; overflow: hidden;
-  }
-  .slide-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  
-  .slide-nav {
-    position: absolute; top: 0; bottom: 0; width: 80px;
-    background: none; border: none; cursor: pointer; z-index: 10;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .stills-slideshow:hover .slide-nav { opacity: 0.8; }
-  .slide-nav:hover { opacity: 1 !important; transform: scale(1.1); }
-  .slide-nav--prev { left: 0; }
-  .slide-nav--next { right: 0; }
-  .slide-nav svg { width: 24px; height: 32px; fill: #fff; }
-
-  .slide-counter {
-    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 8px; z-index: 10;
-  }
-  .slide-dot {
-    width: 6px; height: 6px; background: rgba(255,255,255,0.4); border: none;
-    cursor: pointer; transition: background 0.3s; padding: 0;
-  }
-  .slide-dot.is-active { background: #fff; }
-
-  /* BTS Masonry Row */
-  .sec-bts { padding: var(--sec-pad) var(--side-pad); background: #fff; }
-  .bts-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
-  }
-  .g-item { position: relative; overflow: hidden; border-radius: 0; background: #f5f5f5; box-shadow: none; }
-  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.2,0.7,0.2,1); }
-  .g-item:hover img { transform: scale(1.05); }
-  .g-item--tall { grid-row: span 2; }
-
-
-  /* ===== RECOMMENDATIONS ROW ===== */
-  .recommendations { padding: var(--sec-pad) var(--side-pad); background: #fafafa; border-top: 1px solid var(--border-color); }
-  .rec-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
-  }
-  .rec-card { text-decoration: none; color: inherit; display: block; transition: transform 0.3s; }
-  .rec-card:hover { transform: translateY(-8px); }
-  .rec-img { aspect-ratio: 2/3; overflow: hidden; border-radius: 0; margin-bottom: 16px; background: #eee; box-shadow: none; }
-  .rec-img img { width: 100%; height: 100%; object-fit: cover; }
-  .rec-title { font-weight: 700; font-size: 16px; margin: 0 0 4px; color: #111; letter-spacing: -0.02em; }
-  .rec-meta { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
-
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 1200px) {
-    .detail-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 980px) {
-    .synopsis-sec { grid-template-columns: 1fr; }
-    .syn-poster { max-width: 400px; }
-  }
-  @media (max-width: 850px) {
-    .ep-card { flex-direction: column; }
-    .ep-thumb { width: 100%; }
-    .bts-grid { grid-template-columns: repeat(2, 1fr); }
-    .bts-grid > .g-item { grid-column: span 1 !important; }
-  }
-  @media (max-width: 640px) {
-    .detail-grid { grid-template-columns: 1fr; gap: 30px; }
-    .detail-item { padding-left: 0; border-left: none; border-bottom: 1px solid var(--border-color); padding-bottom: 24px; }
-    .rec-grid { grid-template-columns: repeat(2, 1fr); }
-    .film-hero__title { font-size: 56px; }
-  }
-</style>
-
-@php
-  $video_id = '';
-  if (!empty($films->link) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $films->link, $match)) {
-      $video_id = $match[1];
-  }
-@endphp
-
-<!-- ===== SERIES DETAIL: HERO ===== -->
-<section class="film-hero">
-  <div class="film-hero__bg-wrap">
-    <img src="{{ asset('photo/' . $films->photo) }}" alt="{{ $films->title }}" class="film-hero__bg">
-  </div>
-  <div class="film-hero__overlay"></div>
-
-  @if($video_id)
-    <!-- Big Play Button -->
-    <div class="play-btn-huge" onclick="openTrailerModal()">
-      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    </div>
-  @endif
-
-  <div class="film-hero__inner">
-    <h1 class="film-hero__title">{{ $films->title }}</h1>
-
-    <div class="film-hero__meta">
-      <span>{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</span>
-      <span class="dot">•</span>
-      <span>{{ $films->genre }}</span>
-      <span class="dot">•</span>
-      <span>{{ $films->season }} Season</span>
-      <span class="dot">•</span>
-      <span>{{ $films->episode }} Episode</span>
-    </div>
-  </div>
-</section>
-
-<!-- ===== DETAIL STRIP ===== -->
-<section class="detail-strip">
-  <div class="detail-grid">
-    <div class="detail-item">
-      <span class="detail-label">DIRECTED BY</span>
-      <span class="detail-value">{{ $films->director }}</span>
-    </div>
-    <div class="detail-item">
-      <span class="detail-label">YEAR</span>
-      <span class="detail-value">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</span>
-    </div>
-    <div class="detail-item">
-      <span class="detail-label">SEASON</span>
-      <span class="detail-value">{{ $films->season }} Season</span>
-    </div>
-    <div class="detail-item">
-      <span class="detail-label">STARRING</span>
-      @php
-        $main_cast = array_slice(explode(',', $films->cast), 0, 3);
-      @endphp
-      <span class="detail-value">{{ implode(', ', $main_cast) }}</span>
-      @if(count(explode(',', $films->cast)) > 3)
-        <span class="detail-value--small">and others</span>
-      @endif
-    </div>
-  </div>
-</section>
-
-<!-- ===== SYNOPSIS & EPISODES SECTION ===== -->
-<section class="synopsis-sec">
-  <div class="syn-poster">
-    <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster">
-  </div>
-  
-  <div class="syn-content">
-    <span class="syn-label">Sinopsis</span>
-    <div class="syn-text">
-      {!! $films->sinopsis !!}
-    </div>
-  </div>
-</section>
-
-<!-- ===== STILL SHOTS GALLERY (SLIDESHOW) ===== -->
-<section class="sec-stills">
-  <div class="sec-label-wrap">
-    <span>Still Shots</span>
-    <div class="line"></div>
-  </div>
-  
-  <div class="stills-slideshow" id="stills-series">
-    <div class="stills-track">
-      @if($films->stillShots->count() > 0)
-        @foreach($films->stillShots as $gallery)
-        <div class="slide-item">
-          <img src="{{ asset('photo/' . $gallery->photo) }}" alt="Still" loading="lazy">
-        </div>
-        @endforeach
-      @else
-        @for($i=1; $i<=3; $i++)
-        <div class="slide-item">
-          <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}still{{ $i }}/1920/1080" alt="Still {{ $i }}" loading="lazy">
-        </div>
-        @endfor
-      @endif
-    </div>
-    <button class="slide-nav slide-nav--prev" onclick="slideMove('stills-series', -1)" aria-label="Previous">
-      <svg viewBox="0 0 24 40"><path d="M20 4 L4 20 L20 36 Z" /></svg>
-    </button>
-    <button class="slide-nav slide-nav--next" onclick="slideMove('stills-series', 1)" aria-label="Next">
-      <svg viewBox="0 0 24 40"><path d="M4 4 L20 20 L4 36 Z" /></svg>
-    </button>
-    <div class="slide-counter" id="stills-series-dots"></div>
-  </div>
-</section>
-
-<!-- ===== DEDICATED EPISODE LIST SECTION ===== -->
-<section class="sec-episodes">
-  <div class="ep-list-header">Daftar Episode</div>
-
-  @if($films->episodes->count() > 0)
-    @foreach($films->episodes as $ep)
-    @php
-      $ep_yt_id = '';
-      if (!empty($ep->link_trailer) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $ep->link_trailer, $ep_match)) {
-          $ep_yt_id = $ep_match[1];
-      }
-    @endphp
-    <div class="ep-row">
-      <div class="ep-image-wrap" @if($ep_yt_id) onclick="openTrailerModal('{{ $ep_yt_id }}')" @endif>
-        <div class="ep-image">
-          <img src="{{ $ep->photo ? asset('photo/' . $ep->photo) : 'https://picsum.photos/seed/ep'.$ep->id.'/800/450' }}" alt="{{ $ep->title }}">
-        </div>
-        @if($ep_yt_id)
-        <div class="ep-play-overlay">
-          <div class="ep-play-btn">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-        @endif
-      </div>
-      <div class="ep-details">
-        <div class="ep-num">Episode {{ sprintf('%02d', $ep->episode_number) }}</div>
-        <h3 class="ep-heading">{{ $ep->title }}</h3>
-        <p class="ep-desc">{{ $ep->sinopsis }}</p>
-        
-        <div class="ep-actions-row">
-          @if($ep->link)
-          <a href="{{ $ep->link }}" target="_blank" class="ep-watch-link">Watch now.</a>
-          @endif
-          @if($ep_yt_id)
-          <button class="btn-ep-trailer" onclick="openTrailerModal('{{ $ep_yt_id }}')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            Trailer
-          </button>
-          @endif
-        </div>
-
-        @if($ep->stillShots->count() > 0 || $ep->btsGalleries->count() > 0)
-        <div class="ep-gallery-sec">
-          @if($ep->stillShots->count() > 0)
-            <span class="ep-gallery-label">Still Shots</span>
-            <div class="ep-gallery-grid">
-              @foreach($ep->stillShots as $sg)
-                <div class="ep-gal-item">
-                  <img src="{{ asset('photo/'.$sg->photo) }}" alt="Still Shot">
+        {{-- ============================================================
+        1. CINEMATIC HERO SECTION
+        ============================================================ --}}
+        <section class="relative w-full h-[90vh] md:h-[100vh] flex flex-col justify-end overflow-hidden z-10">
+            <!-- Background Image with Parallax -->
+            <div class="absolute inset-0 z-0">
+                <img src="{{ asset('photo/' . $films->photo) }}" alt="{{ $films->title }}"
+                    class="w-full h-[120%] object-cover filter sepia-[0.2] saturate-[1.1] hero-parallax-img"
+                    style="transform: translateY(-10%);">
+                
+                {{-- Local Film Grain Overlay --}}
+                <div class="absolute inset-0 opacity-[0.25] pointer-events-none mix-blend-soft-light z-10"
+                    style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E');">
                 </div>
-              @endforeach
-            </div>
-          @endif
 
-          @if($ep->btsGalleries->count() > 0)
-            <span class="ep-gallery-label">Behind The Scenes</span>
-            <div class="ep-gallery-grid">
-              @foreach($ep->btsGalleries as $bg)
-                <div class="ep-gal-item">
-                  <img src="{{ asset('photo/'.$bg->photo) }}" alt="BTS">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#F1F1F1] via-transparent to-transparent opacity-80 z-20">
                 </div>
-              @endforeach
+                <div class="absolute inset-0 bg-brand-deepbreath/5 mix-blend-multiply z-20"></div>
             </div>
-          @endif
-        </div>
+
+            <!-- Content -->
+            <div class="relative z-10 px-8 md:px-16 pb-20 max-w-[1800px] mx-auto w-full">
+                <div class="flex flex-col md:flex-row items-end justify-between gap-8">
+                    <div class="w-full md:w-2/3">
+                        <span
+                            class="block font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange mb-6 hero-reveal">
+                            {{ \Carbon\Carbon::parse($films->release_date)->format('Y') }} • @i18n($films, 'genre')
+                        </span>
+                        <h1
+                            class="font-serif text-[12vw] md:text-[8vw] leading-[0.85] text-brand-deepbreath tracking-tighter hero-reveal">
+                            <span class="block">@i18n($films, 'title')</span>
+                        </h1>
+                    </div>
+
+                    @php
+                        $video_id = '';
+                        if (!empty($films->link) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $films->link, $match)) {
+                            $video_id = $match[1];
+                        }
+                    @endphp
+
+                    @if($video_id)
+                        <div class="w-full md:w-auto hero-reveal">
+                            <button onclick="openHeroTrailer('{{ $video_id }}')"
+                                class="group flex items-center gap-6 hover-target cursor-none">
+                                <div
+                                    class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-brand-deepbreath/20 flex items-center justify-center group-hover:bg-brand-deepbreath group-hover:text-white transition-all duration-500">
+                                    <span class="iconify w-8 h-8" data-icon="lucide:play"></span>
+                                </div>
+                                <span data-i18n="detail_watch_trailer"
+                                    class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath">Watch
+                                    Trailer</span>
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </section>
+
+        {{-- ============================================================
+        2. FILM METADATA (ASYMMETRICAL STRIP)
+        ============================================================ --}}
+        <section class="py-24 px-8 md:px-16 z-10 relative bg-[#F1F1F1]/80 backdrop-blur-md">
+            <div
+                class="max-w-[1800px] mx-auto border-t border-b border-brand-deepbreath/10 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+
+                <div class="metadata-item">
+                    <span data-i18n="detail_director"
+                        class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Director</span>
+                    <h3 class="font-serif text-3xl text-brand-deepbreath italic">{{ $films->director }}</h3>
+                </div>
+
+                <div class="metadata-item">
+                    <span data-i18n="detail_cast"
+                        class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Cast</span>
+                    <div class="flex flex-col gap-1">
+                        @foreach(array_slice(explode(',', $films->cast), 0, 3) as $cast)
+                            <span class="font-sans text-sm font-medium text-brand-deepbreath">{{ trim($cast) }}</span>
+                        @endforeach
+                        @if(count(explode(',', $films->cast)) > 3)
+                            <span data-i18n="detail_and_more" class="font-sans text-[10px] text-brand-orange italic mt-1">and
+                                more...</span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="metadata-item">
+                    <span data-i18n="detail_duration"
+                        class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Duration</span>
+                    <h3 class="font-sans text-2xl font-light text-brand-deepbreath">{{ $films->duration }} <span
+                            data-i18n="label_minutes" class="text-sm uppercase tracking-widest opacity-40">Min</span></h3>
+                </div>
+
+                <div class="metadata-item">
+                    <span data-i18n="detail_language"
+                        class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Language</span>
+                    <h3 data-i18n="detail_lang_value" class="font-sans text-2xl font-light text-brand-deepbreath">Bahasa
+                        Indonesia</h3>
+                </div>
+
+            </div>
+        </section>
+
+        {{-- ============================================================
+        3. SYNOPSIS & CORE VISUAL
+        ============================================================ --}}
+        <section id="synopsis-section" class="py-32 px-8 md:px-16 z-10 relative">
+            <div class="max-w-[1800px] mx-auto flex flex-col md:flex-row gap-20 md:gap-32 items-start">
+
+                <!-- Poster Side (Editorial Frame) -->
+                <div class="w-full md:w-2/5 reveal-image">
+                    <div class="aspect-[2/3] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-tint-2/20">
+                        <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
+                            class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-1000">
+                    </div>
+                </div>
+
+                <!-- Text Side (Sticky Wrapper to maintain layout) -->
+                <div class="w-full md:w-3/5">
+                    <div id="sticky-narrative" class="w-full">
+                        <span data-i18n="detail_narrative"
+                            class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The
+                            Narrative.</span>
+                        <div
+                            class="font-serif text-xl md:text-2xl leading-[1.8] font-light text-brand-deepbreath/80 split-text-synopsis max-w-3xl">
+                            @i18n($films, 'sinopsis')
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        {{-- ============================================================
+        3.5 EPISODES (EDITORIAL LIST)
+        ============================================================ --}}
+        @if(isset($films->episodes) && $films->episodes->count() > 0)
+        <section id="episodes-section" class="py-24 px-8 md:px-16 z-10 relative bg-[#F1F1F1]">
+            <div class="max-w-[1800px] mx-auto border-t border-brand-deepbreath/10 pt-16">
+                <h2 data-i18n="detail_episodes" class="font-serif text-5xl text-brand-deepbreath tracking-tight mb-16">Episodes List.</h2>
+                
+                <div class="flex flex-col gap-12">
+                    @foreach($films->episodes as $ep)
+                    @php
+                        $ep_yt_id = '';
+                        if (!empty($ep->link_trailer) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $ep->link_trailer, $ep_match)) {
+                            $ep_yt_id = $ep_match[1];
+                        }
+                    @endphp
+                    <div class="flex flex-col md:flex-row gap-8 items-start pb-12 border-b border-brand-deepbreath/10 reveal-rec group">
+                        
+                        <!-- Thumbnail -->
+                        <div class="w-full md:w-1/3 aspect-video relative overflow-hidden rounded-[1.5rem] bg-tint-2/20 shrink-0 cursor-none hover-target"
+                             @if($ep_yt_id) onclick="openHeroTrailer('{{ $ep_yt_id }}')" @endif>
+                            <img src="{{ $ep->photo ? asset('photo/' . $ep->photo) : 'https://picsum.photos/seed/ep'.$ep->id.'/800/450' }}" 
+                                 class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                 alt="{{ $ep->title }}">
+                                 
+                            @if($ep_yt_id)
+                            <div class="absolute inset-0 bg-brand-deepbreath/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="w-16 h-16 rounded-full border border-white/40 flex items-center justify-center bg-white/10 backdrop-blur-md">
+                                    <span class="iconify w-8 h-8 text-white ml-1" data-icon="lucide:play"></span>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        
+                        <!-- Details -->
+                        <div class="w-full md:w-2/3 flex flex-col justify-center py-2">
+                            <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-brand-deepbreath/40 block mb-2">
+                                <span data-i18n="label_episode">Episode</span> {{ sprintf('%02d', $ep->episode_number) }}
+                            </span>
+                            <h3 class="font-serif text-3xl md:text-4xl text-brand-deepbreath leading-tight mb-4 group-hover:text-brand-orange transition-colors">{{ $ep->title }}</h3>
+                            <p class="font-sans text-sm md:text-base font-light text-brand-deepbreath/70 leading-relaxed mb-6 max-w-2xl">
+                                {{ $ep->sinopsis }}
+                            </p>
+                            
+                            <div class="flex gap-6 items-center">
+                                @if($ep->link)
+                                <a href="{{ $ep->link }}" target="_blank" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange hover:text-brand-deepbreath transition-colors cursor-none hover-target flex items-center gap-2">
+                                    Watch Now <span class="iconify" data-icon="lucide:external-link"></span>
+                                </a>
+                                @endif
+                                @if($ep_yt_id)
+                                <button onclick="openHeroTrailer('{{ $ep_yt_id }}')" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target flex items-center gap-2">
+                                    Play Trailer <span class="iconify" data-icon="lucide:play-circle"></span>
+                                </button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
         @endif
-      </div>
-    </div>
-    @endforeach
-  @else
-    <p class="text-muted">No episodes found.</p>
-  @endif
-</section>
 
-<!-- ===== BEHIND THE SCENES GALLERY (3 COLUMNS) ===== -->
-<section class="sec-bts">
-  <div class="sec-label-wrap">
-    <span>Behind The Scenes</span>
-    <div class="line"></div>
-  </div>
-  
-  <div class="bts-grid">
-    @if($films->btsGalleries->count() > 0)
-      @foreach($films->btsGalleries as $gallery)
-      <div class="g-item {{ $loop->iteration % 3 == 2 ? 'g-item--tall' : '' }}">
-        <img src="{{ asset('photo/' . $gallery->photo) }}" alt="BTS">
-      </div>
-      @endforeach
-    @else
-      <div class="g-item">
-        <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts1/800/800" alt="BTS 1">
-      </div>
-      <div class="g-item g-item--tall">
-        <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts2/800/1200" alt="BTS 2">
-      </div>
-      <div class="g-item">
-        <img src="https://picsum.photos/seed/{{ str_slug($films->title) }}bts3/800/600" alt="BTS 3">
-      </div>
-    @endif
-  </div>
-</section>
+        {{-- ============================================================
+        4. STILL SHOTS (EDITORIAL BENTO)
+        ============================================================ --}}
+        <section class="py-32 px-8 md:px-16 z-10 relative bg-brand-deepbreath text-white rounded-t-[4rem] -mt-20">
+            <div class="max-w-[1800px] mx-auto mb-20">
+                <div class="flex justify-between items-end border-b border-white/10 pb-12">
+                    <h2 class="font-serif text-6xl md:text-8xl tracking-tighter italic"><span
+                            data-i18n="detail_still_shots">Still Shots.</span></h2>
+                    <span class="font-sans text-[10px] tracking-[0.4em] uppercase opacity-40 pb-4">Gallery 01</span>
+                </div>
+            </div>
 
-<!-- ===== RECOMMENDATIONS ===== -->
-<section class="recommendations">
-  <div class="sec-label-wrap">
-    <span>You Might Also Like</span>
-    <div class="line"></div>
-  </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 max-w-[1800px] mx-auto">
+                @php
+                    $shots = $films->stillShots;
+                    if ($shots->count() == 0) {
+                        // Fallback dummy shots if empty
+                        $shots = collect([
+                            (object) ['photo' => 'https://picsum.photos/seed/1/1200/800'],
+                            (object) ['photo' => 'https://picsum.photos/seed/2/800/1200'],
+                            (object) ['photo' => 'https://picsum.photos/seed/3/1200/800'],
+                            (object) ['photo' => 'https://picsum.photos/seed/4/1200/800'],
+                        ]);
+                    }
+                @endphp
 
-  <div class="rec-grid">
-    @foreach ($all_film->take(4) as $item)
-      <a class="rec-card" href="{{ route('detail-series', $item->slug) }}">
-        <div class="rec-img">
-          <img src="{{ asset('photo/' . $item->poster) }}" alt="{{ $item->title }}" loading="lazy">
+                @foreach($shots as $idx => $shot)
+                    @php
+                        $span = 'md:col-span-6';
+                        $aspect = 'aspect-video';
+                        if ($idx % 4 == 1) {
+                            $span = 'md:col-span-4';
+                            $aspect = 'aspect-[3/4]';
+                        } elseif ($idx % 4 == 2) {
+                            $span = 'md:col-span-8';
+                            $aspect = 'aspect-video';
+                        } elseif ($idx % 4 == 3) {
+                            $span = 'md:col-span-6';
+                            $aspect = 'aspect-[16/10]';
+                        }
+                    @endphp
+                    <div
+                        class="{{ $span }} {{ $aspect }} overflow-hidden rounded-[2rem] reveal-shot group cursor-none hover-target">
+                        <img src="{{ str_contains($shot->photo, 'http') ? $shot->photo : asset('photo/' . $shot->photo) }}"
+                            class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                            alt="Still Shot">
+                    </div>
+                @endforeach
+            </div>
+        </section>
+
+        {{-- ============================================================
+        5. RECOMMENDATIONS (SIMILAR STORIES)
+        ============================================================ --}}
+        <section class="py-32 px-8 md:px-16 z-10 relative bg-[#F1F1F1]">
+            <div class="max-w-[1800px] mx-auto mb-20 border-t border-brand-deepbreath/10 pt-16">
+                <h2 data-i18n="detail_recommendations" class="font-serif text-5xl text-brand-deepbreath tracking-tight">You
+                    might also enjoy.</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-[1800px] mx-auto">
+                @foreach ($all_film->where('id', '!=', $films->id)->take(4) as $item)
+                    <a href="{{ route('detail-series', $item->slug) }}" class="group block cursor-none hover-target reveal-rec">
+                        <div class="aspect-[4/5] w-full overflow-hidden rounded-[2rem] bg-tint-2/20 mb-6">
+                            <img src="{{ asset('photo/' . $item->photo) }}"
+                                class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                alt="@i18n($item, 'title')">
+                        </div>
+                        <h4
+                            class="font-serif text-2xl text-brand-deepbreath leading-tight group-hover:text-brand-orange transition-colors">
+                            @i18n($item, 'title')</h4>
+                        <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-brand-deepbreath/40 mt-2 block">
+                            {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • @i18n($item, 'genre')
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+
+    </div> {{-- End Editorial Wrapper --}}
+
+    {{-- ============================================================
+    TRAILER MODAL (Consistent with Film Page)
+    ============================================================ --}}
+    <div id="hero-trailer-modal"
+        class="fixed inset-0 z-[20000] bg-black opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4 md:p-16">
+        <button onclick="closeHeroTrailer()"
+            class="absolute top-8 right-8 text-white text-4xl hover:text-brand-orange transition-colors z-[20010]">&times;</button>
+        <div class="w-full max-w-6xl aspect-video bg-black relative shadow-2xl overflow-hidden">
+            <iframe id="hero-trailer-iframe" src="" class="absolute inset-0 w-full h-full border-0"
+                allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
         </div>
-        <h4 class="rec-title">{{ $item->title }}</h4>
-        <div class="rec-meta">
-          {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} • {{ $item->genre }}
-        </div>
-      </a>
-    @endforeach
-  </div>
-</section>
-
-@if($video_id)
-<div class="yt-modal" id="ytTrailerModal">
-    <button class="yt-modal-close" onclick="closeTrailerModal()">&times;</button>
-    <div class="yt-modal-content">
-        <iframe id="ytTrailerIframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     </div>
-</div>
-@endif
 
-<script>
-    function openTrailerModal(videoId) {
-        var modal = document.getElementById('ytTrailerModal');
-        var iframe = document.getElementById('ytTrailerIframe');
-        if(!modal || !iframe) return;
-        
-        // If vid is not passed, use the default from hero
-        var vid = videoId || '{{ $video_id }}';
-        
-        modal.classList.add('is-open');
-        iframe.src = "https://www.youtube.com/embed/" + vid + "?autoplay=1&rel=0&showinfo=0";
-    }
-    function closeTrailerModal() {
-        var modal = document.getElementById('ytTrailerModal');
-        var iframe = document.getElementById('ytTrailerIframe');
-        if(!modal || !iframe) return;
-        modal.classList.remove('is-open');
-        iframe.src = "";
-    }
-    
-    document.addEventListener('keydown', function(event) {
-        if (event.key === "Escape") {
-            const modal = document.getElementById('ytTrailerModal');
-            if(modal && modal.classList.contains('is-open')) closeTrailerModal();
-        }
-    });
-</script>
-
-@include('components.footer')
-
-<script>
-  var slideshows = {};
-  function initSlideshow(id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    var track = el.querySelector('.stills-track');
-    var slides = el.querySelectorAll('.slide-item');
-    var dotsWrap = document.getElementById(id + '-dots');
-    slideshows[id] = { track: track, slides: slides, dotsWrap: dotsWrap, current: 0 };
-    slides.forEach(function(_, i) {
-      var dot = document.createElement('button');
-      dot.className = 'slide-dot' + (i === 0 ? ' is-active' : '');
-      dot.addEventListener('click', function() { goTo(id, i); });
-      dotsWrap.appendChild(dot);
-    });
-  }
-  function goTo(id, index) {
-    var sw = slideshows[id];
-    sw.current = ((index % sw.slides.length) + sw.slides.length) % sw.slides.length;
-    sw.track.style.transform = 'translateX(-' + (sw.current * 100) + '%)';
-    sw.dotsWrap.querySelectorAll('.slide-dot').forEach(function(d, i) {
-      d.classList.toggle('is-active', i === sw.current);
-    });
-  }
-  function slideMove(id, dir) { var sw = slideshows[id]; goTo(id, sw.current + dir); }
-  document.addEventListener('DOMContentLoaded', function() { initSlideshow('stills-series'); });
-</script>
+    @include('components.footer')
 
 @endsection
+
+@push('head')
+    <style>
+        .text-brand-deepbreath {
+            color: #25225E;
+        }
+
+        .text-brand-orange {
+            color: #FFB150;
+        }
+
+        .bg-tint-2 {
+            background-color: #CACAEF;
+        }
+
+        .ease-expo {
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap === 'undefined') return;
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Hero Reveal Animations
+            gsap.from(".hero-reveal", {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "power4.out",
+                delay: 0.3
+            });
+
+            // 2. Hero Parallax (Delayed & Slower for depth)
+            gsap.to(".hero-parallax-img", {
+                y: "300%",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".film-hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1.5
+                }
+            });
+
+            // 3. Metadata staggered reveal
+            gsap.from(".metadata-item", {
+                scrollTrigger: {
+                    trigger: ".detail-strip",
+                    start: "top 85%",
+                },
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.1,
+                ease: "power3.out"
+            });
+
+            // 4. Reveal Images & Grid items
+            const reveals = ['.reveal-image', '.reveal-shot', '.reveal-rec'];
+            reveals.forEach(selector => {
+                gsap.from(selector, {
+                    scrollTrigger: {
+                        trigger: selector,
+                        start: "top 90%",
+                    },
+                    y: 60,
+                    opacity: 0,
+                    duration: 1.5,
+                    stagger: 0.1,
+                    ease: "expo.out"
+                });
+            });
+
+            // 5. Synopsis Reveal (Fade in words feel)
+            gsap.from(".split-text-synopsis", {
+                scrollTrigger: {
+                    trigger: ".split-text-synopsis",
+                    start: "top 85%",
+                },
+                opacity: 0,
+                y: 30,
+                duration: 1.5,
+                ease: "power3.out"
+            });
+
+            // 6. Sticky Narrative Pinning (Desktop Only)
+            ScrollTrigger.matchMedia({
+                "(min-width: 768px)": function() {
+                    ScrollTrigger.create({
+                        trigger: "#synopsis-section",
+                        start: "top 15%",
+                        end: "bottom bottom",
+                        pin: "#sticky-narrative",
+                        pinSpacing: false,
+                        invalidateOnRefresh: true
+                    });
+                }
+            });
+
+            /* ─── TRAILER MODAL LOGIC ─── */
+            window.openHeroTrailer = function (videoId) {
+                const modal = document.getElementById('hero-trailer-modal');
+                const iframe = document.getElementById('hero-trailer-iframe');
+                if (modal && iframe) {
+                    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+                    modal.classList.remove('opacity-0', 'pointer-events-none');
+                    modal.classList.add('opacity-100', 'pointer-events-auto');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            window.closeHeroTrailer = function () {
+                const modal = document.getElementById('hero-trailer-modal');
+                const iframe = document.getElementById('hero-trailer-iframe');
+                if (modal && iframe) {
+                    iframe.src = '';
+                    modal.classList.add('opacity-0', 'pointer-events-none');
+                    modal.classList.remove('opacity-100', 'pointer-events-auto');
+                    document.body.style.overflow = '';
+                }
+            };
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeHeroTrailer();
+            });
+        });
+    </script>
+@endpush

@@ -146,6 +146,70 @@
         </section>
 
         {{-- ============================================================
+        3.5 EPISODES (EDITORIAL LIST)
+        ============================================================ --}}
+        @if(isset($films->episodes) && $films->episodes->count() > 0)
+        <section id="episodes-section" class="py-24 px-8 md:px-16 z-10 relative bg-[#F1F1F1]">
+            <div class="max-w-[1800px] mx-auto border-t border-brand-deepbreath/10 pt-16">
+                <h2 data-i18n="detail_episodes" class="font-serif text-5xl text-brand-deepbreath tracking-tight mb-16">Episodes List.</h2>
+                
+                <div class="flex flex-col gap-12">
+                    @foreach($films->episodes as $ep)
+                    @php
+                        $ep_yt_id = '';
+                        if (!empty($ep->link_trailer) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $ep->link_trailer, $ep_match)) {
+                            $ep_yt_id = $ep_match[1];
+                        }
+                    @endphp
+                    <div class="flex flex-col md:flex-row gap-8 items-start pb-12 border-b border-brand-deepbreath/10 reveal-rec group">
+                        
+                        <!-- Thumbnail -->
+                        <div class="w-full md:w-1/3 aspect-video relative overflow-hidden rounded-[1.5rem] bg-tint-2/20 shrink-0 cursor-none hover-target"
+                             @if($ep_yt_id) onclick="openHeroTrailer('{{ $ep_yt_id }}')" @endif>
+                            <img src="{{ $ep->photo ? asset('photo/' . $ep->photo) : 'https://picsum.photos/seed/ep'.$ep->id.'/800/450' }}" 
+                                 class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                 alt="{{ $ep->title }}">
+                                 
+                            @if($ep_yt_id)
+                            <div class="absolute inset-0 bg-brand-deepbreath/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="w-16 h-16 rounded-full border border-white/40 flex items-center justify-center bg-white/10 backdrop-blur-md">
+                                    <span class="iconify w-8 h-8 text-white ml-1" data-icon="lucide:play"></span>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        
+                        <!-- Details -->
+                        <div class="w-full md:w-2/3 flex flex-col justify-center py-2">
+                            <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-brand-deepbreath/40 block mb-2">
+                                <span data-i18n="label_episode">Episode</span> {{ sprintf('%02d', $ep->episode_number) }}
+                            </span>
+                            <h3 class="font-serif text-3xl md:text-4xl text-brand-deepbreath leading-tight mb-4 group-hover:text-brand-orange transition-colors">{{ $ep->title }}</h3>
+                            <p class="font-sans text-sm md:text-base font-light text-brand-deepbreath/70 leading-relaxed mb-6 max-w-2xl">
+                                {{ $ep->sinopsis }}
+                            </p>
+                            
+                            <div class="flex gap-6 items-center">
+                                @if($ep->link)
+                                <a href="{{ $ep->link }}" target="_blank" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange hover:text-brand-deepbreath transition-colors cursor-none hover-target flex items-center gap-2">
+                                    Watch Now <span class="iconify" data-icon="lucide:external-link"></span>
+                                </a>
+                                @endif
+                                @if($ep_yt_id)
+                                <button onclick="openHeroTrailer('{{ $ep_yt_id }}')" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target flex items-center gap-2">
+                                    Play Trailer <span class="iconify" data-icon="lucide:play-circle"></span>
+                                </button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        @endif
+
+        {{-- ============================================================
         4. STILL SHOTS (EDITORIAL BENTO)
         ============================================================ --}}
         <section class="py-32 px-8 md:px-16 z-10 relative bg-brand-deepbreath text-white rounded-t-[4rem] -mt-20">
