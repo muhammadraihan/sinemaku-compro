@@ -170,14 +170,23 @@ class FrontEndController extends Controller
                   ->where('uuid', '!=', $films->uuid)
                   ->take(4)
                   ->get()
-                  ->map(fn($f) => [
-                      'slug'         => $f->slug,
-                      'photo'        => asset('photo/' . $f->photo),
-                      'title'        => $f->title,
-                      'title_en'     => $f->title_en ?? $f->title,
-                      'genre'        => $f->genre,
-                      'release_date' => $f->release_date,
-                  ])->values();
+                  ->map(function($f) {
+                      $catName = strtolower($f->Categories->name ?? 'film');
+                      $route = 'detail-film';
+                      if (str_contains($catName, 'series')) $route = 'detail-series';
+                      if (str_contains($catName, 'documentary')) $route = 'detail-documentary';
+                      if (str_contains($catName, 'television')) $route = 'detail-television';
+                      
+                      return [
+                          'slug'         => $f->slug,
+                          'url'          => route($route, $f->slug),
+                          'photo'        => asset('photo/' . $f->photo),
+                          'title'        => $f->title,
+                          'title_en'     => $f->title_en ?? $f->title,
+                          'genre'        => $f->genre,
+                          'release_date' => $f->release_date,
+                      ];
+                  })->values();
 
         // Cast list (max 3 + "and more")
         $cast_list = collect(explode(',', $films->cast))->map(fn($c) => trim($c))->filter()->values();

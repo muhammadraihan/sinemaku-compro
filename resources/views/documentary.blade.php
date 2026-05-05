@@ -173,7 +173,7 @@
 
                                 {{-- Title Overlay --}}
                                 @if(!$isHalf)
-                                <div class="absolute bottom-6 left-8 z-20 pointer-events-none mix-blend-difference text-[#f6f6ed] group-hover:opacity-0 transition-opacity duration-300">
+                                <div class="absolute bottom-6 left-8 z-20 pointer-events-none text-brand-orange group-hover:opacity-0 transition-opacity duration-300">
                                     <h4 class="font-serif text-3xl md:text-5xl leading-none drop-shadow-md">@i18n($item, 'title')</h4>
                                 </div>
                                 @endif

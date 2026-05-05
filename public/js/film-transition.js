@@ -420,12 +420,9 @@
             const title = (lang === 'id' && item.title) ? item.title : (item.title_en || item.title);
             const year = item.release_date ? item.release_date.substring(0, 4) : '';
             return `
-            <a href="/detail-films/${item.slug}"
-               class="film-card-trigger group block cursor-none hover-target"
-               data-slug="${item.slug}"
-               data-photo="${item.photo}"
-               data-title="${item.title}"
-               data-url="/detail-films/${item.slug}">
+            <a href="${item.url}"
+               class="group block cursor-none hover-target"
+               data-slug="${item.slug}">
                 <div class="aspect-[4/5] w-full overflow-hidden rounded-xl bg-tint-2/20 mb-6">
                     <img src="${item.photo}" class="film-card-img w-full h-full object-cover group-hover:scale-105 transition-all duration-700" alt="${title}">
                 </div>
@@ -442,22 +439,7 @@
 
         revealElement(el);
 
-        /* Re-bind triggers for recommendation cards (SPA within SPA) */
-        el.querySelectorAll('.film-card-trigger').forEach(card => {
-            card.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (isTransitioning) return;
-                const slug = this.dataset.slug;
-                const url = this.dataset.url;
-                const photo = this.dataset.photo;
-                const img = this.querySelector('.film-card-img');
-                if (!slug || !img) return;
-                /* Close current panel first, then open new */
-                closeDetailPanel(() => {
-                    openFilmDetail(slug, url, photo, img, this);
-                });
-            });
-        });
+
 
         if (window.bindCursorHoverEffects) window.bindCursorHoverEffects();
     }
