@@ -57,61 +57,53 @@
 
         const rect = savedCardRect;
 
-        /* 1. Create fixed clone of the card image */
-        const clone = document.createElement('div');
-        clone.id = 'zoom-clone';
-        clone.style.cssText = `
-            position: absolute;
-            left: ${rect.left}px;
-            top: ${rect.top}px;
-            width: ${rect.width}px;
-            height: ${rect.height}px;
-            overflow: hidden;
-            border-radius: 12px;
-            z-index: 1;
-        `;
-        const cloneImg = document.createElement('img');
-        cloneImg.src = photo;
-        cloneImg.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-        clone.appendChild(cloneImg);
-        overlay.style.pointerEvents = 'auto';
-        overlay.appendChild(clone);
-
-        /* 2. Slide all other cards out — snappy but smooth */
-        const allCards = document.querySelectorAll('.film-card-trigger');
-        gsap.to(allCards, {
-            opacity: 0,
-            scale: 0.96,
-            duration: ZOOM_DURATION * 0.7,
-            ease: 'expo.inOut',
-            stagger: 0.02,
+        /* 1. Lock scroll & kill any competing CSS transitions */
+        document.body.style.overflow = 'hidden';
+        document.querySelectorAll('.film-card-img, .film-card-trigger').forEach(el => {
+            el.style.transition = 'none';
         });
+        if (window.ScrollTrigger) {
+            window.ScrollTrigger.getAll().forEach(t => t.disable());
+        }
 
-        /* 3. Zoom clone to full viewport */
-        gsap.to(clone, {
-            left: 0,
-            top: 0,
-            width: '100vw',
-            height: '100vh',
-            borderRadius: 0,
-            duration: ZOOM_DURATION,
-            ease: EASE_ZOOM,
-            onComplete: () => {
-                /* 4. Show detail panel, fade overlay */
-                panel.style.pointerEvents = 'auto';
-                gsap.to(panel, { opacity: 1, duration: 0.45, ease: 'power3.out' });
-                gsap.to(overlay, {
-                    opacity: 0,
-                    duration: 0.45,
-                    delay: 0.2,
-                    onComplete: () => {
-                        overlay.innerHTML = '';
-                        overlay.style.pointerEvents = 'none';
-                        overlay.style.opacity = 1;
-                        isTransitioning = false;
-                    }
-                });
-            }
+        /* 2. Build the detail panel immediately (hidden under the grid) */
+        buildPanelShell(photo);
+        panel.style.opacity = '0';
+        panel.style.pointerEvents = 'none';
+
+        /* 3. Zoom the entire grid as one unit from the clicked card's center */
+        const gridSection = document.querySelector('.film-catalog-section') ||
+                            document.querySelector('.film-row-container')?.parentElement ||
+                            document.querySelector('.film-row-container');
+        const gridRows   = document.querySelector('.film-row-container');
+
+        if (gridRows) {
+            const containerRect = gridRows.getBoundingClientRect();
+            const originX = (rect.left + rect.width / 2) - containerRect.left;
+            const originY = (rect.top + rect.height / 2) - containerRect.top;
+
+            gsap.set(gridRows, { transformOrigin: `${originX}px ${originY}px`, willChange: 'transform, opacity' });
+
+            gsap.to(gridRows, {
+                scale: 3.5,
+                opacity: 0,
+                duration: ZOOM_DURATION,
+                ease: EASE_ZOOM,
+                onComplete: () => {
+                    /* Grid is gone — reset it silently for later restore */
+                    gsap.set(gridRows, { scale: 1, opacity: 1, transformOrigin: 'center center', clearProps: 'willChange' });
+                }
+            });
+        }
+
+        /* 4. Panel fades in at the midpoint of the grid zoom */
+        gsap.to(panel, {
+            opacity: 1,
+            duration: ZOOM_DURATION * 0.6,
+            ease: 'power3.out',
+            delay: ZOOM_DURATION * 0.4,
+            onStart: () => { panel.style.pointerEvents = 'auto'; },
+            onComplete: () => { isTransitioning = false; }
         });
 
         /* 5. Update URL */
@@ -121,8 +113,7 @@
             url
         );
 
-        /* 6. Build panel + fetch data (parallel with animation) */
-        buildPanelShell(photo);
+        /* 6. Fetch and populate data (parallel) */
         fetchAndPopulate(slug);
     }
 
@@ -444,71 +435,61 @@
         if (isTransitioning) return;
         isTransitioning = true;
 
-        /* 1. Fade out detail panel — gentle */
+        /* 1. Fade out detail panel */
         gsap.to(panel, {
             opacity: 0,
-            duration: 0.55,
-            ease: 'power2.inOut',
+            duration: ZOOM_DURATION * 0.5,
+            ease: 'power3.out',
             onComplete: () => {
                 panel.innerHTML = '';
                 panel.style.pointerEvents = 'none';
             }
         });
 
-        /* 2. Re-show zoom clone at its current rect, then shrink back to card */
-        const cards = document.querySelectorAll('.film-card-trigger');
-        const targetCard = currentSlug
-            ? Array.from(cards).find(c => c.dataset.slug === currentSlug)
-            : null;
+        /* 2. Grid zooms back in from the enlarged state (mirroring forward) */
+        const gridRows = document.querySelector('.film-row-container');
+        if (gridRows && savedCardRect) {
+            const containerRect = gridRows.getBoundingClientRect();
+            const originX = (savedCardRect.left + savedCardRect.width / 2) - containerRect.left;
+            const originY = (savedCardRect.top + savedCardRect.height / 2) - containerRect.top;
 
-        if (targetCard && savedCardRect) {
-            const photo = targetCard.dataset.photo;
-            const clone = document.createElement('div');
-            clone.style.cssText = `
-                position:absolute;left:0;top:0;
-                width:100vw;height:100vh;
-                overflow:hidden;border-radius:0;z-index:1;`;
-            const cloneImg = document.createElement('img');
-            cloneImg.src = photo;
-            cloneImg.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-            clone.appendChild(cloneImg);
-            overlay.style.pointerEvents = 'auto';
-            overlay.style.opacity = '1';
-            overlay.appendChild(clone);
+            /* Start from the state where forward animation ended: scale 3.5, opacity 0 */
+            gsap.set(gridRows, { 
+                scale: 3.5, 
+                opacity: 0, 
+                transformOrigin: `${originX}px ${originY}px`,
+                willChange: 'transform, opacity' 
+            });
 
-            const r = savedCardRect;
-            gsap.to(clone, {
-                left: r.left, top: r.top,
-                width: r.width, height: r.height,
-                borderRadius: '12px',
+            gsap.to(gridRows, {
+                scale: 1,
+                opacity: 1,
                 duration: ZOOM_DURATION,
                 ease: EASE_ZOOM,
                 onComplete: () => {
-                    overlay.innerHTML = '';
-                    overlay.style.pointerEvents = 'none';
+                    /* Restore only the props GSAP modified, preserving inline gap/etc */
+                    gsap.set(gridRows, { clearProps: 'transform, opacity, transformOrigin, willChange' });
+                    document.querySelectorAll('.film-card-img, .film-card-trigger').forEach(el => {
+                        el.style.transition = '';
+                    });
+                    if (window.ScrollTrigger) {
+                        window.ScrollTrigger.getAll().forEach(t => t.enable());
+                    }
                     isTransitioning = false;
                     currentSlug = null;
                 }
             });
         } else {
+            if (gridRows) gsap.set(gridRows, { opacity: 1, scale: 1 });
             isTransitioning = false;
             currentSlug = null;
         }
 
-        /* 3. Restore grid cards — smooth reveal */
-        gsap.to(cards, {
-            opacity: 1,
-            scale: 1,
-            duration: ZOOM_DURATION * 0.8,
-            ease: 'power3.out',
-            stagger: 0.03,
-            delay: 0.1
-        });
-
-        /* 4. Restore scroll */
+        /* 3. Restore scroll & unlock body */
         setTimeout(() => {
             window.scrollTo({ top: savedScrollY, behavior: 'instant' });
-        }, ZOOM_DURATION * 1000 * 0.5);
+            document.body.style.overflow = '';
+        }, 60);
     }
 
     /* ─── Close panel (for rec-card navigation) ───────────────── */
