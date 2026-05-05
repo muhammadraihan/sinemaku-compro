@@ -122,32 +122,39 @@
     ══════════════════════════════════════════════════════════════ */
     function buildPanelShell(photo) {
         panel.innerHTML = `
-        <div id="film-detail-content" style="min-height:100vh;background:#f6f6ed;">
+        <div id="film-detail-content" style="min-height:100vh;background:#f6f6ed;" class="text-brand-deepbreath font-sans">
 
-            <!-- HERO: shows immediately from the zoom image -->
-            <section data-section="hero" class="detail-section relative w-full flex flex-col justify-end overflow-hidden" style="height:100vh;">
+            <!-- HERO -->
+            <section data-section="hero" class="detail-section relative w-full h-[90vh] md:h-[100vh] flex flex-col justify-end overflow-hidden z-10">
                 <div class="absolute inset-0 z-0">
-                    <img src="${photo}" class="w-full h-full object-cover" id="detail-hero-img" style="opacity:0;transition:opacity 0.5s;">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#f6f6ed] via-transparent to-transparent opacity-80 z-10"></div>
+                    <img src="${photo}" class="w-full h-[120%] object-cover" id="detail-hero-img"
+                         style="opacity:0;transition:opacity 0.8s;transform:translateY(-10%);filter:sepia(0.2) saturate(1.1);">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#F1F1F1] via-transparent to-transparent opacity-80 z-20"></div>
+                    <div class="absolute inset-0 bg-brand-deepbreath/5 mix-blend-multiply z-20"></div>
                 </div>
-                <div class="relative z-10 px-8 md:px-16 pb-20 max-w-[1800px] mx-auto w-full">
-                    <div id="detail-hero-text" style="opacity:0;transform:translateY(30px);transition:opacity 0.6s,transform 0.6s;">
-                        <span id="detail-eyebrow" class="block font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange mb-6">— —</span>
-                        <h1 id="detail-title" class="font-serif text-[12vw] md:text-[8vw] leading-[0.85] text-brand-deepbreath tracking-tighter">
-                            <span class="block">...</span>
-                        </h1>
+
+                <div class="relative z-30 px-8 md:px-16 pb-20 max-w-[1800px] mx-auto w-full">
+                    <div class="flex flex-col md:flex-row items-end justify-between gap-8">
+                        <div id="detail-hero-text" class="w-full md:w-2/3"
+                             style="opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;">
+                            <span id="detail-eyebrow" class="block font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange mb-6">— —</span>
+                            <h1 id="detail-title" class="font-serif text-[12vw] md:text-[8vw] leading-[0.85] text-brand-deepbreath tracking-tighter">
+                                <span class="block">...</span>
+                            </h1>
+                        </div>
+                        <div id="detail-hero-cta" class="w-full md:w-auto" style="opacity:0;transition:opacity 0.8s 0.4s;"></div>
                     </div>
                 </div>
-                <!-- Back button -->
+
                 <button id="detail-back-btn" onclick="window.__filmTransitionBack()"
-                    class="absolute top-8 left-8 md:left-16 z-20 flex items-center gap-3 font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target"
+                    class="absolute top-8 left-8 md:left-16 z-40 flex items-center gap-3 font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target"
                     style="opacity:0;transition:opacity 0.4s;">
                     <span class="iconify" data-icon="lucide:arrow-left"></span> Back to Films
                 </button>
             </section>
 
             <!-- META SECTION -->
-            <section data-section="meta" class="detail-section py-24 px-8 md:px-16 z-10 relative bg-[#F1F1F1]/80">
+            <section data-section="meta" class="detail-section py-24 px-8 md:px-16 z-10 relative bg-[#F1F1F1]/80 backdrop-blur-md">
                 <div id="detail-meta-inner" class="max-w-[1800px] mx-auto border-t border-b border-brand-deepbreath/10 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
                     ${sectionLoader()}
                 </div>
@@ -158,6 +165,11 @@
                 <div id="detail-synopsis-inner" class="max-w-[1800px] mx-auto flex flex-col md:flex-row gap-20 md:gap-32 items-start">
                     ${sectionLoader()}
                 </div>
+            </section>
+
+            <!-- EPISODES SECTION (hidden until populated) -->
+            <section id="episodes-section" class="detail-section py-24 px-8 md:px-16 z-10 relative bg-[#F1F1F1] hidden">
+                <div id="detail-episodes-inner" class="max-w-[1800px] mx-auto border-t border-brand-deepbreath/10 pt-16"></div>
             </section>
 
             <!-- STILL SHOTS SECTION -->
@@ -174,11 +186,9 @@
                 </div>
             </section>
 
-            <!-- FOOTER placeholder -->
-            <div style="height:120px;"></div>
+            <div style="height:120px;background:#F1F1F1;"></div>
         </div>`;
 
-        /* Fade in hero image so it blends with zoom clone */
         setTimeout(() => {
             const heroImg = document.getElementById('detail-hero-img');
             if (heroImg) heroImg.style.opacity = '1';
@@ -207,8 +217,9 @@
             populateHero(data);
             setTimeout(() => populateMeta(data), 300);
             setTimeout(() => populateSynopsis(data), 600);
-            setTimeout(() => populateStillShots(data), 900);
-            setTimeout(() => populateRecs(data), 1200);
+            setTimeout(() => populateEpisodes(data), 800);
+            setTimeout(() => populateStillShots(data), 1000);
+            setTimeout(() => populateRecs(data), 1300);
 
         } catch (err) {
             console.error('[FilmTransition] Fetch error:', err);
@@ -223,20 +234,30 @@
 
         const eyebrow = document.getElementById('detail-eyebrow');
         const titleEl = document.getElementById('detail-title');
-        const text = document.getElementById('detail-hero-text');
+        const text    = document.getElementById('detail-hero-text');
+        const ctaEl   = document.getElementById('detail-hero-cta');
         const backBtn = document.getElementById('detail-back-btn');
 
         if (eyebrow) eyebrow.textContent = `${year} • ${d.genre}`;
         if (titleEl) titleEl.innerHTML = `<span class="block">${title}</span>`;
 
-        /* Reveal hero text */
-        if (text) {
-            text.style.opacity = '1';
-            text.style.transform = 'translateY(0)';
+        /* Inject Watch Trailer button if video available */
+        if (ctaEl && d.youtube_id) {
+            ctaEl.innerHTML = `
+                <button onclick="window.__openTrailer('${d.youtube_id}')"
+                    class="group flex items-center gap-6 hover-target cursor-none">
+                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-brand-deepbreath/20 flex items-center justify-center group-hover:bg-brand-deepbreath group-hover:text-white transition-all duration-500">
+                        <span class="iconify w-8 h-8" data-icon="lucide:play"></span>
+                    </div>
+                    <span class="font-sans text-[10px] tracking-[0.3em] uppercase font-bold text-brand-deepbreath">Watch Trailer</span>
+                </button>`;
         }
+
+        /* Reveal */
+        if (text) { text.style.opacity = '1'; text.style.transform = 'translateY(0)'; }
+        if (ctaEl) ctaEl.style.opacity = '1';
         if (backBtn) backBtn.style.opacity = '1';
 
-        /* Re-bind cursor effects for new elements */
         if (window.bindCursorHoverEffects) window.bindCursorHoverEffects();
     }
 
@@ -267,7 +288,7 @@
             </div>
             <div class="metadata-item">
                 <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Language</span>
-                <h3 class="font-sans text-2xl font-light text-brand-deepbreath">Indonesian</h3>
+                <h3 class="font-sans text-2xl font-light text-brand-deepbreath">Bahasa Indonesia</h3>
             </div>`;
 
         revealElement(el);
@@ -300,6 +321,40 @@
                 </button>` : ''}
             </div>`;
 
+        revealElement(el);
+        if (window.bindCursorHoverEffects) window.bindCursorHoverEffects();
+    }
+
+    /* ─── Episodes ────────────────────────────────────────────── */
+    function populateEpisodes(d) {
+        const sec = document.getElementById('episodes-section');
+        const el  = document.getElementById('detail-episodes-inner');
+        if (!sec || !el || !d.episodes || d.episodes.length === 0) return;
+
+        sec.classList.remove('hidden');
+
+        const epsHTML = d.episodes.map(ep => {
+            const num = String(ep.episode_number).padStart(2, '0');
+            const playAttr = ep.youtube_id ? `onclick="window.__openTrailer('${ep.youtube_id}')"` : '';
+            return `
+            <div class="flex flex-col md:flex-row gap-8 items-start pb-12 border-b border-brand-deepbreath/10 group">
+                <div class="w-full md:w-1/3 aspect-video relative overflow-hidden rounded-xl bg-tint-2/20 shrink-0 ${ep.youtube_id ? 'cursor-none hover-target' : ''}" ${playAttr}>
+                    <img src="${ep.photo || 'https://picsum.photos/800/450'}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" alt="${ep.title}">
+                    ${ep.youtube_id ? `<div class="absolute inset-0 bg-brand-deepbreath/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"><div class="w-16 h-16 rounded-full border border-white/40 flex items-center justify-center bg-white/10 backdrop-blur-md"><span class="iconify w-8 h-8 text-white ml-1" data-icon="lucide:play"></span></div></div>` : ''}
+                </div>
+                <div class="w-full md:w-2/3 flex flex-col justify-center py-2">
+                    <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-brand-deepbreath/40 block mb-2">Episode ${num}</span>
+                    <h3 class="font-serif text-3xl md:text-4xl text-brand-deepbreath leading-tight mb-4 group-hover:text-brand-orange transition-colors">${ep.title}</h3>
+                    <p class="font-sans text-sm font-light text-brand-deepbreath/70 leading-relaxed mb-6 max-w-2xl">${ep.sinopsis || ''}</p>
+                    <div class="flex gap-6 items-center">
+                        ${ep.link ? `<a href="${ep.link}" target="_blank" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange hover:text-brand-deepbreath transition-colors cursor-none hover-target flex items-center gap-2">Watch Now <span class="iconify" data-icon="lucide:external-link"></span></a>` : ''}
+                        ${ep.youtube_id ? `<button onclick="window.__openTrailer('${ep.youtube_id}')" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath hover:text-brand-orange transition-colors cursor-none hover-target flex items-center gap-2">Play Trailer <span class="iconify" data-icon="lucide:play-circle"></span></button>` : ''}
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+
+        el.innerHTML = `<h2 class="font-serif text-5xl text-brand-deepbreath tracking-tight mb-16">Episodes List.</h2><div class="flex flex-col gap-12">${epsHTML}</div>`;
         revealElement(el);
         if (window.bindCursorHoverEffects) window.bindCursorHoverEffects();
     }
