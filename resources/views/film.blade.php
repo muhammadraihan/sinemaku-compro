@@ -157,7 +157,7 @@
 
             <div class="w-full overflow-hidden flex flex-col film-row-container" style="gap: var(--cg);">
                 @foreach($rows as $row)
-                    <div class="flex w-full justify-center" style="height: clamp(250px, 35vw, 600px); gap: var(--cg);">
+                    <div class="flex w-full justify-center" style="height: clamp(180px, 22vw, 450px); gap: var(--cg);">
                         @foreach($row['items'] as $i => $item)
                             @php
                                 $isMiddle = ($row['type'] === 1 && $i === 1);

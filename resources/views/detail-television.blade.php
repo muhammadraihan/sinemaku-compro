@@ -220,40 +220,58 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 max-w-[1800px] mx-auto">
-                @php
-                    $shots = $films->stillShots;
-                    if ($shots->count() == 0) {
-                        // Fallback dummy shots if empty
-                        $shots = collect([
-                            (object) ['photo' => 'https://picsum.photos/seed/1/1200/800'],
-                            (object) ['photo' => 'https://picsum.photos/seed/2/800/1200'],
-                            (object) ['photo' => 'https://picsum.photos/seed/3/1200/800'],
-                            (object) ['photo' => 'https://picsum.photos/seed/4/1200/800'],
-                        ]);
-                    }
-                @endphp
+            <style>
+                :root { --cg: 16px; }
+                .film-row-container {
+                    --fw: calc((100vw - (4 * var(--cg))) / 2);
+                    --hw: calc(var(--fw) / 2);
+                }
+                .film-img-full { width: var(--fw); flex-shrink: 0; }
+                .film-img-half { width: var(--hw); flex-shrink: 0; }
+                @media (max-width: 768px) { :root { --cg: 8px; } }
+            </style>
 
-                @foreach($shots as $idx => $shot)
-                    @php
-                        $span = 'md:col-span-6';
-                        $aspect = 'aspect-video';
-                        if ($idx % 4 == 1) {
-                            $span = 'md:col-span-4';
-                            $aspect = 'aspect-[3/4]';
-                        } elseif ($idx % 4 == 2) {
-                            $span = 'md:col-span-8';
-                            $aspect = 'aspect-video';
-                        } elseif ($idx % 4 == 3) {
-                            $span = 'md:col-span-6';
-                            $aspect = 'aspect-[16/10]';
-                        }
-                    @endphp
-                    <div
-                        class="{{ $span }} {{ $aspect }} overflow-hidden rounded-[2rem] reveal-shot group cursor-none hover-target">
-                        <img src="{{ str_contains($shot->photo, 'http') ? $shot->photo : asset('photo/' . $shot->photo) }}"
-                            class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                            alt="Still Shot">
+            @php
+                $shots = $films->stillShots;
+                if ($shots->count() == 0) {
+                    // Fallback dummy shots if empty
+                    $shots = collect([
+                        (object) ['photo' => 'https://picsum.photos/seed/t1/1200/800'],
+                        (object) ['photo' => 'https://picsum.photos/seed/t2/1200/800'],
+                        (object) ['photo' => 'https://picsum.photos/seed/t3/1200/800'],
+                        (object) ['photo' => 'https://picsum.photos/seed/t4/1200/800'],
+                        (object) ['photo' => 'https://picsum.photos/seed/t5/1200/800'],
+                        (object) ['photo' => 'https://picsum.photos/seed/t6/1200/800'],
+                    ]);
+                }
+                
+                $rows = [];
+                $offset = 0;
+                $rowNum = 0;
+                $items = $shots->all();
+                while ($offset < count($items)) {
+                    $take = ($rowNum % 2 === 0) ? 2 : 3;
+                    $chunk = array_slice($items, $offset, $take);
+                    if (!empty($chunk)) $rows[] = ['type' => $rowNum % 2, 'items' => $chunk];
+                    $offset += $take;
+                    $rowNum++;
+                }
+            @endphp
+
+            <div class="w-full overflow-hidden flex flex-col film-row-container" style="gap: var(--cg);">
+                @foreach($rows as $row)
+                    <div class="flex w-full justify-center" style="height: clamp(180px, 22vw, 450px); gap: var(--cg);">
+                        @foreach($row['items'] as $i => $item)
+                            @php
+                                $isHalf = ($row['type'] === 1 && ($i === 0 || $i === 2));
+                                $widthClass = $isHalf ? 'film-img-half' : 'film-img-full';
+                            @endphp
+                            <div class="relative group cursor-none hover-target overflow-hidden rounded-xl {{ $widthClass }} reveal-shot">
+                                <img src="{{ str_contains($item->photo, 'http') ? $item->photo : asset('photo/' . $item->photo) }}"
+                                     class="w-full h-full object-cover transition-all duration-1000 ease-expo group-hover:scale-110"
+                                     alt="Still Shot">
+                            </div>
+                        @endforeach
                     </div>
                 @endforeach
             </div>
