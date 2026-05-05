@@ -98,14 +98,18 @@
             z-index: 0;
             background:
                 radial-gradient(
-                    ellipse 80vw 80vh at var(--mx, 25%) var(--my, 55%),
-                    rgba(244, 106, 33, 0.45) 0%,
-                    transparent 70%
+                    ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
+                    rgba(244, 106, 33, 0.8) 0%,
+                    rgba(244, 106, 33, 0.8) 25%,
+                    rgba(244, 106, 33, 0.4) 40%,
+                    transparent 60%
                 ),
                 radial-gradient(
-                    ellipse 65vw 65vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
-                    rgba(15, 106, 176, 0.45) 0%,
-                    transparent 70%
+                    ellipse 50vw 50vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
+                    rgba(15, 106, 176, 0.8) 0%,
+                    rgba(15, 106, 176, 0.8) 25%,
+                    rgba(15, 106, 176, 0.4) 40%,
+                    transparent 60%
                 );
             filter: blur(50px);
         }
