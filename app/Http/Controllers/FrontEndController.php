@@ -141,6 +141,68 @@ class FrontEndController extends Controller
         // return view('detail-film', compact('films', 'all_film', 'kategorishop', 'bts', 'judul', 'film'));
     }
 
+    /**
+     * API endpoint for SPA cinematic transition — returns JSON only.
+     * Called by film-transition.js when a grid card is clicked.
+     */
+    public function detailfilmPartial($slug)
+    {
+        $kategori = Kategori::where('name', 'like', '%film%')->first();
+        $films = Film::where('slug', $slug)->first();
+
+        if (!$films) {
+            return response()->json(['error' => 'Film not found'], 404);
+        }
+
+        // Extract YouTube ID
+        $youtube_id = '';
+        if (!empty($films->link) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $films->link, $match)) {
+            $youtube_id = $match[1];
+        }
+
+        // Still shots
+        $still_shots = $films->stillShots->map(fn($s) => [
+            'photo' => str_contains($s->photo, 'http') ? $s->photo : asset('photo/' . $s->photo),
+        ])->values();
+
+        // Recommendations (other films in same category)
+        $all_film = $kategori
+            ? Film::where('kategori', $kategori->uuid)
+                  ->where('uuid', '!=', $films->uuid)
+                  ->take(4)
+                  ->get()
+                  ->map(fn($f) => [
+                      'slug'         => $f->slug,
+                      'photo'        => asset('photo/' . $f->photo),
+                      'title'        => $f->title,
+                      'title_en'     => $f->title_en ?? $f->title,
+                      'genre'        => $f->genre,
+                      'release_date' => $f->release_date,
+                  ])->values()
+            : collect();
+
+        // Cast list (max 3 + "and more")
+        $cast_list = collect(explode(',', $films->cast))->map(fn($c) => trim($c))->filter()->values();
+
+        return response()->json([
+            'slug'         => $films->slug,
+            'photo'        => asset('photo/' . $films->photo),
+            'poster'       => asset('photo/' . $films->poster),
+            'title'        => $films->title,
+            'title_en'     => $films->title_en ?? $films->title,
+            'genre'        => $films->genre,
+            'release_date' => $films->release_date,
+            'director'     => $films->director,
+            'cast'         => $cast_list,
+            'duration'     => $films->duration,
+            'sinopsis'     => $films->sinopsis,
+            'sinopsis_en'  => $films->sinopsis_en ?? $films->sinopsis,
+            'youtube_id'   => $youtube_id,
+            'still_shots'  => $still_shots,
+            'recommendations' => $all_film,
+        ]);
+    }
+
     public function series()
     {
         $kategori = Kategori::where('name', 'like', '%series%')->first();

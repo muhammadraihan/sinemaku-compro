@@ -54,6 +54,9 @@ Route::get('/documentary', [FrontEndController::class, 'documentary'])->name('do
 Route::get('/detail-documentary/{slug}', [FrontEndController::class, 'detaildocumentary'])->name('detail-documentary');
 Route::get('/search', [FrontEndController::class, 'index'])->name('search.index');
 
+// ===== SPA partial endpoints (JSON) =====
+Route::get('/api/films/{slug}/partial', [FrontEndController::class, 'detailfilmPartial'])->name('api.film.partial');
+
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {

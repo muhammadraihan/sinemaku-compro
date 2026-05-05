@@ -313,6 +313,16 @@
   <div id="cursor-ring"></div>
   <div id="cursor-dot"></div>
 
+  <!-- ═══ CINEMATIC TRANSITION OVERLAYS (SPA) ═══ -->
+  <!-- Zoom image clone lives here during transition -->
+  <div id="film-zoom-overlay"
+       style="position:fixed;inset:0;z-index:5000;pointer-events:none;overflow:hidden;">
+  </div>
+  <!-- Detail panel (injected by film-transition.js) -->
+  <div id="film-detail-panel-container"
+       style="position:fixed;inset:0;z-index:4999;overflow-y:auto;pointer-events:none;opacity:0;background:#f6f6ed;">
+  </div>
+
   {{-- KONTEN UTAMA DARI HALAMAN LAIN AKAN MASUK KE SINI --}}
   @yield('content')
 
