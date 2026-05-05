@@ -205,7 +205,7 @@
 
     /* ── UTILITAS EDITORIAL GLOBAL ── */
     .hairline-border {
-      border-color: rgba(37, 34, 94, 0.15);
+      border-color: rgba(15, 106, 176, 0.15);
     }
 
     .vertical-text {
@@ -290,11 +290,11 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: rgba(37, 34, 94, 0.2);
+      background: rgba(15, 106, 176, 0.2);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(37, 34, 94, 0.5);
+      background: rgba(15, 106, 176, 0.5);
     }
   </style>
 </head>

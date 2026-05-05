@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Membership | Sinemaku Pictures')
 
@@ -20,11 +20,11 @@
         padding: 12px 0 !important;
         font-family: inherit;
         font-size: 1.1rem;
-        color: #25225E !important;
+        color: #0f6ab0 !important;
         transition: border-color 0.4s ease;
     }
     .editorial-input:focus {
-        border-bottom-color: #FFB150 !important;
+        border-bottom-color: #f46a21 !important;
         outline: none !important;
     }
     .editorial-input::placeholder {

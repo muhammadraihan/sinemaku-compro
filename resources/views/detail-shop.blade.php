@@ -24,7 +24,7 @@
         font-size: 2.5rem;
         margin-top: 3rem;
         margin-bottom: 1.5rem;
-        color: #25225E;
+        color: #0f6ab0;
         font-style: italic;
     }
 </style>

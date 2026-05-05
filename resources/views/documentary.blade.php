@@ -234,11 +234,11 @@ STYLES & SCRIPTS
         }
 
         .text-brand-deepbreath {
-            color: #25225E;
+            color: #0f6ab0;
         }
 
         .text-brand-orange {
-            color: #FFB150;
+            color: #f46a21;
         }
 
         .bg-tint-2 {
@@ -297,7 +297,7 @@ STYLES & SCRIPTS
         .play-btn-hero:hover .play-btn-circle {
             transform: scale(1.1);
             background-color: rgba(255, 255, 255, 0.9);
-            color: #25225E;
+            color: #0f6ab0;
         }
 
         /* Text: transitions for cinematic state */

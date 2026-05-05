@@ -123,7 +123,7 @@
 
                 <!-- Poster Side (Editorial Frame) -->
                 <div class="w-full md:w-2/5 reveal-image">
-                    <div class="aspect-[2/3] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-tint-2/20">
+                    <div class="aspect-[2/3] w-full rounded-xl overflow-hidden shadow-2xl bg-tint-2/20">
                         <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
                             class="w-full h-full object-cover transition-all duration-1000">
                     </div>
@@ -164,10 +164,11 @@
                     <div class="flex flex-col md:flex-row gap-8 items-start pb-12 border-b border-brand-deepbreath/10 reveal-rec group">
                         
                         <!-- Thumbnail -->
-                        <div class="w-full md:w-1/3 aspect-video relative overflow-hidden rounded-[1.5rem] bg-tint-2/20 shrink-0 cursor-none hover-target"
+                        <div class="w-full md:w-1/3 aspect-video relative overflow-hidden rounded-xl bg-tint-2/20 shrink-0 cursor-none hover-target"
                              @if($ep_yt_id) onclick="openHeroTrailer('{{ $ep_yt_id }}')" @endif>
                             <img src="{{ $ep->photo ? asset('photo/' . $ep->photo) : 'https://picsum.photos/seed/ep'.$ep->id.'/800/450' }}" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"                                 alt="{{ $ep->title }}">
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" 
+                                 alt="{{ $ep->title }}">
                                  
                             @if($ep_yt_id)
                             <div class="absolute inset-0 bg-brand-deepbreath/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -211,7 +212,7 @@
         {{-- ============================================================
         4. STILL SHOTS (EDITORIAL BENTO)
         ============================================================ --}}
-        <section class="py-32 px-8 md:px-16 z-10 relative bg-brand-deepbreath text-white rounded-t-[4rem] -mt-20">
+        <section class="py-32 px-8 md:px-16 z-10 relative bg-brand-deepbreath text-white">
             <div class="max-w-[1800px] mx-auto mb-20">
                 <div class="flex justify-between items-end border-b border-white/10 pb-12">
                     <h2 class="font-serif text-6xl md:text-8xl tracking-tighter italic"><span
@@ -289,7 +290,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-[1800px] mx-auto">
                 @foreach ($all_film->where('id', '!=', $films->id)->take(4) as $item)
                     <a href="{{ route('detail-film', $item->slug) }}" class="group block cursor-none hover-target reveal-rec">
-                        <div class="aspect-[4/5] w-full overflow-hidden rounded-[2rem] bg-tint-2/20 mb-6">
+                        <div class="aspect-[4/5] w-full overflow-hidden rounded-xl bg-tint-2/20 mb-6">
                             <img src="{{ asset('photo/' . $item->photo) }}"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                                 alt="@i18n($item, 'title')">
@@ -327,11 +328,11 @@
 @push('head')
     <style>
         .text-brand-deepbreath {
-            color: #25225E;
+            color: #0f6ab0;
         }
 
         .text-brand-orange {
-            color: #FFB150;
+            color: #f46a21;
         }
 
         .bg-tint-2 {

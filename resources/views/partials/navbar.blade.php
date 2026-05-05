@@ -458,10 +458,10 @@ GLOBAL i18n ENGINE
 <style>
     /* Navbar Theme Styles */
     #unified-navbar.nav-light {
-        color: #25225E; /* Brand Blue */
+        color: #0f6ab0; /* New Brand Blue (Deepbreath) */
     }
     #unified-navbar.nav-dark {
-        color: #FFB150; /* Brand Orange */
+        color: #f46a21; /* New Brand Orange */
     }
     
     /* Ensure the hamburger button also inherits color */

@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', (isset($careers->position) ? $careers->position : $casting->pemeran) . ' | Sinemaku Pictures')
 
@@ -16,7 +16,7 @@
         font-size: 2.5rem;
         margin-top: 3rem;
         margin-bottom: 1.5rem;
-        color: #25225E;
+        color: #0f6ab0;
         font-style: italic;
     }
     .career-content p {
@@ -43,7 +43,7 @@
         top: 0.6em;
         width: 6px;
         height: 6px;
-        background: #FFB150;
+        background: #f46a21;
         border-radius: 50%;
     }
 </style>
@@ -87,7 +87,7 @@ EDITORIAL WRAPPER
 
             <!-- Sidebar Column (Sticky) -->
             <aside class="w-full lg:w-1/3 lg:sticky lg:top-40 reveal-rec">
-                <div class="bg-brand-deepbreath text-[#f6f6ed] p-12 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
+                <div class="bg-brand-deepbreath text-[#f6f6ed] p-12 md:p-16 rounded-xl shadow-2xl relative overflow-hidden">
                     <!-- Background Accent -->
                     <div class="absolute -top-20 -right-20 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl"></div>
                     

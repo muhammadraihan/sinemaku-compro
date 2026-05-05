@@ -16,7 +16,7 @@
         font-size: 2.5rem;
         margin-top: 3.5rem;
         margin-bottom: 1.5rem;
-        color: #25225E;
+        color: #0f6ab0;
         font-style: italic;
     }
     .article-content p {
@@ -27,19 +27,19 @@
         margin-bottom: 2rem;
     }
     .article-content img {
-        border-radius: 2rem;
+        border-radius: 0.75rem;
         margin: 3rem 0;
         width: 100%;
         height: auto;
         box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
     .article-content blockquote {
-        border-left: 4px solid #FFB150;
+        border-left: 4px solid #f46a21;
         padding-left: 2rem;
         font-family: 'Instrument Serif', serif;
         font-size: 2rem;
         font-style: italic;
-        color: #25225E;
+        color: #0f6ab0;
         margin: 3rem 0;
         line-height: 1.3;
     }
@@ -132,7 +132,7 @@ EDITORIAL WRAPPER
                     <div class="flex flex-col gap-12">
                         @foreach ($all_article->take(5) as $item)
                         <a href="{{ route('detail-articles', $item->slug) }}" class="group flex gap-6 items-start cursor-none hover-target">
-                            <div class="w-24 md:w-32 aspect-square shrink-0 overflow-hidden rounded-2xl bg-tint-2/20">
+                            <div class="w-24 md:w-32 aspect-square shrink-0 overflow-hidden rounded-xl bg-tint-2/20">
                                 <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover transition-all duration-700">
                             </div>
                             <div class="flex flex-col gap-2">

@@ -62,7 +62,7 @@ EDITORIAL WRAPPER
                                     
                                     <!-- Media / Poster -->
                                     <div class="w-full md:w-[45%] shrink-0 reveal-image">
-                                        <a href="{{ route('detail-event', $item->slug) }}" class="block w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-[2rem] bg-tint-2/20 cursor-none hover-target shadow-xl">
+                                        <a href="{{ route('detail-event', $item->slug) }}" class="block w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-xl bg-tint-2/20 cursor-none hover-target shadow-xl">
                                             <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
                                         </a>
                                     </div>

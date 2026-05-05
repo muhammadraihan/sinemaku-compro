@@ -91,7 +91,7 @@ EDITORIAL WRAPPER
 
             <!-- Poster Side (Editorial Frame) -->
             <div class="w-full md:w-[45%] reveal-image">
-                <div class="aspect-[4/5] md:aspect-[3/4] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-tint-2/20">
+                <div class="aspect-[4/5] md:aspect-[3/4] w-full rounded-xl overflow-hidden shadow-2xl bg-tint-2/20">
                     <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}"
                          class="w-full h-full object-cover transition-all duration-1000">
                 </div>
@@ -125,7 +125,7 @@ EDITORIAL WRAPPER
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 @foreach($all_event->take(3) as $item)
                 <a href="{{ route('detail-event', $item->slug) }}" class="group reveal-rec flex flex-col gap-6 cursor-none hover-target">
-                    <div class="aspect-[16/10] overflow-hidden rounded-3xl bg-tint-2/20 shadow-lg">
+                    <div class="aspect-[16/10] overflow-hidden rounded-xl bg-tint-2/20 shadow-lg">
                         <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000">
                     </div>
