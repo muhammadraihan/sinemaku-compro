@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Membership | Sinemaku Pictures')
 
@@ -9,7 +9,7 @@
 @push('head')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <style>
-    body { background-color: #EDECEA !important; }
+    body { background-color: #f6f6ed !important; }
     
     /* Custom style for editorial inputs */
     .editorial-input {
@@ -218,3 +218,4 @@ document.addEventListener('DOMContentLoaded', () => {
 @include('components.footer')
 
 @endsection
+

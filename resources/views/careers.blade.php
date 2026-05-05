@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Careers | Sinemaku Pictures')
 
@@ -8,7 +8,7 @@
 
 @push('head')
 <style>
-    body { background-color: #EDECEA !important; }
+    body { background-color: #f6f6ed !important; }
 </style>
 @endpush
 

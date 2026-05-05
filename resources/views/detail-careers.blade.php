@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', (isset($careers->position) ? $careers->position : $casting->pemeran) . ' | Sinemaku Pictures')
 
@@ -8,7 +8,7 @@
 
 @push('head')
 <style>
-    body { background-color: #EDECEA !important; }
+    body { background-color: #f6f6ed !important; }
     
     /* Clean career content styling */
     .career-content h2, .career-content h3 {
@@ -87,7 +87,7 @@ EDITORIAL WRAPPER
 
             <!-- Sidebar Column (Sticky) -->
             <aside class="w-full lg:w-1/3 lg:sticky lg:top-40 reveal-rec">
-                <div class="bg-brand-deepbreath text-[#EDECEA] p-12 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
+                <div class="bg-brand-deepbreath text-[#f6f6ed] p-12 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
                     <!-- Background Accent -->
                     <div class="absolute -top-20 -right-20 w-64 h-64 bg-brand-orange/10 rounded-full blur-3xl"></div>
                     
@@ -131,7 +131,7 @@ EDITORIAL WRAPPER
                         </div>
 
                         <!-- CTA -->
-                        <a href="{{ $careers->link ?? $casting->link }}" target="_blank" class="bg-[#EDECEA] text-brand-deepbreath font-sans text-xs tracking-[0.2em] uppercase font-bold py-6 px-8 text-center hover:bg-brand-orange hover:text-white transition-all duration-500 cursor-none hover-target shadow-xl" data-i18n="label_apply_now">
+                        <a href="{{ $careers->link ?? $casting->link }}" target="_blank" class="bg-[#f6f6ed] text-brand-deepbreath font-sans text-xs tracking-[0.2em] uppercase font-bold py-6 px-8 text-center hover:bg-brand-orange hover:text-white transition-all duration-500 cursor-none hover-target shadow-xl" data-i18n="label_apply_now">
                             Apply For This Position
                         </a>
                     </div>

@@ -17,8 +17,8 @@
         extend: {
           colors: {
             brand: {
-              orange: '#FFB150',
-              deepbreath: '#25225E',
+              orange: '#f46a21',
+              deepbreath: '#0f6ab0',
             },
             shade: {
               1: '#DB5F10',
@@ -28,7 +28,7 @@
             tint: {
               1: '#FFD8A8',
               2: '#CACAEF',
-              3: '#F1F1F1',
+              3: '#f6f6ed',
             }
           },
           fontFamily: {
@@ -52,32 +52,40 @@
   @endphp
 
   <style>
+    @font-face {
+        font-family: 'Instrument Serif';
+        src: url('{{ asset('fonts/instrument-serif/InstrumentSerif-Regular.ttf') }}') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Instrument Serif';
+        src: url('{{ asset('fonts/instrument-serif/InstrumentSerif-Italic.ttf') }}') format('truetype');
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+    }
+
     .font-serif,
     .font-serif * {
       font-family: {!! $brandSerif !!} !important;
     }
   </style>
 
-  {{-- Google Fonts --}}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-
   {{-- Iconify --}}
   <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
   {{-- Meta Theme (Menggunakan warna Tint 3) --}}
-  <meta name="theme-color" content="#F1F1F1">
+  <meta name="theme-color" content="#f6f6ed">
 
   @stack('head')
 
   <style>
     /* ── PENGATURAN DASAR GLOBAL ── */
     body {
-      background-color: #F1F1F1;
-      /* Tint 3 */
-      color: #25225E;
-      /* Deep Breath */
+      background-color: #f6f6ed;
+      color: #0f6ab0;
       margin: 0;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -106,12 +114,13 @@
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(ellipse 70vw 70vh at var(--mx, 25%) var(--my, 55%),
-          rgba(255, 177, 80, 0.2) 0%,
+        radial-gradient(ellipse 80vw 80vh at var(--mx, 25%) var(--my, 55%),
+          rgba(244, 106, 33, 0.45) 0%,
           transparent 70%),
-        radial-gradient(ellipse 55vw 55vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
-          rgba(37, 34, 94, 0.1) 0%,
+        radial-gradient(ellipse 65vw 65vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
+          rgba(15, 106, 176, 0.45) 0%,
           transparent 70%);
+      filter: blur(50px);
     }
 
     .light-leak {
@@ -123,12 +132,12 @@
     }
 
     #leak-1 {
-      background: radial-gradient(circle, #FFB150 0%, transparent 70%);
+      background: radial-gradient(circle, #f46a21 0%, transparent 70%);
       animation: float-blob-1 18s ease-in-out infinite;
     }
 
     #leak-2 {
-      background: radial-gradient(circle, #25225E 0%, transparent 70%);
+      background: radial-gradient(circle, #0f6ab0 0%, transparent 70%);
       animation: float-blob-2 24s ease-in-out infinite;
     }
 
@@ -171,7 +180,7 @@
       left: 0;
       width: 30px;
       height: 30px;
-      border: 1px solid #FFB150;
+      border: 1px solid #f46a21;
       border-radius: 50%;
       pointer-events: none;
       z-index: 999999;
@@ -205,8 +214,8 @@
     }
 
     ::selection {
-      background-color: #25225E;
-      color: #F1F1F1;
+      background-color: #0f6ab0;
+      color: #f6f6ed;
     }
 
     /* ── SMOOTH ITALIC ANIMATION ── */

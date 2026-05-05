@@ -16,8 +16,8 @@
                 extend: {
                     colors: {
                         brand: {
-                            orange: '#FFB150',
-                            deepbreath: '#25225E',
+                            orange: '#f46a21',
+                            deepbreath: '#0f6ab0',
                         },
                         shade: {
                             1: '#DB5F10',
@@ -27,7 +27,7 @@
                         tint: {
                             1: '#FFD8A8',
                             2: '#CACAEF',
-                            3: '#F1F1F1',
+                            3: '#f6f6ed',
                         }
                     },
                     fontFamily: {
@@ -51,24 +51,39 @@
     @endphp
 
     <style>
+        @font-face {
+            font-family: 'Instrument Serif';
+            src: url('{{ asset('fonts/instrument-serif/InstrumentSerif-Regular.ttf') }}') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Instrument Serif';
+            src: url('{{ asset('fonts/instrument-serif/InstrumentSerif-Italic.ttf') }}') format('truetype');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+
         .font-serif,
         .font-serif * {
             font-family: {!! $brandSerif !!} !important;
         }
     </style>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-
     <!-- Iconify -->
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
     <style>
+        ::selection {
+            background-color: #0f6ab0;
+            color: #f6f6ed;
+        }
+
         body {
-            background-color: #EDECEA;
-            color: #25225E;
+            background-color: #f6f6ed;
+            color: #0f6ab0;
             margin: 0;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -83,15 +98,16 @@
             z-index: 0;
             background:
                 radial-gradient(
-                    ellipse 70vw 70vh at var(--mx, 25%) var(--my, 55%),
-                    rgba(255, 177, 80, 0.25) 0%,
+                    ellipse 80vw 80vh at var(--mx, 25%) var(--my, 55%),
+                    rgba(244, 106, 33, 0.45) 0%,
                     transparent 70%
                 ),
                 radial-gradient(
-                    ellipse 55vw 55vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
-                    rgba(37, 34, 94, 0.15) 0%,
+                    ellipse 65vw 65vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
+                    rgba(15, 106, 176, 0.45) 0%,
                     transparent 70%
                 );
+            filter: blur(50px);
         }
 
         /* ── EFEK LIGHT LEAK & GRAIN ── */
@@ -128,12 +144,12 @@
         }
 
         #leak-1 {
-            background: radial-gradient(circle, #FFB150 0%, transparent 70%);
+            background: radial-gradient(circle, #f46a21 0%, transparent 70%);
             animation: float-blob-1 18s ease-in-out infinite;
         }
 
         #leak-2 {
-            background: radial-gradient(circle, #25225E 0%, transparent 70%);
+            background: radial-gradient(circle, #0f6ab0 0%, transparent 70%);
             animation: float-blob-2 24s ease-in-out infinite;
         }
 
@@ -157,12 +173,12 @@
             height: 120%;
             /* Untuk parallax */
             object-fit: cover;
-            filter: grayscale(100%) contrast(1.1);
+            /* Removed grayscale filter */
             transition: filter 0.8s ease;
         }
 
         .editorial-image-container:hover .editorial-image {
-            filter: grayscale(0%) contrast(1.05);
+            /* Removed grayscale filter */
         }
 
         /* Sembunyikan scrollbar native untuk kesan bersih */
@@ -189,7 +205,7 @@
             left: 0;
             width: 30px;
             height: 30px;
-            border: 1px solid #FFB150;
+            border: 1px solid #f46a21;
             border-radius: 50%;
             pointer-events: none;
             z-index: 999999;
@@ -315,7 +331,7 @@
                 
             <!-- Grayscale Overlay (Fades out on hover and scroll) -->
             <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
-                alt="Cinematic Setup Grayscale" class="absolute inset-0 w-full h-full object-cover z-0 hero-img-grayscale filter grayscale contrast-110 transition-opacity duration-700 group-hover:opacity-0 pointer-events-none">
+                alt="Cinematic Setup Grayscale" class="absolute inset-0 w-full h-full object-cover z-0 hero-img-grayscale transition-opacity duration-700 group-hover:opacity-0 pointer-events-none">
         </div>
     </section>
 
@@ -395,10 +411,10 @@
         @endif
     </section>
 
-    <!-- 3. THE CREW (ASYMMETRICAL PRINT GRID) -->
-    <section id="crew" class="py-32 px-8 md:px-16 z-10 relative">
+    <!-- 3. THE CREW (HORIZONTAL PAN GRID) -->
+    <section id="crew" class="py-32 z-10 relative max-w-[100vw] overflow-hidden">
         <div class="w-full">
-            <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24">
+            <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24 px-8 md:px-16">
                 <div class="w-full md:w-1/12">
                     <span
                         class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
@@ -418,99 +434,114 @@
                 </div>
             </div>
 
-            <!-- Dynamic Editorial Grid Container -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-y-32 md:gap-x-12 relative pb-20">
-                @php
-                    // Truly dynamic detection from CMS settings
-                    $crewMembers = collect($settings)
-                        ->filter(fn($v, $k) => str_starts_with($k, 'about_team_image_') && !empty($v))
-                        ->map(function ($v, $k) use ($settings) {
-                            $id = str_replace('about_team_image_', '', $k);
-                            return [
-                                'img' => $v,
-                                'name' => $settings["about_team_name_$id"] ?? ($id == 1 ? 'Prilly Latuconsina' : 'Sinemaku Crew'),
-                                'role' => $settings["about_team_role_$id"] ?? ($settings["about_team_role_{$id}_en"] ?? ($id == 1 ? 'Founder / Producer' : 'Team Member')),
-                                'index' => $id
-                            ];
-                        })
-                        ->sortBy('index')
-                        ->values()
-                        ->toArray();
+            <!-- Alternating Crew Grid: odd rows = 2 full, even rows = ½+1+½ -->
+            @php
+                $crewMembers = collect($settings)
+                    ->filter(fn($v, $k) => str_starts_with($k, 'about_team_image_') && !empty($v))
+                    ->map(function ($v, $k) use ($settings) {
+                        $id = str_replace('about_team_image_', '', $k);
+                        return [
+                            'img'   => $v,
+                            'name'  => $settings["about_team_name_$id"] ?? ($id == 1 ? 'Prilly Latuconsina' : 'Sinemaku Crew'),
+                            'role'  => $settings["about_team_role_$id"] ?? ($settings["about_team_role_{$id}_en"] ?? ($id == 1 ? 'Founder / Producer' : 'Team Member')),
+                            'index' => $id,
+                        ];
+                    })
+                    ->sortBy('index')
+                    ->values()
+                    ->toArray();
 
-                    // Fallback if no images in CMS, use the files mentioned by user
-                    if (empty($crewMembers)) {
-                        $defaultNames = ['Prilly Latuconsina', 'Umar Shahab', 'Monty Tiwa', 'Yahni Damayanti', 'Sinemaku Crew'];
-                        $defaultRoles = ['Founder / Producer', 'Founder / Director', 'Creative Director', 'Producer', 'Team Member'];
-                        for ($i = 1; $i <= 5; $i++) {
-                            $crewMembers[] = [
-                                'img' => "photo/about_crew_$i.png",
-                                'name' => $defaultNames[$i - 1] ?? 'Sinemaku Crew',
-                                'role' => $defaultRoles[$i - 1] ?? 'Team Member',
-                                'index' => $i
-                            ];
-                        }
+                if (empty($crewMembers)) {
+                    $defaultNames = ['Prilly Latuconsina', 'Umar Shahab', 'Monty Tiwa', 'Yahni Damayanti', 'Sinemaku Crew'];
+                    $defaultRoles = ['Founder / Producer', 'Founder / Director', 'Creative Director', 'Producer', 'Team Member'];
+                    for ($i = 1; $i <= 5; $i++) {
+                        $crewMembers[] = [
+                            'img'   => "photo/about_crew_$i.png",
+                            'name'  => $defaultNames[$i - 1] ?? 'Sinemaku Crew',
+                            'role'  => $defaultRoles[$i - 1] ?? 'Team Member',
+                            'index' => $i,
+                        ];
                     }
-                @endphp
+                }
 
-                @foreach($crewMembers as $index => $member)
-                    @php
-                        // Cycle through the 4 patterns from about_new3.html
-                        $pattern = $index % 4;
-                        $colSpan = '';
-                        $colStart = '';
-                        $marginTop = '';
-                        $aspect = '';
+                // Chunk into alternating rows: 2, 3, 2, 3 ...
+                $rows    = [];
+                $offset  = 0;
+                $rowNum  = 0;
+                while ($offset < count($crewMembers)) {
+                    $take    = ($rowNum % 2 === 0) ? 2 : 3;
+                    $chunk   = array_slice($crewMembers, $offset, $take);
+                    if (!empty($chunk)) $rows[] = ['type' => $rowNum % 2, 'items' => $chunk];
+                    $offset += $take;
+                    $rowNum++;
+                }
+            @endphp
 
-                        switch ($pattern) {
-                            case 0: // Large, offset right (Prilly style) - Reduced size
-                                $colStart = 'md:col-start-7';
-                                $colSpan = 'md:col-span-4';
-                                $aspect = 'aspect-[3/4]';
-                                break;
-                            case 1: // Small, offset left
-                                $colStart = 'md:col-start-2';
-                                $colSpan = 'md:col-span-3';
-                                $aspect = 'aspect-[4/5]';
-                                $marginTop = 'md:-mt-32';
-                                break;
-                            case 2: // Medium, center alignment
-                                $colStart = 'md:col-start-4';
-                                $colSpan = 'md:col-span-5';
-                                $aspect = 'aspect-square';
-                                $marginTop = 'md:mt-12';
-                                break;
-                            case 3: // Landscape, bottom right
-                                $colStart = 'md:col-start-8';
-                                $colSpan = 'md:col-span-5';
-                                $aspect = 'aspect-[16/9]';
-                                $marginTop = 'md:-mt-40';
-                                break;
-                        }
-                    @endphp
+            {{-- CSS: crew gap variable → spacing from edge = gap between images --}}
+            <style>
+                :root { --cg: 16px; }
 
-                    <div class="{{ $colStart }} {{ $colSpan }} {{ $marginTop }} flex items-end gap-6 reveal-image group cursor-none hover-target sticky top-[20vh] md:top-8 h-fit">
-                        <div class="flex items-end">
-                            @if(!empty($member['name']))
-                                <div
-                                    class="vertical-text font-serif text-3xl md:text-5xl text-brand-deepbreath pb-4 mr-3 whitespace-nowrap">
-                                    {{ $member['name'] }}
+                /* Full image width based on Row 2 filling 100vw with 4 gaps */
+                /* Row 2: gap + 0.5W + gap + W + gap + 0.5W + gap = 2W + 4cg = 100vw */
+                .crew-row-container {
+                    --fw: calc((100vw - (4 * var(--cg))) / 2);
+                    --hw: calc(var(--fw) / 2);
+                }
+
+                .crew-img-full { width: var(--fw); flex-shrink: 0; }
+                .crew-img-half { width: var(--hw); flex-shrink: 0; }
+
+                @media (max-width: 768px) {
+                    :root { --cg: 8px; }
+                }
+            </style>
+
+            <div class="w-full overflow-hidden flex flex-col crew-row-container" style="gap: var(--cg);">
+                @foreach($rows as $row)
+                    @if($row['type'] === 0)
+                        {{-- ODD ROW: 2 full images, centered --}}
+                        <div class="flex w-full justify-center" style="height: clamp(200px, 26vw, 420px); gap: var(--cg);">
+                            @foreach($row['items'] as $member)
+                                <div class="relative group cursor-none hover-target overflow-hidden rounded-xl crew-img-full">
+                                    <img src="{{ asset($member['img']) }}"
+                                         class="w-full h-full object-cover transition-all duration-700"
+                                         alt="{{ $member['name'] }}">
+                                    <div class="absolute inset-0 bg-brand-deepbreath/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                        <div class="text-center px-8">
+                                            <h3 class="font-serif text-2xl md:text-5xl text-white leading-none translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                                {{ $member['name'] }}
+                                            </h3>
+                                            <span class="block mt-3 font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                                                {{ $member['role'] }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            @endif
-                            @if(!empty($member['role']))
-                                <div
-                                    class="vertical-text font-sans text-[10px] tracking-[0.3em] uppercase text-brand-deepbreath/40 pb-4">
-                                    {{ $member['role'] }}
+                            @endforeach
+                        </div>
+                    @else
+                        {{-- EVEN ROW: ½ | 1 | ½ images, centered to fill 100vw with gaps --}}
+                        <div class="flex w-full justify-center" style="height: clamp(200px, 26vw, 420px); gap: var(--cg);">
+                            @foreach($row['items'] as $i => $member)
+                                <div class="relative group cursor-none hover-target overflow-hidden rounded-xl {{ ($i == 1) ? 'crew-img-full' : 'crew-img-half' }}">
+                                    <img src="{{ asset($member['img']) }}"
+                                         class="w-full h-full object-cover transition-all duration-700"
+                                         alt="{{ $member['name'] }}">
+                                    <div class="absolute inset-0 bg-brand-deepbreath/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                        <div class="text-center px-8">
+                                            <h3 class="font-serif text-xl md:text-4xl text-white leading-none translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                                {{ $member['name'] }}
+                                            </h3>
+                                            <span class="block mt-3 font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                                                {{ $member['role'] }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            @endif
+                            @endforeach
                         </div>
-
-                        <div class="w-full editorial-image-container {{ $aspect }} bg-tint-2/20 rounded-[2rem] overflow-hidden">
-                            <img src="{{ asset($member['img']) }}" class="editorial-image para-img"
-                                alt="{{ $member['name'] }}">
-                        </div>
-                    </div>
+                    @endif
                 @endforeach
-
             </div>
         </div>
     </section>

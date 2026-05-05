@@ -9,7 +9,7 @@
 {{-- ============================================================
 EDITORIAL WRAPPER
 ============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans bg-[#EDECEA] min-h-screen">
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans bg-[#f6f6ed] min-h-screen">
 
     {{-- ============================================================
     HERO SECTION (Editorial Parallax)
@@ -18,8 +18,8 @@ EDITORIAL WRAPPER
         <!-- Parallax Background Image -->
         <div class="absolute inset-0 w-full h-[120%] -top-[10%] z-0">
             <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}" 
-                 class="hero-parallax-img w-full h-full object-cover grayscale contrast-110 opacity-60">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#EDECEA]/0 via-[#EDECEA]/20 to-[#EDECEA] z-10"></div>
+                 class="hero-parallax-img w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#f6f6ed]/0 via-[#f6f6ed]/20 to-[#f6f6ed] z-10"></div>
         </div>
 
         <!-- Content Overlay -->
@@ -43,7 +43,7 @@ EDITORIAL WRAPPER
     {{-- ============================================================
     DETAIL STRIP (Metadata & Share)
     ============================================================ --}}
-    <section class="detail-strip border-y hairline-border py-8 md:py-12 px-8 md:px-16 z-20 relative bg-[#EDECEA]">
+    <section class="detail-strip border-y hairline-border py-8 md:py-12 px-8 md:px-16 z-20 relative bg-[#f6f6ed]">
         <div class="max-w-[1800px] mx-auto flex flex-wrap justify-between items-center gap-8">
             <div class="flex flex-wrap gap-12 md:gap-24">
                 <!-- Date -->
@@ -93,7 +93,7 @@ EDITORIAL WRAPPER
             <div class="w-full md:w-[45%] reveal-image">
                 <div class="aspect-[4/5] md:aspect-[3/4] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-tint-2/20">
                     <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}"
-                         class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-1000">
+                         class="w-full h-full object-cover transition-all duration-1000">
                 </div>
             </div>
 
@@ -127,7 +127,7 @@ EDITORIAL WRAPPER
                 <a href="{{ route('detail-event', $item->slug) }}" class="group reveal-rec flex flex-col gap-6 cursor-none hover-target">
                     <div class="aspect-[16/10] overflow-hidden rounded-3xl bg-tint-2/20 shadow-lg">
                         <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" 
-                             class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+                             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000">
                     </div>
                     <div>
                         <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 mb-2 block">

@@ -8,7 +8,7 @@
 
 @push('head')
 <style>
-    body { background-color: #EDECEA !important; }
+    body { background-color: #f6f6ed !important; }
     
     /* Clean article content styling */
     .article-content h2, .article-content h3 {
@@ -58,8 +58,8 @@ EDITORIAL WRAPPER
         <!-- Parallax Image -->
         <div class="absolute inset-0 w-full h-[120%] -top-[10%] z-0">
             <img src="{{ asset('photo/' . $article->photo) }}" alt="{{ $article->judul }}" 
-                 class="hero-parallax-img w-full h-full object-cover grayscale contrast-110 opacity-60">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#EDECEA] via-[#EDECEA]/20 to-transparent z-10"></div>
+                 class="hero-parallax-img w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#f6f6ed] via-[#f6f6ed]/20 to-transparent z-10"></div>
         </div>
 
         <!-- Title Overlay -->
@@ -87,11 +87,11 @@ EDITORIAL WRAPPER
                 <!-- Meta Info Mobile -->
                 <div class="flex lg:hidden flex-wrap gap-8 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 mb-12 pb-12 border-b hairline-border">
                     <div class="flex flex-col gap-2">
-                        <span class="text-brand-orange/50">Written By</span>
+                        <span class="text-brand-orange/50" data-i18n="label_author">Written By</span>
                         <span class="text-brand-deepbreath">{{ $article->penulis }}</span>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <span class="text-brand-orange/50">Released On</span>
+                        <span class="text-brand-orange/50" data-i18n="label_date">Released On</span>
                         <span class="text-brand-deepbreath">{{ \Carbon\Carbon::parse($article->tgl_rilis)->format('d M Y') }}</span>
                     </div>
                 </div>
@@ -103,9 +103,8 @@ EDITORIAL WRAPPER
 
                 <!-- External Source (Subtle) -->
                 @if($article->kategori == 'external' && $article->link)
-                <div class="mt-20 pt-12 border-t hairline-border flex flex-col items-start gap-6">
-                    <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-deepbreath/40" data-i18n="label_article_ref">Article Reference</span>
-                    <a href="{{ $article->link }}" target="_blank" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath border border-brand-deepbreath/20 py-4 px-8 hover:bg-brand-deepbreath hover:text-white transition-all cursor-none hover-target inline-flex items-center gap-4">
+                <div class="mt-16 pt-8 border-t hairline-border">
+                    <a href="{{ $article->link }}" target="_blank" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 hover:text-brand-orange transition-all cursor-none hover-target inline-flex items-center gap-3">
                         <span data-i18n="label_read_full_story">Read Full Story</span> <span class="iconify" data-icon="lucide:external-link"></span>
                     </a>
                 </div>
@@ -134,7 +133,7 @@ EDITORIAL WRAPPER
                         @foreach ($all_article->take(5) as $item)
                         <a href="{{ route('detail-articles', $item->slug) }}" class="group flex gap-6 items-start cursor-none hover-target">
                             <div class="w-24 md:w-32 aspect-square shrink-0 overflow-hidden rounded-2xl bg-tint-2/20">
-                                <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                                <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover transition-all duration-700">
                             </div>
                             <div class="flex flex-col gap-2">
                                 <span class="font-sans text-[8px] tracking-[0.2em] uppercase font-bold text-brand-orange/60">{{ $item->artikelKategori->name ?? 'Update' }}</span>
@@ -200,3 +199,4 @@ document.addEventListener('DOMContentLoaded', () => {
 @include('components.footer')
 
 @endsection
+

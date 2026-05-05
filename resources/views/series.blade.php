@@ -73,7 +73,7 @@
                                 @endif
 
                                 <img src="{{ asset('photo/' . $item->photo) }}"
-                                    class="slide-image w-full h-full object-cover filter grayscale contrast-110"
+                                    class="slide-image w-full h-full object-cover"
                                     alt="@i18n($item, 'title')">
 
                                 <div
@@ -115,134 +115,95 @@
 
             </div>
         </section>
-
         {{-- ============================================================
-        2. ALL FILMS CATALOGUE (MASONRY GRID)
+        2. ALL FILMS CATALOGUE (HORIZONTAL PAN GRID)
         ============================================================ --}}
-        <section class="py-32 px-8 md:px-16 z-10 relative max-w-[1800px] mx-auto">
-
-            <!-- Header & Filters Dinamis -->
-            <div
-                class="flex flex-col lg:flex-row justify-between items-start lg:items-end border-b hairline-border pb-12 mb-16 gap-8">
+        <section class="py-32 z-10 relative max-w-[100vw] overflow-hidden">
+            
+            <!-- Header -->
+            <div class="px-8 md:px-16 border-b hairline-border pb-12 mb-16 max-w-[1800px] mx-auto">
                 <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">
                     <span data-i18n="page_series_1">Katalog</span>
-                    <span data-i18n="page_series_2" class="italic text-brand-orange">Serial.</span>
+                    <span data-i18n="page_series_2" class="italic text-brand-orange">Series.</span>
                 </h2>
-
-                <div class="flex gap-6 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 flex-wrap"
-                    id="film-filters">
-                    <button
-                        class="filter-btn text-brand-deepbreath border-b border-brand-deepbreath pb-1 hover-target cursor-none transition-all"
-                        data-filter="all">
-                        Semua
-                    </button>
-
-                    @foreach ($chipGenres as $g)
-                        <button
-                            class="filter-btn border-b border-transparent hover:text-brand-deepbreath pb-1 hover-target cursor-none transition-all"
-                            data-filter="{{ strtolower(trim($g)) }}">
-                            {{ ucwords($g) }}
-                        </button>
-                    @endforeach
-                </div>
             </div>
-            <!-- The Grid (Editorial Bento Grid) -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-x-12 gap-y-24" id="film-grid">
-                @foreach ($genre as $index => $item)
-                    @php
-                        // Pattern logic for bento feel (tidy but staggered)
-                        $pattern = $index % 5;
-                        $colSpan = 'md:col-span-4';
-                        $aspect = 'aspect-[3/4]';
-                        $marginTop = '';
 
-                        switch ($pattern) {
-                            case 0:
-                                $colSpan = 'md:col-span-7';
-                                $aspect = 'aspect-[16/10]';
-                                break;
-                            case 1:
-                                $colSpan = 'md:col-span-5';
-                                $aspect = 'aspect-[4/5]';
-                                $marginTop = 'md:mt-12';
-                                break;
-                            case 2:
-                                $colSpan = 'md:col-span-4';
-                                $aspect = 'aspect-[3/4]';
-                                break;
-                            case 3:
-                                $colSpan = 'md:col-span-4';
-                                $aspect = 'aspect-square';
-                                $marginTop = 'md:-mt-12';
-                                break;
-                            case 4:
-                                $colSpan = 'md:col-span-4';
-                                $aspect = 'aspect-[3/4]';
-                                break;
-                        }
-                    @endphp
+            <!-- The Grid (Alternating Rows 2-3) -->
+            @php
+                $rows = [];
+                $offset = 0;
+                $rowNum = 0;
+                $items = $genre->all(); 
+                while ($offset < count($items)) {
+                    $take = ($rowNum % 2 === 0) ? 2 : 3;
+                    $chunk = array_slice($items, $offset, $take);
+                    if (!empty($chunk)) $rows[] = ['type' => $rowNum % 2, 'items' => $chunk];
+                    $offset += $take;
+                    $rowNum++;
+                }
+            @endphp
 
-                    <a href="{{ route('detail-series', $item->slug) }}"
-                        class="film-card group relative block {{ $colSpan }} {{ $marginTop }} cursor-none hover-target reveal-card"
-                        data-genres='@json($item->genres_array)'>
+            <style>
+                :root { --cg: 16px; }
+                .film-row-container {
+                    --fw: calc((100vw - (4 * var(--cg))) / 2);
+                    --hw: calc(var(--fw) / 2);
+                }
+                .film-img-full { width: var(--fw); flex-shrink: 0; }
+                .film-img-half { width: var(--hw); flex-shrink: 0; }
+                @media (max-width: 768px) { :root { --cg: 8px; } }
+            </style>
 
-                        {{-- Image Container --}}
-                        <div
-                            class="relative w-full {{ $aspect }} overflow-hidden rounded-[2rem] bg-tint-2/20 shadow-sm transition-all duration-700 group-hover:shadow-2xl">
+            <div class="w-full overflow-hidden flex flex-col film-row-container" style="gap: var(--cg);">
+                @foreach($rows as $row)
+                    <div class="flex w-full justify-center" style="height: clamp(250px, 35vw, 600px); gap: var(--cg);">
+                        @foreach($row['items'] as $i => $item)
+                            @php
+                                $isMiddle = ($row['type'] === 1 && $i === 1);
+                                $isHalf = ($row['type'] === 1 && ($i === 0 || $i === 2));
+                                $widthClass = $isHalf ? 'film-img-half' : 'film-img-full';
+                            @endphp
+                            <a href="{{ route('detail-series', $item->slug) }}" class="relative group cursor-none hover-target overflow-hidden rounded-xl {{ $widthClass }}">
+                                <img src="{{ asset('photo/' . $item->photo) }}"
+                                     class="w-full h-full object-cover transition-all duration-1000 ease-expo"
+                                     alt="@i18n($item, 'title')">
 
-                            {{-- Thumbnail Image --}}
-                            <img src="{{ asset('photo/' . $item->photo) }}"
-                                class="w-full h-full object-cover filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 ease-expo"
-                                alt="@i18n($item, 'title')">
-
-                            {{-- A24-Style Hover Details Overlay --}}
-                            <div
-                                class="absolute inset-0 bg-brand-deepbreath/95 flex flex-col justify-between p-10 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm transform translate-y-4 group-hover:translate-y-0">
-
-                                {{-- Top: Genre --}}
-                                <div class="overflow-hidden">
-                                    <span
-                                        class="block font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 delay-100">
-                                        @i18n($item, 'genre')
-                                    </span>
+                                {{-- Title Overlay --}}
+                                @if(!$isHalf)
+                                <div class="absolute bottom-6 left-8 z-20 pointer-events-none mix-blend-difference text-[#f6f6ed] group-hover:opacity-0 transition-opacity duration-300">
+                                    <h4 class="font-serif text-3xl md:text-5xl leading-none drop-shadow-md">@i18n($item, 'title')</h4>
                                 </div>
+                                @endif
 
-                                {{-- Middle: Title --}}
-                                <div class="flex-grow flex items-center">
-                                    <h3 class="font-serif text-4xl md:text-5xl text-white leading-tight">
-                                        <span class="italic block group-hover:text-brand-orange transition-colors">@i18n($item,
-                                            'title')</span>
-                                    </h3>
-                                </div>
-
-                                {{-- Bottom: Year & Details --}}
-                                <div class="border-t border-white/10 pt-6 flex justify-between items-end">
-                                    <div class="flex flex-col gap-1">
-                                        <span class="font-sans text-[9px] tracking-widest uppercase text-white/40">Release
-                                            Year</span>
-                                        <span
-                                            class="font-sans text-sm text-white">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+                                {{-- Hover Overlay --}}
+                                <div class="absolute inset-0 bg-brand-deepbreath/95 flex flex-col justify-between p-6 md:p-10 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm">
+                                    <div class="overflow-hidden">
+                                        <span class="block font-sans text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-brand-orange transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 delay-100">
+                                            @i18n($item, 'genre')
+                                        </span>
                                     </div>
-                                    <div class="flex flex-col gap-1 text-right">
-                                        <span
-                                            class="font-sans text-[9px] tracking-widest uppercase text-white/40">Duration</span>
-                                        <span class="font-sans text-sm text-white">{{ $item->duration }} Min.</span>
+                                    <div class="flex-grow flex items-center">
+                                        <h3 class="font-serif text-2xl md:text-5xl text-white leading-tight">
+                                            <span class="italic block group-hover:text-brand-orange transition-colors">@i18n($item, 'title')</span>
+                                        </h3>
+                                    </div>
+                                    <div class="border-t border-white/10 pt-4 md:pt-6 flex justify-between items-end">
+                                        <div class="flex flex-col gap-1">
+                                            <span class="font-sans text-[8px] md:text-[9px] tracking-widest uppercase text-white/40">Year</span>
+                                            <span class="font-sans text-xs md:text-sm text-white">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+                                        </div>
+                                        <div class="flex flex-col gap-1 text-right">
+                                            <span class="font-sans text-[8px] md:text-[9px] tracking-widest uppercase text-white/40">Duration</span>
+                                            <span class="font-sans text-xs md:text-sm text-white">{{ $item->duration }} Min.</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        {{-- Minimalist Label (Visible always for clean editorial feel) --}}
-                        <div
-                            class="mt-6 flex justify-between items-start group-hover:opacity-0 transition-opacity duration-300">
-                            <h4 class="font-serif text-2xl text-brand-deepbreath leading-none">@i18n($item, 'title')</h4>
-                            <span
-                                class="font-sans text-[10px] tracking-widest text-brand-deepbreath/40">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
-                        </div>
-                    </a>
+                            </a>
+                        @endforeach
+                    </div>
                 @endforeach
             </div>
-        </section>
+        </section>n>
 
     </div> {{-- End Editorial Wrapper --}}
 
@@ -309,7 +270,6 @@ STYLES & SCRIPTS
         }
 
         .hero-slide.cinematic .hero-img-box .slide-image {
-            filter: grayscale(0%) contrast(1.05);
             transform: scale(1.04);
         }
 
@@ -521,63 +481,11 @@ STYLES & SCRIPTS
                 });
             });
 
-            /* ─── 3. LOGIKA FILTER KATALOG (JSON ARRAY PARSING) ─── */
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const filmCards = document.querySelectorAll('.film-card');
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // UI Active State
-                    filterBtns.forEach(b => {
-                        b.classList.remove('text-brand-deepbreath', 'border-brand-deepbreath');
-                        b.classList.add('border-transparent');
-                    });
-                    btn.classList.add('text-brand-deepbreath', 'border-brand-deepbreath');
-                    btn.classList.remove('border-transparent');
-
-                    const filterValue = btn.getAttribute('data-filter').toLowerCase().trim();
-
-                    // Animate Out & In dengan GSAP
-                    gsap.to(filmCards, {
-                        scale: 0.95,
-                        opacity: 0,
-                        duration: 0.4,
-                        stagger: 0.05,
-                        onComplete: () => {
-                            filmCards.forEach(card => {
-                                let genres = [];
-                                try {
-                                    // Parse JSON array genre dari attribute
-                                    genres = JSON.parse(card.getAttribute('data-genres') || '[]');
-                                } catch (e) { }
-
-                                // Cek apakah filter terpilih ada di dalam array genre film ini
-                                const match = (filterValue === 'all') || genres.map(g => g.toLowerCase().trim()).includes(filterValue);
-
-                                card.style.display = match ? 'block' : 'none';
-                            });
-
-                            ScrollTrigger.refresh(); // Sangat penting agar letak scroll Masonry kembali akurat
-
-                            // Animate In untuk yang match saja
-                            const visibleCards = Array.from(filmCards).filter(c => c.style.display === 'block');
-                            gsap.to(visibleCards, {
-                                scale: 1,
-                                opacity: 1,
-                                duration: 0.5,
-                                stagger: 0.1,
-                                ease: "power2.out"
-                            });
-                        }
-                    });
-                });
-            });
-
             /* ─── 3. INITIAL SCROLL REVEAL UNTUK KARTU FILM ─── */
-            if (document.querySelector('#film-grid')) {
-                gsap.from('.reveal-card', {
+            if (document.querySelector('.film-row-container')) {
+                gsap.from('.film-row-container > div', {
                     scrollTrigger: {
-                        trigger: '#film-grid',
+                        trigger: '.film-row-container',
                         start: "top 85%",
                     },
                     y: 100,

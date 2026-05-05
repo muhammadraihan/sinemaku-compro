@@ -125,7 +125,7 @@
                 <div class="w-full md:w-2/5 reveal-image">
                     <div class="aspect-[2/3] w-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-tint-2/20">
                         <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
-                            class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-1000">
+                            class="w-full h-full object-cover transition-all duration-1000">
                     </div>
                 </div>
 
@@ -167,7 +167,7 @@
                         <div class="w-full md:w-1/3 aspect-video relative overflow-hidden rounded-[1.5rem] bg-tint-2/20 shrink-0 cursor-none hover-target"
                              @if($ep_yt_id) onclick="openHeroTrailer('{{ $ep_yt_id }}')" @endif>
                             <img src="{{ $ep->photo ? asset('photo/' . $ep->photo) : 'https://picsum.photos/seed/ep'.$ep->id.'/800/450' }}" 
-                                 class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" 
                                  alt="{{ $ep->title }}">
                                  
                             @if($ep_yt_id)
@@ -274,7 +274,7 @@
                     <a href="{{ route('detail-series', $item->slug) }}" class="group block cursor-none hover-target reveal-rec">
                         <div class="aspect-[4/5] w-full overflow-hidden rounded-[2rem] bg-tint-2/20 mb-6">
                             <img src="{{ asset('photo/' . $item->photo) }}"
-                                class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                                 alt="@i18n($item, 'title')">
                         </div>
                         <h4
