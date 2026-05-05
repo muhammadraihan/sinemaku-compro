@@ -398,6 +398,9 @@
     });
   </script>
 
+  {{-- ── Cinematic SPA Transition Engine ── --}}
+  <script src="{{ asset('js/film-transition.js') }}" defer></script>
+
   {{-- Script spesifik halaman --}}
   @stack('scripts')
 </body>

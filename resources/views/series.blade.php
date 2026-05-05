@@ -163,9 +163,13 @@
                                 $isHalf = ($row['type'] === 1 && ($i === 0 || $i === 2));
                                 $widthClass = $isHalf ? 'film-img-half' : 'film-img-full';
                             @endphp
-                            <a href="{{ route('detail-series', $item->slug) }}" class="relative group cursor-none hover-target overflow-hidden rounded-xl {{ $widthClass }}">
+                            <a href="{{ route('detail-series', $item->slug) }}" 
+                               class="film-card-trigger relative group cursor-none hover-target overflow-hidden rounded-xl {{ $widthClass }}"
+                               data-slug="{{ $item->slug }}"
+                               data-url="{{ route('detail-series', $item->slug) }}"
+                               data-photo="{{ asset('photo/' . $item->photo) }}">
                                 <img src="{{ asset('photo/' . $item->photo) }}"
-                                     class="w-full h-full object-cover transition-all duration-1000 ease-expo"
+                                     class="film-card-img w-full h-full object-cover transition-all duration-1000 ease-expo"
                                      alt="@i18n($item, 'title')">
 
                                 {{-- Title Overlay --}}

@@ -166,8 +166,7 @@ class FrontEndController extends Controller
         ])->values();
 
         // Recommendations (other films in same category)
-        $all_film = $kategori
-            ? Film::where('kategori', $kategori->uuid)
+        $all_film = Film::where('kategori', $films->kategori)
                   ->where('uuid', '!=', $films->uuid)
                   ->take(4)
                   ->get()
@@ -178,8 +177,7 @@ class FrontEndController extends Controller
                       'title_en'     => $f->title_en ?? $f->title,
                       'genre'        => $f->genre,
                       'release_date' => $f->release_date,
-                  ])->values()
-            : collect();
+                  ])->values();
 
         // Cast list (max 3 + "and more")
         $cast_list = collect(explode(',', $films->cast))->map(fn($c) => trim($c))->filter()->values();

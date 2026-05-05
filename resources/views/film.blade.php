@@ -531,6 +531,5 @@ STYLES & SCRIPTS
         });
     </script>
 
-    {{-- ── Cinematic SPA Transition Engine ── --}}
-    <script src="{{ asset('js/film-transition.js') }}" defer></script>
+
 @endpush
