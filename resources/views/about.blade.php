@@ -323,7 +323,7 @@
 
         <!-- Absolute Image Container (z-20) -->
         <div class="hero-image-container group absolute bottom-4 md:bottom-16 left-1/2 -translate-x-1/2 w-[90%] aspect-[16/9] md:aspect-none md:w-[60%] md:h-[45vh] z-20 overflow-hidden rounded-md cursor-none hover-target shadow-2xl">
-            <div class="hero-image-overlay absolute inset-0 bg-brand-deepbreath/60 opacity-0 z-10 pointer-events-none"></div>
+
             
             <!-- Base Image (Full Color) -->
             <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
@@ -656,12 +656,7 @@
             ease: "none"
         }, 0);
 
-        // Darken overlay
-        heroTl.to(".hero-image-overlay", {
-            opacity: 0.7,
-            duration: 0.8,
-            ease: "none"
-        }, 0);
+
 
         // Color text to white/bright
         heroTl.to(".hero-title", {
