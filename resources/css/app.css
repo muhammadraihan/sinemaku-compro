@@ -67,63 +67,69 @@
   font-display: swap;
 }
 
+/* PeckhamPress */
+@font-face {
+  font-family: 'PeckhamPress';
+  src: url('/fonts/PeckhamPress.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* ─────────────────────────────────────────────────────
-     SINEMAKU BRAND COLOR SYSTEM
-     Primary  : Indigo-Navy  — closest to Pantone 2756 C  (#26225e ≈ base)
-     Secondary: Amber-Orange — closest to Pantone 7549 C  (#ed9520 ≈ base)
+     SINEMAKU BRAND COLOR SYSTEM (DRAFT 2)
   ───────────────────────────────────────────────────── */
 
-  /* ── Navy / Indigo Scale ── */
-  --navy-950: #0b0a1a;   /* opening sequence, hardest dark */
-  --navy-900: #120f2d;   /* footer, mega-menu bg */
-  --navy-800: #1a1640;   /* card surfaces on dark sections */
-  --navy-700: #221d55;   /* one step below brand */
-  --navy-600: #26225e;   /* ★ Brand Primary — Pantone 2756 C approx */
-  --navy-500: #332c80;   /* hover state on primary */
-  --navy-400: #4a42aa;   /* interactive / links on dark bg */
-  --navy-300: #7069c7;   /* borders on dark bg */
-  --navy-200: #a39de0;   /* secondary text on dark bg */
-  --navy-100: #d4d1f2;   /* muted text on dark bg */
-  --navy-050: #eeedf9;   /* near-white tint */
+  /* ── Core Colors ── */
+  --color-autumn-leaf: #F36B21; /* Orange Core */
+  --color-regal-navy: #22397A;  /* Navy Core */
 
-  /* ── Amber / Gold Scale ── */
-  --amber-900: #6b3d08;  /* darkest amber */
-  --amber-800: #9a5810;  /* deep amber */
-  --amber-700: #c47214;  /* warm amber */
-  --amber-600: #d9871a;  /* one below brand */
-  --amber-500: #ed9520;  /* ★ Brand Secondary — Pantone 7549 C approx */
-  --amber-400: #f2aa4a;  /* lighter amber / hover */
-  --amber-300: #f6c276;  /* soft amber */
-  --amber-200: #fada9e;  /* pale amber */
-  --amber-100: #fdeece;  /* near-white amber tint */
+  /* ── Tints ── */
+  --color-tint-orange: #FFE4D9;
+  --color-tint-navy: #8E95B7;
 
-  /* ── Neutral ── */
-  --ink:        #09090f;   /* body bg, deep dark — near-black with navy hue */
+  /* ── Backgrounds ── */
+  --color-bg: #FFF6F9;          /* Background cream */
+  --color-genre-bg: #ECEEF0;    /* Genre tag */
+
+  /* ── Gradients ── */
+  --gradient-1: #284180;
+  --gradient-2: #192B66;
+  --gradient-3: #0C1947;
+  --gradient-4: #040827;
+
+  /* ── Legacy Mappings (For backwards compatibility temporarily) ── */
+  --navy-950: #040827;
+  --navy-900: #0C1947;
+  --navy-800: #192B66;
+  --navy-600: var(--color-regal-navy);
+  --amber-500: var(--color-autumn-leaf);
+  
+  --ink:        #09090f;
   --ink-soft:   #111119;
   --white-pure: #ffffff;
-  --white-warm: #f8f7f5;   /* white body bg with warmth */
+  --white-warm: #FFF6F9;
 
   /* ── Semantic Tokens ── */
   --color-bg-deep:       var(--navy-950);
   --color-bg-surface:    var(--navy-900);
   --color-bg-card:       var(--navy-800);
-  --color-brand:         var(--navy-600);
-  --color-brand-hover:   var(--navy-500);
-  --color-accent:        var(--amber-500);
-  --color-accent-hover:  var(--amber-400);
+  --color-brand:         var(--color-regal-navy);
+  --color-brand-hover:   var(--gradient-1);
+  --color-accent:        var(--color-autumn-leaf);
+  --color-accent-hover:  var(--color-tint-orange);
   --color-text-primary:  var(--white-pure);
-  --color-text-secondary:var(--navy-200);
-  --color-text-muted:    var(--navy-300);
-  --color-border-subtle: rgba(162,157,224,0.12);
-  --color-border-mid:    rgba(162,157,224,0.22);
-  --color-border-amber:  rgba(237,149,32,0.35);
+  --color-text-secondary:var(--color-tint-navy);
+  --color-text-muted:    #8E95B7;
+  --color-border-subtle: rgba(142,149,183,0.12);
+  --color-border-mid:    rgba(142,149,183,0.22);
+  --color-border-amber:  rgba(243,107,33,0.35);
 
   /* ── Typography ── */
-  /* Helvetica is used for ALL text (body, UI, display, headlines) */
-  /* Instrument Serif Modified is reserved ONLY for the About intro animation */
-  --font-display: 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
-  --font-main:    'Helvetica', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'PeckhamPress', sans-serif;
+  --font-main:    'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+  --font-serif:   'Instrument Serif Modified', serif;
 }
 
 /* Base Typography */

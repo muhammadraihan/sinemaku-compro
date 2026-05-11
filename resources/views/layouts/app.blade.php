@@ -17,23 +17,19 @@
         extend: {
           colors: {
             brand: {
-              orange: '#f46a21',
-              deepbreath: '#0f6ab0',
-            },
-            shade: {
-              1: '#DB5F10',
-              2: '#0E1633',
-              3: '#000000',
+              orange: '#F36B21',
+              navy: '#22397A',
             },
             tint: {
-              1: '#FFD8A8',
-              2: '#CACAEF',
-              3: '#f6f6ed',
+              orange: '#FFE4D9',
+              navy: '#8E95B7',
             }
           },
           fontFamily: {
-            serif: ['var(--brand-serif)', 'serif'],
-            sans: ['Helvetica', 'Arial', 'sans-serif'],
+            serif: ['var(--font-serif)', 'serif'],
+            sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+            display: ['var(--font-display)', 'sans-serif'],
+            peckham: ['PeckhamPress', 'sans-serif'],
           }
         }
       }
@@ -70,6 +66,14 @@
     .font-serif,
     .font-serif * {
       font-family: {!! $brandSerif !!} !important;
+    }
+
+    @font-face {
+        font-family: 'PeckhamPress';
+        src: url('{{ asset('fonts/PeckhamPress.otf') }}') format('opentype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
     }
   </style>
 

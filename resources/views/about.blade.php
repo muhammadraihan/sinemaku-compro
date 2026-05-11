@@ -33,6 +33,7 @@
                     fontFamily: {
                         serif: ['var(--brand-serif)', 'serif'],
                         sans: ['Helvetica', 'Arial', 'sans-serif'],
+                        peckham: ['PeckhamPress', 'sans-serif'],
                     }
                 }
             }
@@ -51,6 +52,14 @@
     @endphp
 
     <style>
+        @font-face {
+            font-family: 'PeckhamPress';
+            src: url('{{ asset('fonts/PeckhamPress.otf') }}') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
         @font-face {
             font-family: 'Instrument Serif';
             src: url('{{ asset('fonts/instrument-serif/InstrumentSerif-Regular.ttf') }}') format('truetype');

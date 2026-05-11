@@ -5,16 +5,16 @@
 FULLSCREEN MENU OVERLAY
 ════════════════════════════════════════════════════════════════ --}}
 <div id="fullscreen-menu"
-    class="fixed inset-0 z-[400] flex flex-col justify-center px-8 md:px-32 bg-brand-deepbreath transform -translate-y-full transition-transform duration-1000 ease-[cubic-bezier(0.85,0,0.15,1)]">
+    class="fixed inset-y-0 right-0 z-[400] w-full md:w-[45vw] max-w-[600px] flex flex-col justify-center px-8 md:px-16 bg-white/5 backdrop-blur-[8px] border-l border-white/20 shadow-[-10px_0_30px_rgba(0,0,0,0.15)] transform translate-x-full transition-transform duration-1000 ease-[cubic-bezier(0.85,0,0.15,1)]">
 
     <!-- Tombol Close -->
     <button id="close-menu-btn"
-        class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white/50 hover:text-white transition-colors cursor-none hover-target">
-        [ Close ]
+        class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white hover:text-brand-navy transition-colors cursor-none hover-target">
+        [ X CLOSE ]
     </button>
 
     {{-- Language Switcher inside menu --}}
-    <div class="absolute top-10 left-8 md:left-16 flex items-center gap-4">
+    <div class="absolute bottom-10 left-8 md:left-16 flex items-center gap-4">
         <button id="lang-switcher" aria-label="Switch language"
             class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white/50 hover:text-white transition-colors cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
@@ -25,41 +25,44 @@ FULLSCREEN MENU OVERLAY
     </div>
 
     <!-- Tautan Menu Utama -->
-    <div class="flex flex-col space-y-1 md:space-y-2 font-serif mt-16 md:mt-0 max-h-[75vh] overflow-y-auto hide-scrollbar pb-10">
+    <div class="flex flex-col items-end space-y-2 md:space-y-4 font-peckham mt-16 md:mt-0 max-h-[80vh] overflow-y-auto hide-scrollbar pb-10 w-full relative z-10 pl-16">
         @php
             $mainMenu = [
-                ['title' => 'About', 'url' => '/', 'i18n' => 'menu_about'],
+                ['title' => 'HOME', 'url' => '/', 'i18n' => 'menu_about'],
                 [
-                    'title' => 'Our Works',
+                    'title' => 'OUR WORKS',
                     'i18n' => 'menu_our_works',
                     'isDropdown' => true,
                     'children' => [
-                        ['title' => 'Films', 'url' => '/films', 'i18n' => 'menu_films'],
-                        ['title' => 'Web Series', 'url' => '/serial', 'i18n' => 'menu_web_series'],
-                        ['title' => 'Television', 'url' => '/tv', 'i18n' => 'menu_television'],
-                        ['title' => 'Documentaries', 'url' => '/documentary', 'i18n' => 'menu_documentaries'],
+                        ['title' => 'FILMS', 'url' => '/films', 'i18n' => 'menu_films_short'],
+                        ['title' => 'WEB SERIES', 'url' => '/serial', 'i18n' => 'menu_web_series_short'],
+                        ['title' => 'TELEVISION', 'url' => '/tv', 'i18n' => 'menu_television_short'],
+                        ['title' => 'DOCUMENTARIES', 'url' => '/documentary', 'i18n' => 'menu_documentaries_short'],
                     ]
                 ],
-                ['title' => 'Events', 'url' => '/events', 'i18n' => 'menu_events'],
-                ['title' => 'Merch', 'url' => '/shops', 'i18n' => 'menu_merch'],
-                ['title' => 'Community', 'url' => '/memberships', 'i18n' => 'menu_community'],
-                ['title' => 'Articles', 'url' => '/article', 'i18n' => 'menu_articles'],
-                ['title' => 'Careers', 'url' => '/career', 'i18n' => 'menu_careers'],
+                ['title' => 'EVENT', 'url' => '/events', 'i18n' => 'menu_events'],
+                ['title' => 'MERCH', 'url' => '/shops', 'i18n' => 'menu_merch'],
+                ['title' => 'COMMUNITY', 'url' => '/memberships', 'i18n' => 'menu_community'],
+                ['title' => 'ARTICLE', 'url' => '/article', 'i18n' => 'menu_articles'],
+                ['title' => 'CAREER', 'url' => '/career', 'i18n' => 'menu_careers'],
             ];
         @endphp
 
         @foreach($mainMenu as $index => $item)
             @if(isset($item['isDropdown']))
-                <div class="relative w-max flex flex-col">
+                <div class="relative w-full flex flex-col items-end">
                     <button type="button" onclick="toggleDropdown('dropdown-{{ $index }}')"
-                        class="menu-link flex items-center gap-4 transition-all duration-500 opacity-0 transform translate-y-[50px] text-[clamp(2.5rem,6vw,5rem)] text-white hover:text-brand-orange leading-[1.05] text-left cursor-none hover-target font-serif not-italic">
+                        class="menu-link flex items-center justify-end gap-2 md:gap-4 transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] text-white hover:text-brand-navy leading-[1.05] text-right cursor-none hover-target font-peckham not-italic w-full uppercase">
+                        <span id="icon-dropdown-{{ $index }}" class="font-sans text-lg md:text-xl font-bold transform transition-transform duration-300 text-white mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </span>
                         <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
-                        <span id="icon-dropdown-{{ $index }}" class="font-sans text-xl md:text-3xl font-light transform transition-transform duration-300 text-brand-orange">+</span>
                     </button>
-                    <div id="dropdown-{{ $index }}" class="hidden flex-col pl-8 md:pl-16 space-y-1 md:space-y-2 mt-2 mb-4 overflow-hidden">
+                    <!-- Glass Pills Submenu -->
+                    <div id="dropdown-{{ $index }}" class="flex flex-wrap justify-end gap-2 mt-4 max-w-[320px] pr-2">
                         @foreach($item['children'] as $child)
                             <a href="{{ $child['url'] }}"
-                                class="inline-block w-max transition-all duration-300 text-[clamp(1.5rem,4vw,3.5rem)] text-white/60 hover:text-brand-orange leading-[1.1] cursor-none hover-target font-serif not-italic">
+                                class="inline-block transition-all duration-300 text-[10px] md:text-xs font-sans font-bold tracking-widest px-4 py-2 bg-white/10 hover:bg-brand-navy hover:text-white text-white rounded-md cursor-none hover-target border border-white/20 shadow-sm uppercase">
                                 <span data-i18n="{{ $child['i18n'] }}">{{ $child['title'] }}</span>
                             </a>
                         @endforeach
@@ -67,7 +70,7 @@ FULLSCREEN MENU OVERLAY
                 </div>
             @else
                 <a href="{{ $item['url'] }}"
-                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-y-[50px] text-[clamp(2.5rem,6vw,5rem)] text-white hover:text-brand-orange leading-[1.05] cursor-none hover-target font-serif not-italic">
+                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] text-white hover:text-brand-navy leading-[1.05] cursor-none hover-target font-peckham not-italic text-right uppercase">
                     <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                 </a>
             @endif
@@ -75,8 +78,9 @@ FULLSCREEN MENU OVERLAY
     </div>
 
     <!-- Info Watermark Bawah -->
-    <div class="absolute bottom-10 right-8 md:right-16">
-        <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-white/30">EST. 2020 • Jakarta, ID</span>
+    <div class="absolute bottom-10 right-8 md:right-16 text-right">
+        <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-white/30 block">EST. 2020</span>
+        <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-white/30 block mt-1">Jakarta, ID</span>
     </div>
 </div>
 
@@ -84,24 +88,24 @@ FULLSCREEN MENU OVERLAY
 TOP NAVBAR
 ════════════════════════════════════════════════════════════════ --}}
 <nav id="unified-navbar"
-    class="fixed top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 transition-all duration-500 text-brand-deepbreath nav-light">
+    class="fixed top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 transition-all duration-500 text-brand-navy nav-light bg-transparent">
 
     {{-- Brand (Left) --}}
     <a href="{{ route('welcome') ?? '/' }}" id="nav-logo"
-        class="font-serif text-3xl tracking-tight leading-none relative z-10 transition-colors duration-500 text-inherit hover:text-brand-orange cursor-none hover-target">
-        Sinemaku<br>Pictures.
+        class="relative z-10 transition-transform duration-500 hover:scale-105 cursor-none hover-target">
+        <img src="{{ asset('img/sinemaku_horizontal.png') }}" alt="Sinemaku Pictures" class="h-8 md:h-10 object-contain logo-img transition-all duration-500">
     </a>
 
     {{-- Right Controls --}}
     <div id="nav-controls"
-        class="flex gap-12 md:gap-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold items-start text-inherit transition-colors duration-500">
+        class="flex gap-12 md:gap-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold items-start text-white transition-colors duration-500">
         <div class="hidden md:flex flex-col gap-1 text-right opacity-90">
             <span>Est. 2020</span>
             <span>Jakarta, ID</span>
         </div>
         
         {{-- Top Nav Language Switcher --}}
-        <button class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-inherit opacity-60 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
+        <button class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
@@ -109,7 +113,7 @@ TOP NAVBAR
         </button>
 
         <button id="menu-open-btn"
-            class="hamburger-btn text-inherit opacity-60 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target">
+            class="hamburger-btn text-white opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target">
             [ Menu ]
         </button>
     </div>
@@ -143,13 +147,13 @@ NAVBAR JAVASCRIPT
 
         function openMenu() {
             isOpen = true;
-            menu.style.transform = 'translateY(0)';
+            menu.style.transform = 'translateX(0)';
             document.body.style.overflow = 'hidden';
 
             // GSAP animate links in
             if (window.gsap) {
                 gsap.to(menuLinks, {
-                    y: 0, opacity: 1,
+                    x: 0, opacity: 1,
                     duration: 1, stagger: 0.07, ease: 'power4.out', delay: 0.35,
                     onStart: function () {
                         menuLinks.forEach(function (l) { l.style.opacity = '0'; });
@@ -159,7 +163,7 @@ NAVBAR JAVASCRIPT
                 menuLinks.forEach(function (l, i) {
                     setTimeout(function () {
                         l.style.opacity = '1';
-                        l.style.transform = 'translateY(0)';
+                        l.style.transform = 'translateX(0)';
                     }, 350 + i * 70);
                 });
             }
@@ -167,12 +171,12 @@ NAVBAR JAVASCRIPT
 
         function closeMenu() {
             isOpen = false;
-            menu.style.transform = 'translateY(-100%)';
+            menu.style.transform = 'translateX(100%)';
             document.body.style.overflow = '';
             // Reset for next open
             menuLinks.forEach(function (l) {
                 l.style.opacity = '0';
-                l.style.transform = 'translateY(50px)';
+                l.style.transform = 'translateX(50px)';
             });
             // Reset dropdowns
             document.querySelectorAll('[id^="dropdown-"]').forEach(function(el) {
@@ -180,7 +184,7 @@ NAVBAR JAVASCRIPT
                 el.classList.remove('flex');
             });
             document.querySelectorAll('[id^="icon-dropdown-"]').forEach(function(el) {
-                el.style.transform = 'rotate(0deg)';
+                el.style.transform = 'rotate(90deg)';
             });
         }
 
@@ -191,17 +195,17 @@ NAVBAR JAVASCRIPT
             if (dropdown.classList.contains('hidden')) {
                 dropdown.classList.remove('hidden');
                 dropdown.classList.add('flex');
-                icon.style.transform = 'rotate(45deg)';
+                icon.style.transform = 'rotate(-90deg)';
                 if (window.gsap) {
                     gsap.fromTo(dropdown.children, 
-                        { opacity: 0, x: -20 },
-                        { opacity: 1, x: 0, duration: 0.4, stagger: 0.05, ease: "power2.out" }
+                        { opacity: 0, y: -10 },
+                        { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: "power2.out" }
                     );
                 }
             } else {
                 dropdown.classList.add('hidden');
                 dropdown.classList.remove('flex');
-                icon.style.transform = 'rotate(0deg)';
+                icon.style.transform = 'rotate(90deg)';
             }
         };
 
@@ -212,7 +216,7 @@ NAVBAR JAVASCRIPT
             if (e.key === 'Escape' && isOpen) closeMenu();
         });
 
-        // ── SMART NAVBAR: HIDE ON SCROLL DOWN ──────────────────────────
+        // ── SMART NAVBAR: HIDE ON SCROLL DOWN, SOLID NAVY ON SCROLL UP ──────────────────────────
         const navbar = document.getElementById('unified-navbar');
         let lastScrollTop = 0;
 
@@ -220,11 +224,18 @@ NAVBAR JAVASCRIPT
             if (isOpen) return;
             let st = window.pageYOffset || document.documentElement.scrollTop;
             if (st < 100) {
-                navbar.classList.remove('is-nav-hidden');
+                // At the top: transparent, standard padding
+                navbar.classList.remove('is-nav-hidden', 'bg-brand-navy', 'py-4', 'shadow-lg');
+                navbar.classList.add('py-10', 'bg-transparent');
+                navbar.style.color = ''; // Revert to nav-light or nav-dark
             } else if (st > lastScrollTop) {
+                // Scrolling down: hide
                 navbar.classList.add('is-nav-hidden');
             } else {
-                navbar.classList.remove('is-nav-hidden');
+                // Scrolling up but not at the top: show, solid navy background, smaller padding
+                navbar.classList.remove('is-nav-hidden', 'py-10', 'bg-transparent');
+                navbar.classList.add('bg-brand-navy', 'py-4', 'shadow-lg');
+                navbar.style.color = 'white'; // Force white text on navy background
             }
             lastScrollTop = st <= 0 ? 0 : st;
         }, { passive: true });
@@ -237,12 +248,16 @@ GLOBAL i18n ENGINE
 <script>
     (function () {
         const TRANSLATIONS = {
-            menu_about: { en: 'About', id: 'Tentang' },
+            menu_about: { en: 'Home', id: 'Beranda' },
             menu_our_works: { en: 'Our Works', id: 'Karya Kami' },
             menu_films: { en: '↳ Films', id: '↳ Film' },
+            menu_films_short: { en: 'Films', id: 'Film' },
             menu_web_series: { en: '↳ Web Series', id: '↳ Serial Web' },
+            menu_web_series_short: { en: 'Web Series', id: 'Serial Web' },
             menu_television: { en: '↳ Television', id: '↳ Televisi' },
+            menu_television_short: { en: 'Television', id: 'Televisi' },
             menu_documentaries: { en: '↳ Documentaries', id: '↳ Dokumenter' },
+            menu_documentaries_short: { en: 'Documentaries', id: 'Dokumenter' },
             menu_events: { en: 'Events', id: 'Acara' },
             menu_merch: { en: 'Merch', id: 'Merchandise' },
             menu_community: { en: 'Community', id: 'Komunitas' },
@@ -458,14 +473,14 @@ GLOBAL i18n ENGINE
 <style>
     /* Navbar Theme Styles */
     #unified-navbar.nav-light {
-        color: #0f6ab0; /* New Brand Blue (Deepbreath) */
+        color: var(--color-regal-navy); /* New Brand Navy */
     }
     #unified-navbar.nav-dark {
-        color: #f46a21; /* New Brand Orange */
+        color: var(--color-autumn-leaf); /* New Brand Orange */
     }
     
     /* Ensure the hamburger button also inherits color */
-    #menu-toggle-btn {
+    #menu-toggle-btn, #menu-open-btn {
         color: inherit;
     }
 </style>
@@ -491,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Automatically detect dark sections
         // Refined selectors: include almost all media containers and dark backgrounds
-        const darkSections = document.querySelectorAll('.bg-brand-deepbreath, section.hero-media, .bg-black, section.relative.h-\\[60vh\\], section.relative.h-\\[80vh\\], .reveal-image, .img-container, .hero-parallax-img');
+        const darkSections = document.querySelectorAll('.bg-brand-navy, section.hero-media, .bg-black, section.relative.h-\\[60vh\\], section.relative.h-\\[80vh\\], .reveal-image, .img-container, .hero-parallax-img');
         
         darkSections.forEach(section => {
             ScrollTrigger.create({
