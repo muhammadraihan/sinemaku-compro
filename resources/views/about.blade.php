@@ -16,18 +16,18 @@
                 extend: {
                     colors: {
                         brand: {
-                            orange: '#f46a21',
-                            deepbreath: '#0f6ab0',
+                            orange: '#F36B21', // Autumn Leaf
+                            navy: '#22397A',   // Regal Navy
                         },
                         shade: {
-                            1: '#DB5F10',
+                            1: '#F36B21',
                             2: '#0E1633',
-                            3: '#000000',
+                            3: '#040827',
                         },
                         tint: {
-                            1: '#FFD8A8',
-                            2: '#CACAEF',
-                            3: '#f6f6ed',
+                            1: '#FFE4D9', // Orange tint
+                            2: '#8E95B7', // Navy tint
+                            3: '#FFF6F9', // Background cream
                         }
                     },
                     fontFamily: {
@@ -41,14 +41,7 @@
     </script>
 
     @php
-    /*
-     * ========================================
-     * SINEMAKU FONT TOGGLE — edit di sini
-     * Pilih salah satu (hapus // di depannya):
-     * ========================================
-     */
-    $brandSerif = "'Instrument Serif', serif";   // <== AKTIF: Instrument Serif
-    // $brandSerif = "'Helvetica', 'Arial', sans-serif"; // <== aktifkan untuk Helvetica penuh
+    $brandSerif = "'Instrument Serif', serif";
     @endphp
 
     <style>
@@ -84,15 +77,19 @@
     <!-- Iconify -->
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 
+    <!-- GSAP Scripts (Moved to head for earlier availability) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <style>
         ::selection {
-            background-color: #0f6ab0;
-            color: #f6f6ed;
+            background-color: #F36B21;
+            color: #FFF6F9;
         }
 
         body {
-            background-color: #f6f6ed;
-            color: #0f6ab0;
+            background-color: #FFF6F9;
+            color: #22397A;
             margin: 0;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -108,19 +105,11 @@
             background:
                 radial-gradient(
                     ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
-                    rgba(244, 106, 33, 0.8) 0%,
-                    rgba(244, 106, 33, 0.8) 25%,
-                    rgba(244, 106, 33, 0.4) 40%,
-                    transparent 60%
-                ),
-                radial-gradient(
-                    ellipse 50vw 50vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
-                    rgba(15, 106, 176, 0.8) 0%,
-                    rgba(15, 106, 176, 0.8) 25%,
-                    rgba(15, 106, 176, 0.4) 40%,
+                    rgba(243, 107, 33, 0.4) 0%,
                     transparent 60%
                 );
-            filter: blur(50px);
+            filter: blur(80px);
+            opacity: 0.5;
         }
 
         /* ── EFEK LIGHT LEAK & GRAIN ── */
@@ -142,7 +131,7 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.10;
+            opacity: 0.05;
         }
 
         @keyframes float-blob-1 {
@@ -150,20 +139,10 @@
             40%       { transform: translate(4%, 3%) scale(1.06); }
             70%       { transform: translate(-3%, 5%) scale(0.96); }
         }
-        @keyframes float-blob-2 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            35%       { transform: translate(-5%, -2%) scale(1.04); }
-            65%       { transform: translate(3%, -4%) scale(0.98); }
-        }
 
         #leak-1 {
-            background: radial-gradient(circle, #f46a21 0%, transparent 70%);
+            background: radial-gradient(circle, #F36B21 0%, transparent 70%);
             animation: float-blob-1 18s ease-in-out infinite;
-        }
-
-        #leak-2 {
-            background: radial-gradient(circle, #0f6ab0 0%, transparent 70%);
-            animation: float-blob-2 24s ease-in-out infinite;
         }
 
         /* ── TYPOGRAPHY & LAYOUT ── */
@@ -173,42 +152,7 @@
         }
 
         .hairline-border {
-            border-color: rgba(37, 34, 94, 0.15);
-        }
-
-        .editorial-image-container {
-            overflow: hidden;
-            position: relative;
-        }
-
-        .editorial-image {
-            width: 100%;
-            height: 120%;
-            /* Untuk parallax */
-            object-fit: cover;
-            /* Removed grayscale filter */
-            transition: filter 0.8s ease;
-        }
-
-        .editorial-image-container:hover .editorial-image {
-            /* Removed grayscale filter */
-        }
-
-        /* Sembunyikan scrollbar native untuk kesan bersih */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #F1F1F1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(37, 34, 94, 0.2);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(37, 34, 94, 0.5);
+            border-color: rgba(34, 57, 122, 0.1);
         }
 
         /* ── CUSTOM CURSOR (EDITORIAL RING) ── */
@@ -218,7 +162,7 @@
             left: 0;
             width: 30px;
             height: 30px;
-            border: 1px solid #f46a21;
+            border: 1px solid #F36B21;
             border-radius: 50%;
             pointer-events: none;
             z-index: 999999;
@@ -241,39 +185,18 @@
             transform: translate(-50%, -50%);
         }
 
-        /* ── SMOOTH ITALIC ANIMATION ── */
-        .smooth-italic {
-            display: inline-block;
-            transform-origin: center;
-            animation: unskewToNormal 0.4s forwards;
+        /* ── SLIDER HERO STYLES ── */
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
-        .smooth-italic:hover,
-        .group:hover .group-smooth-italic {
-            animation: skewToItalic 0.4s forwards;
+        .hero-slide.active {
+            opacity: 1;
         }
-        .group-smooth-italic {
-            display: inline-block;
-            transform-origin: center;
-            animation: unskewToNormal 0.4s forwards;
-        }
-
-        @keyframes skewToItalic {
-            0% { transform: skewX(0deg) scale(1); font-style: normal; }
-            49% { transform: skewX(-12deg) scale(1); font-style: normal; }
-            50% { transform: skewX(0deg) scale(0.94); font-style: italic; }
-            100% { transform: skewX(0deg) scale(0.94); font-style: italic; }
-        }
-        @keyframes unskewToNormal {
-            0% { transform: skewX(0deg) scale(0.94); font-style: italic; }
-            49% { transform: skewX(0deg) scale(0.94); font-style: italic; }
-            50% { transform: skewX(-12deg) scale(1); font-style: normal; }
-            100% { transform: skewX(0deg) scale(1); font-style: normal; }
-        }
-
-        /* ── HERO IMAGE HOVER FIX ── */
-        .hero-image-container:hover .hero-img-grayscale {
-            opacity: 0 !important;
-            transition: opacity 0.7s ease;
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(243, 107, 33, 0.4), rgba(4, 8, 39, 0.6));
         }
     </style>
 </head>
@@ -286,65 +209,41 @@
     <!-- Efek Grain & Light Leak Global -->
     <div class="cinematic-grain"></div>
     <div id="leak-1" class="light-leak w-[50vw] h-[50vw] top-[-10vw] left-[-10vw]"></div>
-    <div id="leak-2" class="light-leak w-[40vw] h-[40vw] bottom-10 right-[-10vw]"></div>
 
     <!-- Custom Cursor -->
     <div id="cursor-ring"></div>
     <div id="cursor-dot"></div>
 
-
-
     <!-- ── MINIMALIST HEADER ── -->
     @include('partials.navbar')
 
     <!-- 1. EDITORIAL HERO SECTION -->
-    <section id="hero-section" class="relative w-full h-[100svh] flex flex-col justify-start px-8 md:px-16 pt-32 pb-16 z-10 overflow-hidden">
-        <!-- Text Container (z-30) -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 w-full z-30 relative hero-text-wrapper pointer-events-none">
-            <!-- Huge Typography -->
-            <div class="w-full md:w-3/4">
-                <h1 class="hero-title font-serif text-[15vw] md:text-[12vw] leading-[0.8] text-brand-deepbreath tracking-tighter m-0 hero-reveal">
-                    <span class="tagline-container tagline-id" data-tagline-lang="id">
-                        Here Comes<br><span class="hero-title-italic italic text-brand-orange pl-[5vw]">The Fun.</span>
-                    </span>
-                    <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
-                        Here Comes<br><span class="hero-title-italic italic text-brand-orange pl-[5vw]">The Fun.</span>
-                    </span>
-                </h1>
-            </div>
-
-            <!-- Context Text -->
-            <div class="w-full md:w-1/4 pb-4 hero-reveal hero-context">
-                @php
-                    $subId = $settings['about_hero_subtitle'] ?? 'Sebuah ruang bermain bagi generasi baru pencerita yang berani mendobrak tradisi kaku demi mengubah lanskap perfilman Indonesia.';
-                    $subEn = $settings['about_hero_subtitle_en'] ?? 'A playground for a new generation of storytellers who dare to break rigid traditions to change the landscape of Indonesian cinema.';
-                @endphp
-                <p class="font-sans text-xs md:text-sm font-light leading-relaxed text-brand-deepbreath/70">
-                    <span class="tagline-container tagline-id" data-tagline-lang="id">
-                        {{ $subId }}
-                    </span>
-                    <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
-                        {{ $subEn }}
-                    </span>
-                </p>
-                <div class="hero-scroll-indicator mt-8 pt-4 border-t hairline-border flex justify-between font-sans text-[9px] tracking-widest uppercase text-brand-deepbreath/50">
-                    <span>Scroll to explore</span>
-                    <span>↓</span>
-                </div>
-            </div>
+    <section id="hero-section" class="relative w-full h-[100svh] overflow-hidden z-10 bg-brand-navy">
+        @php
+            $heroImage = $settings['about_hero_image'] ?? 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop';
+        @endphp
+        <div class="absolute inset-0">
+            <img src="{{ asset($heroImage) }}" alt="Sinemaku Hero" class="w-full h-full object-cover">
+            <!-- Orange Overlay -->
+            <div class="absolute inset-0 bg-brand-orange opacity-50 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-brand-orange opacity-40 mix-blend-color"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-orange/50"></div>
         </div>
 
-        <!-- Absolute Image Container (z-20) -->
-        <div class="hero-image-container group absolute bottom-4 md:bottom-16 left-1/2 -translate-x-1/2 w-[90%] aspect-[16/9] md:aspect-none md:w-[60%] md:h-[45vh] z-20 overflow-hidden rounded-md cursor-none hover-target shadow-2xl">
-
-            
-            <!-- Base Image (Full Color) -->
-            <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
-                alt="Cinematic Setup" class="absolute inset-0 w-full h-full object-cover z-0 hero-img-inner pointer-events-none">
-                
-            <!-- Grayscale Overlay (Fades out on hover and scroll) -->
-            <img src="{{ isset($settings['about_hero_image']) ? asset($settings['about_hero_image']) : 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop' }}"
-                alt="Cinematic Setup Grayscale" class="absolute inset-0 w-full h-full object-cover z-0 hero-img-grayscale transition-opacity duration-700 group-hover:opacity-0 pointer-events-none">
+        {{-- Hero Content Overlay --}}
+        <div class="relative z-30 w-full h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 text-white">
+            <div class="w-full max-w-6xl mx-auto flex flex-col">
+                <h1 class="hero-reveal flex flex-col gap-0 drop-shadow-2xl">
+                    <div class="flex items-end gap-4 md:gap-8">
+                        <span class="font-peckham text-[18vw] md:text-[13vw] text-white uppercase leading-[0.8]">HERE</span>
+                        <span class="font-serif text-[16vw] md:text-[11vw] text-white leading-[0.8] pb-[1vw] md:pb-[0.5vw]">Comes</span>
+                    </div>
+                    <div class="flex items-start gap-4 md:gap-8 pl-[35vw] md:pl-[25vw]">
+                        <span class="font-serif text-[16vw] md:text-[11vw] text-white leading-[0.8]">The</span>
+                        <span class="font-peckham text-[18vw] md:text-[13vw] text-white uppercase leading-[0.8]">FUN.</span>
+                    </div>
+                </h1>
+            </div>
         </div>
     </section>
 
@@ -641,289 +540,66 @@
 
     @include('components.footer')
 
-    <!-- GSAP Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
+        // GSAP is already loaded in the head
         gsap.registerPlugin(ScrollTrigger);
 
-        // ─── HERO SCROLL ANIMATION ──────────────────────────────────────
-        let heroTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#hero-section",
-                start: "top top",
-                end: "+=80%", // Increased scroll distance to accommodate the hold
-                pin: true,
-                scrub: 1, // Smooth scrub
-            }
-        });
-
-        // Expand image
-        heroTl.to(".hero-image-container", {
-            width: "96vw",
-            height: "94vh",
-            bottom: "3vh", // Vertically center
-            borderRadius: "24px",
-            duration: 0.8, // Finish at 80% of scroll
-            ease: "none"
-        }, 0);
 
 
-
-        // Color text to white/bright
-        heroTl.to(".hero-title", {
-            color: "#F1F1F1", // tint-3
-            duration: 0.8,
-            ease: "none"
-        }, 0);
-
-        // Fade out context text
-        heroTl.to(".hero-context", {
-            opacity: 0,
-            y: -20,
-            duration: 0.4, // Finish earlier
-            ease: "none"
-        }, 0);
-
-        // Move text block down significantly for better composition
-        heroTl.to(".hero-text-wrapper", {
-            y: "30vh", // Keeping user's manual change
-            duration: 0.8,
-            ease: "none"
-        }, 0);
-
-        // Animate image to full color automatically during scroll by fading out grayscale layer
-        heroTl.to(".hero-img-grayscale", {
-            opacity: 0,
-            duration: 0.8,
-            ease: "none"
-        }, 0);
-        
-        // Slightly scale images to give parallax feel
-        heroTl.fromTo(".hero-img-inner", 
-            { scale: 1.1 },
-            { scale: 1, duration: 0.8, ease: "none" }, 
-        0);
-        heroTl.fromTo(".hero-img-grayscale", 
-            { scale: 1.1 },
-            { scale: 1, duration: 0.8, ease: "none" }, 
-        0);
-
-        // Add a "hold" period where nothing happens for the last 20% of scroll
-        heroTl.to({}, { duration: 0.2 });
-        // ────────────────────────────────────────────────────────────────
-
-        // 2. Subtle Light Leak Parallax (Simplified for Performance)
-        const leak1 = document.getElementById('leak-1');
-        const leak2 = document.getElementById('leak-2');
-
-        // Mouse move logic removed to prevent lag caused by filter:blur animations
-
-        // 3. Image Parallax
-        gsap.utils.toArray('.editorial-image-container').forEach(container => {
-            const img = container.querySelector('.para-img');
-            if (img) {
-                gsap.fromTo(img, 
-                    { yPercent: -10 },
-                    {
-                        yPercent: 10,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: container,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: true
-                        }
-                    }
-                );
-            }
-        });
-
-        // 3.5 Secondary Crew Photo Parallax
-        // Image is 150% tall. When section enters from bottom: show top of image (y=0).
-        // When section exits at top: show bottom of image (y=-50%).
-        const secondaryImg = document.querySelector('.secondary-para-img');
-        if (secondaryImg) {
-            gsap.fromTo(secondaryImg,
-                { y: "0%" },
-                {
-                    y: "-50%",
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: '.secondary-photo-section',
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: true
-                    }
-                }
-            );
-        }
-
-        // 4. Reveal Animations
+        // ─── REVEAL ANIMATIONS ──────────────────────────────────────────
+        // Initial Hero Reveal
         gsap.from(".hero-reveal", {
-            y: 40, opacity: 0, stagger: 0.2, duration: 1.5, ease: "expo.out", delay: 0.2
+            y: 60,
+            opacity: 0,
+            duration: 2,
+            stagger: 0.3,
+            ease: "expo.out",
+            delay: 0.5
         });
 
-        // 3.8 Split Text Word Reveal (Emerging from mask effect)
-        function initSplitText() {
-            document.querySelectorAll('.split-text').forEach(el => {
-                if (!el.dataset.split) {
-                    const text = el.innerText;
-                    // Wrap words in double spans: Outer is the mask (overflow-hidden), inner is the moving text
-                    el.innerHTML = text.split(/\s+/).map(word => 
-                        `<span class="inline-block overflow-hidden pt-1 -mt-1">
-                            <span class="split-word inline-block translate-y-[110%]">${word}</span>
-                        </span>`
-                    ).join(' ');
-                    el.dataset.split = "true";
-                }
-
-                const words = el.querySelectorAll('.split-word');
-                gsap.to(words, {
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 85%",
-                        toggleActions: "restart none none reset"
-                    },
-                    y: "0%",
-                    duration: 0.8,
-                    stagger: 0.03,
-                    ease: "expo.out"
-                });
-            });
-        }
-        initSplitText();
-
-        // 3.7 Manifesto Section Parallax (Slow down effect)
-        const manifestoSection = document.querySelector('#manifesto');
-        if (manifestoSection) {
-            // Overall container moves down slightly to "stay" longer
-            gsap.to('#manifesto > div', {
-                y: 150,
-                ease: "none",
-                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
-            });
-            
-            gsap.to('.manifesto-marker', {
-                y: 100,
-                ease: "none",
-                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
-            });
-            gsap.to('.manifesto-title', {
-                y: 50,
-                ease: "none",
-                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
-            });
-            gsap.to('.manifesto-col-1', {
-                y: 80,
-                ease: "none",
-                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
-            });
-            gsap.to('.manifesto-col-2', {
-                y: 40,
-                ease: "none",
-                scrollTrigger: { trigger: manifestoSection, start: "top bottom", end: "bottom top", scrub: true }
-            });
-        }
-
-        gsap.utils.toArray('.text-reveal').forEach(text => {
-            gsap.from(text, {
-                scrollTrigger: { trigger: text, start: "top 85%" },
-                y: 30, opacity: 0, duration: 1.5, ease: "power3.out"
-            });
+        // Company Section Reveal
+        gsap.from("#company-section .hero-reveal", {
+            scrollTrigger: {
+                trigger: "#company-section",
+                start: "top 80%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.2,
+            ease: "power3.out"
         });
 
-        // 4. Dynamic Crew Member "Stacking Cards" Animation
-        const crewCards = gsap.utils.toArray('.reveal-image');
-        crewCards.forEach((card, i) => {
-            const nextCard = crewCards[i + 1];
-            
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: card,
-                    // Start animation when it enters viewport
-                    start: "top bottom", 
-                    // End when the NEXT card has entered significantly
-                    endTrigger: nextCard || card,
-                    end: nextCard ? "top 20%" : "bottom top-=500",
-                    scrub: 1,
-                }
-            });
-
-            tl.fromTo(card, 
-                { 
-                    y: 250, 
-                    rotation: i % 2 === 0 ? -8 : 8,
-                    opacity: 0,
-                    scale: 0.85
-                },
-                { 
-                    y: 0, 
-                    rotation: 0,
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.25, // Entry phase
-                    ease: "power2.out"
-                }
-            )
-            // It will now stay "sticky" due to CSS 'sticky top-32'
-            // We just wait for the right moment to trigger the exit
-            .to(card, {
-                y: -600, // Accelerated exit
-                rotation: i % 2 === 0 ? 5 : -5,
-                opacity: 0,
-                duration: 0.35, // Exit phase
-                ease: "power2.in"
-            }, "+=0.1"); // The hold duration
+        // People Section Reveal
+        gsap.from("#people-section .group", {
+            scrollTrigger: {
+                trigger: "#people-section",
+                start: "top 70%",
+            },
+            y: 100,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.15,
+            ease: "power4.out"
         });
 
-        // 5. Grid Cards Reveal (What We Do)
-        if (document.querySelector('#wwd-grid')) {
+        // What We Do Reveal (If still present)
+        if (document.querySelector('.reveal-card')) {
             gsap.from('.reveal-card', {
                 scrollTrigger: {
-                    trigger: '#wwd-grid',
-                    start: "top 80%",
+                    trigger: '.reveal-card',
+                    start: "top 85%",
                 },
-                y: 50,
+                y: 40,
                 opacity: 0,
-                duration: 1,
+                duration: 1.2,
                 stagger: 0.2,
                 ease: "power3.out"
             });
         }
 
-        gsap.utils.toArray('.list-row').forEach((row, i) => {
-            gsap.from(row, {
-                scrollTrigger: { trigger: row, start: "top 90%" },
-                opacity: 0, y: 20, duration: 1, delay: i * 0.1, ease: "power2.out"
-            });
-        });
-
-
-
-        // ─── LANGUAGE SYNC FOR HERO TAGLINE ───────────────────────────
-        function syncTaglineWithLang() {
-            const currentLang = (window.__i18n && window.__i18n.getCurrent)
-                ? window.__i18n.getCurrent()
-                : (localStorage.getItem('SINEMAKU_LANG') || 'id');
-
-            document.querySelectorAll('.tagline-container').forEach(el => {
-                el.style.display = (el.dataset.taglineLang === currentLang) ? 'block' : 'none';
-            });
-        }
-
-        if (window.__langToggle) {
-            const oldToggle = window.__langToggle;
-            window.__langToggle = function () {
-                oldToggle();
-                syncTaglineWithLang();
-            };
-        }
-
-        syncTaglineWithLang();
-
-        // ─── CUSTOM CURSOR LOGIC ──────────────────────────────────────
+        // ─── CUSTOM CURSOR & INTERACTIVE BG ──────────────────────────────
         (function() {
             const cursorRing = document.getElementById('cursor-ring');
             const cursorDot = document.getElementById('cursor-dot');
@@ -948,7 +624,7 @@
                 ringY += (mouseY - ringY) * 0.15;
                 gsap.set(cursorRing, { x: ringX, y: ringY });
 
-                // Background gradient interpolation (smoother/slower)
+                // Background gradient interpolation
                 bgX += (mouseX - bgX) * 0.05;
                 bgY += (mouseY - bgY) * 0.05;
                 document.body.style.setProperty('--mx', (bgX / window.innerWidth * 100) + '%');
@@ -964,7 +640,7 @@
                     target.addEventListener('mouseenter', () => {
                         gsap.to(cursorRing, {
                             width: 60, height: 60,
-                            backgroundColor: "rgba(255, 177, 80, 0.15)",
+                            backgroundColor: "rgba(243, 107, 33, 0.1)",
                             duration: 0.4, ease: "power2.out"
                         });
                         gsap.to(cursorDot, { scale: 0.5, duration: 0.2 });
@@ -980,8 +656,7 @@
                 });
             }
             bindHovers();
-            // Re-bind occasionally if dynamic content
-            setTimeout(bindHovers, 1000);
+            setInterval(bindHovers, 2000);
         })();
     </script>
 </body>

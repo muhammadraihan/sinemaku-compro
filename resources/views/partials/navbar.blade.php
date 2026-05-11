@@ -294,7 +294,8 @@ STICKY MORPHING NAVBAR (THE "PONI")
             }
         });
 
-        // ── MORPHING STICKY MENU LOGIC ──────────────────────────
+    // ── MORPHING STICKY MENU LOGIC ──────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
         const stickyNav = document.getElementById('sticky-navbar');
         const stickyHeader = document.getElementById('sticky-header');
         const stickyMenuText = document.getElementById('sticky-menu-text');
@@ -302,7 +303,11 @@ STICKY MORPHING NAVBAR (THE "PONI")
         const stickyMenuIcon = document.getElementById('sticky-menu-icon');
         const stickyLinksContainer = document.getElementById('sticky-links-container');
         const stickyLinks = document.querySelectorAll('.sticky-menu-link');
+        const unifiedNav = document.getElementById('unified-navbar');
         let isStickyMenuOpen = false;
+
+        // Initialize position
+        gsap.set(stickyNav, { yPercent: -150, xPercent: -50, left: '50%' });
 
         function openStickyMenu() {
             if (isStickyMenuOpen) return;
@@ -311,7 +316,6 @@ STICKY MORPHING NAVBAR (THE "PONI")
             
             const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.85 } });
 
-            // 1. Sinkronisasi: Lebar, Tinggi, Posisi, dan Radius
             tl.to(stickyNav, {
                 width: '100%',
                 maxWidth: '100%',
@@ -324,12 +328,10 @@ STICKY MORPHING NAVBAR (THE "PONI")
                 }
             });
 
-            // 2. Stabilkan Header & Transisi Text Menu ke Close
             tl.to(stickyHeader, { paddingTop: '2.5rem', paddingBottom: '2.5rem' }, 0);
             tl.to([stickyMenuText, stickyMenuIcon], { opacity: 0, x: -20, duration: 0.4 }, 0);
             tl.to(stickyCloseText, { opacity: 1, x: 0, pointerEvents: 'auto', duration: 0.4 }, 0.4);
 
-            // 3. Munculkan Link Teks SETELAH wadah membesar
             tl.to(stickyLinksContainer, { opacity: 1, duration: 0.3 }, 0.5);
             tl.fromTo(stickyLinks, 
                 { y: 40, opacity: 0 },
@@ -345,16 +347,14 @@ STICKY MORPHING NAVBAR (THE "PONI")
 
             const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.8 } });
 
-            // 1. Sembunyikan konten dulu
             tl.to(stickyLinks, { opacity: 0, y: 20, duration: 0.3 });
             tl.to(stickyLinksContainer, { opacity: 0, duration: 0.3 }, 0.1);
 
-            // 2. Morphing balik ke Poni (Semua serempak)
             tl.to(stickyNav, {
                 width: '90%',
                 maxWidth: '800px',
                 height: '64px',
-                top: '1.5rem', // Sesuai top-6
+                top: '1.5rem',
                 borderRadius: '1rem',
                 onComplete: () => {
                     stickyNav.classList.remove('is-expanded');
@@ -363,8 +363,6 @@ STICKY MORPHING NAVBAR (THE "PONI")
             }, 0.2);
 
             tl.to(stickyHeader, { paddingTop: '0', paddingBottom: '0' }, 0.2);
-
-            // 3. Reset Button
             tl.to(stickyCloseText, { opacity: 0, x: 10, pointerEvents: 'none', duration: 0.3 }, 0.2);
             tl.to([stickyMenuText, stickyMenuIcon], { opacity: 1, x: 0, duration: 0.4 }, 0.5);
         }
@@ -381,9 +379,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
                 el.classList.remove('hidden');
                 el.classList.add('flex');
                 icon.style.transform = 'rotate(180deg)';
-                if (window.gsap) {
-                    gsap.fromTo(el.children, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.05 });
-                }
+                gsap.fromTo(el.children, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.05 });
             } else {
                 el.classList.add('hidden');
                 el.classList.remove('flex');
@@ -391,53 +387,25 @@ STICKY MORPHING NAVBAR (THE "PONI")
             }
         };
 
-        // ── SMART NAVBAR: SCROLL LOGIC ──────────────────────────
-        const unifiedNav = document.getElementById('unified-navbar');
-        let isPillVisible = false;
-        
-        // Inisialisasi posisi awal dengan GSAP
-        if (window.gsap) {
-            gsap.set(stickyNav, { yPercent: -150, xPercent: -50 });
-        } else {
-            stickyNav.style.transform = 'translate(-50%, -150%)';
-        }
-
-        function handleScroll() {
-            if (isOpen || isStickyMenuOpen) return;
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (st > 60) {
-                // Sembunyikan navbar utama
-                if (unifiedNav) unifiedNav.classList.add('is-nav-hidden');
-                
-                // Munculkan poni sticky
-                if (!isPillVisible) {
-                    isPillVisible = true;
-                    if (window.gsap) {
-                        gsap.to(stickyNav, { yPercent: 0, xPercent: -50, duration: 0.6, ease: "power3.out", overwrite: true });
-                    } else {
-                        stickyNav.style.transform = 'translate(-50%, 0)';
+        // ── SMART NAVBAR: SCROLL TRIGGER LOGIC ──────────────────────────
+        // Using ScrollTrigger instead of manual scroll event for better reliability
+        ScrollTrigger.create({
+            start: "top -60px",
+            onUpdate: (self) => {
+                // If we are scrolling down past 60px
+                if (self.direction === 1 && self.scroll() > 60) {
+                    if (!isStickyMenuOpen) {
+                        unifiedNav.classList.add('is-nav-hidden');
+                        gsap.to(stickyNav, { yPercent: 0, duration: 0.6, ease: "power3.out", overwrite: true });
                     }
-                }
-            } else {
-                // Munculkan kembali navbar utama
-                if (unifiedNav) unifiedNav.classList.remove('is-nav-hidden');
-
-                // Sembunyikan poni sticky
-                if (isPillVisible) {
-                    isPillVisible = false;
-                    if (window.gsap) {
-                        gsap.to(stickyNav, { yPercent: -150, xPercent: -50, duration: 0.5, ease: "power3.in", overwrite: true });
-                    } else {
-                        stickyNav.style.transform = 'translate(-50%, -150%)';
-                    }
+                } else if (self.scroll() <= 60) {
+                    // If we are back at the top
+                    unifiedNav.classList.remove('is-nav-hidden');
+                    gsap.to(stickyNav, { yPercent: -150, duration: 0.5, ease: "power3.in", overwrite: true });
                 }
             }
-        }
-
-        window.addEventListener('scroll', handleScroll);
-        // Jalankan sekali saat inisialisasi
-        handleScroll();
+        });
+    });
     })();
 </script>
 
