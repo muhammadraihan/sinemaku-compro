@@ -85,10 +85,64 @@ FULLSCREEN MENU OVERLAY
 </div>
 
 {{-- ════════════════════════════════════════════════════════════════
+STICKY MENU OVERLAY (Center Aligned)
+════════════════════════════════════════════════════════════════ --}}
+<div id="sticky-menu-overlay"
+    class="fixed inset-0 z-[500] bg-[#0E1633] flex flex-col items-center justify-start opacity-0 pointer-events-none transition-opacity duration-500 overflow-y-auto hide-scrollbar">
+    
+    {{-- Header Sticky Menu --}}
+    <div class="w-full flex justify-between items-center px-8 md:px-16 py-10 relative z-20">
+        <div class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80">
+            Our Works
+        </div>
+        <a href="/" class="transition-transform hover:scale-110">
+            <img src="{{ asset('img/logo-sinemaku.png') }}" alt="Sinemaku" class="h-8 md:h-10">
+        </a>
+        <button id="close-sticky-menu"
+            class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors">
+            [ CLOSE ]
+        </button>
+    </div>
+
+    {{-- Center Links --}}
+    <div class="flex-1 w-full flex flex-col items-center justify-center py-20">
+        <div class="flex flex-col items-center space-y-6 md:space-y-8 font-peckham w-full max-w-[90vw]">
+            @foreach($mainMenu as $index => $item)
+                @if(isset($item['isDropdown']))
+                    <div class="flex flex-col items-center w-full">
+                        <button type="button" onclick="toggleStickyDropdown('sticky-drop-{{ $index }}')"
+                            class="sticky-menu-link flex items-center justify-center gap-4 text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight">
+                            <span>{{ $item['title'] }}</span>
+                            <span id="icon-sticky-drop-{{ $index }}" class="transition-transform duration-300 transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </button>
+                        <div id="sticky-drop-{{ $index }}" class="hidden flex-wrap justify-center gap-3 mt-8 max-w-[600px] px-4">
+                            @foreach($item['children'] as $child)
+                                <a href="{{ $child['url'] }}"
+                                    class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-md font-sans font-bold tracking-widest text-xs transition-all uppercase border border-white/10 shadow-lg">
+                                    {{ $child['title'] }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ $item['url'] }}"
+                        class="sticky-menu-link text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight">
+                        {{ $item['title'] }}
+                    </a>
+                @endif
+            @endforeach
+        </div>
+    </div>
+</div>
+
+{{-- ════════════════════════════════════════════════════════════════
 TOP NAVBAR
 ════════════════════════════════════════════════════════════════ --}}
+{{-- Initial Navbar (Absolute at top) --}}
 <nav id="unified-navbar"
-    class="fixed top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 transition-all duration-500 text-brand-navy nav-light bg-transparent">
+    class="absolute top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 transition-all duration-500 text-white bg-transparent">
 
     {{-- Brand (Left) --}}
     <a href="{{ route('welcome') ?? '/' }}" id="nav-logo"
@@ -132,6 +186,36 @@ TOP NAVBAR
             scrollbar-width: none;
         }
     </style>
+</nav>
+
+{{-- Sticky Navbar (Rounded Rectangular Shape — appears on scroll) --}}
+<nav id="sticky-navbar"
+    class="fixed top-6 left-1/2 -translate-x-1/2 z-[350] w-[90%] max-w-[800px] bg-[#0E1633] rounded-2xl px-6 md:px-10 py-3 flex items-center justify-between shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] transform -translate-y-[150%] border border-white/10">
+    
+    {{-- Left: Our Works --}}
+    <div class="flex-1 flex justify-start">
+        <a href="/films" 
+            class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors cursor-none hover-target">
+            Our Works
+        </a>
+    </div>
+
+    {{-- Center: Logo --}}
+    <a href="/" class="flex-shrink-0 mx-4 transition-transform hover:scale-110 cursor-none hover-target">
+        <img src="{{ asset('img/logo-sinemaku.png') }}" alt="Sinemaku" class="h-8 md:h-10 w-auto">
+    </a>
+
+    {{-- Right: Menu --}}
+    <div class="flex-1 flex justify-end">
+        <button id="menu-open-sticky"
+            class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors flex items-center gap-3 cursor-none hover-target">
+            <span>Menu</span>
+            <div class="flex flex-col gap-1">
+                <div class="w-4 h-[1.5px] bg-white"></div>
+                <div class="w-4 h-[1.5px] bg-white"></div>
+            </div>
+        </button>
+    </div>
 </nav>
 
 {{-- ════════════════════════════════════════════════════════════════
@@ -209,36 +293,79 @@ NAVBAR JAVASCRIPT
             }
         };
 
+        // ── MENU STYLE 1 LOGIC (Initial Navbar) ───────
         if (openBtn) openBtn.addEventListener('click', function () { isOpen ? closeMenu() : openMenu(); });
         if (closeBtn) closeBtn.addEventListener('click', closeMenu);
 
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && isOpen) closeMenu();
+            if (e.key === 'Escape') {
+                if (isOpen) closeMenu();
+                if (!stickyMenu.classList.contains('pointer-events-none')) closeStickyMenu();
+            }
         });
 
-        // ── SMART NAVBAR: HIDE ON SCROLL DOWN, SOLID NAVY ON SCROLL UP ──────────────────────────
-        const navbar = document.getElementById('unified-navbar');
-        let lastScrollTop = 0;
+        // ── STICKY MENU LOGIC ──────────────────────────
+        const stickyMenu = document.getElementById('sticky-menu-overlay');
+        const openStickyBtn = document.getElementById('menu-open-sticky');
+        const closeStickyBtn = document.getElementById('close-sticky-menu');
+        const stickyLinks = document.querySelectorAll('.sticky-menu-link');
+
+        function openStickyMenu() {
+            stickyMenu.classList.remove('pointer-events-none');
+            stickyMenu.classList.add('opacity-100');
+            document.body.style.overflow = 'hidden';
+            
+            if (window.gsap) {
+                gsap.fromTo(stickyLinks, 
+                    { y: 50, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.8, stagger: 0.05, ease: "power4.out", delay: 0.2 }
+                );
+            }
+        }
+
+        function closeStickyMenu() {
+            stickyMenu.classList.add('pointer-events-none');
+            stickyMenu.classList.remove('opacity-100');
+            document.body.style.overflow = '';
+            // Reset dropdowns
+            document.querySelectorAll('[id^="sticky-drop-"]').forEach(el => el.classList.add('hidden'));
+        }
+
+        window.toggleStickyDropdown = function(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                el.classList.add('flex');
+                icon.style.transform = 'rotate(180deg)';
+                if (window.gsap) {
+                    gsap.fromTo(el.children, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.05 });
+                }
+            } else {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        };
+
+        if (openStickyBtn) openStickyBtn.addEventListener('click', openStickyMenu);
+        if (closeStickyBtn) closeStickyBtn.addEventListener('click', closeStickyMenu);
+
+        // ── SMART NAVBAR: STICKY PILL LOGIC ──────────────────────────
+        const stickyNav = document.getElementById('sticky-navbar');
 
         window.addEventListener('scroll', function () {
-            if (isOpen) return;
+            if (isOpen || !stickyMenu.classList.contains('pointer-events-none')) return;
             let st = window.pageYOffset || document.documentElement.scrollTop;
-            if (st < 100) {
-                // At the top: transparent, standard padding
-                navbar.classList.remove('is-nav-hidden', 'bg-brand-navy', 'py-4', 'shadow-lg');
-                navbar.classList.add('py-10', 'bg-transparent');
-                navbar.style.color = ''; // Revert to nav-light or nav-dark
-            } else if (st > lastScrollTop) {
-                // Scrolling down: hide
-                navbar.classList.add('is-nav-hidden');
+            
+            if (st > 100) {
+                // Scrolled down past threshold: show sticky pill
+                stickyNav.style.transform = 'translateX(-50%) translateY(0)';
             } else {
-                // Scrolling up but not at the top: show, solid navy background, smaller padding
-                navbar.classList.remove('is-nav-hidden', 'py-10', 'bg-transparent');
-                navbar.classList.add('bg-brand-navy', 'py-4', 'shadow-lg');
-                navbar.style.color = 'white'; // Force white text on navy background
+                // Near top: hide sticky pill
+                stickyNav.style.transform = 'translateX(-50%) translateY(-150%)';
             }
-            lastScrollTop = st <= 0 ? 0 : st;
-        }, { passive: true });
+        });
     })();
 </script>
 
