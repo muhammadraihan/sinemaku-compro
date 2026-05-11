@@ -25,7 +25,8 @@ FULLSCREEN MENU OVERLAY
     </div>
 
     <!-- Tautan Menu Utama -->
-    <div class="flex flex-col items-end space-y-2 md:space-y-4 font-peckham mt-16 md:mt-0 max-h-[80vh] overflow-y-auto hide-scrollbar pb-10 w-full relative z-10 pl-16">
+    <div
+        class="flex flex-col items-end space-y-2 md:space-y-4 font-peckham mt-16 md:mt-0 max-h-[80vh] overflow-y-auto hide-scrollbar pb-10 w-full relative z-10 pl-16">
         @php
             $mainMenu = [
                 ['title' => 'HOME', 'url' => '/', 'i18n' => 'menu_about'],
@@ -53,8 +54,11 @@ FULLSCREEN MENU OVERLAY
                 <div class="relative w-full flex flex-col items-end">
                     <button type="button" onclick="toggleDropdown('dropdown-{{ $index }}')"
                         class="menu-link flex items-center justify-end gap-2 md:gap-4 transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] text-white hover:text-brand-navy leading-[1.05] text-right cursor-none hover-target font-peckham not-italic w-full uppercase">
-                        <span id="icon-dropdown-{{ $index }}" class="font-sans text-lg md:text-xl font-bold transform transition-transform duration-300 text-white mt-1">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <span id="icon-dropdown-{{ $index }}"
+                            class="font-sans text-lg md:text-xl font-bold transform transition-transform duration-300 text-white mt-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
                         </span>
                         <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                     </button>
@@ -85,59 +89,6 @@ FULLSCREEN MENU OVERLAY
 </div>
 
 {{-- ════════════════════════════════════════════════════════════════
-STICKY MENU OVERLAY (Center Aligned)
-════════════════════════════════════════════════════════════════ --}}
-<div id="sticky-menu-overlay"
-    class="fixed inset-0 z-[500] bg-[#0E1633] flex flex-col items-center justify-start opacity-0 pointer-events-none transition-opacity duration-500 overflow-y-auto hide-scrollbar">
-    
-    {{-- Header Sticky Menu --}}
-    <div class="w-full flex justify-between items-center px-8 md:px-16 py-10 relative z-20">
-        <div class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80">
-            Our Works
-        </div>
-        <a href="/" class="transition-transform hover:scale-110">
-            <img src="{{ asset('img/logo-sinemaku.png') }}" alt="Sinemaku" class="h-8 md:h-10">
-        </a>
-        <button id="close-sticky-menu"
-            class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors">
-            [ CLOSE ]
-        </button>
-    </div>
-
-    {{-- Center Links --}}
-    <div class="flex-1 w-full flex flex-col items-center justify-center py-20">
-        <div class="flex flex-col items-center space-y-6 md:space-y-8 font-peckham w-full max-w-[90vw]">
-            @foreach($mainMenu as $index => $item)
-                @if(isset($item['isDropdown']))
-                    <div class="flex flex-col items-center w-full">
-                        <button type="button" onclick="toggleStickyDropdown('sticky-drop-{{ $index }}')"
-                            class="sticky-menu-link flex items-center justify-center gap-4 text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight">
-                            <span>{{ $item['title'] }}</span>
-                            <span id="icon-sticky-drop-{{ $index }}" class="transition-transform duration-300 transform">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
-                        </button>
-                        <div id="sticky-drop-{{ $index }}" class="hidden flex-wrap justify-center gap-3 mt-8 max-w-[600px] px-4">
-                            @foreach($item['children'] as $child)
-                                <a href="{{ $child['url'] }}"
-                                    class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-md font-sans font-bold tracking-widest text-xs transition-all uppercase border border-white/10 shadow-lg">
-                                    {{ $child['title'] }}
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ $item['url'] }}"
-                        class="sticky-menu-link text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight">
-                        {{ $item['title'] }}
-                    </a>
-                @endif
-            @endforeach
-        </div>
-    </div>
-</div>
-
-{{-- ════════════════════════════════════════════════════════════════
 TOP NAVBAR
 ════════════════════════════════════════════════════════════════ --}}
 {{-- Initial Navbar (Absolute at top) --}}
@@ -147,7 +98,8 @@ TOP NAVBAR
     {{-- Brand (Left) --}}
     <a href="{{ route('welcome') ?? '/' }}" id="nav-logo"
         class="relative z-10 transition-transform duration-500 hover:scale-105 cursor-none hover-target">
-        <img src="{{ asset('img/sinemaku_horizontal.png') }}" alt="Sinemaku Pictures" class="h-8 md:h-10 object-contain logo-img transition-all duration-500">
+        <img src="{{ asset('img/sinemaku_horizontal.png') }}" alt="Sinemaku Pictures"
+            class="h-8 md:h-10 object-contain logo-img transition-all duration-500">
     </a>
 
     {{-- Right Controls --}}
@@ -157,9 +109,10 @@ TOP NAVBAR
             <span>Est. 2020</span>
             <span>Jakarta, ID</span>
         </div>
-        
+
         {{-- Top Nav Language Switcher --}}
-        <button class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
+        <button
+            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
@@ -178,49 +131,86 @@ TOP NAVBAR
             opacity: 0;
             pointer-events: none;
         }
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Fix background color for fullscreen state */
+        #sticky-navbar.is-expanded {
+            background-color: #0E1633; /* Pastikan solid saat fullscreen */
         }
     </style>
 </nav>
 
-{{-- Sticky Navbar (Rounded Rectangular Shape — appears on scroll) --}}
+{{-- ════════════════════════════════════════════════════════════════
+STICKY MORPHING NAVBAR (THE "PONI")
+════════════════════════════════════════════════════════════════ --}}
 <nav id="sticky-navbar"
-    class="fixed top-6 left-1/2 -translate-x-1/2 z-[350] w-[90%] max-w-[800px] bg-[#0E1633] rounded-2xl px-6 md:px-10 py-3 flex items-center justify-between shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] transform -translate-y-[150%] border border-white/10">
+    class="fixed top-6 left-1/2 z-[350] w-[90%] max-w-[800px] h-[64px] bg-[#0E1633] rounded-2xl flex flex-col items-center justify-start shadow-2xl border border-white/10 overflow-hidden will-change-[width,height,top,border-radius]">
     
-    {{-- Left: Our Works --}}
-    <div class="flex-1 flex justify-start">
-        <a href="/films" 
-            class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors cursor-none hover-target">
-            Our Works
-        </a>
+    {{-- Header: Always visible, stable centering --}}
+    <div id="sticky-header" class="w-full flex justify-between items-center px-6 md:px-10 h-[64px] shrink-0 transition-all duration-700">
+        {{-- Left --}}
+        <div class="basis-1/3 flex justify-start">
+            <a href="/films" class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors cursor-none hover-target">
+                Our Works
+            </a>
+        </div>
+
+        {{-- Center Logo --}}
+        <div class="basis-1/3 flex justify-center">
+            <a href="/" class="transition-transform hover:scale-110 cursor-none hover-target">
+                <img src="{{ asset('img/logo-sinemaku.png') }}" alt="Sinemaku" class="h-8 md:h-10 w-auto relative z-10">
+            </a>
+        </div>
+
+        {{-- Right Controls --}}
+        <div class="basis-1/3 flex justify-end">
+            <button id="menu-open-sticky" class="group flex items-center gap-3 cursor-none hover-target relative h-[24px]">
+                <div class="relative w-[80px] h-full flex items-center justify-end">
+                    <span id="sticky-menu-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 transition-all duration-500">Menu</span>
+                    <span id="sticky-close-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 opacity-0 pointer-events-none translate-x-4 transition-all duration-500 whitespace-nowrap">[ CLOSE ]</span>
+                </div>
+                <div id="sticky-menu-icon" class="flex flex-col gap-1 transition-all duration-500 origin-right">
+                    <div class="w-4 h-[1.5px] bg-white"></div>
+                    <div class="w-4 h-[1.5px] bg-white"></div>
+                </div>
+            </button>
+        </div>
     </div>
 
-    {{-- Center: Logo --}}
-    <a href="/" class="flex-shrink-0 mx-4 transition-transform hover:scale-110 cursor-none hover-target">
-        <img src="{{ asset('img/logo-sinemaku.png') }}" alt="Sinemaku" class="h-8 md:h-10 w-auto">
-    </a>
-
-    {{-- Right: Menu --}}
-    <div class="flex-1 flex justify-end">
-        <button id="menu-open-sticky"
-            class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors flex items-center gap-3 cursor-none hover-target">
-            <span>Menu</span>
-            <div class="flex flex-col gap-1">
-                <div class="w-4 h-[1.5px] bg-white"></div>
-                <div class="w-4 h-[1.5px] bg-white"></div>
-            </div>
-        </button>
+    {{-- Center Links (Hidden by default, triggered by GSAP) --}}
+    <div id="sticky-links-container" class="hidden flex-1 w-full flex-col items-center justify-center opacity-0 overflow-y-auto hide-scrollbar pb-20">
+        <div class="flex flex-col items-center space-y-6 md:space-y-8 font-peckham w-full max-w-[90vw]">
+            @foreach($mainMenu as $index => $item)
+                @if(isset($item['isDropdown']))
+                    <div class="flex flex-col items-center w-full">
+                        <button type="button" onclick="toggleStickyDropdown('sticky-drop-{{ $index }}')"
+                            class="sticky-menu-link flex items-center justify-center gap-4 text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight transform translate-y-8 opacity-0">
+                            <span>{{ $item['title'] }}</span>
+                            <span id="icon-sticky-drop-{{ $index }}" class="transition-transform duration-300">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </button>
+                        <div id="sticky-drop-{{ $index }}" class="hidden flex-wrap justify-center gap-3 mt-8 max-w-[600px] px-4">
+                            @foreach($item['children'] as $child)
+                                <a href="{{ $child['url'] }}" class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-md font-sans font-bold tracking-widest text-xs border border-white/10 uppercase">
+                                    {{ $child['title'] }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ $item['url'] }}"
+                        class="sticky-menu-link text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight transform translate-y-8 opacity-0">
+                        {{ $item['title'] }}
+                    </a>
+                @endif
+            @endforeach
+        </div>
     </div>
 </nav>
 
-{{-- ════════════════════════════════════════════════════════════════
-NAVBAR JAVASCRIPT
-════════════════════════════════════════════════════════════════ --}}
 <script>
     (function () {
         const openBtn = document.getElementById('menu-open-btn');
@@ -263,25 +253,25 @@ NAVBAR JAVASCRIPT
                 l.style.transform = 'translateX(50px)';
             });
             // Reset dropdowns
-            document.querySelectorAll('[id^="dropdown-"]').forEach(function(el) {
+            document.querySelectorAll('[id^="dropdown-"]').forEach(function (el) {
                 el.classList.add('hidden');
                 el.classList.remove('flex');
             });
-            document.querySelectorAll('[id^="icon-dropdown-"]').forEach(function(el) {
+            document.querySelectorAll('[id^="icon-dropdown-"]').forEach(function (el) {
                 el.style.transform = 'rotate(90deg)';
             });
         }
 
-        window.toggleDropdown = function(id) {
+        window.toggleDropdown = function (id) {
             const dropdown = document.getElementById(id);
             const icon = document.getElementById('icon-' + id);
-            
+
             if (dropdown.classList.contains('hidden')) {
                 dropdown.classList.remove('hidden');
                 dropdown.classList.add('flex');
                 icon.style.transform = 'rotate(-90deg)';
                 if (window.gsap) {
-                    gsap.fromTo(dropdown.children, 
+                    gsap.fromTo(dropdown.children,
                         { opacity: 0, y: -10 },
                         { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: "power2.out" }
                     );
@@ -300,38 +290,91 @@ NAVBAR JAVASCRIPT
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 if (isOpen) closeMenu();
-                if (!stickyMenu.classList.contains('pointer-events-none')) closeStickyMenu();
+                if (isStickyMenuOpen) closeStickyMenu();
             }
         });
 
-        // ── STICKY MENU LOGIC ──────────────────────────
-        const stickyMenu = document.getElementById('sticky-menu-overlay');
-        const openStickyBtn = document.getElementById('menu-open-sticky');
-        const closeStickyBtn = document.getElementById('close-sticky-menu');
+        // ── MORPHING STICKY MENU LOGIC ──────────────────────────
+        const stickyNav = document.getElementById('sticky-navbar');
+        const stickyHeader = document.getElementById('sticky-header');
+        const stickyMenuText = document.getElementById('sticky-menu-text');
+        const stickyCloseText = document.getElementById('sticky-close-text');
+        const stickyMenuIcon = document.getElementById('sticky-menu-icon');
+        const stickyLinksContainer = document.getElementById('sticky-links-container');
         const stickyLinks = document.querySelectorAll('.sticky-menu-link');
+        let isStickyMenuOpen = false;
 
         function openStickyMenu() {
-            stickyMenu.classList.remove('pointer-events-none');
-            stickyMenu.classList.add('opacity-100');
+            if (isStickyMenuOpen) return;
+            isStickyMenuOpen = true;
             document.body.style.overflow = 'hidden';
             
-            if (window.gsap) {
-                gsap.fromTo(stickyLinks, 
-                    { y: 50, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.8, stagger: 0.05, ease: "power4.out", delay: 0.2 }
-                );
-            }
+            const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.85 } });
+
+            // 1. Sinkronisasi: Lebar, Tinggi, Posisi, dan Radius
+            tl.to(stickyNav, {
+                width: '100%',
+                maxWidth: '100%',
+                height: '100dvh',
+                top: 0,
+                borderRadius: 0,
+                onStart: () => {
+                    stickyNav.classList.add('is-expanded');
+                    stickyLinksContainer.style.display = 'flex';
+                }
+            });
+
+            // 2. Stabilkan Header & Transisi Text Menu ke Close
+            tl.to(stickyHeader, { paddingTop: '2.5rem', paddingBottom: '2.5rem' }, 0);
+            tl.to([stickyMenuText, stickyMenuIcon], { opacity: 0, x: -20, duration: 0.4 }, 0);
+            tl.to(stickyCloseText, { opacity: 1, x: 0, pointerEvents: 'auto', duration: 0.4 }, 0.4);
+
+            // 3. Munculkan Link Teks SETELAH wadah membesar
+            tl.to(stickyLinksContainer, { opacity: 1, duration: 0.3 }, 0.5);
+            tl.fromTo(stickyLinks, 
+                { y: 40, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: "power4.out" }, 
+                0.6
+            );
         }
 
         function closeStickyMenu() {
-            stickyMenu.classList.add('pointer-events-none');
-            stickyMenu.classList.remove('opacity-100');
+            if (!isStickyMenuOpen) return;
+            isStickyMenuOpen = false;
             document.body.style.overflow = '';
-            // Reset dropdowns
-            document.querySelectorAll('[id^="sticky-drop-"]').forEach(el => el.classList.add('hidden'));
+
+            const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.8 } });
+
+            // 1. Sembunyikan konten dulu
+            tl.to(stickyLinks, { opacity: 0, y: 20, duration: 0.3 });
+            tl.to(stickyLinksContainer, { opacity: 0, duration: 0.3 }, 0.1);
+
+            // 2. Morphing balik ke Poni (Semua serempak)
+            tl.to(stickyNav, {
+                width: '90%',
+                maxWidth: '800px',
+                height: '64px',
+                top: '1.5rem', // Sesuai top-6
+                borderRadius: '1rem',
+                onComplete: () => {
+                    stickyNav.classList.remove('is-expanded');
+                    stickyLinksContainer.style.display = 'none';
+                }
+            }, 0.2);
+
+            tl.to(stickyHeader, { paddingTop: '0', paddingBottom: '0' }, 0.2);
+
+            // 3. Reset Button
+            tl.to(stickyCloseText, { opacity: 0, x: 10, pointerEvents: 'none', duration: 0.3 }, 0.2);
+            tl.to([stickyMenuText, stickyMenuIcon], { opacity: 1, x: 0, duration: 0.4 }, 0.5);
         }
 
-        window.toggleStickyDropdown = function(id) {
+        const openStickyBtn = document.getElementById('menu-open-sticky');
+        if (openStickyBtn) {
+            openStickyBtn.addEventListener('click', () => isStickyMenuOpen ? closeStickyMenu() : openStickyMenu());
+        }
+
+        window.toggleStickyDropdown = function (id) {
             const el = document.getElementById(id);
             const icon = document.getElementById('icon-' + id);
             if (el.classList.contains('hidden')) {
@@ -348,24 +391,53 @@ NAVBAR JAVASCRIPT
             }
         };
 
-        if (openStickyBtn) openStickyBtn.addEventListener('click', openStickyMenu);
-        if (closeStickyBtn) closeStickyBtn.addEventListener('click', closeStickyMenu);
+        // ── SMART NAVBAR: SCROLL LOGIC ──────────────────────────
+        const unifiedNav = document.getElementById('unified-navbar');
+        let isPillVisible = false;
+        
+        // Inisialisasi posisi awal dengan GSAP
+        if (window.gsap) {
+            gsap.set(stickyNav, { yPercent: -150, xPercent: -50 });
+        } else {
+            stickyNav.style.transform = 'translate(-50%, -150%)';
+        }
 
-        // ── SMART NAVBAR: STICKY PILL LOGIC ──────────────────────────
-        const stickyNav = document.getElementById('sticky-navbar');
-
-        window.addEventListener('scroll', function () {
-            if (isOpen || !stickyMenu.classList.contains('pointer-events-none')) return;
+        function handleScroll() {
+            if (isOpen || isStickyMenuOpen) return;
             let st = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (st > 100) {
-                // Scrolled down past threshold: show sticky pill
-                stickyNav.style.transform = 'translateX(-50%) translateY(0)';
+
+            if (st > 60) {
+                // Sembunyikan navbar utama
+                if (unifiedNav) unifiedNav.classList.add('is-nav-hidden');
+                
+                // Munculkan poni sticky
+                if (!isPillVisible) {
+                    isPillVisible = true;
+                    if (window.gsap) {
+                        gsap.to(stickyNav, { yPercent: 0, xPercent: -50, duration: 0.6, ease: "power3.out", overwrite: true });
+                    } else {
+                        stickyNav.style.transform = 'translate(-50%, 0)';
+                    }
+                }
             } else {
-                // Near top: hide sticky pill
-                stickyNav.style.transform = 'translateX(-50%) translateY(-150%)';
+                // Munculkan kembali navbar utama
+                if (unifiedNav) unifiedNav.classList.remove('is-nav-hidden');
+
+                // Sembunyikan poni sticky
+                if (isPillVisible) {
+                    isPillVisible = false;
+                    if (window.gsap) {
+                        gsap.to(stickyNav, { yPercent: -150, xPercent: -50, duration: 0.5, ease: "power3.in", overwrite: true });
+                    } else {
+                        stickyNav.style.transform = 'translate(-50%, -150%)';
+                    }
+                }
             }
-        });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        // Jalankan sekali saat inisialisasi
+        handleScroll();
     })();
 </script>
 
@@ -583,7 +655,7 @@ GLOBAL i18n ENGINE
                 if (text !== null && text !== '') el.innerHTML = text;
             });
             applyTextMap(lang);
-            document.querySelectorAll('.lang-label').forEach(function(label) {
+            document.querySelectorAll('.lang-label').forEach(function (label) {
                 label.textContent = lang.toUpperCase();
             });
         }
@@ -600,52 +672,56 @@ GLOBAL i18n ENGINE
 <style>
     /* Navbar Theme Styles */
     #unified-navbar.nav-light {
-        color: var(--color-regal-navy); /* New Brand Navy */
+        color: var(--color-regal-navy);
+        /* New Brand Navy */
     }
+
     #unified-navbar.nav-dark {
-        color: var(--color-autumn-leaf); /* New Brand Orange */
+        color: var(--color-autumn-leaf);
+        /* New Brand Orange */
     }
-    
+
     /* Ensure the hamburger button also inherits color */
-    #menu-toggle-btn, #menu-open-btn {
+    #menu-toggle-btn,
+    #menu-open-btn {
         color: inherit;
     }
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Wait for GSAP to be available
-    setTimeout(() => {
-        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    document.addEventListener('DOMContentLoaded', () => {
+        // Wait for GSAP to be available
+        setTimeout(() => {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-        const navbar = document.getElementById('unified-navbar');
-        
-        // Function to switch navbar theme
-        const setNavTheme = (isDark) => {
-            if (isDark) {
-                navbar.classList.remove('nav-light');
-                navbar.classList.add('nav-dark');
-            } else {
-                navbar.classList.remove('nav-dark');
-                navbar.classList.add('nav-light');
-            }
-        };
+            const navbar = document.getElementById('unified-navbar');
 
-        // Automatically detect dark sections
-        // Refined selectors: include almost all media containers and dark backgrounds
-        const darkSections = document.querySelectorAll('.bg-brand-navy, section.hero-media, .bg-black, section.relative.h-\\[60vh\\], section.relative.h-\\[80vh\\], .reveal-image, .img-container, .hero-parallax-img');
-        
-        darkSections.forEach(section => {
-            ScrollTrigger.create({
-                trigger: section,
-                start: "top 100px", // Trigger when the section reaches the bottom of the logo
-                end: "bottom 100px",
-                onEnter: () => setNavTheme(true),
-                onLeave: () => setNavTheme(false),
-                onEnterBack: () => setNavTheme(true),
-                onLeaveBack: () => setNavTheme(false)
+            // Function to switch navbar theme
+            const setNavTheme = (isDark) => {
+                if (isDark) {
+                    navbar.classList.remove('nav-light');
+                    navbar.classList.add('nav-dark');
+                } else {
+                    navbar.classList.remove('nav-dark');
+                    navbar.classList.add('nav-light');
+                }
+            };
+
+            // Automatically detect dark sections
+            // Refined selectors: include almost all media containers and dark backgrounds
+            const darkSections = document.querySelectorAll('.bg-brand-navy, section.hero-media, .bg-black, section.relative.h-\\[60vh\\], section.relative.h-\\[80vh\\], .reveal-image, .img-container, .hero-parallax-img');
+
+            darkSections.forEach(section => {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "top 100px", // Trigger when the section reaches the bottom of the logo
+                    end: "bottom 100px",
+                    onEnter: () => setNavTheme(true),
+                    onLeave: () => setNavTheme(false),
+                    onEnterBack: () => setNavTheme(true),
+                    onLeaveBack: () => setNavTheme(false)
+                });
             });
-        });
-    }, 500);
-});
+        }, 500);
+    });
 </script>
