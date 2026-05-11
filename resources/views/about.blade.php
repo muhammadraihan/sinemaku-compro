@@ -233,18 +233,18 @@
         {{-- Hero Content Overlay --}}
         <div class="relative z-30 w-full h-full flex flex-col justify-center px-4 md:px-12 text-white">
             <div class="w-full flex flex-col items-center">
-                <h1 class="hero-reveal grid grid-cols-[max-content_max-content] gap-x-2 md:gap-x-4 gap-y-0 md:gap-y-1 items-baseline pointer-events-none drop-shadow-sm">
+                <h1 class="hero-reveal grid grid-cols-[max-content_max-content] gap-x-2 md:gap-x-6 gap-y-0 md:gap-y-1 items-baseline pointer-events-none drop-shadow-sm">
                     <!-- Row 1: HERE Comes -->
-                    <span class="font-peckham text-[15vw] md:text-[11vw] text-white uppercase leading-[0.75] tracking-tighter text-right">HERE</span>
+                    <span class="font-peckham text-[10vw] md:text-[9.5vw] text-white uppercase leading-[0.75] tracking-tighter text-right">HERE</span>
                     
-                    <span class="font-serif not-italic text-[9vw] md:text-[6.5vw] text-white leading-[0.75]">Comes</span>
+                    <span class="font-serif not-italic text-[10vw] md:text-[9.5vw] text-white leading-[0.75]">Comes</span>
 
                     <!-- Row 2: (Empty), The FUN. -->
                     <span></span>
 
-                    <div class="flex items-baseline gap-x-2 md:gap-x-4">
-                        <span class="font-serif not-italic text-[9vw] md:text-[6.5vw] text-white leading-[0.75]">The</span>
-                        <span class="font-peckham text-[15vw] md:text-[11vw] text-white uppercase leading-[0.75] tracking-tighter">FUN.</span>
+                    <div class="flex items-baseline gap-x-2 md:gap-x-5">
+                        <span class="font-serif not-italic text-[10vw] md:text-[9.5vw] text-white leading-[0.75]">The</span>
+                        <span class="font-peckham text-[10vw] md:text-[9.5vw] text-white uppercase leading-[0.75] tracking-tighter">FUN.</span>
                     </div>
                 </h1>
             </div>
