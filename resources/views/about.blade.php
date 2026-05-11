@@ -224,23 +224,27 @@
         @endphp
         <div class="absolute inset-0">
             <img src="{{ asset($heroImage) }}" alt="Sinemaku Hero" class="w-full h-full object-cover">
-            <!-- Orange Overlay -->
-            <div class="absolute inset-0 bg-brand-orange opacity-50 mix-blend-multiply"></div>
-            <div class="absolute inset-0 bg-brand-orange opacity-40 mix-blend-color"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-orange/50"></div>
+            <!-- Intensive Editorial Orange Overlays -->
+            <div class="absolute inset-0 bg-[#F36B21] opacity-60 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-[#F36B21] opacity-30 mix-blend-color"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#F36B21]/10 to-brand-orange/40"></div>
         </div>
 
         {{-- Hero Content Overlay --}}
-        <div class="relative z-30 w-full h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 text-white">
-            <div class="w-full max-w-6xl mx-auto flex flex-col">
-                <h1 class="hero-reveal flex flex-col gap-0 drop-shadow-2xl">
-                    <div class="flex items-end gap-4 md:gap-8">
-                        <span class="font-peckham text-[18vw] md:text-[13vw] text-white uppercase leading-[0.8]">HERE</span>
-                        <span class="font-serif text-[16vw] md:text-[11vw] text-white leading-[0.8] pb-[1vw] md:pb-[0.5vw]">Comes</span>
-                    </div>
-                    <div class="flex items-start gap-4 md:gap-8 pl-[35vw] md:pl-[25vw]">
-                        <span class="font-serif text-[16vw] md:text-[11vw] text-white leading-[0.8]">The</span>
-                        <span class="font-peckham text-[18vw] md:text-[13vw] text-white uppercase leading-[0.8]">FUN.</span>
+        <div class="relative z-30 w-full h-full flex flex-col justify-center px-4 md:px-12 text-white">
+            <div class="w-full flex flex-col items-center">
+                <h1 class="hero-reveal grid grid-cols-[max-content_max-content] gap-x-2 md:gap-x-4 gap-y-0 md:gap-y-1 items-baseline pointer-events-none drop-shadow-sm">
+                    <!-- Row 1: HERE Comes -->
+                    <span class="font-peckham text-[15vw] md:text-[11vw] text-white uppercase leading-[0.75] tracking-tighter text-right">HERE</span>
+                    
+                    <span class="font-serif not-italic text-[9vw] md:text-[6.5vw] text-white leading-[0.75]">Comes</span>
+
+                    <!-- Row 2: (Empty), The FUN. -->
+                    <span></span>
+
+                    <div class="flex items-baseline gap-x-2 md:gap-x-4">
+                        <span class="font-serif not-italic text-[9vw] md:text-[6.5vw] text-white leading-[0.75]">The</span>
+                        <span class="font-peckham text-[15vw] md:text-[11vw] text-white uppercase leading-[0.75] tracking-tighter">FUN.</span>
                     </div>
                 </h1>
             </div>
