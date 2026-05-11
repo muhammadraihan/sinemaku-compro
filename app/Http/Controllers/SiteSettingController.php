@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SiteSetting;
+use App\Models\HeroSlide;
+use Illuminate\Support\Facades\File;
 
 class SiteSettingController extends Controller
 {
@@ -13,7 +15,8 @@ class SiteSettingController extends Controller
     public function aboutIndex()
     {
         $settings = SiteSetting::getGroup('about');
-        return view('settings.about', compact('settings'));
+        $heroSlides = HeroSlide::orderBy('sort_order')->get();
+        return view('settings.about', compact('settings', 'heroSlides'));
     }
 
     /**
@@ -22,8 +25,6 @@ class SiteSettingController extends Controller
     public function aboutUpdate(Request $request)
     {
         $keys = [
-            'about_hero_title',
-            'about_hero_subtitle',
             'about_identity_heading',
             'about_mission_statement',
             'about_vision_statement',
@@ -51,8 +52,37 @@ class SiteSettingController extends Controller
             }
         }
 
-        // Handle Images (Fixed Keys)
-        $fixedImageKeys = ['about_hero_image', 'about_secondary_image'];
+        // Handle Hero Slides (Dynamic Multiple Images)
+        $existingSlideIds = $request->input('hero_existing_slide_ids', []);
+        $existingSlidePaths = $request->input('hero_existing_slide_paths', []);
+        
+        // Delete slides that were removed in UI
+        HeroSlide::whereNotIn('id', array_filter($existingSlideIds))->delete();
+
+        // Update/Insert Slides
+        $slideFiles = $request->file('hero_slides', []);
+        $totalSlides = max(count($existingSlidePaths), count($slideFiles));
+
+        for ($i = 0; $i < $totalSlides; $i++) {
+            $imagePath = $existingSlidePaths[$i] ?? null;
+            
+            if (isset($slideFiles[$i])) {
+                $file = $slideFiles[$i];
+                $filename = 'hero_slide_' . time() . '_' . $i . '_' . $file->getClientOriginalName();
+                $file->move(public_path('photo'), $filename);
+                $imagePath = 'photo/' . $filename;
+            }
+
+            if ($imagePath) {
+                HeroSlide::updateOrCreate(
+                    ['id' => $existingSlideIds[$i] ?? null],
+                    ['image_path' => $imagePath, 'sort_order' => $i]
+                );
+            }
+        }
+
+        // Handle Other Fixed Images
+        $fixedImageKeys = ['about_secondary_image'];
         foreach ($fixedImageKeys as $imageKey) {
             if ($request->hasFile($imageKey)) {
                 $file = $request->file($imageKey);

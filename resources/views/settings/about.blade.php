@@ -48,78 +48,111 @@
         {!! Form::open(['route' => 'settings.about.update', 'method' => 'POST', 'class' => 'needs-validation', 'novalidate', 'enctype' => 'multipart/form-data']) !!}
 
         {{-- ══════════════════════════════════════════════════════════
-             HERO SECTION
+             HERO SECTION (SLIDESHOW)
         ══════════════════════════════════════════════════════════ --}}
         <div class="panel settings-section-card">
             <div class="panel-hdr">
-                <h2><i class="fal fa-image mr-2"></i>Hero Section <span class="fw-300"><i>Bagian atas halaman</i></span></h2>
+                <h2><i class="fal fa-images mr-2"></i>Hero Slideshow <span class="fw-300"><i>Kelola gambar latar belakang hero</i></span></h2>
                 <div class="panel-toolbar">
                     <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                 </div>
             </div>
             <div class="panel-container show">
                 <div class="panel-content">
-                    {{-- Lang Tabs --}}
-                    <ul class="nav lang-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#tab-id-hero" role="tab">
-                                <span class="lang-tab-badge badge-id">ID</span>🇮🇩 Bahasa Indonesia
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-en-hero" role="tab">
-                                <span class="lang-tab-badge badge-en">EN</span>🇺🇸 English
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        {{-- Tab ID --}}
-                        <div class="tab-pane fade show active" id="tab-id-hero" role="tabpanel">
-                            <div class="row">
-                                <div class="form-group col-md-6 mb-3">
-                                    {{ Form::label('about_hero_title', 'Hero Title', ['class' => 'form-label']) }}
-                                    {{ Form::text('about_hero_title', $settings['about_hero_title'] ?? '', ['class' => 'form-control', 'placeholder' => 'Judul utama hero']) }}
-                                    <small class="text-muted">Judul besar yang muncul pertama kali di hero.</small>
+                    <div id="hero-slides-list" class="row">
+                        @foreach($heroSlides as $index => $slide)
+                        <div class="col-md-3 hero-slide-item mb-4" data-index="{{ $index }}">
+                            <div class="card shadow-sm border">
+                                <div class="position-relative">
+                                    <img src="{{ asset($slide->image_path) }}" class="card-img-top" style="height: 150px; object-fit: cover;">
+                                    <button type="button" class="btn btn-danger btn-sm btn-icon position-absolute remove-hero-slide" style="top: 5px; right: 5px;" title="Hapus Gambar">
+                                        <i class="fal fa-trash-alt"></i>
+                                    </button>
                                 </div>
-                                <div class="form-group col-md-6 mb-3">
-                                    {{ Form::label('about_hero_subtitle', 'Hero Subtitle', ['class' => 'form-label']) }}
-                                    {{ Form::text('about_hero_subtitle', $settings['about_hero_subtitle'] ?? '', ['class' => 'form-control', 'placeholder' => 'Subjudul hero']) }}
-                                    <small class="text-muted">Teks kecil di bawah judul hero.</small>
+                                <div class="card-body p-2">
+                                    <input type="hidden" name="hero_existing_slide_ids[]" value="{{ $slide->id }}">
+                                    <input type="hidden" name="hero_existing_slide_paths[]" value="{{ $slide->image_path }}">
+                                    <input type="file" name="hero_slides[]" class="form-control form-control-sm" accept="image/*">
+                                    <small class="text-muted d-block mt-1">Ganti gambar (opsional)</small>
                                 </div>
                             </div>
                         </div>
-                        {{-- Tab EN --}}
-                        <div class="tab-pane fade" id="tab-en-hero" role="tabpanel">
-                            <div class="row">
-                                <div class="form-group col-md-6 mb-3">
-                                    {{ Form::label('about_hero_title_en', 'Hero Title (English)', ['class' => 'form-label']) }}
-                                    {{ Form::text('about_hero_title_en', $settings['about_hero_title_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'Main hero title']) }}
-                                    <small class="text-muted">Large title displayed in the hero section.</small>
+                        @endforeach
+                        
+                        {{-- Template untuk slide baru (selalu tampil minimal 1 jika kosong) --}}
+                        @if($heroSlides->isEmpty())
+                        <div class="col-md-3 hero-slide-item mb-4" data-index="0">
+                            <div class="card shadow-sm border bg-faded">
+                                <div class="d-flex align-items-center justify-content-center" style="height: 150px; border-bottom: 1px dashed #ddd;">
+                                    <i class="fal fa-image fa-3x text-muted"></i>
                                 </div>
-                                <div class="form-group col-md-6 mb-3">
-                                    {{ Form::label('about_hero_subtitle_en', 'Hero Subtitle (English)', ['class' => 'form-label']) }}
-                                    {{ Form::text('about_hero_subtitle_en', $settings['about_hero_subtitle_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'Hero subtitle']) }}
-                                    <small class="text-muted">Small text displayed below the hero title.</small>
+                                <div class="card-body p-2">
+                                    <input type="hidden" name="hero_existing_slide_ids[]" value="">
+                                    <input type="hidden" name="hero_existing_slide_paths[]" value="">
+                                    <input type="file" name="hero_slides[]" class="form-control form-control-sm" accept="image/*" required>
+                                    <small class="text-muted d-block mt-1">Unggah gambar baru</small>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
-                    {{-- Hero Image (tidak perlu tab) --}}
-                    <div class="border-top pt-3 mt-2">
-                        <div class="form-group mb-0">
-                            {{ Form::label('about_hero_image', 'Hero Image', ['class' => 'form-label']) }}
-                            @if(isset($settings['about_hero_image']) && $settings['about_hero_image'] != "")
-                                <div class="mb-2">
-                                    <img src="{{ asset($settings['about_hero_image']) }}" alt="preview" style="height: 60px; border-radius: 4px; display: block;">
-                                </div>
-                            @endif
-                            <input type="file" name="about_hero_image" class="form-control" accept="image/*">
-                            <small class="text-muted">Gambar latar belakang hero. Tidak perlu diterjemahkan.</small>
-                        </div>
+                    
+                    <div class="mt-2 border-top pt-3">
+                        <button type="button" id="add-hero-slide" class="btn btn-outline-success">
+                            <i class="fal fa-plus-circle mr-1"></i> Tambah Slide Gambar Baru
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Team Gallery Logic (Existing) - keep it
+                const teamList = document.getElementById('team-members-list');
+                const addTeamBtn = document.getElementById('add-team-member');
+                // ... (existing logic for team is already in the file)
+
+                // Hero Slideshow Logic
+                const heroList = document.getElementById('hero-slides-list');
+                const addHeroBtn = document.getElementById('add-hero-slide');
+
+                addHeroBtn.addEventListener('click', function() {
+                    const index = heroList.querySelectorAll('.hero-slide-item').length;
+                    const template = `
+                        <div class="col-md-3 hero-slide-item mb-4" data-index="${index}">
+                            <div class="card shadow-sm border bg-faded">
+                                <div class="d-flex align-items-center justify-content-center" style="height: 150px; border-bottom: 1px dashed #ddd;">
+                                    <i class="fal fa-image fa-3x text-muted"></i>
+                                </div>
+                                <div class="card-body p-2">
+                                    <input type="hidden" name="hero_existing_slide_ids[]" value="">
+                                    <input type="hidden" name="hero_existing_slide_paths[]" value="">
+                                    <input type="file" name="hero_slides[]" class="form-control form-control-sm" accept="image/*" required>
+                                    <button type="button" class="btn btn-outline-danger btn-block btn-sm mt-2 remove-hero-slide">
+                                        <i class="fal fa-trash-alt mr-1"></i> Hapus
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    heroList.insertAdjacentHTML('beforeend', template);
+                });
+
+                heroList.addEventListener('click', function(e) {
+                    if (e.target.closest('.remove-hero-slide')) {
+                        const items = heroList.querySelectorAll('.hero-slide-item');
+                        if (items.length > 1) {
+                            e.target.closest('.hero-slide-item').remove();
+                        } else {
+                            const row = e.target.closest('.hero-slide-item');
+                            row.querySelectorAll('input:not([type="hidden"])').forEach(i => i.value = '');
+                            row.querySelector('img')?.remove();
+                        }
+                    }
+                });
+            });
+        </script>
 
         {{-- ══════════════════════════════════════════════════════════
              IDENTITY SECTION

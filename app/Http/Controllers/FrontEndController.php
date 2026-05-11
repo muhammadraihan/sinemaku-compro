@@ -15,6 +15,7 @@ use App\Models\KategoriShop;
 use App\Models\SiteSetting;
 use App\Models\ArtikelKategori;
 use App\Models\EventKategori;
+use App\Models\HeroSlide;
 use Carbon\Carbon;
 
 class FrontEndController extends Controller
@@ -60,7 +61,8 @@ class FrontEndController extends Controller
     {
         $kategorishop = KategoriShop::all();
         $settings     = SiteSetting::getGroup('about');
-        return view('about', compact('kategorishop', 'settings'));
+        $heroSlides   = HeroSlide::orderBy('sort_order')->get();
+        return view('about', compact('kategorishop', 'settings', 'heroSlides'));
     }
 
     public function film()

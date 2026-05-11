@@ -81,6 +81,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
+    <!-- Swiper CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <style>
         ::selection {
             background-color: #F36B21;
@@ -219,15 +223,27 @@
 
     <!-- 1. EDITORIAL HERO SECTION -->
     <section id="hero-section" class="relative w-full h-[100svh] overflow-hidden z-10 bg-brand-navy">
-        @php
-            $heroImage = $settings['about_hero_image'] ?? 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop';
-        @endphp
-        <div class="absolute inset-0">
-            <img src="{{ asset($heroImage) }}" alt="Sinemaku Hero" class="w-full h-full object-cover">
+        
+        <!-- Background Slideshow -->
+        <div class="absolute inset-0 swiper hero-swiper">
+            <div class="swiper-wrapper">
+                @if($heroSlides && count($heroSlides) > 0)
+                    @foreach($heroSlides as $slide)
+                    <div class="swiper-slide h-full">
+                        <img src="{{ asset($slide->image_path) }}" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                    @endforeach
+                @else
+                    <div class="swiper-slide h-full">
+                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                @endif
+            </div>
+
             <!-- Intensive Editorial Orange Overlays -->
-            <div class="absolute inset-0 bg-[#F36B21] opacity-60 mix-blend-multiply"></div>
-            <div class="absolute inset-0 bg-[#F36B21] opacity-30 mix-blend-color"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#F36B21]/10 to-brand-orange/40"></div>
+            <div class="absolute inset-0 z-10 pointer-events-none bg-[#F36B21] opacity-60 mix-blend-multiply"></div>
+            <div class="absolute inset-0 z-10 pointer-events-none bg-[#F36B21] opacity-30 mix-blend-color"></div>
+            <div class="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-transparent via-[#F36B21]/10 to-brand-orange/40"></div>
         </div>
 
         {{-- Hero Content Overlay --}}
@@ -661,6 +677,45 @@
             }
             bindHovers();
             setInterval(bindHovers, 2000);
+
+            // Initialize Hero Slideshow
+            const heroSwiper = new Swiper('.hero-swiper', {
+                effect: 'fade',
+                fadeEffect: { crossFade: true },
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                speed: 2000,
+                on: {
+                    init: function () {
+                        // Initial zoom for first slide
+                        gsap.set(this.slides[this.activeIndex].querySelector('img'), { scale: 1.1 });
+                        gsap.to(this.slides[this.activeIndex].querySelector('img'), {
+                            scale: 1,
+                            duration: 7,
+                            ease: "linear"
+                        });
+                    },
+                    slideChangeTransitionStart: function () {
+                        // Reset other slides
+                        this.slides.forEach(slide => {
+                            const img = slide.querySelector('img');
+                            if(img) gsap.set(img, { scale: 1.1 });
+                        });
+                        // Zoom animation for active slide
+                        const activeImg = this.slides[this.activeIndex].querySelector('img');
+                        if(activeImg) {
+                            gsap.to(activeImg, {
+                                scale: 1,
+                                duration: 7,
+                                ease: "linear"
+                            });
+                        }
+                    }
+                }
+            });
         })();
     </script>
 </body>
