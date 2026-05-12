@@ -38,7 +38,7 @@
                             </span>
                             <div class="overflow-hidden mt-4 pb-2">
                                 <h1
-                                    class="slide-title font-serif text-[10vw] md:text-[7vw] leading-[0.9] text-brand-deepbreath tracking-tighter">
+                                    class="slide-title font-peckham text-[10vw] md:text-[7vw] leading-[0.9] text-brand-navy tracking-tighter uppercase">
                                     <a href="{{ route('detail-television', $item->slug) }}"
                                         class="hover-target cursor-none hover:text-brand-orange transition-colors duration-300">
                                         @i18n($item, 'title')
@@ -123,9 +123,8 @@
 
             <!-- Header -->
             <div class="px-0 border-b hairline-border pb-12 mb-16">
-                <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">
-                    <span data-i18n="page_tv_1">Katalog</span>
-                    <span data-i18n="page_tv_2" class="italic text-brand-orange">TV.</span>
+                <h2 class="font-instrument italic text-5xl md:text-7xl text-brand-navy leading-none tracking-tight">
+                    Our <span class="font-peckham not-italic text-brand-orange uppercase ml-2">Television</span> Catalogue.
                 </h2>
             </div>
             <!-- The Grid (Alternating Rows 2-3) -->
@@ -429,8 +428,35 @@ STYLES & SCRIPTS
                     tl.to(incomingDesc, { opacity: 1, duration: 1 }, 0.8);
                 }
 
+                indicators.forEach((btn, idx) => {
+                    btn.addEventListener('click', () => {
+                        resetAutoSlide();
+                        goToSlide(idx);
+                    });
+                });
+
+                // --- Auto Slide Logic ---
+                let autoSlideInterval;
+                function startAutoSlide() {
+                    autoSlideInterval = setInterval(() => {
+                        let next = currentSlide + 1;
+                        if (next >= slides.length) next = 0;
+                        goToSlide(next);
+                    }, 5000);
+                }
+
+                function resetAutoSlide() {
+                    clearInterval(autoSlideInterval);
+                    startAutoSlide();
+                }
+
+                if (slides.length > 1) {
+                    startAutoSlide();
+                }
+
                 if (nextBtn) {
                     nextBtn.addEventListener('click', () => {
+                        resetAutoSlide();
                         let next = currentSlide + 1;
                         if (next >= slides.length) next = 0;
                         goToSlide(next);
@@ -439,15 +465,12 @@ STYLES & SCRIPTS
 
                 if (prevBtn) {
                     prevBtn.addEventListener('click', () => {
+                        resetAutoSlide();
                         let prev = currentSlide - 1;
                         if (prev < 0) prev = slides.length - 1;
                         goToSlide(prev);
                     });
                 }
-
-                indicators.forEach((btn, idx) => {
-                    btn.addEventListener('click', () => goToSlide(idx));
-                });
             }
 
             /* ─── 2. CINEMATIC HOVER LOGIC ─── */
