@@ -326,22 +326,73 @@
         </div>
     </section>
 
-    <!-- 2.5 SECONDARY CREW PHOTO (Edge-to-Edge Parallax) -->
-    <section class="secondary-photo-section relative w-full h-[60vh] md:h-[75vh] overflow-hidden z-10 mt-24">
-        @php
-            $secondaryImg = $settings['about_secondary_image'] ?? null;
-        @endphp
-        @if($secondaryImg)
-        <img src="{{ asset($secondaryImg) }}"
-            alt="Sinemaku Team"
-            class="secondary-para-img absolute left-0 w-full object-cover"
-            style="height: 150%; top: 0;">
-        @else
-        <img src="https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop"
-            alt="Sinemaku Team"
-            class="secondary-para-img absolute left-0 w-full object-cover"
-            style="height: 150%; top: 0;">
-        @endif
+    <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
+    <section id="crew-masonry-wrapper" class="relative w-full h-[400vh] bg-[#FFF6F9] z-10 overflow-hidden">
+        <div class="crew-pin-container w-full h-screen flex items-center justify-center overflow-hidden bg-black">
+            <div class="crew-grid w-[250vw] h-[250vh] md:w-[150vw] md:h-[150vh] grid grid-cols-4 grid-rows-3 gap-2 md:gap-4 p-2 md:p-4">
+                @php
+                    $crewImages = [];
+                    $i = 1;
+                    while(isset($settings["about_team_image_$i"]) && $settings["about_team_image_$i"] != '') {
+                        $crewImages[] = $settings["about_team_image_$i"];
+                        $i++;
+                    }
+                    if(count($crewImages) === 0) {
+                        $crewImages = [
+                            'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop',
+                            'https://images.unsplash.com/photo-1601513445506-2ab0d4fb4229?q=80&w=1000&auto=format&fit=crop',
+                            'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800&auto=format&fit=crop',
+                            'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop',
+                            'https://images.unsplash.com/photo-1585150917027-eeb32aebbd3a?q=80&w=1000&auto=format&fit=crop',
+                            'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=1000&auto=format&fit=crop'
+                        ];
+                    }
+                    $gridImages = [];
+                    for($j=0; $j<6; $j++) {
+                        $img = $crewImages[$j % count($crewImages)];
+                        $gridImages[] = str_starts_with($img, 'http') ? $img : asset($img);
+                    }
+                @endphp
+                
+                <!-- Row 1 -->
+                <div class="col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
+                    <img src="{{ $gridImages[0] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                </div>
+                <div class="col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
+                    <img src="{{ $gridImages[1] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                </div>
+
+                <!-- Row 2 (CENTER ROW) -->
+                <div class="col-span-1 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
+                    <img src="{{ $gridImages[2] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                </div>
+                
+                <div class="crew-center-img col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden relative shadow-2xl">
+                    @php
+                        $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
+                    @endphp
+                    <img src="{{ asset($secondaryImg) }}" class="w-full h-full object-cover">
+                    <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-0">
+                        <h2 class="crew-text-reveal font-peckham text-white text-[7vw] md:text-[5vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
+                        <span class="crew-text-reveal font-serif text-white text-[5vw] md:text-[3.5vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
+                        <h2 class="crew-text-reveal font-peckham text-white text-[7vw] md:text-[5vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">CAMERA.</h2>
+                    </div>
+                </div>
+
+                <div class="col-span-1 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
+                    <img src="{{ $gridImages[3] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                </div>
+
+                <!-- Row 3 -->
+                <div class="col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
+                    <img src="{{ $gridImages[4] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                </div>
+                <div class="col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
+                    <img src="{{ $gridImages[5] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                </div>
+                
+            </div>
+        </div>
     </section>
 
     <!-- 3. THE CREW (HORIZONTAL PAN GRID) -->
@@ -618,6 +669,42 @@
                 stagger: 0.2,
                 ease: "power3.out"
             });
+        }
+
+        // Masonry Zoom Out Animation & Text Sequencing
+        if (document.querySelector('#crew-masonry-wrapper')) {
+            let crewTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#crew-masonry-wrapper",
+                    start: "top top",
+                    end: "+=300%", // Extended scrolling distance for multi-phase sequence
+                    scrub: 1.5, // Super smooth scrub
+                    pin: ".crew-pin-container"
+                }
+            });
+
+            // Phase 1: Start zoomed in, scale down to form grid
+            crewTl.fromTo(".crew-grid", 
+                { scale: 3.5, transformOrigin: "center center" }, 
+                { scale: 1, transformOrigin: "center center", ease: "power3.inOut", duration: 1.2 }
+            );
+
+            // Phase 1b: Surrounding images subtly fade in so we don't see ugly edges during extreme zoom
+            crewTl.fromTo(".crew-grid > div:not(.crew-center-img)", 
+                { opacity: 0 }, 
+                { opacity: 1, ease: "power3.inOut", duration: 1.2 },
+                "<" // Sync exactly with Phase 1
+            );
+
+            // Phase 2: Fade in the dark overlay background to make text readable
+            crewTl.to(".crew-overlay", { opacity: 1, duration: 0.3, ease: "power2.inOut" }, "+=0.1");
+
+            // Phase 3: Staggered text reveal ("THE PEOPLE", "behind the", "CAMERA.")
+            gsap.set(".crew-text-reveal", { opacity: 0, y: 40 });
+            crewTl.to(".crew-text-reveal", { opacity: 1, y: 0, duration: 0.6, stagger: 0.2, ease: "power2.out" });
+            
+            // Add a slight blank duration at the end so it holds for a moment before unpinning
+            crewTl.to({}, {duration: 0.4});
         }
 
         // ─── CUSTOM CURSOR & INTERACTIVE BG ──────────────────────────────
