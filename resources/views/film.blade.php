@@ -6,11 +6,105 @@
 
     @include('partials.navbar')
 
+    <style>
+        /* ── INTERACTIVE GRADIENT BACKGROUND ── */
+        #interactive-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(
+                    ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
+                    rgba(243, 107, 33, 0.4) 0%,
+                    transparent 60%
+                );
+            filter: blur(80px);
+            opacity: 0.5;
+        }
+
+        /* ── EFEK LIGHT LEAK & GRAIN ── */
+        .cinematic-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        .light-leak {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.2; /* Adjusted for better balance with multiple leaks */
+            filter: blur(100px); /* Softer falloff */
+        }
+
+        @keyframes float-left {
+            0%, 100% { transform: translate(-50%, 0) scale(1); }
+            50%      { transform: translate(-45%, 5%) scale(1.1); }
+        }
+
+        @keyframes float-right {
+            0%, 100% { transform: translate(50%, 0) scale(1); }
+            50%      { transform: translate(45%, -5%) scale(1.1); }
+        }
+
+        /* Zig Zag Positions */
+        #leak-orange-1 {
+            background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+            top: 15%;
+            left: 0;
+            animation: float-left 20s ease-in-out infinite;
+        }
+
+        #leak-navy-1 {
+            background: radial-gradient(circle, #22397A 0%, transparent 70%);
+            top: 40%;
+            right: 0;
+            animation: float-right 25s ease-in-out infinite;
+            opacity: 0.15;
+        }
+
+        #leak-orange-2 {
+            background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+            top: 65%;
+            left: 0;
+            animation: float-left 22s ease-in-out infinite;
+        }
+
+        #leak-navy-2 {
+            background: radial-gradient(circle, #22397A 0%, transparent 70%);
+            top: 90%;
+            right: 0;
+            animation: float-right 28s ease-in-out infinite;
+            opacity: 0.15;
+        }
+    </style>
+
+    <!-- Interactive Gradient Background -->
+    <div id="interactive-bg"></div>
+
+    <!-- Efek Grain & Light Leak Global -->
+    <div class="cinematic-grain"></div>
+    
+    <!-- Zig-Zag Light Leaks -->
+    <div id="leak-orange-1" class="light-leak w-[40vw] h-[40vw]"></div>
+    <div id="leak-navy-1" class="light-leak w-[45vw] h-[45vw]"></div>
+    <div id="leak-orange-2" class="light-leak w-[40vw] h-[40vw]"></div>
+    <div id="leak-navy-2" class="light-leak w-[45vw] h-[45vw]"></div>
+
     {{-- ============================================================
     EDITORIAL WRAPPER
     Menjaga gaya kanvas terang (Tint 3) khusus untuk halaman ini
     ============================================================ --}}
-    <div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans bg-[#FFF6F9]">
+    <div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans">
 
         {{-- ============================================================
         1. EDITORIAL HERO SLIDESHOW
@@ -124,10 +218,10 @@
                 }
             </style>
 
-            <div id="catalogue-grid" class="w-full grid grid-cols-6 px-4 md:px-8" style="gap: var(--cg); grid-auto-rows: clamp(250px, 30vw, 600px);">
+            <div id="catalogue-grid" class="w-full grid grid-cols-4 px-4 md:px-8" style="gap: var(--cg); grid-auto-rows: clamp(250px, 30vw, 600px);">
                 @foreach($genre as $item)
                     <a href="{{ route('detail-film', $item->slug) }}"
-                        class="film-card-trigger relative group cursor-none hover-target overflow-hidden rounded-2xl bg-brand-navy col-span-3 transition-all duration-500"
+                        class="film-card-trigger relative group cursor-none hover-target overflow-hidden rounded-2xl bg-brand-navy transition-all duration-500"
                         data-year="{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}"
                         data-genre="{{ $item->genre }}"
                         style="display: block;">
@@ -464,8 +558,10 @@ STYLES & SCRIPTS
                 const selectedYear = document.getElementById('selected-year').textContent;
                 const selectedGenre = document.getElementById('selected-genre').textContent;
                 
-                let visibleIndex = 0;
-                document.querySelectorAll('.film-card-trigger').forEach(card => {
+                const allCards = document.querySelectorAll('.film-card-trigger');
+                const visibleCards = [];
+                
+                allCards.forEach(card => {
                     const itemYear = card.getAttribute('data-year');
                     const itemGenre = card.getAttribute('data-genre');
                     
@@ -474,25 +570,75 @@ STYLES & SCRIPTS
                     
                     if (matchYear && matchGenre) {
                         card.style.display = 'block';
-                        
-                        // Maintain the 2-3-2-3 pattern for visible items
-                        const posInCycle = visibleIndex % 5;
-                        if (posInCycle < 2) {
-                            card.classList.remove('col-span-2');
-                            card.classList.add('col-span-3');
-                        } else {
-                            card.classList.remove('col-span-3');
-                            card.classList.add('col-span-2');
-                        }
-                        visibleIndex++;
+                        visibleCards.push(card);
                     } else {
                         card.style.display = 'none';
+                    }
+                });
+
+                let N = visibleCards.length;
+                let layoutClasses = [];
+                let remaining = N;
+                
+                while (remaining > 0) {
+                    if (remaining >= 5) {
+                        // Pola dasar: 2 film (1-1) lalu 3 film (0.5-1-0.5)
+                        layoutClasses.push('col-span-2', 'col-span-2', 'col-span-1', 'col-span-2', 'col-span-1');
+                        remaining -= 5;
+                    } else if (remaining === 4) {
+                        // Sisa 4: 2 film lalu 2 film
+                        layoutClasses.push('col-span-2', 'col-span-2', 'col-span-2', 'col-span-2');
+                        remaining = 0;
+                    } else if (remaining === 3) {
+                        // Sisa 3: 1 baris berisi 3 film
+                        layoutClasses.push('col-span-1', 'col-span-2', 'col-span-1');
+                        remaining = 0;
+                    } else if (remaining === 2) {
+                        // Sisa 2: 1 baris berisi 2 film
+                        layoutClasses.push('col-span-2', 'col-span-2');
+                        remaining = 0;
+                    } else if (remaining === 1) {
+                        // Sisa 1: di tengah dengan ukuran 1
+                        layoutClasses.push('col-span-2 col-start-2');
+                        remaining = 0;
+                    }
+                }
+
+                visibleCards.forEach((card, index) => {
+                    // Reset class grid sebelumnya
+                    card.classList.remove('col-span-1', 'col-span-2', 'col-span-3', 'col-start-2');
+                    
+                    // Assign class sesuai urutan logika layout
+                    const classToApply = layoutClasses[index];
+                    if (classToApply) {
+                        card.classList.add(...classToApply.split(' '));
                     }
                 });
             }
 
             // Init filters on load
             applyFilters();
+
+            // ─── INTERACTIVE BG ──────────────────────────────
+            (function() {
+                let mouseX = window.innerWidth / 2;
+                let mouseY = window.innerHeight / 2;
+                let bgX = mouseX;
+                let bgY = mouseY;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+
+                gsap.ticker.add(() => {
+                    // Background gradient interpolation
+                    bgX += (mouseX - bgX) * 0.05;
+                    bgY += (mouseY - bgY) * 0.05;
+                    document.body.style.setProperty('--mx', (bgX / window.innerWidth * 100) + '%');
+                    document.body.style.setProperty('--my', (bgY / window.innerHeight * 100) + '%');
+                });
+            })();
 
             // Close on outside click
             document.addEventListener('click', () => {

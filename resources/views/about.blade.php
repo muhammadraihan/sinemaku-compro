@@ -135,18 +135,49 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.05;
+            opacity: 0.2;
+            filter: blur(100px);
         }
 
-        @keyframes float-blob-1 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            40%       { transform: translate(4%, 3%) scale(1.06); }
-            70%       { transform: translate(-3%, 5%) scale(0.96); }
+        @keyframes float-left {
+            0%, 100% { transform: translate(-50%, 0) scale(1); }
+            50%      { transform: translate(-45%, 5%) scale(1.1); }
         }
 
-        #leak-1 {
+        @keyframes float-right {
+            0%, 100% { transform: translate(50%, 0) scale(1); }
+            50%      { transform: translate(45%, -5%) scale(1.1); }
+        }
+
+        /* Zig Zag Positions (Differentiated from Film Page) */
+        #leak-navy-1 {
+            background: radial-gradient(circle, #22397A 0%, transparent 70%);
+            top: 10%;
+            left: 0;
+            animation: float-left 25s ease-in-out infinite;
+            opacity: 0.15;
+        }
+
+        #leak-orange-1 {
             background: radial-gradient(circle, #F36B21 0%, transparent 70%);
-            animation: float-blob-1 18s ease-in-out infinite;
+            top: 35%;
+            right: 0;
+            animation: float-right 20s ease-in-out infinite;
+        }
+
+        #leak-navy-2 {
+            background: radial-gradient(circle, #22397A 0%, transparent 70%);
+            top: 60%;
+            left: 0;
+            animation: float-left 28s ease-in-out infinite;
+            opacity: 0.15;
+        }
+
+        #leak-orange-2 {
+            background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+            top: 85%;
+            right: 0;
+            animation: float-right 22s ease-in-out infinite;
         }
 
         /* ── TYPOGRAPHY & LAYOUT ── */
@@ -212,7 +243,10 @@
 
     <!-- Efek Grain & Light Leak Global -->
     <div class="cinematic-grain"></div>
-    <div id="leak-1" class="light-leak w-[50vw] h-[50vw] top-[-10vw] left-[-10vw]"></div>
+    <div id="leak-navy-1" class="light-leak w-[45vw] h-[45vw]"></div>
+    <div id="leak-orange-1" class="light-leak w-[40vw] h-[40vw]"></div>
+    <div id="leak-navy-2" class="light-leak w-[45vw] h-[45vw]"></div>
+    <div id="leak-orange-2" class="light-leak w-[40vw] h-[40vw]"></div>
 
     <!-- Custom Cursor -->
     <div id="cursor-ring"></div>
