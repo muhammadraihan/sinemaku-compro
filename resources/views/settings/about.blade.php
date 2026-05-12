@@ -179,24 +179,149 @@
                         </li>
                     </ul>
                     <div class="tab-content">
+                        {{-- Tab ID Identity --}}
                         <div class="tab-pane fade show active" id="tab-id-identity" role="tabpanel">
                             <div class="form-group mb-3">
                                 {{ Form::label('about_identity_heading', 'Identity Heading', ['class' => 'form-label']) }}
-                                {{ Form::text('about_identity_heading', $settings['about_identity_heading'] ?? '', ['class' => 'form-control', 'placeholder' => 'Judul seksi identitas']) }}
-                                <small class="text-muted">Teks besar yang muncul di seksi identitas perusahaan.</small>
+                                
+                                <!-- Typography Toolbar -->
+                                <div class="mb-2 d-flex align-items-center">
+                                    <div class="btn-group btn-group-sm mr-2">
+                                        <button type="button" class="btn btn-navy text-white wrap-tag" data-target="about_identity_heading" data-tag="p" title="Gunakan Peckham Bold">
+                                            <span class="font-weight-bold">P</span> Peckham
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary wrap-tag" data-target="about_identity_heading" data-tag="s" title="Gunakan Instrument Serif">
+                                            <span class="font-italic">S</span> Serif
+                                        </button>
+                                    </div>
+                                    <small class="text-muted"><i class="fal fa-info-circle mr-1"></i> Seleksi teks lalu klik tombol untuk memberi gaya.</small>
+                                </div>
+
+                                {{ Form::textarea('about_identity_heading', $settings['about_identity_heading'] ?? '', ['class' => 'form-control heading-editor', 'id' => 'about_identity_heading', 'rows' => 4, 'placeholder' => 'Tulis heading identitas di sini...']) }}
+                                
+                                <!-- Realtime Preview Area -->
+                                <div class="mt-4 p-4 border rounded bg-light shadow-inset">
+                                    <small class="text-uppercase font-weight-bold text-muted mb-2 d-block"><i class="fal fa-eye mr-1"></i> Preview Real-time:</small>
+                                    <div id="preview-about_identity_heading" class="text-center bg-white p-4 rounded border" style="min-height: 100px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 8px;">
+                                        <!-- Preview content injected via JS -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        {{-- Tab EN Identity --}}
                         <div class="tab-pane fade" id="tab-en-identity" role="tabpanel">
                             <div class="form-group mb-3">
                                 {{ Form::label('about_identity_heading_en', 'Identity Heading (English)', ['class' => 'form-label']) }}
-                                {{ Form::text('about_identity_heading_en', $settings['about_identity_heading_en'] ?? '', ['class' => 'form-control', 'placeholder' => 'Identity section heading']) }}
-                                <small class="text-muted">Large text shown in the company identity section.</small>
+                                
+                                <!-- Typography Toolbar EN -->
+                                <div class="mb-2 d-flex align-items-center">
+                                    <div class="btn-group btn-group-sm mr-2">
+                                        <button type="button" class="btn btn-navy text-white wrap-tag" data-target="about_identity_heading_en" data-tag="p">
+                                            <span class="font-weight-bold">P</span> Peckham
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary wrap-tag" data-target="about_identity_heading_en" data-tag="s">
+                                            <span class="font-italic">S</span> Serif
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {{ Form::textarea('about_identity_heading_en', $settings['about_identity_heading_en'] ?? '', ['class' => 'form-control heading-editor', 'id' => 'about_identity_heading_en', 'rows' => 4, 'placeholder' => 'Write English heading here...']) }}
+                                
+                                <!-- Preview Area EN -->
+                                <div class="mt-4 p-4 border rounded bg-light shadow-inset">
+                                    <small class="text-uppercase font-weight-bold text-muted mb-2 d-block"><i class="fal fa-eye mr-1"></i> English Preview:</small>
+                                    <div id="preview-about_identity_heading_en" class="text-center bg-white p-4 rounded border" style="min-height: 100px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 8px;">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Typography Editor Logic -->
+        <style>
+            .btn-navy { background-color: #001f3f; border-color: #001f3f; }
+            .btn-navy:hover { background-color: #001122; }
+            
+            /* Preview Font Styles (Sync with frontend) */
+            #preview-about_identity_heading .font-peckham, 
+            #preview-about_identity_heading_en .font-peckham {
+                font-family: 'Peckham Press', sans-serif;
+                font-size: 1.5rem;
+                text-transform: uppercase;
+                color: #001f3f;
+                letter-spacing: -0.02em;
+            }
+            #preview-about_identity_heading .font-serif, 
+            #preview-about_identity_heading_en .font-serif {
+                font-family: 'Instrument Serif', serif;
+                font-size: 1.8rem;
+                font-style: italic;
+                color: #8E95B7;
+            }
+        </style>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const editors = document.querySelectorAll('.heading-editor');
+                const tagButtons = document.querySelectorAll('.wrap-tag');
+
+                // Function to wrap selection with tags
+                function wrapText(inputId, tagName) {
+                    const input = document.getElementById(inputId);
+                    const start = input.selectionStart;
+                    const end = input.selectionEnd;
+                    const text = input.value;
+                    const selected = text.substring(start, end);
+                    
+                    if (selected.length === 0) return;
+
+                    const before = text.substring(0, start);
+                    const after = text.substring(end);
+                    
+                    input.value = `${before}[${tagName}]${selected}[/${tagName}]${after}`;
+                    
+                    // Update preview and refocus
+                    updatePreview(input);
+                    input.focus();
+                }
+
+                // Function to update preview
+                function updatePreview(input) {
+                    const previewId = `preview-${input.id}`;
+                    const preview = document.getElementById(previewId);
+                    if (!preview) return;
+
+                    let content = input.value;
+                    
+                    // Replace tags with styled spans for preview
+                    content = content.replace(/\[p\](.*?)\[\/p\]/g, '<span class="font-peckham">$1</span>');
+                    content = content.replace(/\[s\](.*?)\[\/s\]/g, '<span class="font-serif">$1</span>');
+                    
+                    // Handle line breaks
+                    content = content.replace(/\n/g, '<br>');
+                    
+                    preview.innerHTML = content;
+                }
+
+                // Event Listeners for Tags
+                tagButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        wrapText(btn.dataset.target, btn.dataset.tag);
+                    });
+                });
+
+                // Event Listeners for Live Preview
+                editors.forEach(editor => {
+                    editor.addEventListener('input', () => updatePreview(editor));
+                    // Initial update
+                    updatePreview(editor);
+                });
+            });
+        </script>
 
         {{-- ══════════════════════════════════════════════════════════
              MISSION & VISION

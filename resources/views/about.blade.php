@@ -267,61 +267,62 @@
         </div>
     </section>
 
-    <!-- 2. MANIFESTO (MUSEUM LAYOUT) -->
-    <section id="manifesto" class="pt-8 pb-[40vh] px-8 md:px-16 z-10 relative">
-        <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32">
+    <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
+    <section id="manifesto" class="py-16 md:py-24 px-12 md:px-32 z-10 relative bg-[#FFF6F9]">
+        <!-- Top Metadata -->
+        <div class="flex justify-between items-start mb-16">
+            <span class="font-peckham text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange">
+                01 — Misi
+            </span>
+        </div>
 
-            <!-- Section Marker -->
-            <div class="w-full md:w-1/12 manifesto-marker">
-                <span class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
-                    01 — Misi
-                </span>
-            </div>
-
-            <!-- Content Area -->
-            <div class="w-full md:w-11/12 flex flex-col gap-24">
-                <h2
-                    class="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] text-brand-deepbreath tracking-tight max-w-4xl manifesto-title split-text">
+        <!-- Big Editorial Statement -->
+        <div class="w-full flex flex-col items-center text-center mb-20">
+            <h2 class="manifesto-reveal flex flex-col items-center max-w-5xl mx-auto">
+                @php
+                    $headingId = $settings['about_identity_heading'] ?? 'SINEMAKU PICTURES hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.';
+                    $words = explode(' ', $headingId);
+                @endphp
+                
+                <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                     @php
-                        $defaultIdHeading = 'Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.';
-                        $settings['about_identity_heading'] = isset($settings['about_identity_heading']) ? $settings['about_identity_heading'] : $defaultIdHeading;
-                        $settings['about_identity_heading_en'] = isset($settings['about_identity_heading_en']) ? $settings['about_identity_heading_en'] : 'Sinemaku Pictures is here to empower a new generation of storytellers and change the landscape of Indonesian cinema.';
+                        $rawText = $settings['about_identity_heading'] ?? '[p]SINEMAKU[/p] [p]PICTURES[/p] [s]hadir untuk[/s] [s]memberdayakan[/s] [p]GENERASI[/p] [s]baru[/s] [p]PENCERITA[/p] [s]dan[/s] [s]mengubah[/s] [p]LANSKAP[/p] [s]perfilman Indonesia.[/s]';
+                        
+                        // Parse [p] tags
+                        $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
+                            return '<span class="font-peckham text-[3.5vw] md:text-[3vw] text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        }, $rawText);
+                        
+                        // Parse [s] tags
+                        $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
+                            return '<span class="font-serif text-[4vw] md:text-[3.5vw] text-[#8E95B7] leading-[1.1]">' . $matches[1] . '</span>';
+                        }, $parsedText);
                     @endphp
-                    @i18n($settings, 'about_identity_heading')
-                </h2>
-
-                <div class="flex flex-col md:flex-row gap-16 md:gap-32 w-full md:w-4/5 ml-auto">
-                    <div class="flex-1 manifesto-col-1">
-                        <span class="font-serif italic text-3xl text-brand-orange mb-6 block">
-                            @php
-                                $settings['about_studio_label'] = isset($settings['about_studio_label']) ? $settings['about_studio_label'] : 'Company.';
-                                $settings['about_studio_label_en'] = isset($settings['about_studio_label_en']) ? $settings['about_studio_label_en'] : 'Company.';
-                            @endphp
-                            @i18n($settings, 'about_studio_label')
-                        </span>
-                        <p class="font-sans text-sm md:text-base font-light leading-loose text-brand-deepbreath/80 split-text">
-                            @php
-                                $defaultStudioBody = 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.';
-                                $settings['about_studio_body'] = isset($settings['about_studio_body']) ? $settings['about_studio_body'] : $defaultStudioBody;
-                                $settings['about_studio_body_en'] = isset($settings['about_studio_body_en']) ? $settings['about_studio_body_en'] : 'Learn how Sinemaku operates. Explore our identity, our approach, and our role in nurturing young filmmakers for the Indonesian film ecosystem.';
-                            @endphp
-                            @i18n($settings, 'about_studio_body')
-                        </p>
-                    </div>
-                    <div class="flex-1 manifesto-col-2">
-                        <span class="font-serif italic text-3xl text-brand-orange mb-6 block">Culture.</span>
-                        <p class="font-sans text-sm md:text-base font-light leading-loose text-brand-deepbreath/80 split-text">
-                            @php
-                                $defaultMission = "Kami percaya bahwa cerita terbaik lahir dari keberanian mengeksplorasi ide-ide gila dan menyulap realitas menjadi magis di layar lebar, tanpa pernah melupakan semangat kolaborasi.";
-                                $settings['about_mission_statement'] = isset($settings['about_mission_statement']) ? $settings['about_mission_statement'] : $defaultMission;
-                                $settings['about_mission_statement_en'] = isset($settings['about_mission_statement_en']) ? $settings['about_mission_statement_en'] : "We believe the best stories are born from the courage to explore crazy ideas and magically transform reality onto the big screen.";
-                            @endphp
-                            @i18n($settings, 'about_mission_statement')
-                        </p>
-                    </div>
+                    
+                    {!! $parsedText !!}
                 </div>
-            </div>
+            </h2>
+        </div>
 
+        <!-- Divider Line -->
+        <div class="w-full h-[2px] bg-brand-navy/20 mb-20 max-w-[80vw] mx-auto"></div>
+
+        <!-- Detailed Description -->
+        <div class="w-full flex flex-col items-center text-center">
+            <div class="max-w-xl">
+                <span class="font-peckham text-2xl md:text-3xl text-brand-navy uppercase block mb-8 tracking-tighter">
+                    @php
+                        $studioLabel = $settings['about_studio_label'] ?? 'Company.';
+                    @endphp
+                    {{ strtoupper($studioLabel) }}
+                </span>
+                <p class="font-sans text-sm md:text-base font-light leading-relaxed text-brand-navy/70">
+                    @php
+                        $studioBody = $settings['about_studio_body'] ?? 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.';
+                    @endphp
+                    {{ $studioBody }}
+                </p>
+            </div>
         </div>
     </section>
 

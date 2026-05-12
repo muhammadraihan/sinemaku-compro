@@ -17,7 +17,7 @@ class AboutPageSeeder extends Seeder
         $settings = [
             'about_hero_title' => ['id' => "Here Comes\nThe Fun.", 'en' => "Here Comes\nThe Fun."],
             'about_hero_subtitle' => ['id' => "about sinemaku pictures", 'en' => "about sinemaku pictures"],
-            'about_identity_heading' => ['id' => "Sinemaku Pictures hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.", 'en' => "Sinemaku Pictures is here to empower a new generation of storytellers and change the landscape of Indonesian cinema."],
+            'about_identity_heading' => ['id' => "[p]SINEMAKU[/p] [p]PICTURES[/p] [s]hadir untuk[/s] [s]memberdayakan[/s] [p]GENERASI[/p] [s]baru[/s] [p]PENCERITA[/p] [s]dan[/s] [s]mengubah[/s] [p]LANSKAP[/p] [s]perfilman Indonesia.[/s]", 'en' => "[p]SINEMAKU[/p] [p]PICTURES[/p] [s]is here to empower a[/s] [s]new generation of[/s] [p]STORYTELLERS[/p] [s]and change the[/s] [p]LANDSCAPE[/p] [s]of Indonesian cinema.[/s]"],
             'about_studio_label' => ['id' => "Company", 'en' => "Company"],
             'about_studio_body' => ['id' => "Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.", 'en' => "Learn how Sinemaku operates. Explore our identity, our approach, and our role in nurturing young filmmakers for the Indonesian film ecosystem."],
             'about_team_label' => ['id' => "Team", 'en' => "Team"],
