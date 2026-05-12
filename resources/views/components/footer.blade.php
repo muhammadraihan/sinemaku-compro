@@ -1,99 +1,94 @@
 {{-- resources/views/components/footer.blade.php --}}
-<footer class="bg-brand-deepbreath text-white pt-24 pb-12 px-8 md:px-16 z-20 relative w-full border-t border-white/10 mt-auto font-sans">
-    <div class="max-w-[1600px] mx-auto">
+<footer class="relative w-full overflow-hidden pt-20 pb-10 px-8 md:px-16 z-[500] font-sans" 
+        style="background: linear-gradient(145deg, #1A2D61 0%, #050A30 100%);">
+    
+    {{-- Ultra Fine Grain Overlay --}}
+    <div class="absolute inset-0 z-0 opacity-[0.025] pointer-events-none" 
+         style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E');">
+    </div>
 
-        {{-- ============================================================
-        TOP SECTION: CTA & INFO COLUMNS
-        ============================================================ --}}
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mb-24 items-start">
+    <div class="max-w-[1400px] mx-auto relative z-10">
+        
+        {{-- Main Section --}}
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-16 mb-20 items-start">
             
-            {{-- Left: Big CTA --}}
-            <div class="lg:col-span-6 flex flex-col items-start gap-12">
-                <h2 class="font-serif text-5xl md:text-6xl leading-[1.1] max-w-xl">
-                    You have a project idea?<br>
-                    <span class="italic text-brand-orange">Let's talk about it!</span>
+            {{-- Left: Massive Branding CTA --}}
+            <div class="lg:col-span-5 flex flex-col items-start">
+                <h3 class="font-serif italic text-white/80 text-xl md:text-2xl mb-4 leading-tight">
+                    Have a project idea?
+                </h3>
+                <h2 class="font-peckham text-brand-orange text-3xl md:text-4xl lg:text-[2vw] leading-[0.9] tracking-tighter mb-8 uppercase">
+                    LET'S TALK<br>ABOUT IT!
                 </h2>
                 <a href="mailto:hello@sinemakupictures.com" 
-                   class="bg-white text-brand-deepbreath px-8 py-4 rounded-full font-sans text-sm font-bold uppercase tracking-widest hover:bg-brand-orange hover:text-white transition-all duration-300 cursor-none hover-target">
-                    Contact us
+                   class="inline-block bg-brand-orange text-white px-8 py-3 rounded-full font-sans text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brand-navy transition-all duration-500 cursor-none hover-target shadow-lg">
+                    Contact Us
                 </a>
             </div>
 
-            {{-- Right: Three Info Columns --}}
-            <div class="lg:col-span-6 grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-8 pt-4">
+            {{-- Right: Three Modular Columns --}}
+            <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-4 pt-2">
                 
-                {{-- Navigation --}}
-                <div>
-                    <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-brand-orange mb-8 block">
-                        <span data-i18n="footer_navigation">Pages</span>
-                    </span>
-                    <div class="flex flex-col gap-4 text-sm font-medium">
-                        @php
-                            $footerNavItems = [
-                                ['label' => 'Home', 'i18n' => 'footer_home', 'path' => '/'],
-                                ['label' => 'Films', 'i18n' => 'footer_films', 'path' => '/films'],
-                                ['label' => 'Serial', 'i18n' => 'footer_serial', 'path' => '/serial'],
-                                ['label' => 'Articles', 'i18n' => 'footer_articles', 'path' => '/article'],
-                                ['label' => 'Events', 'i18n' => 'footer_events', 'path' => '/events'],
-                            ];
-                        @endphp
-                        @foreach($footerNavItems as $nav)
-                            <a href="{{ url($nav['path']) }}"
-                                class="text-white/60 hover:text-white transition-colors duration-300 cursor-none hover-target inline-block w-max">
-                                <span data-i18n="{{ $nav['i18n'] }}">{{ $nav['label'] }}</span>
+                {{-- Nav --}}
+                <div class="flex flex-col gap-3">
+                    @php
+                        $footerLinks = [
+                            ['HOME', '/'], ['OUR WORKS', '/films'], ['EVENT', '/events'],
+                            ['MERCH', '/shop'], ['COMMUNITY', '/membership'], ['ARTICLE', '/article'], ['CAREER', '/careers']
+                        ];
+                    @endphp
+                    @foreach($footerLinks as $link)
+                        <a href="{{ url($link[1]) }}" class="text-white/60 hover:text-white transition-colors duration-300 text-[10px] font-bold tracking-[0.2em] uppercase cursor-none hover-target w-max">
+                            {{ $link[0] }}
+                        </a>
+                    @endforeach
+                </div>
+
+                {{-- Social --}}
+                <div class="flex flex-col">
+                    <span class="text-[9px] tracking-[0.4em] uppercase font-bold text-white/20 block mb-6">FOLLOW US</span>
+                    <div class="flex flex-col gap-3.5">
+                        @foreach(['INSTAGRAM', 'TIKTOK', 'YOUTUBE'] as $sm)
+                            <a href="#" class="text-white/70 hover:text-brand-orange transition-colors duration-300 text-[10px] font-bold tracking-[0.2em] uppercase cursor-none hover-target border-b border-white/5 pb-1.5 w-max">
+                                {{ $sm }}
                             </a>
                         @endforeach
                     </div>
                 </div>
 
-                {{-- Email --}}
-                <div>
-                    <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-brand-orange mb-8 block">Email</span>
-                    <a href="mailto:hello@sinemakupictures.com" 
-                       class="text-white/60 hover:text-white transition-colors duration-300 cursor-none hover-target text-sm font-medium break-all">
-                        hello@sinemakupictures.com
-                    </a>
-                </div>
+                {{-- Stay in Touch --}}
+                <div class="flex flex-col">
+                    <span class="text-[9px] tracking-[0.4em] uppercase font-bold text-white/20 block mb-6">STAY IN TOUCH</span>
+                    <p class="text-white/40 text-[10px] tracking-wider leading-relaxed mb-8 uppercase font-medium max-w-[180px]">
+                        GET OUR EMAILS. NEW RELEASES UPDATE, TRAILERS, MERCH, EVENTS, AND MORE.
+                    </p>
 
-                {{-- Address --}}
-                <div>
-                    <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-brand-orange mb-8 block">Address</span>
-                    <address class="text-white/60 text-sm font-medium not-italic leading-relaxed">
-                        Jakarta, Indonesia<br>
-                        EST. 2020
-                    </address>
+                    <form action="#" class="relative flex w-full max-w-[300px] border border-white/20 bg-brand-navy/30">
+                        <input type="email" placeholder="EMAIL" 
+                               class="flex-1 bg-transparent px-3 py-2.5 text-[9px] text-white tracking-[0.2em] focus:outline-none placeholder:text-white/10">
+                        <button type="submit" 
+                                class="bg-white text-brand-navy px-5 py-2.5 font-sans text-[9px] font-bold uppercase tracking-widest hover:bg-brand-orange hover:text-white transition-all duration-300 cursor-none hover-target shrink-0">
+                            SIGN UP
+                        </button>
+                    </form>
                 </div>
 
             </div>
         </div>
 
-        {{-- ============================================================
-        BOTTOM BAR: LOGO, SOCIALS & COPYRIGHT
-        ============================================================ --}}
-        <div class="border-t border-white/10 pt-12 flex flex-col md:flex-row justify-between items-center gap-12">
-            
-            {{-- Brand Logo --}}
-            <div class="flex items-center gap-4">
-                <span class="iconify h-8 w-8 text-brand-orange" data-icon="lucide:film"></span>
-                <h1 class="font-serif text-3xl tracking-tight leading-none m-0">Sinemaku Pictures.</h1>
-            </div>
-
-            {{-- Socials --}}
-            <div class="flex gap-8">
-                @foreach ([['Instagram', '#', 'lucide:instagram'], ['YouTube', '#', 'lucide:youtube'], ['Twitter', '#', 'lucide:twitter']] as [$sName, $sUrl, $sIcon])
-                    <a href="{{ $sUrl }}"
-                        class="text-white/40 hover:text-white transition-colors duration-300 cursor-none hover-target flex items-center gap-2 text-[10px] tracking-widest uppercase font-bold">
-                        <span class="iconify h-4 w-4" data-icon="{{ $sIcon }}"></span>
-                        <span>{{ $sName }}</span>
-                    </a>
-                @endforeach
+        {{-- Bottom Utility Bar --}}
+        <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            {{-- Horizontal Logo --}}
+            <div class="opacity-90">
+                <img src="{{ asset('img/sinemaku_horizontal.png') }}" class="h-7 md:h-9 w-auto brightness-0 invert" alt="Sinemaku Pictures Logo">
             </div>
 
             {{-- Copyright --}}
-            <div class="text-[9px] tracking-[0.2em] uppercase text-white/40">
-                <span data-i18n="footer_copyright">© 2026 Sinemaku Pictures. All rights reserved.</span>
+            <div class="text-right">
+                <p class="text-[9px] tracking-[0.3em] text-white/15 uppercase font-medium">
+                    &copy; 2026 SINEMAKU PICTURES. ALL RIGHTS RESERVED.
+                </p>
             </div>
-
         </div>
 
     </div>
