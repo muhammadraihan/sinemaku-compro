@@ -268,7 +268,7 @@
     </section>
 
     <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
-    <section id="manifesto" class="py-16 md:py-24 px-12 md:px-32 z-10 relative bg-[#FFF6F9]">
+    <section id="manifesto" class="py-16 md:py-24 px-12 md:px-32 z-10 relative">
         <!-- Top Metadata -->
         <div class="flex justify-between items-start mb-16">
             <span class="font-peckham text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange">
@@ -327,208 +327,150 @@
     </section>
 
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
-    <section id="crew-masonry-wrapper" class="relative w-full h-[400vh] bg-[#FFF6F9] z-10 overflow-hidden">
-        <div class="crew-pin-container w-full h-screen flex items-center justify-center overflow-hidden bg-black">
-            <div class="crew-grid w-[250vw] h-[250vh] md:w-[150vw] md:h-[150vh] grid grid-cols-4 grid-rows-3 gap-2 md:gap-4 p-2 md:p-4">
+    <style>
+        :root {
+            --crew-row-h: clamp(300px, 40vw, 650px);
+        }
+        .crew-h { height: var(--crew-row-h); }
+        @media (max-width: 768px) {
+            :root { --crew-row-h: 300px; }
+        }
+    </style>
+    <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
+        <div class="crew-pin-container w-full flex flex-col items-center justify-center bg-black">
+            <div class="crew-grid w-full grid grid-cols-12 gap-2 md:gap-4 p-2 md:p-4 pb-2 md:pb-4">
                 @php
-                    $crewImages = [];
-                    $i = 1;
-                    while(isset($settings["about_team_image_$i"]) && $settings["about_team_image_$i"] != '') {
-                        $crewImages[] = $settings["about_team_image_$i"];
-                        $i++;
-                    }
-                    if(count($crewImages) === 0) {
-                        $crewImages = [
-                            'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop',
-                            'https://images.unsplash.com/photo-1601513445506-2ab0d4fb4229?q=80&w=1000&auto=format&fit=crop',
-                            'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800&auto=format&fit=crop',
-                            'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop',
-                            'https://images.unsplash.com/photo-1585150917027-eeb32aebbd3a?q=80&w=1000&auto=format&fit=crop',
-                            'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=1000&auto=format&fit=crop'
+                    $crewMembers = collect($settings)
+                        ->filter(fn($v, $k) => str_starts_with($k, 'about_team_image_') && !empty($v))
+                        ->map(function ($v, $k) use ($settings) {
+                            $id = str_replace('about_team_image_', '', $k);
+                            return [
+                                'img'   => str_starts_with($v, 'http') ? $v : asset($v),
+                                'name'  => $settings["about_team_name_$id"] ?? 'Sinemaku Crew',
+                                'role'  => $settings["about_team_role_$id"] ?? 'Team Member',
+                                'index' => (int)$id,
+                            ];
+                        })
+                        ->sortBy('index')
+                        ->values()
+                        ->toArray();
+
+                    if(count($crewMembers) === 0) {
+                        $crewMembers = [
+                            ['img' => 'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1601513445506-2ab0d4fb4229?q=80&w=1000&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1585150917027-eeb32aebbd3a?q=80&w=1000&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=1000&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role']
                         ];
                     }
-                    $gridImages = [];
-                    for($j=0; $j<6; $j++) {
-                        $img = $crewImages[$j % count($crewImages)];
-                        $gridImages[] = str_starts_with($img, 'http') ? $img : asset($img);
+                    
+                    $top6 = $crewMembers;
+                    while(count($top6) < 6) {
+                        $top6 = array_merge($top6, $crewMembers);
                     }
+                    $top6 = array_slice($top6, 0, 6);
+                    
+                    $rest = array_slice($crewMembers, 6);
                 @endphp
                 
                 <!-- Row 1 -->
-                <div class="col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
-                    <img src="{{ $gridImages[0] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                <div class="col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                    <img src="{{ $top6[0]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
+                        <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[0]['name'] }}</h3>
+                        <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[0]['role'] }}</span>
+                    </div>
                 </div>
-                <div class="col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
-                    <img src="{{ $gridImages[1] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                <div class="col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                    <img src="{{ $top6[1]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
+                        <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[1]['name'] }}</h3>
+                        <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[1]['role'] }}</span>
+                    </div>
                 </div>
 
                 <!-- Row 2 (CENTER ROW) -->
-                <div class="col-span-1 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
-                    <img src="{{ $gridImages[2] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                <div class="col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                    <img src="{{ $top6[2]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
+                        <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
+                        <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[2]['role'] }}</span>
+                    </div>
                 </div>
                 
-                <div class="crew-center-img col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden relative shadow-2xl">
+                <div class="crew-center-img col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative shadow-2xl">
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
                     <img src="{{ asset($secondaryImg) }}" class="w-full h-full object-cover">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-0">
-                        <h2 class="crew-text-reveal font-peckham text-white text-[7vw] md:text-[5vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
-                        <span class="crew-text-reveal font-serif text-white text-[5vw] md:text-[3.5vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
-                        <h2 class="crew-text-reveal font-peckham text-white text-[7vw] md:text-[5vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">CAMERA.</h2>
+                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
+                        <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
+                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">CAMERA.</h2>
                     </div>
                 </div>
 
-                <div class="col-span-1 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
-                    <img src="{{ $gridImages[3] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                <div class="col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                    <img src="{{ $top6[3]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
+                        <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[3]['name'] }}</h3>
+                        <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[3]['role'] }}</span>
+                    </div>
                 </div>
 
                 <!-- Row 3 -->
-                <div class="col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
-                    <img src="{{ $gridImages[4] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                <div class="col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                    <img src="{{ $top6[4]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
+                        <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[4]['name'] }}</h3>
+                        <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[4]['role'] }}</span>
+                    </div>
                 </div>
-                <div class="col-span-2 row-span-1 rounded-xl md:rounded-3xl overflow-hidden">
-                    <img src="{{ $gridImages[5] }}" class="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-700">
+                <div class="col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                    <img src="{{ $top6[5]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
+                        <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[5]['name'] }}</h3>
+                        <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[5]['role'] }}</span>
+                    </div>
                 </div>
                 
             </div>
         </div>
     </section>
 
-    <!-- 3. THE CREW (HORIZONTAL PAN GRID) -->
-    <section id="crew" class="py-32 z-10 relative max-w-[100vw] overflow-hidden">
-        <div class="w-full">
-            <div class="border-t hairline-border pt-12 flex flex-col md:flex-row gap-12 md:gap-32 mb-24 px-8 md:px-16">
-                <div class="w-full md:w-1/12">
-                    <span
-                        class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange block mb-4">
-                        02 — Kru
-                    </span>
-                </div>
-                <div class="w-full md:w-11/12">
-                    <h2
-                        class="font-serif text-5xl md:text-8xl leading-none text-brand-deepbreath tracking-tighter text-reveal">
-                        <span class="tagline-container tagline-id" data-tagline-lang="id">
-                            Orang-orang di<br>balik <span class="italic text-brand-orange">kamera.</span>
-                        </span>
-                        <span class="tagline-container tagline-en" data-tagline-lang="en" style="display:none;">
-                            The people<br>behind the <span class="italic text-brand-orange">camera.</span>
-                        </span>
-                    </h2>
-                </div>
-            </div>
-
-            <!-- Alternating Crew Grid: odd rows = 2 full, even rows = ½+1+½ -->
+    <!-- Rest of the Crew Grid -->
+    @if(isset($rest) && count($rest) > 0)
+    <section class="crew-rest-section w-full bg-black z-10 pb-24">
+        <div class="w-full grid grid-cols-12 gap-2 md:gap-4 px-2 md:px-4 pt-0">
             @php
-                $crewMembers = collect($settings)
-                    ->filter(fn($v, $k) => str_starts_with($k, 'about_team_image_') && !empty($v))
-                    ->map(function ($v, $k) use ($settings) {
-                        $id = str_replace('about_team_image_', '', $k);
-                        return [
-                            'img'   => $v,
-                            'name'  => $settings["about_team_name_$id"] ?? ($id == 1 ? 'Prilly Latuconsina' : 'Sinemaku Crew'),
-                            'role'  => $settings["about_team_role_$id"] ?? ($settings["about_team_role_{$id}_en"] ?? ($id == 1 ? 'Founder / Producer' : 'Team Member')),
-                            'index' => $id,
-                        ];
-                    })
-                    ->sortBy('index')
-                    ->values()
-                    ->toArray();
-
-                if (empty($crewMembers)) {
-                    $defaultNames = ['Prilly Latuconsina', 'Umar Shahab', 'Monty Tiwa', 'Yahni Damayanti', 'Sinemaku Crew'];
-                    $defaultRoles = ['Founder / Producer', 'Founder / Director', 'Creative Director', 'Producer', 'Team Member'];
-                    for ($i = 1; $i <= 5; $i++) {
-                        $crewMembers[] = [
-                            'img'   => "photo/about_crew_$i.png",
-                            'name'  => $defaultNames[$i - 1] ?? 'Sinemaku Crew',
-                            'role'  => $defaultRoles[$i - 1] ?? 'Team Member',
-                            'index' => $i,
-                        ];
-                    }
-                }
-
-                // Chunk into alternating rows: 2, 3, 2, 3 ...
-                $rows    = [];
-                $offset  = 0;
-                $rowNum  = 0;
-                while ($offset < count($crewMembers)) {
-                    $take    = ($rowNum % 2 === 0) ? 2 : 3;
-                    $chunk   = array_slice($crewMembers, $offset, $take);
-                    if (!empty($chunk)) $rows[] = ['type' => $rowNum % 2, 'items' => $chunk];
-                    $offset += $take;
-                    $rowNum++;
-                }
+                $patternIndex = 0;
+                $restIndex = 0;
             @endphp
-
-            {{-- CSS: crew gap variable → spacing from edge = gap between images --}}
-            <style>
-                :root { --cg: 16px; }
-
-                /* Full image width based on Row 2 filling 100vw with 4 gaps */
-                /* Row 2: gap + 0.5W + gap + W + gap + 0.5W + gap = 2W + 4cg = 100vw */
-                .crew-row-container {
-                    --fw: calc((100vw - (4 * var(--cg))) / 2);
-                    --hw: calc(var(--fw) / 2);
-                }
-
-                .crew-img-full { width: var(--fw); flex-shrink: 0; }
-                .crew-img-half { width: var(--hw); flex-shrink: 0; }
-
-                @media (max-width: 768px) {
-                    :root { --cg: 8px; }
-                }
-            </style>
-
-            <div class="w-full overflow-hidden flex flex-col crew-row-container" style="gap: var(--cg);">
-                @foreach($rows as $row)
-                    @if($row['type'] === 0)
-                        {{-- ODD ROW: 2 full images, centered --}}
-                        <div class="flex w-full justify-center" style="height: clamp(200px, 26vw, 420px); gap: var(--cg);">
-                            @foreach($row['items'] as $member)
-                                <div class="relative group cursor-none hover-target overflow-hidden rounded-xl crew-img-full">
-                                    <img src="{{ asset($member['img']) }}"
-                                         class="w-full h-full object-cover transition-all duration-700"
-                                         alt="{{ $member['name'] }}">
-                                    <div class="absolute inset-0 bg-brand-deepbreath/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                        <div class="text-center px-8">
-                                            <h3 class="font-serif text-2xl md:text-5xl text-white leading-none translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                                {{ $member['name'] }}
-                                            </h3>
-                                            <span class="block mt-3 font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
-                                                {{ $member['role'] }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+            @while($restIndex < count($rest))
+                @php
+                    $isTwo = ($patternIndex % 2 === 0);
+                    $take = $isTwo ? 2 : 3;
+                    $chunk = array_slice($rest, $restIndex, $take);
+                    $restIndex += $take;
+                    $patternIndex++;
+                @endphp
+                @foreach($chunk as $member)
+                    <div class="group {{ $isTwo ? 'col-span-6' : 'col-span-4' }} crew-h rounded-xl md:rounded-3xl overflow-hidden relative">
+                        <img src="{{ $member['img'] }}" class="w-full h-full object-cover transition duration-700">
+                        <div class="absolute bottom-0 left-0 w-full p-4 md:p-8 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
+                            <h3 class="font-sans text-white text-xl md:text-3xl font-bold uppercase tracking-tight">{{ $member['name'] }}</h3>
+                            <span class="font-serif text-brand-orange text-sm md:text-lg italic">{{ $member['role'] }}</span>
                         </div>
-                    @else
-                        {{-- EVEN ROW: ½ | 1 | ½ images, centered to fill 100vw with gaps --}}
-                        <div class="flex w-full justify-center" style="height: clamp(200px, 26vw, 420px); gap: var(--cg);">
-                            @foreach($row['items'] as $i => $member)
-                                <div class="relative group cursor-none hover-target overflow-hidden rounded-xl {{ ($i == 1) ? 'crew-img-full' : 'crew-img-half' }}">
-                                    <img src="{{ asset($member['img']) }}"
-                                         class="w-full h-full object-cover transition-all duration-700"
-                                         alt="{{ $member['name'] }}">
-                                    <div class="absolute inset-0 bg-brand-deepbreath/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                        <div class="text-center px-8">
-                                            <h3 class="font-serif text-xl md:text-4xl text-white leading-none translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                                {{ $member['name'] }}
-                                            </h3>
-                                            <span class="block mt-3 font-sans text-[10px] tracking-[0.3em] uppercase text-brand-orange translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
-                                                {{ $member['role'] }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
+                    </div>
                 @endforeach
-            </div>
+            @endwhile
         </div>
     </section>
+    @endif
+
+
 
     <!-- 4. WHAT WE DO (MODERN GRID) -->
     <section class="py-32 px-8 md:px-16 z-10 relative">
@@ -676,10 +618,10 @@
             let crewTl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#crew-masonry-wrapper",
-                    start: "top top",
+                    start: "center center",
                     end: "+=300%", // Extended scrolling distance for multi-phase sequence
                     scrub: 1.5, // Super smooth scrub
-                    pin: ".crew-pin-container"
+                    pin: true // pin the wrapper itself
                 }
             });
 
