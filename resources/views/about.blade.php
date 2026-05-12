@@ -687,34 +687,7 @@
                     delay: 5000,
                     disableOnInteraction: false,
                 },
-                speed: 2000,
-                on: {
-                    init: function () {
-                        // Initial zoom for first slide
-                        gsap.set(this.slides[this.activeIndex].querySelector('img'), { scale: 1.1 });
-                        gsap.to(this.slides[this.activeIndex].querySelector('img'), {
-                            scale: 1,
-                            duration: 7,
-                            ease: "linear"
-                        });
-                    },
-                    slideChangeTransitionStart: function () {
-                        // Reset other slides
-                        this.slides.forEach(slide => {
-                            const img = slide.querySelector('img');
-                            if(img) gsap.set(img, { scale: 1.1 });
-                        });
-                        // Zoom animation for active slide
-                        const activeImg = this.slides[this.activeIndex].querySelector('img');
-                        if(activeImg) {
-                            gsap.to(activeImg, {
-                                scale: 1,
-                                duration: 7,
-                                ease: "linear"
-                            });
-                        }
-                    }
-                }
+                speed: 500, // 0.5 detik crossfade
             });
         })();
     </script>
