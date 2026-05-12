@@ -10,7 +10,7 @@
     EDITORIAL WRAPPER
     Menjaga gaya kanvas terang (Tint 3) khusus untuk halaman ini
     ============================================================ --}}
-    <div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans">
+    <div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans bg-[#FFF6F9]">
 
         {{-- ============================================================
         1. EDITORIAL HERO SLIDESHOW
@@ -61,47 +61,60 @@
         ============================================================ --}}
         <section class="py-32 z-10 relative max-w-[100vw] overflow-hidden">
 
-            <!-- Header -->
-            <div class="px-8 md:px-16 border-b hairline-border pb-12 mb-16 max-w-[1800px] mx-auto">
-                <h2 class="font-instrument italic text-5xl md:text-7xl text-brand-navy leading-none tracking-tight">
-                    Our <span class="font-peckham not-italic text-brand-orange uppercase ml-2">Film</span> Catalogue.
+            <!-- Header & Filter -->
+            <div class="px-8 md:px-16 flex flex-col items-center mb-16 max-w-[1800px] mx-auto text-center">
+                <h2 class="font-instrument italic text-4xl md:text-6xl text-brand-navy leading-none tracking-tight mb-12">
+                    Our <span class="font-peckham not-italic text-brand-orange uppercase mx-1">Film</span> Catalogue
                 </h2>
+
+                <!-- Dual Filter Dropdown -->
+                <div class="inline-flex items-center border border-brand-orange/30 rounded-full bg-brand-orange/5 p-1 relative z-50">
+                    <div class="flex items-center">
+                        <!-- Year Dropdown -->
+                        <div class="relative group/filter">
+                            <div id="filter-year-trigger" class="px-6 py-2 flex flex-col items-center border-r border-brand-orange/20 cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-l-full">
+                                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Release Year</span>
+                                <span id="selected-year" class="text-sm font-instrument italic text-brand-navy font-bold leading-none">Any</span>
+                            </div>
+                            <div id="filter-year-menu" class="absolute top-full left-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
+                                <div class="max-h-64 overflow-y-auto py-2">
+                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="Any">Any</div>
+                                    @php
+                                        $years = collect($genre)->map(fn($item) => \Carbon\Carbon::parse($item->release_date)->format('Y'))->unique()->sortDesc();
+                                    @endphp
+                                    @foreach($years as $year)
+                                        <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="{{ $year }}">{{ $year }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Genre Dropdown -->
+                        <div class="relative group/filter">
+                            <div id="filter-genre-trigger" class="px-6 py-2 flex flex-col items-center cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-r-full">
+                                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Genre</span>
+                                <span id="selected-genre" class="text-sm font-instrument italic text-brand-navy font-bold leading-none">Any</span>
+                            </div>
+                            <div id="filter-genre-menu" class="absolute top-full right-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
+                                <div class="max-h-64 overflow-y-auto py-2">
+                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="Any">Any</div>
+                                    @php
+                                        $genres = collect($genre)->map(fn($item) => $item->genre)->unique()->sort();
+                                    @endphp
+                                    @foreach($genres as $g)
+                                        <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="{{ $g }}">{{ $g }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- The Grid (Alternating Rows 2-3) -->
-            @php
-                $rows = [];
-                $offset = 0;
-                $rowNum = 0;
-                $items = $genre->all(); // Assuming $genre is the collection of films
-                while ($offset < count($items)) {
-                    $take = ($rowNum % 2 === 0) ? 2 : 3;
-                    $chunk = array_slice($items, $offset, $take);
-                    if (!empty($chunk))
-                        $rows[] = ['type' => $rowNum % 2, 'items' => $chunk];
-                    $offset += $take;
-                    $rowNum++;
-                }
-            @endphp
-
+            <!-- The Grid -->
             <style>
                 :root {
                     --cg: 16px;
-                }
-
-                .film-row-container {
-                    --fw: calc((100vw - (4 * var(--cg))) / 2);
-                    --hw: calc(var(--fw) / 2);
-                }
-
-                .film-img-full {
-                    width: var(--fw);
-                    flex-shrink: 0;
-                }
-
-                .film-img-half {
-                    width: var(--hw);
-                    flex-shrink: 0;
                 }
 
                 @media (max-width: 768px) {
@@ -111,64 +124,61 @@
                 }
             </style>
 
-            <div class="w-full overflow-hidden flex flex-col film-row-container" style="gap: var(--cg);">
-                @foreach($rows as $row)
-                    <div class="flex w-full justify-center" style="height: clamp(180px, 22vw, 450px); gap: var(--cg);">
-                        @foreach($row['items'] as $i => $item)
-                            @php
-                                $isMiddle = ($row['type'] === 1 && $i === 1);
-                                $isHalf = ($row['type'] === 1 && ($i === 0 || $i === 2));
-                                $widthClass = $isHalf ? 'film-img-half' : 'film-img-full';
-                            @endphp
-                            <a href="{{ route('detail-film', $item->slug) }}"
-                                class="film-card-trigger relative group cursor-none hover-target overflow-hidden rounded-xl {{ $widthClass }}"
-                                data-slug="{{ $item->slug }}" data-photo="{{ asset('photo/' . $item->photo) }}"
-                                data-title="{{ $item->title }}" data-url="{{ route('detail-film', $item->slug) }}">
+            <div id="catalogue-grid" class="w-full grid grid-cols-6 px-4 md:px-8" style="gap: var(--cg); grid-auto-rows: clamp(250px, 30vw, 600px);">
+                @foreach($genre as $item)
+                    <a href="{{ route('detail-film', $item->slug) }}"
+                        class="film-card-trigger relative group cursor-none hover-target overflow-hidden rounded-2xl bg-brand-navy col-span-3 transition-all duration-500"
+                        data-year="{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}"
+                        data-genre="{{ $item->genre }}"
+                        style="display: block;">
+                                
+                                {{-- Background Image with subtle zoom --}}
                                 <img src="{{ asset('photo/' . $item->photo) }}"
-                                    class="film-card-img w-full h-full object-cover transition-all duration-1000 ease-expo"
+                                    class="film-card-img w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all duration-1000 ease-expo scale-100 group-hover:scale-105"
                                     alt="@i18n($item, 'title')">
 
-                                {{-- Title Overlay (Always Visible on Bottom Left for Full images) --}}
-                                @if(!$isHalf)
-                                    <div
-                                        class="absolute bottom-6 left-8 z-20 pointer-events-none text-brand-orange group-hover:opacity-0 transition-opacity duration-300">
-                                        <h4 class="font-serif text-3xl md:text-5xl leading-none drop-shadow-md">@i18n($item, 'title')
-                                        </h4>
+                                {{-- "UPCOMING" Label --}}
+                                @if(\Carbon\Carbon::parse($item->release_date)->isFuture())
+                                    <div class="absolute top-6 left-6 z-20">
+                                        <span class="font-peckham text-brand-orange text-lg md:text-2xl tracking-wider">UPCOMING</span>
                                     </div>
                                 @endif
 
-                                {{-- A24-Style Hover Details Overlay --}}
-                                <div
-                                    class="absolute inset-0 bg-brand-deepbreath/95 flex flex-col justify-between p-6 md:p-10 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm">
-                                    <div class="overflow-hidden">
-                                        <span
-                                            class="block font-sans text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-brand-orange transform -translate-y-full group-hover:translate-y-0 transition-transform duration-500 delay-100">
-                                            @i18n($item, 'genre')
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow flex items-center">
-                                        <h3 class="font-serif text-2xl md:text-5xl text-white leading-tight">
-                                            <span class="italic block group-hover:text-brand-orange transition-colors">@i18n($item,
-                                                'title')</span>
-                                        </h3>
-                                    </div>
-                                    <div class="border-t border-white/10 pt-4 md:pt-6 flex justify-between items-end">
-                                        <div class="flex flex-col gap-1">
-                                            <span
-                                                class="font-sans text-[8px] md:text-[9px] tracking-widest uppercase text-white/40">Year</span>
-                                            <span
-                                                class="font-sans text-xs md:text-sm text-white">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+                                {{-- Metadata Overlay - Right Side --}}
+                                <div class="absolute top-0 right-0 bottom-0 w-1/3 flex flex-col justify-center p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    <div class="flex flex-col gap-4">
+                                        <div class="flex flex-col">
+                                            <span class="text-[7px] uppercase tracking-tighter text-white/40">Release Date</span>
+                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">
+                                                {{ \Carbon\Carbon::parse($item->release_date)->isFuture() ? 'xx Sep 2025' : \Carbon\Carbon::parse($item->release_date)->format('d M Y') }}
+                                            </span>
                                         </div>
-                                        <div class="flex flex-col gap-1 text-right">
-                                            <span
-                                                class="font-sans text-[8px] md:text-[9px] tracking-widest uppercase text-white/40">Duration</span>
-                                            <span class="font-sans text-xs md:text-sm text-white">{{ $item->duration }} Min.</span>
+                                        <div class="flex flex-col">
+                                            <span class="text-[7px] uppercase tracking-tighter text-white/40">Directed By</span>
+                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">Umay Shahab</span>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="text-[7px] uppercase tracking-tighter text-white/40">Written By</span>
+                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">Rezy Junio</span>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="text-[7px] uppercase tracking-tighter text-white/40">Starring</span>
+                                            <span class="text-[8px] uppercase text-white leading-tight font-sans">Laura Basuki,<br>Prilly Latuconsina</span>
                                         </div>
                                     </div>
                                 </div>
+
+                                {{-- Title & Year - Bottom Left --}}
+                                <div class="absolute bottom-8 left-8 z-20 pointer-events-none transition-transform duration-500 group-hover:-translate-y-2">
+                                    <span class="block font-sans text-[10px] md:text-xs text-white/60 mb-2 tracking-widest">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
+                                    <h4 class="font-peckham text-2xl md:text-4xl lg:text-5xl leading-[0.85] text-white uppercase max-w-[80%]">
+                                        @i18n($item, 'title')
+                                    </h4>
+                                </div>
+
+                                {{-- Dark Gradient Overlay --}}
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-500"></div>
                             </a>
-                        @endforeach
-                    </div>
                 @endforeach
             </div>
         </section>
@@ -199,7 +209,7 @@ STYLES & SCRIPTS
     <style>
         /* UTILITIES SPESIFIK HALAMAN FILM */
         .bg-tint-3 {
-            background-color: #F1F1F1;
+            background-color: #FFF6F9;
         }
 
         .text-brand-deepbreath {
@@ -401,6 +411,94 @@ STYLES & SCRIPTS
             // Close on Escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeHeroTrailer();
+            });
+
+            /* ─── 5. CATALOGUE FILTER LOGIC ─── */
+            const yearTrigger = document.getElementById('filter-year-trigger');
+            const genreTrigger = document.getElementById('filter-genre-trigger');
+            const yearMenu = document.getElementById('filter-year-menu');
+            const genreMenu = document.getElementById('filter-genre-menu');
+
+            function toggleMenu(menu, otherMenu) {
+                menu.classList.toggle('opacity-0');
+                menu.classList.toggle('translate-y-2');
+                menu.classList.toggle('pointer-events-none');
+                
+                // Close other menu
+                if (otherMenu) {
+                    otherMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+                }
+            }
+
+            if (yearTrigger && genreTrigger) {
+                yearTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMenu(yearMenu, genreMenu);
+                });
+
+                genreTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleMenu(genreMenu, yearMenu);
+                });
+            }
+
+            // Handle Selection
+            document.querySelectorAll('.filter-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const type = option.getAttribute('data-type');
+                    const value = option.getAttribute('data-value');
+                    
+                    if (type === 'year') {
+                        document.getElementById('selected-year').textContent = value;
+                        yearMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+                    } else {
+                        document.getElementById('selected-genre').textContent = value;
+                        genreMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+                    }
+
+                    applyFilters();
+                });
+            });
+
+            function applyFilters() {
+                const selectedYear = document.getElementById('selected-year').textContent;
+                const selectedGenre = document.getElementById('selected-genre').textContent;
+                
+                let visibleIndex = 0;
+                document.querySelectorAll('.film-card-trigger').forEach(card => {
+                    const itemYear = card.getAttribute('data-year');
+                    const itemGenre = card.getAttribute('data-genre');
+                    
+                    let matchYear = (selectedYear === 'Any' || itemYear === selectedYear);
+                    let matchGenre = (selectedGenre === 'Any' || itemGenre === selectedGenre);
+                    
+                    if (matchYear && matchGenre) {
+                        card.style.display = 'block';
+                        
+                        // Maintain the 2-3-2-3 pattern for visible items
+                        const posInCycle = visibleIndex % 5;
+                        if (posInCycle < 2) {
+                            card.classList.remove('col-span-2');
+                            card.classList.add('col-span-3');
+                        } else {
+                            card.classList.remove('col-span-3');
+                            card.classList.add('col-span-2');
+                        }
+                        visibleIndex++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            // Init filters on load
+            applyFilters();
+
+            // Close on outside click
+            document.addEventListener('click', () => {
+                [yearMenu, genreMenu].forEach(m => {
+                    if (m) m.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+                });
             });
         });
     </script>
