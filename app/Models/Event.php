@@ -26,6 +26,7 @@ class Event extends Model
         'detail_en',
         'photo',
         'link',
+        'video_link',
         'slug',
         'event_kategori_uuid',
     ];
@@ -33,6 +34,11 @@ class Event extends Model
     public function eventKategori()
     {
         return $this->belongsTo(EventKategori::class, 'event_kategori_uuid', 'uuid');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(EventPhoto::class, 'event_uuid', 'uuid');
     }
 
     public function userCreate() {

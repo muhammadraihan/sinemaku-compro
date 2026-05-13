@@ -137,23 +137,31 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-6 mb-3">
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('link','Link Tiket / Pendaftaran',['class' => 'required form-label'])}}
                         {{ Form::text('link',null,['placeholder' => 'Link Tiket','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                     </div>
-                    <div class="form-group col-md-6 mb-3">
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('video_link','Link Video (After Movie)',['class' => 'form-label'])}}
+                        {{ Form::text('video_link',null,['placeholder' => 'Link Video (Youtube)','class' => 'form-control'])}}
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('title','Slug / Unique Title',['class' => 'required form-label'])}}
                         {{ Form::text('title',null,['placeholder' => 'Slug','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
                     </div>
                 </div>
-                <div class="form-group col-md-4 mb-3">
-                    {{ Form::label('photo','Photo',['class' => 'required form-label'])}}
-                    {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
-                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
-                    alt="preview image" style="max-height: 250px;">
-                    @if ($errors->has('photo'))
-                    <div class="invalid-feedback">{{ $errors->first('photo') }}</div>
-                    @endif
+                <div class="row">
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('photo','Main Photo (Thumbnail)',['class' => 'required form-label'])}}
+                        {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
+                        <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                        alt="preview image" style="max-height: 250px; margin-top: 10px;">
+                    </div>
+                    <div class="form-group col-md-8 mb-3">
+                        {{ Form::label('gallery','Event Gallery (Multiple Photos)',['class' => 'form-label'])}}
+                        <input type="file" name="gallery[]" class="form-control" multiple accept="image/*">
+                        <small class="text-muted">You can select multiple photos to be displayed in the event gallery.</small>
+                    </div>
                 </div>
             <div
                 class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">

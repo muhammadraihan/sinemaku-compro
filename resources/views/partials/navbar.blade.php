@@ -93,18 +93,18 @@ TOP NAVBAR
 ════════════════════════════════════════════════════════════════ --}}
 {{-- Initial Navbar (Absolute at top) --}}
 <nav id="unified-navbar"
-    class="absolute top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 transition-all duration-500 text-white bg-transparent">
+    class="absolute top-0 left-0 w-full z-[300] flex justify-between items-start px-8 md:px-16 py-10 transition-all duration-500 {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy' : 'text-white' }} bg-transparent">
 
     {{-- Brand (Left) --}}
     <a href="{{ route('welcome') ?? '/' }}" id="nav-logo"
         class="relative z-10 transition-transform duration-500 hover:scale-105 cursor-none hover-target">
-        <img src="{{ asset('img/sinemaku_horizontal.png') }}" alt="Sinemaku Pictures"
+        <img src="{{ asset(($navTheme ?? '') === 'event' ? 'img/logo-new.png' : 'img/sinemaku_horizontal.png') }}" alt="Sinemaku Pictures"
             class="h-8 md:h-10 object-contain logo-img transition-all duration-500">
     </a>
 
     {{-- Right Controls --}}
     <div id="nav-controls"
-        class="flex gap-12 md:gap-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold items-start text-white transition-colors duration-500">
+        class="flex gap-12 md:gap-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold items-start {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy' : 'text-white' }} transition-colors duration-500">
         <div class="hidden md:flex flex-col gap-1 text-right opacity-90">
             <span>Est. 2020</span>
             <span>Jakarta, ID</span>
@@ -112,7 +112,7 @@ TOP NAVBAR
 
         {{-- Top Nav Language Switcher --}}
         <button
-            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
+            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy' : 'text-white' }} opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
@@ -120,7 +120,7 @@ TOP NAVBAR
         </button>
 
         <button id="menu-open-btn"
-            class="hamburger-btn text-white opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target">
+            class="hamburger-btn {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy' : 'text-white' }} opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target">
             [ Menu ]
         </button>
     </div>

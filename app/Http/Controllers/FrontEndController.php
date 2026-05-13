@@ -487,7 +487,7 @@ class FrontEndController extends Controller
 
     public function event()
     {
-        $event = Event::with('eventKategori')->get();
+        $event = Event::with('eventKategori')->orderBy('tgl_event', 'DESC')->get();
         $kategorishop = KategoriShop::all();
         $event_kategori = EventKategori::all();
 
@@ -496,8 +496,8 @@ class FrontEndController extends Controller
 
     public function detailevent($id)
     {
-        $event = Event::where('slug', $id)->first();
-        $all_event = Event::where('uuid', '!=', $event->uuid)->get();
+        $event = Event::with('photos')->where('slug', $id)->firstOrFail();
+        $all_event = Event::where('uuid', '!=', $event->uuid)->orderBy('tgl_event', 'DESC')->get();
         $kategorishop = KategoriShop::all();
 
         return view('detail-event', compact('event', 'all_event', 'kategorishop'));

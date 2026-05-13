@@ -73,6 +73,7 @@ class EventController extends Controller
             'location' => 'required',
             'detail' => 'required',
             'link' => 'required',
+            'video_link' => 'nullable',
             'event_kategori_uuid' => 'required',
             'photo' => 'required|image'
         ];
@@ -100,6 +101,7 @@ class EventController extends Controller
         $event->detail = $request->detail;
         $event->detail_en = $request->detail_en;
         $event->link = $request->link;
+        $event->video_link = $request->video_link;
         $event->event_kategori_uuid = $request->event_kategori_uuid;
 
         if ($image = $request->file('photo')) {
@@ -112,6 +114,19 @@ class EventController extends Controller
         $event->created_by = Auth::user()->uuid;
         $event->created_at = now();
         $event->save();
+
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $image) {
+                $destinationPath = 'photo/';
+                $galleryImage = "gallery_" . date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension();
+                $image->move($destinationPath, $galleryImage);
+                
+                \App\Models\EventPhoto::create([
+                    'event_uuid' => $event->uuid,
+                    'photo' => $galleryImage
+                ]);
+            }
+        }
 
         toastr()->success('New Event Name Added', 'Success');
         return redirect()->route('event.index');
@@ -158,6 +173,7 @@ class EventController extends Controller
             'location' => 'required',
             'detail' => 'required',
             'link' => 'required',
+            'video_link' => 'nullable',
             'event_kategori_uuid' => 'required'
         ];
 
@@ -184,6 +200,7 @@ class EventController extends Controller
         $event->detail = $request->detail;
         $event->detail_en = $request->detail_en;
         $event->link = $request->link;
+        $event->video_link = $request->video_link;
         $event->event_kategori_uuid = $request->event_kategori_uuid;
 
         if($request->hasFile('photo')){
@@ -209,6 +226,19 @@ class EventController extends Controller
         $event->created_by = Auth::user()->uuid;
         $event->created_at = now();
         $event->save();
+
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $image) {
+                $destinationPath = 'photo/';
+                $galleryImage = "gallery_" . date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension();
+                $image->move($destinationPath, $galleryImage);
+                
+                \App\Models\EventPhoto::create([
+                    'event_uuid' => $event->uuid,
+                    'photo' => $galleryImage
+                ]);
+            }
+        }
 
         toastr()->success('Event Edited', 'Success');
         return redirect()->route('event.index');

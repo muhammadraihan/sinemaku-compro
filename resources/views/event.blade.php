@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('partials.navbar')
+    @include('partials.navbar', ['navTheme' => 'event'])
 
 @push('head')
 <style>
@@ -15,119 +15,183 @@
 {{-- ============================================================
 EDITORIAL WRAPPER
 ============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
+<div id="editorial-wrapper" class="text-brand-navy relative w-full font-sans min-h-screen bg-[#FFF6F9]">
+    
+    <!-- Cinematic Background Glow -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] rounded-full bg-brand-orange/10 blur-[120px]"></div>
+    </div>
 
     {{-- ============================================================
     HEADER
     ============================================================ --}}
-    <section class="pt-40 md:pt-48 px-8 md:px-16 max-w-[1800px] mx-auto relative z-10">
-        <div class="border-b hairline-border pb-12 mb-20">
-            <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">
-                Our <span class="italic text-brand-orange">Events.</span>
-            </h2>
+    <section class="pt-40 md:pt-48 px-8 md:px-16 max-w-[1400px] mx-auto relative z-10 text-center">
+        <h2 class="font-serif italic text-5xl md:text-7xl text-brand-navy leading-none tracking-tight mb-12">
+            Our <span class="font-sans font-black not-italic text-brand-orange uppercase mx-2">Events</span>
+        </h2>
+
+        <!-- Filter Pills -->
+        <div class="flex flex-wrap justify-center gap-3 mb-24">
+            <button class="filter-pill active" data-category="all">ALL</button>
+            @foreach($event_kategori as $cat)
+                <button class="filter-pill" data-category="{{ $cat->uuid }}">{{ strtoupper($cat->name) }}</button>
+            @endforeach
         </div>
     </section>
 
     {{-- ============================================================
-    EVENT LIST (GROUPED BY CATEGORY WITH INDEX HEADERS)
+    CONTENT SECTION
     ============================================================ --}}
-    <section class="px-8 md:px-16 pb-32 max-w-[1800px] mx-auto relative z-10" id="event-list">
-        @php
-            // Group events by category
-            $groupedEvents = $event->groupBy('event_kategori_uuid');
-            $catIndex = 1;
-        @endphp
-
-        @if($groupedEvents->count() > 0)
-            <div class="flex flex-col gap-32 md:gap-48">
-                @foreach($groupedEvents as $catUuid => $events)
-                    @php
-                        $categoryName = $events->first()->eventKategori->name ?? 'Events';
-                    @endphp
-                    
-                    <div class="category-block flex flex-col gap-16 md:gap-24">
-                        <!-- Category Header with Index -->
-                        <div class="flex items-baseline gap-6 md:gap-10 border-b hairline-border pb-8 reveal-text">
-                            <span class="font-sans text-xl md:text-2xl font-bold text-brand-orange/40">{{ str_pad($catIndex++, 2, '0', STR_PAD_LEFT) }}</span>
-                            <h3 class="font-serif text-4xl md:text-6xl text-brand-deepbreath">{{ $categoryName }}</h3>
-                        </div>
-
-                        <div class="flex flex-col gap-24 md:gap-40">
-                            @foreach($events as $index => $item)
-                                @php
-                                    // Alternate row direction for editorial rhythm within category
-                                    $flexDir = ($index % 2 != 0) ? 'md:flex-row-reverse' : 'md:flex-row';
-                                @endphp
-                                <article class="event-row flex flex-col {{ $flexDir }} items-stretch gap-8 md:gap-20 group relative" id="event-row-{{ $catUuid }}-{{ $index }}">
-                                    
-                                    <!-- Media / Poster -->
-                                    <div class="w-full md:w-[45%] shrink-0 reveal-image">
-                                        <a href="{{ route('detail-event', $item->slug) }}" class="block w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-xl bg-tint-2/20 cursor-none hover-target shadow-xl">
-                                            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                        </a>
-                                    </div>
-
-                                    <!-- Content (Sticky Wrapper) -->
-                                    <div class="w-full md:w-[55%] py-4 md:py-12 relative">
-                                        <div class="sticky-content w-full md:sticky md:top-40 reveal-text">
-                                            <!-- Meta -->
-                                            <div class="flex gap-4 items-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/50 mb-6 md:mb-8">
-                                                <span class="text-brand-orange">{{ $categoryName }}</span>
-                                                <span class="opacity-30">•</span>
-                                                <span>{{ \Carbon\Carbon::parse($item->tgl_event)->format('d M Y') }}</span>
-                                            </div>
-
-                                            <!-- Title -->
-                                            <h2 class="font-serif text-5xl md:text-7xl leading-[0.9] text-brand-deepbreath tracking-tight mb-6 md:mb-8 group-hover:text-brand-orange transition-colors duration-500">
-                                                <a href="{{ route('detail-event', $item->slug) }}" class="cursor-none hover-target">@i18n($item, 'judul')</a>
-                                            </h2>
-
-                                            <!-- Excerpt -->
-                                            <div class="font-sans text-base md:text-lg font-light text-brand-deepbreath/70 leading-relaxed mb-10 md:mb-12 max-w-2xl line-clamp-3">
-                                                {{ $item->title }}
-                                            </div>
-
-                                            <!-- CTA -->
-                                            <a href="{{ route('detail-event', $item->slug) }}" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath border-b border-brand-deepbreath/30 pb-2 hover:border-brand-deepbreath hover:text-brand-orange transition-all cursor-none hover-target inline-flex items-center gap-4 self-start">
-                                                <span data-i18n="label_explore_event">Explore Event</span> <span class="iconify" data-icon="lucide:arrow-right"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </article>
-                            @endforeach
-                        </div>
+    <section class="px-8 md:px-16 pb-32 max-w-[1400px] mx-auto relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- LEFT: Photos Collage -->
+            <div class="lg:col-span-5 sticky top-48">
+                <div class="flex flex-col gap-4">
+                    <!-- Top Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        @php
+                            $collageImages = $event->take(6);
+                        @endphp
+                        @foreach($collageImages->take(2) as $img)
+                            <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+                                <img src="{{ asset('photo/' . $img->photo) }}" class="w-full h-full object-cover" alt="Event photo">
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+                    <!-- Middle Grid (3 columns) -->
+                    <div class="grid grid-cols-3 gap-4">
+                        @foreach($collageImages->slice(2, 3) as $img)
+                            <div class="aspect-square rounded-2xl overflow-hidden shadow-lg">
+                                <img src="{{ asset('photo/' . $img->photo) }}" class="w-full h-full object-cover" alt="Event photo">
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- Bottom Large -->
+                    @if($collageImages->count() > 5)
+                        <div class="aspect-video rounded-3xl overflow-hidden shadow-2xl">
+                            <img src="{{ asset('photo/' . $collageImages->last()->photo) }}" class="w-full h-full object-cover" alt="Event photo">
+                        </div>
+                    @endif
+                </div>
             </div>
-        @else
-            <div class="py-40 text-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">
-                No events available at this moment.
+
+            <!-- RIGHT: Timeline -->
+            <div class="lg:col-span-7">
+                <div class="flex flex-col">
+                    @forelse($event as $index => $item)
+                        <div class="event-timeline-item flex items-start gap-6 py-8 border-b border-brand-navy/10 group hover:bg-brand-orange/[0.02] transition-colors duration-500 rounded-xl px-4" 
+                             data-category="{{ $item->event_kategori_uuid }}">
+                            
+                            <!-- Date Badge & Connector -->
+                            <div class="flex flex-col items-center shrink-0">
+                                <div class="w-16 h-16 rounded-xl bg-white shadow-sm border border-brand-navy/5 flex flex-col items-center justify-center">
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-brand-navy/40 leading-none mb-1">{{ \Carbon\Carbon::parse($item->tgl_event)->format('M') }}</span>
+                                    <span class="text-xs font-bold text-brand-navy leading-none">{{ \Carbon\Carbon::parse($item->tgl_event)->format('Y') }}</span>
+                                </div>
+                                @if(!$loop->last)
+                                    <div class="w-px h-24 border-l-2 border-dashed border-brand-navy/10 my-2"></div>
+                                @endif
+                            </div>
+
+                            <!-- Info -->
+                            <div class="flex-grow pt-2">
+                                <a href="{{ route('detail-event', $item->slug) }}" class="block group/link">
+                                    <h3 class="text-xl md:text-2xl font-bold text-brand-navy mb-2 group-hover/link:text-brand-orange transition-colors">
+                                        [{{ strtoupper($item->eventKategori->name ?? 'Event') }}] {{ $item->judul }}
+                                    </h3>
+                                    <p class="text-xs md:text-sm uppercase tracking-widest text-brand-navy/40">
+                                        {{ \Carbon\Carbon::parse($item->tgl_event)->format('d M Y') }} — {{ $item->title }}
+                                    </p>
+                                </a>
+                            </div>
+
+                            <!-- Orange Box / Action -->
+                            <div class="shrink-0 pt-2 hidden md:block">
+                                <a href="{{ route('detail-event', $item->slug) }}" class="w-24 h-16 bg-brand-orange rounded-xl flex items-center justify-center text-white opacity-90 group-hover:opacity-100 transition-all group-hover:scale-105 shadow-lg shadow-brand-orange/20">
+                                    <span class="iconify text-2xl" data-icon="lucide:arrow-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="py-20 text-center font-sans text-xs tracking-widest uppercase font-bold text-brand-navy/30">
+                            No events found.
+                        </div>
+                    @endforelse
+                </div>
             </div>
-        @endif
+
+        </div>
     </section>
 
 </div>
+
+<style>
+    .filter-pill {
+        padding: 0.75rem 2rem;
+        border-radius: 9999px;
+        font-family: var(--font-sans);
+        font-weight: 800;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border: 2px solid #f46a21;
+        color: #f46a21;
+    }
+    .filter-pill:hover {
+        background-color: rgba(244, 106, 33, 0.1);
+        transform: translateY(-2px);
+    }
+    .filter-pill.active {
+        background-color: #f46a21;
+        color: white;
+        box-shadow: 0 10px 20px rgba(244, 106, 33, 0.2);
+    }
+
+    .event-timeline-item {
+        /* Remove CSS transition as it conflicts with GSAP */
+        opacity: 1;
+        transform: none;
+    }
+</style>
 
 {{-- Scripts --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof gsap !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
-
-        // Reveal Animations using GSAP for better control
-        document.querySelectorAll('.reveal-text, .reveal-image').forEach(el => {
-            gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%",
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1.2,
-                ease: "power4.out"
-            });
-        });
+        // Removed initial ScrollTrigger animation to prevent the items from disappearing
     }
+
+    // Filter Logic
+    const pills = document.querySelectorAll('.filter-pill');
+    const items = document.querySelectorAll('.event-timeline-item');
+
+    pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            // Update UI
+            pills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+
+            const category = pill.getAttribute('data-category');
+
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                
+                if (category === 'all' || itemCategory === category) {
+                    item.style.display = 'flex';
+                    gsap.fromTo(item, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 });
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Re-trigger ScrollTrigger to recalculate positions
+            if (typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh();
+            }
+        });
+    });
 });
 </script>
 

@@ -136,29 +136,41 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-6 mb-3">
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('link','Link Tiket / Pendaftaran',['class' => 'required form-label'])}}
                         {{ Form::text('link',$event->link,['placeholder' => 'Link Tiket','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                     </div>
-                    <div class="form-group col-md-6 mb-3">
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('video_link','Link Video (After Movie)',['class' => 'form-label'])}}
+                        {{ Form::text('video_link',$event->video_link,['placeholder' => 'Link Video (Youtube)','class' => 'form-control'])}}
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('title','Slug / Unique Title',['class' => 'required form-label'])}}
                         {{ Form::text('title',$event->title,['placeholder' => 'Slug','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
                     </div>
                 </div>
-                <div class="form-group col-md-4 mb-3">
-                    {{ Form::label('photo','Photo',['class' => 'required form-label'])}}
-                    <input type="hidden" name="oldImage" value="{{ $event->photo }}"> 
-                    @if ($event->photo)
-                        <img src="{{ asset('photo/' . $event->photo) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
-                    @else
-                        <img class="img-preview img-fluid mb-5 col-sm-5">
-                    @endif
-                    {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
-                    <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
-                    alt="preview image" style="max-height: 250px;">
-                    @if ($errors->has('photo'))
-                    <div class="invalid-feedback">{{ $errors->first('photo') }}</div>
-                    @endif
+                <div class="row">
+                    <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('photo','Main Photo (Thumbnail)',['class' => 'required form-label'])}}
+                        <input type="hidden" name="oldImage" value="{{ $event->photo }}"> 
+                        {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''), 'autocomplete' => 'off', 'id' => 'photo'])}}
+                        @if ($event->photo)
+                            <img id="preview-image-before-upload" src="{{ asset('photo/' . $event->photo) }}" class="img-preview img-fluid mt-3" style="max-height: 250px;">
+                        @else
+                            <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif" alt="preview image" style="max-height: 250px; margin-top: 10px;">
+                        @endif
+                    </div>
+                    <div class="form-group col-md-8 mb-3">
+                        {{ Form::label('gallery','Add More Photos to Gallery',['class' => 'form-label'])}}
+                        <input type="file" name="gallery[]" class="form-control" multiple accept="image/*">
+                        <div class="mt-3 d-flex flex-wrap gap-2">
+                            @foreach($event->photos as $item)
+                                <div class="position-relative">
+                                    <img src="{{ asset('photo/'.$item->photo) }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             <div
                 class="panel-content border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
