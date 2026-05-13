@@ -165,6 +165,13 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
+                        {{ Form::label('writer','Written By',['class' => 'form-label'])}}
+                        {{ Form::text('writer',$film->writer,['placeholder' => 'Writer','class' => 'form-control '.($errors->has('writer') ? 'is-invalid':'')])}}
+                        @if ($errors->has('writer'))
+                        <div class="invalid-feedback">{{ $errors->first('writer') }}</div>
+                        @endif
+                    </div>
+                    <div class="form-group col-md-4 mb-3">
                         {{ Form::label('cast','Cast',['class' => 'required form-label'])}}
                         {{ Form::text('cast',$film->cast,['placeholder' => 'e.g Umay, Prilly','class' => 'form-control '.($errors->has('cast') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('cast'))
@@ -172,15 +179,18 @@
                         @endif
                     </div>
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('link','Link',['class' => 'required form-label'])}}
+                        {{ Form::label('link','Link Trailer',['class' => 'required form-label'])}}
                         {{ Form::text('link',$film->link,['placeholder' => 'Link Trailer','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
                         @if ($errors->has('link'))
                         <div class="invalid-feedback">{{ $errors->first('link') }}</div>
                         @endif
                     </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('link_watch','Link Watch Now / Buy Ticket',['class' => 'form-label'])}}
-                        {{ Form::text('link_watch',$film->link_watch,['placeholder' => 'https://www.netflix.com','class' => 'form-control '.($errors->has('link_watch') ? 'is-invalid':'')])}}
+                    <div class="form-group col-md-8 mb-3">
+                        {{ Form::label('link_watch','Watch Providers Links (Dynamic Logos)',['class' => 'form-label'])}}
+                        {{ Form::textarea('link_watch',$film->link_watch,['placeholder' => "https://netflix.com/...\nhttps://vidio.com/...", 'class' => 'form-control '.($errors->has('link_watch') ? 'is-invalid':''), 'rows' => 1, 'id' => 'link_watch', 'style' => 'overflow:hidden'])}}
+                        <small class="form-text text-muted">
+                            Masukkan daftar link streaming (Netflix, Vidio, Disney+, dll). Pisahkan tiap link dengan <strong>koma</strong> atau <strong>baris baru (Enter)</strong>. Logo akan muncul otomatis di halaman detail.
+                        </small>
                         @if ($errors->has('link_watch'))
                         <div class="invalid-feedback">{{ $errors->first('link_watch') }}</div>
                         @endif
@@ -304,6 +314,12 @@
             reader.readAsDataURL(this.files[0]); 
             
         });
+
+        // Auto-resize for link_watch
+        $('#link_watch').on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        }).trigger('input');
 
            $('.release_date').datepicker({
             orientation: "bottom left",

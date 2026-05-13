@@ -266,10 +266,11 @@
         const el = document.getElementById('detail-meta-inner');
         if (!el) return;
 
+        const year = d.release_date ? d.release_date.substring(0, 4) : '—';
         const castList = Array.isArray(d.cast) ? d.cast : [];
-        const castHTML = castList.slice(0, 3).map(c =>
+        const castHTML = castList.slice(0, 4).map(c =>
             `<span class="font-sans text-sm font-medium text-brand-deepbreath">${c}</span>`
-        ).join('') + (castList.length > 3
+        ).join('') + (castList.length > 4
             ? `<span class="font-sans text-[10px] text-brand-orange italic mt-1">and more...</span>`
             : '');
 
@@ -279,16 +280,16 @@
                 <h3 class="font-serif text-3xl text-brand-deepbreath italic">${d.director || '—'}</h3>
             </div>
             <div class="metadata-item">
-                <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Cast</span>
+                <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Writer</span>
+                <h3 class="font-serif text-3xl text-brand-deepbreath italic">${d.writer || '—'}</h3>
+            </div>
+            <div class="metadata-item">
+                <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Year</span>
+                <h3 class="font-sans text-2xl font-light text-brand-deepbreath">${year}</h3>
+            </div>
+            <div class="metadata-item">
+                <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Starring</span>
                 <div class="flex flex-col gap-1">${castHTML}</div>
-            </div>
-            <div class="metadata-item">
-                <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Duration</span>
-                <h3 class="font-sans text-2xl font-light text-brand-deepbreath">${d.duration} <span class="text-sm uppercase tracking-widest opacity-40">Min</span></h3>
-            </div>
-            <div class="metadata-item">
-                <span class="font-sans text-[9px] tracking-[0.3em] uppercase text-brand-deepbreath/40 block mb-4">Language</span>
-                <h3 class="font-sans text-2xl font-light text-brand-deepbreath">Bahasa Indonesia</h3>
             </div>`;
 
         revealElement(el);
@@ -310,7 +311,7 @@
             </div>
             <div class="w-full md:w-3/5 flex flex-col justify-center">
                 <span class="font-sans text-[10px] tracking-[0.4em] uppercase text-brand-orange block mb-8">The Narrative.</span>
-                <div class="font-serif text-xl md:text-2xl leading-[1.8] font-light text-brand-deepbreath/80 max-w-3xl">${synopsis || ''}</div>
+                <div class="font-sans text-sm md:text-base leading-relaxed text-brand-deepbreath/80 max-w-3xl">${synopsis || ''}</div>
                 ${d.youtube_id ? `
                 <button onclick="window.__openTrailer('${d.youtube_id}')"
                     class="mt-12 flex items-center gap-6 hover-target cursor-none group">

@@ -106,9 +106,11 @@ class FilmController extends Controller
         $film->season = $request->season;
         $film->episode = $request->episode;
         $film->director = $request->director;
+        $film->writer = $request->writer;
         $film->cast = $request->cast;
         $film->link = $request->link;
         $film->link_watch = $request->link_watch;
+
 
         if ($image = $request->file('photo')) {
             $destinationPath = 'photo/';
@@ -223,9 +225,11 @@ class FilmController extends Controller
         $film->season = $request->season;
         $film->episode = $request->episode;
         $film->director = $request->director;
+        $film->writer = $request->writer;
         $film->cast = $request->cast;
         $film->link = $request->link;
         $film->link_watch = $request->link_watch;
+
 
         if($request->hasFile('photo')){
 

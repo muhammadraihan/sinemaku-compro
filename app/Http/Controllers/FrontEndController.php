@@ -202,6 +202,7 @@ class FrontEndController extends Controller
             'genre'        => $films->genre,
             'release_date' => $films->release_date,
             'director'     => $films->director,
+            'writer'       => $films->writer,
             'cast'         => $cast_list,
             'duration'     => $films->duration,
             'sinopsis'     => $films->sinopsis,

@@ -249,15 +249,21 @@
                                         </div>
                                         <div class="flex flex-col">
                                             <span class="text-[7px] uppercase tracking-tighter text-white/40">Directed By</span>
-                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">Umay Shahab</span>
+                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">{{ $item->director ?: 'N/A' }}</span>
                                         </div>
                                         <div class="flex flex-col">
                                             <span class="text-[7px] uppercase tracking-tighter text-white/40">Written By</span>
-                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">Rezy Junio</span>
+                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">{{ $item->writer ?: 'N/A' }}</span>
                                         </div>
                                         <div class="flex flex-col">
                                             <span class="text-[7px] uppercase tracking-tighter text-white/40">Starring</span>
-                                            <span class="text-[8px] uppercase text-white leading-tight font-sans">Laura Basuki,<br>Prilly Latuconsina</span>
+                                            <span class="text-[8px] uppercase text-white leading-tight font-sans">
+                                                @php
+                                                    $casts = array_filter(explode(',', $item->cast));
+                                                    $displayCasts = array_slice($casts, 0, 2);
+                                                @endphp
+                                                {{ implode(', ', $displayCasts) }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

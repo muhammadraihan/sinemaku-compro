@@ -24,6 +24,7 @@ class Film extends Model
         'season',
         'episode',
         'director',
+        'writer',
         'cast',
         'link',
         'link_watch',
