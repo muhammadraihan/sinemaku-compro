@@ -4,108 +4,114 @@
 
 @section('content')
 
-@include('partials.navbar')
-
-@push('head')
+{{-- 1. CSS STYLES (Copied/Adapted from detail-event for consistency) --}}
 <style>
-    /* White background for the whole page */
-    body { background-color: #FFFFFF !important; }
-    
-    /* Clean transition for product images */
-    .product-card .img-container img {
-        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .product-card:hover .img-container img {
-        transform: scale(1.04);
+    body {
+        background-color: #FFF6F9 !important;
+        color: #22397A !important;
     }
 
-    /* Override navbar style for white page if needed */
-    #editorial-wrapper {
-        background-color: #FFFFFF;
+    /* Interactive BG Setup */
+    #interactive-bg {
+        background: radial-gradient(
+            ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
+            rgba(243, 107, 33, 0.25) 0%,
+            transparent 60%
+        ) !important;
+        filter: blur(80px) !important;
+        opacity: 0.6 !important;
+    }
+
+    .font-peckham { font-family: 'PeckhamPress', sans-serif; }
+    .font-serif { font-family: 'Instrument Serif', serif; }
+
+    /* Custom styles for Shop Page */
+    .shop-title-line {
+        display: block;
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+    }
+
+    .product-img-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        aspect-ratio: 1/1.2;
+        background-color: #22397A; /* Dark navy as shown in placeholder */
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-card:hover .product-img-container {
+        transform: translateY(-8px);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 100%;
+        object-cover: cover;
+        opacity: 0.9;
+        transition: transform 0.8s ease;
+    }
+
+    .product-card:hover img {
+        transform: scale(1.05);
+        opacity: 1;
     }
 </style>
-@endpush
 
-{{-- ============================================================
-EDITORIAL WRAPPER (Pure White)
-============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
+{{-- 2. NAVBAR --}}
+@include('partials.navbar', ['navTheme' => 'event'])
 
-    {{-- ============================================================
-    HEADER SECTION
-    ============================================================ --}}
-    <section class="pt-40 md:pt-48 px-6 md:px-16 max-w-[1600px] mx-auto relative z-10 bg-white">
-        <div class="flex flex-col items-center text-center border-b hairline-border pb-12 mb-16 md:mb-24 gap-6">
-            <span class="font-sans text-[9px] tracking-[0.4em] uppercase font-bold text-brand-orange block">
-                Sinemaku Store
-            </span>
-            <h2 class="font-serif text-5xl md:text-8xl text-brand-deepbreath leading-[0.8] tracking-tighter">
-                <span>The</span> <span class="italic text-brand-orange">Collection.</span>
-            </h2>
-        </div>
-    </section>
+<div id="shop-page-wrapper" class="relative z-10 pt-48 pb-32 px-8 md:px-16">
+    <div class="max-w-[1600px] mx-auto">
+        
+        @php
+            $chunks = $all_merchandise->chunk(4);
+        @endphp
 
-    {{-- ============================================================
-    STRUCTURED GRID (Clean & Minimalist)
-    ============================================================ --}}
-    <section class="px-6 md:px-16 pb-40 max-w-[1600px] mx-auto relative z-10 bg-white">
-        <!-- 
-            3-Column Grid on Desktop
-            2-Column Grid on Mobile
-        -->
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-16 md:gap-x-12 md:gap-y-24 items-start">
-            @foreach ($all_merchandise as $index => $product)
-            <a href="{{ route('detail-shop', $product->slug) }}" class="product-card group cursor-none hover-target flex flex-col gap-6 reveal-item">
-                
-                <!-- Image Container (Matches Image Background) -->
-                <div class="img-container w-full aspect-square md:aspect-[3/4] bg-white flex items-center justify-center relative overflow-hidden">
-                    <img src="{{ asset('photo/' . $product->photo) }}" alt="{{ $product->name }}" loading="lazy" class="w-full h-full object-contain">
-                </div>
-                
-                <!-- Info Container (Smaller Typography) -->
-                <div class="flex flex-col gap-1 px-1">
-                    <span class="font-sans text-[8px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">
-                        {{ $product->merchandise }}
-                    </span>
-                    <h3 class="font-serif text-xl md:text-2xl text-brand-deepbreath leading-tight group-hover:text-brand-orange transition-colors">
-                        @i18n($product, 'name')
-                    </h3>
-                    <span class="font-sans text-[10px] md:text-xs font-bold text-brand-deepbreath/60 tracking-wider">
-                        {{ $product->harga ? 'Rp ' . number_format($product->harga, 0, ',', '.') : 'TBA' }}
-                    </span>
-                </div>
-                
-            </a>
-            @endforeach
-        </div>
-    </section>
+        @foreach($chunks as $i => $chunk)
+            {{-- Section Header (Alternating) --}}
+            <header class="mb-16 md:mb-20 {{ $i % 2 == 1 ? 'text-right' : 'text-left' }}">
+                <h2 class="font-peckham text-brand-navy text-3xl md:text-[2.5vw] uppercase leading-[1.1] tracking-tighter">
+                    <span class="block">Collections.</span>
+                    <span class="block text-brand-navy/30">Sinemaku.</span>
+                    <span class="block text-brand-navy/20">Pictures.</span>
+                </h2>
+            </header>
 
+            {{-- Product Grid (1 Row of 4) --}}
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-3 md:gap-x-6 gap-y-12 mb-32">
+                @foreach ($chunk as $product)
+                <a href="{{ route('detail-shop', $product->slug) }}" class="product-card group cursor-none hover-target flex flex-col">
+                    {{-- Product Thumbnail --}}
+                    <div class="product-img-container mb-6 shadow-xl">
+                        <img src="{{ asset('photo/' . $product->photo) }}" alt="{{ $product->name }}" loading="lazy" class="w-full h-full object-cover">
+                    </div>
+                    
+                    {{-- Product Info (Editorial Layout) --}}
+                    <div class="flex flex-col gap-1 px-1">
+                        {{-- Price --}}
+                        <span class="font-sans text-[10px] md:text-xs font-bold text-brand-navy/90 mb-1">
+                            {{ $product->harga ? 'Rp' . number_format($product->harga, 0, ',', '.') : 'Rp999.999' }}
+                        </span>
+                        
+                        {{-- Title --}}
+                        <h3 class="font-sans text-[11px] md:text-sm font-bold text-brand-navy leading-[1.2] uppercase tracking-tight group-hover:text-brand-orange transition-colors">
+                            @i18n($product, 'name')
+                        </h3>
+                        
+                        {{-- Category --}}
+                        <span class="font-sans text-[9px] md:text-[10px] uppercase tracking-widest text-brand-navy/40 font-bold mt-1">
+                            {{ $product->merchandise ?: 'Apparel' }}
+                        </span>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        @endforeach
+
+    </div>
 </div>
-
-{{-- Scripts --}}
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    if (typeof gsap === 'undefined') return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    // List Items Staggered Reveal
-    document.querySelectorAll('.reveal-item').forEach(el => {
-        gsap.from(el, {
-            scrollTrigger: {
-                trigger: el,
-                start: "top 90%",
-            },
-            y: 30,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out"
-        });
-    });
-});
-</script>
-@endpush
 
 @include('components.footer')
 
