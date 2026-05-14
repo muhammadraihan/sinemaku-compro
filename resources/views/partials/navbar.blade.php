@@ -203,6 +203,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
                     </div>
                 @else
                     <a href="{{ $item['url'] }}"
+                        @if(isset($item['trigger'])) onclick="{{ $item['trigger'] }}" @endif
                         class="sticky-menu-link text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight transform translate-y-8 opacity-0">
                         {{ $item['title'] }}
                     </a>
@@ -727,7 +728,7 @@ GLOBAL i18n ENGINE
 
 {{-- COMMUNITY MODAL --}}
 <div id="community-modal" class="fixed inset-0 z-[600] flex items-center justify-center bg-brand-navy/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
-    <div class="modal-inner relative bg-white w-[95%] max-w-[650px] p-8 md:p-14 rounded-[2rem] md:rounded-[3rem] shadow-2xl transform scale-95 transition-all duration-500 overflow-y-auto max-h-[90vh] hide-scrollbar">
+    <div class="modal-inner relative bg-white w-[95%] max-w-[650px] p-8 md:p-14 rounded-[1rem] md:rounded-[1.5rem] shadow-2xl transform scale-95 transition-all duration-500 overflow-y-auto max-h-[90vh] hide-scrollbar">
         
         <!-- Close Button -->
         <button onclick="closeCommunityModal()" class="absolute top-6 right-8 md:top-10 md:right-12 text-brand-navy/20 hover:text-brand-navy transition-colors cursor-none hover-target">
@@ -750,23 +751,23 @@ GLOBAL i18n ENGINE
             <form class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                 <div class="flex flex-col gap-2">
                     <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">First Name</label>
-                    <input type="text" placeholder="Enter your first name" class="w-full bg-brand-navy/5 border-none rounded-xl px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    <input type="text" placeholder="Enter your first name" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Last Name</label>
-                    <input type="text" placeholder="Enter your last name" class="w-full bg-brand-navy/5 border-none rounded-xl px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    <input type="text" placeholder="Enter your last name" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Email</label>
-                    <input type="email" placeholder="Enter your email" class="w-full bg-brand-navy/5 border-none rounded-xl px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    <input type="email" placeholder="Enter your email" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Date of Birth</label>
-                    <input type="date" class="w-full bg-brand-navy/5 border-none rounded-xl px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    <input type="date" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">City</label>
-                    <select class="w-full bg-brand-navy/5 border-none rounded-xl px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none appearance-none">
+                    <select class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none appearance-none">
                         <option>Jakarta</option>
                         <option>Bandung</option>
                         <option>Surabaya</option>
@@ -774,7 +775,7 @@ GLOBAL i18n ENGINE
                 </div>
                 <div class="flex flex-col gap-2">
                     <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Phone Number</label>
-                    <input type="tel" placeholder="Enter your phone number" class="w-full bg-brand-navy/5 border-none rounded-xl px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    <input type="tel" placeholder="Enter your phone number" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
                 </div>
 
                 <div class="col-span-1 md:col-span-2 flex items-center gap-3 mt-4">
@@ -783,7 +784,7 @@ GLOBAL i18n ENGINE
                 </div>
 
                 <div class="col-span-1 md:col-span-2 mt-6">
-                    <button type="submit" class="w-full md:w-max mx-auto bg-brand-orange text-white font-sans text-[10px] tracking-[0.2em] uppercase font-bold py-5 px-14 rounded-full hover:scale-105 transition-all shadow-xl shadow-brand-orange/20 flex items-center justify-center">
+                    <button type="submit" class="w-full md:w-max mx-auto bg-brand-orange text-white font-sans text-[10px] tracking-[0.2em] uppercase font-bold py-5 px-14 rounded-2xl hover:scale-105 transition-all shadow-xl shadow-brand-orange/20 flex items-center justify-center">
                         Create Account
                     </button>
                 </div>
@@ -805,7 +806,7 @@ GLOBAL i18n ENGINE
             <form class="flex flex-col gap-6 max-w-[400px] mx-auto">
                 <div class="flex flex-col gap-2">
                     <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Email</label>
-                    <input type="email" placeholder="Enter your email" class="w-full bg-brand-navy/5 border-none rounded-xl px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    <input type="email" placeholder="Enter your email" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
                 </div>
 
                 <div class="flex items-center gap-3 mt-2">
@@ -814,7 +815,7 @@ GLOBAL i18n ENGINE
                 </div>
 
                 <div class="mt-6">
-                    <button type="submit" class="w-full bg-brand-orange text-white font-sans text-[10px] tracking-[0.2em] uppercase font-bold py-5 px-14 rounded-full hover:scale-105 transition-all shadow-xl shadow-brand-orange/20">
+                    <button type="submit" class="w-full bg-brand-orange text-white font-sans text-[10px] tracking-[0.2em] uppercase font-bold py-5 px-14 rounded-2xl hover:scale-105 transition-all shadow-xl shadow-brand-orange/20">
                         Continue
                     </button>
                 </div>
