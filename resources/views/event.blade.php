@@ -6,21 +6,14 @@
 
     @include('partials.navbar', ['navTheme' => 'event'])
 
-@push('head')
-<style>
-    body { background-color: #f6f6ed !important; }
-</style>
-@endpush
+
 
 {{-- ============================================================
 EDITORIAL WRAPPER
 ============================================================ --}}
 <div id="editorial-wrapper" class="text-brand-navy relative w-full font-sans min-h-screen bg-[#FFF6F9]">
     
-    <!-- Cinematic Background Glow -->
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div class="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] rounded-full bg-brand-orange/10 blur-[120px]"></div>
-    </div>
+
 
     {{-- ============================================================
     HEADER

@@ -7,83 +7,7 @@
 @include('partials.navbar', ['navTheme' => 'event'])
 
 <style>
-    body {
-        background-color: #FFF6F9 !important;
-        color: #22397A !important;
-    }
 
-    /* Sembunyikan elemen background global dari layout agar tidak double/tumpang tindih */
-    body > #interactive-bg,
-    body > .cinematic-grain,
-    body > .light-leak#leak-1,
-    body > .light-leak#leak-2 {
-        display: none !important;
-    }
-
-    /* ── EFEK LIGHT LEAK & GRAIN (From About Page - Subtler) ── */
-    .cinematic-grain {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0.03; /* Toned down */
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        mix-blend-mode: multiply;
-    }
-
-    .light-leak {
-        position: fixed;
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 0;
-        opacity: 0.1; /* Toned down */
-        filter: blur(120px); /* More blur for softness */
-    }
-
-    @keyframes float-left {
-        0%, 100% { transform: translate(-50%, 0) scale(1); }
-        50%      { transform: translate(-45%, 5%) scale(1.1); }
-    }
-
-    @keyframes float-right {
-        0%, 100% { transform: translate(50%, 0) scale(1); }
-        50%      { transform: translate(45%, -5%) scale(1.1); }
-    }
-
-    #leak-navy-1 {
-        background: radial-gradient(circle, #22397A 0%, transparent 70%);
-        top: 10%;
-        left: 0;
-        animation: float-left 25s ease-in-out infinite;
-        opacity: 0.08;
-    }
-
-    #leak-orange-1 {
-        background: radial-gradient(circle, #F36B21 0%, transparent 70%);
-        top: 35%;
-        right: 0;
-        animation: float-right 20s ease-in-out infinite;
-        opacity: 0.12;
-    }
-
-    #leak-navy-2 {
-        background: radial-gradient(circle, #22397A 0%, transparent 70%);
-        top: 60%;
-        left: 0;
-        animation: float-left 28s ease-in-out infinite;
-        opacity: 0.08;
-    }
-
-    #leak-orange-2 {
-        background: radial-gradient(circle, #F36B21 0%, transparent 70%);
-        top: 85%;
-        right: 0;
-        animation: float-right 22s ease-in-out infinite;
-        opacity: 0.1;
-    }
 
     .font-peckham { font-family: 'PeckhamPress', sans-serif; }
     .font-serif { font-family: 'Instrument Serif', serif; }
@@ -110,12 +34,7 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
-{{-- Cinematic Effects (Subtle version of About Page) --}}
-<div class="cinematic-grain"></div>
-<div id="leak-navy-1" class="light-leak w-[45vw] h-[45vw]"></div>
-<div id="leak-orange-1" class="light-leak w-[40vw] h-[40vw]"></div>
-<div id="leak-navy-2" class="light-leak w-[45vw] h-[45vw]"></div>
-<div id="leak-orange-2" class="light-leak w-[40vw] h-[40vw]"></div>
+
 
 <div id="editorial-wrapper" class="relative w-full min-h-screen pt-40 md:pt-48 pb-40 px-8 md:px-16 max-w-[1800px] mx-auto z-10">
     

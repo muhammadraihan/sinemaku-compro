@@ -1,9 +1,87 @@
-@extends('layouts.app')
+﻿<!DOCTYPE html>
+<html lang="id">
 
-@section('title', 'About — Sinemaku Pictures')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ΓÇö Sinemaku Pictures</title>
 
-@push('head')
-    <!-- Swiper CSS -->
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration based on Design Guide -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#F36B21', // Autumn Leaf
+                            navy: '#22397A',   // Regal Navy
+                        },
+                        shade: {
+                            1: '#F36B21',
+                            2: '#0E1633',
+                            3: '#040827',
+                        },
+                        tint: {
+                            1: '#FFE4D9', // Orange tint
+                            2: '#8E95B7', // Navy tint
+                            3: '#FFF6F9', // Background cream
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['var(--brand-serif)', 'serif'],
+                        sans: ['Helvetica', 'Arial', 'sans-serif'],
+                        peckham: ['PeckhamPress', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    @php
+    $brandSerif = "'Instrument Serif', serif";
+    @endphp
+
+    <style>
+        @font-face {
+            font-family: 'PeckhamPress';
+            src: url('{{ asset('fonts/PeckhamPress.otf') }}') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Instrument Serif';
+            src: url('{{ asset('fonts/instrument-serif/InstrumentSerif-Regular.ttf') }}') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Instrument Serif';
+            src: url('{{ asset('fonts/instrument-serif/InstrumentSerif-Italic.ttf') }}') format('truetype');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        .font-serif,
+        .font-serif * {
+            font-family: {!! $brandSerif !!} !important;
+        }
+    </style>
+
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+    <!-- GSAP Scripts (Moved to head for earlier availability) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Swiper CSS & JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -13,7 +91,136 @@
             color: #FFF6F9;
         }
 
-        /* ── SLIDER HERO STYLES ── */
+        body {
+            background-color: #FFF6F9;
+            color: #22397A;
+            margin: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            cursor: none;
+        }
+
+        /* ΓöÇΓöÇ INTERACTIVE GRADIENT BACKGROUND ΓöÇΓöÇ */
+        #interactive-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(
+                    ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
+                    rgba(243, 107, 33, 0.4) 0%,
+                    transparent 60%
+                );
+            filter: blur(80px);
+            opacity: 0.5;
+        }
+
+        /* ΓöÇΓöÇ EFEK LIGHT LEAK & GRAIN ΓöÇΓöÇ */
+        .cinematic-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply;
+        }
+
+        .light-leak {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.2;
+            filter: blur(100px);
+        }
+
+        @keyframes float-left {
+            0%, 100% { transform: translate(-50%, 0) scale(1); }
+            50%      { transform: translate(-45%, 5%) scale(1.1); }
+        }
+
+        @keyframes float-right {
+            0%, 100% { transform: translate(50%, 0) scale(1); }
+            50%      { transform: translate(45%, -5%) scale(1.1); }
+        }
+
+        /* Zig Zag Positions (Differentiated from Film Page) */
+        #leak-navy-1 {
+            background: radial-gradient(circle, #22397A 0%, transparent 70%);
+            top: 10%;
+            left: 0;
+            animation: float-left 25s ease-in-out infinite;
+            opacity: 0.15;
+        }
+
+        #leak-orange-1 {
+            background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+            top: 35%;
+            right: 0;
+            animation: float-right 20s ease-in-out infinite;
+        }
+
+        #leak-navy-2 {
+            background: radial-gradient(circle, #22397A 0%, transparent 70%);
+            top: 60%;
+            left: 0;
+            animation: float-left 28s ease-in-out infinite;
+            opacity: 0.15;
+        }
+
+        #leak-orange-2 {
+            background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+            top: 85%;
+            right: 0;
+            animation: float-right 22s ease-in-out infinite;
+        }
+
+        /* ΓöÇΓöÇ TYPOGRAPHY & LAYOUT ΓöÇΓöÇ */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .hairline-border {
+            border-color: rgba(34, 57, 122, 0.1);
+        }
+
+        /* ΓöÇΓöÇ CUSTOM CURSOR (EDITORIAL RING) ΓöÇΓöÇ */
+        #cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #F36B21;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: multiply;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: transparent;
+            backdrop-filter: invert(1) grayscale(1) contrast(100);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000000;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ΓöÇΓöÇ SLIDER HERO STYLES ΓöÇΓöÇ */
         .hero-slide {
             position: absolute;
             inset: 0;
@@ -26,20 +233,26 @@
         .hero-overlay {
             background: linear-gradient(to bottom, rgba(243, 107, 33, 0.4), rgba(4, 8, 39, 0.6));
         }
-
-        :root {
-            --crew-row-h: clamp(300px, 40vw, 650px);
-        }
-        .crew-h { height: var(--crew-row-h); }
-        @media (max-width: 768px) {
-            :root { --crew-row-h: 300px; }
-        }
     </style>
-@endpush
+</head>
 
-@section('content')
+<body class="font-sans">
 
-    <!-- ── MINIMALIST HEADER ── -->
+    <!-- Interactive Gradient Background -->
+    <div id="interactive-bg"></div>
+
+    <!-- Efek Grain & Light Leak Global -->
+    <div class="cinematic-grain"></div>
+    <div id="leak-navy-1" class="light-leak w-[45vw] h-[45vw]"></div>
+    <div id="leak-orange-1" class="light-leak w-[40vw] h-[40vw]"></div>
+    <div id="leak-navy-2" class="light-leak w-[45vw] h-[45vw]"></div>
+    <div id="leak-orange-2" class="light-leak w-[40vw] h-[40vw]"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-ring"></div>
+    <div id="cursor-dot"></div>
+
+    <!-- ΓöÇΓöÇ MINIMALIST HEADER ΓöÇΓöÇ -->
     @include('partials.navbar')
 
     <!-- 1. EDITORIAL HERO SECTION -->
@@ -93,7 +306,7 @@
         <!-- Top Metadata -->
         <div class="flex justify-between items-start mb-16">
             <span class="font-peckham text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange">
-                01 — Misi
+                01 ΓÇö Misi
             </span>
         </div>
 
@@ -148,6 +361,15 @@
     </section>
 
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
+    <style>
+        :root {
+            --crew-row-h: clamp(300px, 40vw, 650px);
+        }
+        .crew-h { height: var(--crew-row-h); }
+        @media (max-width: 768px) {
+            :root { --crew-row-h: 300px; }
+        }
+    </style>
     <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
         <div class="crew-pin-container w-full flex flex-col items-center justify-center bg-black">
             <div class="crew-grid w-full grid grid-cols-12 gap-2 md:gap-4 p-2 md:p-4 pb-2 md:pb-4">
@@ -250,9 +472,11 @@
                 
             </div>
         </div>
+    </section>
 
-        @if(isset($rest) && count($rest) > 0)
-        <!-- Rest of the grid (Masonry continues) -->
+    <!-- Rest of the Crew Grid -->
+    @if(isset($rest) && count($rest) > 0)
+    <section class="crew-rest-section w-full bg-black z-10 pb-24">
         <div class="w-full grid grid-cols-12 gap-2 md:gap-4 px-2 md:px-4 pt-0">
             @php
                 $patternIndex = 0;
@@ -277,19 +501,19 @@
                 @endforeach
             @endwhile
         </div>
-        @endif
     </section>
+    @endif
 
     @include('components.footer')
 
-@endsection
 
-@push('scripts')
     <script>
         // GSAP is already loaded in the head
         gsap.registerPlugin(ScrollTrigger);
 
-        // ─── REVEAL ANIMATIONS ──────────────────────────────────────────
+
+
+        // ΓöÇΓöÇΓöÇ REVEAL ANIMATIONS ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
         // Initial Hero Reveal
         gsap.from(".hero-reveal", {
             y: 60,
@@ -300,17 +524,46 @@
             delay: 0.5
         });
 
-        // Manifesto Section Reveal
-        gsap.from(".manifesto-reveal", {
+        // Company Section Reveal
+        gsap.from("#company-section .hero-reveal", {
             scrollTrigger: {
-                trigger: "#manifesto",
+                trigger: "#company-section",
                 start: "top 80%",
             },
             y: 50,
             opacity: 0,
             duration: 1.5,
+            stagger: 0.2,
             ease: "power3.out"
         });
+
+        // People Section Reveal
+        gsap.from("#people-section .group", {
+            scrollTrigger: {
+                trigger: "#people-section",
+                start: "top 70%",
+            },
+            y: 100,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.15,
+            ease: "power4.out"
+        });
+
+        // What We Do Reveal (If still present)
+        if (document.querySelector('.reveal-card')) {
+            gsap.from('.reveal-card', {
+                scrollTrigger: {
+                    trigger: '.reveal-card',
+                    start: "top 85%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+        }
 
         // Masonry Zoom Out Animation & Text Sequencing
         if (document.querySelector('#crew-masonry-wrapper')) {
@@ -318,43 +571,108 @@
                 scrollTrigger: {
                     trigger: "#crew-masonry-wrapper",
                     start: "center center",
-                    end: "+=300%", 
-                    scrub: 1.5, 
-                    pin: true 
+                    end: "+=300%", // Extended scrolling distance for multi-phase sequence
+                    scrub: 1.5, // Super smooth scrub
+                    pin: true // pin the wrapper itself
                 }
             });
 
+            // Phase 1: Start zoomed in, scale down to form grid
             crewTl.fromTo(".crew-grid", 
                 { scale: 3.5, transformOrigin: "center center" }, 
                 { scale: 1, transformOrigin: "center center", ease: "power3.inOut", duration: 1.2 }
             );
 
+            // Phase 1b: Surrounding images subtly fade in so we don't see ugly edges during extreme zoom
             crewTl.fromTo(".crew-grid > div:not(.crew-center-img)", 
                 { opacity: 0 }, 
                 { opacity: 1, ease: "power3.inOut", duration: 1.2 },
-                "<"
+                "<" // Sync exactly with Phase 1
             );
 
+            // Phase 2: Fade in the dark overlay background to make text readable
             crewTl.to(".crew-overlay", { opacity: 1, duration: 0.3, ease: "power2.inOut" }, "+=0.1");
 
+            // Phase 3: Staggered text reveal ("THE PEOPLE", "behind the", "CAMERA.")
             gsap.set(".crew-text-reveal", { opacity: 0, y: 40 });
             crewTl.to(".crew-text-reveal", { opacity: 1, y: 0, duration: 0.6, stagger: 0.2, ease: "power2.out" });
             
+            // Add a slight blank duration at the end so it holds for a moment before unpinning
             crewTl.to({}, {duration: 0.4});
         }
 
-        // Initialize Hero Slideshow
-        const heroSwiper = new Swiper('.hero-swiper', {
-            effect: 'fade',
-            fadeEffect: { crossFade: true },
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            speed: 500, 
-        });
+        // ΓöÇΓöÇΓöÇ CUSTOM CURSOR & INTERACTIVE BG ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+        (function() {
+            const cursorRing = document.getElementById('cursor-ring');
+            const cursorDot = document.getElementById('cursor-dot');
+            if(!cursorRing || !cursorDot) return;
 
-        // The cursor and interactive BG are now managed globally by layouts/app.blade.php
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let ringX = mouseX;
+            let ringY = mouseY;
+            let bgX = mouseX;
+            let bgY = mouseY;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                gsap.to(cursorDot, { x: mouseX, y: mouseY, duration: 0.1, ease: "none" });
+            });
+
+            gsap.ticker.add(() => {
+                // Ring interpolation
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+                gsap.set(cursorRing, { x: ringX, y: ringY });
+
+                // Background gradient interpolation
+                bgX += (mouseX - bgX) * 0.05;
+                bgY += (mouseY - bgY) * 0.05;
+                document.body.style.setProperty('--mx', (bgX / window.innerWidth * 100) + '%');
+                document.body.style.setProperty('--my', (bgY / window.innerHeight * 100) + '%');
+            });
+
+            function bindHovers() {
+                const hoverTargets = document.querySelectorAll('.hover-target, a, button');
+                hoverTargets.forEach(target => {
+                    if (target.dataset.cursorBound) return;
+                    target.dataset.cursorBound = "true";
+                    
+                    target.addEventListener('mouseenter', () => {
+                        gsap.to(cursorRing, {
+                            width: 60, height: 60,
+                            backgroundColor: "rgba(243, 107, 33, 0.1)",
+                            duration: 0.4, ease: "power2.out"
+                        });
+                        gsap.to(cursorDot, { scale: 0.5, duration: 0.2 });
+                    });
+                    target.addEventListener('mouseleave', () => {
+                        gsap.to(cursorRing, {
+                            width: 30, height: 30,
+                            backgroundColor: "transparent",
+                            duration: 0.4, ease: "power2.out"
+                        });
+                        gsap.to(cursorDot, { scale: 1, duration: 0.2 });
+                    });
+                });
+            }
+            bindHovers();
+            setInterval(bindHovers, 2000);
+
+            // Initialize Hero Slideshow
+            const heroSwiper = new Swiper('.hero-swiper', {
+                effect: 'fade',
+                fadeEffect: { crossFade: true },
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                speed: 500, // 0.5 detik crossfade
+            });
+        })();
     </script>
-@endpush
+</body>
+
+</html>

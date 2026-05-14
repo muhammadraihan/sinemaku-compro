@@ -111,24 +111,20 @@
       mix-blend-mode: multiply;
     }
 
-    /* ── INTERACTIVE GRADIENT BACKGROUND GLOBAL ── */
+    /* ── INTERACTIVE GRADIENT BACKGROUND GLOBAL (Synced with About Page) ── */
     #interactive-bg {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
-          rgba(244, 106, 33, 0.8) 0%,
-          rgba(244, 106, 33, 0.8) 25%,
-          rgba(244, 106, 33, 0.4) 40%,
-          transparent 60%),
-        radial-gradient(ellipse 50vw 50vh at calc(100% - var(--mx, 25%)) calc(100% - var(--my, 55%)),
-          rgba(15, 106, 176, 0.8) 0%,
-          rgba(15, 106, 176, 0.8) 25%,
-          rgba(15, 106, 176, 0.4) 40%,
-          transparent 60%);
-      filter: blur(50px);
+        radial-gradient(
+          ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
+          rgba(243, 107, 33, 0.4) 0%,
+          transparent 60%
+        );
+      filter: blur(80px);
+      opacity: 0.5;
     }
 
     .light-leak {
@@ -136,49 +132,48 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.08;
+      opacity: 0.2;
+      filter: blur(100px);
     }
 
-    #leak-1 {
-      background: radial-gradient(circle, #f46a21 0%, transparent 70%);
-      animation: float-blob-1 18s ease-in-out infinite;
+    @keyframes float-left {
+        0%, 100% { transform: translate(-50%, 0) scale(1); }
+        50%      { transform: translate(-45%, 5%) scale(1.1); }
     }
 
-    #leak-2 {
-      background: radial-gradient(circle, #0f6ab0 0%, transparent 70%);
-      animation: float-blob-2 24s ease-in-out infinite;
+    @keyframes float-right {
+        0%, 100% { transform: translate(50%, 0) scale(1); }
+        50%      { transform: translate(45%, -5%) scale(1.1); }
     }
 
-    @keyframes float-blob-1 {
-
-      0%,
-      100% {
-        transform: translate(0, 0) scale(1);
-      }
-
-      40% {
-        transform: translate(4%, 3%) scale(1.06);
-      }
-
-      70% {
-        transform: translate(-3%, 5%) scale(0.96);
-      }
+    #leak-navy-1 {
+        background: radial-gradient(circle, #22397A 0%, transparent 70%);
+        top: 10%;
+        left: 0;
+        animation: float-left 25s ease-in-out infinite;
+        opacity: 0.15;
     }
 
-    @keyframes float-blob-2 {
+    #leak-orange-1 {
+        background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+        top: 35%;
+        right: 0;
+        animation: float-right 20s ease-in-out infinite;
+    }
 
-      0%,
-      100% {
-        transform: translate(0, 0) scale(1);
-      }
+    #leak-navy-2 {
+        background: radial-gradient(circle, #22397A 0%, transparent 70%);
+        top: 60%;
+        left: 0;
+        animation: float-left 28s ease-in-out infinite;
+        opacity: 0.15;
+    }
 
-      35% {
-        transform: translate(-5%, -2%) scale(1.04);
-      }
-
-      65% {
-        transform: translate(3%, -4%) scale(0.98);
-      }
+    #leak-orange-2 {
+        background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+        top: 85%;
+        right: 0;
+        animation: float-right 22s ease-in-out infinite;
     }
 
     /* ── CUSTOM CURSOR (EDITORIAL RING) GLOBAL ── */
@@ -312,10 +307,12 @@
   <!-- Interactive Gradient Background Global -->
   <div id="interactive-bg"></div>
 
-  <!-- Efek Grain & Light Leak Global -->
+  <!-- Efek Grain & Light Leak Global (Synced with About) -->
   <div class="cinematic-grain"></div>
-  <div id="leak-1" class="light-leak w-[50vw] h-[50vw] top-[-10vw] left-[-10vw]"></div>
-  <div id="leak-2" class="light-leak w-[40vw] h-[40vw] bottom-10 right-[-10vw]"></div>
+  <div id="leak-navy-1" class="light-leak w-[45vw] h-[45vw]"></div>
+  <div id="leak-orange-1" class="light-leak w-[40vw] h-[40vw]"></div>
+  <div id="leak-navy-2" class="light-leak w-[45vw] h-[45vw]"></div>
+  <div id="leak-orange-2" class="light-leak w-[40vw] h-[40vw]"></div>
 
   <!-- Custom Cursor Global -->
   <div id="cursor-ring"></div>

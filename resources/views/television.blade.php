@@ -7,98 +7,10 @@
     @include('partials.navbar')
 
     <style>
-        /* ── INTERACTIVE GRADIENT BACKGROUND ── */
-        #interactive-bg {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            background:
-                radial-gradient(
-                    ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
-                    rgba(243, 107, 33, 0.4) 0%,
-                    transparent 60%
-                );
-            filter: blur(80px);
-            opacity: 0.5;
-        }
 
-        /* ── EFEK LIGHT LEAK & GRAIN ── */
-        .cinematic-grain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            mix-blend-mode: multiply;
-        }
-
-        .light-leak {
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.2; /* Adjusted for better balance with multiple leaks */
-            filter: blur(100px); /* Softer falloff */
-        }
-
-        @keyframes float-left {
-            0%, 100% { transform: translate(-50%, 0) scale(1); }
-            50%      { transform: translate(-45%, 5%) scale(1.1); }
-        }
-
-        @keyframes float-right {
-            0%, 100% { transform: translate(50%, 0) scale(1); }
-            50%      { transform: translate(45%, -5%) scale(1.1); }
-        }
-
-        /* Zig Zag Positions (TV Variant) */
-        #leak-navy-1 {
-            background: radial-gradient(circle, #22397A 0%, transparent 70%);
-            top: 5%;
-            left: 0;
-            animation: float-left 25s ease-in-out infinite;
-            opacity: 0.15;
-        }
-
-        #leak-orange-1 {
-            background: radial-gradient(circle, #F36B21 0%, transparent 70%);
-            top: 30%;
-            right: 0;
-            animation: float-right 20s ease-in-out infinite;
-        }
-
-        #leak-navy-2 {
-            background: radial-gradient(circle, #22397A 0%, transparent 70%);
-            top: 55%;
-            left: 0;
-            animation: float-left 28s ease-in-out infinite;
-            opacity: 0.15;
-        }
-
-        #leak-orange-2 {
-            background: radial-gradient(circle, #F36B21 0%, transparent 70%);
-            top: 80%;
-            right: 0;
-            animation: float-right 22s ease-in-out infinite;
-        }
     </style>
 
-    <!-- Interactive Gradient Background -->
-    <div id="interactive-bg"></div>
 
-    <!-- Efek Grain & Light Leak Global -->
-    <div class="cinematic-grain"></div>
-    
-    <!-- Zig-Zag Light Leaks -->
-    <div id="leak-orange-1" class="light-leak w-[40vw] h-[40vw]"></div>
-    <div id="leak-navy-1" class="light-leak w-[45vw] h-[45vw]"></div>
-    <div id="leak-orange-2" class="light-leak w-[40vw] h-[40vw]"></div>
-    <div id="leak-navy-2" class="light-leak w-[45vw] h-[45vw]"></div>
 
     {{-- ============================================================
     EDITORIAL WRAPPER
@@ -625,26 +537,7 @@ STYLES & SCRIPTS
             // Init filters on load
             applyFilters();
 
-            // ─── INTERACTIVE BG ──────────────────────────────
-            (function() {
-                let mouseX = window.innerWidth / 2;
-                let mouseY = window.innerHeight / 2;
-                let bgX = mouseX;
-                let bgY = mouseY;
 
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                });
-
-                gsap.ticker.add(() => {
-                    // Background gradient interpolation
-                    bgX += (mouseX - bgX) * 0.05;
-                    bgY += (mouseY - bgY) * 0.05;
-                    document.body.style.setProperty('--mx', (bgX / window.innerWidth * 100) + '%');
-                    document.body.style.setProperty('--my', (bgY / window.innerHeight * 100) + '%');
-                });
-            })();
 
             // Close on outside click
             document.addEventListener('click', () => {

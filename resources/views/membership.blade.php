@@ -9,7 +9,7 @@
 @push('head')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <style>
-    body { background-color: #f6f6ed !important; }
+
     
     /* Custom style for editorial inputs */
     .editorial-input {
