@@ -9,14 +9,14 @@ FULLSCREEN MENU OVERLAY
 
     <!-- Tombol Close -->
     <button id="close-menu-btn"
-        class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white hover:text-brand-navy transition-colors cursor-none hover-target">
+        class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy hover:text-brand-orange' : 'text-white hover:text-brand-navy' }} transition-colors cursor-none hover-target">
         [ X CLOSE ]
     </button>
 
     {{-- Language Switcher inside menu --}}
     <div class="absolute bottom-10 left-8 md:left-16 flex items-center gap-4">
         <button id="lang-switcher" aria-label="Switch language"
-            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold text-white/50 hover:text-white transition-colors cursor-none hover-target"
+            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy/50 hover:text-brand-orange' : 'text-white/50 hover:text-white' }} transition-colors cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
@@ -53,9 +53,9 @@ FULLSCREEN MENU OVERLAY
             @if(isset($item['isDropdown']))
                 <div class="relative w-full flex flex-col items-end">
                     <button type="button" onclick="toggleDropdown('dropdown-{{ $index }}')"
-                        class="menu-link flex items-center justify-end gap-2 md:gap-4 transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] text-white hover:text-brand-navy leading-[1.05] text-right cursor-none hover-target font-peckham not-italic w-full uppercase">
+                        class="menu-link flex items-center justify-end gap-2 md:gap-4 transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy hover:text-brand-orange' : 'text-white hover:text-brand-navy' }} leading-[1.05] text-right cursor-none hover-target font-peckham not-italic w-full uppercase">
                         <span id="icon-dropdown-{{ $index }}"
-                            class="font-sans text-lg md:text-xl font-bold transform transition-transform duration-300 text-white mt-1">
+                            class="font-sans text-lg md:text-xl font-bold transform transition-transform duration-300 {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy' : 'text-white' }} mt-1">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
@@ -66,7 +66,7 @@ FULLSCREEN MENU OVERLAY
                     <div id="dropdown-{{ $index }}" class="flex flex-wrap justify-end gap-2 mt-4 max-w-[320px] pr-2">
                         @foreach($item['children'] as $child)
                             <a href="{{ $child['url'] }}"
-                                class="inline-block transition-all duration-300 text-[10px] md:text-xs font-sans font-bold tracking-widest px-4 py-2 bg-white/10 hover:bg-brand-navy hover:text-white text-white rounded-md cursor-none hover-target border border-white/20 shadow-sm uppercase">
+                                class="inline-block transition-all duration-300 text-[10px] md:text-xs font-sans font-bold tracking-widest px-4 py-2 rounded-md cursor-none hover-target border shadow-sm uppercase {{ ($navTheme ?? '') === 'event' ? 'bg-brand-navy/5 hover:bg-brand-orange hover:border-brand-orange hover:text-white text-brand-navy border-brand-navy/20' : 'bg-white/10 hover:bg-brand-navy hover:text-white text-white border-white/20' }}">
                                 <span data-i18n="{{ $child['i18n'] }}">{{ $child['title'] }}</span>
                             </a>
                         @endforeach
@@ -74,7 +74,7 @@ FULLSCREEN MENU OVERLAY
                 </div>
             @else
                 <a href="{{ $item['url'] }}"
-                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] text-white hover:text-brand-navy leading-[1.05] cursor-none hover-target font-peckham not-italic text-right uppercase">
+                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy hover:text-brand-orange' : 'text-white hover:text-brand-navy' }} leading-[1.05] cursor-none hover-target font-peckham not-italic text-right uppercase">
                     <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                 </a>
             @endif
