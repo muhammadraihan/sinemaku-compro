@@ -30,6 +30,7 @@
             sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
             display: ['var(--font-display)', 'sans-serif'],
             peckham: ['PeckhamPress', 'sans-serif'],
+            instrument: ['"Instrument Serif"', 'serif'],
           }
         }
       }

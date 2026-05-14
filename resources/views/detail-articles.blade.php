@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('partials.navbar')
+@include('partials.navbar', ['navTheme' => 'event'])
 
 @push('head')
 <style>
