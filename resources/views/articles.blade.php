@@ -4,141 +4,375 @@
 
 @section('content')
 
-@include('partials.navbar')
+@include('partials.navbar', ['navTheme' => 'event'])
 
-@push('head')
 <style>
-    body { background-color: #f6f6ed !important; }
+    body {
+        background-color: #FFF6F9 !important;
+        color: #22397A !important;
+    }
+
+    /* Sembunyikan elemen background global dari layout agar tidak double/tumpang tindih */
+    body > #interactive-bg,
+    body > .cinematic-grain,
+    body > .light-leak#leak-1,
+    body > .light-leak#leak-2 {
+        display: none !important;
+    }
+
+    /* ── EFEK LIGHT LEAK & GRAIN (From About Page - Subtler) ── */
+    .cinematic-grain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.03; /* Toned down */
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        mix-blend-mode: multiply;
+    }
+
+    .light-leak {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.1; /* Toned down */
+        filter: blur(120px); /* More blur for softness */
+    }
+
+    @keyframes float-left {
+        0%, 100% { transform: translate(-50%, 0) scale(1); }
+        50%      { transform: translate(-45%, 5%) scale(1.1); }
+    }
+
+    @keyframes float-right {
+        0%, 100% { transform: translate(50%, 0) scale(1); }
+        50%      { transform: translate(45%, -5%) scale(1.1); }
+    }
+
+    #leak-navy-1 {
+        background: radial-gradient(circle, #22397A 0%, transparent 70%);
+        top: 10%;
+        left: 0;
+        animation: float-left 25s ease-in-out infinite;
+        opacity: 0.08;
+    }
+
+    #leak-orange-1 {
+        background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+        top: 35%;
+        right: 0;
+        animation: float-right 20s ease-in-out infinite;
+        opacity: 0.12;
+    }
+
+    #leak-navy-2 {
+        background: radial-gradient(circle, #22397A 0%, transparent 70%);
+        top: 60%;
+        left: 0;
+        animation: float-left 28s ease-in-out infinite;
+        opacity: 0.08;
+    }
+
+    #leak-orange-2 {
+        background: radial-gradient(circle, #F36B21 0%, transparent 70%);
+        top: 85%;
+        right: 0;
+        animation: float-right 22s ease-in-out infinite;
+        opacity: 0.1;
+    }
+
+    .font-peckham { font-family: 'PeckhamPress', sans-serif; }
+    .font-serif { font-family: 'Instrument Serif', serif; }
+
+    .article-title {
+        line-height: 0.9;
+        letter-spacing: -0.02em;
+    }
+
+    .filter-btn {
+        transition: all 0.4s ease;
+    }
+    .filter-btn.active {
+        background-color: #F36B21;
+        color: white;
+        border-color: #F36B21;
+    }
+    
+    .search-input::placeholder {
+        color: #22397A;
+        opacity: 0.5;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
-@endpush
+{{-- Cinematic Effects (Subtle version of About Page) --}}
+<div class="cinematic-grain"></div>
+<div id="leak-navy-1" class="light-leak w-[45vw] h-[45vw]"></div>
+<div id="leak-orange-1" class="light-leak w-[40vw] h-[40vw]"></div>
+<div id="leak-navy-2" class="light-leak w-[45vw] h-[45vw]"></div>
+<div id="leak-orange-2" class="light-leak w-[40vw] h-[40vw]"></div>
 
-{{-- ============================================================
-EDITORIAL WRAPPER
-============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
-
+<div id="editorial-wrapper" class="relative w-full min-h-screen pt-40 md:pt-48 pb-40 px-8 md:px-16 max-w-[1800px] mx-auto z-10">
+    
     {{-- ============================================================
-    HEADER
+    FILTERS & SEARCH
     ============================================================ --}}
-    <section class="pt-40 md:pt-48 px-8 md:px-16 max-w-[1800px] mx-auto relative z-10">
-        <div class="border-b hairline-border pb-12 mb-20">
-            <h2 class="font-serif text-6xl md:text-8xl text-brand-deepbreath leading-none tracking-tight">
-                <span data-i18n="page_articles_1">Our</span> <span data-i18n="page_articles_2" class="italic text-brand-orange">Articles.</span>
-            </h2>
+    <div class="flex flex-col items-center gap-10 mb-20 md:mb-32">
+        {{-- Category Pills --}}
+        <div class="flex flex-wrap justify-center gap-4">
+            <button class="category-filter filter-btn active px-8 py-3 rounded-full border border-brand-orange/20 text-[10px] font-bold tracking-[0.2em] uppercase cursor-none hover-target" data-category="all">ALL</button>
+            <button class="category-filter filter-btn px-8 py-3 rounded-full border border-brand-orange/20 text-[10px] font-bold tracking-[0.2em] uppercase cursor-none hover-target" data-category="PRESS RELEASE">PRESS RELEASE</button>
+            <button class="category-filter filter-btn px-8 py-3 rounded-full border border-brand-orange/20 text-[10px] font-bold tracking-[0.2em] uppercase cursor-none hover-target" data-category="ARTICLES">ARTICLES</button>
         </div>
-    </section>
+
+        {{-- Sort & Search --}}
+        <div class="flex flex-col md:flex-row gap-4 w-full max-w-[700px]">
+            {{-- Sort Dropdown --}}
+            <div class="flex-1 relative group">
+                <div id="sort-trigger" class="w-full h-full bg-[#F36B21]/10 border border-[#F36B21]/40 rounded-[1.5rem] px-8 py-4 flex flex-col justify-center cursor-none hover-target">
+                    <span class="text-[8px] uppercase font-bold tracking-widest opacity-50 mb-0.5">Sort by</span>
+                    <div class="flex items-center justify-between">
+                        <span id="current-sort" class="text-xs font-bold text-[#22397A]">Newest to Old</span>
+                        <svg class="w-4 h-4 text-[#22397A]/40 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+                {{-- Sort Menu --}}
+                <div id="sort-menu" class="absolute top-full left-0 w-full mt-2 bg-white rounded-2xl shadow-2xl border border-[#F36B21]/10 p-2 opacity-0 pointer-events-none transform -translate-y-2 transition-all duration-300 z-50">
+                    <button class="sort-option w-full text-left px-6 py-3 rounded-xl hover:bg-brand-orange/5 text-xs font-bold text-brand-navy transition-colors" data-sort="newest">Newest to Old</button>
+                    <button class="sort-option w-full text-left px-6 py-3 rounded-xl hover:bg-brand-orange/5 text-xs font-bold text-brand-navy transition-colors" data-sort="oldest">Oldest to Newest</button>
+                </div>
+            </div>
+
+            {{-- Search Bar --}}
+            <div class="flex-[1.5] relative group">
+                <div class="w-full bg-[#F36B21]/10 border border-[#F36B21]/40 rounded-[1.5rem] px-8 py-4 flex items-center justify-between cursor-none hover-target focus-within:ring-2 focus-within:ring-brand-orange/20 transition-all">
+                    <div class="flex flex-col flex-1">
+                        <span class="text-[8px] uppercase font-bold tracking-widest opacity-50 mb-0.5">SEARCH ARTICLES</span>
+                        <input type="text" id="article-search" class="bg-transparent border-none p-0 focus:ring-0 text-xs font-bold text-[#22397A] outline-none w-full" placeholder="Type title here...">
+                    </div>
+                    <svg class="w-5 h-5 text-[#22397A]/40 group-hover:text-brand-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {{-- ============================================================
-    ARTICLE LIST (GROUPED BY CATEGORY WITH INDEX HEADERS)
+    ARTICLE LIST
     ============================================================ --}}
-    <section class="px-8 md:px-16 pb-32 max-w-[1800px] mx-auto relative z-10" id="article-list">
+    <div id="articles-container" class="flex flex-col gap-32 md:gap-48 relative">
         @php
             $displayItems = collect();
-            if($articles) $displayItems->push($articles);
-            foreach($all_articles as $item) $displayItems->push($item);
-
-            // Group by category
-            $groupedArticles = $displayItems->groupBy('artikel_kategori_uuid');
-            $catIndex = 1;
+            if($articles) {
+                if($articles instanceof \Illuminate\Support\Collection || is_array($articles)) {
+                    foreach($articles as $a) $displayItems->push($a);
+                } else {
+                    $displayItems->push($articles);
+                }
+            }
+            if(isset($all_articles)) {
+                foreach($all_articles as $item) $displayItems->push($item);
+            }
+            
+            $itemsList = $displayItems->unique('uuid');
         @endphp
 
-        @if($groupedArticles->count() > 0)
-            <div class="flex flex-col gap-32 md:gap-48">
-                @foreach($groupedArticles as $catUuid => $items)
-                    @php
-                        $categoryName = $items->first()->artikelKategori->name ?? 'Stories';
-                    @endphp
-
-                    <div class="category-block flex flex-col gap-16 md:gap-24">
-                        <!-- Category Header with Index -->
-                        <div class="flex items-baseline gap-6 md:gap-10 border-b hairline-border pb-8 reveal-text">
-                            <span class="font-sans text-xl md:text-2xl font-bold text-brand-orange/40">{{ str_pad($catIndex++, 2, '0', STR_PAD_LEFT) }}</span>
-                            <h3 class="font-serif text-4xl md:text-6xl text-brand-deepbreath">{{ $categoryName }}</h3>
+        @if($itemsList->count() > 0)
+            @foreach($itemsList as $index => $item)
+                @php
+                    $isReverse = ($index % 2 != 0);
+                    $url = route('detail-articles', $item->slug);
+                    $categoryName = $item->artikelKategori->name ?? 'NEWS';
+                    
+                    // Extract titles manually for search functionality
+                    $titleId = $item->judul ?? '';
+                    $titleEn = $item->judul_en ?? $titleId;
+                    $searchTerms = strtolower($titleId . ' ' . $titleEn);
+                @endphp
+                
+                <article class="article-card flex flex-col {{ $isReverse ? 'md:flex-row-reverse' : 'md:flex-row' }} items-center gap-10 md:gap-24 group transition-all duration-500" 
+                    data-category="{{ $categoryName }}" 
+                    data-date="{{ \Carbon\Carbon::parse($item->tgl_rilis)->timestamp }}"
+                    data-title="{{ $searchTerms }}">
+                    
+                    {{-- Text Content --}}
+                    <div class="flex-1 w-full flex flex-col {{ $isReverse ? 'items-start md:items-end text-left md:text-right' : 'items-start' }}">
+                        <div class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-navy/40 mb-6 flex items-center gap-3">
+                            <span>{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</span>
+                            <span class="opacity-30">•</span>
+                            <span class="text-brand-orange">{{ $categoryName }}</span>
                         </div>
 
-                        <div class="flex flex-col gap-24 md:gap-40">
-                            @foreach($items as $index => $item)
-                                @php
-                                    $flexDir = ($index % 2 != 0) ? 'md:flex-row-reverse' : 'md:flex-row';
-                                    $url = route('detail-articles', $item->slug);
-                                    $target = '_self';
-                                @endphp
-                                <article class="article-row flex flex-col {{ $flexDir }} items-stretch gap-8 md:gap-20 group relative" id="article-row-{{ $catUuid }}-{{ $index }}">
-                                    
-                                    <!-- Media / Poster -->
-                                    <div class="w-full md:w-[45%] shrink-0 reveal-image">
-                                        <a href="{{ $url }}" target="{{ $target }}" class="block w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-xl bg-tint-2/20 cursor-none hover-target shadow-xl">
-                                            <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                        </a>
-                                    </div>
+                        <h2 class="font-peckham text-4xl md:text-7xl text-brand-orange leading-[0.85] mb-10 group-hover:scale-[1.02] transition-transform duration-700 uppercase tracking-tighter">
+                            <a href="{{ $url }}" class="cursor-none hover-target">@i18n($item, 'judul')</a>
+                        </h2>
 
-                                    <!-- Content (Sticky Wrapper) -->
-                                    <div class="w-full md:w-[55%] py-4 md:py-12 relative">
-                                        <div class="sticky-content w-full md:sticky md:top-40 reveal-text">
-                                            <!-- Meta -->
-                                            <div class="flex gap-4 items-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/50 mb-6 md:mb-8">
-                                                <span class="text-brand-orange">{{ $categoryName }}</span>
-                                                <span class="opacity-30">•</span>
-                                                <span>{{ $item->penulis }}</span>
-                                                <span class="opacity-30">•</span>
-                                                <span>{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</span>
-                                            </div>
-
-                                            <!-- Title -->
-                                            <h2 class="font-serif text-5xl md:text-7xl leading-[0.9] text-brand-deepbreath tracking-tight mb-6 md:mb-8 group-hover:text-brand-orange transition-colors duration-500">
-                                                <a href="{{ $url }}" target="{{ $target }}" class="cursor-none hover-target">@i18n($item, 'judul')</a>
-                                            </h2>
-
-                                            <!-- Excerpt -->
-                                            <div class="font-sans text-base md:text-lg font-light text-brand-deepbreath/70 leading-relaxed mb-10 md:mb-12 max-w-2xl line-clamp-4">
-                                                @i18n($item, 'title')
-                                            </div>
-
-                                            <!-- CTA -->
-                                            <a href="{{ $url }}" target="{{ $target }}" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath border-b border-brand-deepbreath/30 pb-2 hover:border-brand-deepbreath hover:text-brand-orange transition-all cursor-none hover-target inline-flex items-center gap-4 self-start">
-                                                <span data-i18n="label_read_story">Read Story</span> <span class="iconify" data-icon="lucide:arrow-right"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </article>
-                            @endforeach
-                        </div>
+                        <a href="{{ $url }}" class="bg-brand-orange text-white font-sans text-[10px] tracking-[0.2em] uppercase font-bold py-5 px-12 rounded-full hover:scale-105 transition-all shadow-xl shadow-brand-orange/20 cursor-none hover-target">
+                            Read More
+                        </a>
                     </div>
-                @endforeach
-            </div>
-        @else
-            <div class="py-40 text-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">
-                No articles available at this moment.
-            </div>
+
+                    {{-- Image --}}
+                    <div class="flex-1 w-full aspect-video md:aspect-[16/10] overflow-hidden rounded-[1rem] md:rounded-[1.5rem] shadow-2xl relative">
+                        <a href="{{ $url }}" class="block w-full h-full cursor-none hover-target">
+                            <img src="{{ asset('photo/' . $item->photo) }}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000" alt="{{ $item->judul }}">
+                        </a>
+                    </div>
+                </article>
+            @endforeach
         @endif
-    </section>
+
+        {{-- No Results --}}
+        <div id="no-results" class="hidden py-40 text-center font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-navy/40">
+            No articles match your criteria.
+        </div>
+    </div>
 
 </div>
 
-{{-- Scripts --}}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.getElementById('articles-container');
+        const articles = Array.from(document.querySelectorAll('.article-card'));
+        const searchInput = document.getElementById('article-search');
+        const sortTrigger = document.getElementById('sort-trigger');
+        const sortMenu = document.getElementById('sort-menu');
+        const currentSortLabel = document.getElementById('current-sort');
+        const filterBtns = document.querySelectorAll('.category-filter');
+        const noResults = document.getElementById('no-results');
 
-        // Reveal Animations using GSAP
-        document.querySelectorAll('.reveal-text, .reveal-image').forEach(el => {
-            gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%",
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1.2,
-                ease: "power4.out"
+        let currentCategory = 'all';
+        let currentSearch = '';
+        let currentSort = 'newest';
+        let searchTimer = null;
+
+        // ── FILTER & DISPLAY ──────────────────────────────────────
+        function updateDisplay() {
+            let visibleCount = 0;
+            // Batch all reads first, then all writes (avoid layout thrashing)
+            const results = articles.map(el => ({
+                el,
+                show: (currentCategory === 'all' || el.dataset.category === currentCategory)
+                      && el.dataset.title.includes(currentSearch)
+            }));
+
+            results.forEach(({ el, show }) => {
+                if (show) {
+                    el.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+
+            noResults.classList.toggle('hidden', visibleCount > 0);
+            // NOTE: No ScrollTrigger.refresh() — it's extremely expensive and not needed here
+        }
+
+        // Search — debounced 150ms so it only runs after typing stops
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                currentSearch = e.target.value.toLowerCase().trim();
+                updateDisplay();
+            }, 150);
+        });
+
+        // Category filter
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                updateDisplay();
             });
         });
-    }
-});
+
+        // ── SORT DROPDOWN ──────────────────────────────────────────
+        let sortOpen = false;
+
+        sortTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sortOpen = !sortOpen;
+            if (sortOpen) {
+                sortMenu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+            } else {
+                sortMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+            }
+        });
+
+        document.querySelectorAll('.sort-option').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const newSort = opt.dataset.sort;
+                if (newSort === currentSort) {
+                    // Close menu without doing anything
+                    sortMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                    sortOpen = false;
+                    return;
+                }
+                currentSort = newSort;
+                currentSortLabel.textContent = opt.textContent.trim();
+
+                // Sort array
+                articles.sort((a, b) => {
+                    const dateA = parseInt(a.dataset.date);
+                    const dateB = parseInt(b.dataset.date);
+                    return currentSort === 'newest' ? dateB - dateA : dateA - dateB;
+                });
+
+                // Batch DOM append via fragment to avoid multiple reflows
+                const frag = document.createDocumentFragment();
+                articles.forEach(el => frag.appendChild(el));
+                container.appendChild(frag);
+
+                updateDisplay();
+
+                // Close menu
+                sortMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                sortOpen = false;
+            });
+        });
+
+        document.addEventListener('click', () => {
+            if (sortOpen) {
+                sortMenu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                sortOpen = false;
+            }
+        });
+
+        // ── GSAP SCROLL ANIMATIONS ─────────────────────────────────
+        if (typeof gsap !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Set initial state for GPU layers
+            gsap.set('.article-card', { y: 30, opacity: 0, force3D: true });
+
+            gsap.utils.toArray('.article-card').forEach(el => {
+                gsap.to(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 90%',
+                        once: true
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power4.out',
+                    force3D: true,
+                    onComplete: () => { el.style.willChange = 'auto'; }
+                });
+            });
+        }
+    });
 </script>
 
 @include('components.footer')
 
 @endsection
+
 

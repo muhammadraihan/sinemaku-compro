@@ -5,7 +5,7 @@
 FULLSCREEN MENU OVERLAY
 ════════════════════════════════════════════════════════════════ --}}
 <div id="fullscreen-menu"
-    class="fixed inset-y-0 right-0 z-[400] w-full md:w-[45vw] max-w-[600px] flex flex-col justify-center px-8 md:px-16 bg-white/5 backdrop-blur-[8px] border-l border-white/20 shadow-[-10px_0_30px_rgba(0,0,0,0.15)] transform translate-x-full transition-transform duration-1000 ease-[cubic-bezier(0.85,0,0.15,1)]">
+    class="fixed inset-y-0 right-0 z-[400] w-full md:w-[45vw] max-w-[600px] flex flex-col justify-center px-8 md:px-16 bg-white/5 backdrop-blur-[8px] border-l border-white/20 shadow-[-10px_0_30px_rgba(0,0,0,0.15)]" style="transform: translateX(100%); will-change: transform;">
 
     <!-- Tombol Close -->
     <button id="close-menu-btn"
@@ -53,7 +53,7 @@ FULLSCREEN MENU OVERLAY
             @if(isset($item['isDropdown']))
                 <div class="relative w-full flex flex-col items-end">
                     <button type="button" onclick="toggleDropdown('dropdown-{{ $index }}')"
-                        class="menu-link flex items-center justify-end gap-2 md:gap-4 transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy hover:text-brand-orange' : 'text-white hover:text-brand-navy' }} leading-[1.05] text-right cursor-none hover-target font-peckham not-italic w-full uppercase">
+                        class="menu-link flex items-center justify-end gap-2 md:gap-4 text-[clamp(1.5rem,2.5vw,2.5rem)] {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy hover:text-brand-orange' : 'text-white hover:text-brand-navy' }} leading-[1.05] text-right cursor-none hover-target font-peckham not-italic w-full uppercase" style="opacity:0; will-change: transform, opacity;">
                         <span id="icon-dropdown-{{ $index }}"
                             class="font-sans text-lg md:text-xl font-bold transform transition-transform duration-300 {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy' : 'text-white' }} mt-1">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@ FULLSCREEN MENU OVERLAY
             @else
                 <a href="{{ $item['url'] }}"
                     @if(isset($item['trigger'])) onclick="{{ $item['trigger'] }}" @endif
-                    class="menu-link inline-block w-max transition-all duration-500 opacity-0 transform translate-x-[50px] text-[clamp(1.5rem,2.5vw,2.5rem)] {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy hover:text-brand-orange' : 'text-white hover:text-brand-navy' }} leading-[1.05] cursor-none hover-target font-peckham not-italic text-right uppercase">
+                    class="menu-link inline-block w-max text-[clamp(1.5rem,2.5vw,2.5rem)] {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy hover:text-brand-orange' : 'text-white hover:text-brand-navy' }} leading-[1.05] cursor-none hover-target font-peckham not-italic text-right uppercase" style="opacity:0; will-change: transform, opacity;">
                     <span data-i18n="{{ $item['i18n'] }}">{{ $item['title'] }}</span>
                 </a>
             @endif
@@ -221,47 +221,58 @@ STICKY MORPHING NAVBAR (THE "PONI")
         const menuLinks = document.querySelectorAll('.menu-link');
         let isOpen = false;
 
+        // Pre-set menu links so GSAP owns the transform from the start
+        if (window.gsap) {
+            gsap.set(menuLinks, { x: 60, opacity: 0, force3D: true });
+        }
+
         function openMenu() {
             isOpen = true;
-            menu.style.transform = 'translateX(0)';
             document.body.style.overflow = 'hidden';
 
-            // GSAP animate links in
             if (window.gsap) {
+                // Slide the panel in with GSAP (not CSS transition)
+                gsap.to(menu, {
+                    x: 0, duration: 0.9, ease: 'expo.inOut', force3D: true,
+                    onComplete: function() { menu.style.willChange = 'auto'; }
+                });
+                // Stagger links in after panel lands
                 gsap.to(menuLinks, {
-                    x: 0, opacity: 1,
-                    duration: 1, stagger: 0.07, ease: 'power4.out', delay: 0.35,
-                    onStart: function () {
-                        menuLinks.forEach(function (l) { l.style.opacity = '0'; });
-                    }
+                    x: 0, opacity: 1, force3D: true,
+                    duration: 0.8, stagger: 0.07, ease: 'power4.out', delay: 0.3
                 });
             } else {
+                menu.style.transform = 'translateX(0)';
                 menuLinks.forEach(function (l, i) {
-                    setTimeout(function () {
-                        l.style.opacity = '1';
-                        l.style.transform = 'translateX(0)';
-                    }, 350 + i * 70);
+                    setTimeout(function () { l.style.opacity = '1'; l.style.transform = 'none'; }, 350 + i * 70);
                 });
             }
         }
 
         function closeMenu() {
             isOpen = false;
-            menu.style.transform = 'translateX(100%)';
             document.body.style.overflow = '';
-            // Reset for next open
-            menuLinks.forEach(function (l) {
-                l.style.opacity = '0';
-                l.style.transform = 'translateX(50px)';
-            });
-            // Reset dropdowns
-            document.querySelectorAll('[id^="dropdown-"]').forEach(function (el) {
-                el.classList.add('hidden');
-                el.classList.remove('flex');
-            });
-            document.querySelectorAll('[id^="icon-dropdown-"]').forEach(function (el) {
-                el.style.transform = 'rotate(90deg)';
-            });
+
+            if (window.gsap) {
+                gsap.to(menuLinks, { x: 40, opacity: 0, force3D: true, duration: 0.25, stagger: 0.03, ease: 'power2.in' });
+                gsap.to(menu, {
+                    x: '100%', duration: 0.75, ease: 'expo.inOut', force3D: true, delay: 0.1,
+                    onComplete: function() {
+                        // Reset dropdowns
+                        document.querySelectorAll('[id^="dropdown-"]').forEach(function (el) {
+                            el.classList.add('hidden'); el.classList.remove('flex');
+                        });
+                        document.querySelectorAll('[id^="icon-dropdown-"]').forEach(function (el) {
+                            el.style.transform = 'rotate(90deg)';
+                        });
+                        // Re-set links for next open
+                        gsap.set(menuLinks, { x: 60, opacity: 0, force3D: true });
+                    }
+                });
+            } else {
+                menu.style.transform = 'translateX(100%)';
+                menuLinks.forEach(function (l) { l.style.opacity = '0'; l.style.transform = 'translateX(60px)'; });
+            }
         }
 
         window.toggleDropdown = function (id) {
