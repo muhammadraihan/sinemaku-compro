@@ -10,152 +10,146 @@
 <style>
     body { background-color: #f6f6ed !important; }
     
-    /* Clean article content styling */
+    /* Premium Editorial Typography */
     .article-content h2, .article-content h3 {
         font-family: 'Instrument Serif', serif;
-        font-size: 2.5rem;
-        margin-top: 3.5rem;
-        margin-bottom: 1.5rem;
-        color: #0f6ab0;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        margin-top: 4rem;
+        margin-bottom: 2rem;
+        color: #22397A;
         font-style: italic;
+        line-height: 1.1;
     }
     .article-content p {
         font-family: 'Helvetica', sans-serif;
-        font-size: 1.15rem;
-        line-height: 1.8;
-        color: rgba(37, 34, 94, 0.8);
-        margin-bottom: 2rem;
+        font-size: 1.25rem;
+        line-height: 1.9;
+        color: #22397A;
+        opacity: 0.9;
+        margin-bottom: 2.5rem;
+        letter-spacing: -0.01em;
     }
     .article-content img {
-        border-radius: 0.75rem;
-        margin: 3rem 0;
+        border-radius: 2rem;
+        margin: 4rem 0;
         width: 100%;
         height: auto;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        box-shadow: 0 30px 60px rgba(34, 57, 122, 0.1);
     }
     .article-content blockquote {
-        border-left: 4px solid #f46a21;
-        padding-left: 2rem;
+        border-left: 2px solid #f46a21;
+        padding-left: 3rem;
         font-family: 'Instrument Serif', serif;
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-style: italic;
-        color: #0f6ab0;
-        margin: 3rem 0;
-        line-height: 1.3;
+        color: #f46a21;
+        margin: 4rem 0;
+        line-height: 1.2;
     }
 </style>
 @endpush
 
 {{-- ============================================================
-EDITORIAL WRAPPER
+EDITORIAL WRAPPER (Redesign based on image)
 ============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen bg-[#f6f6ed] pt-32 pb-40">
 
-    {{-- ============================================================
-    HERO SECTION (Parallax)
-    ============================================================ --}}
-    <section class="relative w-full h-[60vh] md:h-[80vh] overflow-hidden flex items-end pt-20">
-        <!-- Parallax Image -->
-        <div class="absolute inset-0 w-full h-[120%] -top-[10%] z-0">
-            <img src="{{ asset('photo/' . $article->photo) }}" alt="{{ $article->judul }}" 
-                 class="hero-parallax-img w-full h-full object-cover opacity-60">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#f6f6ed] via-[#f6f6ed]/20 to-transparent z-10"></div>
-        </div>
-
-        <!-- Title Overlay -->
-        <div class="relative z-20 px-8 md:px-16 max-w-[1800px] mx-auto w-full pb-16 md:pb-24">
-            <div class="flex flex-col gap-6 md:gap-8 max-w-5xl reveal-text">
-                <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange block">
-                    {{ $article->artikelKategori->name ?? 'Article' }}
+    <div class="max-w-7xl mx-auto px-4 md:px-12">
+        
+        {{-- 1. FEATURED IMAGE --}}
+        <div class="relative w-full mb-8 reveal-image">
+            <div class="aspect-[16/9] md:aspect-[21/9] w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl bg-tint-2/20">
+                <img src="{{ asset('photo/' . $article->photo) }}" alt="{{ $article->judul }}" 
+                     class="w-full h-full object-cover">
+            </div>
+            
+            {{-- Photo Credits --}}
+            <div class="mt-4 flex justify-start">
+                <span class="font-sans text-[9px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40">
+                    PHOTOS BY {{ $article->penulis }}
                 </span>
-                <h1 class="font-serif text-5xl md:text-8xl text-brand-deepbreath leading-[0.9] tracking-tighter">
-                    @i18n($article, 'judul')
-                </h1>
             </div>
         </div>
-    </section>
 
-    {{-- ============================================================
-    ARTICLE BODY
-    ============================================================ --}}
-    <section class="px-8 md:px-16 pb-40 max-w-[1800px] mx-auto relative z-10">
-        
-        <div class="flex flex-col lg:flex-row gap-20 lg:gap-32 items-start">
+        {{-- Separator Line --}}
+        <div class="w-full h-px bg-brand-deepbreath/10 mb-16"></div>
+
+        {{-- 2. ARTICLE HEADERS (Centered) --}}
+        <div class="max-w-5xl mx-auto text-center mb-20 flex flex-col items-center gap-8 reveal-text">
             
-            <!-- Left: Content Column -->
-            <main class="w-full lg:w-[65%] reveal-text">
-                <!-- Meta Info Mobile -->
-                <div class="flex lg:hidden flex-wrap gap-8 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 mb-12 pb-12 border-b hairline-border">
-                    <div class="flex flex-col gap-2">
-                        <span class="text-brand-orange/50" data-i18n="label_author">Written By</span>
-                        <span class="text-brand-deepbreath">{{ $article->penulis }}</span>
+            {{-- Category --}}
+            <span class="font-sans text-[10px] md:text-[12px] tracking-[0.4em] uppercase font-black text-brand-orange">
+                {{ $article->artikelKategori->name ?? 'PRODUCTIVITY' }}
+            </span>
+
+            {{-- Main Title --}}
+            <h1 class="font-peckham text-2xl md:text-5xl lg:text-6xl text-brand-navy leading-[0.85] tracking-tighter uppercase max-w-4xl">
+                {{ $article->judul }}
+            </h1>
+
+            {{-- Lead / Summary --}}
+            <p class="font-sans text-sm md:text-lg lg:text-xl text-brand-navy font-bold leading-tight tracking-[0.1em] uppercase max-w-3xl opacity-80">
+                {{ $article->title }}
+            </p>
+        </div>
+
+        {{-- 3. META ROW & CONTENT --}}
+        <div class="max-w-4xl mx-auto">
+            
+            {{-- Meta Row --}}
+            <div class="w-full pt-6 pb-6 border-y hairline-border flex justify-between items-center mb-16 font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/60 reveal-text">
+                <div class="flex items-center gap-8">
+                    <div class="flex flex-col">
+                        <span class="text-brand-orange/60 mb-1">BY AUTHOR</span>
+                        <span class="text-brand-navy">{{ $article->penulis }}</span>
                     </div>
-                    <div class="flex flex-col gap-2">
-                        <span class="text-brand-orange/50" data-i18n="label_date">Released On</span>
-                        <span class="text-brand-deepbreath">{{ \Carbon\Carbon::parse($article->tgl_rilis)->format('d M Y') }}</span>
+                    <div class="flex flex-col">
+                        <span class="text-brand-orange/60 mb-1">DATE</span>
+                        <span class="text-brand-navy">{{ \Carbon\Carbon::parse($article->tgl_rilis)->format('j M Y') }}</span>
                     </div>
                 </div>
-
-                <!-- Main Text -->
-                <article class="article-content">
-                    @i18n($article, 'detail')
-                </article>
-
-                <!-- External Source (Subtle) -->
-                @if($article->kategori == 'external' && $article->link)
-                <div class="mt-16 pt-8 border-t hairline-border">
-                    <a href="{{ $article->link }}" target="_blank" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40 hover:text-brand-orange transition-all cursor-none hover-target inline-flex items-center gap-3">
-                        <span data-i18n="label_read_full_story">Read Full Story</span> <span class="iconify" data-icon="lucide:external-link"></span>
-                    </a>
-                </div>
-                @endif
-            </main>
-
-            <!-- Right: Sidebar Column (Sticky) -->
-            <aside class="w-full lg:w-[35%] lg:sticky lg:top-40 reveal-rec">
                 
-                <!-- Meta Info Desktop -->
-                <div class="hidden lg:flex flex-col gap-12 mb-20 border-b hairline-border pb-12">
-                    <div class="flex flex-col gap-2">
-                        <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange" data-i18n="label_author">Author</span>
-                        <span class="font-serif text-3xl text-brand-deepbreath italic">{{ $article->penulis }}</span>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange" data-i18n="label_date">Date</span>
-                        <span class="font-serif text-3xl text-brand-deepbreath italic">{{ \Carbon\Carbon::parse($article->tgl_rilis)->format('d M Y') }}</span>
-                    </div>
-                </div>
-
-                <!-- Top Stories Widget -->
-                <div>
-                    <h4 class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-deepbreath/40 mb-10 border-b hairline-border pb-4" data-i18n="label_top_stories">Top Stories</h4>
-                    <div class="flex flex-col gap-12">
-                        @foreach ($all_article->take(5) as $item)
-                        <a href="{{ route('detail-articles', $item->slug) }}" class="group flex gap-6 items-start cursor-none hover-target">
-                            <div class="w-24 md:w-32 aspect-square shrink-0 overflow-hidden rounded-xl bg-tint-2/20">
-                                <img src="{{ asset('photo/' . $item->photo) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover transition-all duration-700">
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <span class="font-sans text-[8px] tracking-[0.2em] uppercase font-bold text-brand-orange/60">{{ $item->artikelKategori->name ?? 'Update' }}</span>
-                                <h5 class="font-serif text-xl md:text-2xl text-brand-deepbreath group-hover:text-brand-orange transition-colors leading-tight">@i18n($item, 'judul')</h5>
-                            </div>
-                        </a>
-                        @endforeach
+                <div class="flex items-center gap-4 relative">
+                    <span>SHARE</span>
+                    <button id="share-article-btn" 
+                        data-title="{{ $article->judul }}" 
+                        data-url="{{ url()->current() }}"
+                        class="w-8 h-8 rounded-full bg-brand-navy/10 flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all cursor-none hover-target outline-none">
+                        <span class="iconify" data-icon="lucide:share-2"></span>
+                    </button>
+                    
+                    {{-- Toast Notification --}}
+                    <div id="share-toast" class="absolute -top-10 right-0 bg-brand-navy text-white text-[9px] px-3 py-1 rounded-full opacity-0 pointer-events-none transition-all duration-300 transform translate-y-2">
+                        LINK COPIED
                     </div>
                 </div>
+            </div>
 
-                <!-- Back to Articles -->
-                <div class="mt-20 pt-12 border-t hairline-border">
-                    <a href="{{ route('articles') }}" class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-deepbreath/60 hover:text-brand-orange transition-colors flex items-center gap-4">
-                        <span class="iconify" data-icon="lucide:arrow-left"></span> <span data-i18n="label_back_to_articles">Back to Articles</span>
-                    </a>
-                </div>
+            {{-- Main Article Content --}}
+            <article class="article-content reveal-text prose prose-lg md:prose-xl max-w-none">
+                {!! $article->detail !!}
+            </article>
 
-            </aside>
+            {{-- Source Link if External --}}
+            @if($article->kategori == 'external' && $article->link)
+            <div class="mt-20 pt-10 border-t hairline-border text-center">
+                <a href="{{ $article->link }}" target="_blank" class="font-sans text-[10px] tracking-[0.4em] uppercase font-black text-brand-orange hover:text-brand-navy transition-all cursor-none hover-target inline-flex items-center gap-4">
+                    READ FULL STORY <span class="iconify" data-icon="lucide:external-link"></span>
+                </a>
+            </div>
+            @endif
+
+            {{-- Back to Articles --}}
+            <div class="mt-32 text-center">
+                <a href="{{ route('articles') }}" class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-deepbreath/40 hover:text-brand-orange transition-colors flex items-center justify-center gap-4 group">
+                    <span class="iconify transition-transform group-hover:-translate-x-2" data-icon="lucide:arrow-left"></span> 
+                    BACK TO ARTICLES
+                </a>
+            </div>
 
         </div>
 
-    </section>
+    </div>
 
 </div>
 
@@ -167,20 +161,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. Hero Parallax
-    gsap.to(".hero-parallax-img", {
-        y: "20%",
-        ease: "none",
-        scrollTrigger: {
-            trigger: ".hero-parallax-img",
-            start: "top top",
-            end: "bottom top",
-            scrub: true
-        }
+    // 1. Image Reveal
+    gsap.from(".reveal-image", {
+        y: 60,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power4.out",
+        delay: 0.2
     });
 
     // 2. Content Reveals
-    document.querySelectorAll('.reveal-text, .reveal-rec').forEach(el => {
+    document.querySelectorAll('.reveal-text').forEach(el => {
         gsap.from(el, {
             scrollTrigger: {
                 trigger: el,
@@ -192,6 +183,44 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: "power4.out"
         });
     });
+
+    // 3. Share Functionality
+    const shareBtn = document.getElementById('share-article-btn');
+    const shareToast = document.getElementById('share-toast');
+
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+            const title = shareBtn.getAttribute('data-title');
+            const url = shareBtn.getAttribute('data-url');
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: title,
+                        url: url
+                    });
+                } catch (err) {
+                    console.log('Share cancelled or failed');
+                }
+            } else {
+                // Fallback: Copy to Clipboard
+                try {
+                    await navigator.clipboard.writeText(url);
+                    
+                    // Show Toast
+                    shareToast.classList.remove('opacity-0', 'translate-y-2');
+                    shareToast.classList.add('opacity-100', 'translate-y-0');
+                    
+                    setTimeout(() => {
+                        shareToast.classList.add('opacity-0', 'translate-y-2');
+                        shareToast.classList.remove('opacity-100', 'translate-y-0');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy link');
+                }
+            }
+        });
+    }
 });
 </script>
 @endpush
