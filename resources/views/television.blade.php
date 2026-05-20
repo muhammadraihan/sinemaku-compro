@@ -43,15 +43,15 @@
                         @foreach(collect($film)->take(3) as $i => $item)
                             <div class="film-nav-item group cursor-none hover-target" data-index="{{ $i }}">
                                 <a href="{{ route('detail-television', $item->slug) }}" class="block">
-                                    <div class="relative" style="max-width: min(50vw, 80vw);">
-                                        <h2 class="film-title font-peckham text-2xl md:text-3xl lg:text-4xl uppercase leading-[0.95] transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40 group-hover:text-white' }}">
+                                    <div class="relative" style="max-width: min(35vw, 80vw);">
+                                        <h2 class="film-title font-peckham font-bold text-3xl md:text-4xl lg:text-5xl uppercase leading-[0.95] transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40' }}">
                                             <span class="title-text">@i18n($item, 'title')</span>
                                         </h2>
-                                        <div class="film-meta absolute top-0 flex flex-col gap-0.5 pl-3 pt-1 whitespace-nowrap pointer-events-none" style="left: 0; opacity: 1;">
+                                        <div class="film-meta absolute top-0 flex flex-col gap-0.5 pl-3 pt-2 whitespace-nowrap pointer-events-none" style="left: 0; opacity: 1;">
                                             @if(\Carbon\Carbon::parse($item->release_date)->isFuture())
                                                 <span class="font-sans text-[8px] md:text-[10px] tracking-widest uppercase text-brand-orange leading-none">Upcoming</span>
                                             @endif
-                                            <span class="font-sans text-[8px] md:text-[9px] tracking-widest uppercase text-white/40 leading-none">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} | @i18n($item, 'genre')</span>
+                                            <span class="film-meta-text font-sans font-bold text-[11px] md:text-[12px] tracking-widest uppercase leading-none transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40' }}">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} | @i18n($item, 'genre')</span>
                                         </div>
                                     </div>
                                 </a>
@@ -343,12 +343,21 @@ STYLES & SCRIPTS
                     // Update Active Text Styling
                     navItems.forEach((nav, i) => {
                         const h2 = nav.querySelector('h2');
+                        const meta = nav.querySelector('.film-meta-text');
                         if (i == index) {
                             h2.classList.remove('text-white/40');
                             h2.classList.add('text-white');
+                            if (meta) {
+                                meta.classList.remove('text-white/40');
+                                meta.classList.add('text-white');
+                            }
                         } else {
                             h2.classList.remove('text-white');
                             h2.classList.add('text-white/40');
+                            if (meta) {
+                                meta.classList.remove('text-white');
+                                meta.classList.add('text-white/40');
+                            }
                         }
                     });
                 });

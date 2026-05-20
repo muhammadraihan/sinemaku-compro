@@ -48,7 +48,7 @@
                                         <h2 class="film-title font-peckham font-bold text-3xl md:text-4xl lg:text-5xl uppercase leading-[0.95] transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40' }}">
                                             <span class="title-text">@i18n($item, 'title')</span>
                                         </h2>
-                                                                                <div class="film-meta absolute top-0 flex flex-col gap-0.5 pl-3 pt-1 whitespace-nowrap pointer-events-none" style="left: 0; opacity: 1;">
+                                                                                <div class="film-meta absolute top-0 flex flex-col gap-0.5 pl-3 pt-2 whitespace-nowrap pointer-events-none" style="left: 0; opacity: 1;">
                                             @if(\Carbon\Carbon::parse($item->release_date)->isFuture())
                                                 <span class="font-sans text-[8px] md:text-[10px] tracking-widest uppercase text-brand-orange leading-none">Upcoming</span>
                                             @endif
