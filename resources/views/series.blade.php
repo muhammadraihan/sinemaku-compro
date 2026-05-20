@@ -24,7 +24,7 @@
         <section class="relative w-full h-[100svh] overflow-hidden">
             <!-- Background Images Container -->
             <div id="hero-bg-container" class="absolute inset-0 z-0">
-                @foreach($film as $i => $item)
+                @foreach(collect($film)->take(3) as $i => $item)
                     <div
                         class="hero-bg-image absolute inset-0 transition-opacity duration-1000 {{ $i === 0 ? 'opacity-100' : 'opacity-0' }}">
                         <img src="{{ asset('photo/' . $item->photo) }}" class="w-full h-full object-cover"
@@ -40,7 +40,7 @@
                 <div class="w-full flex flex-col items-start">
                     <!-- Film List (Vertical) -->
                     <div class="flex flex-col gap-2 md:gap-3">
-                        @foreach($film as $i => $item)
+                        @foreach(collect($film)->take(3) as $i => $item)
                             <div class="film-nav-item group cursor-none hover-target" data-index="{{ $i }}">
                                 <a href="{{ route('detail-series', $item->slug) }}" class="block">
                                     <div class="relative" style="max-width: min(50vw, 80vw);">

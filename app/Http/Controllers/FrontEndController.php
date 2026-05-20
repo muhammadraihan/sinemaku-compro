@@ -371,7 +371,8 @@ class FrontEndController extends Controller
         $kategori = Kategori::where('name', 'like', '%dokumenter%')->first();
         if (!$kategori) {
             // Log warning instead of hard fail or return empty collection
-            $film = collect();
+                        $film = collect();
+            $genre = collect();
             $chipGenres = collect();
             $coming_soon = collect();
         } else {
