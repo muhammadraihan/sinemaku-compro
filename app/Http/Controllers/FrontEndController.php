@@ -68,10 +68,13 @@ class FrontEndController extends Controller
     public function film()
     {
         $kategori = Kategori::where('name', 'like', '%film%')->first();
-        if (!$kategori) {
+
+
+
+                if (!$kategori) {
             return abort(404, 'Category Film not found');
         }
-        $film = Film::where('kategori', $kategori->uuid)->get();
+        $film = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')->get();
         $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
                             ->where('kategori', $kategori->uuid)
                             ->get();
@@ -92,8 +95,10 @@ class FrontEndController extends Controller
             ->values();
 
         // 3) Siapkan data film + array genre per film (untuk data-genres)
-        $genre = Film::where('kategori', $kategori->uuid)
-            ->get()->map(function ($f) {
+
+
+        $genre = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')
+                    ->get()->map(function ($f) {
             $f->genres_array = collect(preg_split('/\s*,\s*/', (string) $f->genre))
                 ->map(fn ($g) => strtolower(trim($g)))
                 ->filter()
@@ -219,7 +224,7 @@ class FrontEndController extends Controller
         if (!$kategori) {
             return abort(404, 'Category Series not found');
         }
-        $film = Film::where('kategori', $kategori->uuid)->get();
+        $film = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')->get();
         $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
                             ->where('kategori', $kategori->uuid)
                             ->get();
@@ -240,8 +245,10 @@ class FrontEndController extends Controller
             ->values();
 
         // 3) Siapkan data film + array genre per film (untuk data-genres)
-        $genre = Film::where('kategori', $kategori->uuid)
-            ->get()->map(function ($f) {
+
+
+        $genre = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')
+                    ->get()->map(function ($f) {
             $f->genres_array = collect(preg_split('/\s*,\s*/', (string) $f->genre))
                 ->map(fn ($g) => strtolower(trim($g)))
                 ->filter()
@@ -294,7 +301,7 @@ class FrontEndController extends Controller
         if (!$kategori) {
             return abort(404, 'Category Television not found');
         }
-        $film = Film::where('kategori', $kategori->uuid)->get();
+        $film = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')->get();
         $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
                             ->where('kategori', $kategori->uuid)
                             ->get();
@@ -309,8 +316,10 @@ class FrontEndController extends Controller
             ->sort()
             ->values();
 
-        $genre = Film::where('kategori', $kategori->uuid)
-            ->get()->map(function ($f) {
+
+
+        $genre = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')
+                    ->get()->map(function ($f) {
             $f->genres_array = collect(preg_split('/\s*,\s*/', (string) $f->genre))
                 ->map(fn ($g) => strtolower(trim($g)))
                 ->filter()
@@ -364,10 +373,9 @@ class FrontEndController extends Controller
             // Log warning instead of hard fail or return empty collection
             $film = collect();
             $chipGenres = collect();
-            $genre = collect();
             $coming_soon = collect();
         } else {
-            $film = Film::where('kategori', $kategori->uuid)->get();
+            $film = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')->get();
             $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
                                 ->where('kategori', $kategori->uuid)
                                 ->get();
@@ -382,8 +390,10 @@ class FrontEndController extends Controller
                 ->sort()
                 ->values();
 
-            $genre = Film::where('kategori', $kategori->uuid)
-                ->get()->map(function ($f) {
+
+
+            $genre = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')
+                        ->get()->map(function ($f) {
                 $f->genres_array = collect(preg_split('/\s*,\s*/', (string) $f->genre))
                     ->map(fn ($g) => strtolower(trim($g)))
                     ->filter()
