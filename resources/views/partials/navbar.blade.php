@@ -159,7 +159,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
             </a>
         </div>
 
-        {{-- Center Logo --}}
+                        {{-- Center Logo --}}
         <div class="basis-1/3 flex justify-center">
             <a href="/" class="transition-transform hover:scale-110 cursor-none hover-target">
                 <img src="{{ asset('img/logo-sinemaku.png') }}" alt="Sinemaku" class="h-8 md:h-10 w-auto relative z-10">
@@ -403,23 +403,74 @@ STICKY MORPHING NAVBAR (THE "PONI")
             }
         };
 
-        // ── SMART NAVBAR: SCROLL TRIGGER LOGIC ──────────────────────────
-        // Using ScrollTrigger instead of manual scroll event for better reliability
-        ScrollTrigger.create({
-            start: "top -60px",
-            onUpdate: (self) => {
-                // If we are scrolling down past 60px
-                if (self.direction === 1 && self.scroll() > 60) {
-                    if (!isStickyMenuOpen) {
-                        unifiedNav.classList.add('is-nav-hidden');
-                        gsap.to(stickyNav, { yPercent: 0, autoAlpha: 1, duration: 0.6, ease: "power3.out", overwrite: true });
-                    }
-                } else if (self.scroll() <= 60) {
-                    // If we are back at the top
-                    unifiedNav.classList.remove('is-nav-hidden');
-                    gsap.to(stickyNav, { yPercent: -150, autoAlpha: 0, duration: 0.5, ease: "power3.in", overwrite: true });
+                        // ── SMART NAVBAR: SCROLL LOGIC (REVISI) ──────────────────────────
+        // Logika:
+        // - Scroll ke bawah > 80px: navbar statis hilang (ketarik ke atas), poni tidak muncul
+        // - Scroll ke ATAS (dimana saja, kecuali di top): navbar poni muncul
+        // - Sampai di top (scroll <= 10px): navbar poni hilang, navbar statis muncul kembali
+        // - Scroll ke bawah lagi (saat poni sedang muncul): poni ikut menghilang
+        let lastScrollY = window.scrollY;
+        let poniVisible = false;
+        let isPoniAnimating = false;
+
+        function hidePoni() {
+            if (!poniVisible || isPoniAnimating) return;
+            isPoniAnimating = true;
+            gsap.to(stickyNav, {
+                yPercent: -150,
+                autoAlpha: 0,
+                duration: 0.4,
+                ease: "power3.in",
+                overwrite: true,
+                onComplete: () => {
+                    poniVisible = false;
+                    isPoniAnimating = false;
+                }
+            });
+        }
+
+        function showPoni() {
+            if (poniVisible || isPoniAnimating || isStickyMenuOpen) return;
+            isPoniAnimating = true;
+            unifiedNav.classList.add('is-nav-hidden');
+            gsap.to(stickyNav, {
+                yPercent: 0,
+                autoAlpha: 1,
+                duration: 0.5,
+                ease: "power3.out",
+                overwrite: true,
+                onComplete: () => {
+                    poniVisible = true;
+                    isPoniAnimating = false;
+                }
+            });
+        }
+
+                window.addEventListener('scroll', function() {
+            const currentScrollY = window.scrollY;
+            const scrollingDown = currentScrollY > lastScrollY;
+            const scrollingUp = currentScrollY < lastScrollY;
+
+            if (currentScrollY <= 10) {
+                // Di TOP: statis muncul, poni hilang
+                unifiedNav.classList.remove('is-nav-hidden');
+                hidePoni();
+            }
+            else if (scrollingDown && currentScrollY > 80) {
+                // Scroll ke BAWAH: statis hilang, poni ikut hilang
+                if (!isStickyMenuOpen) {
+                    unifiedNav.classList.add('is-nav-hidden');
+                    hidePoni();
                 }
             }
+            else if (scrollingUp && currentScrollY > 10) {
+                // Scroll ke ATAS (tidak di top): poni muncul
+                if (!isStickyMenuOpen) {
+                    showPoni();
+                }
+            }
+
+            lastScrollY = currentScrollY;
         });
     });
     })();
