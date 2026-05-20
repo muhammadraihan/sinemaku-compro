@@ -147,7 +147,8 @@ TOP NAVBAR
 STICKY MORPHING NAVBAR (THE "PONI")
 ════════════════════════════════════════════════════════════════ --}}
 <nav id="sticky-navbar"
-    class="fixed top-6 left-1/2 z-[350] w-[90%] max-w-[800px] h-[64px] bg-[#0E1633] rounded-2xl flex flex-col items-center justify-start shadow-2xl border border-white/10 overflow-hidden will-change-[width,height,top,border-radius]">
+    class="fixed top-6 left-1/2 z-[350] w-[90%] max-w-[800px] h-[64px] bg-[#0E1633] rounded-2xl flex flex-col items-center justify-start shadow-2xl border border-white/10 overflow-hidden will-change-[width,height,top,border-radius]"
+    style="opacity: 0; visibility: hidden;">
     
     {{-- Header: Always visible, stable centering --}}
     <div id="sticky-header" class="w-full flex justify-between items-center px-6 md:px-10 h-[64px] shrink-0 transition-all duration-700">
@@ -319,8 +320,9 @@ STICKY MORPHING NAVBAR (THE "PONI")
         const unifiedNav = document.getElementById('unified-navbar');
         let isStickyMenuOpen = false;
 
-        // Initialize position
-        gsap.set(stickyNav, { yPercent: -150, xPercent: -50, left: '50%' });
+        // Initialize position - set autoAlpha 0 here since we hide it with CSS initially
+        // but we want GSAP to control it from now on.
+        gsap.set(stickyNav, { yPercent: -150, xPercent: -50, left: '50%', autoAlpha: 0 });
 
         function openStickyMenu() {
             if (isStickyMenuOpen) return;
@@ -335,6 +337,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
                 height: '100dvh',
                 top: 0,
                 borderRadius: 0,
+                autoAlpha: 1,
                 onStart: () => {
                     stickyNav.classList.add('is-expanded');
                     stickyLinksContainer.style.display = 'flex';
@@ -409,12 +412,12 @@ STICKY MORPHING NAVBAR (THE "PONI")
                 if (self.direction === 1 && self.scroll() > 60) {
                     if (!isStickyMenuOpen) {
                         unifiedNav.classList.add('is-nav-hidden');
-                        gsap.to(stickyNav, { yPercent: 0, duration: 0.6, ease: "power3.out", overwrite: true });
+                        gsap.to(stickyNav, { yPercent: 0, autoAlpha: 1, duration: 0.6, ease: "power3.out", overwrite: true });
                     }
                 } else if (self.scroll() <= 60) {
                     // If we are back at the top
                     unifiedNav.classList.remove('is-nav-hidden');
-                    gsap.to(stickyNav, { yPercent: -150, duration: 0.5, ease: "power3.in", overwrite: true });
+                    gsap.to(stickyNav, { yPercent: -150, autoAlpha: 0, duration: 0.5, ease: "power3.in", overwrite: true });
                 }
             }
         });
