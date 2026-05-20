@@ -21,7 +21,7 @@
         {{-- ============================================================
         1. EDITORIAL HERO SLIDESHOW
         ============================================================ --}}
-        <section class="relative w-full h-[100svh] overflow-hidden">
+        <section class="relative w-full h-[100svh] overflow-hidden z-20">
             <!-- Background Images Container -->
             <div id="hero-bg-container" class="absolute inset-0 z-0">
                 @foreach(collect($film)->take(3) as $i => $item)
@@ -65,7 +65,7 @@
         {{-- ============================================================
         2. ALL FILMS CATALOGUE (HORIZONTAL PAN GRID)
         ============================================================ --}}
-        <section class="py-32 z-10 relative max-w-[100vw] overflow-hidden bg-creme-leaks">
+        <section class="py-32 z-10 relative max-w-[100vw] bg-creme-leaks">
 
             <!-- Header & Filter -->
             <div class="px-8 md:px-16 flex flex-col items-center mb-16 max-w-[1800px] mx-auto text-center">

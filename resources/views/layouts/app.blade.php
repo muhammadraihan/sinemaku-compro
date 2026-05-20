@@ -164,35 +164,34 @@
     .bg-creme-leaks {
       position: relative;
       background-color: transparent;
-      z-index: -1;
-      overflow: hidden;
+      /* overflow: visible (default) — light leaks menembus batas section */
     }
     .bg-creme-leaks::before,
     .bg-creme-leaks::after {
       content: '';
       position: absolute;
-      width: 60vw;
-      height: 60vw;
+      width: 70vw;
+      height: 70vw;
       border-radius: 50%;
       pointer-events: none;
-      filter: blur(100px);
+      filter: blur(120px);
       z-index: -1;
     }
     .bg-creme-leaks::before {
-      top: var(--leak1-top, -30vw);
+      top: var(--leak1-top, -35vw);
       bottom: var(--leak1-bottom, auto);
-      left: var(--leak1-left, -30vw);
+      left: var(--leak1-left, -35vw);
       right: var(--leak1-right, auto);
       background: radial-gradient(circle, var(--leak1-color, #F36B21) 0%, var(--leak1-color, #F36B21) 10%, transparent 50%);
-      opacity: 0.5;
+      opacity: 0.55;
     }
     .bg-creme-leaks::after {
       top: var(--leak2-top, auto);
-      bottom: var(--leak2-bottom, -30vw);
+      bottom: var(--leak2-bottom, -35vw);
       left: var(--leak2-left, auto);
-      right: var(--leak2-right, -30vw);
+      right: var(--leak2-right, -35vw);
       background: radial-gradient(circle, var(--leak2-color, #22397A) 0%, var(--leak2-color, #22397A) 10%, transparent 50%);
-      opacity: 0.5;
+      opacity: 0.55;
     }
 
     /* ── UTILITAS EDITORIAL GLOBAL ── */

@@ -14,7 +14,7 @@
         {{-- ============================================================
         1. HERO SECTION
         ============================================================ --}}
-        <section class="relative w-full h-[60vh] md:h-[75vh] flex flex-col justify-end overflow-hidden z-10">
+        <section class="relative w-full h-[60vh] md:h-[75vh] flex flex-col justify-end overflow-hidden z-20">
             <!-- Background Image -->
             <div class="absolute inset-0 z-0">
                 <img src="{{ asset('photo/' . $films->photo) }}" alt="{{ $films->title }}"
