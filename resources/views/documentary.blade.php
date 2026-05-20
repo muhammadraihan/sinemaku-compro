@@ -150,26 +150,26 @@
                                     </div>
                                 @endif
 
-                                {{-- Metadata Overlay - Right Side --}}
-                                <div class="absolute top-0 right-0 bottom-0 w-1/3 flex flex-col justify-center p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                {{-- Metadata Overlay - Right Side (hover only) --}}
+                                <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                     <div class="flex flex-col gap-4">
                                         <div class="flex flex-col">
-                                            <span class="text-[7px] uppercase tracking-tighter text-white/40">Release Date</span>
-                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">
+                                            <span class="meta-label uppercase tracking-tighter text-white/40">Release Date</span>
+                                            <span class="meta-value uppercase text-white tracking-wide font-sans">
                                                 {{ \Carbon\Carbon::parse($item->release_date)->isFuture() ? 'xx Sep 2025' : \Carbon\Carbon::parse($item->release_date)->format('d M Y') }}
                                             </span>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-[7px] uppercase tracking-tighter text-white/40">Directed By</span>
-                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">{{ $item->director ?: 'N/A' }}</span>
+                                            <span class="meta-label uppercase tracking-tighter text-white/40">Directed By</span>
+                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->director ?: 'N/A' }}</span>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-[7px] uppercase tracking-tighter text-white/40">Written By</span>
-                                            <span class="text-[9px] uppercase text-white tracking-wide font-sans">{{ $item->writer ?: 'N/A' }}</span>
+                                            <span class="meta-label uppercase tracking-tighter text-white/40">Written By</span>
+                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->writer ?: 'N/A' }}</span>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-[7px] uppercase tracking-tighter text-white/40">Starring</span>
-                                            <span class="text-[8px] uppercase text-white leading-tight font-sans">
+                                            <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
+                                            <span class="meta-value uppercase text-white leading-tight font-sans">
                                                 @php
                                                     $casts = array_filter(explode(',', $item->cast));
                                                     $displayCasts = array_slice($casts, 0, 2);
@@ -180,10 +180,12 @@
                                     </div>
                                 </div>
 
-                                {{-- Title & Year - Bottom Left --}}
-                                <div class="absolute bottom-8 left-8 z-20 pointer-events-none transition-transform duration-500 group-hover:-translate-y-2">
+                                {{-- Title & Year --}}
+                                {{-- .is-wide   → judul besar (kiri bawah) --}}
+                                {{-- .is-narrow  → judul compact (kiri atas) --}}
+                                <div class="card-title-block absolute z-20 pointer-events-none transition-transform duration-500 group-hover:-translate-y-2">
                                     <span class="block font-sans text-[10px] md:text-xs text-white/60 mb-2 tracking-widest">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
-                                    <h4 class="font-peckham text-2xl md:text-4xl lg:text-5xl leading-[0.85] text-white uppercase max-w-[80%]">
+                                    <h4 class="card-title font-peckham leading-[0.85] text-white uppercase">
                                         @i18n($item, 'title')
                                     </h4>
                                 </div>
@@ -238,6 +240,44 @@ STYLES & SCRIPTS
 
         .hairline-border {
             border-color: rgba(37, 34, 94, 0.15);
+        }
+
+        /* ── WIDE vs NARROW card title & metadata sizing ── */
+        /* Judul */
+        .film-card-trigger.is-wide .card-title {
+            font-size: clamp(2rem, 4vw, 4.5rem);
+            max-width: 65%;
+        }
+        .film-card-trigger.is-narrow .card-title {
+            font-size: clamp(1.4rem, 3vw, 2.6rem);
+            max-width: 90%;
+        }
+        .film-card-trigger .card-title {
+            font-size: clamp(1.5rem, 3vw, 3rem);
+            max-width: 80%;
+        }
+
+        /* Judul Posisi */
+        .film-card-trigger .card-title-block {
+            bottom: 2rem;
+            left: 2rem;
+        }
+        .film-card-trigger.is-narrow .card-title-block {
+            top: 2rem;
+            bottom: auto;
+            left: 2rem;
+        }
+
+        /* Metadata (Overlay Kanan) */
+        .film-card-trigger .card-meta-container {
+            justify-content: flex-end; /* Rata bawah untuk semua (wide & narrow) */
+            padding-bottom: 2rem;      /* Jarak dari bawah sejajar judul (bawah) */
+        }
+        .film-card-trigger .meta-label {
+            font-size: 11px;
+        }
+        .film-card-trigger .meta-value {
+            font-size: 14px;
         }
 
         /* ── CINEMATIC HERO IMAGE BOX ── */
@@ -533,13 +573,17 @@ STYLES & SCRIPTS
 
                 visibleCards.forEach((card, index) => {
                     // Reset class grid sebelumnya
-                    card.classList.remove('col-span-1', 'col-span-2', 'col-span-3', 'col-start-2');
+                    card.classList.remove('col-span-1', 'col-span-2', 'col-span-3', 'col-start-2', 'is-wide', 'is-narrow');
                     
                     // Assign class sesuai urutan logika layout
                     const classToApply = layoutClasses[index];
                     if (classToApply) {
                         card.classList.add(...classToApply.split(' '));
                     }
+
+                    // Toggle is-wide / is-narrow agar CSS bisa menyesuaikan ukuran judul
+                    const isWide = classToApply && classToApply.includes('col-span-2');
+                    card.classList.add(isWide ? 'is-wide' : 'is-narrow');
                 });
             }
 
