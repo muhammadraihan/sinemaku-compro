@@ -89,7 +89,7 @@
     </section>
 
     <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
-    <section id="manifesto" class="py-16 md:py-24 px-12 md:px-32 z-10 relative">
+    <section id="manifesto" class="py-16 md:py-24 px-12 md:px-32 z-10 relative bg-creme-leaks">
         <!-- Top Metadata -->
         <div class="flex justify-between items-start mb-16">
             <span class="font-peckham text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange">

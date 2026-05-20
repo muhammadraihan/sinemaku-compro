@@ -92,6 +92,7 @@
       background-color: #f6f6ed;
       color: #0f6ab0;
       margin: 0;
+      position: relative;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       cursor: none;
@@ -118,64 +119,16 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-      background:
-        radial-gradient(
-          ellipse 50vw 50vh at var(--mx, 25%) var(--my, 55%),
-          rgba(243, 107, 33, 0.4) 0%,
-          transparent 60%
-        );
-      filter: blur(80px);
-      opacity: 0.5;
-    }
-
-    .light-leak {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.2;
+      background: radial-gradient(
+        circle 40vw at var(--mx, 25%) var(--my, 55%),
+        #F36B21 0%,
+        #F36B21 10%,
+        transparent 80%
+      );
       filter: blur(100px);
+      opacity: 0.3;
     }
 
-    @keyframes float-left {
-        0%, 100% { transform: translate(-50%, 0) scale(1); }
-        50%      { transform: translate(-45%, 5%) scale(1.1); }
-    }
-
-    @keyframes float-right {
-        0%, 100% { transform: translate(50%, 0) scale(1); }
-        50%      { transform: translate(45%, -5%) scale(1.1); }
-    }
-
-    #leak-navy-1 {
-        background: radial-gradient(circle, #22397A 0%, transparent 70%);
-        top: 10%;
-        left: 0;
-        animation: float-left 25s ease-in-out infinite;
-        opacity: 0.15;
-    }
-
-    #leak-orange-1 {
-        background: radial-gradient(circle, #F36B21 0%, transparent 70%);
-        top: 35%;
-        right: 0;
-        animation: float-right 20s ease-in-out infinite;
-    }
-
-    #leak-navy-2 {
-        background: radial-gradient(circle, #22397A 0%, transparent 70%);
-        top: 60%;
-        left: 0;
-        animation: float-left 28s ease-in-out infinite;
-        opacity: 0.15;
-    }
-
-    #leak-orange-2 {
-        background: radial-gradient(circle, #F36B21 0%, transparent 70%);
-        top: 85%;
-        right: 0;
-        animation: float-right 22s ease-in-out infinite;
-    }
 
     /* ── CUSTOM CURSOR (EDITORIAL RING) GLOBAL ── */
     #cursor-ring {
@@ -205,6 +158,41 @@
       pointer-events: none;
       z-index: 1000000;
       transform: translate(-50%, -50%);
+    }
+
+    /* ── UTILITY: BACKGROUND CREME WITH LEAKS ── */
+    .bg-creme-leaks {
+      position: relative;
+      background-color: transparent;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .bg-creme-leaks::before,
+    .bg-creme-leaks::after {
+      content: '';
+      position: absolute;
+      width: 60vw;
+      height: 60vw;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(100px);
+      z-index: -1;
+    }
+    .bg-creme-leaks::before {
+      top: var(--leak1-top, -30vw);
+      bottom: var(--leak1-bottom, auto);
+      left: var(--leak1-left, -30vw);
+      right: var(--leak1-right, auto);
+      background: radial-gradient(circle, var(--leak1-color, #F36B21) 0%, var(--leak1-color, #F36B21) 10%, transparent 50%);
+      opacity: 0.5;
+    }
+    .bg-creme-leaks::after {
+      top: var(--leak2-top, auto);
+      bottom: var(--leak2-bottom, -30vw);
+      left: var(--leak2-left, auto);
+      right: var(--leak2-right, -30vw);
+      background: radial-gradient(circle, var(--leak2-color, #22397A) 0%, var(--leak2-color, #22397A) 10%, transparent 50%);
+      opacity: 0.5;
     }
 
     /* ── UTILITAS EDITORIAL GLOBAL ── */
@@ -310,10 +298,8 @@
 
   <!-- Efek Grain & Light Leak Global (Synced with About) -->
   <div class="cinematic-grain"></div>
-  <div id="leak-navy-1" class="light-leak w-[45vw] h-[45vw]"></div>
-  <div id="leak-orange-1" class="light-leak w-[40vw] h-[40vw]"></div>
-  <div id="leak-navy-2" class="light-leak w-[45vw] h-[45vw]"></div>
-  <div id="leak-orange-2" class="light-leak w-[40vw] h-[40vw]"></div>
+  
+
 
   <!-- Custom Cursor Global -->
   <div id="cursor-ring"></div>
@@ -394,6 +380,33 @@
           });
         });
       };
+
+      // Randomize Creme Leaks Positions and Colors
+      document.querySelectorAll('.bg-creme-leaks').forEach(el => {
+        const variants = [
+          { t1: '-30vw', b1: 'auto', l1: '-30vw', r1: 'auto', t2: 'auto', b2: '-30vw', l2: 'auto', r2: '-30vw' }, // Top-Left / Bottom-Right
+          { t1: '-30vw', b1: 'auto', l1: 'auto', r1: '-30vw', t2: 'auto', b2: '-30vw', l2: '-30vw', r2: 'auto' }, // Top-Right / Bottom-Left
+        ];
+        const corners = variants[Math.floor(Math.random() * variants.length)];
+        
+        const colors = [
+          { c1: '#F36B21', c2: '#22397A' }, // Orange / Navy
+          { c1: '#22397A', c2: '#F36B21' }  // Navy / Orange
+        ];
+        const colorSet = colors[Math.floor(Math.random() * colors.length)];
+
+        el.style.setProperty('--leak1-top', corners.t1);
+        el.style.setProperty('--leak1-bottom', corners.b1);
+        el.style.setProperty('--leak1-left', corners.l1);
+        el.style.setProperty('--leak1-right', corners.r1);
+        el.style.setProperty('--leak1-color', colorSet.c1);
+
+        el.style.setProperty('--leak2-top', corners.t2);
+        el.style.setProperty('--leak2-bottom', corners.b2);
+        el.style.setProperty('--leak2-left', corners.l2);
+        el.style.setProperty('--leak2-right', corners.r2);
+        el.style.setProperty('--leak2-color', colorSet.c2);
+      });
 
       // Inisiasi awal
       bindCursorHoverEffects();

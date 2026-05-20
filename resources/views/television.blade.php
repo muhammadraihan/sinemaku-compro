@@ -21,7 +21,7 @@
         {{-- ============================================================
         1. EDITORIAL HERO SLIDESHOW
         ============================================================ --}}
-        <section class="relative w-full h-[100svh] overflow-hidden">
+        <section class="relative w-full h-[100svh] overflow-hidden bg-creme-leaks">
             <!-- Background Images Container -->
             <div id="hero-bg-container" class="absolute inset-0 z-0">
                 @foreach(collect($film)->take(3) as $i => $item)

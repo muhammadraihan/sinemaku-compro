@@ -66,7 +66,7 @@
         {{-- ============================================================
         2. ALL FILMS CATALOGUE (HORIZONTAL PAN GRID)
         ============================================================ --}}
-        <section class="py-32 z-10 relative max-w-[100vw] overflow-hidden">
+        <section class="py-32 z-10 relative max-w-[100vw] overflow-hidden bg-creme-leaks">
 
             <!-- Header & Filter -->
             <div class="px-8 md:px-16 flex flex-col items-center mb-16 max-w-[1800px] mx-auto text-center">
