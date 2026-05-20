@@ -52,7 +52,7 @@
         {{-- ============================================================
         2. DETAILS SECTION
         ============================================================ --}}
-        <section class="py-16 md:py-24 px-8 md:px-16 z-10 relative">
+        <section class="py-16 md:py-24 px-8 md:px-16 z-10 relative bg-creme-leaks">
             <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-12 md:gap-20">
                 
                 <!-- Left: Poster & Available On -->
