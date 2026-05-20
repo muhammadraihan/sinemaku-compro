@@ -57,13 +57,9 @@
                 
                 <!-- Left: Poster & Available On -->
                 <div class="w-full md:w-1/3 lg:w-1/4 flex-shrink-0">
-                    <div class="rounded-xl overflow-hidden shadow-xl bg-white mb-8 reveal-image p-4 pb-12 relative">
-                        <span class="absolute top-6 left-1/2 -translate-x-1/2 text-[8px] font-bold text-red-600 tracking-widest uppercase whitespace-nowrap">Sinemaku Original</span>
+                    <div class="rounded-xl overflow-hidden shadow-2xl mb-8 reveal-image">
                         <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
-                            class="w-full aspect-[3/4] object-cover rounded shadow mt-6">
-                        <div class="absolute bottom-4 left-0 w-full text-center">
-                            <span class="font-peckham text-red-600 text-sm italic">@i18n($films, 'title')</span>
-                        </div>
+                            class="w-full aspect-[3/4] object-cover">
                     </div>
                     
                     @php
