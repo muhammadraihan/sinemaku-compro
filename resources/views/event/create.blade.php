@@ -153,7 +153,7 @@
                 <div class="row">
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('photo','Main Photo (Thumbnail)',['class' => 'required form-label'])}}
-                        {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
+                        {{ Form::file('photo',['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
                         <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                         alt="preview image" style="max-height: 250px; margin-top: 10px;">
                     </div>

@@ -202,7 +202,7 @@
                     @if ($film->photo)
                         <img src="{{ asset('photo/' . $film->photo) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
                     @endif
-                    {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
+                    {{ Form::file('photo',['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
                     <img id="preview-image-before-upload-photo" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                     alt="preview image" style="max-height: 250px;">
                     @if ($errors->has('photo'))
@@ -215,7 +215,7 @@
                     @if ($film->poster)
                         <img src="{{ asset('photo/' . $film->poster) }}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
                     @endif
-                    {{ Form::file('poster',null,['placeholder' => 'Poster','class' => 'form-control upload '.($errors->has('poster') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'poster'])}}
+                    {{ Form::file('poster',['placeholder' => 'Poster','class' => 'form-control upload '.($errors->has('poster') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'poster'])}}
                     <img id="preview-image-before-upload-poster" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                     alt="preview image" style="max-height: 250px;">
                     @if ($errors->has('poster'))
