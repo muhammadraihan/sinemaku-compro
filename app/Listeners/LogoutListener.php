@@ -28,17 +28,26 @@ class LogoutListener
      */
     public function handle($event)
     {
+        // Get the user from the event or fallback
+        $user = $event->user ?? Auth::user();
+
+        if (!$user) {
+            return;
+        }
+
+        // Determine the user's name
+        $name = $user->name ?? ($user->first_name . ' ' . $user->last_name ?? 'Unknown');
+
         // Logging logout event
-        $user = Auth::user();
         $updated_at = Carbon::now()->toDateTimeString();
         $properties = [
             'attributes' =>
             [
-            'name' => $user->name,
+            'name' => $name,
             'description' => 'Logout from system at '.$updated_at
             ]
         ];
-        $desc = 'User '.$user->name.' logged out from the system';
+        $desc = 'User '.$name.' logged out from the system';
         activity('auth')
         ->performedOn($user)
         ->causedBy($user)

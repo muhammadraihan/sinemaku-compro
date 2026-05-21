@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\Uuid;
 
-class Membership extends Model
+class Membership extends Authenticatable
 {
     use HasFactory;
     use Uuid;
@@ -17,6 +17,11 @@ class Membership extends Model
         'birth_date',
         'email',
         'city',
-        'phone_number'
+        'phone_number',
+        'password'
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 }
