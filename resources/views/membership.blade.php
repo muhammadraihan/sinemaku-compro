@@ -4,214 +4,167 @@
 
 @section('content')
 
-@include('partials.navbar')
+@include('partials.navbar', ['navTheme' => 'event'])
 
 @push('head')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 <style>
-
-    
-    /* Custom style for editorial inputs */
-    .editorial-input {
-        background: transparent !important;
-        border: none !important;
-        border-bottom: 1px solid rgba(37, 34, 94, 0.2) !important;
-        border-radius: 0 !important;
-        padding: 12px 0 !important;
-        font-family: inherit;
-        font-size: 1.1rem;
-        color: #0f6ab0 !important;
-        transition: border-color 0.4s ease;
-    }
-    .editorial-input:focus {
-        border-bottom-color: #f46a21 !important;
-        outline: none !important;
-    }
-    .editorial-input::placeholder {
-        color: rgba(37, 34, 94, 0.3) !important;
-    }
-
-    /* Date input fix for editorial style */
-    input[type="date"]::-webkit-calendar-picker-indicator {
-        filter: invert(15%) sepia(45%) saturate(2371%) hue-rotate(228deg) brightness(91%) contrast(92%);
-        opacity: 0.5;
-    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
-@endpush
 
 {{-- ============================================================
-EDITORIAL WRAPPER
+MEMBERSHIP / COMMUNITY PAGE
 ============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen">
-
-    {{-- ============================================================
-    HERO SECTION (Clean Editorial)
-    ============================================================ --}}
-    <section class="relative w-full h-[60vh] md:h-[70vh] overflow-hidden flex items-center justify-center pt-20 bg-transparent">
-        <!-- Content Overlay -->
-        <div class="relative z-20 text-center px-8 max-w-6xl mx-auto">
-            <div class="flex flex-col items-center">
-                <span class="hero-reveal font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange mb-8 block">
-                    Sinemaku Community
-                </span>
-                <h1 class="hero-reveal font-serif text-6xl md:text-9xl text-brand-deepbreath leading-[0.85] tracking-tighter mb-12">
-                    <span data-i18n="page_community_1">Our</span> <span data-i18n="page_community_2" class="italic text-brand-orange">Community.</span>
-                </h1>
-                <p class="hero-reveal font-sans text-lg md:text-xl font-light text-brand-deepbreath/70 max-w-2xl leading-relaxed">
-                    @i18n($settings, 'membership_hero_subtitle')
+<div class="relative w-full min-h-screen flex items-center justify-center pt-24 pb-12 px-4 md:px-12 bg-creme-leaks">
+    
+    <!-- Layout Wrapper -->
+    <div class="relative z-10 w-full max-w-[1300px] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+        
+        <!-- Left Side: Membership Benefits -->
+        <div class="w-full lg:max-w-[500px] text-brand-navy animate-fade-in-up">
+            <h1 class="flex flex-col gap-2 mb-8">
+                <span class="font-peckham text-5xl md:text-7xl text-brand-navy uppercase leading-[0.85] tracking-tighter">EXCLUSIVE</span>
+                <span class="font-serif text-5xl md:text-7xl text-brand-orange italic leading-[0.85] tracking-tighter">Experiences.</span>
+            </h1>
+            <div class="flex flex-col gap-6">
+                <p class="font-sans text-base md:text-xl text-brand-navy/80 leading-relaxed font-light">
+                    As a Sinemaku Pictures member, you'll gain access to a world of exclusive experiences and opportunities that bring you closer to the art of filmmaking.
+                </p>
+                <p class="font-sans text-base md:text-xl text-brand-navy/80 leading-relaxed font-light">
+                    First access to film screenings, gala premieres, and red carpet events before general release.
                 </p>
             </div>
-        </div>
-    </section>
-
-    {{-- ============================================================
-    REGISTRATION FORM (Editorial Museum Style)
-    ============================================================ --}}
-    <section class="py-32 px-8 md:px-16 z-20 relative bg-transparent" id="registration-form">
-        <div class="max-w-4xl mx-auto">
             
-            <div class="flex flex-col md:flex-row gap-16 md:gap-32 items-start">
-                <!-- Left Side: Form Header (Sticky) -->
-                <div class="w-full md:w-1/3 md:sticky md:top-40 reveal-text">
-                    <h2 class="font-serif text-5xl md:text-6xl text-brand-deepbreath leading-[0.9] tracking-tighter mb-8 italic">
-                        <span data-i18n="membership_form_title">Join the Family.</span>
-                    </h2>
-                    <p class="font-sans text-sm md:text-base text-brand-deepbreath/60 leading-relaxed" data-i18n="membership_form_subtitle">
-                        Fill in your details below to get exclusive access to our inner circle.
-                    </p>
+            <div class="mt-12 flex gap-4 hidden lg:flex">
+                <div class="w-16 h-1 bg-brand-orange rounded-full"></div>
+            </div>
+        </div>
+
+        <!-- Right Side: Modal Content -->
+        <div class="w-full lg:max-w-[580px] bg-white p-8 md:p-14 rounded-xl shadow-2xl drop-shadow-2xl transform transition-all duration-500 overflow-y-auto max-h-[90vh] hide-scrollbar animate-fade-in-up">
+            
+            <!-- Brand Icon -->
+            <div class="flex justify-center mb-6 md:mb-10 lg:hidden">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-brand-navy rounded-full flex items-center justify-center">
+                    <img src="{{ asset('img/logo-new.png') }}" class="w-8 h-8 object-contain brightness-0 invert" alt="Icon">
                 </div>
+            </div>
 
-                <!-- Right Side: Form Body -->
-                <div class="w-full md:w-2/3 reveal-rec">
-                    {!! Form::open(['route' => 'membership.store', 'method' => 'POST', 'class' => 'flex flex-col gap-12 needs-validation', 'id' => 'membership-form', 'novalidate']) !!}
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
-                            <!-- First Name -->
-                            <div class="flex flex-col gap-2">
-                                <label for="first_name" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40" data-i18n="label_first_name">First Name</label>
-                                <input id="first_name" name="first_name" type="text" placeholder="Jan" value="{{ old('first_name') }}" required class="editorial-input">
-                                <small id="error-first_name" class="font-sans text-[10px] text-red-500 mt-1 hidden"></small>
-                            </div>
+            {{-- REGISTRATION PANEL --}}
+            <div id="registration-panel">
+                <h2 class="font-serif text-3xl md:text-5xl text-brand-navy text-center mb-8 md:mb-12 leading-tight">
+                    Join the <span class="italic text-brand-orange">FAMILY</span>
+                </h2>
+                
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">First Name</label>
+                        <input type="text" placeholder="Enter your first name" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Last Name</label>
+                        <input type="text" placeholder="Enter your last name" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Email</label>
+                        <input type="email" placeholder="Enter your email" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Date of Birth</label>
+                        <input type="date" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">City</label>
+                        <select class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none appearance-none">
+                            <option>Jakarta</option>
+                            <option>Bandung</option>
+                            <option>Surabaya</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Phone Number</label>
+                        <input type="tel" placeholder="Enter your phone number" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    </div>
 
-                            <!-- Last Name -->
-                            <div class="flex flex-col gap-2">
-                                <label for="last_name" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40" data-i18n="label_last_name">Last Name</label>
-                                <input id="last_name" name="last_name" type="text" placeholder="Maheswara" value="{{ old('last_name') }}" required class="editorial-input">
-                                <small id="error-last_name" class="font-sans text-[10px] text-red-500 mt-1 hidden"></small>
-                            </div>
-                        </div>
+                    <div class="col-span-1 md:col-span-2 flex items-center gap-3 mt-4">
+                        <input type="checkbox" id="remember-reg" class="w-4 h-4 rounded text-brand-orange focus:ring-brand-orange border-brand-navy/10">
+                        <label for="remember-reg" class="font-sans text-[11px] text-brand-navy/60 font-bold">Remember me for faster sign in</label>
+                    </div>
 
-                        <!-- Birth Date -->
-                        <div class="flex flex-col gap-2">
-                            <label for="birth_date" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40" data-i18n="label_birth_date">Date of Birth</label>
-                            <input id="birth_date" name="birth_date" type="date" value="{{ old('birth_date') }}" required class="editorial-input">
-                            <small id="error-birth_date" class="font-sans text-[10px] text-red-500 mt-1 hidden"></small>
-                        </div>
-
-                        <!-- Email -->
-                        <div class="flex flex-col gap-2">
-                            <label for="email" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40" data-i18n="label_email">Email Address</label>
-                            <input id="email" name="email" type="email" placeholder="jan@example.com" value="{{ old('email') }}" required class="editorial-input">
-                            <small id="error-email" class="font-sans text-[10px] text-red-500 mt-1 hidden"></small>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
-                            <!-- City -->
-                            <div class="flex flex-col gap-2">
-                                <label for="city" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40" data-i18n="label_city">City</label>
-                                <input id="city" name="city" type="text" placeholder="Jakarta" value="{{ old('city') }}" required class="editorial-input">
-                                <small id="error-city" class="font-sans text-[10px] text-red-500 mt-1 hidden"></small>
-                            </div>
-
-                            <!-- Mobile Phone -->
-                            <div class="flex flex-col gap-2">
-                                <label for="phone_number" class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-deepbreath/40" data-i18n="label_phone">Mobile Phone</label>
-                                <input id="phone_number" name="phone_number" type="tel" placeholder="081234567890" value="{{ old('phone_number') }}" required class="editorial-input">
-                                <small id="error-phone_number" class="font-sans text-[10px] text-red-500 mt-1 hidden"></small>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="mt-8 bg-brand-deepbreath text-white font-sans text-xs md:text-sm tracking-[0.2em] uppercase font-bold py-6 px-12 hover:bg-brand-orange transition-colors duration-500 cursor-none hover-target self-start shadow-xl">
-                            <span data-i18n="label_submit_membership">Count Me In</span>
+                    <div class="col-span-1 md:col-span-2 mt-6">
+                        <button type="submit" class="w-full md:w-max mx-auto bg-brand-orange text-white font-sans text-[10px] tracking-[0.2em] uppercase font-bold py-5 px-14 rounded-2xl hover:scale-105 transition-all shadow-xl shadow-brand-orange/20 flex items-center justify-center">
+                            Create Account
                         </button>
+                    </div>
+                </form>
 
-                    {!! Form::close() !!}
+                <div class="mt-10 text-center">
+                    <button onclick="switchCommunityPanel('login')" class="font-sans text-[11px] text-brand-navy/40 font-bold hover:text-brand-navy transition-colors">
+                        Already have an account? <span class="text-brand-navy underline underline-offset-4 decoration-brand-navy/20">Sign in</span>
+                    </button>
+                </div>
+            </div>
+
+            {{-- LOGIN PANEL --}}
+            <div id="login-panel" class="hidden">
+                <h2 class="font-serif text-3xl md:text-5xl text-brand-navy text-center mb-8 md:mb-12 leading-tight">
+                    Sign in with <span class="italic text-brand-orange">EMAIL</span>
+                </h2>
+                
+                <form class="flex flex-col gap-6 max-w-[400px] mx-auto">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-sans text-[10px] uppercase font-bold tracking-widest text-brand-navy ml-1">Email</label>
+                        <input type="email" placeholder="Enter your email" class="w-full bg-brand-navy/5 border-none rounded-md px-5 py-4 font-sans text-sm focus:ring-2 focus:ring-brand-orange/20 transition-all outline-none">
+                    </div>
+
+                    <div class="flex items-center gap-3 mt-2">
+                        <input type="checkbox" id="remember-login" class="w-4 h-4 rounded text-brand-orange focus:ring-brand-orange border-brand-navy/10">
+                        <label for="remember-login" class="font-sans text-[11px] text-brand-navy/60 font-bold">Remember me for faster sign in</label>
+                    </div>
+
+                    <div class="mt-6">
+                        <button type="submit" class="w-full bg-brand-orange text-white font-sans text-[10px] tracking-[0.2em] uppercase font-bold py-5 px-14 rounded-2xl hover:scale-105 transition-all shadow-xl shadow-brand-orange/20">
+                            Continue
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-10 text-center">
+                    <button onclick="switchCommunityPanel('reg')" class="font-sans text-[11px] text-brand-navy/40 font-bold hover:text-brand-navy transition-colors">
+                        Back to <span class="text-brand-navy underline underline-offset-4 decoration-brand-navy/20">Sign up</span>
+                    </button>
                 </div>
             </div>
 
         </div>
-    </section>
-
+    </div>
 </div>
 
 {{-- Scripts --}}
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    if (typeof gsap === 'undefined') return;
+    function switchCommunityPanel(panel) {
+        const reg = document.getElementById('registration-panel');
+        const login = document.getElementById('login-panel');
+        if (panel === 'login') {
+            reg.classList.add('hidden');
+            login.classList.remove('hidden');
+        } else {
+            reg.classList.remove('hidden');
+            login.classList.add('hidden');
+        }
+    }
 
-    gsap.registerPlugin(ScrollTrigger);
-
-    // 1. Hero Reveal Animations
-    gsap.from(".hero-reveal", {
-        y: 50,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.2,
-        ease: "power4.out",
-        delay: 0.3
-    });
-
-    // 2. Content Reveals
-    document.querySelectorAll('.reveal-text, .reveal-rec').forEach(el => {
-        gsap.from(el, {
-            scrollTrigger: {
-                trigger: el,
-                start: "top 90%",
-            },
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof gsap === 'undefined') return;
+        gsap.from('.animate-fade-in-up', {
             y: 50,
             opacity: 0,
             duration: 1.2,
             ease: "power4.out"
         });
     });
-
-    // Toastr Notifications
-    @if(session('success'))
-        toastr.success("{{ session('success') }}", 'Success');
-    @endif
-    @if(session('error'))
-        toastr.error("{{ session('error') }}", 'Error');
-    @endif
-
-    // Form Validation (No Refresh if Invalid)
-    const membershipForm = document.getElementById('membership-form');
-    if (membershipForm) {
-        membershipForm.addEventListener('submit', function(e) {
-            let isValid = true;
-            const requiredInputs = membershipForm.querySelectorAll('input[required]');
-            
-            requiredInputs.forEach(input => {
-                const errorEl = document.getElementById('error-' + input.id);
-                if (errorEl) {
-                    if (!input.value.trim()) {
-                        errorEl.textContent = 'Field ' + input.id.replace('_', ' ') + ' cannot be empty';
-                        errorEl.classList.remove('hidden');
-                        isValid = false;
-                    } else {
-                        errorEl.classList.add('hidden');
-                    }
-                }
-            });
-
-            if (!isValid) {
-                e.preventDefault();
-            }
-        });
-    }
-});
 </script>
 @endpush
 
