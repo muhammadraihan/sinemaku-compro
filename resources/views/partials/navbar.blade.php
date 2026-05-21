@@ -147,11 +147,11 @@ TOP NAVBAR
 STICKY MORPHING NAVBAR (THE "PONI")
 ════════════════════════════════════════════════════════════════ --}}
 <nav id="sticky-navbar"
-    class="fixed top-6 left-1/2 z-[350] w-[90%] max-w-[800px] h-[64px] bg-[#0E1633] rounded-2xl flex flex-col items-center justify-start shadow-2xl border border-white/10 overflow-hidden will-change-[width,height,top,border-radius]"
-    style="opacity: 0; visibility: hidden;">
+    class="fixed top-6 left-1/2 z-[350] w-[90%] max-w-[800px] h-[64px] bg-[#0E1633] rounded-2xl flex flex-col items-center justify-start shadow-2xl border border-white/10 overflow-hidden"
+    style="opacity: 0; visibility: hidden; will-change: transform, width, height, top, border-radius;">
     
     {{-- Header: Always visible, stable centering --}}
-    <div id="sticky-header" class="w-full flex justify-between items-center px-6 md:px-10 h-[64px] shrink-0 transition-all duration-700">
+    <div id="sticky-header" class="w-full flex justify-between items-center px-6 md:px-10 h-[64px] shrink-0 transition-colors duration-300">
         {{-- Left --}}
         <div class="basis-1/3 flex justify-start">
             <a href="/films" class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors cursor-none hover-target">
@@ -170,10 +170,10 @@ STICKY MORPHING NAVBAR (THE "PONI")
         <div class="basis-1/3 flex justify-end">
             <button id="menu-open-sticky" class="group flex items-center gap-3 cursor-none hover-target relative h-[24px]">
                 <div class="relative w-[80px] h-full flex items-center justify-end">
-                    <span id="sticky-menu-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 transition-all duration-500">Menu</span>
-                    <span id="sticky-close-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 opacity-0 pointer-events-none translate-x-4 transition-all duration-500 whitespace-nowrap">[ CLOSE ]</span>
+                    <span id="sticky-menu-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 transition-colors duration-300">Menu</span>
+                    <span id="sticky-close-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 opacity-0 pointer-events-none translate-x-4 transition-colors duration-300 whitespace-nowrap">[ CLOSE ]</span>
                 </div>
-                <div id="sticky-menu-icon" class="flex flex-col gap-1 transition-all duration-500 origin-right">
+                <div id="sticky-menu-icon" class="flex flex-col gap-1 transition-colors duration-300 origin-right">
                     <div class="w-4 h-[1.5px] bg-white"></div>
                     <div class="w-4 h-[1.5px] bg-white"></div>
                 </div>
@@ -188,7 +188,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
                 @if(isset($item['isDropdown']))
                     <div class="flex flex-col items-center w-full">
                         <button type="button" onclick="toggleStickyDropdown('sticky-drop-{{ $index }}')"
-                            class="sticky-menu-link flex items-center justify-center gap-4 text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight transform translate-y-8 opacity-0">
+                            class="sticky-menu-link flex items-center justify-center gap-4 text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-colors duration-300 font-peckham uppercase leading-tight transform translate-y-8 opacity-0">
                             <span>{{ $item['title'] }}</span>
                             <span id="icon-sticky-drop-{{ $index }}" class="transition-transform duration-300">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -205,7 +205,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
                 @else
                     <a href="{{ $item['url'] }}"
                         @if(isset($item['trigger'])) onclick="{{ $item['trigger'] }}" @endif
-                        class="sticky-menu-link text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-all duration-300 font-peckham uppercase leading-tight transform translate-y-8 opacity-0">
+                        class="sticky-menu-link text-[clamp(2rem,5vw,4rem)] text-white hover:text-brand-orange transition-colors duration-300 font-peckham uppercase leading-tight transform translate-y-8 opacity-0">
                         {{ $item['title'] }}
                     </a>
                 @endif
@@ -329,7 +329,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
             isStickyMenuOpen = true;
             document.body.style.overflow = 'hidden';
             
-            const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.85 } });
+            const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.85, force3D: true } });
 
             tl.to(stickyNav, {
                 width: '100%',
@@ -361,7 +361,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
             isStickyMenuOpen = false;
             document.body.style.overflow = '';
 
-            const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.8 } });
+            const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.8, force3D: true } });
 
             tl.to(stickyLinks, { opacity: 0, y: 20, duration: 0.3 });
             tl.to(stickyLinksContainer, { opacity: 0, duration: 0.3 }, 0.1);
