@@ -410,39 +410,30 @@ STICKY MORPHING NAVBAR (THE "PONI")
         // - Sampai di top (scroll <= 10px): navbar poni hilang, navbar statis muncul kembali
         // - Scroll ke bawah lagi (saat poni sedang muncul): poni ikut menghilang
         let lastScrollY = window.scrollY;
-        let poniVisible = false;
-        let isPoniAnimating = false;
+        let poniState = 'hidden';
 
         function hidePoni() {
-            if (!poniVisible || isPoniAnimating) return;
-            isPoniAnimating = true;
+            if (poniState === 'hidden') return;
+            poniState = 'hidden';
             gsap.to(stickyNav, {
                 yPercent: -150,
                 autoAlpha: 0,
                 duration: 0.4,
                 ease: "power3.in",
-                overwrite: true,
-                onComplete: () => {
-                    poniVisible = false;
-                    isPoniAnimating = false;
-                }
+                overwrite: true
             });
         }
 
         function showPoni() {
-            if (poniVisible || isPoniAnimating || isStickyMenuOpen) return;
-            isPoniAnimating = true;
+            if (poniState === 'visible' || isStickyMenuOpen) return;
+            poniState = 'visible';
             unifiedNav.classList.add('is-nav-hidden');
             gsap.to(stickyNav, {
                 yPercent: 0,
                 autoAlpha: 1,
                 duration: 0.5,
                 ease: "power3.out",
-                overwrite: true,
-                onComplete: () => {
-                    poniVisible = true;
-                    isPoniAnimating = false;
-                }
+                overwrite: true
             });
         }
 
