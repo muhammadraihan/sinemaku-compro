@@ -217,7 +217,7 @@
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
                     <img src="{{ asset($secondaryImg) }}" class="w-full h-full object-cover">
-                    <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-0">
+                    <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100">
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
                         <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">CAMERA.</h2>
@@ -312,7 +312,7 @@
             ease: "power3.out"
         });
 
-        // Masonry Zoom Out Animation & Text Sequencing
+        // Masonry Zoom In Animation & Text Fading
         if (document.querySelector('#crew-masonry-wrapper')) {
             let crewTl = gsap.timeline({
                 scrollTrigger: {
@@ -324,23 +324,28 @@
                 }
             });
 
+            // Start grid at normal scale, zoom in to center image (scale 3.5)
             crewTl.fromTo(".crew-grid", 
-                { scale: 3.5, transformOrigin: "center center" }, 
-                { scale: 1, transformOrigin: "center center", ease: "power3.inOut", duration: 1.2 }
+                { scale: 1, transformOrigin: "center center" }, 
+                { scale: 3.5, transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
             );
 
+            // Other elements in the grid disappear as we zoom in
             crewTl.fromTo(".crew-grid > div:not(.crew-center-img)", 
-                { opacity: 0 }, 
-                { opacity: 1, ease: "power3.inOut", duration: 1.2 },
+                { opacity: 1 }, 
+                { opacity: 0, ease: "power2.inOut", duration: 1.5 },
                 "<"
             );
 
-            crewTl.to(".crew-overlay", { opacity: 1, duration: 0.3, ease: "power2.inOut" }, "+=0.1");
+            // Ensure text and overlay start visible
+            gsap.set(".crew-overlay", { opacity: 1 });
+            gsap.set(".crew-text-reveal", { opacity: 1, y: 0 });
 
-            gsap.set(".crew-text-reveal", { opacity: 0, y: 40 });
-            crewTl.to(".crew-text-reveal", { opacity: 1, y: 0, duration: 0.6, stagger: 0.2, ease: "power2.out" });
-            
-            crewTl.to({}, {duration: 0.4});
+            // Fade out the text and overlay smoothly as it zooms in
+            crewTl.to(".crew-text-reveal", { opacity: 0, duration: 1.2, ease: "power2.out" }, "<");
+            crewTl.to(".crew-overlay", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "<");
+
+            crewTl.to({}, {duration: 0.2});
         }
 
         // Initialize Hero Slideshow
