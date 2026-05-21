@@ -134,7 +134,7 @@
             <div id="catalogue-grid" class="w-full grid grid-cols-4 px-4 md:px-8" style="gap: var(--cg); grid-auto-rows: clamp(250px, 30vw, 600px);">
                 @foreach($genre as $item)
                     <a href="{{ route('detail-film', $item->slug) }}"
-                        class="film-card-trigger relative group cursor-none hover-target overflow-hidden rounded-2xl bg-brand-navy transition-all duration-500"
+                        class="catalogue-card relative group cursor-none hover-target overflow-hidden rounded-2xl bg-brand-navy transition-all duration-500"
                         data-year="{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}"
                         data-genre="{{ $item->genre }}"
                         style="display: block;">
@@ -230,39 +230,39 @@ STYLES & SCRIPTS
 
         /* ── WIDE vs NARROW card title & metadata sizing ── */
         /* Judul */
-        .film-card-trigger.is-wide .card-title {
+        .catalogue-card.is-wide .card-title {
             font-size: clamp(2rem, 4vw, 4.5rem);
             max-width: 65%;
         }
-        .film-card-trigger.is-narrow .card-title {
+        .catalogue-card.is-narrow .card-title {
             font-size: clamp(1.4rem, 3vw, 2.6rem);
             max-width: 90%;
         }
-        .film-card-trigger .card-title {
+        .catalogue-card .card-title {
             font-size: clamp(1.5rem, 3vw, 3rem);
             max-width: 80%;
         }
 
         /* Judul Posisi */
-        .film-card-trigger .card-title-block {
+        .catalogue-card .card-title-block {
             bottom: 2rem;
             left: 2rem;
         }
-        .film-card-trigger.is-narrow .card-title-block {
+        .catalogue-card.is-narrow .card-title-block {
             top: 2rem;
             bottom: auto;
             left: 2rem;
         }
 
         /* Metadata (Overlay Kanan) */
-        .film-card-trigger .card-meta-container {
+        .catalogue-card .card-meta-container {
             justify-content: flex-end; /* Rata bawah untuk semua (wide & narrow) */
             padding-bottom: 2rem;      /* Jarak dari bawah sejajar judul (bawah) */
         }
-        .film-card-trigger .meta-label {
+        .catalogue-card .meta-label {
             font-size: 11px;
         }
-        .film-card-trigger .meta-value {
+        .catalogue-card .meta-value {
             font-size: 14px;
         }
 
@@ -527,7 +527,7 @@ STYLES & SCRIPTS
                 const selectedYear = document.getElementById('selected-year').textContent;
                 const selectedGenre = document.getElementById('selected-genre').textContent;
                 
-                const allCards = document.querySelectorAll('.film-card-trigger');
+                const allCards = document.querySelectorAll('.catalogue-card');
                 const visibleCards = [];
                 
                 allCards.forEach(card => {
