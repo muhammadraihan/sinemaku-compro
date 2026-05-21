@@ -136,6 +136,7 @@
                         class="catalogue-card relative group cursor-none hover-target overflow-hidden rounded-2xl bg-brand-navy transition-all duration-500"
                         data-year="{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}"
                         data-genre="{{ $item->genre }}"
+                        data-trailer="{{ $item->link }}"
                         style="display: block;">
                                 
                                 {{-- Background Image with subtle zoom --}}
@@ -598,6 +599,77 @@ STYLES & SCRIPTS
                     if (m) m.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
                 });
             });
+
+            /* ─── 6. AUTO PLAY YOUTUBE TRAILER ON HOVER ─── */
+            function getYouTubeId(url) {
+                if(!url) return null;
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[2].length === 11) ? match[2] : null;
+            }
+
+            document.querySelectorAll('.catalogue-card').forEach(card => {
+                let iframeContainer = null;
+                let timeoutId = null;
+
+                card.addEventListener('mouseenter', () => {
+                    const trailerUrl = card.getAttribute('data-trailer');
+                    const videoId = getYouTubeId(trailerUrl);
+                    if (videoId) {
+                        timeoutId = setTimeout(() => {
+                            iframeContainer = document.createElement('div');
+                            iframeContainer.className = 'absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-[5] opacity-0 transition-opacity duration-700 bg-brand-navy';
+                            
+                            const rect = card.getBoundingClientRect();
+                            let iframeW = rect.width;
+                            let iframeH = iframeW * (9/16);
+                            if (iframeH < rect.height) {
+                                iframeH = rect.height;
+                                iframeW = iframeH * (16/9);
+                            }
+                            
+                            const finalW = iframeW * 1.6;
+                            const finalH = iframeH * 1.6;
+
+                            const iframe = document.createElement('iframe');
+                            iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 max-w-none'; 
+                            iframe.style.width = finalW + 'px';
+                            iframe.style.height = finalH + 'px';
+                            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=${videoId}&playsinline=1&modestbranding=1&disablekb=1`;
+                            iframe.allow = 'autoplay; encrypted-media';
+                            iframe.frameBorder = '0';
+                            
+                            iframeContainer.appendChild(iframe);
+                            
+                            const img = card.querySelector('.film-card-img');
+                            if(img) {
+                                img.parentNode.insertBefore(iframeContainer, img.nextSibling);
+                            }
+
+                            iframe.onload = () => {
+                                iframeContainer.classList.remove('opacity-0');
+                                iframeContainer.classList.add('opacity-100');
+                            };
+                        }, 400); 
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (timeoutId) clearTimeout(timeoutId);
+                    if (iframeContainer) {
+                        iframeContainer.classList.remove('opacity-100');
+                        iframeContainer.classList.add('opacity-0');
+                        const currentContainer = iframeContainer;
+                        setTimeout(() => {
+                            if (currentContainer && currentContainer.parentNode) {
+                                currentContainer.parentNode.removeChild(currentContainer);
+                            }
+                        }, 700);
+                        iframeContainer = null;
+                    }
+                });
+            });
+
         });
     </script>
 
