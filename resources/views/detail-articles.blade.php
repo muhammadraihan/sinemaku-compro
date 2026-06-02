@@ -8,7 +8,6 @@
 
 @push('head')
 <style>
-    body { background-color: #f6f6ed !important; }
     
     /* Premium Editorial Typography */
     .article-content h2, .article-content h3 {
@@ -52,9 +51,9 @@
 {{-- ============================================================
 EDITORIAL WRAPPER (Redesign based on image)
 ============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen bg-[#f6f6ed] pt-32 pb-40">
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen pt-32 pb-40">
 
-    <div class="max-w-7xl mx-auto px-4 md:px-12">
+    <div class="max-w-7xl mx-auto px-8 md:px-20 lg:px-24">
         
         {{-- 1. FEATURED IMAGE --}}
         <div class="relative w-full mb-8 reveal-image">

@@ -9,7 +9,7 @@
     {{-- ============================================================
     EDITORIAL WRAPPER
     ============================================================ --}}
-    <div id="editorial-wrapper" class="text-[#131b4d] relative w-full font-sans bg-[#fdf5f7]">
+    <div id="editorial-wrapper" class="text-[#131b4d] relative w-full font-sans">
 
         {{-- ============================================================
         1. HERO SECTION

@@ -88,8 +88,11 @@
 
   <style>
     /* ── PENGATURAN DASAR GLOBAL ── */
-    body {
+    html {
       background-color: #f6f6ed;
+    }
+    body {
+      background-color: transparent;
       color: #0f6ab0;
       margin: 0;
       position: relative;
@@ -118,7 +121,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
+      z-index: -1;
       background: radial-gradient(
         circle 40vw at var(--mx, 25%) var(--my, 55%),
         #F36B21 0%,

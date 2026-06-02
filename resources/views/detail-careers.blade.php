@@ -8,7 +8,6 @@
 
 @push('head')
 <style>
-    body { background-color: #f6f6ed !important; }
     
     /* Clean career content styling */
     .career-content h2, .career-content h3 {
@@ -70,7 +69,7 @@
 {{-- ============================================================
 EDITORIAL WRAPPER
 ============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen pt-32 pb-40 bg-[#f6f6ed]">
+<div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen pt-32 pb-40">
 
     <div class="max-w-[1600px] mx-auto px-6 md:px-12">
         
