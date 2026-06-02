@@ -130,7 +130,7 @@
                 }
             </style>
 
-            <div id="catalogue-grid" class="w-full grid grid-cols-4 px-4 md:px-8" style="gap: var(--cg); grid-auto-rows: clamp(250px, 30vw, 600px);">
+            <div id="catalogue-grid" class="w-full grid grid-cols-2 md:grid-cols-4 px-4 md:px-8" style="gap: var(--cg); grid-auto-rows: clamp(250px, 30vw, 600px);">
                 @foreach($genre as $item)
                     <a href="{{ route('detail-documentary', $item->slug) }}"
                         class="catalogue-card relative group cursor-none hover-target overflow-hidden rounded-2xl bg-brand-navy transition-all duration-500"
@@ -431,7 +431,10 @@ STYLES & SCRIPTS
             if (document.fonts) {
                 document.fonts.ready.then(alignFilmMeta);
             }
-            window.addEventListener('resize', alignFilmMeta);
+            window.addEventListener('resize', () => {
+                alignFilmMeta();
+                applyFilters();
+            });
 
             /* ─── 3. INITIAL SCROLL REVEAL UNTUK KARTU FILM ─── */
             if (document.querySelector('.film-row-container')) {
@@ -547,47 +550,70 @@ STYLES & SCRIPTS
                 let N = visibleCards.length;
                 let layoutClasses = [];
                 let remaining = N;
-                let isRowOfThree = true;
-                let threeRowAlternate = false;
                 
-                while (remaining > 0) {
-                    if (isRowOfThree) {
-                        if (remaining >= 3) {
-                            if (!threeRowAlternate) {
-                                layoutClasses.push('col-span-2', 'col-span-1', 'col-span-1');
+                let isMobileLayout = window.innerWidth <= 768;
+                
+                if (isMobileLayout) {
+                    let isRowOfTwo = true;
+                    while (remaining > 0) {
+                        if (isRowOfTwo) {
+                            if (remaining >= 2) {
+                                layoutClasses.push('col-span-1', 'col-span-1');
+                                remaining -= 2;
                             } else {
-                                layoutClasses.push('col-span-1', 'col-span-1', 'col-span-2');
+                                layoutClasses.push('col-span-2');
+                                remaining = 0;
                             }
-                            threeRowAlternate = !threeRowAlternate;
-                            remaining -= 3;
+                            isRowOfTwo = false;
                         } else {
-                            if (!threeRowAlternate) {
-                                if (remaining === 2) {
-                                    layoutClasses.push('col-span-2', 'col-span-1');
-                                } else if (remaining === 1) {
+                            layoutClasses.push('col-span-2');
+                            remaining -= 1;
+                            isRowOfTwo = true;
+                        }
+                    }
+                } else {
+                    let isRowOfThree = true;
+                    let threeRowAlternate = false;
+                    
+                    while (remaining > 0) {
+                        if (isRowOfThree) {
+                            if (remaining >= 3) {
+                                if (!threeRowAlternate) {
+                                    layoutClasses.push('col-span-2', 'col-span-1', 'col-span-1');
+                                } else {
+                                    layoutClasses.push('col-span-1', 'col-span-1', 'col-span-2');
+                                }
+                                threeRowAlternate = !threeRowAlternate;
+                                remaining -= 3;
+                            } else {
+                                if (!threeRowAlternate) {
+                                    if (remaining === 2) {
+                                        layoutClasses.push('col-span-2', 'col-span-1');
+                                    } else if (remaining === 1) {
+                                        layoutClasses.push('col-span-2');
+                                    }
+                                } else {
+                                    if (remaining === 2) {
+                                        layoutClasses.push('col-span-1', 'col-span-1');
+                                    } else if (remaining === 1) {
+                                        layoutClasses.push('col-span-1');
+                                    }
+                                }
+                                remaining = 0;
+                            }
+                            isRowOfThree = false;
+                        } else {
+                            if (remaining >= 2) {
+                                layoutClasses.push('col-span-2', 'col-span-2');
+                                remaining -= 2;
+                            } else {
+                                if (remaining === 1) {
                                     layoutClasses.push('col-span-2');
                                 }
-                            } else {
-                                if (remaining === 2) {
-                                    layoutClasses.push('col-span-1', 'col-span-1');
-                                } else if (remaining === 1) {
-                                    layoutClasses.push('col-span-1');
-                                }
+                                remaining = 0;
                             }
-                            remaining = 0;
+                            isRowOfThree = true;
                         }
-                        isRowOfThree = false;
-                    } else {
-                        if (remaining >= 2) {
-                            layoutClasses.push('col-span-2', 'col-span-2');
-                            remaining -= 2;
-                        } else {
-                            if (remaining === 1) {
-                                layoutClasses.push('col-span-2');
-                            }
-                            remaining = 0;
-                        }
-                        isRowOfThree = true;
                     }
                 }
 
