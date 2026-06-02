@@ -319,24 +319,39 @@
 
         // Masonry Zoom In Animation & Text Fading
         if (document.querySelector('#crew-masonry-wrapper')) {
+            // Function to calculate the required zoom scale dynamically
+            function calculateZoomScale() {
+                const centerImg = document.querySelector('.crew-center-img');
+                if (centerImg) {
+                    const imgW = centerImg.offsetWidth;
+                    const imgH = centerImg.offsetHeight;
+                    if (imgW > 0 && imgH > 0) {
+                        const scaleX = window.innerWidth / imgW;
+                        const scaleY = window.innerHeight / imgH;
+                        // Use the maximum of scaleX and scaleY to ensure "cover" fit,
+                        // and add a 15% safety margin to cover device notches, scrollbars, or address bars.
+                        return Math.max(scaleX, scaleY) * 1.15;
+                    }
+                }
+                // Fallback scales if elements are not yet fully measured/rendered
+                return window.innerWidth <= 768 ? 4.5 : 3.5;
+            }
+
             let crewTl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#crew-masonry-wrapper",
                     start: "center center",
                     end: "+=300%", 
                     scrub: 1.5, 
-                    pin: true 
+                    pin: true,
+                    invalidateOnRefresh: true // Re-evaluate function-based values on resize/refresh
                 }
             });
 
-            // Responsive zoom scale based on viewport width
-            let isMobile = window.innerWidth <= 768;
-            let zoomScale = isMobile ? 1.8 : 3.5;
-
-            // Start grid at normal scale, zoom in to center image (scale 3.5 on desktop, 1.8 on mobile)
+            // Start grid at normal scale, zoom in to center image dynamically
             crewTl.fromTo(".crew-grid", 
                 { scale: 1, transformOrigin: "center center" }, 
-                { scale: zoomScale, transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
+                { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
             );
 
             // Other elements in the grid disappear as we zoom in
