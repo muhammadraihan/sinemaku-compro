@@ -123,10 +123,10 @@
                         <div class="font-sans text-xs md:text-lg tracking-[0.2em] uppercase font-bold text-brand-navy/40 mb-6 flex items-center gap-3">
                             <span>{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</span>
                             <span class="opacity-30">•</span>
-                            <span class="text-brand-orange">{{ $categoryName }}</span>
+                            <span class="text-brand-navy">{{ $categoryName }}</span>
                         </div>
 
-                        <h2 class="font-peckham text-4xl md:text-7xl text-brand-orange leading-[0.85] mb-10 group-hover:scale-[1.02] transition-transform duration-700 uppercase tracking-tighter">
+                        <h2 class="font-peckham text-4xl md:text-7xl text-brand-navy leading-[0.85] mb-10 group-hover:scale-[1.02] transition-transform duration-700 uppercase tracking-tighter">
                             <a href="{{ $url }}" class="cursor-none hover-target">@i18n($item, 'judul')</a>
                         </h2>
 
