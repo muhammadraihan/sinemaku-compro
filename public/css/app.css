@@ -4400,12 +4400,20 @@ body {
     padding-bottom: 0.75rem;
   }
 
+  .md\:pb-2 {
+    padding-bottom: 0.5rem;
+  }
+
   .md\:pb-4 {
     padding-bottom: 1rem;
   }
 
   .md\:pt-48 {
     padding-top: 12rem;
+  }
+
+  .md\:pt-6 {
+    padding-top: 1.5rem;
   }
 
   .md\:text-2xl {

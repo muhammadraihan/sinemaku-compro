@@ -92,7 +92,7 @@
     <section id="manifesto" class="py-16 md:py-24 px-12 md:px-32 z-10 relative bg-creme-leaks">
         <!-- Top Metadata -->
         <div class="flex justify-between items-start mb-16">
-            <span class="font-peckham text-[10px] tracking-[0.2em] uppercase font-bold text-brand-orange">
+            <span class="font-peckham text-sm md:text-base tracking-[0.25em] uppercase font-bold text-brand-orange">
                 01 — Misi
             </span>
         </div>
@@ -149,6 +149,11 @@
 
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
     <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
+        <div class="px-12 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
+            <span class="font-peckham text-sm md:text-base tracking-[0.25em] uppercase font-bold text-brand-orange">
+                02 — Crew
+            </span>
+        </div>
         <div class="crew-pin-container w-full flex flex-col items-center justify-center bg-black">
             <div class="crew-grid w-full grid grid-cols-12 gap-2 md:gap-4 p-2 md:p-4 pb-2 md:pb-4">
                 @php
