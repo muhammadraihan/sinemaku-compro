@@ -39,7 +39,7 @@ EDITORIAL WRAPPER
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
             <!-- LEFT: Photos Collage -->
-            <div class="lg:col-span-5 sticky top-48">
+            <div class="lg:col-span-4 sticky top-48">
                 <div class="flex flex-col gap-4">
                     <!-- Top Grid -->
                     <div class="grid grid-cols-2 gap-4">
@@ -70,7 +70,7 @@ EDITORIAL WRAPPER
             </div>
 
             <!-- RIGHT: Timeline -->
-            <div class="lg:col-span-7">
+            <div class="lg:col-span-8">
                 <div class="flex flex-col">
                     @forelse($event as $index => $item)
                         <div class="event-timeline-item flex items-start gap-6 py-8 border-b border-brand-navy/10 group hover:bg-brand-orange/[0.02] transition-colors duration-500 rounded-xl px-4" 
@@ -83,7 +83,7 @@ EDITORIAL WRAPPER
                                     <span class="text-xs font-bold text-brand-navy leading-none">{{ \Carbon\Carbon::parse($item->tgl_event)->format('Y') }}</span>
                                 </div>
                                 @if(!$loop->last)
-                                    <div class="w-px h-24 border-l-2 border-dashed border-brand-navy/10 my-2"></div>
+                                    <div class="w-px flex-grow border-l-2 border-dashed border-brand-navy/10 my-2 min-h-[4rem]"></div>
                                 @endif
                             </div>
 
@@ -99,10 +99,10 @@ EDITORIAL WRAPPER
                                 </a>
                             </div>
 
-                            <!-- Orange Box / Action -->
-                            <div class="shrink-0 pt-2 hidden md:block">
-                                <a href="{{ route('detail-event', $item->slug) }}" class="w-24 h-16 bg-brand-orange rounded-xl flex items-center justify-center text-white opacity-90 group-hover:opacity-100 transition-all group-hover:scale-105 shadow-lg shadow-brand-orange/20">
-                                    <span class="iconify text-2xl" data-icon="lucide:arrow-right"></span>
+                            <!-- Thumbnail Image Action (Uniform & Fixed) -->
+                            <div class="shrink-0 hidden md:block self-center">
+                                <a href="{{ route('detail-event', $item->slug) }}" class="w-60 h-36 rounded-xl overflow-hidden block shadow-lg hover:scale-105 transition-transform duration-500 cursor-none hover-target">
+                                    <img src="{{ asset('photo/' . $item->photo) }}" class="w-full h-full object-cover" alt="{{ $item->judul }}">
                                 </a>
                             </div>
                         </div>
