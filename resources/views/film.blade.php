@@ -549,28 +549,47 @@ STYLES & SCRIPTS
                 let N = visibleCards.length;
                 let layoutClasses = [];
                 let remaining = N;
+                let isRowOfThree = true;
+                let threeRowAlternate = false;
                 
                 while (remaining > 0) {
-                    if (remaining >= 5) {
-                        // Pola dasar: 2 film (1-1) lalu 3 film (0.5-1-0.5)
-                        layoutClasses.push('col-span-2', 'col-span-2', 'col-span-1', 'col-span-2', 'col-span-1');
-                        remaining -= 5;
-                    } else if (remaining === 4) {
-                        // Sisa 4: 2 film lalu 2 film
-                        layoutClasses.push('col-span-2', 'col-span-2', 'col-span-2', 'col-span-2');
-                        remaining = 0;
-                    } else if (remaining === 3) {
-                        // Sisa 3: 1 baris berisi 3 film
-                        layoutClasses.push('col-span-1', 'col-span-2', 'col-span-1');
-                        remaining = 0;
-                    } else if (remaining === 2) {
-                        // Sisa 2: 1 baris berisi 2 film
-                        layoutClasses.push('col-span-2', 'col-span-2');
-                        remaining = 0;
-                    } else if (remaining === 1) {
-                        // Sisa 1: di tengah dengan ukuran 1
-                        layoutClasses.push('col-span-2 col-start-2');
-                        remaining = 0;
+                    if (isRowOfThree) {
+                        if (remaining >= 3) {
+                            if (!threeRowAlternate) {
+                                layoutClasses.push('col-span-2', 'col-span-1', 'col-span-1');
+                            } else {
+                                layoutClasses.push('col-span-1', 'col-span-1', 'col-span-2');
+                            }
+                            threeRowAlternate = !threeRowAlternate;
+                            remaining -= 3;
+                        } else {
+                            if (!threeRowAlternate) {
+                                if (remaining === 2) {
+                                    layoutClasses.push('col-span-2', 'col-span-1');
+                                } else if (remaining === 1) {
+                                    layoutClasses.push('col-span-2');
+                                }
+                            } else {
+                                if (remaining === 2) {
+                                    layoutClasses.push('col-span-1', 'col-span-1');
+                                } else if (remaining === 1) {
+                                    layoutClasses.push('col-span-1');
+                                }
+                            }
+                            remaining = 0;
+                        }
+                        isRowOfThree = false;
+                    } else {
+                        if (remaining >= 2) {
+                            layoutClasses.push('col-span-2', 'col-span-2');
+                            remaining -= 2;
+                        } else {
+                            if (remaining === 1) {
+                                layoutClasses.push('col-span-2');
+                            }
+                            remaining = 0;
+                        }
+                        isRowOfThree = true;
                     }
                 }
 
