@@ -31,6 +31,9 @@
             --crew-row-h: clamp(300px, 40vw, 650px);
         }
         .crew-h { height: var(--crew-row-h); }
+        #crew-masonry-wrapper, .crew-pin-container {
+            min-height: 100svh;
+        }
         @media (max-width: 768px) {
             :root { --crew-row-h: clamp(160px, 45vw, 300px); }
         }
@@ -149,7 +152,7 @@
 
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
     <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
-        <div class="px-6 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
+        <div class="crew-title px-6 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
             <span class="font-peckham text-sm md:text-base tracking-[0.25em] uppercase font-bold text-brand-orange">
                 02 — Crew
             </span>
@@ -354,8 +357,8 @@
                 { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
             );
 
-            // Other elements in the grid disappear as we zoom in
-            crewTl.fromTo(".crew-grid > div:not(.crew-center-img)", 
+            // Other elements in the grid and the title disappear as we zoom in
+            crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"], 
                 { opacity: 1 }, 
                 { opacity: 0, ease: "power2.inOut", duration: 1.5 },
                 "<"
