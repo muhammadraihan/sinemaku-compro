@@ -5,7 +5,7 @@
 FULLSCREEN MENU OVERLAY
 ════════════════════════════════════════════════════════════════ --}}
 <div id="fullscreen-menu"
-    class="fixed inset-y-0 right-0 z-[400] w-full md:w-[45vw] max-w-[600px] flex flex-col justify-center px-8 md:px-16 bg-white/5 backdrop-blur-[8px] border-l border-white/20 shadow-[-10px_0_30px_rgba(0,0,0,0.15)]" style="transform: translateX(100%); will-change: transform;">
+    class="fixed inset-y-0 right-0 z-[400] w-full md:w-[45vw] max-w-[600px] flex flex-col justify-center px-8 md:px-16 bg-white/5 backdrop-blur-[8px] border-l border-white/20 shadow-[-10px_0_30px_rgba(0,0,0,0.15)]" style="transform: translateX(100%); will-change: transform; visibility: hidden;">
 
     <!-- Tombol Close -->
     <button id="close-menu-btn"
@@ -230,6 +230,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
         function openMenu() {
             isOpen = true;
             document.body.style.overflow = 'hidden';
+            menu.style.visibility = 'visible';
 
             if (window.gsap) {
                 // Slide the panel in with GSAP (not CSS transition)
@@ -259,6 +260,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
                 gsap.to(menu, {
                     x: '100%', duration: 0.75, ease: 'expo.inOut', force3D: true, delay: 0.1,
                     onComplete: function() {
+                        menu.style.visibility = 'hidden';
                         // Reset dropdowns
                         document.querySelectorAll('[id^="dropdown-"]').forEach(function (el) {
                             el.classList.add('hidden'); el.classList.remove('flex');
@@ -272,6 +274,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
                 });
             } else {
                 menu.style.transform = 'translateX(100%)';
+                menu.style.visibility = 'hidden';
                 menuLinks.forEach(function (l) { l.style.opacity = '0'; l.style.transform = 'translateX(60px)'; });
             }
         }

@@ -32,7 +32,7 @@
         }
         .crew-h { height: var(--crew-row-h); }
         @media (max-width: 768px) {
-            :root { --crew-row-h: 300px; }
+            :root { --crew-row-h: clamp(160px, 45vw, 300px); }
         }
     </style>
 @endpush
@@ -70,14 +70,14 @@
         {{-- Hero Content Overlay --}}
         <div class="relative z-30 w-full h-full flex flex-col justify-center px-4 md:px-12 text-white">
             <div class="w-full flex flex-col items-center">
-                <h1 class="hero-reveal grid grid-cols-[max-content_max-content] gap-x-2 md:gap-x-6 gap-y-0 md:gap-y-1 items-baseline pointer-events-none drop-shadow-sm">
+                <h1 class="hero-reveal flex flex-col items-center gap-y-4 pointer-events-none drop-shadow-sm text-center md:grid md:grid-cols-[max-content_max-content] md:gap-x-6 md:gap-y-1 md:items-baseline md:text-left">
                     <!-- Row 1: HERE Comes -->
-                    <span class="font-peckham text-[10vw] md:text-[9.5vw] text-white uppercase leading-[0.75] tracking-tighter text-right">HERE</span>
+                    <span class="font-peckham text-[10vw] md:text-[9.5vw] text-white uppercase leading-[0.75] tracking-tighter md:text-right">HERE</span>
                     
                     <span class="font-serif not-italic text-[10vw] md:text-[9.5vw] text-white leading-[0.75]">Comes</span>
 
                     <!-- Row 2: (Empty), The FUN. -->
-                    <span></span>
+                    <span class="hidden md:inline"></span>
 
                     <div class="flex items-baseline gap-x-2 md:gap-x-5">
                         <span class="font-serif not-italic text-[10vw] md:text-[9.5vw] text-white leading-[0.75]">The</span>
@@ -89,7 +89,7 @@
     </section>
 
     <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
-    <section id="manifesto" class="py-16 md:py-24 px-12 md:px-32 z-10 relative bg-creme-leaks">
+    <section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
         <!-- Top Metadata -->
         <div class="flex justify-between items-start mb-16">
             <span class="font-peckham text-sm md:text-base tracking-[0.25em] uppercase font-bold text-brand-orange">
@@ -111,12 +111,12 @@
                         
                         // Parse [p] tags
                         $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                            return '<span class="font-peckham text-[3.5vw] md:text-[3vw] text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                            return '<span class="font-peckham text-[6.5vw] sm:text-[5vw] md:text-[3vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                         }, $rawText);
                         
                         // Parse [s] tags
                         $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                            return '<span class="font-serif text-[4vw] md:text-[3.5vw] text-[#8E95B7] leading-[1.1]">' . $matches[1] . '</span>';
+                            return '<span class="font-serif text-[7.5vw] sm:text-[6vw] md:text-[3.5vw] text-2xl text-[#8E95B7] leading-[1.1]">' . $matches[1] . '</span>';
                         }, $parsedText);
                     @endphp
                     
@@ -149,7 +149,7 @@
 
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
     <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
-        <div class="px-12 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
+        <div class="px-6 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
             <span class="font-peckham text-sm md:text-base tracking-[0.25em] uppercase font-bold text-brand-orange">
                 02 — Crew
             </span>
@@ -193,14 +193,14 @@
                 @endphp
                 
                 <!-- Row 1 -->
-                <div class="col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
                     <img src="{{ $top6[0]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[0]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[0]['role'] }}</span>
                     </div>
                 </div>
-                <div class="col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
                     <img src="{{ $top6[1]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[1]['name'] }}</h3>
@@ -209,7 +209,7 @@
                 </div>
 
                 <!-- Row 2 (CENTER ROW) -->
-                <div class="col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
                     <img src="{{ $top6[2]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
@@ -217,7 +217,7 @@
                     </div>
                 </div>
                 
-                <div class="crew-center-img col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative shadow-2xl">
+                <div class="crew-center-img col-span-12 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative shadow-2xl">
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
@@ -229,7 +229,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
                     <img src="{{ $top6[3]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[3]['name'] }}</h3>
@@ -238,14 +238,14 @@
                 </div>
 
                 <!-- Row 3 -->
-                <div class="col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
                     <img src="{{ $top6[4]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[4]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[4]['role'] }}</span>
                     </div>
                 </div>
-                <div class="col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
                     <img src="{{ $top6[5]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[5]['name'] }}</h3>
@@ -272,7 +272,7 @@
                     $patternIndex++;
                 @endphp
                 @foreach($chunk as $member)
-                    <div class="group {{ $isTwo ? 'col-span-6' : 'col-span-4' }} crew-h rounded-xl md:rounded-3xl overflow-hidden relative">
+                    <div class="group {{ $isTwo ? 'col-span-6' : 'col-span-6 md:col-span-4' }} crew-h rounded-xl md:rounded-3xl overflow-hidden relative">
                         <img src="{{ $member['img'] }}" class="w-full h-full object-cover transition duration-700">
                         <div class="absolute bottom-0 left-0 w-full p-4 md:p-8 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                             <h3 class="font-sans text-white text-xl md:text-3xl font-bold uppercase tracking-tight">{{ $member['name'] }}</h3>
@@ -329,10 +329,14 @@
                 }
             });
 
-            // Start grid at normal scale, zoom in to center image (scale 3.5)
+            // Responsive zoom scale based on viewport width
+            let isMobile = window.innerWidth <= 768;
+            let zoomScale = isMobile ? 1.8 : 3.5;
+
+            // Start grid at normal scale, zoom in to center image (scale 3.5 on desktop, 1.8 on mobile)
             crewTl.fromTo(".crew-grid", 
                 { scale: 1, transformOrigin: "center center" }, 
-                { scale: 3.5, transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
+                { scale: zoomScale, transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
             );
 
             // Other elements in the grid disappear as we zoom in

@@ -90,6 +90,7 @@
     /* ── PENGATURAN DASAR GLOBAL ── */
     html {
       background-color: #f6f6ed;
+      overflow-x: hidden;
     }
     body {
       background-color: transparent;
