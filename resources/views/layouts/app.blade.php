@@ -164,6 +164,16 @@
       transform: translate(-50%, -50%);
     }
 
+    @media (pointer: coarse) {
+      #cursor-ring,
+      #cursor-dot {
+        display: none !important;
+      }
+      body {
+        cursor: auto !important;
+      }
+    }
+
     /* ── UTILITY: BACKGROUND CREME WITH LEAKS ── */
     .bg-creme-leaks {
       position: relative;
@@ -330,6 +340,14 @@
     document.addEventListener('DOMContentLoaded', () => {
       const cursorRing = document.getElementById('cursor-ring');
       const cursorDot = document.getElementById('cursor-dot');
+
+      // Hide cursor on touch devices when touch is detected
+      window.addEventListener('touchstart', function onFirstTouch() {
+        if (cursorRing) cursorRing.style.display = 'none';
+        if (cursorDot) cursorDot.style.display = 'none';
+        document.body.style.cursor = 'auto';
+        window.removeEventListener('touchstart', onFirstTouch);
+      });
 
       let mouseX = window.innerWidth / 2;
       let mouseY = window.innerHeight / 2;
