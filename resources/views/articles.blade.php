@@ -36,7 +36,7 @@
 </style>
 
 
-<div id="editorial-wrapper" class="relative w-full min-h-screen pt-40 md:pt-48 pb-40 px-8 md:px-16 max-w-[1800px] mx-auto z-10">
+<div id="editorial-wrapper" class="relative w-full min-h-screen pt-40 md:pt-48 pb-40 px-12 md:px-24 lg:px-32 max-w-[1800px] mx-auto z-10">
     
     {{-- ============================================================
     FILTERS & SEARCH
@@ -53,7 +53,7 @@
         <div class="flex flex-col md:flex-row gap-4 w-full max-w-[700px]">
             {{-- Sort Dropdown --}}
             <div class="flex-1 relative group">
-                <div id="sort-trigger" class="w-full h-full bg-[#F36B21]/10 border border-[#F36B21]/40 rounded-[1.5rem] px-8 py-4 flex flex-col justify-center cursor-none hover-target">
+                <div id="sort-trigger" class="w-full h-full bg-[#F36B21]/10 border border-[#F36B21]/40 rounded-full px-8 py-4 flex flex-col justify-center cursor-none hover-target">
                     <span class="text-[8px] uppercase font-bold tracking-widest opacity-50 mb-0.5">Sort by</span>
                     <div class="flex items-center justify-between">
                         <span id="current-sort" class="text-xs font-bold text-[#22397A]">Newest to Old</span>
@@ -69,7 +69,7 @@
 
             {{-- Search Bar --}}
             <div class="flex-[1.5] relative group">
-                <div class="w-full bg-[#F36B21]/10 border border-[#F36B21]/40 rounded-[1.5rem] px-8 py-4 flex items-center justify-between cursor-none hover-target focus-within:ring-2 focus-within:ring-brand-orange/20 transition-all">
+                <div class="w-full bg-[#F36B21]/10 border border-[#F36B21]/40 rounded-full px-8 py-4 flex items-center justify-between cursor-none hover-target focus-within:ring-2 focus-within:ring-brand-orange/20 transition-all">
                     <div class="flex flex-col flex-1">
                         <span class="text-[8px] uppercase font-bold tracking-widest opacity-50 mb-0.5">SEARCH ARTICLES</span>
                         <input type="text" id="article-search" class="bg-transparent border-none p-0 focus:ring-0 text-xs font-bold text-[#22397A] outline-none w-full" placeholder="Type title here...">
@@ -119,8 +119,8 @@
                     data-title="{{ $searchTerms }}">
                     
                     {{-- Text Content --}}
-                    <div class="flex-1 w-full flex flex-col {{ $isReverse ? 'items-start md:items-end text-left md:text-right' : 'items-start' }}">
-                        <div class="font-sans text-[10px] tracking-[0.2em] uppercase font-bold text-brand-navy/40 mb-6 flex items-center gap-3">
+                    <div class="flex-1 w-full flex flex-col items-start text-left">
+                        <div class="font-sans text-xs md:text-lg tracking-[0.2em] uppercase font-bold text-brand-navy/40 mb-6 flex items-center gap-3">
                             <span>{{ \Carbon\Carbon::parse($item->tgl_rilis)->format('d M Y') }}</span>
                             <span class="opacity-30">•</span>
                             <span class="text-brand-orange">{{ $categoryName }}</span>

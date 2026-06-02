@@ -178,19 +178,19 @@
       z-index: -1;
     }
     .bg-creme-leaks::before {
-      top: var(--leak1-top, -35vw);
-      bottom: var(--leak1-bottom, auto);
-      left: var(--leak1-left, -35vw);
-      right: var(--leak1-right, auto);
-      background: radial-gradient(circle, var(--leak1-color, #F36B21) 0%, var(--leak1-color, #F36B21) 10%, transparent 50%);
+      top: -45vw;
+      bottom: auto;
+      left: -45vw;
+      right: auto;
+      background: radial-gradient(circle, #F36B21 0%, #F36B21 10%, transparent 50%);
       opacity: 0.55;
     }
     .bg-creme-leaks::after {
-      top: var(--leak2-top, auto);
-      bottom: var(--leak2-bottom, -35vw);
-      left: var(--leak2-left, auto);
-      right: var(--leak2-right, -35vw);
-      background: radial-gradient(circle, var(--leak2-color, #22397A) 0%, var(--leak2-color, #22397A) 10%, transparent 50%);
+      top: auto;
+      bottom: -45vw;
+      left: auto;
+      right: -45vw;
+      background: radial-gradient(circle, #22397A 0%, #22397A 10%, transparent 50%);
       opacity: 0.55;
     }
 
@@ -380,32 +380,6 @@
         });
       };
 
-      // Randomize Creme Leaks Positions and Colors
-      document.querySelectorAll('.bg-creme-leaks').forEach(el => {
-        const variants = [
-          { t1: '-30vw', b1: 'auto', l1: '-30vw', r1: 'auto', t2: 'auto', b2: '-30vw', l2: 'auto', r2: '-30vw' }, // Top-Left / Bottom-Right
-          { t1: '-30vw', b1: 'auto', l1: 'auto', r1: '-30vw', t2: 'auto', b2: '-30vw', l2: '-30vw', r2: 'auto' }, // Top-Right / Bottom-Left
-        ];
-        const corners = variants[Math.floor(Math.random() * variants.length)];
-        
-        const colors = [
-          { c1: '#F36B21', c2: '#22397A' }, // Orange / Navy
-          { c1: '#22397A', c2: '#F36B21' }  // Navy / Orange
-        ];
-        const colorSet = colors[Math.floor(Math.random() * colors.length)];
-
-        el.style.setProperty('--leak1-top', corners.t1);
-        el.style.setProperty('--leak1-bottom', corners.b1);
-        el.style.setProperty('--leak1-left', corners.l1);
-        el.style.setProperty('--leak1-right', corners.r1);
-        el.style.setProperty('--leak1-color', colorSet.c1);
-
-        el.style.setProperty('--leak2-top', corners.t2);
-        el.style.setProperty('--leak2-bottom', corners.b2);
-        el.style.setProperty('--leak2-left', corners.l2);
-        el.style.setProperty('--leak2-right', corners.r2);
-        el.style.setProperty('--leak2-color', colorSet.c2);
-      });
 
       // Inisiasi awal
       bindCursorHoverEffects();
