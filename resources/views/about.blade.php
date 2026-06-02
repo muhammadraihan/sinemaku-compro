@@ -31,11 +31,11 @@
             --crew-row-h: clamp(300px, 40vw, 650px);
         }
         .crew-h { height: var(--crew-row-h); }
-        #crew-masonry-wrapper, .crew-pin-container {
-            min-height: 100svh;
-        }
         @media (max-width: 768px) {
             :root { --crew-row-h: clamp(160px, 45vw, 300px); }
+            #crew-masonry-wrapper, .crew-pin-container {
+                min-height: 105svh;
+            }
         }
     </style>
 @endpush
@@ -333,46 +333,85 @@
                         const scaleY = window.innerHeight / imgH;
                         // Use the maximum of scaleX and scaleY to ensure "cover" fit,
                         // and add a 15% safety margin to cover device notches, scrollbars, or address bars.
-                        return Math.max(scaleX, scaleY) * 1.15;
+                        const calculatedScale = Math.max(scaleX, scaleY) * 1.15;
+
+                        // Enforce a minimum scale of 3.5 on desktop/PC (width > 768px) to prevent
+                        // empty black space below the grid on scroll/unpin.
+                        if (window.innerWidth > 768) {
+                            return Math.max(3.5, calculatedScale);
+                        }
+                        return calculatedScale;
                     }
                 }
                 // Fallback scales if elements are not yet fully measured/rendered
                 return window.innerWidth <= 768 ? 4.5 : 3.5;
             }
 
-            let crewTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#crew-masonry-wrapper",
-                    start: "center center",
-                    end: "+=300%", 
-                    scrub: 1.5, 
-                    pin: true,
-                    invalidateOnRefresh: true // Re-evaluate function-based values on resize/refresh
-                }
+            let mm = gsap.matchMedia();
+
+            // Mobile/Tablet Configuration (Pin at very top to prevent cream background gaps)
+            mm.add("(max-width: 768px)", () => {
+                let crewTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#crew-masonry-wrapper",
+                        start: "top top", // Pin at exactly the top of the viewport
+                        end: "+=300%", 
+                        scrub: 1.5, 
+                        pin: true,
+                        invalidateOnRefresh: true
+                    }
+                });
+
+                crewTl.fromTo(".crew-grid", 
+                    { scale: 1, transformOrigin: "center center" }, 
+                    { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
+                );
+
+                crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"], 
+                    { opacity: 1 }, 
+                    { opacity: 0, ease: "power2.inOut", duration: 1.5 },
+                    "<"
+                );
+
+                gsap.set(".crew-overlay", { opacity: 1 });
+                gsap.set(".crew-text-reveal", { opacity: 1, y: 0 });
+
+                crewTl.to(".crew-text-reveal", { opacity: 0, duration: 1.2, ease: "power2.out" }, "<");
+                crewTl.to(".crew-overlay", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "<");
+                crewTl.to({}, {duration: 0.2});
             });
 
-            // Start grid at normal scale, zoom in to center image dynamically
-            crewTl.fromTo(".crew-grid", 
-                { scale: 1, transformOrigin: "center center" }, 
-                { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
-            );
+            // Desktop Configuration (Pin at center for balanced layout)
+            mm.add("(min-width: 769px)", () => {
+                let crewTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#crew-masonry-wrapper",
+                        start: "center center", // Pin at center of screen
+                        end: "+=300%", 
+                        scrub: 1.5, 
+                        pin: true,
+                        invalidateOnRefresh: true
+                    }
+                });
 
-            // Other elements in the grid and the title disappear as we zoom in
-            crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"], 
-                { opacity: 1 }, 
-                { opacity: 0, ease: "power2.inOut", duration: 1.5 },
-                "<"
-            );
+                crewTl.fromTo(".crew-grid", 
+                    { scale: 1, transformOrigin: "center center" }, 
+                    { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
+                );
 
-            // Ensure text and overlay start visible
-            gsap.set(".crew-overlay", { opacity: 1 });
-            gsap.set(".crew-text-reveal", { opacity: 1, y: 0 });
+                crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"], 
+                    { opacity: 1 }, 
+                    { opacity: 0, ease: "power2.inOut", duration: 1.5 },
+                    "<"
+                );
 
-            // Fade out the text and overlay smoothly as it zooms in
-            crewTl.to(".crew-text-reveal", { opacity: 0, duration: 1.2, ease: "power2.out" }, "<");
-            crewTl.to(".crew-overlay", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "<");
+                gsap.set(".crew-overlay", { opacity: 1 });
+                gsap.set(".crew-text-reveal", { opacity: 1, y: 0 });
 
-            crewTl.to({}, {duration: 0.2});
+                crewTl.to(".crew-text-reveal", { opacity: 0, duration: 1.2, ease: "power2.out" }, "<");
+                crewTl.to(".crew-overlay", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "<");
+                crewTl.to({}, {duration: 0.2});
+            });
         }
 
         // Initialize Hero Slideshow
