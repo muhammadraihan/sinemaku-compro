@@ -80,7 +80,7 @@
                         <div class="relative group/filter">
                             <div id="filter-year-trigger" class="px-6 py-2 flex flex-col items-center border-r border-brand-orange/20 cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-l-full">
                                 <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Release Year</span>
-                                <span id="selected-year" class="text-sm font-instrument italic text-brand-navy font-bold leading-none">Any</span>
+                                <span id="selected-year" class="text-sm font-sans text-brand-navy font-bold leading-none">Any</span>
                             </div>
                             <div id="filter-year-menu" class="absolute top-full left-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
                                 <div class="max-h-64 overflow-y-auto py-2">
@@ -99,7 +99,7 @@
                         <div class="relative group/filter">
                             <div id="filter-genre-trigger" class="px-6 py-2 flex flex-col items-center cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-r-full">
                                 <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Genre</span>
-                                <span id="selected-genre" class="text-sm font-instrument italic text-brand-navy font-bold leading-none">Any</span>
+                                <span id="selected-genre" class="text-sm font-sans text-brand-navy font-bold leading-none">Any</span>
                             </div>
                             <div id="filter-genre-menu" class="absolute top-full right-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
                                 <div class="max-h-64 overflow-y-auto py-2">
