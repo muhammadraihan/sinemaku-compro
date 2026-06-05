@@ -37,6 +37,13 @@
                 min-height: 105svh;
             }
         }
+
+        /* ── LIGHTBOX STYLES ── */
+        #crew-lightbox {
+            transition: opacity 0.4s ease;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
     </style>
 @endpush
 
@@ -196,14 +203,14 @@
                 @endphp
                 
                 <!-- Row 1 -->
-                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="{{ $top6[0]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[0]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[0]['role'] }}</span>
                     </div>
                 </div>
-                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="{{ $top6[1]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[1]['name'] }}</h3>
@@ -212,7 +219,7 @@
                 </div>
 
                 <!-- Row 2 (CENTER ROW) -->
-                <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="{{ $top6[2]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
@@ -232,7 +239,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="{{ $top6[3]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[3]['name'] }}</h3>
@@ -241,14 +248,14 @@
                 </div>
 
                 <!-- Row 3 -->
-                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="{{ $top6[4]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[4]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[4]['role'] }}</span>
                     </div>
                 </div>
-                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group">
+                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="{{ $top6[5]['img'] }}" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[5]['name'] }}</h3>
@@ -275,7 +282,7 @@
                     $patternIndex++;
                 @endphp
                 @foreach($chunk as $member)
-                    <div class="group {{ $isTwo ? 'col-span-6' : 'col-span-6 md:col-span-4' }} crew-h rounded-xl md:rounded-3xl overflow-hidden relative">
+                    <div class="group {{ $isTwo ? 'col-span-6' : 'col-span-6 md:col-span-4' }} crew-h rounded-xl md:rounded-3xl overflow-hidden relative crew-card cursor-pointer">
                         <img src="{{ $member['img'] }}" class="w-full h-full object-cover transition duration-700">
                         <div class="absolute bottom-0 left-0 w-full p-4 md:p-8 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                             <h3 class="font-sans text-white text-xl md:text-3xl font-bold uppercase tracking-tight">{{ $member['name'] }}</h3>
@@ -287,6 +294,31 @@
         </div>
         @endif
     </section>
+
+    <!-- Crew Photo Lightbox Markup -->
+    <div id="crew-lightbox" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/85 opacity-0 pointer-events-none">
+        <!-- Backdrop blank space for closing -->
+        <div id="crew-lightbox-backdrop" class="absolute inset-0 cursor-zoom-out"></div>
+        
+        <!-- Lightbox Content Container -->
+        <div id="crew-lightbox-content" class="relative max-w-[90vw] md:max-w-[85vw] max-h-[85vh] flex flex-col items-center justify-center z-10 scale-95 opacity-0 pointer-events-auto">
+            <!-- Close Button -->
+            <button id="crew-lightbox-close" class="absolute -top-12 right-0 md:-right-12 text-white/70 hover:text-white transition-colors duration-300 text-3xl font-bold cursor-pointer bg-transparent border-0 outline-none p-2 flex items-center justify-center z-20" aria-label="Close">
+                <span class="iconify" data-icon="material-symbols:close-rounded"></span>
+            </button>
+            
+            <!-- Image Frame -->
+            <div id="crew-lightbox-frame" class="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative bg-neutral-900 border border-white/10 flex items-center justify-center">
+                <img id="crew-lightbox-img" src="" alt="Crew Member" class="max-w-[90vw] md:max-w-[85vw] max-h-[75vh] md:max-h-[70vh] object-contain">
+                
+                <!-- Info Overlay in Lightbox -->
+                <div class="absolute bottom-0 left-0 w-full p-4 md:p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end pointer-events-none">
+                    <h3 id="crew-lightbox-name" class="font-sans text-white text-lg md:text-2xl font-bold uppercase tracking-tight leading-none"></h3>
+                    <span id="crew-lightbox-role" class="font-serif text-brand-orange text-xs md:text-sm italic mt-1.5 leading-none"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @include('components.footer')
 
@@ -424,6 +456,441 @@
                 disableOnInteraction: false,
             },
             speed: 500, 
+        });
+
+        // ─── CREW LIGHTBOX PREVIEW SYSTEM ─────────────────────────────
+        const crewLightbox = document.getElementById('crew-lightbox');
+        const crewLightboxContent = document.getElementById('crew-lightbox-content');
+        const crewLightboxFrame = document.getElementById('crew-lightbox-frame');
+        const crewLightboxImg = document.getElementById('crew-lightbox-img');
+        const crewLightboxName = document.getElementById('crew-lightbox-name');
+        const crewLightboxRole = document.getElementById('crew-lightbox-role');
+        const crewLightboxClose = document.getElementById('crew-lightbox-close');
+        const crewLightboxBackdrop = document.getElementById('crew-lightbox-backdrop');
+
+        let activeOriginalImg = null;
+        let isLightboxAnimating = false;
+        let currentScale = 1;
+        let translateX = 0;
+        let translateY = 0;
+        
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let startTranslateX = 0, startTranslateY = 0;
+
+        function lockScroll() {
+            document.documentElement.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Custom function to check if document has vertical scrollbar
+        function hasScrollbar() {
+            return document.documentElement.scrollHeight > window.innerHeight;
+        }
+
+        // Get scrollbar width to prevent layout shift
+        function getScrollbarWidth() {
+            return window.innerWidth - document.documentElement.clientWidth;
+        }
+
+        function unlockScroll() {
+            document.documentElement.style.overflow = '';
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        }
+
+        // Open Lightbox
+        function openLightbox(card) {
+            if (isLightboxAnimating) return;
+            isLightboxAnimating = true;
+
+            const img = card.querySelector('img');
+            const h3 = card.querySelector('h3');
+            const span = card.querySelector('span');
+
+            if (!img || !h3 || !span) {
+                isLightboxAnimating = false;
+                return;
+            }
+
+            activeOriginalImg = img;
+            const originalRect = img.getBoundingClientRect();
+
+            // Set content
+            crewLightboxImg.src = img.src;
+            crewLightboxName.innerText = h3.innerText;
+            crewLightboxRole.innerText = span.innerText;
+
+            // Reset zoom & translation state
+            currentScale = 1;
+            translateX = 0;
+            translateY = 0;
+            gsap.set(crewLightboxFrame, { scale: 1, x: 0, y: 0 });
+            gsap.set(crewLightboxImg, { scale: 1, x: 0, y: 0 });
+            crewLightboxFrame.style.cursor = 'pointer';
+
+            // Calculate target centered dimensions mathematically to avoid layout reflow lag
+            const naturalW = img.naturalWidth || originalRect.width;
+            const naturalH = img.naturalHeight || originalRect.height;
+            const aspect = naturalW / naturalH;
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+
+            // Max dimensions matching Tailwind: max-w-[90vw] md:max-w-[85vw], max-h-[75vh] md:max-h-[70vh]
+            const maxW = vw > 768 ? vw * 0.85 : vw * 0.90;
+            const maxH = vw > 768 ? vh * 0.70 : vh * 0.75;
+
+            let targetW = maxW;
+            let targetH = targetW / aspect;
+
+            if (targetH > maxH) {
+                targetH = maxH;
+                targetW = targetH * aspect;
+            }
+
+            // Top and left coordinates relative to viewport
+            const targetTop = (vh - targetH) / 2;
+            const targetLeft = (vw - targetW) / 2;
+
+            // Set dimensions explicitly on image element so flex parent aligns perfectly
+            crewLightboxImg.style.width = `${targetW}px`;
+            crewLightboxImg.style.height = `${targetH}px`;
+            crewLightboxImg.style.aspectRatio = `${naturalW} / ${naturalH}`;
+
+            // Prevent layout shift: add padding equivalent to scrollbar width
+            if (hasScrollbar()) {
+                const sbWidth = getScrollbarWidth();
+                document.body.style.paddingRight = `${sbWidth}px`;
+            }
+
+            // Initialize Lightbox Layout (hidden overlay but flex & opacity 0)
+            gsap.set(crewLightbox, { display: 'flex', opacity: 0, pointerEvents: 'auto' });
+            gsap.set(crewLightboxContent, { opacity: 0, scale: 0.98 });
+            gsap.set(crewLightboxImg, { opacity: 0 });
+
+            // Create temporary animation clone
+            const clone = document.createElement('img');
+            clone.src = img.src;
+            clone.style.position = 'fixed';
+            clone.style.top = originalRect.top + 'px';
+            clone.style.left = originalRect.left + 'px';
+            clone.style.width = originalRect.width + 'px';
+            clone.style.height = originalRect.height + 'px';
+            clone.style.objectFit = 'cover';
+            clone.style.borderRadius = window.getComputedStyle(card).borderRadius || '24px';
+            clone.style.zIndex = '1001';
+            clone.style.pointerEvents = 'none';
+            document.body.appendChild(clone);
+
+            // Lock page scroll
+            lockScroll();
+
+            // Fade original image slightly to indicate focus
+            img.style.opacity = '0.2';
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    // Show final lightbox layout, delete clone
+                    gsap.set(crewLightboxImg, { opacity: 1 });
+                    clone.remove();
+                    isLightboxAnimating = false;
+                }
+            });
+
+            // Fade in black backdrop
+            tl.to(crewLightbox, {
+                opacity: 1,
+                duration: 0.45,
+                ease: 'power2.out'
+            }, 0);
+
+            // Animate clone bounds to target centered layout bounds (using exponential ease for buttery smoothness)
+            tl.to(clone, {
+                top: targetTop,
+                left: targetLeft,
+                width: targetW,
+                height: targetH,
+                borderRadius: '24px',
+                duration: 0.6,
+                ease: 'power4.out'
+            }, 0);
+
+            // Fade in borders and text information frame smoothly during transition (instead of popping)
+            tl.to(crewLightboxContent, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.5,
+                ease: 'power3.out'
+            }, 0.1);
+        }
+
+        // Close Lightbox
+        function closeLightbox() {
+            if (isLightboxAnimating || !activeOriginalImg) return;
+            isLightboxAnimating = true;
+
+            // Reset scale/translations first to get clean, unzoomed target bounding rect
+            gsap.set(crewLightboxFrame, { scale: 1, x: 0, y: 0 });
+            
+            const originalRect = activeOriginalImg.getBoundingClientRect();
+            
+            // Re-calculate target rect mathematically to ensure precise dimensions and positions without reflow
+            const naturalW = activeOriginalImg.naturalWidth || originalRect.width;
+            const naturalH = activeOriginalImg.naturalHeight || originalRect.height;
+            const aspect = naturalW / naturalH;
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const maxW = vw > 768 ? vw * 0.85 : vw * 0.90;
+            const maxH = vw > 768 ? vh * 0.70 : vh * 0.75;
+            let targetW = maxW;
+            let targetH = targetW / aspect;
+            if (targetH > maxH) {
+                targetH = maxH;
+                targetW = targetH * aspect;
+            }
+            const targetTop = (vh - targetH) / 2;
+            const targetLeft = (vw - targetW) / 2;
+
+            // Create temporary animation clone
+            const clone = document.createElement('img');
+            clone.src = crewLightboxImg.src;
+            clone.style.position = 'fixed';
+            clone.style.top = targetTop + 'px';
+            clone.style.left = targetLeft + 'px';
+            clone.style.width = targetW + 'px';
+            clone.style.height = targetH + 'px';
+            clone.style.objectFit = 'cover';
+            clone.style.borderRadius = '24px';
+            clone.style.zIndex = '1001';
+            clone.style.pointerEvents = 'none';
+            document.body.appendChild(clone);
+
+            // Hide actual lightbox content image
+            gsap.set(crewLightboxImg, { opacity: 0 });
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    clone.remove();
+                    gsap.set(crewLightbox, { display: 'none', pointerEvents: 'none' });
+                    
+                    // Reset opacity of original image in grid
+                    if (activeOriginalImg) {
+                        activeOriginalImg.style.opacity = '';
+                        activeOriginalImg = null;
+                    }
+                    
+                    // Unlock page scroll
+                    unlockScroll();
+                    isLightboxAnimating = false;
+                }
+            });
+
+            // Fade out the surrounding text overlay and container borders
+            tl.to(crewLightboxContent, {
+                opacity: 0,
+                scale: 0.98,
+                duration: 0.35,
+                ease: 'power2.in'
+            }, 0);
+
+            // Fade out black backdrop
+            tl.to(crewLightbox, {
+                opacity: 0,
+                duration: 0.45,
+                ease: 'power2.inOut'
+            }, 0);
+
+            // Animate clone bounds back to original grid bounds
+            tl.to(clone, {
+                top: originalRect.top,
+                left: originalRect.left,
+                width: originalRect.width,
+                height: originalRect.height,
+                borderRadius: window.getComputedStyle(activeOriginalImg.parentElement).borderRadius || '24px',
+                duration: 0.55,
+                ease: 'power3.inOut'
+            }, 0);
+        }
+
+        // Attach click listener to each crew card
+        document.querySelectorAll('.crew-card').forEach(card => {
+            card.addEventListener('click', () => {
+                openLightbox(card);
+            });
+        });
+
+        // Close on backdrop click, close button click, or Escape key
+        crewLightboxBackdrop.addEventListener('click', closeLightbox);
+        crewLightboxClose.addEventListener('click', closeLightbox);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && crewLightbox.style.display === 'flex') {
+                closeLightbox();
+            }
+        });
+
+        // ─── ZOOM ON SCROLL/WHEEL SYSTEM ──────────────────────────────
+        // Apply zoom to the entire Frame (crewLightboxFrame) to zoom all components (image + frame) without cropping
+        crewLightbox.addEventListener('wheel', (e) => {
+            if (crewLightbox.style.display !== 'flex') return;
+            e.preventDefault();
+            
+            const zoomSpeed = 0.08;
+            if (e.deltaY < 0) {
+                // Zoom In
+                currentScale = Math.min(4, currentScale + zoomSpeed);
+            } else {
+                // Zoom Out
+                currentScale = Math.max(1, currentScale - zoomSpeed);
+            }
+            
+            // Adjust cursor based on scale
+            crewLightboxFrame.style.cursor = currentScale > 1 ? 'grab' : 'pointer';
+
+            // If we zoomed back to 1, reset x/y panning offsets
+            if (currentScale === 1) {
+                translateX = 0;
+                translateY = 0;
+            } else {
+                // Keep translations in check if we downscale
+                const maxPanX = (currentScale - 1) * crewLightboxFrame.offsetWidth / 2;
+                const maxPanY = (currentScale - 1) * crewLightboxFrame.offsetHeight / 2;
+                translateX = Math.max(-maxPanX, Math.min(maxPanX, translateX));
+                translateY = Math.max(-maxPanY, Math.min(maxPanY, translateY));
+            }
+            
+            gsap.to(crewLightboxFrame, {
+                scale: currentScale,
+                x: translateX,
+                y: translateY,
+                duration: 0.25,
+                ease: "power2.out"
+            });
+        }, { passive: false });
+
+        // ─── TOUCH PINCH TO ZOOM SYSTEM ───────────────────────────────
+        let touchStartDist = 0;
+        let initialScale = 1;
+
+        crewLightbox.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2 && crewLightbox.style.display === 'flex') {
+                touchStartDist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                initialScale = currentScale;
+            }
+        });
+
+        crewLightbox.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2 && touchStartDist > 0 && crewLightbox.style.display === 'flex') {
+                e.preventDefault();
+                const dist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                const factor = dist / touchStartDist;
+                currentScale = Math.max(1, Math.min(4, initialScale * factor));
+                
+                crewLightboxFrame.style.cursor = currentScale > 1 ? 'grab' : 'pointer';
+                
+                if (currentScale === 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                
+                gsap.to(crewLightboxFrame, {
+                    scale: currentScale,
+                    x: translateX,
+                    y: translateY,
+                    duration: 0.1,
+                    ease: "none"
+                });
+            }
+        }, { passive: false });
+
+        crewLightbox.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) {
+                touchStartDist = 0;
+            }
+        });
+
+        // ─── DRAG & PAN ZOOMED IMAGE SYSTEM ───────────────────────────
+        // Mouse drag panning on the whole frame
+        crewLightboxFrame.addEventListener('mousedown', (e) => {
+            if (currentScale > 1 && crewLightbox.style.display === 'flex') {
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                startTranslateX = translateX;
+                startTranslateY = translateY;
+                crewLightboxFrame.style.cursor = 'grabbing';
+                e.preventDefault();
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging && currentScale > 1 && crewLightbox.style.display === 'flex') {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                
+                const maxPanX = (currentScale - 1) * crewLightboxFrame.offsetWidth / 2;
+                const maxPanY = (currentScale - 1) * crewLightboxFrame.offsetHeight / 2;
+                
+                translateX = Math.max(-maxPanX, Math.min(maxPanX, startTranslateX + dx));
+                translateY = Math.max(-maxPanY, Math.min(maxPanY, startTranslateY + dy));
+
+                gsap.to(crewLightboxFrame, {
+                    x: translateX,
+                    y: translateY,
+                    duration: 0.1,
+                    ease: "power2.out"
+                });
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                crewLightboxFrame.style.cursor = currentScale > 1 ? 'grab' : 'pointer';
+            }
+        });
+
+        // Touch drag panning on the whole frame
+        let touchStartX = 0, touchStartY = 0;
+        let isTouchDragging = false;
+
+        crewLightboxFrame.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1 && currentScale > 1 && crewLightbox.style.display === 'flex') {
+                isTouchDragging = true;
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                startTranslateX = translateX;
+                startTranslateY = translateY;
+            }
+        });
+
+        crewLightboxFrame.addEventListener('touchmove', (e) => {
+            if (isTouchDragging && e.touches.length === 1 && currentScale > 1 && crewLightbox.style.display === 'flex') {
+                const dx = e.touches[0].clientX - touchStartX;
+                const dy = e.touches[0].clientY - touchStartY;
+                
+                const maxPanX = (currentScale - 1) * crewLightboxFrame.offsetWidth / 2;
+                const maxPanY = (currentScale - 1) * crewLightboxFrame.offsetHeight / 2;
+                
+                translateX = Math.max(-maxPanX, Math.min(maxPanX, startTranslateX + dx));
+                translateY = Math.max(-maxPanY, Math.min(maxPanY, startTranslateY + dy));
+
+                gsap.to(crewLightboxFrame, {
+                    x: translateX,
+                    y: translateY,
+                    duration: 0.1,
+                    ease: "power2.out"
+                });
+            }
+        });
+
+        crewLightboxFrame.addEventListener('touchend', () => {
+            isTouchDragging = false;
         });
 
         // The cursor and interactive BG are now managed globally by layouts/app.blade.php
