@@ -39,6 +39,7 @@ Route::get('/serial', [FrontEndController::class, 'series'])->name('series');
 Route::get('/detail-serial/{slug}', [FrontEndController::class, 'detailseries'])->name('detail-series');
 Route::get('/tv', [FrontEndController::class, 'television'])->name('tv');
 Route::get('/detail-tv/{slug}', [FrontEndController::class, 'detailtelevision'])->name('detail-tv');
+Route::get('/detail-television/{slug}', [FrontEndController::class, 'detailtelevision'])->name('detail-television');
 Route::get('/shops', [FrontEndController::class, 'shop'])->name('shop');
 Route::get('/detail-shops/{slug}', [FrontEndController::class, 'detailshop'])->name('detail-shop');
 Route::get('/detail-categories/{slug}', [FrontEndController::class, 'detailkategori'])->name('detail-kategori');

@@ -28,8 +28,5 @@ class FilmGallery extends Model
         return $this->belongsTo(Episode::class, 'episode_uuid', 'uuid');
     }
 
-    public static function uuid($uuid)
-    {
-        return self::where('uuid', $uuid)->first();
-    }
+
 }

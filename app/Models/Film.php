@@ -29,7 +29,8 @@ class Film extends Model
         'link',
         'link_watch',
         'photo',
-        'poster'
+        'poster',
+        'slug'
     ];
 
     public function Categories(){

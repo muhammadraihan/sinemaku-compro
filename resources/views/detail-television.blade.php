@@ -200,11 +200,31 @@
                             @foreach($films->episodes as $ep)
                             <div class="flex flex-col sm:flex-row gap-6 items-start pb-8 border-b border-[#131b4d]/10 group reveal-rec">
                                 <!-- Thumbnail -->
+                                @php
+                                    $ep_video_id = '';
+                                    if (!empty($ep->link_trailer) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|embed\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $ep->link_trailer, $match)) {
+                                        $ep_video_id = $match[1];
+                                    }
+                                @endphp
+
+                                @if($ep_video_id)
+                                <div onclick="openHeroTrailer('{{ $ep_video_id }}')" 
+                                     class="w-full sm:w-48 aspect-[16/10] rounded-xl bg-[#F36B21] overflow-hidden shrink-0 relative cursor-pointer hover:scale-105 transition-transform duration-300 group/thumb shadow-lg">
+                                    @if($ep->photo)
+                                        <img src="{{ asset('photo/' . $ep->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" alt="{{ $ep->title }}">
+                                    @endif
+                                    <!-- Play Icon Overlay -->
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300">
+                                        <span class="iconify w-12 h-12 text-white drop-shadow-md" data-icon="mdi:play-circle"></span>
+                                    </div>
+                                </div>
+                                @else
                                 <div class="w-full sm:w-48 aspect-[16/10] rounded-xl bg-[#F36B21] overflow-hidden shrink-0 relative">
                                     @if($ep->photo)
                                         <img src="{{ asset('photo/' . $ep->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" alt="{{ $ep->title }}">
                                     @endif
                                 </div>
+                                @endif
                                 
                                 <!-- Details -->
                                 <div class="flex-1 pt-1">
@@ -212,9 +232,15 @@
                                     <p class="font-sans text-xs md:text-sm text-[#131b4d]/70 leading-relaxed mb-4 max-w-lg">
                                         {{ Str::limit($ep->sinopsis, 150) }}
                                     </p>
-                                    <a href="#" class="font-sans text-[10px] tracking-wider uppercase font-bold text-[#F36B21] hover:text-[#131b4d] transition-colors inline-block mt-2">
-                                        Where to Watch
-                                    </a>
+                                    @if(!empty($ep->link))
+                                        <a href="{{ $ep->link }}" target="_blank" class="font-sans text-[10px] tracking-wider uppercase font-bold text-[#F36B21] hover:text-[#131b4d] transition-colors inline-block mt-2">
+                                            Watch Episode
+                                        </a>
+                                    @else
+                                        <a href="#" class="font-sans text-[10px] tracking-wider uppercase font-bold text-[#F36B21] hover:text-[#131b4d] transition-colors inline-block mt-2">
+                                            Where to Watch
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
