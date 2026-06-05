@@ -15,10 +15,13 @@ class EventKategoriController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $data = EventKategori::get();
+            $data = EventKategori::orderBy('order_num', 'asc')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('drag_handle', function ($row) {
+                    return '<span class="drag-handle" style="cursor: move;"><i class="fal fa-arrows-alt"></i></span>';
+                })
                 ->addColumn('events_count', function ($row) {
                     return $row->events()->count();
                 })
@@ -29,7 +32,10 @@ class EventKategoriController extends Controller
                 })
                 ->removeColumn('id')
                 ->removeColumn('uuid')
-                ->rawColumns(['action'])
+                ->rawColumns(['drag_handle', 'action'])
+                ->setRowId(function($row) {
+                    return $row->uuid;
+                })
                 ->make(true);
         }
 
@@ -92,5 +98,19 @@ class EventKategoriController extends Controller
 
         toastr()->success('Kategori Event Deleted', 'Success');
         return redirect()->route('event-kategori.index');
+    }
+
+    public function reorder(Request $request)
+    {
+        $order = $request->input('order');
+        if (is_array($order)) {
+            foreach ($order as $index => $uuid) {
+                EventKategori::where('uuid', $uuid)->update([
+                    'order_num' => $index + 1
+                ]);
+            }
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false], 400);
     }
 }

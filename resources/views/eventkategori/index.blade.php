@@ -4,6 +4,20 @@
 
 @section('css')
 <link rel="stylesheet" media="screen, print" href="{{asset('css/datagrid/datatables/datatables.bundle.css')}}">
+<style>
+    .ui-sortable-helper {
+        display: table;
+        background: #fff !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .drag-handle {
+        color: #888;
+        padding: 5px;
+    }
+    .drag-handle:hover {
+        color: #333;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -30,6 +44,7 @@
                     <table id="datatable" class="table table-bordered table-hover table-striped w-100">
                         <thead>
                             <tr>
+                                <th width="40px"></th>
                                 <th>No</th>
                                 <th>Nama Kategori</th>
                                 <th>Slug</th>
@@ -67,20 +82,53 @@
 
 @section('js')
 <script src="{{asset('js/datagrid/datatables/datatables.bundle.js')}}"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script>
     $(document).ready(function(){
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
 
         var table = $('#datatable').DataTable({
-            "processing": true, "serverSide": true, "responsive": true, "order": [[0, "asc"]],
+            "processing": true,
+            "serverSide": true,
+            "responsive": true,
+            "ordering": false,
             "ajax": { url: '{{route('event-kategori.index')}}', type: "GET", dataType: 'json', error: function(data){ console.log(data); } },
             "columns": [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'drag_handle', name: 'drag_handle', orderable: false, searchable: false, class: 'text-center'},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'name', name: 'name'},
                 {data: 'slug', name: 'slug'},
                 {data: 'events_count', name: 'events_count', orderable: false, searchable: false},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
-            ]
+            ],
+            "drawCallback": function(settings) {
+                $("#datatable tbody").sortable({
+                    handle: '.drag-handle',
+                    update: function(event, ui) {
+                        var order = [];
+                        $("#datatable tbody tr").each(function(index, element) {
+                            var id = $(element).attr('id');
+                            if(id) {
+                                order.push(id);
+                            }
+                        });
+                        $.ajax({
+                            url: '{{ route("event-kategori.reorder") }}',
+                            type: 'POST',
+                            data: {
+                                order: order
+                            },
+                            success: function(response) {
+                                toastr.success('Urutan kategori berhasil diperbarui', 'Success');
+                                table.ajax.reload(null, false);
+                            },
+                            error: function(xhr) {
+                                toastr.error('Gagal memperbarui urutan kategori', 'Error');
+                            }
+                        });
+                    }
+                });
+            }
         });
 
         $('#datatable').on('click', '.delete-btn[data-url]', function(e) {

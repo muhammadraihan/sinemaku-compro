@@ -500,7 +500,7 @@ class FrontEndController extends Controller
     {
         $event = Event::with('eventKategori')->orderBy('tgl_event', 'DESC')->get();
         $kategorishop = KategoriShop::all();
-        $event_kategori = EventKategori::all();
+        $event_kategori = EventKategori::orderBy('order_num', 'asc')->get();
 
         return view('event', compact('event', 'kategorishop', 'event_kategori'));
     }

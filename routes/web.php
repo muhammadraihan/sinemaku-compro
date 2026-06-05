@@ -107,5 +107,6 @@ Route::group(['prefix' => 'backoffice', 'middleware' => ['auth']], function () {
     // Article categories
     Route::resource('artikel-kategori', 'ArtikelKategoriController');
     // Event categories
+    Route::post('event-kategori/reorder', 'EventKategoriController@reorder')->name('event-kategori.reorder');
     Route::resource('event-kategori', 'EventKategoriController');
 });

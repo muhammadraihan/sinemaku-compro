@@ -16,6 +16,7 @@ class EventKategori extends Model
     protected $fillable = [
         'name',
         'slug',
+        'order_num',
         'created_by',
         'edited_by',
     ];

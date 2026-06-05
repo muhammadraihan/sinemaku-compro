@@ -53,7 +53,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        $eventKategoris = EventKategori::all()->pluck('name', 'uuid');
+        $eventKategoris = EventKategori::orderBy('order_num', 'asc')->pluck('name', 'uuid');
         return view('event.create', compact('eventKategoris'));
     }
 
@@ -152,7 +152,7 @@ class EventController extends Controller
     public function edit($id)
     {
         $event          = Event::uuid($id);
-        $eventKategoris = EventKategori::all()->pluck('name', 'uuid');
+        $eventKategoris = EventKategori::orderBy('order_num', 'asc')->pluck('name', 'uuid');
         return view('event.edit', compact('event', 'eventKategoris'));
     }
 
