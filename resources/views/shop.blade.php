@@ -6,8 +6,11 @@
 
 {{-- 1. CSS STYLES (Copied/Adapted from detail-event for consistency) --}}
 <style>
-    body {
+    html {
         background-color: #FFF6F9 !important;
+    }
+    body {
+        background-color: transparent !important;
         color: #22397A !important;
     }
 

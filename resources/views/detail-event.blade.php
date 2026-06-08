@@ -6,8 +6,11 @@
 
 {{-- 1. CSS STYLES (Fine-tuned for the simple layout) --}}
 <style>
-    body {
+    html {
         background-color: #FFF6F9 !important;
+    }
+    body {
+        background-color: transparent !important;
         color: #22397A !important;
     }
 

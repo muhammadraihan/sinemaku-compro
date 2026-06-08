@@ -11,7 +11,15 @@
 {{-- ============================================================
 EDITORIAL WRAPPER
 ============================================================ --}}
-<div id="editorial-wrapper" class="text-brand-navy relative w-full font-sans min-h-screen bg-[#FFF6F9]">
+<style>
+    html {
+        background-color: #FFF6F9 !important;
+    }
+    body {
+        background-color: transparent !important;
+    }
+</style>
+<div id="editorial-wrapper" class="text-brand-navy relative w-full font-sans min-h-screen">
     
 
 
