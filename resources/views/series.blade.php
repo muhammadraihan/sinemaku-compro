@@ -246,27 +246,35 @@ STYLES & SCRIPTS
         /* ── WIDE vs NARROW card title & metadata sizing ── */
         /* Judul */
         .catalogue-card.is-wide .card-title {
-            font-size: clamp(2rem, 4vw, 4.5rem);
-            max-width: 65%;
+            font-size: clamp(1.4rem, 4vw, 4.5rem);
+            max-width: 60%;
+            word-break: keep-all;
+            overflow-wrap: normal;
         }
         .catalogue-card.is-narrow .card-title {
-            font-size: clamp(1.4rem, 3vw, 2.6rem);
-            max-width: 90%;
+            font-size: clamp(0.75rem, 2.2vw, 2.2rem);
+            max-width: 100%;
+            word-break: keep-all;
+            overflow-wrap: normal;
         }
         .catalogue-card .card-title {
-            font-size: clamp(1.5rem, 3vw, 3rem);
-            max-width: 80%;
+            font-size: clamp(0.85rem, 2.8vw, 2.6rem);
+            max-width: 60%;
+            word-break: keep-all;
+            overflow-wrap: normal;
         }
 
         /* Judul Posisi */
         .catalogue-card .card-title-block {
             bottom: 2rem;
             left: 2rem;
+            right: auto;
         }
         .catalogue-card.is-narrow .card-title-block {
-            top: 2rem;
+            top: 1.5rem;
             bottom: auto;
-            left: 2rem;
+            left: 1.25rem;
+            right: 1.25rem;
         }
 
         /* Metadata (Overlay Kanan) */
@@ -279,6 +287,31 @@ STYLES & SCRIPTS
         }
         .catalogue-card .meta-value {
             font-size: 14px;
+        }
+
+        /* ── Overlap Prevention on Hover (is-narrow cards) ── */
+        .catalogue-card.is-narrow .card-meta-container {
+            width: 85% !important;
+            padding: 1.25rem !important;
+        }
+        .catalogue-card.is-narrow .card-meta-container .flex-col.gap-4 {
+            gap: 0.5rem !important;
+        }
+        .catalogue-card.is-narrow .meta-label {
+            font-size: 8px !important;
+        }
+        .catalogue-card.is-narrow .meta-value {
+            font-size: 11px !important;
+        }
+        .catalogue-card.is-narrow .card-meta-container .flex-col > div:nth-child(3),
+        .catalogue-card.is-narrow .card-meta-container .flex-col > div:nth-child(4) {
+            display: none !important;
+        }
+
+        @media (max-height: 600px), (max-width: 991px) {
+            .catalogue-card.is-narrow .card-meta-container {
+                display: none !important;
+            }
         }
 
         /* ── CINEMATIC HERO IMAGE BOX ── */
