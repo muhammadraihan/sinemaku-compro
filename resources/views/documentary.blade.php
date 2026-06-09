@@ -243,75 +243,133 @@ STYLES & SCRIPTS
             border-color: rgba(37, 34, 94, 0.15);
         }
 
-        /* ── WIDE vs NARROW card title & metadata sizing ── */
-        /* Judul */
-        .catalogue-card.is-wide .card-title {
-            font-size: clamp(1.4rem, 4vw, 4.5rem);
-            max-width: 60%;
-            word-break: keep-all;
-            overflow-wrap: normal;
-        }
-        .catalogue-card.is-narrow .card-title {
-            font-size: clamp(0.75rem, 2.2vw, 2.2rem);
-            max-width: 100%;
-            word-break: keep-all;
-            overflow-wrap: normal;
-        }
-        .catalogue-card .card-title {
-            font-size: clamp(0.85rem, 2.8vw, 2.6rem);
-            max-width: 60%;
-            word-break: keep-all;
-            overflow-wrap: normal;
+        /* ── CONTAINER-BASED SCALING FOR CARDS ── */
+        .catalogue-card {
+            container-type: inline-size;
         }
 
-        /* Judul Posisi */
+        /* 1. Base State (Very narrow containers, e.g. < 350px width / narrow mobile cards) */
         .catalogue-card .card-title-block {
-            bottom: 2rem;
-            left: 2rem;
-            right: auto;
+            position: absolute !important;
+            top: 16px !important;
+            left: 16px !important;
+            right: 16px !important;
+            bottom: auto !important;
+            transform: none !important;
         }
-        .catalogue-card.is-narrow .card-title-block {
-            top: 1.5rem;
-            bottom: auto;
-            left: 1.25rem;
-            right: 1.25rem;
+        
+        .catalogue-card .card-title-block span {
+            font-size: 10px !important;
+            margin-bottom: 6px !important;
+            line-height: 1 !important;
         }
 
-        /* Metadata (Overlay Kanan) */
+        .catalogue-card .card-title {
+            font-size: 32px !important;
+            max-width: 90% !important;
+            line-height: 0.85 !important;
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+        }
+
         .catalogue-card .card-meta-container {
-            justify-content: flex-end; /* Rata bawah untuk semua (wide & narrow) */
-            padding-bottom: 2rem;      /* Jarak dari bawah sejajar judul (bawah) */
+            position: absolute !important;
+            top: auto !important;
+            bottom: 16px !important;
+            right: 16px !important;
+            left: 16px !important;
+            width: auto !important;
+            max-width: none !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-end !important;
+            align-items: flex-end !important;
+            text-align: right !important;
         }
+
+        .catalogue-card .card-meta-container .flex-col.gap-4 {
+            gap: 10px !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
         .catalogue-card .meta-label {
-            font-size: 11px;
-        }
-        .catalogue-card .meta-value {
-            font-size: 14px;
-        }
-
-        /* ── Overlap Prevention on Hover (is-narrow cards) ── */
-        .catalogue-card.is-narrow .card-meta-container {
-            width: 85% !important;
-            padding: 1.25rem !important;
-        }
-        .catalogue-card.is-narrow .card-meta-container .flex-col.gap-4 {
-            gap: 0.5rem !important;
-        }
-        .catalogue-card.is-narrow .meta-label {
             font-size: 8px !important;
-        }
-        .catalogue-card.is-narrow .meta-value {
-            font-size: 11px !important;
-        }
-        .catalogue-card.is-narrow .card-meta-container .flex-col > div:nth-child(3),
-        .catalogue-card.is-narrow .card-meta-container .flex-col > div:nth-child(4) {
-            display: none !important;
+            line-height: 1.2 !important;
         }
 
-        @media (max-height: 600px), (max-width: 991px) {
-            .catalogue-card.is-narrow .card-meta-container {
-                display: none !important;
+        .catalogue-card .meta-value {
+            font-size: 10px !important;
+            line-height: 1.2 !important;
+        }
+
+        /* 2. Medium State (Containers 350px - 549px width / wide mobile & narrow desktop cards) */
+        @container (min-width: 350px) {
+            .catalogue-card .card-title-block {
+                top: 24px !important;
+                left: 24px !important;
+                right: 24px !important;
             }
+            .catalogue-card .card-title-block span {
+                font-size: 12px !important;
+                margin-bottom: 8px !important;
+            }
+            .catalogue-card .card-title {
+                font-size: 48px !important;
+            }
+            .catalogue-card .card-meta-container {
+                bottom: 24px !important;
+                right: 24px !important;
+                left: 24px !important;
+            }
+            .catalogue-card .card-meta-container .flex-col.gap-4 {
+                gap: 12px !important;
+            }
+            .catalogue-card .meta-label {
+                font-size: 9px !important;
+            }
+            .catalogue-card .meta-value {
+                font-size: 11px !important;
+            }
+        }
+
+        /* 3. Large State (Containers >= 550px width / wide desktop cards) */
+        @container (min-width: 550px) {
+            .catalogue-card .card-title-block {
+                top: 32px !important;
+                left: 32px !important;
+                right: 32px !important;
+            }
+            .catalogue-card .card-title-block span {
+                font-size: 14px !important;
+                margin-bottom: 10px !important;
+            }
+            .catalogue-card .card-title {
+                font-size: 70px !important;
+            }
+            .catalogue-card .card-meta-container {
+                bottom: 32px !important;
+                right: 32px !important;
+                left: 32px !important;
+            }
+            .catalogue-card .card-meta-container .flex-col.gap-4 {
+                gap: 16px !important;
+            }
+            .catalogue-card .meta-label {
+                font-size: 10px !important;
+            }
+            .catalogue-card .meta-value {
+                font-size: 13px !important;
+            }
+        }
+
+        /* Hover & Play Visibility states */
+        .catalogue-card.is-playing .card-meta-container {
+            opacity: 1 !important;
+        }
+        .catalogue-card.is-playing > div[class*="bg-gradient-to-t"] {
+            opacity: 0 !important;
         }
 
         /* ── CINEMATIC HERO IMAGE BOX ── */
@@ -737,6 +795,7 @@ STYLES & SCRIPTS
                             iframeContainer.classList.add('opacity-100');
                         };
                         isTrailerPlaying = true;
+                        card.classList.add('is-playing');
                     }
                 }
 
@@ -754,6 +813,7 @@ STYLES & SCRIPTS
                         iframeContainer = null;
                     }
                     isTrailerPlaying = false;
+                    card.classList.remove('is-playing');
                 }
 
                 // Expose stop function to stop from other cards
