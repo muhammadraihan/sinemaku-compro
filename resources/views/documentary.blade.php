@@ -243,134 +243,113 @@ STYLES & SCRIPTS
             border-color: rgba(37, 34, 94, 0.15);
         }
 
-        /* ── CONTAINER-BASED SCALING FOR CARDS ── */
-        .catalogue-card {
-            container-type: inline-size;
+        /* ── WIDE vs NARROW card title & metadata sizing ── */
+        /* Judul */
+        .catalogue-card.is-wide .card-title {
+            font-size: clamp(1.4rem, 4vw, 4.5rem);
+            max-width: 60%;
+            word-break: keep-all;
+            overflow-wrap: normal;
         }
-
-        /* 1. Base State (Very narrow containers, e.g. < 350px width / narrow mobile cards) */
-        .catalogue-card .card-title-block {
-            position: absolute !important;
-            top: 16px !important;
-            left: 16px !important;
-            right: 16px !important;
-            bottom: auto !important;
-            transform: none !important;
+        .catalogue-card.is-narrow .card-title {
+            font-size: clamp(0.75rem, 2.2vw, 2.2rem);
+            max-width: 100%;
+            word-break: keep-all;
+            overflow-wrap: normal;
         }
-        
-        .catalogue-card .card-title-block span {
-            font-size: 10px !important;
-            margin-bottom: 6px !important;
-            line-height: 1 !important;
-        }
-
         .catalogue-card .card-title {
-            font-size: 32px !important;
-            max-width: 90% !important;
-            line-height: 0.85 !important;
-            word-break: keep-all !important;
-            overflow-wrap: normal !important;
+            font-size: clamp(0.85rem, 2.8vw, 2.6rem);
+            max-width: 60%;
+            word-break: keep-all;
+            overflow-wrap: normal;
         }
 
+        /* Judul Posisi */
+        /* Wide: judul bawah-kiri, meta kanan → batasi lebar agar tidak bertabrakan */
+        .catalogue-card .card-title-block {
+            bottom: 2rem;
+            left: 2rem;
+            right: auto;
+            /* Max width = 100% - meta width (33%) - padding kanan meta (1.25rem) - gap (0.5rem) */
+            max-width: calc(60% - 1rem);
+        }
+        /* Narrow: judul atas-kiri, meta bawah-kanan → batasi tinggi agar tidak bertabrakan */
+        .catalogue-card.is-narrow .card-title-block {
+            top: 1.5rem;
+            bottom: auto;
+            left: 1.25rem;
+            right: 1.25rem;
+            max-width: 100%;
+            /* Batasi tinggi maksimum agar tidak melampaui area meta di bawah */
+            max-height: 45%;
+            overflow: hidden;
+        }
+
+        /* Metadata (Overlay Kanan) */
+        /* Wide: meta panel di kanan, lebar max 38% agar tidak makan area judul di kiri */
         .catalogue-card .card-meta-container {
-            position: absolute !important;
+            justify-content: flex-end;
+            width: 38% !important;
+            padding: 1.25rem !important;
+            max-height: calc(100% - 1.5rem);
+            overflow: hidden;
+        }
+        /* Narrow: meta di bawah, lebar lebih besar karena posisi berbeda */
+        .catalogue-card.is-narrow .card-meta-container {
             top: auto !important;
-            bottom: 16px !important;
-            right: 16px !important;
-            left: 16px !important;
-            width: auto !important;
-            max-width: none !important;
-            padding: 0 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: flex-end !important;
-            align-items: flex-end !important;
-            text-align: right !important;
+            bottom: 0 !important;
+            width: 85% !important;
+            max-height: 52%;
         }
-
         .catalogue-card .card-meta-container .flex-col.gap-4 {
-            gap: 10px !important;
-            display: flex !important;
-            flex-direction: column !important;
+            gap: 0.5rem !important;
         }
-
         .catalogue-card .meta-label {
             font-size: 8px !important;
-            line-height: 1.2 !important;
         }
-
+        /* Nilai meta: bisa turun baris agar tidak overflow ke area judul */
         .catalogue-card .meta-value {
-            font-size: 10px !important;
-            line-height: 1.2 !important;
+            font-size: 11px !important;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
         }
 
-        /* 2. Medium State (Containers 350px - 549px width / wide mobile & narrow desktop cards) */
-        @container (min-width: 350px) {
-            .catalogue-card .card-title-block {
-                top: 24px !important;
-                left: 24px !important;
-                right: 24px !important;
-            }
-            .catalogue-card .card-title-block span {
-                font-size: 12px !important;
-                margin-bottom: 8px !important;
-            }
-            .catalogue-card .card-title {
-                font-size: 48px !important;
-            }
+        @media (max-width: 767px) {
             .catalogue-card .card-meta-container {
-                bottom: 24px !important;
-                right: 24px !important;
-                left: 24px !important;
+                padding: 0.75rem !important;
+                padding-bottom: 1.25rem !important;
             }
             .catalogue-card .card-meta-container .flex-col.gap-4 {
-                gap: 12px !important;
+                gap: 0.3rem !important;
             }
             .catalogue-card .meta-label {
-                font-size: 9px !important;
+                font-size: 7.5px !important;
+                line-height: 1.1 !important;
             }
             .catalogue-card .meta-value {
-                font-size: 11px !important;
-            }
-        }
-
-        /* 3. Large State (Containers >= 550px width / wide desktop cards) */
-        @container (min-width: 550px) {
-            .catalogue-card .card-title-block {
-                top: 32px !important;
-                left: 32px !important;
-                right: 32px !important;
-            }
-            .catalogue-card .card-title-block span {
-                font-size: 14px !important;
-                margin-bottom: 10px !important;
-            }
-            .catalogue-card .card-title {
-                font-size: 70px !important;
-            }
-            .catalogue-card .card-meta-container {
-                bottom: 32px !important;
-                right: 32px !important;
-                left: 32px !important;
-            }
-            .catalogue-card .card-meta-container .flex-col.gap-4 {
-                gap: 16px !important;
-            }
-            .catalogue-card .meta-label {
                 font-size: 10px !important;
-            }
-            .catalogue-card .meta-value {
-                font-size: 13px !important;
+                line-height: 1.2 !important;
+                word-break: break-word;
+                overflow-wrap: break-word;
             }
         }
 
-        /* Hover & Play Visibility states */
-        .catalogue-card.is-playing .card-meta-container {
+        /* Mirror hover state when trailer is playing (for touch/drag) */
+        .catalogue-card.trailer-active .card-meta-container {
             opacity: 1 !important;
         }
-        .catalogue-card.is-playing > div[class*="bg-gradient-to-t"] {
+        .catalogue-card.trailer-active .card-title-block {
+            transform: translateY(-0.5rem);
+        }
+        .catalogue-card.trailer-active .film-card-img {
+            opacity: 0.6;
+            transform: scale(1.05);
+        }
+        .catalogue-card.trailer-active > div[class*="bg-gradient-to-t"] {
             opacity: 0 !important;
         }
+
 
         /* ── CINEMATIC HERO IMAGE BOX ── */
         .hero-img-box {
@@ -795,7 +774,7 @@ STYLES & SCRIPTS
                             iframeContainer.classList.add('opacity-100');
                         };
                         isTrailerPlaying = true;
-                        card.classList.add('is-playing');
+                        card.classList.add('trailer-active');
                     }
                 }
 
@@ -813,7 +792,7 @@ STYLES & SCRIPTS
                         iframeContainer = null;
                     }
                     isTrailerPlaying = false;
-                    card.classList.remove('is-playing');
+                    card.classList.remove('trailer-active');
                 }
 
                 // Expose stop function to stop from other cards
