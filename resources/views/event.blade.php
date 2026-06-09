@@ -33,11 +33,8 @@ EDITORIAL WRAPPER
 
         <!-- Filter Pills -->
         <div class="flex flex-wrap justify-center gap-3 mb-24">
-            @foreach($event_kategori->where('order_num', 1) as $cat)
-                <button class="filter-pill" data-category="{{ $cat->uuid }}">{{ strtoupper($cat->name) }}</button>
-            @endforeach
             <button class="filter-pill active" data-category="all">ALL</button>
-            @foreach($event_kategori->where('order_num', '!=', 1) as $cat)
+            @foreach($event_kategori as $cat)
                 <button class="filter-pill" data-category="{{ $cat->uuid }}">{{ strtoupper($cat->name) }}</button>
             @endforeach
         </div>
