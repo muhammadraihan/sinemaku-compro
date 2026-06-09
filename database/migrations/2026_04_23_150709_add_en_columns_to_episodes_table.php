@@ -14,8 +14,8 @@ class AddEnColumnsToEpisodesTable extends Migration
     public function up()
     {
         Schema::table('episodes', function (Blueprint $table) {
-            $table->string('title_en')->nullable()->after('title');
-            $table->text('sinopsis_en')->nullable()->after('sinopsis');
+            // $table->string('title_en')->nullable()->after('title');
+            // $table->text('sinopsis_en')->nullable()->after('sinopsis');
         });
     }
 
