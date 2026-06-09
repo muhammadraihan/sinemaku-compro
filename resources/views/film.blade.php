@@ -285,7 +285,7 @@ STYLES & SCRIPTS
             top: auto !important;
             bottom: 0 !important;
             width: 85% !important;
-            max-height: 52%;
+            max-height: 58%;
         }
         .catalogue-card .card-meta-container .flex-col.gap-4 {
             gap: 0.5rem !important;
@@ -299,6 +299,16 @@ STYLES & SCRIPTS
             word-break: break-word;
             overflow-wrap: break-word;
             white-space: normal;
+        }
+
+        /* Desktop only (≥1280px): perbesar sedikit agar lebih terbaca */
+        @media (min-width: 1280px) {
+            .catalogue-card .meta-label {
+                font-size: clamp(9px, 0.9vw, 11px) !important;
+            }
+            .catalogue-card .meta-value {
+                font-size: clamp(12px, 1.1vw, 14px) !important;
+            }
         }
 
         @media (max-width: 767px) {
