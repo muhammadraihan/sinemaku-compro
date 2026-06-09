@@ -184,7 +184,7 @@
                                 {{-- Title & Year --}}
                                 {{-- .is-wide   → judul besar (kiri bawah) --}}
                                 {{-- .is-narrow  → judul compact (kiri atas) --}}
-                                <div class="card-title-block absolute z-20 pointer-events-none transition-transform duration-500 group-hover:-translate-y-2">
+                                <div class="card-title-block absolute z-20 pointer-events-auto select-none transition-transform duration-500 group-hover:-translate-y-2">
                                     <span class="block font-sans text-[10px] md:text-xs text-white/60 mb-2 tracking-widest">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }}</span>
                                     <h4 class="card-title font-peckham leading-[0.85] text-white uppercase">
                                         @i18n($item, 'title')
@@ -689,50 +689,58 @@ STYLES & SCRIPTS
             document.querySelectorAll('.catalogue-card').forEach(card => {
                 let iframeContainer = null;
                 let timeoutId = null;
+                let isTrailerPlaying = false;
 
-                card.addEventListener('mouseenter', () => {
+                function startTrailer() {
+                    if (isTrailerPlaying) return;
                     const trailerUrl = card.getAttribute('data-trailer');
                     const videoId = getYouTubeId(trailerUrl);
                     if (videoId) {
-                        timeoutId = setTimeout(() => {
-                            iframeContainer = document.createElement('div');
-                            iframeContainer.className = 'absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-[5] opacity-0 transition-opacity duration-700 bg-brand-navy';
-                            
-                            const rect = card.getBoundingClientRect();
-                            let iframeW = rect.width;
-                            let iframeH = iframeW * (9/16);
-                            if (iframeH < rect.height) {
-                                iframeH = rect.height;
-                                iframeW = iframeH * (16/9);
+                        // Stop all other playing trailers first
+                        document.querySelectorAll('.catalogue-card').forEach(otherCard => {
+                            if (otherCard !== card && otherCard.stopTrailer) {
+                                otherCard.stopTrailer();
                             }
-                            
-                            const finalW = iframeW * 1.6;
-                            const finalH = iframeH * 1.6;
+                        });
 
-                            const iframe = document.createElement('iframe');
-                            iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 max-w-none'; 
-                            iframe.style.width = finalW + 'px';
-                            iframe.style.height = finalH + 'px';
-                            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=${videoId}&playsinline=1&modestbranding=1&disablekb=1`;
-                            iframe.allow = 'autoplay; encrypted-media';
-                            iframe.frameBorder = '0';
-                            
-                            iframeContainer.appendChild(iframe);
-                            
-                            const img = card.querySelector('.film-card-img');
-                            if(img) {
-                                img.parentNode.insertBefore(iframeContainer, img.nextSibling);
-                            }
+                        iframeContainer = document.createElement('div');
+                        iframeContainer.className = 'absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-[5] opacity-0 transition-opacity duration-700 bg-brand-navy';
+                        
+                        const rect = card.getBoundingClientRect();
+                        let iframeW = rect.width;
+                        let iframeH = iframeW * (9/16);
+                        if (iframeH < rect.height) {
+                            iframeH = rect.height;
+                            iframeW = iframeH * (16/9);
+                        }
+                        
+                        const finalW = iframeW * 1.6;
+                        const finalH = iframeH * 1.6;
 
-                            iframe.onload = () => {
-                                iframeContainer.classList.remove('opacity-0');
-                                iframeContainer.classList.add('opacity-100');
-                            };
-                        }, 400); 
+                        const iframe = document.createElement('iframe');
+                        iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 max-w-none'; 
+                        iframe.style.width = finalW + 'px';
+                        iframe.style.height = finalH + 'px';
+                        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=${videoId}&playsinline=1&modestbranding=1&disablekb=1`;
+                        iframe.allow = 'autoplay; encrypted-media';
+                        iframe.frameBorder = '0';
+                        
+                        iframeContainer.appendChild(iframe);
+                        
+                        const img = card.querySelector('.film-card-img');
+                        if(img) {
+                            img.parentNode.insertBefore(iframeContainer, img.nextSibling);
+                        }
+
+                        iframe.onload = () => {
+                            iframeContainer.classList.remove('opacity-0');
+                            iframeContainer.classList.add('opacity-100');
+                        };
+                        isTrailerPlaying = true;
                     }
-                });
+                }
 
-                card.addEventListener('mouseleave', () => {
+                function stopTrailer() {
                     if (timeoutId) clearTimeout(timeoutId);
                     if (iframeContainer) {
                         iframeContainer.classList.remove('opacity-100');
@@ -744,6 +752,99 @@ STYLES & SCRIPTS
                             }
                         }, 700);
                         iframeContainer = null;
+                    }
+                    isTrailerPlaying = false;
+                }
+
+                // Expose stop function to stop from other cards
+                card.stopTrailer = stopTrailer;
+
+                // Desktop Hover
+                card.addEventListener('mouseenter', () => {
+                    if (window.matchMedia('(hover: hover)').matches) {
+                        timeoutId = setTimeout(startTrailer, 400);
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (window.matchMedia('(hover: hover)').matches) {
+                        stopTrailer();
+                    }
+                });
+
+                // Mobile Touch Support
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let touchMoved = false;
+                let lastTouchTime = 0;
+                let touchTimeoutId = null;
+                let wasPlayingBeforeTouch = false;
+
+                card.addEventListener('touchstart', (e) => {
+                    lastTouchTime = Date.now();
+                    wasPlayingBeforeTouch = isTrailerPlaying;
+                    
+                    const touch = e.touches[0];
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                    touchMoved = false;
+
+                    // Trigger the trailer after a short 150ms touch hold (even if scrolling/dragging)
+                    if (touchTimeoutId) clearTimeout(touchTimeoutId);
+                    touchTimeoutId = setTimeout(() => {
+                        startTrailer();
+                    }, 150);
+                }, { passive: true });
+
+                card.addEventListener('touchmove', (e) => {
+                    const touch = e.touches[0];
+                    if (Math.abs(touch.clientX - touchStartX) > 10 || Math.abs(touch.clientY - touchStartY) > 10) {
+                        touchMoved = true;
+                    }
+                }, { passive: true });
+
+                card.addEventListener('touchend', () => {
+                    // Prevent trailer play if it was a very quick swipe/flick (less than 150ms)
+                    if (Date.now() - lastTouchTime < 150) {
+                        if (touchTimeoutId) {
+                            clearTimeout(touchTimeoutId);
+                            touchTimeoutId = null;
+                        }
+                    }
+                }, { passive: true });
+
+                card.addEventListener('touchcancel', () => {
+                    if (touchTimeoutId) {
+                        clearTimeout(touchTimeoutId);
+                        touchTimeoutId = null;
+                    }
+                }, { passive: true });
+
+                card.addEventListener('click', (e) => {
+                    const isTouchClick = (Date.now() - lastTouchTime < 1000) || (e.pointerType === 'touch');
+
+                    if (isTouchClick) {
+                        if (touchTimeoutId) {
+                            clearTimeout(touchTimeoutId);
+                            touchTimeoutId = null;
+                        }
+
+                        if (touchMoved) return; // Scrolling: do not navigate
+
+                        if (e.target.closest('.card-title-block')) {
+                            // Tapping title text always navigates immediately
+                            return;
+                        }
+
+                        // Tapping the card background
+                        if (wasPlayingBeforeTouch) {
+                            // Already playing before this touch: navigate on second tap
+                            return;
+                        } else {
+                            // First tap: prevent navigation and ensure trailer plays
+                            e.preventDefault();
+                            startTrailer();
+                        }
                     }
                 });
             });
