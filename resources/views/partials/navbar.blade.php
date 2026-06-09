@@ -42,10 +42,10 @@ FULLSCREEN MENU OVERLAY
                     ]
                 ],
                 ['title' => 'EVENT', 'url' => '/events', 'i18n' => 'menu_events'],
-                ['title' => 'MERCH', 'url' => '/shops', 'i18n' => 'menu_merch'],
-                ['title' => 'COMMUNITY', 'url' => '/memberships', 'i18n' => 'menu_community'],
+                ['title' => 'MERCH', 'url' => '/shop', 'i18n' => 'menu_merch'],
+                ['title' => 'COMMUNITY', 'url' => '/membership', 'i18n' => 'menu_community'],
                 ['title' => 'ARTICLE', 'url' => '/article', 'i18n' => 'menu_articles'],
-                ['title' => 'CAREER', 'url' => '/career', 'i18n' => 'menu_careers'],
+                ['title' => 'CAREER', 'url' => '/careers', 'i18n' => 'menu_careers'],
             ];
         @endphp
 

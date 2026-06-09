@@ -866,6 +866,9 @@ video {
 .mt-8 {
   margin-top: 2rem;
 }
+.mt-auto {
+  margin-top: auto;
+}
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -1643,10 +1646,6 @@ video {
 }
 .bg-\[\#F36B21\]\/20 {
   background-color: rgb(243 107 33 / 0.2);
-}
-.bg-\[\#FFF6F9\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 246 249 / var(--tw-bg-opacity));
 }
 .bg-\[\#fafafa\] {
   --tw-bg-opacity: 1;
@@ -2492,6 +2491,10 @@ video {
 }
 .drop-shadow-2xl {
   --tw-drop-shadow: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.drop-shadow-md {
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .drop-shadow-sm {
@@ -4107,6 +4110,9 @@ body {
 .group:hover .group-hover\:text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.group\/thumb:hover .group-hover\/thumb\:opacity-100 {
+  opacity: 1;
 }
 .group:hover .group-hover\:opacity-0 {
   opacity: 0;

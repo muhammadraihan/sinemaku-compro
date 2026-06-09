@@ -43,13 +43,13 @@ $isHomepage = request()->is('/');
                 @php
                     $navItems = [
                         ['name' => 'Home', 'path' => '/', 'description' => 'Return to homepage'],
-                        ['name' => 'Films', 'path' => '/movies', 'description' => 'Explore our cinematic works'],
+                        ['name' => 'Films', 'path' => '/films', 'description' => 'Explore our cinematic works'],
                         ['name' => 'Series', 'path' => '/series', 'description' => 'Long-form storytelling'],
                         ['name' => 'Shop', 'path' => '/shop', 'description' => 'Exclusive merchandise'],
-                        ['name' => 'Articles', 'path' => '/articles', 'description' => 'Stories and insights'],
+                        ['name' => 'Articles', 'path' => '/article', 'description' => 'Stories and insights'],
                         ['name' => 'Events', 'path' => '/events', 'description' => 'Premieres and screenings'],
                         ['name' => 'Membership', 'path' => '/membership', 'description' => 'Join our inner circle'],
-                        ['name' => 'Careers', 'path' => '/jobs', 'description' => 'Join our creative team'],
+                        ['name' => 'Careers', 'path' => '/careers', 'description' => 'Join our creative team'],
                     ];
                 @endphp
                 <div class="grid grid-cols-1 xl:grid-cols-12 gap-16 items-center">
