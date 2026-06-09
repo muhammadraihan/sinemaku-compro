@@ -47,12 +47,12 @@ Route::get('/article', [FrontEndController::class, 'articles'])->name('articles'
 Route::get('/detail-article/{slug}', [FrontEndController::class, 'detailarticles'])->name('detail-articles');
 Route::get('/events', [FrontEndController::class, 'event'])->name('event');
 Route::get('/detail-events/{slug}', [FrontEndController::class, 'detailevent'])->name('detail-event');
-Route::get('/memberships', [FrontEndController::class, 'membership'])->name('frontend.membership');
-Route::post('/memberships/register', [App\Http\Controllers\MembershipAuthController::class, 'register'])->name('membership.register');
-Route::get('/memberships/register', function() { return redirect()->route('frontend.membership'); });
-Route::post('/memberships/login', [App\Http\Controllers\MembershipAuthController::class, 'login'])->name('membership.login');
-Route::get('/memberships/login', function() { return redirect()->route('frontend.membership'); });
-Route::post('/memberships/logout', [App\Http\Controllers\MembershipAuthController::class, 'logout'])->name('membership.logout');
+Route::get('/membership', [FrontEndController::class, 'membership'])->name('frontend.membership');
+Route::post('/membership/register', [App\Http\Controllers\MembershipAuthController::class, 'register'])->name('membership.register');
+Route::get('/membership/register', function() { return redirect()->route('frontend.membership'); });
+Route::post('/membership/login', [App\Http\Controllers\MembershipAuthController::class, 'login'])->name('membership.login');
+Route::get('/membership/login', function() { return redirect()->route('frontend.membership'); });
+Route::post('/membership/logout', [App\Http\Controllers\MembershipAuthController::class, 'logout'])->name('membership.logout');
 Route::get('/careers', [FrontEndController::class, 'careers'])->name('careers');
 Route::get('/detail-careers/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
 Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
