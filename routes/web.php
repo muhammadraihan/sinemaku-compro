@@ -40,8 +40,8 @@ Route::get('/detail-serial/{slug}', [FrontEndController::class, 'detailseries'])
 Route::get('/tv', [FrontEndController::class, 'television'])->name('tv');
 Route::get('/detail-tv/{slug}', [FrontEndController::class, 'detailtelevision'])->name('detail-tv');
 Route::get('/detail-television/{slug}', [FrontEndController::class, 'detailtelevision'])->name('detail-television');
-Route::get('/shops', [FrontEndController::class, 'shop'])->name('shop');
-Route::get('/detail-shops/{slug}', [FrontEndController::class, 'detailshop'])->name('detail-shop');
+Route::get('/shop', [FrontEndController::class, 'shop'])->name('shop');
+Route::get('/detail-shop/{slug}', [FrontEndController::class, 'detailshop'])->name('detail-shop');
 Route::get('/detail-categories/{slug}', [FrontEndController::class, 'detailkategori'])->name('detail-kategori');
 Route::get('/article', [FrontEndController::class, 'articles'])->name('articles');
 Route::get('/detail-article/{slug}', [FrontEndController::class, 'detailarticles'])->name('detail-articles');
@@ -53,8 +53,8 @@ Route::get('/memberships/register', function() { return redirect()->route('front
 Route::post('/memberships/login', [App\Http\Controllers\MembershipAuthController::class, 'login'])->name('membership.login');
 Route::get('/memberships/login', function() { return redirect()->route('frontend.membership'); });
 Route::post('/memberships/logout', [App\Http\Controllers\MembershipAuthController::class, 'logout'])->name('membership.logout');
-Route::get('/career', [FrontEndController::class, 'careers'])->name('careers');
-Route::get('/detail-career/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
+Route::get('/careers', [FrontEndController::class, 'careers'])->name('careers');
+Route::get('/detail-careers/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
 Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
 Route::get('/documentary', [FrontEndController::class, 'documentary'])->name('documentary');
 Route::get('/detail-documentary/{slug}', [FrontEndController::class, 'detaildocumentary'])->name('detail-documentary');
