@@ -54,7 +54,7 @@
 
     <!-- 1. EDITORIAL HERO SECTION -->
     <section id="hero-section" class="relative w-full h-[100svh] overflow-hidden z-10 bg-brand-navy">
-        
+
         <!-- Background Slideshow -->
         <div class="absolute inset-0 swiper hero-swiper">
             <div class="swiper-wrapper">
@@ -65,10 +65,20 @@
                     </div>
                     @endforeach
                 @else
-                    <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                @endif
+                <div class="swiper-slide h-full">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide h-full">
+                    <img src="https://images.unsplash.com/photo-1781688702733-46388bfe456b?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                </div>
+                <div class="swiper-slide h-full">
+                    <img src="https://images.unsplash.com/photo-1781688455304-51321d40d483?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                </div>
+                </div>
+                <div class="swiper-slide h-full">
+                    <img src="https://images.unsplash.com/photo-1781688609148-8314c3f96e93?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                </div>
+            @endif
             </div>
 
             <!-- Intensive Editorial Orange Overlays -->
@@ -83,7 +93,7 @@
                 <h1 class="hero-reveal flex flex-col items-center gap-y-4 pointer-events-none drop-shadow-sm text-center md:grid md:grid-cols-[max-content_max-content] md:gap-x-6 md:gap-y-1 md:items-baseline md:text-left">
                     <!-- Row 1: HERE Comes -->
                     <span class="font-peckham text-[10vw] md:text-[9.5vw] text-white uppercase leading-[0.75] tracking-tighter md:text-right">HERE</span>
-                    
+
                     <span class="font-serif not-italic text-[10vw] md:text-[9.5vw] text-white leading-[0.75]">Comes</span>
 
                     <!-- Row 2: (Empty), The FUN. -->
@@ -101,9 +111,10 @@
     <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
     <section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
         <!-- Top Metadata -->
-        <div class="flex justify-between items-start mb-16">
-            <span class="font-peckham text-sm md:text-base tracking-[0.25em] uppercase font-bold text-brand-orange">
-                01 — Misi
+        <div class="w-full flex flex-col items-center text-center">
+            <div class="max-w-xl">
+            <span class="font-peckham text-2xl md:text-3xl text-brand-navy uppercase block mb-8 tracking-tighter">
+                Misi
             </span>
         </div>
 
@@ -114,22 +125,22 @@
                     $headingId = $settings['about_identity_heading'] ?? 'SINEMAKU PICTURES hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.';
                     $words = explode(' ', $headingId);
                 @endphp
-                
+
                 <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                     @php
                         $rawText = $settings['about_identity_heading'] ?? '[p]SINEMAKU[/p] [p]PICTURES[/p] [s]hadir untuk[/s] [s]memberdayakan[/s] [p]GENERASI[/p] [s]baru[/s] [p]PENCERITA[/p] [s]dan[/s] [s]mengubah[/s] [p]LANSKAP[/p] [s]perfilman Indonesia.[/s]';
-                        
+
                         // Parse [p] tags
                         $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
                             return '<span class="font-peckham text-[6.5vw] sm:text-[5vw] md:text-[3vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                         }, $rawText);
-                        
+
                         // Parse [s] tags
                         $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
                             return '<span class="font-serif text-[7.5vw] sm:text-[6vw] md:text-[3.5vw] text-2xl text-[#8E95B7] leading-[1.1]">' . $matches[1] . '</span>';
                         }, $parsedText);
                     @endphp
-                    
+
                     {!! $parsedText !!}
                 </div>
             </h2>
@@ -184,24 +195,24 @@
 
                     if(count($crewMembers) === 0) {
                         $crewMembers = [
-                            ['img' => 'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=1000&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1601513445506-2ab0d4fb4229?q=80&w=1000&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1585150917027-eeb32aebbd3a?q=80&w=1000&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=1000&auto=format&fit=crop', 'name' => 'Crew', 'role' => 'Role']
+                            ['img' => 'https://images.unsplash.com/photo-1781690228999-297e5ff930e7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781690485576-85ff9fb088a0?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781690194004-5205b8bf5a6e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781689872169-52d6a3c5a479?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781690173139-375609a2e82e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781690083254-eab8c8e83e02?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role']
                         ];
                     }
-                    
+
                     $top6 = $crewMembers;
                     while(count($top6) < 6) {
                         $top6 = array_merge($top6, $crewMembers);
                     }
                     $top6 = array_slice($top6, 0, 6);
-                    
+
                     $rest = array_slice($crewMembers, 6);
                 @endphp
-                
+
                 <!-- Row 1 -->
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="{{ $top6[0]['img'] }}" class="w-full h-full object-cover transition duration-700">
@@ -226,7 +237,7 @@
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[2]['role'] }}</span>
                     </div>
                 </div>
-                
+
                 <div class="crew-center-img col-span-12 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative shadow-2xl">
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
@@ -262,7 +273,7 @@
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[5]['role'] }}</span>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -299,18 +310,18 @@
     <div id="crew-lightbox" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/85 opacity-0 pointer-events-none">
         <!-- Backdrop blank space for closing -->
         <div id="crew-lightbox-backdrop" class="absolute inset-0 cursor-zoom-out"></div>
-        
+
         <!-- Lightbox Content Container -->
         <div id="crew-lightbox-content" class="relative max-w-[90vw] md:max-w-[85vw] max-h-[85vh] flex flex-col items-center justify-center z-10 scale-95 opacity-0 pointer-events-auto">
             <!-- Close Button -->
             <button id="crew-lightbox-close" class="absolute -top-12 right-0 md:-right-12 text-white/70 hover:text-white transition-colors duration-300 text-3xl font-bold cursor-pointer bg-transparent border-0 outline-none p-2 flex items-center justify-center z-20" aria-label="Close">
                 <span class="iconify" data-icon="material-symbols:close-rounded"></span>
             </button>
-            
+
             <!-- Image Frame -->
             <div id="crew-lightbox-frame" class="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative bg-neutral-900 border border-white/10 flex items-center justify-center">
                 <img id="crew-lightbox-img" src="" alt="Crew Member" class="max-w-[90vw] md:max-w-[85vw] max-h-[75vh] md:max-h-[70vh] object-contain">
-                
+
                 <!-- Info Overlay in Lightbox -->
                 <div class="absolute bottom-0 left-0 w-full p-4 md:p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end pointer-events-none">
                     <h3 id="crew-lightbox-name" class="font-sans text-white text-lg md:text-2xl font-bold uppercase tracking-tight leading-none"></h3>
@@ -387,20 +398,20 @@
                     scrollTrigger: {
                         trigger: "#crew-masonry-wrapper",
                         start: "top top", // Pin at exactly the top of the viewport
-                        end: "+=300%", 
-                        scrub: 1.5, 
+                        end: "+=300%",
+                        scrub: 1.5,
                         pin: true,
                         invalidateOnRefresh: true
                     }
                 });
 
-                crewTl.fromTo(".crew-grid", 
-                    { scale: 1, transformOrigin: "center center" }, 
+                crewTl.fromTo(".crew-grid",
+                    { scale: 1, transformOrigin: "center center" },
                     { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
                 );
 
-                crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"], 
-                    { opacity: 1 }, 
+                crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"],
+                    { opacity: 1 },
                     { opacity: 0, ease: "power2.inOut", duration: 1.5 },
                     "<"
                 );
@@ -419,20 +430,20 @@
                     scrollTrigger: {
                         trigger: "#crew-masonry-wrapper",
                         start: "center center", // Pin at center of screen
-                        end: "+=300%", 
-                        scrub: 1.5, 
+                        end: "+=300%",
+                        scrub: 1.5,
                         pin: true,
                         invalidateOnRefresh: true
                     }
                 });
 
-                crewTl.fromTo(".crew-grid", 
-                    { scale: 1, transformOrigin: "center center" }, 
+                crewTl.fromTo(".crew-grid",
+                    { scale: 1, transformOrigin: "center center" },
                     { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
                 );
 
-                crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"], 
-                    { opacity: 1 }, 
+                crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"],
+                    { opacity: 1 },
                     { opacity: 0, ease: "power2.inOut", duration: 1.5 },
                     "<"
                 );
@@ -452,10 +463,10 @@
             fadeEffect: { crossFade: true },
             loop: true,
             autoplay: {
-                delay: 5000,
+                delay: 1800,
                 disableOnInteraction: false,
             },
-            speed: 500, 
+            speed: 500,
         });
 
         // ─── CREW LIGHTBOX PREVIEW SYSTEM ─────────────────────────────
@@ -473,7 +484,7 @@
         let currentScale = 1;
         let translateX = 0;
         let translateY = 0;
-        
+
         let isDragging = false;
         let startX = 0, startY = 0;
         let startTranslateX = 0, startTranslateY = 0;
@@ -631,9 +642,9 @@
 
             // Reset scale/translations first to get clean, unzoomed target bounding rect
             gsap.set(crewLightboxFrame, { scale: 1, x: 0, y: 0 });
-            
+
             const originalRect = activeOriginalImg.getBoundingClientRect();
-            
+
             // Re-calculate target rect mathematically to ensure precise dimensions and positions without reflow
             const naturalW = activeOriginalImg.naturalWidth || originalRect.width;
             const naturalH = activeOriginalImg.naturalHeight || originalRect.height;
@@ -672,13 +683,13 @@
                 onComplete: () => {
                     clone.remove();
                     gsap.set(crewLightbox, { display: 'none', pointerEvents: 'none' });
-                    
+
                     // Reset opacity of original image in grid
                     if (activeOriginalImg) {
                         activeOriginalImg.style.opacity = '';
                         activeOriginalImg = null;
                     }
-                    
+
                     // Unlock page scroll
                     unlockScroll();
                     isLightboxAnimating = false;
@@ -733,7 +744,7 @@
         crewLightbox.addEventListener('wheel', (e) => {
             if (crewLightbox.style.display !== 'flex') return;
             e.preventDefault();
-            
+
             const zoomSpeed = 0.08;
             if (e.deltaY < 0) {
                 // Zoom In
@@ -742,7 +753,7 @@
                 // Zoom Out
                 currentScale = Math.max(1, currentScale - zoomSpeed);
             }
-            
+
             // Adjust cursor based on scale
             crewLightboxFrame.style.cursor = currentScale > 1 ? 'grab' : 'pointer';
 
@@ -757,7 +768,7 @@
                 translateX = Math.max(-maxPanX, Math.min(maxPanX, translateX));
                 translateY = Math.max(-maxPanY, Math.min(maxPanY, translateY));
             }
-            
+
             gsap.to(crewLightboxFrame, {
                 scale: currentScale,
                 x: translateX,
@@ -790,14 +801,14 @@
                 );
                 const factor = dist / touchStartDist;
                 currentScale = Math.max(1, Math.min(4, initialScale * factor));
-                
+
                 crewLightboxFrame.style.cursor = currentScale > 1 ? 'grab' : 'pointer';
-                
+
                 if (currentScale === 1) {
                     translateX = 0;
                     translateY = 0;
                 }
-                
+
                 gsap.to(crewLightboxFrame, {
                     scale: currentScale,
                     x: translateX,
@@ -832,10 +843,10 @@
             if (isDragging && currentScale > 1 && crewLightbox.style.display === 'flex') {
                 const dx = e.clientX - startX;
                 const dy = e.clientY - startY;
-                
+
                 const maxPanX = (currentScale - 1) * crewLightboxFrame.offsetWidth / 2;
                 const maxPanY = (currentScale - 1) * crewLightboxFrame.offsetHeight / 2;
-                
+
                 translateX = Math.max(-maxPanX, Math.min(maxPanX, startTranslateX + dx));
                 translateY = Math.max(-maxPanY, Math.min(maxPanY, startTranslateY + dy));
 
@@ -873,10 +884,10 @@
             if (isTouchDragging && e.touches.length === 1 && currentScale > 1 && crewLightbox.style.display === 'flex') {
                 const dx = e.touches[0].clientX - touchStartX;
                 const dy = e.touches[0].clientY - touchStartY;
-                
+
                 const maxPanX = (currentScale - 1) * crewLightboxFrame.offsetWidth / 2;
                 const maxPanY = (currentScale - 1) * crewLightboxFrame.offsetHeight / 2;
-                
+
                 translateX = Math.max(-maxPanX, Math.min(maxPanX, startTranslateX + dx));
                 translateY = Math.max(-maxPanY, Math.min(maxPanY, startTranslateY + dy));
 
