@@ -113,7 +113,7 @@
         <!-- Top Metadata -->
         <div class="w-full flex flex-col items-center text-center">
             <div class="max-w-xl">
-            <span class="font-peckham text-2xl md:text-3xl text-brand-navy uppercase block mb-8 tracking-tighter">
+            <span class="font-peckham text-4xl md:text-3xl text-brand-navy uppercase block mb-10 tracking-tighter">
                 Misi
             </span>
         </div>
@@ -128,17 +128,22 @@
 
                 <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                     @php
-                        $rawText = $settings['about_identity_heading'] ?? '[p]SINEMAKU[/p] [p]PICTURES[/p] [s]hadir untuk[/s] [s]memberdayakan[/s] [p]GENERASI[/p] [s]baru[/s] [p]PENCERITA[/p] [s]dan[/s] [s]mengubah[/s] [p]LANSKAP[/p] [s]perfilman Indonesia.[/s]';
+                     $rawText ='[p]SINEMAKU PICTURES[/p] [s]Hadir Untuk Memberdayakan[/s] [s]GENERASI BARU PENCERITA[/s] [s]dan[/s] [s]Mengubah[/s] [s]Lanskap[/s] [s]PERFILMAN INDONESIA.[/s]';
 
-                        // Parse [p] tags
-                        $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                            return '<span class="font-peckham text-[6.5vw] sm:text-[5vw] md:text-[3vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
-                        }, $rawText);
+                    // Parse [ps] tags — Peckham tapi ukuran lebih kecil
+                    $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
+                        return '<span class="font-serif text-[4.5vw] sm:text-[2vw] md:text-[3.5vw] text-xl text-lg text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                    }, $rawText);
 
-                        // Parse [s] tags
-                        $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                            return '<span class="font-serif text-[7.5vw] sm:text-[6vw] md:text-[3.5vw] text-2xl text-[#8E95B7] leading-[1.1]">' . $matches[1] . '</span>';
-                        }, $parsedText);
+                    // Parse [p] tags
+                    $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
+                        return '<span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                    }, $parsedText);
+
+                    // Parse [s] tags
+                    $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
+                        return '<span class="font-serif text-[4.5vw] md:text-[2vw] text-[#8E95B7] leading-relaxed">' . $matches[1] . '</span>';
+                    }, $parsedText);
                     @endphp
 
                     {!! $parsedText !!}
@@ -158,9 +163,9 @@
                     @endphp
                     {{ strtoupper($studioLabel) }}
                 </span>
-                <p class="font-sans text-sm md:text-base font-light leading-relaxed text-brand-navy/70">
+                <p class="font-serif text-[4.5vw] md:text-[2vw] text-[#8E95B7] leading-relaxed text-brand-navy/70">
                     @php
-                        $studioBody = $settings['about_studio_body'] ?? 'Pelajari bagaimana Sinemaku beroperasi. Jelajahi identitas kami, pendekatan kami, dan peran kami dalam membina sineas muda untuk ekosistem film Indonesia.';
+                        $studioBody =  'Pelajari Bagaimana Sinemaku Beroperasi, Jelajahi Identitas kami, Pendekatan kami, dan Peran Kami Dalam Membina Sineas Muda Untuk Ekosistem Film Indonesia.';
                     @endphp
                     {{ $studioBody }}
                 </p>
@@ -171,8 +176,8 @@
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
     <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
         <div class="crew-title px-6 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
-            <span class="font-peckham text-sm md:text-base tracking-[0.25em] uppercase font-bold text-brand-orange">
-                02 — Crew
+            <span class="font-peckham text-4xl md:text-3xl text-[#8E95B7] uppercase block mb-10 tracking-tighter">
+                CREW
             </span>
         </div>
         <div class="crew-pin-container w-full flex flex-col items-center justify-center bg-black">

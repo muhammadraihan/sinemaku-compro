@@ -128,7 +128,7 @@ class FrontEndController extends Controller
         $judul = bts::selectRaw('distinct judul')->get();
         $film = Film::where('slug', $id)
                     ->orderBy('created_at', 'DESC')->get();
-        
+
         //SHOP
         $shopData = [
             'shop' => Shop::all()->random()->limit(1)->first(),
@@ -183,7 +183,7 @@ class FrontEndController extends Controller
                       if (str_contains($catName, 'series')) $route = 'detail-series';
                       if (str_contains($catName, 'documentary')) $route = 'detail-documentary';
                       if (str_contains($catName, 'television')) $route = 'detail-television';
-                      
+
                       return [
                           'slug'         => $f->slug,
                           'url'          => route($route, $f->slug),
@@ -309,7 +309,7 @@ class FrontEndController extends Controller
         $raw = Film::where('kategori', $kategori->uuid)->pluck('genre');
 
         $chipGenres = $raw
-            ->flatMap(fn ($s) => preg_split('/\s*,\s*/', (string) $s)) 
+            ->flatMap(fn ($s) => preg_split('/\s*,\s*/', (string) $s))
             ->map(fn ($g) => strtolower(trim($g)))
             ->filter()
             ->unique()
@@ -361,7 +361,7 @@ class FrontEndController extends Controller
 
         // --- [BARU] render sections dari shop.blade.php ---
         $sections = view('shop', $shopData)->renderSections();
-        $shopCollectionHtml = $sections['collection'] ?? ''; 
+        $shopCollectionHtml = $sections['collection'] ?? '';
 
         return view('detail-television', compact('films', 'all_film', 'kategorishop', 'bts', 'judul', 'film', 'shopCollectionHtml'));
     }
@@ -384,7 +384,7 @@ class FrontEndController extends Controller
             $raw = Film::where('kategori', $kategori->uuid)->pluck('genre');
 
             $chipGenres = $raw
-                ->flatMap(fn ($s) => preg_split('/\s*,\s*/', (string) $s)) 
+                ->flatMap(fn ($s) => preg_split('/\s*,\s*/', (string) $s))
                 ->map(fn ($g) => strtolower(trim($g)))
                 ->filter()
                 ->unique()
@@ -437,7 +437,7 @@ class FrontEndController extends Controller
 
         // --- [BARU] render sections dari shop.blade.php ---
         $sections = view('shop', $shopData)->renderSections();
-        $shopCollectionHtml = $sections['collection'] ?? ''; 
+        $shopCollectionHtml = $sections['collection'] ?? '';
 
         return view('detail-documentary', compact(
             'films', 'all_film', 'kategorishop', 'bts', 'judul', 'film', 'shopCollectionHtml'
@@ -448,8 +448,8 @@ class FrontEndController extends Controller
     {
         $shop = Shop::all()->random()->limit(1)->first();
         $kategorishop = KategoriShop::all();
-        $merchandise = Shop::selectRaw('distinct merchandise')->get();  
-        $all_merchandise = Shop::all();      
+        $merchandise = Shop::selectRaw('distinct merchandise')->get();
+        $all_merchandise = Shop::all();
         $kategorishop = KategoriShop::all();
 
         return view('shop', compact('shop', 'kategorishop', 'merchandise', 'all_merchandise', 'kategorishop'));
@@ -555,5 +555,5 @@ class FrontEndController extends Controller
 
         return view('bts', compact('bts', 'film', 'kategorishop', 'judul'));
     }
-    
+
 }
