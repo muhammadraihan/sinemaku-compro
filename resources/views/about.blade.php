@@ -113,7 +113,7 @@
         <!-- Top Metadata -->
         <div class="w-full flex flex-col items-center text-center">
             <div class="max-w-xl">
-            <span class="font-peckham text-4xl md:text-3xl text-brand-navy uppercase block mb-10 tracking-tighter">
+            <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-navy uppercase block mb-10 tracking-tighter">
                 Misi
             </span>
         </div>
@@ -137,7 +137,7 @@
 
                     // Parse [p] tags
                     $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $parsedText);
 
                     // Parse [s] tags
