@@ -113,7 +113,7 @@
         <!-- Top Metadata -->
         <div class="w-full flex flex-col items-center text-center">
             <div class="max-w-xl">
-            <span class="font-peckham text-4xl md:text-3xl text-brand-navy uppercase block mb-10 tracking-tighter">
+            <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-navy uppercase block mb-10 tracking-tighter">
                 Misi
             </span>
         </div>
@@ -132,17 +132,17 @@
 
                     // Parse [ps] tags — Peckham tapi ukuran lebih kecil
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
-                        return '<span class="font-serif text-[4.5vw] sm:text-[2vw] md:text-[3.5vw] text-xl text-lg text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-serif text-[4.5vw] sm:text-[3vw] md:text-[3.5vw] text-xl text-lg text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $rawText);
 
                     // Parse [p] tags
                     $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $parsedText);
 
                     // Parse [s] tags
                     $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                        return '<span class="font-serif text-[4.5vw] md:text-[2vw] text-[#8E95B7] leading-relaxed">' . $matches[1] . '</span>';
+                        return '<span class="font-serif text-[5.5vw] md:text-[3vw] text-[#8E95B7] leading-relaxed">' . $matches[1] . '</span>';
                     }, $parsedText);
                     @endphp
 
@@ -163,7 +163,7 @@
                     @endphp
                     {{ strtoupper($studioLabel) }}
                 </span>
-                <p class="font-serif text-[4.5vw] md:text-[2vw] text-[#8E95B7] leading-relaxed text-brand-navy/70">
+                <p class="font-serif text-[5.5vw] md:text-[3vw] text-[#8E95B7] leading-relaxed text-brand-navy/70">
                     @php
                         $studioBody =  'Pelajari Bagaimana Sinemaku Beroperasi, Jelajahi Identitas kami, Pendekatan kami, dan Peran Kami Dalam Membina Sineas Muda Untuk Ekosistem Film Indonesia.';
                     @endphp
@@ -220,14 +220,14 @@
 
                 <!-- Row 1 -->
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="{{ $top6[0]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781690228999-297e5ff930e7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[0]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[0]['role'] }}</span>
                     </div>
                 </div>
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="{{ $top6[1]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781690485576-85ff9fb088a0?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[1]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[1]['role'] }}</span>
@@ -236,7 +236,7 @@
 
                 <!-- Row 2 (CENTER ROW) -->
                 <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="{{ $top6[2]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781690194004-5205b8bf5a6e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[2]['role'] }}</span>
@@ -247,7 +247,7 @@
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
-                    <img src="{{ asset($secondaryImg) }}" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1781689872169-52d6a3c5a479?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100">
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
                         <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
@@ -256,7 +256,7 @@
                 </div>
 
                 <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="{{ $top6[3]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781690173139-375609a2e82e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[3]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[3]['role'] }}</span>
@@ -265,7 +265,7 @@
 
                 <!-- Row 3 -->
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="{{ $top6[4]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781690083254-eab8c8e83e02?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[4]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[4]['role'] }}</span>
