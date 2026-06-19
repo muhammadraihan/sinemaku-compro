@@ -149,17 +149,17 @@
 
                     // Parse [ps] tags — Peckham tapi ukuran lebih kecil
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
-                        return '<span class="font-peckham text-[4.5vw] sm:text-[3vw] md:text-[3vw] text-xl text-lg text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[4.5vw] sm:text-[2vw] md:text-[2.5vw] text-xl text-lg text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $rawText);
 
                     // Parse [p] tags
                     $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3.5vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $parsedText);
 
                     // Parse [s] tags
                     $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                        return '<span class="font-serif text-[5.5vw] md:text-[3vw] text-brand-orange leading-relaxed">' . $matches[1] . '</span>';
+                        return '<span class="font-serif text-[5.5vw] md:text-[2.5vw] text-brand-orange leading-relaxed">' . $matches[1] . '</span>';
                     }, $parsedText);
                     @endphp
 
@@ -199,17 +199,17 @@
 
                     // Parse [ps]
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
-                        return '<span class="font-peckham text-[4.5vw] sm:text-[3vw] md:text-[2.5vw] text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[4.5vw] sm:text-[2vw] md:text-[2.5vw] text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $rawText);
 
                     // Parse [p]
                     $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3.5vw] text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3vw] text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $parsedText);
 
                     // Parse [s]
                     $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                        return '<span class="font-serif text-[5.5vw] md:text-[3vw] text-brand-orange leading-relaxed">' . $matches[1] . '</span>';
+                        return '<span class="font-serif text-[5.5vw] md:text-[2.5vw] text-brand-orange leading-relaxed">' . $matches[1] . '</span>';
                     }, $parsedText);
                 @endphp
 
