@@ -237,7 +237,7 @@
                             $id = str_replace('about_team_image_', '', $k);
                             return [
                                 'img'   => str_starts_with($v, 'http') ? $v : asset($v),
-                                'name'  => $settings["about_team_name_$id"] ?? 'Sinemaku Crew',
+                                'name'  => $settings["about_team_name_$id"] ?? 'Shooting Crew',
                                 'role'  => $settings["about_team_role_$id"] ?? 'Team Member',
                                 'index' => (int)$id,
                             ];
