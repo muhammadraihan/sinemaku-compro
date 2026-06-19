@@ -75,7 +75,7 @@
                         <img src="https://images.unsplash.com/photo-1781846221410-de0d899453eb?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781846207547-6b2d4880b994?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1781858154733-afebc7041eae?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="https://images.unsplash.com/photo-1781846221410-de0d899453eb?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
@@ -84,16 +84,16 @@
                         <img src="https://images.unsplash.com/photo-1781846041565-9d3c8fd06667?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781846214595-234e84b9f1a3?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1781857598820-2f84b500826e?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781846253700-22726e0a7802?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1781858528600-763f31b54b4b?q=80&w=1190&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="https://images.unsplash.com/photo-1781846246989-9571135c0aba?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781846200560-14456c715311?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1781846246989-9571135c0aba?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
             @endif
             </div>
