@@ -69,15 +69,32 @@
                     <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop" alt="Sinemaku Hero" class="w-full h-full object-cover">
                 </div>
                 <div class="swiper-slide h-full">
-                    <img src="https://images.unsplash.com/photo-1781688702733-46388bfe456b?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                </div>
+                        <img src="https://images.unsplash.com/photo-1781846239790-b6c642b5f77f?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
                 <div class="swiper-slide h-full">
-                    <img src="https://images.unsplash.com/photo-1781688455304-51321d40d483?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                </div>
-                </div>
+                        <img src="https://images.unsplash.com/photo-1781846221410-de0d899453eb?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
                 <div class="swiper-slide h-full">
-                    <img src="https://images.unsplash.com/photo-1781688609148-8314c3f96e93?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                </div>
+                        <img src="https://images.unsplash.com/photo-1781846207547-6b2d4880b994?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="https://images.unsplash.com/photo-1781846221410-de0d899453eb?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="https://images.unsplash.com/photo-1781846041565-9d3c8fd06667?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="https://images.unsplash.com/photo-1781846214595-234e84b9f1a3?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="https://images.unsplash.com/photo-1781846253700-22726e0a7802?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="https://images.unsplash.com/photo-1781846246989-9571135c0aba?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="https://images.unsplash.com/photo-1781846200560-14456c715311?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
             @endif
             </div>
 
@@ -113,7 +130,7 @@
         <!-- Top Metadata -->
         <div class="w-full flex flex-col items-center text-center">
             <div class="max-w-xl">
-            <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-navy uppercase block mb-10 tracking-tighter">
+            <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-orange uppercase block mb-10 tracking-tighter">
                 Misi
             </span>
         </div>
@@ -128,21 +145,21 @@
 
                 <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                     @php
-                     $rawText ='[p]SINEMAKU PICTURES[/p] [s]Hadir Untuk Memberdayakan[/s] [s]GENERASI BARU PENCERITA[/s] [s]dan[/s] [s]Mengubah[/s] [s]Lanskap[/s] [s]PERFILMAN INDONESIA.[/s]';
+                     $rawText ='[p]SINEMAKU PICTURES[/p] [s]Hadir Untuk Memberdayakan[/s] [s]generasi baru pencerita[/s] [s]dan[/s] [s]Mengubah[/s] [s]Lanskap[/s] [ps]PERFILMAN INDONESIA.[/ps]';
 
                     // Parse [ps] tags — Peckham tapi ukuran lebih kecil
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
-                        return '<span class="font-serif text-[4.5vw] sm:text-[3vw] md:text-[3.5vw] text-xl text-lg text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[4.5vw] sm:text-[3vw] md:text-[3vw] text-xl text-lg text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $rawText);
 
                     // Parse [p] tags
                     $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3.5vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
                     }, $parsedText);
 
                     // Parse [s] tags
                     $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                        return '<span class="font-serif text-[5.5vw] md:text-[3vw] text-[#8E95B7] leading-relaxed">' . $matches[1] . '</span>';
+                        return '<span class="font-serif text-[5.5vw] md:text-[3vw] text-brand-orange leading-relaxed">' . $matches[1] . '</span>';
                     }, $parsedText);
                     @endphp
 
@@ -156,21 +173,52 @@
 
         <!-- Detailed Description -->
         <div class="w-full flex flex-col items-center text-center">
-            <div class="max-w-xl">
-                <span class="font-peckham text-2xl md:text-3xl text-brand-navy uppercase block mb-8 tracking-tighter">
-                    @php
-                        $studioLabel = $settings['about_studio_label'] ?? 'Company.';
-                    @endphp
-                    {{ strtoupper($studioLabel) }}
-                </span>
-                <p class="font-serif text-[5.5vw] md:text-[3vw] text-[#8E95B7] leading-relaxed text-brand-navy/70">
-                    @php
-                        $studioBody =  'Pelajari Bagaimana Sinemaku Beroperasi, Jelajahi Identitas kami, Pendekatan kami, dan Peran Kami Dalam Membina Sineas Muda Untuk Ekosistem Film Indonesia.';
-                    @endphp
-                    {{ $studioBody }}
-                </p>
+    <div class="max-w-xl">
+        <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-orange uppercase block mb-10 tracking-tighter">
+            @php
+                $studioLabel = $settings['about_studio_label'] ?? 'Company';
+            @endphp
+            {{ strtoupper($studioLabel) }}
+        </span>
+    </div>
+
+    <div class="w-full flex flex-col items-center text-center">
+        <h2 class="flex flex-col items-center max-w-5xl mx-auto">
+
+            <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
+                @php
+                    $rawText = '[s]Pelajari Bagaimana[/s]
+                                [p]SINEMAKU[/p]
+                                [s]Beroperasi[/s]
+                                [s]Jelajahi[/s]
+                                [s]Identitas Kami,[/s]
+                                [s]Pendekatan Kami, dan[/s]
+                                [s]Peran Kami[/s]
+                                [s]Dalam Membina Sineas Muda Untuk[/s]
+                                [p]EKOSISTEM FILM INDONESIA.[/p]';
+
+                    // Parse [ps]
+                    $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
+                        return '<span class="font-peckham text-[4.5vw] sm:text-[3vw] md:text-[2.5vw] text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                    }, $rawText);
+
+                    // Parse [p]
+                    $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
+                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3.5vw] text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
+                    }, $parsedText);
+
+                    // Parse [s]
+                    $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
+                        return '<span class="font-serif text-[5.5vw] md:text-[3vw] text-brand-orange leading-relaxed">' . $matches[1] . '</span>';
+                    }, $parsedText);
+                @endphp
+
+                {!! $parsedText !!}
             </div>
-        </div>
+
+        </h2>
+    </div>
+</div>
     </section>
 
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
@@ -200,12 +248,12 @@
 
                     if(count($crewMembers) === 0) {
                         $crewMembers = [
-                            ['img' => 'https://images.unsplash.com/photo-1781690228999-297e5ff930e7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1781690485576-85ff9fb088a0?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781848867555-63318ed5b745?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781849752864-50265e8f3adb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
                             ['img' => 'https://images.unsplash.com/photo-1781690194004-5205b8bf5a6e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1781689872169-52d6a3c5a479?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1781690173139-375609a2e82e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
-                            ['img' => 'https://images.unsplash.com/photo-1781690083254-eab8c8e83e02?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role']
+                            ['img' => 'https://images.unsplash.com/photo-1781849433941-53cbe20bcc5a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781849699308-4e6ec029640c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role'],
+                            ['img' => 'https://images.unsplash.com/photo-1781849621181-ea3a7b8995ea?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'name' => 'Crew', 'role' => 'Role']
                         ];
                     }
 
@@ -220,14 +268,14 @@
 
                 <!-- Row 1 -->
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1781690228999-297e5ff930e7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781849699308-4e6ec029640c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[0]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[0]['role'] }}</span>
                     </div>
                 </div>
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1781690485576-85ff9fb088a0?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781849752864-50265e8f3adb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[1]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[1]['role'] }}</span>
@@ -236,7 +284,7 @@
 
                 <!-- Row 2 (CENTER ROW) -->
                 <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1781690194004-5205b8bf5a6e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781848867555-63318ed5b745?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[2]['role'] }}</span>
@@ -247,7 +295,7 @@
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
-                    <img src="https://images.unsplash.com/photo-1781689872169-52d6a3c5a479?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+                    <img src="https://images.unsplash.com/photo-1781849433941-53cbe20bcc5a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100">
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
                         <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
@@ -256,7 +304,7 @@
                 </div>
 
                 <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1781690173139-375609a2e82e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781849387712-0088594362d0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[3]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[3]['role'] }}</span>
@@ -265,14 +313,14 @@
 
                 <!-- Row 3 -->
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1781690083254-eab8c8e83e02?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781849621181-ea3a7b8995ea?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[4]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[4]['role'] }}</span>
                     </div>
                 </div>
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="{{ $top6[5]['img'] }}" class="w-full h-full object-cover transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1781850480175-6bf4909a9021?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[5]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[5]['role'] }}</span>
