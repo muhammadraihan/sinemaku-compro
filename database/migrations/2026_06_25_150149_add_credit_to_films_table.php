@@ -6,17 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 class AddCreditToFilmsTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::table('films', function (Blueprint $table) {
-            $table->longText('credit')->nullable()->after('cast');
+            //
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::table('films', function (Blueprint $table) {
-            $table->dropColumn('credit');
+            //
         });
     }
 }
