@@ -15,12 +15,22 @@
     <h3 class="mb-g">
         Hi {{Auth::user()->name}},
     </h3>
-    <p>
+     <p>
         Selamat datang di Dashboard Sinemaku Pictures.
+    </p>
 
-        Semua yang kamu butuhkan untuk mengelola konten ada di sini. Mulai dari Film & Series, Episode, Artikel, hingga Casting bisa diakses dengan mudah melalui menu di samping.
+    <p>
+        Dashboard ini dirancang untuk membantu Anda mengelola seluruh konten platform secara efisien, mulai dari Film & Series, Episode, Artikel, hingga proses Casting.
+    </p>
 
-        Jangan lupa cek kembali setiap perubahan sebelum dipublikasikan agar konten tetap rapi, konsisten, dan siap dinikmati oleh audience.
+    <p>
+        Gunakan menu navigasi yang tersedia untuk mengakses setiap fitur. Pastikan seluruh data dan perubahan telah diperiksa dengan baik sebelum dipublikasikan guna menjaga kualitas dan konsistensi konten.
+    </p>
+
+    <p>
+        Terima kasih atas kontribusi Anda dalam mengembangkan dan mengelola konten Sinemaku Pictures.
+    </p>
+    <p>
 
         Let's make great stories happen!
     </p>
