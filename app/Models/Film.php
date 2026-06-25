@@ -33,7 +33,6 @@ class Film extends Model
     'photo',
     'poster',
     'slug'
-];
     ];
 
     public function Categories(){
