@@ -12,27 +12,25 @@ class Film extends Model
     use Uuid;
 
     protected $fillable = [
-        protected $fillable = [
-    'kategori',
-    'title',
-    'title_en',
-    'genre',
-    'genre_en',
-    'release_date',
-    'sinopsis',
-    'sinopsis_en',
-    'duration',
-    'season',
-    'episode',
-    'director',
-    'writer',
-    'cast',
-    'credit', // tambahkan ini
-    'link',
-    'link_watch',
-    'photo',
-    'poster',
-    'slug'
+        'kategori',
+        'title',
+        'title_en',
+        'genre',
+        'genre_en',
+        'release_date',
+        'sinopsis',
+        'sinopsis_en',
+        'duration',
+        'season',
+        'episode',
+        'director',
+        'writer',
+        'cast',
+        'link',
+        'link_watch',
+        'photo',
+        'poster',
+        'slug'
     ];
 
     public function Categories(){
