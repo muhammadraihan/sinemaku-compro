@@ -16,12 +16,13 @@
         Hi {{Auth::user()->name}},
     </h3>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Faucibus interdum posuere lorem ipsum dolor sit amet. Venenatis urna cursus eget nunc scelerisque
-        viverra mauris. At in tellus integer feugiat scelerisque. Eu sem integer vitae justo eget magna. Volutpat
-        blandit aliquam etiam erat velit scelerisque in. Amet luctus venenatis lectus magna fringilla. Non tellus orci
-        ac auctor augue mauris. Egestas fringilla phasellus faucibus scelerisque eleifend donec. Elit duis tristique
-        sollicitudin nibh sit amet.
+        Selamat datang di Dashboard Sinemaku Pictures.
+
+        Semua yang kamu butuhkan untuk mengelola konten ada di sini. Mulai dari Film & Series, Episode, Artikel, hingga Casting bisa diakses dengan mudah melalui menu di samping.
+
+        Jangan lupa cek kembali setiap perubahan sebelum dipublikasikan agar konten tetap rapi, konsisten, dan siap dinikmati oleh audience.
+
+        Let's make great stories happen!
     </p>
     <p>
         Sincerely,<br>
