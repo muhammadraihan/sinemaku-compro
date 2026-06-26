@@ -145,7 +145,7 @@
 
                 <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                     @php
-                     $rawText ='[p]SINEMAKU PICTURES[/p] [s]Hadir Untuk Memberdayakan[/s] [s]generasi baru pencerita[/s] [s]dan[/s] [s]Mengubah[/s] [s]Lanskap[/s] [ps]PERFILMAN INDONESIA.[/ps]';
+                     $rawText ='[p]SINEMAKU PICTURES[/p] [s]hadir untuk memberdayakan[/s] [s]generasi baru pencerita[/s] [s]dan[/s] [s]mengubah[/s] [s]lanskap[/s] [ps]PERFILMAN INDONESIA.[/ps]';
 
                     // Parse [ps] tags — Peckham tapi ukuran lebih kecil
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
