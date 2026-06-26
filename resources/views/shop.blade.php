@@ -67,7 +67,7 @@
 
 <div id="shop-page-wrapper" class="relative z-10 pt-48 pb-32 px-8 md:px-16">
     <div class="max-w-[1600px] mx-auto">
-        
+
         @php
             $chunks = $all_merchandise->chunk(4);
         @endphp
@@ -76,9 +76,9 @@
             {{-- Section Header (Alternating) --}}
             <header class="mb-16 md:mb-20 {{ $i % 2 == 1 ? 'text-right' : 'text-left' }}">
                 <h2 class="font-peckham text-brand-navy text-3xl md:text-[2.5vw] uppercase leading-[1.1] tracking-tighter">
-                    <span class="block">Collections.</span>
                     <span class="block text-brand-navy/30">Sinemaku.</span>
                     <span class="block text-brand-navy/20">Pictures.</span>
+                    <span class="block">Collections.</span>
                 </h2>
             </header>
 
@@ -90,19 +90,19 @@
                     <div class="product-img-container mb-6 shadow-xl">
                         <img src="{{ asset('photo/' . $product->photo) }}" alt="{{ $product->name }}" loading="lazy" class="w-full h-full object-cover">
                     </div>
-                    
+
                     {{-- Product Info (Editorial Layout) --}}
                     <div class="flex flex-col gap-1 px-1">
                         {{-- Price --}}
                         <span class="font-sans text-[10px] md:text-xs font-bold text-brand-navy/90 mb-1">
                             {{ $product->harga ? 'Rp' . number_format($product->harga, 0, ',', '.') : 'Rp999.999' }}
                         </span>
-                        
+
                         {{-- Title --}}
                         <h3 class="font-sans text-[11px] md:text-sm font-bold text-brand-navy leading-[1.2] uppercase tracking-tight group-hover:text-brand-orange transition-colors">
                             @i18n($product, 'name')
                         </h3>
-                        
+
                         {{-- Category --}}
                         <span class="font-sans text-[9px] md:text-[10px] uppercase tracking-widest text-brand-navy/40 font-bold mt-1">
                             {{ $product->merchandise ?: 'Apparel' }}
