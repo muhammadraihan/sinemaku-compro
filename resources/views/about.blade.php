@@ -189,7 +189,7 @@
                 @php
                     $rawText = '[s]Pelajari Bagaimana[/s]
                                 [p]SINEMAKU[/p]
-                                [s]Beroperasi[/s]
+                                [s]Beroperasi.[/s]
                                 [s]Jelajahi[/s]
                                 [s]Identitas Kami,[/s]
                                 [s]Pendekatan Kami, dan[/s]
