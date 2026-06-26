@@ -69,31 +69,31 @@
                     <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop" alt="Sinemaku Hero" class="w-full h-full object-cover">
                 </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781846239790-b6c642b5f77f?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782461749373-6871697a2e96?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782450284559-da9d6968f110?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782459768381-13ef0d3d9528?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782454925273-56b0a541a451?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782460166419-526caafb6a83?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781860437118-f2354ceaba4c?q=80&w=2155&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782467549550-34bf4cd1ae31?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782448834509-20556a27f1a0?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782460936834-ccccc4688f6e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781862842296-dd6b079f3127?q=80&w=1995&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782462657114-b32970083601?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781858528600-763f31b54b4b?q=80&w=1190&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782467478138-af977ef413a0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781846246989-9571135c0aba?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782461749373-6871697a2e96?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1781846246989-9571135c0aba?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1782461123214-60fc14fe050d?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
             @endif
             </div>
@@ -187,14 +187,14 @@
 
             <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                 @php
-                    $rawText = '[s]Pelajari Bagaimana[/s]
+                    $rawText = '[s]Pelajari bagaimana[/s]
                                 [p]SINEMAKU[/p]
-                                [s]Beroperasi.[/s]
+                                [s]beroperasi.[/s]
                                 [s]Jelajahi[/s]
-                                [s]Identitas Kami,[/s]
-                                [s]Pendekatan Kami, dan[/s]
-                                [s]Peran Kami[/s]
-                                [s]Dalam Membina Sineas Muda Untuk[/s]
+                                [s]identitas kami,[/s]
+                                [s]pendekatan kami, dan[/s]
+                                [s]peran kami[/s]
+                                [s]dalam membina sineas muda untuk[/s]
                                 [p]EKOSISTEM FILM INDONESIA.[/p]';
 
                     // Parse [ps]

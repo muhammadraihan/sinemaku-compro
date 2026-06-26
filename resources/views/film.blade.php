@@ -139,7 +139,7 @@
                         data-genre="{{ $item->genre }}"
                         data-trailer="{{ $item->link }}"
                         style="display: block;">
-                                
+
                                 {{-- Background Image with subtle zoom --}}
                                 <img src="{{ asset('photo/' . $item->photo) }}"
                                     class="film-card-img w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all duration-1000 ease-expo scale-100 group-hover:scale-105"
@@ -495,7 +495,7 @@ STYLES & SCRIPTS
                     const titleContainer = item.querySelector('.film-title');
                     const titleText = item.querySelector('.title-text');
                     const meta = item.querySelector('.film-meta');
-                    
+
                     if (!titleContainer || !titleText || !meta) return;
 
                     const rects = titleText.getClientRects();
@@ -570,7 +570,7 @@ STYLES & SCRIPTS
                 menu.classList.toggle('opacity-0');
                 menu.classList.toggle('translate-y-2');
                 menu.classList.toggle('pointer-events-none');
-                
+
                 // Close other menu
                 if (otherMenu) {
                     otherMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
@@ -594,7 +594,7 @@ STYLES & SCRIPTS
                 option.addEventListener('click', () => {
                     const type = option.getAttribute('data-type');
                     const value = option.getAttribute('data-value');
-                    
+
                     if (type === 'year') {
                         document.getElementById('selected-year').textContent = value;
                         yearMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
@@ -610,17 +610,17 @@ STYLES & SCRIPTS
             function applyFilters() {
                 const selectedYear = document.getElementById('selected-year').textContent;
                 const selectedGenre = document.getElementById('selected-genre').textContent;
-                
+
                 const allCards = document.querySelectorAll('.catalogue-card');
                 const visibleCards = [];
-                
+
                 allCards.forEach(card => {
                     const itemYear = card.getAttribute('data-year');
                     const itemGenre = card.getAttribute('data-genre');
-                    
+
                     let matchYear = (selectedYear === 'Any' || itemYear === selectedYear);
                     let matchGenre = (selectedGenre === 'Any' || itemGenre === selectedGenre);
-                    
+
                     if (matchYear && matchGenre) {
                         card.style.display = 'block';
                         visibleCards.push(card);
@@ -632,9 +632,9 @@ STYLES & SCRIPTS
                 let N = visibleCards.length;
                 let layoutClasses = [];
                 let remaining = N;
-                
+
                 let isMobileLayout = window.innerWidth <= 768;
-                
+
                 if (isMobileLayout) {
                     let isRowOfTwo = true;
                     while (remaining > 0) {
@@ -656,7 +656,7 @@ STYLES & SCRIPTS
                 } else {
                     let isRowOfThree = true;
                     let threeRowAlternate = false;
-                    
+
                     while (remaining > 0) {
                         if (isRowOfThree) {
                             if (remaining >= 3) {
@@ -702,7 +702,7 @@ STYLES & SCRIPTS
                 visibleCards.forEach((card, index) => {
                     // Reset class grid sebelumnya
                     card.classList.remove('col-span-1', 'col-span-2', 'col-span-3', 'col-start-2', 'is-wide', 'is-narrow');
-                    
+
                     // Assign class sesuai urutan logika layout
                     const classToApply = layoutClasses[index];
                     if (classToApply) {
@@ -754,7 +754,7 @@ STYLES & SCRIPTS
 
                         iframeContainer = document.createElement('div');
                         iframeContainer.className = 'absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-[5] opacity-0 transition-opacity duration-700 bg-brand-navy';
-                        
+
                         const rect = card.getBoundingClientRect();
                         let iframeW = rect.width;
                         let iframeH = iframeW * (9/16);
@@ -762,20 +762,20 @@ STYLES & SCRIPTS
                             iframeH = rect.height;
                             iframeW = iframeH * (16/9);
                         }
-                        
+
                         const finalW = iframeW * 1.6;
                         const finalH = iframeH * 1.6;
 
                         const iframe = document.createElement('iframe');
-                        iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 max-w-none'; 
+                        iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 max-w-none';
                         iframe.style.width = finalW + 'px';
                         iframe.style.height = finalH + 'px';
                         iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=${videoId}&playsinline=1&modestbranding=1&disablekb=1`;
                         iframe.allow = 'autoplay; encrypted-media';
                         iframe.frameBorder = '0';
-                        
+
                         iframeContainer.appendChild(iframe);
-                        
+
                         const img = card.querySelector('.film-card-img');
                         if(img) {
                             img.parentNode.insertBefore(iframeContainer, img.nextSibling);
@@ -834,7 +834,7 @@ STYLES & SCRIPTS
                 card.addEventListener('touchstart', (e) => {
                     lastTouchTime = Date.now();
                     wasPlayingBeforeTouch = isTrailerPlaying;
-                    
+
                     const touch = e.touches[0];
                     touchStartX = touch.clientX;
                     touchStartY = touch.clientY;
