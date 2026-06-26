@@ -117,26 +117,26 @@
                     <!-- Grid Metadata -->
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
                         <div>
-                            <span class="font-sans text-[20px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Directed By</span>
-                            <h3 class="font-sans text-lg text-[#131b4d] font-medium">{{ $films->director ?: 'N/A' }}</h3>
+                            <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Directed By</span>
+                            <h3 class="font-instrument text-xl text-[#131b4d] font-medium">{{ $films->director ?: 'N/A' }}</h3>
                         </div>
                         <div>
-                            <span class="font-sans text-[20px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Written By</span>
-                            <h3 class="font-sans text-lg text-[#131b4d] font-medium">{{ $films->writer ?: 'N/A' }}</h3>
+                            <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Written By</span>
+                            <h3 class="font-instrument text-xl text-[#131b4d] font-medium">{{ $films->writer ?: 'N/A' }}</h3>
                         </div>
                         <div>
-                            <span class="font-sans text-[20px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Year</span>
-                            <h3 class="font-sans text-lg text-[#131b4d] font-medium">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</h3>
+                            <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Year</span>
+                            <h3 class="font-instrument text-xl text-[#131b4d] font-medium">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</h3>
                         </div>
 
                         <div class="col-span-2">
-                            <span class="font-sans text-[20px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Starring</span>
+                            <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Starring</span>
                             <div class="grid grid-cols-2 gap-x-4 gap-y-1">
                                 @php
                                     $casts = array_filter(explode(',', $films->cast));
                                 @endphp
                                 @foreach($casts as $cast)
-                                    <span class="font-sans text-lg font-medium text-[#131b4d]">{{ trim($cast) }}</span>
+                                    <span class="font-instrument text-xl font-medium text-[#131b4d]">{{ trim($cast) }}</span>
                                 @endforeach
                             </div>
                         </div>
@@ -144,7 +144,7 @@
 
                     <!-- Synopsis -->
                     <div class="mb-10 reveal-text">
-                        <div class="font-sans text-sm md:text-base leading-relaxed text-[#131b4d]/80 max-w-3xl">
+                        <div class="font-instrument text-sm md:text-base leading-relaxed text-[#131b4d]/80 max-w-3xl">
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
                             @else
