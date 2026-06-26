@@ -118,15 +118,15 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
                         <div>
                             <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Directed By</span>
-                            <h3 class="font-instrument text-2xl text-[#131b4d] font-medium">{{ $films->director ?: 'N/A' }}</h3>
+                            <h3 class="font-instrument text-2xl text-[#131b4d] font-normal">{{ $films->director ?: 'N/A' }}</h3>
                         </div>
                         <div>
                             <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Written By</span>
-                            <h3 class="font-instrument text-2xl text-[#131b4d] font-medium">{{ $films->writer ?: 'N/A' }}</h3>
+                            <h3 class="font-instrument text-2xl text-[#131b4d] font-normal">{{ $films->writer ?: 'N/A' }}</h3>
                         </div>
                         <div>
                             <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Year</span>
-                            <h3 class="font-instrument text-2xl text-[#131b4d] font-medium">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</h3>
+                            <h3 class="font-instrument text-2xl text-[#131b4d] font-normal">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</h3>
                         </div>
 
                         <div class="col-span-2">
@@ -136,7 +136,7 @@
                                     $casts = array_filter(explode(',', $films->cast));
                                 @endphp
                                 @foreach($casts as $cast)
-                                    <span class="font-instrument text-2xl font-medium text-[#131b4d]">{{ trim($cast) }}</span>
+                                    <span class="font-instrument text-2xl font-normal text-[#131b4d]">{{ trim($cast) }}</span>
                                 @endforeach
                             </div>
                         </div>
