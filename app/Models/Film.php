@@ -72,4 +72,8 @@ class Film extends Model
     public function userEdit() {
         return $this->belongsTo(User::class, 'edited_by', 'uuid');
     }
+    public function credits()
+{
+    return $this->hasMany(FilmCredit::class);
+}
 }

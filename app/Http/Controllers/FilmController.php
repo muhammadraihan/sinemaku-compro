@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Film;
 use App\Models\Kategori;
 use App\Models\FilmGallery;
+use App\Models\FilmCredit;
 
 use Auth;
 use DataTables;
@@ -71,15 +72,13 @@ class FilmController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'kategori' => 'required',
-            'title' => 'required',
-            'genre' => 'required',
-            'release_date' => 'required',
-            'sinopsis' => 'required',
-            'director' => 'required',
-            'cast' => 'required',
-            'photo' => 'required|image',
-            'poster' => 'required|image'
+    'kategori' => 'required',
+    'title' => 'required',
+    'genre' => 'required',
+    'release_date' => 'required',
+    'sinopsis' => 'required',
+    'photo' => 'required|image',
+    'poster' => 'required|image'
         ];
 
         $messages = [
@@ -105,9 +104,6 @@ class FilmController extends Controller
         $film->duration = $request->duration;
         $film->season = $request->season;
         $film->episode = $request->episode;
-        $film->director = $request->director;
-        $film->writer = $request->writer;
-        $film->cast = $request->cast;
         $film->link = $request->link;
         $film->link_watch = $request->link_watch;
 
@@ -129,6 +125,25 @@ class FilmController extends Controller
         $film->created_by = Auth::user()->uuid;
         $film->created_at = now();
         $film->save();
+        FilmCredit::where('film_id', $film->id)->delete();
+
+if ($request->roles) {
+
+    foreach ($request->roles as $key => $role) {
+
+        if (!empty($request->names[$key])) {
+
+            FilmCredit::create([
+                'film_id' => $film->id,
+                'role'    => $role,
+                'name'    => $request->names[$key]
+            ]);
+
+        }
+
+    }
+
+}
 
         // Handle Galleries
         if ($request->hasFile('still_shots')) {
@@ -198,8 +213,6 @@ class FilmController extends Controller
             'genre' => 'required',
             'release_date' => 'required',
             'sinopsis' => 'required',
-            'director' => 'required',
-            'cast' => 'required'
         ];
 
         $messages = [
@@ -210,7 +223,7 @@ class FilmController extends Controller
         ];
 
         $this->validate($request, $rules, $messages);
-        
+
         $film = Film::uuid($id);
         $film->slug = Str::slug($request->title);
         $film->kategori = $request->kategori;
@@ -224,25 +237,22 @@ class FilmController extends Controller
         $film->duration = $request->duration;
         $film->season = $request->season;
         $film->episode = $request->episode;
-        $film->director = $request->director;
-        $film->writer = $request->writer;
-        $film->cast = $request->cast;
         $film->link = $request->link;
         $film->link_watch = $request->link_watch;
 
 
         if($request->hasFile('photo')){
 
-            // user intends to replace the current image for the category.  
+            // user intends to replace the current image for the category.
             // delete existing (if set)
-        
+
             if($oldImage = $film->photo) {
                 $oldPath = public_path('photo/') . $oldImage;
                 if(file_exists($oldPath)){
                     unlink($oldPath);
                 }
             }
-        
+
             // save the new image
             $image = $request->file('photo');
             $destinationPath = 'photo/';
@@ -253,16 +263,16 @@ class FilmController extends Controller
 
         if($request->hasFile('poster')){
 
-            // user intends to replace the current image for the category.  
+            // user intends to replace the current image for the category.
             // delete existing (if set)
-        
+
             if($oldImage = $film->poster) {
                 $oldPath = public_path('photo/') . $oldImage;
                 if(file_exists($oldPath)){
                     unlink($oldPath);
                 }
             }
-        
+
             // save the new image
             $image = $request->file('poster');
             $destinationPath = 'photo/';
@@ -271,7 +281,34 @@ class FilmController extends Controller
             $film->poster = "$profileImage";
         }
         $film->edited_by = Auth::user()->uuid;
-        $film->save();
+$film->save();
+
+/*
+|--------------------------------------------------------------------------
+| Update Film Credits
+|--------------------------------------------------------------------------
+*/
+
+// Hapus semua credit lama
+FilmCredit::where('film_id', $film->id)->delete();
+
+// Simpan credit baru
+if ($request->has('roles')) {
+
+    foreach ($request->roles as $index => $role) {
+
+        // Lewati jika nama kosong
+        if (empty($request->names[$index])) {
+            continue;
+        }
+
+        FilmCredit::create([
+            'film_id' => $film->id,
+            'role'    => $role,
+            'name'    => $request->names[$index],
+        ]);
+    }
+}
 
         // Handle New Galleries
         if ($request->hasFile('still_shots')) {
