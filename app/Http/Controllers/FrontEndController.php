@@ -226,7 +226,7 @@ class FrontEndController extends Controller
         if (!$kategori) {
             return abort(404, 'Category Series not found');
         }
-        $film = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')->get();
+          $film = Film::with('credits')->where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')->get();
         $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
                             ->where('kategori', $kategori->uuid)
                             ->get();
@@ -270,7 +270,7 @@ class FrontEndController extends Controller
         if (!$kategori) {
             return abort(404, 'Category Series not found');
         }
-        $films = Film::where('slug', $id)->first();
+        $films = Film::with('credits')->where('slug', $id)->firstOrFail();
         $all_film = Film::where('kategori', $kategori->uuid)
                         ->where('uuid', '!=', $films->uuid)
                         ->get();
