@@ -14,6 +14,7 @@ use App\Models\Kategori;
 use App\Models\KategoriShop;
 use App\Models\SiteSetting;
 use App\Models\ArtikelKategori;
+use App\Models\Documentary;
 use App\Models\EventKategori;
 use App\Models\HeroSlide;
 use Carbon\Carbon;
@@ -368,20 +369,23 @@ class FrontEndController extends Controller
 
     public function documentary()
     {
-        $kategori = Kategori::where('name', 'like', '%dokumenter%')->first();
+        $kategori = Kategori::where('name', 'like', '%Documentaries%')->first();
         if (!$kategori) {
             // Log warning instead of hard fail or return empty collection
-                        $film = collect();
+            $documentary = collect();
             $genre = collect();
             $chipGenres = collect();
             $coming_soon = collect();
         } else {
-            $film = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')->get();
-            $coming_soon = Film::whereDate('release_date', '>=', Carbon::now())
-                                ->where('kategori', $kategori->uuid)
-                                ->get();
+            $documentary = Film::whereHas('categories', function ($q) {
+                $q->where('name', 'Documentaries');
+            })->get();
+            // $documentary = $film->('name', 'Documentaries');
+            $coming_soon = $documentary->filter(function ($film) {
+            return Carbon::parse($film->release_date)->gte(Carbon::now());
+        });
 
-            $raw = Film::where('kategori', $kategori->uuid)->pluck('genre');
+            $raw = $documentary->pluck('genre');
 
             $chipGenres = $raw
                 ->flatMap(fn ($s) => preg_split('/\s*,\s*/', (string) $s))
@@ -393,45 +397,48 @@ class FrontEndController extends Controller
 
 
 
-            $genre = Film::where('kategori', $kategori->uuid)->orderBy('release_date', 'desc')
-                        ->get()->map(function ($f) {
+            $genre = $documentary
+            ->sortByDesc('release_date')
+            ->map(function ($f) {
                 $f->genres_array = collect(preg_split('/\s*,\s*/', (string) $f->genre))
                     ->map(fn ($g) => strtolower(trim($g)))
                     ->filter()
                     ->values()
                     ->all();
+
                 return $f;
             });
         }
 
         $kategorishop = KategoriShop::all();
+        // dd($documentary);
 
-        return view('documentary', compact('film', 'genre', 'coming_soon', 'chipGenres', 'kategorishop'));
+        return view('documentary', compact('documentary', 'genre', 'coming_soon', 'chipGenres', 'kategorishop'));
     }
 
     public function detaildocumentary($id)
     {
-        $kategori = Kategori::where('name', 'like', '%dokumenter%')->first();
+        $kategori = Kategori::where('name', 'like', '%Documentaries%')->first();
         if (!$kategori) {
             return abort(404, 'Category Documentary not found');
         }
-        $films = Film::where('slug', $id)->first();
-        $all_film = Film::where('kategori', $kategori->uuid)
-                        ->where('uuid', '!=', $films->uuid)
+        $documentaries = Film::where('slug', $id)->first();
+        $all_documentaries = Film::where('kategori', $kategori->uuid)
+                        ->where('uuid', '!=', $documentaries->uuid)
                         ->get();
         $kategorishop = KategoriShop::all();
 
         //BTS
         $bts = bts::all();
         $judul = bts::selectRaw('distinct judul')->get();
-        $film = Film::where('slug', $id)
+        $documentary = Film::where('slug', $id)
                     ->orderBy('created_at', 'DESC')->get();
 
         //SHOP
         $shopData = [
             'shop' => Shop::all()->random()->limit(1)->first(),
             'kategorishop' => KategoriShop::all(),
-            'merchandise' => Shop::selectRaw('distinct merchandise')->where('merchandise', '=', optional($film->first())->title)->get(),
+            'merchandise' => Shop::selectRaw('distinct merchandise')->where('merchandise', '=', optional($documentary->first())->title)->get(),
             'all_merchandise' => Shop::all(),
         ];
 
@@ -440,7 +447,7 @@ class FrontEndController extends Controller
         $shopCollectionHtml = $sections['collection'] ?? '';
 
         return view('detail-documentary', compact(
-            'films', 'all_film', 'kategorishop', 'bts', 'judul', 'film', 'shopCollectionHtml'
+            'documentaries', 'all_documentaries', 'kategorishop', 'bts', 'judul', 'shopCollectionHtml'
         ));
     }
 
