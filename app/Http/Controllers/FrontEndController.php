@@ -379,7 +379,8 @@ class FrontEndController extends Controller
         } else {
             $documentary = Film::whereHas('categories', function ($q) {
                 $q->where('name', 'Documentaries');
-            })->get();
+            })->orderBy('release_date', 'desc')
+            ->get();
             // $documentary = $film->('name', 'Documentaries');
             $coming_soon = $documentary->filter(function ($film) {
             return Carbon::parse($film->release_date)->gte(Carbon::now());
