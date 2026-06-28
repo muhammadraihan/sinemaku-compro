@@ -158,27 +158,85 @@
                         <div class="invalid-feedback">{{ $errors->first('episode') }}</div>
                         @endif
                     </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('director','Director',['class' => 'required form-label'])}}
-                        {{ Form::text('director',null,['placeholder' => 'Director','class' => 'form-control '.($errors->has('director') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('director'))
-                        <div class="invalid-feedback">{{ $errors->first('director') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('writer','Written By',['class' => 'form-label'])}}
-                        {{ Form::text('writer',null,['placeholder' => 'Writer','class' => 'form-control '.($errors->has('writer') ? 'is-invalid':'')])}}
-                        @if ($errors->has('writer'))
-                        <div class="invalid-feedback">{{ $errors->first('writer') }}</div>
-                        @endif
-                    </div>
-                    <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('cast','Cast',['class' => 'required form-label'])}}
-                        {{ Form::text('cast',null,['placeholder' => 'e.g Umay, Prilly','class' => 'form-control '.($errors->has('cast') ? 'is-invalid':''),'required'])}}
-                        @if ($errors->has('cast'))
-                        <div class="invalid-feedback">{{ $errors->first('cast') }}</div>
-                        @endif
-                    </div>
+ <div class="col-md-12 mb-4">
+
+    <h5 class="mb-3">Film Credits</h5>
+
+    <table class="table table-bordered" id="credit-table">
+
+        <thead>
+
+            <tr>
+
+                <th width="30%">Role</th>
+
+                <th>Name</th>
+
+                <th width="10%">Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>
+
+                    <select name="roles[]" class="form-control">
+
+                        <option value="Director">Director</option>
+                        <option value="Writer">Writer</option>
+                        <option value="Cast">Cast</option>
+                        <option value="Producer">Producer</option>
+                        <option value="Executive Producer">Executive Producer</option>
+                        <option value="Editor">Editor</option>
+                        <option value="Music Composer">Music Composer</option>
+                        <option value="Cinematographer">Cinematographer</option>
+
+                    </select>
+
+                </td>
+
+                <td>
+
+                    <input
+                        type="text"
+                        name="names[]"
+                        class="form-control"
+                        placeholder="Masukkan nama">
+
+                </td>
+
+                <td class="text-center">
+
+                    <button
+                        type="button"
+                        class="btn btn-danger btn-sm remove-row">
+
+                        ×
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <button
+        type="button"
+        class="btn btn-success"
+        id="add-credit">
+
+        + Tambah Credit
+
+    </button>
+
+</div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('link','Link Trailer',['class' => 'required form-label'])}}
                         {{ Form::text('link',null,['placeholder' => 'https://www.youtube.com','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
@@ -249,29 +307,29 @@
         CKEDITOR.replace('sinopsis_en');
 
         $('#photo').change(function(){
-            
+
             let reader = new FileReader();
-         
-            reader.onload = (e) => { 
-         
-              $('#preview-image-before-upload-photo').attr('src', e.target.result); 
+
+            reader.onload = (e) => {
+
+              $('#preview-image-before-upload-photo').attr('src', e.target.result);
             }
-         
-            reader.readAsDataURL(this.files[0]); 
-           
+
+            reader.readAsDataURL(this.files[0]);
+
            });
 
         $('#poster').change(function(){
-            
+
             let reader = new FileReader();
-            
-            reader.onload = (e) => { 
-            
-                $('#preview-image-before-upload-poster').attr('src', e.target.result); 
+
+            reader.onload = (e) => {
+
+                $('#preview-image-before-upload-poster').attr('src', e.target.result);
             }
-            
-            reader.readAsDataURL(this.files[0]); 
-            
+
+            reader.readAsDataURL(this.files[0]);
+
         });
 
         // Auto-resize for link_watch
@@ -309,7 +367,7 @@
                 },
                 success: function(data) {
                     kategori = data.name.toLowerCase();
-                    
+
                     if(kategori === 'film'){
                         $('.duration').show();
                         $('.season').hide();
@@ -327,5 +385,61 @@
             });
         });
     });
+
+    $('#add-credit').click(function(){
+
+    $('#credit-table tbody').append(`
+
+        <tr>
+
+            <td>
+
+                <select name="roles[]" class="form-control">
+
+                    <option value="Director">Director</option>
+                    <option value="Writer">Writer</option>
+                    <option value="Cast">Cast</option>
+                    <option value="Producer">Producer</option>
+                    <option value="Executive Producer">Executive Producer</option>
+                    <option value="Editor">Editor</option>
+                    <option value="Music Composer">Music Composer</option>
+                    <option value="Cinematographer">Cinematographer</option>
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <input
+                    type="text"
+                    name="names[]"
+                    class="form-control">
+
+            </td>
+
+            <td class="text-center">
+
+                <button
+                    type="button"
+                    class="btn btn-danger btn-sm remove-row">
+
+                    ×
+
+                </button>
+
+            </td>
+
+        </tr>
+
+    `);
+
+});
+
+$(document).on('click','.remove-row',function(){
+
+    $(this).closest('tr').remove();
+
+});
 </script>
 @endsection
