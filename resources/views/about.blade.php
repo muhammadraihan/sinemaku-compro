@@ -131,7 +131,7 @@
         <div class="w-full flex flex-col items-center text-center">
             <div class="max-w-xl">
             <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-orange uppercase block mb-10 tracking-tighter">
-                Misi
+                TESIS
             </span>
         </div>
 
@@ -145,7 +145,7 @@
 
                 <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                     @php
-                     $rawText ='[p]SINEMAKU PICTURES[/p] [s]hadir untuk memberdayakan[/s] [s]generasi baru pencerita[/s] [s]dan[/s] [s]mengubah[/s] [s]lanskap[/s] [ps]PERFILMAN INDONESIA.[/ps]';
+                     $rawText ='[ps]KALAU DIPIKIR-PIKIR,[/ps] [s]yang bikin[/s] [ps]seseorang[/ps] [s]sampai ke titik tertentu sering kali bukan soal[/s] [ps]bakatnya,[/ps] [s]tapi soal apakah  dia pernah dapat[/s] [ps]kesempatan.[/ps] [s]Banyak cerita bagus yang akhirnya[/s] [ps]ga kemana-mana,[/ps] [s]bukan karena ceritanya kurang, tapi karena[/s] [ps]belum ketemu ruang buat didengar.[/ps]';
 
                     // Parse [ps] tags — Peckham tapi ukuran lebih kecil
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
@@ -175,11 +175,8 @@
         <div class="w-full flex flex-col items-center text-center">
     <div class="max-w-xl">
         <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-orange uppercase block mb-10 tracking-tighter">
-            @php
-                $studioLabel = $settings['about_studio_label'] ?? 'Company';
-            @endphp
-            {{ strtoupper($studioLabel) }}
-        </span>
+                Mengapa Kami Ada?
+            </span>
     </div>
 
     <div class="w-full flex flex-col items-center text-center">
@@ -187,15 +184,12 @@
 
             <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                 @php
-                    $rawText = '[s]Pelajari bagaimana[/s]
-                                [p]SINEMAKU[/p]
-                                [s]beroperasi.[/s]
-                                [s]Jelajahi[/s]
-                                [s]identitas kami,[/s]
-                                [s]pendekatan kami, dan[/s]
-                                [s]peran kami[/s]
-                                [s]dalam membina sineas muda untuk[/s]
-                                [p]EKOSISTEM FILM INDONESIA.[/p]';
+                    $rawText = '[s]Tidak semua perjalanan dimulai dari tempat yang sama.[/s]
+                                [s]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/s]
+                                [s]Karena itu,[/s]
+                                [p]Sinemaku Picture[/p]
+                                [s]memilih untuk menjaga satu hal yang sederhana:[/s]
+                                [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
 
                     // Parse [ps]
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
