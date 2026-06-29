@@ -159,6 +159,30 @@
                     </div>
  <div class="col-md-12 mb-4">
 
+    <div class="form-group col-md-4 mb-3">
+    {{ Form::label('director','Director',['class' => 'required form-label'])}}
+    {{ Form::text('director',null,[
+        'placeholder'=>'Director',
+        'class'=>'form-control'
+    ])}}
+</div>
+
+<div class="form-group col-md-4 mb-3">
+    {{ Form::label('writer','Written By',['class'=>'form-label'])}}
+    {{ Form::text('writer',null,[
+        'placeholder'=>'Writer',
+        'class'=>'form-control'
+    ])}}
+</div>
+
+<div class="form-group col-md-4 mb-3">
+    {{ Form::label('cast','Cast',['class'=>'required form-label'])}}
+    {{ Form::text('cast',null,[
+        'placeholder'=>'e.g Umay, Prilly',
+        'class'=>'form-control'
+    ])}}
+</div>
+
     <h5 class="mb-3">Film Credits</h5>
 
 
