@@ -145,7 +145,7 @@
 
                 <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                     @php
-                     $rawText ='[ps]KALAU DIPIKIR-PIKIR,[/ps] [s]yang bikin[/s] [ps]seseorang[/ps] [s]sampai ke titik tertentu sering kali bukan soal[/s] [ps]bakatnya,[/ps] [s]tapi soal apakah  dia pernah dapat[/s] [ps]kesempatan.[/ps] [s]Banyak cerita bagus yang akhirnya[/s] [ps]ga kemana-mana,[/ps] [s]bukan karena ceritanya kurang, tapi karena[/s] [ps]belum ketemu ruang buat didengar.[/ps]';
+                     $rawText ='[ps]KALAU DIPIKIR-PIKIR,[/ps] [s]yang bikin seseorang[/s][s]sampai ke titik tertentu sering kali bukan soal bakatnya,[/s] [s]tapi soal apakah  dia pernah dapat[/s] [ps]kesempatan.[/ps] [s]Banyak cerita bagus yang akhirnya ga kemana-mana,[/s][s]bukan karena ceritanya kurang, tapi karena[/s] [ps]belum ketemu ruang buat didengar.[/ps]';
 
                     // Parse [ps] tags — Peckham tapi ukuran lebih kecil
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
