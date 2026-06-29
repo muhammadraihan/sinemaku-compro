@@ -115,61 +115,9 @@
 
   <section class="py-20">
 
-    <h2 class="text-4xl font-bold mb-14">
-        Credits
-    </h2>
 
-    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-12">
-
-        @foreach($films->credits->groupBy('role') as $role => $credits)
-
-            <div>
-
-                <p class="uppercase tracking-[0.25em] text-xs text-gray-500 mb-5">
-                    {{ $role }}
-                </p>
-
-                <div class="space-y-2">
-
-                    @foreach($credits as $credit)
-
-                        <p class="text-lg font-medium">
-                            {{ $credit->name }}
-                        </p>
-
-                    @endforeach
-
-                </div>
-
-            </div>
-
-        @endforeach
-
-    </div>
-<!-- Synopsis -->
-                    <div class="my-10 reveal-text">
-
-                        <div class="font-instrument text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
-                            @if(trim(strip_tags($films->sinopsis)))
-                                @i18n($films, 'sinopsis')
-                            @else
-                                <p>Synopsis not available.</p>
-                            @endif
-                        </div>
-                    </div>
-
-                      <!-- Genres -->
-                    <div class="flex flex-wrap gap-3 reveal-text">
-                        @php
-                            $genres = array_filter(explode(',', $films->genre));
-                        @endphp
-                        @foreach($genres as $g)
-                            <span class="px-5 py-2 rounded-full bg-[#131b4d]/5 text-[#131b4d] font-sans text-xs font-bold uppercase tracking-widest">{{ trim($g) }}</span>
-                        @endforeach
-                    </div>
-</section>
                 <!-- Right: Metadata & Synopsis -->
-                {{-- <div class="w-full md:w-2/3 lg:w-3/4">
+                <div class="w-full md:w-2/3 lg:w-3/4">
                     <!-- Grid Metadata -->
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
                         <div>
@@ -198,6 +146,34 @@
                         </div>
                     </div>
 
+<h2 class="text-4xl font-bold mb-14">
+    Credits
+</h2>
+
+<div class="columns-1 md:columns-2 xl:columns-3 gap-20">
+
+    @foreach($films->credits->groupBy('role') as $role => $credits)
+
+        <div class="break-inside-avoid mb-12">
+
+            <p class="uppercase tracking-[0.35em] text-xs text-gray-500 mb-4">
+                {{ $role }}
+            </p>
+
+            @foreach($credits as $credit)
+
+                <p class="text-lg font-medium leading-8">
+                    {{ $credit->name }}
+                </p>
+
+            @endforeach
+
+        </div>
+
+    @endforeach
+
+</div>
+
                     <!-- Synopsis -->
                     <div class="mb-10 reveal-text">
                         <div class="font-instrument text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
@@ -218,7 +194,7 @@
                             <span class="px-5 py-2 rounded-full bg-[#131b4d]/5 text-[#131b4d] font-sans text-xs font-bold uppercase tracking-widest">{{ trim($g) }}</span>
                         @endforeach
                     </div>
-                </div> --}}
+                </div>
             </div>
         </section>
 

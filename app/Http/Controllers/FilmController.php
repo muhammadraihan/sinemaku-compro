@@ -104,6 +104,9 @@ class FilmController extends Controller
         $film->duration = $request->duration;
         $film->season = $request->season;
         $film->episode = $request->episode;
+        $film->director = $request->director;
+        $film->writer = $request->writer;
+        $film->cast = $request->cast;
         $film->link = $request->link;
         $film->link_watch = $request->link_watch;
 
@@ -123,8 +126,58 @@ class FilmController extends Controller
         }
 
         $film->created_by = Auth::user()->uuid;
-        $film->created_at = now();
-        $film->save();
+$film->created_at = now();
+$film->save();
+
+// Director
+if ($request->director) {
+    FilmCredit::create([
+        'film_id' => $film->id,
+        'role' => 'Director',
+        'name' => $request->director,
+    ]);
+}
+
+// Writer
+if ($request->writer) {
+    FilmCredit::create([
+        'film_id' => $film->id,
+        'role' => 'Writer',
+        'name' => $request->writer,
+    ]);
+}
+
+// Cast
+if ($request->cast) {
+
+    $casts = explode(',', $request->cast);
+
+    foreach ($casts as $cast) {
+
+        FilmCredit::create([
+            'film_id' => $film->id,
+            'role' => 'Cast',
+            'name' => trim($cast),
+        ]);
+    }
+}
+
+// Credit tambahan
+if ($request->roles) {
+
+    foreach ($request->roles as $index => $role) {
+
+        if (empty($request->names[$index])) {
+            continue;
+        }
+
+        FilmCredit::create([
+            'film_id' => $film->id,
+            'role' => $role,
+            'name' => $request->names[$index],
+        ]);
+    }
+}
         FilmCredit::where('film_id', $film->id)->delete();
 
 if ($request->roles) {
@@ -237,6 +290,9 @@ if ($request->roles) {
         $film->duration = $request->duration;
         $film->season = $request->season;
         $film->episode = $request->episode;
+        $film->director = $request->director;
+        $film->writer = $request->writer;
+        $film->cast = $request->cast;
         $film->link = $request->link;
         $film->link_watch = $request->link_watch;
 
