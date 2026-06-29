@@ -116,7 +116,7 @@
                 <!-- Right: Metadata & Synopsis -->
                   <div class="w-full md:w-2/3 lg:w-3/4">
                     <!-- Grid Metadata -->
-                    < class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
                         <div>
                             <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Directed By</span>
                             <h3 class="font-instrument text-2xl text-[#131b4d] font-normal">{{ $films->director ?: 'N/A' }}</h3>
