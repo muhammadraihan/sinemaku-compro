@@ -33,6 +33,7 @@ Route::get('/home', [FrontEndController::class, 'index'])->name('hero');
 
 // ===== frontend =====
 Route::get('/about', function() { return redirect()->route('welcome'); });
+Route::get('/tentang-kami', [FrontEndController::class, 'tentang'])->name('tentang');
 Route::get('/films', [FrontEndController::class, 'film'])->name('film');
 Route::get('/detail-films/{slug}', [FrontEndController::class, 'detailfilm'])->name('detail-film');
 Route::get('/serial', [FrontEndController::class, 'series'])->name('series');

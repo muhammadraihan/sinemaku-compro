@@ -30,6 +30,8 @@ FULLSCREEN MENU OVERLAY
         @php
             $mainMenu = [
                 ['title' => 'HOME', 'url' => '/', 'i18n' => 'menu_about'],
+                  ['title' => 'ABOUT','url' => route('tentang'),'i18n' => 'menu_tentang'
+    ],
                 [
                     'title' => 'OUR WORKS',
                     'i18n' => 'menu_our_works',
@@ -149,7 +151,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
 <nav id="sticky-navbar"
     class="fixed top-6 left-1/2 z-[350] w-[90%] max-w-[800px] h-[64px] bg-[#0E1633] rounded-2xl flex flex-col items-center justify-start shadow-2xl border border-white/10 overflow-hidden"
     style="opacity: 0; visibility: hidden; will-change: transform, width, height, top, border-radius;">
-    
+
     {{-- Header: Always visible, stable centering --}}
     <div id="sticky-header" class="w-full flex justify-between items-center px-6 md:px-10 h-[64px] shrink-0 transition-colors duration-300">
         {{-- Left --}}
@@ -331,7 +333,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
             if (isStickyMenuOpen) return;
             isStickyMenuOpen = true;
             document.body.style.overflow = 'hidden';
-            
+
             const tl = gsap.timeline({ defaults: { ease: "expo.inOut", duration: 0.85, force3D: true } });
 
             tl.to(stickyNav, {
@@ -352,9 +354,9 @@ STICKY MORPHING NAVBAR (THE "PONI")
             tl.to(stickyCloseText, { opacity: 1, x: 0, pointerEvents: 'auto', duration: 0.4 }, 0.4);
 
             tl.to(stickyLinksContainer, { opacity: 1, duration: 0.3 }, 0.5);
-            tl.fromTo(stickyLinks, 
+            tl.fromTo(stickyLinks,
                 { y: 40, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: "power4.out" }, 
+                { y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: "power4.out" },
                 0.6
             );
         }
@@ -754,4 +756,4 @@ GLOBAL i18n ENGINE
         }, 500);
     });
 </script>
-
+

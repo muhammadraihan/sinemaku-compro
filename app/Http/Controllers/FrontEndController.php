@@ -66,6 +66,11 @@ class FrontEndController extends Controller
         return view('about', compact('kategorishop', 'settings', 'heroSlides'));
     }
 
+        public function tentang()
+        {
+            return view('tentang');
+        }
+
     public function film()
     {
         $kategori = Kategori::where('name', 'like', '%film%')->first();
