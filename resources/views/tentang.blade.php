@@ -21,15 +21,17 @@
         <div class="max-w-9xl mx-auto w-full px-8 lg:px-20 pb-24">
 
             <span
+             data-aos="fade-up"
+            data-aos-delay="100"
             class="font-serif font-bold uppercase tracking-[5px] text-orange-400 text-sm">
             Tentang Sinemaku Picture
             </span>
 
             <h1
-                class="mt-4
-                text-white
-                text-5xl lg:text-4xl
-                font-black uppercase leading-none">
+             data-aos="fade-up"
+            data-aos-delay="300"
+                class="mt-4 text-white text-5xl lg:text-4xl font-black uppercase leading-none">
+
 
                 Di balik setiap karya,
                 <br>
@@ -43,103 +45,130 @@
 
 </section>
 
-{{-- SECTION 2 --}}
-<section class="bg-white py-32">
+{{-- SECTION ABOUT --}}
+<section class="bg-white py-28">
 
     <div class="max-w-7xl mx-auto px-8">
 
-        <div class="grid lg:grid-cols-2 gap-20">
+        {{-- Heading --}}
+        <div class="text-center mb-20">
 
-            {{-- kiri --}}
-            <div>
 
-                <h2
-                class="text-5xl font-bold
-                leading-tight">
+           <h1
+        style="font-family: 'DM Serif Display', serif;"
+        class="text-4xl font-bold">
+        MENGAPA SINEMAKU ADA
+    </h1>
+
+        </div>
+
+
+        {{-- CONTENT --}}
+        <div class="grid lg:grid-cols-3 gap-14">
+
+            {{-- KIRI --}}
+            <div class="space-y-6">
+
+                <h3 class="text-4xl font-extrabold text-black leading-tight" style="font-family: 'Lora', serif;">
 
                     Setiap cerita
-                    berhak mendapatkan
-                    kesempatan.
+                    dimulai dari
+                    sebuah kesempatan.
 
-                </h2>
+                </h3>
 
-            </div>
+                <p class="text-gray-700 leading-loose" style="font Instrument Serif;">
 
-            {{-- kanan --}}
-            <div
-            class="space-y-8
-            text-gray-700
-            text-lg
-            leading-loose">
-
-                <p>
                     Tidak semua perjalanan dimulai dari tempat yang sama.
                     Ada yang tumbuh di tengah industri kreatif.
                     Ada pula yang harus menempuh perjalanan yang lebih panjang
                     hanya untuk mendapatkan kesempatan pertamanya.
+
                 </p>
 
+            </div>
+
+
+            {{-- TENGAH --}}
+            <div class="space-y-4 text-gray-700 leading-loose" style="font Instrument Serif;">
+
                 <p>
+
                     Yang membedakan sering kali bukan bakat,
                     melainkan kesempatan.
+
                 </p>
 
                 <p>
+
                     Banyak cerita lahir dari pengalaman hidup yang sederhana.
                     Dari percakapan sehari-hari,
                     dari kegagalan,
                     dari harapan,
                     dari kehilangan,
                     atau dari mimpi yang diam-diam terus dijaga.
+
                 </p>
 
                 <p>
-                    Namun tidak semua cerita menemukan ruang
-                    untuk didengar.
+
+                    Namun tidak semua cerita menemukan ruang untuk didengar.
                     Bukan karena cerita itu kurang berarti,
-                    melainkan karena belum menemukan
-                    pertemuan yang tepat.
+                    melainkan karena belum menemukan pertemuan yang tepat.
+
                 </p>
 
+            </div>
+
+
+            {{-- KANAN --}}
+            <div class="space-y-4 text-gray-700 leading-loose" style="font Instrument Serif;">
+
                 <p>
-                    Mungkin,
-                    setiap perjalanan besar memang selalu berawal
+
+                    Mungkin, setiap perjalanan besar memang selalu berawal
                     dari sebuah pertemuan.
                     Pertemuan antara manusia,
                     gagasan,
                     kepercayaan,
                     dan kesempatan.
+
                 </p>
 
                 <p>
+
                     Semangat itulah yang ingin terus tumbuh bersama
                     Sinemaku Pictures.
                     Bukan sebagai tempat yang memiliki semua jawaban,
                     melainkan sebagai sebuah pintu yang tetap terbuka.
+
                 </p>
 
                 <p>
+
                     Pintu untuk bertemu,
                     berdialog,
                     belajar,
                     berkolaborasi,
-                    dan bersama-sama menciptakan sesuatu
-                    yang bermakna.
+                    dan bersama-sama menciptakan sesuatu yang bermakna.
+
                 </p>
 
-                <p>
-                    Tidak setiap langkah akan berakhir
-                    menjadi sebuah film.
+            </div>
+
+        </div>
+
+
+        {{-- PARAGRAF PENUTUP --}}
+        <div class="max-w-5xl mx-auto mt-20">
+
+            <div class="border-t pt-12">
+
+                        <p class="text-2xl leading-loose font-bold text-center text-gray-700" style="font-family:'Lora', serif;">
+                    Tidak setiap langkah akan berakhir menjadi sebuah film.
                     Tidak setiap pertemuan akan melahirkan sebuah karya.
-                    Namun setiap kesempatan untuk saling mendengarkan
-                    selalu layak untuk dimulai.
-                </p>
+                    Namun setiap kesempatan untuk saling mendengarkan selalu layak untuk dimulai.
 
-                <p>
-                    Setiap kesempatan yang diberikan dengan tulus
-                    dapat melahirkan sebuah cerita.
-                    Dan setiap cerita yang disampaikan dengan jujur
-                    memiliki kekuatan untuk mengubah kehidupan.
                 </p>
 
             </div>
@@ -150,36 +179,35 @@
 
 </section>
 
-{{-- GALLERY --}}
-<section class="bg-[#fafafa] py-32">
+<section class="bg-[#fafafa] py-24">
 
-<div class="max-w-7xl mx-auto px-8">
+    <div class="max-w-7xl mx-auto px-8">
 
-<div class="grid grid-cols-12 gap-6">
+        <div class="grid grid-cols-12 gap-6">
 
-<div class="col-span-12 lg:col-span-7">
+            <div class="col-span-12 lg:col-span-7">
 
-<img
-src="{{ asset('photo/sinemaku-day-1.jpg') }}"
-class="rounded-3xl w-full h-[650px] object-cover">
+                <img
+                    src="{{ asset('photo/sinemaku-day-1.jpg') }}"
+                    class="rounded-xl h-[520px] w-full object-cover">
 
-</div>
+            </div>
 
-<div class="col-span-12 lg:col-span-5 space-y-6">
+            <div class="col-span-12 lg:col-span-5 space-y-6">
 
-<img
-src="{{ asset('photo/sinemaku-day-2.jpg') }}"
-class="rounded-3xl w-full h-[310px] object-cover">
+                <img
+                    src="{{ asset('photo/sinemaku-day-2.jpg') }}"
+                    class="rounded-xl h-[250px] w-full object-cover">
 
-<img
-src="{{ asset('photo/sinemaku-day-3.jpg') }}"
-class="rounded-3xl w-full h-[310px] object-cover">
+                <img
+                    src="{{ asset('photo/sinemaku-day-3.jpg') }}"
+                    class="rounded-xl h-[250px] w-full object-cover">
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </section>
 
@@ -188,12 +216,7 @@ class="rounded-3xl w-full h-[310px] object-cover">
 
 <div class="max-w-5xl mx-auto px-8 text-center">
 
-<h2
-class="text-4xl lg:text-6xl
-leading-tight font-light">
-
-"Setiap kesempatan yang diberikan
-dengan tulus dapat melahirkan sebuah cerita."
+<h2 id="typingQuote" class="text-4xl lg:text-5xl leading-tight font-light opacity-0 transition-opacity duration-700">
 
 </h2>
 

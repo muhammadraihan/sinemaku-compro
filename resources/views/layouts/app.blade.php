@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Sinemaku Pictures')</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   {{-- Main CSS (Laravel) --}}
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -92,6 +93,8 @@
       background-color: #f6f6ed;
       overflow-x: hidden;
     }
+
+
     body {
       background-color: transparent;
       color: #0f6ab0;
@@ -311,7 +314,7 @@
 
   <!-- Efek Grain & Light Leak Global (Synced with About) -->
   <div class="cinematic-grain"></div>
-  
+
 
 
   <!-- Custom Cursor Global -->
@@ -413,6 +416,87 @@
 
   {{-- Script spesifik halaman --}}
   @stack('scripts')
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+AOS.init({
+    duration: 1000,      // lama animasi
+    once: true,          // hanya sekali muncul
+    easing: 'ease-out',
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script>
+let typedStarted = false;
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting && !typedStarted) {
+
+            typedStarted = true;
+
+            new Typed("#typing-text", {
+                strings: [
+                    "Tidak setiap langkah akan berakhir menjadi sebuah film.<br>Tidak setiap pertemuan akan melahirkan sebuah karya.<br>Namun setiap kesempatan untuk saling mendengarkan selalu layak untuk dimulai."
+                ],
+                typeSpeed: 35,
+                showCursor: true,
+                cursorChar: "|",
+                contentType: "html"
+            });
+
+        }
+
+    });
+}, {
+    threshold: 0.5
+});
+
+observer.observe(document.querySelector("#typing-text"));
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const quote = document.getElementById("typingQuote");
+    const author = document.getElementById("quoteAuthor");
+
+    const text = `"Setiap kesempatan yang diberikan
+dengan tulus dapat melahirkan sebuah cerita."`;
+
+    let i = 0;
+    let started = false;
+
+    function typeEffect() {
+        if (i < text.length) {
+            quote.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+            i++;
+            setTimeout(typeEffect, 40);
+        } else {
+            author.classList.remove("opacity-0");
+        }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !started) {
+                started = true;
+                quote.classList.remove("opacity-0");
+                typeEffect();
+            }
+        });
+    }, {
+        threshold: 0.4
+    });
+
+    observer.observe(quote);
+
+});
+</script>
+
 </body>
 
 </html>
