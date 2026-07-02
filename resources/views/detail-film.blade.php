@@ -122,15 +122,15 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
                         <div>
                             <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Directed By</span>
-                            <h3 class="font-instrument text-2xl text-[#131b4d] font-normal">{{ $films->director ?: 'N/A' }}</h3>
+                            <h3 class="font-sans text-xl text-[#131b4d] font-normal">{{ $films->director ?: 'N/A' }}</h3>
                         </div>
                         <div>
                             <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Written By</span>
-                            <h3 class="font-instrument text-2xl text-[#131b4d] font-normal">{{ $films->writer ?: 'N/A' }}</h3>
+                            <h3 class="font-sans text-xl text-[#131b4d] font-normal">{{ $films->writer ?: 'N/A' }}</h3>
                         </div>
                         <div>
                             <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Year</span>
-                            <h3 class="font-instrument text-2xl text-[#131b4d] font-normal">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</h3>
+                            <h3 class="font-sans text-xl text-[#131b4d] font-normal">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</h3>
                         </div>
 
                         <div class="col-span-2">
@@ -140,29 +140,26 @@
                                     $casts = array_filter(explode(',', $films->cast));
                                 @endphp
                                 @foreach($casts as $cast)
-                                    <span class="font-instrument text-2xl font-normal text-[#131b4d]">{{ trim($cast) }}</span>
+                                    <span class="font-sans text-xl font-normal text-[#131b4d]">{{ trim($cast) }}</span>
                                 @endforeach
                             </div>
                         </div>
                     </div>
 
-<h2 class="text-4xl font-bold mb-14">
-    Credits
-</h2>
 
-<div class="columns-1 md:columns-2 xl:columns-3 gap-20">
+<div class="grid grid-cols-2 gap-x-4 gap-y-1">
 
     @foreach($films->credits->groupBy('role') as $role => $credits)
 
         <div class="break-inside-avoid mb-12">
 
-            <p class="uppercase tracking-[0.35em] text-xs text-gray-500 mb-4">
+            <p class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">
                 {{ $role }}
             </p>
 
             @foreach($credits as $credit)
 
-                <p class="text-lg font-medium leading-8">
+                <p class="font-sans text-xl font-normal text-[#131b4d]">
                     {{ $credit->name }}
                 </p>
 
@@ -176,7 +173,7 @@
 
                     <!-- Synopsis -->
                     <div class="mb-10 reveal-text">
-                        <div class="font-instrument text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
+                        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
                             @else

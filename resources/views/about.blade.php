@@ -32,7 +32,7 @@
         }
         .crew-h { height: var(--crew-row-h); }
         @media (max-width: 768px) {
-            :root { --crew-row-h: clamp(160px, 45vw, 300px); }
+            /* :root { --crew-row-h: clamp(160px, 45vw, 300px); } */
             #crew-masonry-wrapper, .crew-pin-container {
                 min-height: 105svh;
             }
@@ -69,19 +69,19 @@
                     <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop" alt="Sinemaku Hero" class="w-full h-full object-cover">
                 </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782461749373-6871697a2e96?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_DSF0103.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782459768381-13ef0d3d9528?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_DSF0100.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782460166419-526caafb6a83?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782467549550-34bf4cd1ae31?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM1263.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782460936834-ccccc4688f6e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM0127.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="https://images.unsplash.com/photo-1782462657114-b32970083601?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
@@ -222,7 +222,7 @@
                 CREW
             </span>
         </div>
-        <div class="crew-pin-container w-full flex flex-col items-center justify-center bg-black">
+        <div class="crew-pin-container w-full flex flex-col items-center bg-black">
             <div class="crew-grid w-full grid grid-cols-12 gap-2 md:gap-4 p-2 md:p-4 pb-2 md:pb-4">
                 @php
                     $crewMembers = collect($settings)
@@ -290,7 +290,7 @@
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
                     <img src="https://images.unsplash.com/photo-1781849433941-53cbe20bcc5a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
-                    <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100">
+                    <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
                         <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">CAMERA.</h2>
@@ -452,21 +452,21 @@
                     }
                 });
 
-                crewTl.fromTo(".crew-grid",
-                    { scale: 1, transformOrigin: "center center" },
-                    { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
-                );
+                // crewTl.fromTo(".crew-grid",
+                //     { scale: 1, transformOrigin: "center center" },
+                //     { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
+                // );
 
-                crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"],
-                    { opacity: 1 },
-                    { opacity: 0, ease: "power2.inOut", duration: 1.5 },
-                    "<"
-                );
+                // crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"],
+                //     { opacity: 1 },
+                //     { opacity: 0, ease: "power2.inOut", duration: 1.5 },
+                //     "<"
+                // );
 
                 gsap.set(".crew-overlay", { opacity: 1 });
-                gsap.set(".crew-text-reveal", { opacity: 1, y: 0 });
+                // gsap.set(".crew-text-reveal", { opacity: 1, y: 0 });
 
-                crewTl.to(".crew-text-reveal", { opacity: 0, duration: 1.2, ease: "power2.out" }, "<");
+                // crewTl.to(".crew-text-reveal", { opacity: 0, duration: 1.2, ease: "power2.out" }, "<");
                 crewTl.to(".crew-overlay", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "<");
                 crewTl.to({}, {duration: 0.2});
             });
@@ -484,16 +484,16 @@
                     }
                 });
 
-                crewTl.fromTo(".crew-grid",
-                    { scale: 1, transformOrigin: "center center" },
-                    { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
-                );
+                // crewTl.fromTo(".crew-grid",
+                //     { scale: 1, transformOrigin: "center center" },
+                //     { scale: () => calculateZoomScale(), transformOrigin: "center center", ease: "power2.inOut", duration: 1.5 }
+                // );
 
-                crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"],
-                    { opacity: 1 },
-                    { opacity: 0, ease: "power2.inOut", duration: 1.5 },
-                    "<"
-                );
+                // crewTl.fromTo([".crew-grid > div:not(.crew-center-img)", ".crew-title"],
+                //     { opacity: 1 },
+                //     { opacity: 0, ease: "power2.inOut", duration: 1.5 },
+                //     "<"
+                // );
 
                 gsap.set(".crew-overlay", { opacity: 1 });
                 gsap.set(".crew-text-reveal", { opacity: 1, y: 0 });
