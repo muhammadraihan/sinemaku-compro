@@ -73,12 +73,12 @@
         {{-- Heading --}}
         <div class="text-center mb-10">
 
-   <span
+   {{-- <span
              data-aos="fade-up"
             data-aos-delay="100"
             class="font-sans font-bold uppercase tracking-[5px] text-orange-400 text-sm">
             Tentang Kami
-            </span>
+            </span> --}}
 
          <h1
     class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-4xl text-brand-navy uppercase block mb-3 tracking-tighter">
