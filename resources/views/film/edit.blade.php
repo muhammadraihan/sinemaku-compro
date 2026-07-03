@@ -557,14 +557,16 @@
 
                 <select name="roles[]" class="form-control">
 
-                    <option value="Director">Director</option>
-                    <option value="Writer">Writer</option>
-                    <option value="Cast">Cast</option>
+                   <option value="Executive Producer">Executive Producer</option>
                     <option value="Producer">Producer</option>
-                    <option value="Executive Producer">Executive Producer</option>
+                    <option value="Co_Producer">Co_Producer</option>
+                    <option value="Witers DOP">Witers DOP</option>
+                    <option value="Art Director">Art Director</option>
+                    <option value="Wardrobe">Wardrobe</option>
+                    <option value="Sound Recordist">Sound Recordist</option>
+                    <option value="Post Producer">Post Producer</option>
                     <option value="Editor">Editor</option>
-                    <option value="Music Composer">Music Composer</option>
-                    <option value="Cinematographer">Cinematographer</option>
+                    <option value="Sound Designer">Sound Designer</option>
 
                 </select>
 
