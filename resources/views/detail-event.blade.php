@@ -52,7 +52,7 @@
 
 <div id="event-detail-simple" class="relative z-10 pt-40 pb-32 px-8 md:px-16">
     <div class="max-w-6xl mx-auto">
-        
+
         {{-- Header Section: Centered & Minimal --}}
         <div class="text-center mb-20">
             <span class="inline-block text-brand-orange font-bold text-[10px] md:text-xs uppercase tracking-[0.4em] mb-6">
@@ -88,24 +88,24 @@
             </div>
         </div>
 
-        {{-- Info & Share Bar (Balanced below media) --}}
+        {{-- Info & Share Bar (Balanced below media)
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-24 py-12 px-4 md:px-8 bg-white/30 backdrop-blur-md rounded-3xl border border-white/40 shadow-sm">
             <div class="flex flex-wrap gap-x-12 gap-y-8">
                 {{-- Date/Time --}}
-                <div class="flex flex-col">
+                {{-- <div class="flex flex-col">
                     <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 font-bold mb-2">Schedule</span>
                     <span class="text-sm font-bold text-brand-navy">
                         {{ \Carbon\Carbon::parse($event->tgl_event)->format('M d, Y') }}
                         @if($event->jam_event) <span class="text-brand-navy/30 mx-1">|</span> {{ \Carbon\Carbon::parse($event->jam_event)->format('H:i') }} WIB @endif
                     </span>
-                </div>
+                </div> --}}
                 {{-- Location --}}
-                <div class="flex flex-col">
+                {{-- <div class="flex flex-col">
                     <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 font-bold mb-2">Location</span>
                     <span class="text-sm font-bold text-brand-navy">@i18n($event, 'location')</span>
-                </div>
+                </div> --}}
                 {{-- Price & CTA --}}
-                <div class="flex flex-col">
+                {{-- <div class="flex flex-col">
                     <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 font-bold mb-2">Admission</span>
                     <div class="flex items-center gap-6">
                         <span class="text-sm font-bold text-brand-navy">
@@ -118,9 +118,9 @@
                         @endif
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            {{-- Share --}}
+            {{-- Share
             <div class="flex flex-col md:items-end">
                 <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 font-bold mb-3">Share Event</span>
                 <div class="flex gap-3">
@@ -135,7 +135,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         {{-- Dynamic Gallery Grid (2-3-2-3 Layout) --}}
         @php
@@ -184,7 +184,7 @@
 
                 <div class="group relative {{ $class }} overflow-hidden rounded-[2rem] bg-brand-navy/5 cursor-pointer shadow-lg"
                      onclick="openLightbox('{{ asset('photo/' . $photo->photo) }}')">
-                    <img src="{{ asset('photo/' . $photo->photo) }}" alt="Gallery Image" 
+                    <img src="{{ asset('photo/' . $photo->photo) }}" alt="Gallery Image"
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
                     <div class="absolute inset-0 bg-brand-navy/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
@@ -193,6 +193,55 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+
+         {{-- Info & Share Bar (Balanced below media) --}}
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-10 mb-24 py-12 px-4 md:px-8 bg-white/30 backdrop-blur-md rounded-3xl border border-white/40 shadow-sm">
+            <div class="flex flex-wrap gap-x-12 gap-y-8">
+                {{-- Date/Time --}}
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 font-bold mb-2">Schedule</span>
+                    <span class="text-sm font-bold text-brand-navy">
+                        {{ \Carbon\Carbon::parse($event->tgl_event)->format('M d, Y') }}
+                        @if($event->jam_event) <span class="text-brand-navy/30 mx-1">|</span> {{ \Carbon\Carbon::parse($event->jam_event)->format('H:i') }} WIB @endif
+                    </span>
+                </div>
+                {{-- Location --}}
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 font-bold mb-2">Location</span>
+                    <span class="text-sm font-bold text-brand-navy">@i18n($event, 'location')</span>
+                </div>
+                {{-- Price & CTA --}}
+                <div class="flex flex-col">
+                    <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 font-bold mb-2">Admission</span>
+                    <div class="flex items-center gap-6">
+                        <span class="text-sm font-bold text-brand-navy">
+                            {{ $event->harga == 0 ? 'FREE ADMISSION' : 'IDR ' . number_format($event->harga, 0, ',', '.') }}
+                        </span>
+                        @if($event->link)
+                        <a href="{{ $event->link }}" target="_blank" class="px-5 py-2 bg-brand-navy text-white text-[10px] font-bold rounded-full hover:bg-brand-orange transition-colors uppercase tracking-widest">
+                            Book Tickets
+                        </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+             {{-- Share --}}
+            <div class="flex flex-col md:items-end">
+                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 font-bold mb-3">Share Event</span>
+                <div class="flex gap-3">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/50 border border-brand-navy/5 flex items-center justify-center text-brand-navy hover:bg-brand-navy hover:text-white transition-all shadow-sm">
+                        <span class="iconify" data-icon="ri:instagram-line" data-width="18"></span>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/50 border border-brand-navy/5 flex items-center justify-center text-brand-navy hover:bg-brand-navy hover:text-white transition-all shadow-sm">
+                        <span class="iconify" data-icon="ri:twitter-x-line" data-width="16"></span>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/50 border border-brand-navy/5 flex items-center justify-center text-brand-navy hover:bg-brand-navy hover:text-white transition-all shadow-sm">
+                        <span class="iconify" data-icon="ri:whatsapp-line" data-width="18"></span>
+                    </a>
+                </div>
+            </div>
         </div>
 
         {{-- Discover More footer --}}

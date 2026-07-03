@@ -125,7 +125,7 @@
         </div>
     </section>
 
-    <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
+    {{-- <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
     <section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
         <!-- Top Metadata -->
         <div class="w-full flex flex-col items-center text-center">
@@ -166,8 +166,9 @@
                     {!! $parsedText !!}
                 </div>
             </h2>
-        </div>
+        </div> --}}
 
+            
         <!-- Divider Line -->
         <div class="w-full h-[2px] bg-brand-navy/20 mb-20 max-w-[80vw] mx-auto"></div>
 
@@ -187,7 +188,7 @@
                     $rawText = '[s]Tidak semua perjalanan dimulai dari tempat yang sama.[/s]
                                 [s]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/s]
                                 [s]Karena itu,[/s]
-                                [p]Sinemaku Picture[/p]
+                                [p]Sinemaku Pictures[/p]
                                 [s]memilih untuk menjaga satu hal yang sederhana:[/s]
                                 [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
 
