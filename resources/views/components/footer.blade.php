@@ -22,7 +22,7 @@
                 </h2>
                 <a href="mailto:hello@sinemakupictures.com"
                    class="inline-block bg-brand-orange text-white px-10 py-4 rounded-full font-sans text-xs font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brand-navy transition-all duration-500 cursor-none hover-target shadow-lg">
-                    Hubungi Kami
+                    Contact Us
                 </a>
             </div>
 
