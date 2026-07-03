@@ -81,9 +81,6 @@
                     @endforeach
                 @else
                 <div class="swiper-slide h-full">
-                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                </div>
-                <div class="swiper-slide h-full">
                         <img src="../img/p.home/SNP03249.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
@@ -97,18 +94,6 @@
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                <div class="swiper-slide h-full">
-                        <img src="" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                <div class="swiper-slide h-full">
-                        <img src="" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                <div class="swiper-slide h-full">
-                        <img src="" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                <div class="swiper-slide h-full">
-                        <img src="" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
             @endif
             </div>
@@ -239,14 +224,14 @@
     </section>
 
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
-    <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
+    {{-- <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
     <div class="crew-title px-6 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
 
        <span
     id="typing-title"
     data-text="KALIAN alasan kami terus BERCERITA."
     class="font-peckham text-4xl md:text-3xl text-[#8E95B7]">
-</span>
+</span> --}}
 
     </div>
         <div class="crew-pin-container w-full flex flex-col items-center bg-black">
@@ -316,11 +301,11 @@
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
-                    <img src="../img/p.home/_YAH0333.jpg" class="w-full h-full object-cover">
+                    <img src="../img/p.home/_ARM0899.JPG" class="w-full h-full object-cover">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
-                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
-                        <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
-                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">CAMERA.</h2>
+                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
+                        <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
+                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">BERCERITA</h2>
                     </div>
                 </div>
 
@@ -341,7 +326,7 @@
                     </div>
                 </div>
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="../img/p.home/_ARM0899.JPG" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/_YAH0333.jpg.JPG" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[5]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[5]['role'] }}</span>
