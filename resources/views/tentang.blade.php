@@ -20,13 +20,6 @@
 
         <div class="max-w-9xl mx-auto w-full px-8 lg:px-20 pb-24">
 
-            <span
-             data-aos="fade-up"
-            data-aos-delay="100"
-            class="font-serif font-bold uppercase tracking-[5px] text-orange-400 text-sm">
-            Tentang Sinemaku Picture
-            </span>
-
             <h1
              data-aos="fade-up"
             data-aos-delay="300"
@@ -38,6 +31,33 @@
                 selalu ada seseorang
                 yang berani memulai.
             </h1>
+
+            <span
+             data-aos="fade-up"
+            data-aos-delay="100"
+            class="font-serif font-bold uppercase tracking-[5px] text-orange-400 text-sm">
+            Tentang Sinemaku Picture
+            </span>
+
+        <!-- Button -->
+    <div class="mt-8">
+        <a href="{{ route('film') }}"
+            class="inline-flex items-center bg-navy hover:bg-white text-white hover:text-[#F36B21] px-8 py-3 rounded-full uppercase font-bold tracking-wider transition-all duration-300 shadow-lg cursor-none hover-target">
+            Our Works
+        </a>
+
+
+            {{-- <h1
+             data-aos="fade-up"
+            data-aos-delay="300"
+                class="mt-4 text-white text-5xl lg:text-4xl font-black uppercase leading-none">
+
+
+                Di balik setiap karya,
+                <br>
+                selalu ada seseorang
+                yang berani memulai.
+            </h1> --}}
 
         </div>
 
@@ -62,103 +82,78 @@
 
         </div>
 
+{{-- CONTENT --}}
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mt-16">
 
-        {{-- CONTENT --}}
-        <div class="grid lg:grid-cols-3 gap-14">
+    {{-- KIRI --}}
+    <div>
 
-            {{-- KIRI --}}
-            <div class="space-y-6">
+        <h3 class="text-4xl lg:text-5xl leading-tight text-black mb-10"
+            style="font-family:'Instrument Serif', serif;">
 
-                <h3 class="text-4xl font-extrabold text-black leading-tight" style="font-family: 'Lora', serif;">
+            Setiap cerita dimulai
+            <br>
+            dari sebuah kesempatan.
 
-                    Setiap cerita
-                    dimulai dari
-                    sebuah kesempatan.
+        </h3>
 
-                </h3>
+        <div class="space-y-3 text-[21px] leading-9 text-gray-700 text-justify"
+             style="font-sans;">
 
-                <p class="text-gray-700 leading-loose" style="font Instrument Serif;">
+            <p>
+                Tidak semua perjalanan dimulai dari tempat yang sama.
+                Ada yang tumbuh di tengah industri kreatif.
+                Ada pula yang harus menempuh perjalanan yang lebih panjang
+                hanya untuk mendapatkan kesempatan pertamanya.
+            </p>
 
-                    Tidak semua perjalanan dimulai dari tempat yang sama.
-                    Ada yang tumbuh di tengah industri kreatif.
-                    Ada pula yang harus menempuh perjalanan yang lebih panjang
-                    hanya untuk mendapatkan kesempatan pertamanya.
-
-                </p>
-
-            </div>
-
-
-            {{-- TENGAH --}}
-            <div class="space-y-4 text-gray-700 leading-loose" style="font Instrument Serif;">
-
-                <p>
-
-                    Yang membedakan sering kali bukan bakat,
-                    melainkan kesempatan.
-
-                </p>
-
-                <p>
-
-                    Banyak cerita lahir dari pengalaman hidup yang sederhana.
-                    Dari percakapan sehari-hari,
-                    dari kegagalan,
-                    dari harapan,
-                    dari kehilangan,
-                    atau dari mimpi yang diam-diam terus dijaga.
-
-                </p>
-
-                <p>
-
-                    Namun tidak semua cerita menemukan ruang untuk didengar.
-                    Bukan karena cerita itu kurang berarti,
-                    melainkan karena belum menemukan pertemuan yang tepat.
-
-                </p>
-
-            </div>
-
-
-            {{-- KANAN --}}
-            <div class="space-y-4 text-gray-700 leading-loose" style="font Instrument Serif;">
-
-                <p>
-
-                    Mungkin, setiap perjalanan besar memang selalu berawal
-                    dari sebuah pertemuan.
-                    Pertemuan antara manusia,
-                    gagasan,
-                    kepercayaan,
-                    dan kesempatan.
-
-                </p>
-
-                <p>
-
-                    Semangat itulah yang ingin terus tumbuh bersama
-                    Sinemaku Pictures.
-                    Bukan sebagai tempat yang memiliki semua jawaban,
-                    melainkan sebagai sebuah pintu yang tetap terbuka.
-
-                </p>
-
-                <p>
-
-                    Pintu untuk bertemu,
-                    berdialog,
-                    belajar,
-                    berkolaborasi,
-                    dan bersama-sama menciptakan sesuatu yang bermakna.
-
-                </p>
-
-            </div>
+            <p>
+                Yang membedakan sering kali bukan bakat,
+                melainkan kesempatan. Banyak cerita lahir dari pengalaman hidup yang sederhana.
+                Dari percakapan sehari-hari, dari kegagalan,
+                dari harapan, dari kehilangan,
+                atau dari mimpi yang diam-diam terus dijaga.
+            </p>
 
         </div>
 
+    </div>
 
+    {{-- KANAN --}}
+    <div>
+
+        <div class="space-y-3 text-[21px] leading-9 text-gray-700 text-justify"
+             style="font-sans;">
+            <p>
+                Namun tidak semua cerita menemukan ruang untuk didengar.
+                Bukan karena cerita itu kurang berarti,
+                melainkan karena belum menemukan pertemuan yang tepat.
+            </p>
+
+            <p>
+                Mungkin, setiap perjalanan besar memang selalu berawal
+                dari sebuah pertemuan. Pertemuan antara manusia,
+                gagasan, kepercayaan, dan kesempatan.
+            </p>
+
+            <p>
+                Semangat itulah yang ingin terus tumbuh bersama
+                Sinemaku Pictures. Bukan sebagai tempat yang memiliki
+                semua jawaban, melainkan sebagai sebuah pintu
+                yang tetap terbuka.
+            </p>
+
+            <p>
+                Pintu untuk bertemu, berdialog, belajar,
+                berkolaborasi, dan bersama-sama menciptakan
+                sesuatu yang bermakna.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
         {{-- PARAGRAF PENUTUP --}}
         <div class="max-w-5xl mx-auto mt-20">
 
