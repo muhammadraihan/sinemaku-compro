@@ -26,18 +26,17 @@
                 class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-4xl text-white  uppercase block mb-3 tracking-tighter">
 
 
-                {{-- Di balik setiap karya, --}}
+                Di balik setiap karya,
                 <br>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                {{-- selalu ada seseorang
-                yang berani memulai. --}}
+                selalu ada seseorang
+                yang berani memulai.
             </h1>
 
             <span
              data-aos="fade-up"
             data-aos-delay="100"
             class="font-sans font-bold uppercase tracking-[5px] text-white  text-sm">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Tentang Sinemaku Pictures
             </span>
 
         <!-- Button -->
@@ -97,8 +96,7 @@
         <div class="space-y-3 text-[21px] leading-9 text-gray-700 text-justify"
              style="font-sans;">
 
-             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-            {{-- <p>
+            <p>
                 Setiap cerita dimulai dari sebuah kesempatan.
             Tidak semua perjalanan dimulai dari tempat yang sama.
                 Ada yang tumbuh di tengah industri kreatif.
@@ -110,8 +108,20 @@
                 atau dari mimpi yang diam-diam terus dijaga. Namun tidak semua cerita menemukan ruang untuk didengar.
                 Bukan karena cerita itu kurang berarti,
                 melainkan karena belum menemukan pertemuan yang tepat.
-            </p> --}}
+            </p>
 
+            {{-- <p>
+                Yang membedakan sering kali bukan bakat,
+                melainkan kesempatan. Banyak cerita lahir dari pengalaman hidup yang sederhana.
+                Dari percakapan sehari-hari, dari kegagalan,
+                dari harapan, dari kehilangan,
+                atau dari mimpi yang diam-diam terus dijaga.
+            </p> --}}
+             {{-- <p>
+                Namun tidak semua cerita menemukan ruang untuk didengar.
+                Bukan karena cerita itu kurang berarti,
+                melainkan karena belum menemukan pertemuan yang tepat.
+            </p> --}}
 
         </div>
 
@@ -123,8 +133,7 @@
         <div class="space-y-3 text-[21px] leading-9 text-gray-700 text-justify"
              style="font-sans;">
 
-             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-            {{-- <p>
+            <p>
                 Mungkin, setiap perjalanan besar memang selalu berawal
                 dari sebuah pertemuan. Pertemuan antara manusia,
                 gagasan, kepercayaan, dan kesempatan. Semangat itulah yang ingin terus tumbuh bersama
@@ -135,8 +144,23 @@
                 sesuatu yang bermakna. Tidak setiap langkah akan berakhir menjadi sebuah film.
                     Tidak setiap pertemuan akan melahirkan sebuah karya.
                     Namun setiap kesempatan untuk saling mendengarkan selalu layak untuk dimulai.
+            </p>
+
+            {{-- <p>
+                Semangat itulah yang ingin terus tumbuh bersama
+                Sinemaku Pictures. Bukan sebagai tempat yang memiliki
+                semua jawaban, melainkan sebagai sebuah pintu
+                yang tetap terbuka.
             </p> --}}
 
+            {{-- <p>
+                Pintu untuk bertemu, berdialog, belajar,
+                berkolaborasi, dan bersama-sama menciptakan
+                sesuatu yang bermakna.
+            </p> --}}
+            {{-- <p> Tidak setiap langkah akan berakhir menjadi sebuah film.
+                    Tidak setiap pertemuan akan melahirkan sebuah karya.
+                    Namun setiap kesempatan untuk saling mendengarkan selalu layak untuk dimulai.</p> --}}
         </div>
 
     </div>
