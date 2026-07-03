@@ -221,7 +221,7 @@
                         <option value="Editor">Editor</option>
                         <option value="Sound Designer">Sound Designer</option>
                     </select>
-
+                        <input type="text" name="names[]" class="form-control">
                 </td>
 
                 <td>
