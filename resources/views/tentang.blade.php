@@ -10,7 +10,7 @@
 
     {{-- Background --}}
     <img
-        src="{{ asset('img/tentang/tentang1.jpg') }}"
+        src="{{ asset('../img/tentang/DSC08013.jpg') }}"
         class="absolute inset-0 w-full h-full object-cover"
     >
 
@@ -36,7 +36,7 @@
              data-aos="fade-up"
             data-aos-delay="100"
             class="font-sans font-bold uppercase tracking-[5px] text-white  text-sm">
-            Tentang Sinemaku Picture
+            Tentang Sinemaku Pictures
             </span>
 
         <!-- Button -->
@@ -73,12 +73,12 @@
         {{-- Heading --}}
         <div class="text-center mb-10">
 
-   <span
+   {{-- <span
              data-aos="fade-up"
             data-aos-delay="100"
             class="font-sans font-bold uppercase tracking-[5px] text-orange-400 text-sm">
             Tentang Kami
-            </span>
+            </span> --}}
 
          <h1
     class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-4xl text-brand-navy uppercase block mb-3 tracking-tighter">
@@ -181,7 +181,7 @@
 
             <div class="col-span-12 lg:col-span-7">
 
-                <img src="{{ asset('../img/tentang/_ARM0636.JPG') }}"
+                <img src="{{ asset('../img/tentang/ARDC0060.jpg') }}"
                     class="rounded-xl h-[520px] w-full object-cover">
 
             </div>
@@ -189,11 +189,22 @@
             <div class="col-span-12 lg:col-span-5 space-y-6">
 
                 <img
-                    src="{{ asset('../img/tentang/_ARM2258.JPG') }}"
+                    src="{{ asset('../img/tentang/ARDC9849.jpg') }}"
                     class="rounded-xl h-[250px] w-full object-cover">
 
+                      {{-- <div class="col-span-12 lg:col-span-7">
+
+                <img src="{{ asset('../img/tentang/ARDC0060.jpg') }}"
+                    class="rounded-xl h-[520px] w-full object-cover"> --}}
+
+            </div>
+
                 <img
-                    src="{{ asset('../img/tentang/_ARM1145.JPG') }}"
+
+                    src="{{ asset('../img/tentang/DSC08673.jpg') }}"
+                    class="rounded-xl h-[250px] w-full object-cover">
+                    <img
+                    src="{{ asset('../img/tentang/DSC08771.jpg') }}"
                     class="rounded-xl h-[250px] w-full object-cover">
 
             </div>
@@ -204,7 +215,7 @@
 
 </section>
 
-{{-- QUOTE --}}
+{{-- QUOTE
 <section class="bg-black text-white py-40">
 
 <div class="max-w-5xl mx-auto px-8 text-center">
@@ -223,7 +234,7 @@ SINEMAKU PICTURES
 
 </div>
 
-</section>
+</section> --}}
 
 @include('components.footer')
 
