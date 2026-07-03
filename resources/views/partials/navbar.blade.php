@@ -598,7 +598,7 @@ GLOBAL i18n ENGINE
 
         const TEXT_MAP = {
             id: {
-                'About': 'Tentang Kami', 'Our Works': 'Karya Kami', 'Events': 'Acara',
+                'About': 'Mengapa Kami Ada', 'Our Works': 'Karya Kami', 'Events': 'Acara',
                 'Merch': 'Merchandise', 'Articles': 'Artikel', 'Careers': 'Karier',
                 'Home': 'Beranda', 'Community': 'Komunitas', 'Films': 'Film',
                 'Web Series': 'Serial Web', 'Television': 'Televisi', 'Documentaries': 'Dokumenter',
