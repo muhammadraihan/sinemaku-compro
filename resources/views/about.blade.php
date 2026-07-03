@@ -44,6 +44,21 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
+        #typing-text::after{
+    content: "|";
+    display: inline-block;
+    margin-left: 2px;
+    animation: blink .8s infinite;
+}
+
+@keyframes blink{
+    0%,50%{
+        opacity:1;
+    }
+    51%,100%{
+        opacity:0;
+    }
+}
     </style>
 @endpush
 
@@ -69,31 +84,31 @@
                     <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop" alt="Sinemaku Hero" class="w-full h-full object-cover">
                 </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_DSF0103.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_DSF0100.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/SNP03249.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/_ARM1263.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM0127.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM0682.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782462657114-b32970083601?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_YAH1664.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782467478138-af977ef413a0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782461749373-6871697a2e96?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="https://images.unsplash.com/photo-1782461123214-60fc14fe050d?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
             @endif
             </div>
@@ -107,7 +122,7 @@
         {{-- Hero Content Overlay --}}
         <div class="relative z-30 w-full h-full flex flex-col justify-center px-4 md:px-12 text-white">
             <div class="w-full flex flex-col items-center">
-                <h1 class="hero-reveal flex flex-col items-center gap-y-4 pointer-events-none drop-shadow-sm text-center md:grid md:grid-cols-[max-content_max-content] md:gap-x-6 md:gap-y-1 md:items-baseline md:text-left">
+                <h1 class="hero-reveal flex flex-col items-center gap-y-0 pointer-events-none drop-shadow-sm text-center md:grid md:grid-cols-[max-content_max-content] md:gap-x-6 md:gap-y-1 md:items-baseline md:text-left">
                     <!-- Row 1: HERE Comes -->
                     <span class="font-peckham text-[10vw] md:text-[9.5vw] text-white uppercase leading-[0.75] tracking-tighter md:text-right">HERE</span>
 
@@ -125,13 +140,13 @@
         </div>
     </section>
 
-    {{-- <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
+    <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
     <section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
-        <!-- Top Metadata -->
+        {{-- <!-- Top Metadata -->
         <div class="w-full flex flex-col items-center text-center">
             <div class="max-w-xl">
             <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-orange uppercase block mb-10 tracking-tighter">
-                TESIS
+                Mengapa Kami Ada?
             </span>
         </div>
 
@@ -145,7 +160,12 @@
 
                 <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                     @php
-                     $rawText ='[ps]KALAU DIPIKIR-PIKIR,[/ps] [s]yang bikin seseorang[/s][s]sampai ke titik tertentu sering kali bukan soal bakatnya,[/s] [s]tapi soal apakah  dia pernah dapat[/s] [ps]kesempatan.[/ps] [s]Banyak cerita bagus yang akhirnya ga kemana-mana,[/s] [s]bukan karena ceritanya kurang, tapi karena[/s] [ps]belum ketemu ruang buat didengar.[/ps]';
+                     $rawText ='[s]Tidak semua perjalanan dimulai dari tempat yang sama.[/s]
+                                [s]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/s]
+                                [s]Karena itu,[/s]
+                                [p]Sinemaku Pictures[/p]
+                                [s]memilih untuk menjaga satu hal yang sederhana:[/s]
+                                [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
 
                     // Parse [ps] tags — Peckham tapi ukuran lebih kecil
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
@@ -166,11 +186,13 @@
                     {!! $parsedText !!}
                 </div>
             </h2>
-        </div> --}}
+        </div>
 
-            
+     <!-- Divider Line -->
+        <div class="w-full h-[1px] bg-brand-navy/20 mb-20 max-w-[80vw] mx-auto"></div>
+
         <!-- Divider Line -->
-        <div class="w-full h-[2px] bg-brand-navy/20 mb-20 max-w-[80vw] mx-auto"></div>
+        <div class="w-full h-[1px] bg-brand-navy/20 mb-20 max-w-[80vw] mx-auto"></div> --}}
 
         <!-- Detailed Description -->
         <div class="w-full flex flex-col items-center text-center">
@@ -218,11 +240,15 @@
 
     <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
     <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
-        <div class="crew-title px-6 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
-            <span class="font-peckham text-4xl md:text-3xl text-[#8E95B7] uppercase block mb-10 tracking-tighter">
-                CREW
-            </span>
-        </div>
+    <div class="crew-title px-6 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
+
+       <span
+    id="typing-title"
+    data-text="KALIAN alasan kami terus BERCERITA."
+    class="font-peckham text-4xl md:text-3xl text-[#8E95B7]">
+</span>
+
+    </div>
         <div class="crew-pin-container w-full flex flex-col items-center bg-black">
             <div class="crew-grid w-full grid grid-cols-12 gap-2 md:gap-4 p-2 md:p-4 pb-2 md:pb-4">
                 @php
@@ -263,14 +289,14 @@
 
                 <!-- Row 1 -->
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1782461781578-e251ea8b3709?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/_YAH0349.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[0]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[0]['role'] }}</span>
                     </div>
                 </div>
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1782470000712-a5560cc1d34b?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/_ARM1442.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[1]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[1]['role'] }}</span>
@@ -279,7 +305,7 @@
 
                 <!-- Row 2 (CENTER ROW) -->
                 <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1782471133909-215458ae73a5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/_ARM0784.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[2]['role'] }}</span>
@@ -290,7 +316,7 @@
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
-                    <img src="https://images.unsplash.com/photo-1781849433941-53cbe20bcc5a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+                    <img src="../img/p.home/_YAH0333.jpg" class="w-full h-full object-cover">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">THE PEOPLE</h2>
                         <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">behind the</span>
@@ -299,7 +325,7 @@
                 </div>
 
                 <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1782472910168-5730f7459a35?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/_ARM0789.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[3]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[3]['role'] }}</span>
@@ -308,14 +334,14 @@
 
                 <!-- Row 3 -->
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1782472605035-59a2a93fb95f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/_YAH0349.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[4]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[4]['role'] }}</span>
                     </div>
                 </div>
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1782472414798-e590a88e4836?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/_ARM0899.JPG" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[5]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[5]['role'] }}</span>
@@ -952,6 +978,26 @@
             isTouchDragging = false;
         });
 
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const typing = document.getElementById("typing-title");
+
+    if (!typing) return;
+
+    const text = typing.dataset.text;
+    let i = 0;
+
+    function type() {
+        if (i < text.length) {
+            typing.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 60);
+        }
+    }
+
+    type();
+
+});
         // The cursor and interactive BG are now managed globally by layouts/app.blade.php
     </script>
 @endpush
