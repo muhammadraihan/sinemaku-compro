@@ -189,7 +189,7 @@
             <div class="col-span-12 lg:col-span-5 space-y-6">
 
                 <img
-                    src="{{ asset('../img/tentang/_ARM0645.JPG') }}"
+                    src="{{ asset('../img/tentang/_ARM2258.JPG') }}"
                     class="rounded-xl h-[250px] w-full object-cover">
 
                 <img
