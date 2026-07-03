@@ -216,15 +216,16 @@
 
                     @php
                         $roles = [
-                            'Director',
-                            'Writer',
-                            'Cast',
-                            'Producer',
                             'Executive Producer',
+                            'Producer',
+                            'Co_Producer',
+                            'Witers DOP',
+                            'Art Director',
+                            'Wardrobe',
+                            'Sound Recordist',
+                            'Post Producer',
                             'Editor',
-                            'Music Composer',
-                            'Cinematographer',
-                            'Art Director'
+                            'Sound Designer'
                         ];
                     @endphp
 
