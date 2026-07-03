@@ -15,14 +15,14 @@
             {{-- Left: Massive Branding CTA --}}
             <div class="lg:col-span-5 flex flex-col items-start">
                 <h3 class="font-serif italic text-white/80 text-2xl md:text-3xl mb-4 leading-tight">
-                    Have a project idea?
+                    Punya cerita yang ingin didengar?
                 </h3>
-                <h2 class="font-peckham text-brand-orange text-5xl md:text-6xl lg:text-[4vw] leading-[0.9] tracking-tighter mb-10 uppercase">
-                    LET'S TALK<br>ABOUT IT!
+                <h2 class="font-peckham text-brand-orange text-xl md:text-3xl lg:text-[3vw] leading-[0.9] tracking-tighter mb-5 uppercase">
+                    Ngobrol dulu aja,<br>nggak harus langsung jadi apa-apa.
                 </h2>
                 <a href="mailto:hello@sinemakupictures.com"
                    class="inline-block bg-brand-orange text-white px-10 py-4 rounded-full font-sans text-xs font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brand-navy transition-all duration-500 cursor-none hover-target shadow-lg">
-                    Contact Us
+                    Hubungi Kami
                 </a>
             </div>
 
