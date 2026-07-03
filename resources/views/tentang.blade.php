@@ -98,7 +98,7 @@
 
             <p>
                 Setiap cerita dimulai dari sebuah kesempatan.
-            Tidak semua perjalanan dimulai dari tempat yang sama.
+                Tidak semua perjalanan dimulai dari tempat yang sama.
                 Ada yang tumbuh di tengah industri kreatif.
                 Ada pula yang harus menempuh perjalanan yang lebih panjang
                 hanya untuk mendapatkan kesempatan pertamanya. Yang membedakan sering kali bukan bakat,
