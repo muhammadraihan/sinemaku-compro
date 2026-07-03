@@ -23,7 +23,7 @@
             <h1
              data-aos="fade-up"
             data-aos-delay="300"
-                class="mt-4 text-white text-5xl lg:text-4xl font-black uppercase leading-none">
+                class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-4xl text-white  uppercase block mb-3 tracking-tighter">
 
 
                 Di balik setiap karya,
@@ -35,7 +35,7 @@
             <span
              data-aos="fade-up"
             data-aos-delay="100"
-            class="font-serif font-bold uppercase tracking-[5px] text-orange-400 text-sm">
+            class="font-sans font-bold uppercase tracking-[5px] text-white  text-sm">
             Tentang Sinemaku Picture
             </span>
 
@@ -71,49 +71,57 @@
     <div class="max-w-7xl mx-auto px-8">
 
         {{-- Heading --}}
-        <div class="text-center mb-20">
+        <div class="text-center mb-10">
 
+   <span
+             data-aos="fade-up"
+            data-aos-delay="100"
+            class="font-sans font-bold uppercase tracking-[5px] text-orange-400 text-sm">
+            Tentang Kami
+            </span>
 
-           <h1
-        style="font-family: 'DM Serif Display', serif;"
-        class="text-4xl font-bold">
-        MENGAPA SINEMAKU ADA
-    </h1>
+         <h1
+    class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-4xl text-brand-navy uppercase block mb-3 tracking-tighter">
+    MENGAPA SINEMAKU ADA
+</h1>
 
         </div>
 
 {{-- CONTENT --}}
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mt-16">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mt-0">
 
     {{-- KIRI --}}
     <div>
-
-        <h3 class="text-4xl lg:text-5xl leading-tight text-black mb-10"
-            style="font-family:'Instrument Serif', serif;">
-
-            Setiap cerita dimulai
-            <br>
-            dari sebuah kesempatan.
-
-        </h3>
 
         <div class="space-y-3 text-[21px] leading-9 text-gray-700 text-justify"
              style="font-sans;">
 
             <p>
-                Tidak semua perjalanan dimulai dari tempat yang sama.
+                Setiap cerita dimulai dari sebuah kesempatan.
+            Tidak semua perjalanan dimulai dari tempat yang sama.
                 Ada yang tumbuh di tengah industri kreatif.
                 Ada pula yang harus menempuh perjalanan yang lebih panjang
-                hanya untuk mendapatkan kesempatan pertamanya.
+                hanya untuk mendapatkan kesempatan pertamanya. Yang membedakan sering kali bukan bakat,
+                melainkan kesempatan. Banyak cerita lahir dari pengalaman hidup yang sederhana.
+                Dari percakapan sehari-hari, dari kegagalan,
+                dari harapan, dari kehilangan,
+                atau dari mimpi yang diam-diam terus dijaga. Namun tidak semua cerita menemukan ruang untuk didengar.
+                Bukan karena cerita itu kurang berarti,
+                melainkan karena belum menemukan pertemuan yang tepat.
             </p>
 
-            <p>
+            {{-- <p>
                 Yang membedakan sering kali bukan bakat,
                 melainkan kesempatan. Banyak cerita lahir dari pengalaman hidup yang sederhana.
                 Dari percakapan sehari-hari, dari kegagalan,
                 dari harapan, dari kehilangan,
                 atau dari mimpi yang diam-diam terus dijaga.
-            </p>
+            </p> --}}
+             {{-- <p>
+                Namun tidak semua cerita menemukan ruang untuk didengar.
+                Bukan karena cerita itu kurang berarti,
+                melainkan karena belum menemukan pertemuan yang tepat.
+            </p> --}}
 
         </div>
 
@@ -124,49 +132,40 @@
 
         <div class="space-y-3 text-[21px] leading-9 text-gray-700 text-justify"
              style="font-sans;">
-            <p>
-                Namun tidak semua cerita menemukan ruang untuk didengar.
-                Bukan karena cerita itu kurang berarti,
-                melainkan karena belum menemukan pertemuan yang tepat.
-            </p>
 
             <p>
                 Mungkin, setiap perjalanan besar memang selalu berawal
                 dari sebuah pertemuan. Pertemuan antara manusia,
-                gagasan, kepercayaan, dan kesempatan.
+                gagasan, kepercayaan, dan kesempatan. Semangat itulah yang ingin terus tumbuh bersama
+                Sinemaku Pictures. Bukan sebagai tempat yang memiliki
+                semua jawaban, melainkan sebagai sebuah pintu
+                yang tetap terbuka. Pintu untuk bertemu, berdialog, belajar,
+                berkolaborasi, dan bersama-sama menciptakan
+                sesuatu yang bermakna. Tidak setiap langkah akan berakhir menjadi sebuah film.
+                    Tidak setiap pertemuan akan melahirkan sebuah karya.
+                    Namun setiap kesempatan untuk saling mendengarkan selalu layak untuk dimulai.
             </p>
 
-            <p>
+            {{-- <p>
                 Semangat itulah yang ingin terus tumbuh bersama
                 Sinemaku Pictures. Bukan sebagai tempat yang memiliki
                 semua jawaban, melainkan sebagai sebuah pintu
                 yang tetap terbuka.
-            </p>
+            </p> --}}
 
-            <p>
+            {{-- <p>
                 Pintu untuk bertemu, berdialog, belajar,
                 berkolaborasi, dan bersama-sama menciptakan
                 sesuatu yang bermakna.
-            </p>
-
+            </p> --}}
+            {{-- <p> Tidak setiap langkah akan berakhir menjadi sebuah film.
+                    Tidak setiap pertemuan akan melahirkan sebuah karya.
+                    Namun setiap kesempatan untuk saling mendengarkan selalu layak untuk dimulai.</p> --}}
         </div>
 
     </div>
 
 </div>
-        {{-- PARAGRAF PENUTUP --}}
-        <div class="max-w-5xl mx-auto mt-20">
-
-            <div class="border-t pt-12">
-
-                        <p class="text-2xl leading-loose font-bold text-center text-gray-700" style="font-family:'Lora', serif;">
-                    Tidak setiap langkah akan berakhir menjadi sebuah film.
-                    Tidak setiap pertemuan akan melahirkan sebuah karya.
-                    Namun setiap kesempatan untuk saling mendengarkan selalu layak untuk dimulai.
-
-                </p>
-
-            </div>
 
         </div>
 
@@ -182,8 +181,7 @@
 
             <div class="col-span-12 lg:col-span-7">
 
-                <img
-                    src="{{ asset('photo/sinemaku-day-1.jpg') }}"
+                <img src="{{ asset('../img/tentang/_ARM0636.JPG') }}"
                     class="rounded-xl h-[520px] w-full object-cover">
 
             </div>
@@ -191,11 +189,11 @@
             <div class="col-span-12 lg:col-span-5 space-y-6">
 
                 <img
-                    src="{{ asset('photo/sinemaku-day-2.jpg') }}"
+                    src="{{ asset('../img/tentang/_ARM0645.JPG') }}"
                     class="rounded-xl h-[250px] w-full object-cover">
 
                 <img
-                    src="{{ asset('photo/sinemaku-day-3.jpg') }}"
+                    src="{{ asset('../img/tentang/_ARM1145.JPG') }}"
                     class="rounded-xl h-[250px] w-full object-cover">
 
             </div>
