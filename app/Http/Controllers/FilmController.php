@@ -133,7 +133,7 @@ $film->save();
 if ($request->director) {
     FilmCredit::create([
         'film_id' => $film->id,
-        'role' => 'Director',
+        'role' => 'DIRECTORS',
         'name' => $request->director,
     ]);
 }
@@ -142,7 +142,7 @@ if ($request->director) {
 if ($request->writer) {
     FilmCredit::create([
         'film_id' => $film->id,
-        'role' => 'Writer',
+        'role' => 'WRITERS',
         'name' => $request->writer,
     ]);
 }
