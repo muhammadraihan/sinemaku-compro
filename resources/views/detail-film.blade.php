@@ -137,7 +137,7 @@
      <!-- STARRING -->
 <div>
     <p class="font-sans text-[12px] tracking-[0.2em] text-[#131b4d]/50 mb-4 font-bold">
-        Starring
+        STARRING
     </p>
 
     @php
