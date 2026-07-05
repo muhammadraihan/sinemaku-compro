@@ -201,6 +201,7 @@
                         <option>CO-PRODUCER</option>
                         <option>WITERS DOP</option>
                         <option>ART DIRECTOR</option>
+                        <option>MAKE UP ARTIST</option>
                         <option>WARDROBE</option>
                         <option>SOUND RECORDIST</option>
                         <option>POST PRODUCER</option>
@@ -414,6 +415,7 @@
                     <option value="CO-PRODUCER">CO-PRODUCER</option>
                     <option value="WITERS DOP">WITERS DOP</option>
                     <option value="ART DIRECTOR">ART DIRECTOR</option>
+                    <option value="MAKE UP ARTIST">MAKE UP ARTIST</option>
                     <option value="WARDROBE">WARDROBE</option>
                     <option value="SOUND RECORDIST">SOUND RECORDIST</option>
                     <option value="POST PRODUCER">POST PRODUCER</option>
