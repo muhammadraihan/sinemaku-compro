@@ -133,24 +133,22 @@
     {{-- ROW 1 : STARRING & YEAR --}}
     <div class="grid grid-cols-[380px_120px] gap-16 mb-6">
 
-        <!-- STARRING -->
-        <div>
-            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
-                Starring
-            </p>
+            <!-- STARRING -->
+<div>
+    <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
+        Starring
+    </p>
 
-            @php
-                $casts = array_filter(explode(',', $films->cast));
-            @endphp
+    @php
+        $casts = collect(explode(',', $films->cast))
+                    ->map(fn($cast) => trim($cast))
+                    ->filter();
+    @endphp
 
-            <div class="space-y-2">
-                @foreach($casts as $cast)
-                    <p class="font-sans text-lg text-[#131b4d]">
-                        {{ trim($cast) }}
-                    </p>
-                @endforeach
-            </div>
-        </div>
+    <p class="font-sans text-lg leading-8 text-[#131b4d]">
+        {{ $casts->implode(', ') }}
+    </p>
+</div>
 
         <!-- YEAR -->
         <div>
