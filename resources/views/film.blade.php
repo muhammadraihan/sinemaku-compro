@@ -163,11 +163,11 @@
                                         </div>
                                         <div class="flex flex-col">
                                             <span class="meta-label uppercase tracking-tighter text-white/40">Directed By</span>
-                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->director ?: 'N/A' }}</span>
+                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->directors ?: 'N/A' }}</span>
                                         </div>
                                         <div class="flex flex-col">
                                             <span class="meta-label uppercase tracking-tighter text-white/40">Written By</span>
-                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->writer ?: 'N/A' }}</span>
+                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->writers ?: 'N/A' }}</span>
                                         </div>
                                         <div class="flex flex-col">
                                             <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
@@ -186,8 +186,8 @@
 <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
 
     @php
-        $director = $item->credits->where('role', 'Director');
-        $writer = $item->credits->where('role', 'Writer');
+        $director = $item->credits->where('role', 'DIRECTORS');
+        $writer = $item->credits->where('role', 'WRITERS');
         $cast = $item->credits->where('role', 'Cast');
     @endphp
 
