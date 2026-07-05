@@ -159,22 +159,6 @@
                     </div>
  <div class="col-md-12 mb-4">
 
-    <div class="form-group col-md-4 mb-3">
-    {{ Form::label('director','Director',['class' => 'required form-label'])}}
-    {{ Form::text('director',null,[
-        'placeholder'=>'Director',
-        'class'=>'form-control'
-    ])}}
-</div>
-
-<div class="form-group col-md-4 mb-3">
-    {{ Form::label('writer','Written By',['class'=>'form-label'])}}
-    {{ Form::text('writer',null,[
-        'placeholder'=>'Writer',
-        'class'=>'form-control'
-    ])}}
-</div>
-
 <div class="form-group col-md-4 mb-3">
     {{ Form::label('cast','Cast',['class'=>'required form-label'])}}
     {{ Form::text('cast',null,[
@@ -216,16 +200,18 @@
 
                     @php
                         $roles = [
-                            'Executive Producer',
-                            'Producer',
-                            'Co_Producer',
-                            'Witers DOP',
-                            'Art Director',
-                            'Wardrobe',
-                            'Sound Recordist',
-                            'Post Producer',
-                            'Editor',
-                            'Sound Designer'
+                            'DIRECTORS',
+                            'WRITERS',
+                            'EXECUTIVE PRODUCER',
+                            'PRODUCER',
+                            'CO-PRODUCER',
+                            'WITERS DOP',
+                            'ART DIRECTOR',
+                            'WARDROBE',
+                            'SOUND RECORDIST',
+                            'POST PRODUCER',
+                            'EDITOR',
+                            'SOUND DESIGNER'
                         ];
                     @endphp
 
@@ -279,10 +265,18 @@
 
         <select name="roles[]" class="form-control">
 
-            <option>Director</option>
-            <option>Writer</option>
-            <option>Cast</option>
-            <option>Producer</option>
+            <option>DIRECTORS</option>
+            <option>WRITERS</option>
+            <option>EXECUTIVE PRODUCER</option>
+            <option>PRODUCER</option>
+            <option>CO-PRODUCER</option>
+            <option>WITERS DOP</option>
+            <option>ART DIRECTOR</option>
+            <option>WARDROBE</option>
+            <option>SOUND RECORDIST</option>
+            <option>POST PRODUCER</option>
+            <option>EDITOR</option>
+            <option>SOUND DESIGNER</option>
 
         </select>
 
@@ -557,16 +551,18 @@
 
                 <select name="roles[]" class="form-control">
 
-                   <option value="Executive Producer">Executive Producer</option>
-                    <option value="Producer">Producer</option>
-                    <option value="Co_Producer">Co_Producer</option>
-                    <option value="Witers DOP">Witers DOP</option>
-                    <option value="Art Director">Art Director</option>
-                    <option value="Wardrobe">Wardrobe</option>
-                    <option value="Sound Recordist">Sound Recordist</option>
-                    <option value="Post Producer">Post Producer</option>
-                    <option value="Editor">Editor</option>
-                    <option value="Sound Designer">Sound Designer</option>
+                    <option value="DIRECTORS">DIRECTORS</option>
+                    <option value="WRITERS">WRITERS</option>
+                    <option value="EXECUTIVE PRODUCER">EXECUTIVE PRODUCER</option>
+                    <option value="PRODUCER">PRODUCER</option>
+                    <option value="CO-PRODUCER">CO-PRODUCER</option>
+                    <option value="WITERS DOP">WITERS DOP</option>
+                    <option value="ART DIRECTOR">ART DIRECTOR</option>
+                    <option value="WARDROBE">WARDROBE</option>
+                    <option value="SOUND RECORDIST">SOUND RECORDIST</option>
+                    <option value="POST PRODUCER">POST PRODUCER</option>
+                    <option value="EDITOR">EDITOR</option>
+                    <option value="SOUND DESIGNER">SOUND DESIGNER</option>
 
                 </select>
 
