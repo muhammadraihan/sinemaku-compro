@@ -152,6 +152,24 @@
                                     </div>
                                 @endif
 
+@php
+$directors = $item->credits
+    ->where('role', 'DIRECTORS')
+    ->pluck('name')
+    ->implode(', ');
+
+$writers = $item->credits
+    ->where('role', 'WRITERS')
+    ->pluck('name')
+    ->implode(', ');
+
+ $casts = $item->credits
+        ->where('role', 'CAST')
+        ->pluck('name')
+        ->take(2)
+        ->implode(', ');
+@endphp
+
                                 {{-- Metadata Overlay - Right Side (hover only) --}}
                                 <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                     <div class="flex flex-col gap-4">
@@ -162,13 +180,24 @@
                                             </span>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="meta-label uppercase tracking-tighter text-white/40">Directed By</span>
-                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->directors ?: 'N/A' }}</span>
-                                        </div>
-                                        <div class="flex flex-col">
-                                            <span class="meta-label uppercase tracking-tighter text-white/40">Written By</span>
-                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->writers ?: 'N/A' }}</span>
-                                        </div>
+    <span class="meta-label uppercase tracking-tighter text-white/40">
+        Directed By
+    </span>
+
+    <span class="meta-value uppercase text-white tracking-wide font-sans">
+        {{ $directors ?: 'N/A' }}
+    </span>
+</div>
+
+<div class="flex flex-col">
+    <span class="meta-label uppercase tracking-tighter text-white/40">
+        Written By
+    </span>
+
+    <span class="meta-value uppercase text-white tracking-wide font-sans">
+        {{ $writers ?: 'N/A' }}
+    </span>
+</div>
                                         <div class="flex flex-col">
                                             <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
                                             <span class="meta-value uppercase text-white leading-tight font-sans">
@@ -185,11 +214,23 @@
                                 {{-- Metadata Overlay - Right Side (hover only) --}}
 <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
 
-    @php
-        $director = $item->credits->where('role', 'DIRECTORS');
-        $writer = $item->credits->where('role', 'WRITERS');
-        $cast = $item->credits->where('role', 'Cast');
-    @endphp
+    {{-- @php
+    $directors = $item->credits
+        ->where('role', 'DIRECTORS')
+        ->pluck('name')
+        ->implode(', ');
+
+    $writers = $item->credits
+        ->where('role', 'WRITERS')
+        ->pluck('name')
+        ->implode(', ');
+
+    $casts = $item->credits
+        ->where('role', 'CAST')
+        ->pluck('name')
+        ->take(2)
+        ->implode(', ');
+@endphp --}}
 
 
 

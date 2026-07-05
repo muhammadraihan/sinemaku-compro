@@ -129,7 +129,7 @@ class FilmController extends Controller
 $film->created_at = now();
 $film->save();
 
-// Director
+/// Director
 if ($request->director) {
     FilmCredit::create([
         'film_id' => $film->id,
@@ -150,15 +150,14 @@ if ($request->writer) {
 // Cast
 if ($request->cast) {
 
-    $casts = explode(',', $request->cast);
-
-    foreach ($casts as $cast) {
+    foreach (explode(',', $request->cast) as $cast) {
 
         FilmCredit::create([
             'film_id' => $film->id,
             'role' => 'Cast',
             'name' => trim($cast),
         ]);
+
     }
 }
 
@@ -176,9 +175,11 @@ if ($request->roles) {
             'role' => $role,
             'name' => $request->names[$index],
         ]);
+
     }
+
 }
-        FilmCredit::where('film_id', $film->id)->delete();
+        // FilmCredit::where('film_id', $film->id)->delete();
 
 if ($request->roles) {
 
