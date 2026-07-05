@@ -116,7 +116,7 @@
 <div class="w-full">
 
     {{-- SYNOPSIS --}}
-    <div class="mb-16 reveal-text">
+    <div class="mb-6 reveal-text">
         <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
