@@ -53,10 +53,10 @@
         2. DETAILS SECTION
         ============================================================ --}}
         <section class="py-16 md:py-24 px-8 md:px-16 z-10 relative bg-creme-leaks">
-            <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-12 md:gap-20">
+            <div class="max-w-[1400px] mx-auto grid lg:grid-cols-[280px_1fr] gap-20 items-start">
 
                 <!-- Left: Poster & Available On -->
-                <div class="w-full md:w-1/3 lg:w-1/4 flex-shrink-0">
+                <div class="w-full max-w-[280px]">
                     <div class="rounded-xl overflow-hidden shadow-2xl mb-8 reveal-image">
                         <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
                             class="w-full aspect-[3/4] object-cover">
@@ -111,14 +111,106 @@
                     </div>
                     @endif
                 </div>
-                <div class="credits-section">
-
-  <section class="py-20">
 
 
-                <!-- Right: Metadata & Synopsis -->
+<!-- Right Content -->
+<div class="w-full">
+
+    {{-- SYNOPSIS --}}
+    <div class="mb-16 reveal-text">
+        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
+                            @if(trim(strip_tags($films->sinopsis)))
+                                @i18n($films, 'sinopsis')
+                            @else
+                                <p>Synopsis not available.</p>
+            @endif
+        </div>
+    </div>
+
+
+    {{-- MAIN INFO --}}
+<div class="mb-16 border-b border-[#131b4d]/10 pb-16 reveal-text">
+
+    {{-- ROW 1 : STARRING & YEAR --}}
+    <div class="grid grid-cols-[380px_120px] gap-16 mb-12">
+
+        <!-- STARRING -->
+        <div>
+            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
+                Starring
+            </p>
+
+            @php
+                $casts = array_filter(explode(',', $films->cast));
+            @endphp
+
+            <div class="space-y-2">
+                @foreach($casts as $cast)
+                    <p class="font-sans text-lg text-[#131b4d]">
+                        {{ trim($cast) }}
+                    </p>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- YEAR -->
+        <div>
+            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
+                Year
+            </p>
+
+            <p class="font-sans text-lg text-[#131b4d]">
+                {{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}
+            </p>
+        </div>
+
+    </div>
+
+    {{-- CREDITS --}}
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-12 gap-y-14 reveal-text">
+
+    @foreach($films->credits->groupBy('role') as $role => $credits)
+
+        <div>
+
+            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
+                {{ $role }}
+            </p>
+
+            <div class="space-y-2">
+
+                @foreach($credits as $credit)
+
+                    <p class="font-sans text-lg leading-7 text-[#131b4d]">
+                        {{ $credit->name }}
+                    </p>
+
+                @endforeach
+
+            </div>
+
+        </div>
+
+    @endforeach
+
+
+    </div>
+
+
+                {{-- <!-- Right: Metadata & Synopsis -->
                 <div class="w-full md:w-2/3 lg:w-3/4">
                     <!-- Grid Metadata -->
+  <!-- Synopsis -->
+                    <div class="mb-10 reveal-text">
+                        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
+                            @if(trim(strip_tags($films->sinopsis)))
+                                @i18n($films, 'sinopsis')
+                            @else
+                                <p>Synopsis not available.</p>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
                         <div>
                             <span class="font-sans text-[15px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Directed By</span>
@@ -169,9 +261,9 @@
 
     @endforeach
 
-</div>
+</div> --}}
 
-                    <!-- Synopsis -->
+                    {{-- <!-- Synopsis -->
                     <div class="mb-10 reveal-text">
                         <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
                             @if(trim(strip_tags($films->sinopsis)))
@@ -180,10 +272,10 @@
                                 <p>Synopsis not available.</p>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Genres -->
-                    <div class="flex flex-wrap gap-3 reveal-text">
+                    <div class="flex flex-wrap gap-3 mt-10 reveal-text">
                         @php
                             $genres = array_filter(explode(',', $films->genre));
                         @endphp
