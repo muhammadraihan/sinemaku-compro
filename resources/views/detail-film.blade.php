@@ -118,7 +118,7 @@
 
     {{-- SYNOPSIS --}}
     <div class="mb-6 reveal-text">
-        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d]/80 max-w-3xl">
+        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d] max-w-3xl">
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
                             @else
@@ -136,7 +136,7 @@
 
      <!-- STARRING -->
 <div>
-    <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
+    <p class="font-sans text-[12px] tracking-[0.2em] text-[#131b4d]/50 mb-4 font-bold">
         Starring
     </p>
 
@@ -165,7 +165,7 @@
     </div>
 
     {{-- CREDITS --}}
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-12 gap-y-14 reveal-text">
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-12 gap-y-8 reveal-text">
 
     @foreach($films->credits->groupBy('role') as $role => $credits)
 
