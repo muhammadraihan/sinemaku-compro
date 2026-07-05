@@ -128,10 +128,10 @@
 
 
     {{-- MAIN INFO --}}
-<div class="mb-16 border-b border-[#131b4d]/10 pb-16 reveal-text">
+<div class="mb-6 border-b border-[#131b4d]/10 pb-16 reveal-text">
 
     {{-- ROW 1 : STARRING & YEAR --}}
-    <div class="grid grid-cols-[380px_120px] gap-16 mb-12">
+    <div class="grid grid-cols-[380px_120px] gap-16 mb-6">
 
         <!-- STARRING -->
         <div>
