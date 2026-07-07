@@ -113,11 +113,11 @@
                 </div>
 
                 <!-- Right Content -->
-<div class="w-full">
+<div class="w-full max-w-4xl">
 
     {{-- SYNOPSIS --}}
     <div class="mb-6 reveal-text">
-        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d] max-w-3xl">
+        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d] text-justify">
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
                             @else
@@ -127,72 +127,65 @@
     </div>
 
 
-    {{-- MAIN INFO --}}
-<div class="mb-6 border-b border-[#131b4d]/10 pb-16 reveal-text">
+   {{-- MAIN INFO --}}
+<div class="mb-4 pb-4 reveal-text">
 
-    {{-- ROW 1 : STARRING & YEAR --}}
-    <div class="grid grid-cols-[380px_120px] gap-16 mb-6">
+    {{-- STARRING + YEAR --}}
+    <div class="grid grid-cols-4 gap-x-12 mb-8">
 
-            <!-- STARRING -->
-<div>
-    <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
-        Starring
-    </p>
+    {{-- STARRING --}}
+    <div class="col-span-3">
+        <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-2 font-bold">
+            STARRING
+        </p>
 
-    @php
-        $casts = collect(explode(',', $films->cast))
-                    ->map(fn($cast) => trim($cast))
-                    ->filter();
-    @endphp
+        @php
+            $casts = collect(explode(',', $films->cast))
+                ->map(fn($cast) => trim($cast))
+                ->filter();
+        @endphp
 
-    <p class="font-sans text-lg leading-8 text-[#131b4d]">
-        {{ $casts->implode(', ') }}
-    </p>
-</div>
-
-        <!-- YEAR -->
-        <div>
-            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
-                Year
-            </p>
-
-            <p class="font-sans text-lg text-[#131b4d]">
-                {{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}
-            </p>
-        </div>
-
+        <p class="font-sans text-lg leading-8 text-[#131b4d] text-justify">
+            {{ $casts->implode(', ') }}
+        </p>
     </div>
 
-   {{-- CREDITS --}}
-<div class="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-12 gap-y-8 reveal-text">
+    {{-- YEAR --}}
+    <div>
+        <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-2 font-bold">
+            YEAR
+        </p>
+
+        <p class="font-sans text-lg text-[#131b4d]">
+            {{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}
+        </p>
+    </div>
+
+</div>
+    {{-- CREDITS --}}
+   <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-6 reveal-text">
 
     @foreach($films->credits->groupBy('role') as $role => $credits)
 
-        <div>
+    <div>
+        <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-2 font-bold">
+            {{ $role }}
+        </p>
 
-            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-4 font-bold">
-                {{ $role }}
-            </p>
-
-            <div class="space-y-2">
-
-                @foreach($credits as $credit)
-
-                    <p class="font-sans text-lg leading-7 text-[#131b4d]">
-                        {{ $credit->name }}
-                    </p>
-
-                @endforeach
-
-            </div>
-
+        <div class="space-y-1">
+            @foreach($credits as $credit)
+                <p class="font-sans text-lg leading-7 text-[#131b4d]">
+                    {{ $credit->name }}
+                </p>
+            @endforeach
         </div>
+    </div>
 
     @endforeach
 
 </div>
                     <!-- Genres -->
-                    <div class="flex flex-wrap gap-3 mt-10 reveal-text">
+                    <div class="flex flex-wrap gap-3 mt-4 reveal-text">
                         @php
                             $genres = array_filter(explode(',', $films->genre));
                         @endphp
@@ -207,7 +200,7 @@
         {{-- ============================================================
         3. EPISODES & RECOMMENDATIONS
         ============================================================ --}}
-        <section class="py-8 md:py-16 px-8 md:px-16 z-10 relative border-t border-[#131b4d]/10">
+        <section class="-mt-16 pt-10 pb-8 md:pt-10 md:pb-16 px-8 md:px-16 z-10 relative border-t border-[#131b4d]/10">
             <div class="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
 
                 @php
