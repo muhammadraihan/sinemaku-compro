@@ -153,8 +153,8 @@
                                 @endif
 
 @php
-$directors = $item->credits
-    ->where('role', 'DIRECTORS')
+$director = $item->credits
+    ->where('role', 'DIRECTOR')
     ->pluck('name')
     ->implode(', ');
 
@@ -185,7 +185,7 @@ $writers = $item->credits
     </span>
 
     <span class="meta-value uppercase text-white tracking-wide font-sans">
-        {{ $directors ?: 'N/A' }}
+        {{ $director ?: 'N/A' }}
     </span>
 </div>
 
@@ -215,8 +215,8 @@ $writers = $item->credits
 <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
 
     {{-- @php
-    $directors = $item->credits
-        ->where('role', 'DIRECTORS')
+    $director = $item->credits
+        ->where('role', 'DIRECTOR')
         ->pluck('name')
         ->implode(', ');
 

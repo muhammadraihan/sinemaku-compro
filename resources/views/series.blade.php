@@ -152,8 +152,8 @@
                                 @endif
 
 @php
-$directors = $item->credits
-    ->where('role', 'DIRECTORS')
+$director = $item->credits
+    ->where('role', 'DIRECTOR')
     ->pluck('name')
     ->implode(', ');
 
@@ -184,7 +184,7 @@ $writers = $item->credits
     </span>
 
     <span class="meta-value uppercase text-white tracking-wide font-sans">
-        {{ $directors ?: 'N/A' }}
+        {{ $director ?: 'N/A' }}
     </span>
 </div>
 

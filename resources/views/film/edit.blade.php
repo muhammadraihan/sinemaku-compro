@@ -200,7 +200,7 @@
 
                     @php
                         $roles = [
-                            'DIRECTORS',
+                            'DIRECTOR',
                             'WRITERS',
                             'EXECUTIVE PRODUCER',
                             'PRODUCER',
@@ -266,7 +266,7 @@
 
         <select name="roles[]" class="form-control">
 
-            <option>DIRECTORS</option>
+            <option>DIRECTOR</option>
             <option>WRITERS</option>
             <option>EXECUTIVE PRODUCER</option>
             <option>PRODUCER</option>
@@ -553,7 +553,7 @@
 
                 <select name="roles[]" class="form-control">
 
-                    <option value="DIRECTORS">DIRECTORS</option>
+                    <option value="DIRECTOR">DIRECTOR</option>
                     <option value="WRITERS">WRITERS</option>
                     <option value="EXECUTIVE PRODUCER">EXECUTIVE PRODUCER</option>
                     <option value="PRODUCER">PRODUCER</option>
