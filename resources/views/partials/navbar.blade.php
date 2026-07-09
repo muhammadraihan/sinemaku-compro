@@ -535,7 +535,7 @@ GLOBAL i18n ENGINE
             about_wwd_heading: { en: 'More than just creating works.', id: 'Bukan hanya sekadar membuat karya.' },
             about_collab_eyebrow: { en: 'Collaboration', id: 'Kolaborasi' },
             about_collab_heading: { en: 'Have a great project to work on together?', id: 'Ada proyek hebat yang bisa dikerjakan bersama?' },
-            label_director: { en: 'Director', id: 'Sutradara' },
+            label_director: { en: 'DIRECTOR', id: 'Sutradara' },
             label_minutes: { en: 'minutes', id: 'menit' },
             label_episode: { en: 'Episode', id: 'Episode' },
             label_season: { en: 'Season', id: 'Musim' },
