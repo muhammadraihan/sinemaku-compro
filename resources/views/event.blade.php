@@ -20,7 +20,7 @@ EDITORIAL WRAPPER
     }
 </style>
 <div id="editorial-wrapper" class="text-brand-navy relative w-full font-sans min-h-screen">
-    
+
 
 
     {{-- ============================================================
@@ -31,21 +31,40 @@ EDITORIAL WRAPPER
             Our <span class="font-sans font-black not-italic text-brand-orange uppercase mx-2">Events</span>
         </h2>
 
-        <!-- Filter Pills -->
+<div class="flex flex-wrap justify-center gap-3 mb-24">
+
+    <a href="{{ route('event') }}"
+       class="filter-pill {{ request()->routeIs('event') ? 'active' : '' }}">
+        ALL
+    </a>
+
+    <a href="{{ route('events.gala') }}"
+       class="filter-pill {{ request()->routeIs('events.gala') ? 'active' : '' }}">
+        GALA PREMIER
+    </a>
+
+    <a href="{{ route('events.sinemaku-day') }}"
+       class="filter-pill {{ request()->routeIs('events.sinemaku-day') ? 'active' : '' }}">
+        SINEMAKU DAY
+    </a>
+
+</div>
+
+        {{-- <!-- Filter Pills -->
         <div class="flex flex-wrap justify-center gap-3 mb-24">
             <button class="filter-pill active" data-category="all">ALL</button>
             @foreach($event_kategori as $cat)
                 <button class="filter-pill" data-category="{{ $cat->uuid }}">{{ strtoupper($cat->name) }}</button>
             @endforeach
         </div>
-    </section>
+    </section> --}}
 
     {{-- ============================================================
     CONTENT SECTION
     ============================================================ --}}
     <section class="px-8 md:px-16 pb-32 max-w-[1400px] mx-auto relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
+
             <!-- LEFT: Photos Collage -->
             <div class="lg:col-span-4 sticky top-48">
                 <div class="flex flex-col gap-4">
@@ -81,9 +100,9 @@ EDITORIAL WRAPPER
             <div class="lg:col-span-8">
                 <div class="flex flex-col">
                     @forelse($event as $index => $item)
-                        <div class="event-timeline-item flex items-start gap-6 py-8 border-b border-brand-navy/10 group hover:bg-brand-orange/[0.02] transition-colors duration-500 rounded-xl px-4" 
+                        <div class="event-timeline-item flex items-start gap-6 py-8 border-b border-brand-navy/10 group hover:bg-brand-orange/[0.02] transition-colors duration-500 rounded-xl px-4"
                              data-category="{{ $item->event_kategori_uuid }}">
-                            
+
                             <!-- Date Badge & Connector -->
                             <div class="flex flex-col items-center shrink-0">
                                 <div class="w-16 h-16 rounded-xl bg-white shadow-sm border border-brand-navy/5 flex flex-col items-center justify-center">
@@ -158,6 +177,19 @@ EDITORIAL WRAPPER
 
 {{-- Scripts --}}
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+    }
+});
+</script>
+
+@include('components.footer')
+
+@endsection
+
+{{-- Scripts
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof gsap !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
@@ -178,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             items.forEach(item => {
                 const itemCategory = item.getAttribute('data-category');
-                
+
                 if (category === 'all' || itemCategory === category) {
                     item.style.display = 'flex';
                     gsap.fromTo(item, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 });
@@ -198,4 +230,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 @include('components.footer')
 
-@endsection
+@endsection --}}
