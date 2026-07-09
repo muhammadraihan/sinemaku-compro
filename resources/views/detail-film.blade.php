@@ -165,8 +165,9 @@
 
 </div>
 
-    {{-- CREDITS --}}
+     {{-- CREDITS --}}
 <div class="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-6 reveal-text">
+
 
     @foreach($films->credits->groupBy('role') as $role => $credits)
 

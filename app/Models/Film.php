@@ -74,6 +74,6 @@ class Film extends Model
     }
     public function credits()
 {
-    return $this->hasMany(FilmCredit::class);
+    return $this->hasMany(FilmCredit::class, 'film_id', 'id');
 }
 }
