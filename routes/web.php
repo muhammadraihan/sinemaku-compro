@@ -47,6 +47,8 @@ Route::get('/detail-categories/{slug}', [FrontEndController::class, 'detailkateg
 Route::get('/article', [FrontEndController::class, 'articles'])->name('articles');
 Route::get('/detail-article/{slug}', [FrontEndController::class, 'detailarticles'])->name('detail-articles');
 Route::get('/events', [FrontEndController::class, 'event'])->name('event');
+Route::get('/events/gala-premiere', [FrontEndController::class, 'galaPremiere'])->name('events.gala');
+Route::get('/events/sinemaku-day', [FrontEndController::class, 'sinemakuDay'])->name('events.sinemaku-day');
 Route::get('/detail-events/{slug}', [FrontEndController::class, 'detailevent'])->name('detail-event');
 Route::get('/membership', [FrontEndController::class, 'membership'])->name('frontend.membership');
 Route::post('/membership/register', [App\Http\Controllers\MembershipAuthController::class, 'register'])->name('membership.register');

@@ -519,6 +519,34 @@ class FrontEndController extends Controller
         return view('event', compact('event', 'kategorishop', 'event_kategori'));
     }
 
+public function galaPremiere()
+{
+    $event = Event::with('eventKategori')
+        ->whereHas('eventKategori', function ($q) {
+            $q->where('slug', 'gala-premier');
+        })
+        ->orderBy('tgl_event', 'DESC')
+        ->get();
+
+    $kategorishop = KategoriShop::all();
+    $event_kategori = EventKategori::orderBy('order_num')->get();
+
+    return view('event', compact('event', 'kategorishop', 'event_kategori'));
+}
+public function sinemakuDay()
+{
+    $event = Event::with('eventKategori')
+        ->whereHas('eventKategori', function ($q) {
+            $q->where('slug', 'sinemaku-day');
+        })
+        ->orderBy('tgl_event', 'DESC')
+        ->get();
+
+    $kategorishop = KategoriShop::all();
+    $event_kategori = EventKategori::orderBy('order_num')->get();
+
+    return view('event', compact('event', 'kategorishop', 'event_kategori'));
+}
     public function detailevent($id)
     {
         $event = Event::with('photos')->where('slug', $id)->firstOrFail();
