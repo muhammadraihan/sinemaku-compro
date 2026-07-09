@@ -17,10 +17,10 @@
         <div id="hero-bg-container" class="absolute inset-0 z-0">
             @foreach($slides as $i => $film)
                 <div class="hero-bg absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out"
-                     style="opacity: {{ $i === 0 ? '1' : '0' }}; 
+                     style="opacity: {{ $i === 0 ? '1' : '0' }};
                             filter: {{ $i === 0 ? 'blur(0)' : 'blur(8px)' }};
                             transform: {{ $i === 0 ? 'scale(1)' : 'scale(1.05)' }};">
-                    
+
                     <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
                          style="background-image: url('{{ asset('photo/' . $film->photo) }}');">
                     </div>
@@ -152,17 +152,17 @@
                 backgrounds[currentIndex].style.opacity = '0';
                 backgrounds[currentIndex].style.filter = 'blur(8px)';
                 backgrounds[currentIndex].style.transform = 'scale(1.05)';
-                
+
                 titles[currentIndex].style.opacity = '0';
                 titles[currentIndex].style.pointerEvents = 'none';
-                
+
                 // Adjust transform based on screen width
                 if (window.innerWidth < 768) {
                     titles[currentIndex].style.transform = 'translateY(-20px)';
                 } else {
                     titles[currentIndex].style.transform = 'translateX(-5%)';
                 }
-                
+
                 indicators[currentIndex].classList.replace('text-white', 'text-white/40');
 
                 // Next Slide
@@ -171,7 +171,7 @@
                 backgrounds[currentIndex].style.opacity = '1';
                 backgrounds[currentIndex].style.filter = 'blur(0)';
                 backgrounds[currentIndex].style.transform = 'scale(1)';
-                
+
                 titles[currentIndex].style.transform = 'translateY(0) translateX(0)';
                 titles[currentIndex].style.opacity = '1';
                 titles[currentIndex].style.pointerEvents = 'auto';
@@ -202,7 +202,7 @@
             });
 
             startSlideshow();
-            
+
             // Initial positioning override
             titles.forEach((title, i) => {
                 if(i !== currentIndex) {
@@ -297,7 +297,7 @@
                     <span style="font-size:11px; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85); padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.15);">{{ $latestFilm->duration }} menit</span>
                     @endif
                     @if($latestFilm->director)
-                    <span style="font-size:11px; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85); padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.15);">Sutradara: {{ $latestFilm->director }}</span>
+                    <span style="font-size:11px; background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.85); padding:5px 14px; border-radius:999px; border:1px solid rgba(255,255,255,0.15);">DIRECTOR: {{ $latestFilm->director }}</span>
                     @endif
                 </div>
 
@@ -1074,7 +1074,7 @@ SCRIPTS
 
                 // --- Mobile Hero Pinning Sequence ---
                 let mm = gsap.matchMedia();
-                
+
                 mm.add("(max-width: 767px)", () => {
                     const totalSlides = filmItems.length;
                     if (totalSlides > 1) {
@@ -1087,9 +1087,9 @@ SCRIPTS
                             onUpdate: (self) => {
                                 let progress = self.progress;
                                 let activeIdx = Math.min(Math.floor(progress * totalSlides), totalSlides - 1);
-                                
+
                                 activateFilm(activeIdx);
-                                
+
                                 const indicator = document.getElementById('current-slide');
                                 if(indicator) indicator.innerText = activeIdx + 1;
                             }
