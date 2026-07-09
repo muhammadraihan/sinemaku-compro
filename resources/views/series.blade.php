@@ -193,13 +193,13 @@ $writers = $item->credits
         Written By
     </span>
 
-    <span class="meta-value uppercase text-white tracking-wide font-sans">
+    <span class="meta-value normal-case text-white tracking-wide font-sans">
         {{ $writers ?: 'N/A' }}
     </span>
 </div>
                                         <div class="flex flex-col">
                                             <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
-                                            <span class="meta-value uppercase text-white leading-tight font-sans">
+                                            <span class="meta-value normal-case text-white leading-tight font-sans">
                                                 @php
                                                     $casts = array_filter(explode(',', $item->cast));
                                                     $displayCasts = array_slice($casts, 0, 2);

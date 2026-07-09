@@ -194,7 +194,7 @@ $writers = $item->credits
         Written By
     </span>
 
-    <span class="meta-value uppercase text-white tracking-wide font-sans">
+    <span class="meta-value normal-case text-white tracking-wide font-sans">
         {{ $writers ?: 'N/A' }}
     </span>
 </div>
