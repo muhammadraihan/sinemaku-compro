@@ -26,24 +26,21 @@
                 class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-4xl text-white  uppercase block mb-3 tracking-tighter">
 
 
-                Di balik setiap karya,
-                <br>
-                selalu ada seseorang
-                yang berani memulai.
+                GALA PREMIERE
             </h1>
 
             <span
              data-aos="fade-up"
             data-aos-delay="100"
             class="font-sans font-bold uppercase tracking-[5px] text-white  text-sm">
-            Tentang Sinemaku Pictures
+            Sinemaku Pictures
             </span>
 
         <!-- Button -->
     <div class="mt-8">
         <a href="{{ route('film') }}"
             class="inline-flex items-center bg-navy hover:bg-white text-white hover:text-[#F36B21] px-8 py-3 rounded-full uppercase font-bold tracking-wider transition-all duration-300 shadow-lg cursor-none hover-target">
-            Our Works
+            Explore Event
         </a>
 
 
@@ -82,7 +79,7 @@
 
          <h1
     class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-4xl text-brand-navy uppercase block mb-3 tracking-tighter">
-    MENGAPA SINEMAKU ADA
+    LOREM IPSUM
 </h1>
 
         </div>
@@ -97,17 +94,7 @@
              style="font-sans;">
 
             <p>
-                Setiap cerita dimulai dari sebuah kesempatan.
-                Tidak semua perjalanan dimulai dari tempat yang sama.
-                Ada yang tumbuh di tengah industri kreatif.
-                Ada pula yang harus menempuh perjalanan yang lebih panjang
-                hanya untuk mendapatkan kesempatan pertamanya. Yang membedakan sering kali bukan bakat,
-                melainkan kesempatan. Banyak cerita lahir dari pengalaman hidup yang sederhana.
-                Dari percakapan sehari-hari, dari kegagalan,
-                dari harapan, dari kehilangan,
-                atau dari mimpi yang diam-diam terus dijaga. Namun tidak semua cerita menemukan ruang untuk didengar.
-                Bukan karena cerita itu kurang berarti,
-                melainkan karena belum menemukan pertemuan yang tepat.
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus iste voluptas placeat totam! Accusantium, numquam? Aliquid ab esse quasi at! Vel quos natus itaque autem, repellat enim ea iusto minus! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut temporibus iste maxime quis? Perspiciatis voluptatibus nemo eligendi labore facilis sit quasi esse cum impedit fugit? Assumenda vel excepturi tempora commodi.
             </p>
 
             {{-- <p>
@@ -134,16 +121,7 @@
              style="font-sans;">
 
             <p>
-                Mungkin, setiap perjalanan besar memang selalu berawal
-                dari sebuah pertemuan. Pertemuan antara manusia,
-                gagasan, kepercayaan, dan kesempatan. Semangat itulah yang ingin terus tumbuh bersama
-                Sinemaku Pictures. Bukan sebagai tempat yang memiliki
-                semua jawaban, melainkan sebagai sebuah pintu
-                yang tetap terbuka. Pintu untuk bertemu, berdialog, belajar,
-                berkolaborasi, dan bersama-sama menciptakan
-                sesuatu yang bermakna. Tidak setiap langkah akan berakhir menjadi sebuah film.
-                    Tidak setiap pertemuan akan melahirkan sebuah karya.
-                    Namun setiap kesempatan untuk saling mendengarkan selalu layak untuk dimulai.
+               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium veniam perferendis modi facere voluptate adipisci eum in dolore nostrum autem, earum sunt. Modi deserunt, sequi ipsa tempore architecto voluptates quibusdam!
             </p>
 
             {{-- <p>

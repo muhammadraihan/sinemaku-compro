@@ -43,7 +43,25 @@ FULLSCREEN MENU OVERLAY
                         ['title' => 'DOCUMENTARIES', 'url' => '/documentary', 'i18n' => 'menu_documentaries_short'],
                     ]
                 ],
-                ['title' => 'EVENT', 'url' => '/events', 'i18n' => 'menu_events'],
+                // ['title' => 'EVENT', 'url' => '/events', 'i18n' => 'menu_events'],
+[
+    'title' => 'EVENTS',
+    'i18n' => 'menu_events',
+    'isDropdown' => true,
+    'children' => [
+        [
+            'title' => 'GALA PREMIERE',
+            'url' => route('events.gala'),
+            'i18n' => 'menu_gala_premiere',
+        ],
+        [
+            'title' => 'SINEMAKU DAY',
+            'url' => route('events.sinemaku-day'),
+            'i18n' => 'menu_sinemaku_day',
+        ],
+    ],
+],
+
                 ['title' => 'MERCH', 'url' => '/shop', 'i18n' => 'menu_merch'],
                 ['title' => 'COMMUNITY', 'url' => '/membership', 'i18n' => 'menu_community'],
                 ['title' => 'ARTICLE', 'url' => '/article', 'i18n' => 'menu_articles'],

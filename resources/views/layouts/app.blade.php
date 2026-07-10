@@ -92,6 +92,10 @@
     html {
       background-color: #f6f6ed;
       overflow-x: hidden;
+    scroll-behavior:smooth;
+    }
+    #event-list{
+    scroll-margin-top:120px;
     }
 
 
@@ -496,6 +500,8 @@ dengan tulus dapat melahirkan sebuah cerita."`;
 
 });
 </script>
+
+
 
 </body>
 
