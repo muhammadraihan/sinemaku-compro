@@ -574,13 +574,13 @@ public function sinemakuDay()
     //     return view('detail-event', compact('event', 'all_event', 'kategorishop'));
     // }
 
-    // public function membership()
-    // {
-    //     $kategorishop = KategoriShop::all();
-    //     $settings = \App\Models\SiteSetting::getGroup('membership');
+    public function membership()
+    {
+        $kategorishop = KategoriShop::all();
+        $settings = \App\Models\SiteSetting::getGroup('membership');
 
-    //     return view('membership', compact('kategorishop', 'settings'));
-    // }
+        return view('membership', compact('kategorishop', 'settings'));
+    }
 
     public function careers()
     {
