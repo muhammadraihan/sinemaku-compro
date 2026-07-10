@@ -202,12 +202,8 @@
 
             <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                 @php
-                    $rawText = '[s]Tidak semua perjalanan dimulai dari tempat yang sama.[/s]
-                                [s]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/s]
-                                [s]Karena itu,[/s]
-                                [p]Sinemaku Pictures[/p]
-                                [s]memilih untuk menjaga satu hal yang sederhana:[/s]
-                                [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
+                    $rawText = '[s]Tidak semua perjalanan dimulai dari tempat yang sama. Yang membedakan sering kali bukan bakat, melainkan kesempatan. Karena itu,[/s]
+                                [p]Sinemaku Pictures[/p] [s]memilih untuk menjaga satu hal yang sederhana:[/s] [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
 
                     // Parse [ps]
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
@@ -314,7 +310,7 @@
                     <img src="../img/p.home/_ARM0218.JPG" class="w-full h-full object-cover">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
-                        <span class="crew-text-reveal font-serif text-white text-[3vw] md:text-[2vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
+                        <span class="crew-text-reveal font-serif text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">BERCERITA</h2>
                     </div>
                 </div>

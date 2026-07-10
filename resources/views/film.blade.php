@@ -90,7 +90,7 @@
                                         $years = collect($genre)->map(fn($item) => \Carbon\Carbon::parse($item->release_date)->format('Y'))->unique()->sortDesc();
                                     @endphp
                                     @foreach($years as $year)
-                                        <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="{{ $year }}">{{ $year }}</div>
+                                        <div class="filter-option px-6 py-2 text-xs font-sans normal-php case tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="{{ $year }}">{{ $year }}</div>
                                     @endforeach
                                 </div>
                             </div>
