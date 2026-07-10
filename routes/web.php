@@ -46,7 +46,8 @@ Route::get('/detail-shop/{slug}', [FrontEndController::class, 'detailshop'])->na
 Route::get('/detail-categories/{slug}', [FrontEndController::class, 'detailkategori'])->name('detail-kategori');
 Route::get('/article', [FrontEndController::class, 'articles'])->name('articles');
 Route::get('/detail-article/{slug}', [FrontEndController::class, 'detailarticles'])->name('detail-articles');
-Route::get('/events', [FrontEndController::class, 'event'])->name('event');
+// Route::get('/events', [FrontEndController::class, 'event'])->name('event');
+Route::redirect('/events', '/events/gala-premiere')->name('event');
 Route::get('/events/gala-premiere', [FrontEndController::class, 'galaPremiere'])->name('events.gala');
 Route::get('/events/sinemaku-day', [FrontEndController::class, 'sinemakuDay'])->name('events.sinemaku-day');
 Route::get('/detail-events/{slug}', [FrontEndController::class, 'detailevent'])->name('detail-event');

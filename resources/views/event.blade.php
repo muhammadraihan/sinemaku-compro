@@ -33,11 +33,6 @@ EDITORIAL WRAPPER
 
 <div class="flex flex-wrap justify-center gap-3 mb-24">
 
-    <a href="{{ route('event') }}"
-       class="filter-pill {{ request()->routeIs('event') ? 'active' : '' }}">
-        ALL
-    </a>
-
     <a href="{{ route('events.gala') }}"
        class="filter-pill {{ request()->routeIs('events.gala') ? 'active' : '' }}">
         GALA PREMIER
