@@ -510,59 +510,77 @@ class FrontEndController extends Controller
         return view('detail-articles', compact('article', 'all_article', 'kategorishop'));
     }
 
-    public function event()
-    {
-        $event = Event::with('eventKategori')->orderBy('tgl_event', 'DESC')->get();
-        $kategorishop = KategoriShop::all();
-        $event_kategori = EventKategori::orderBy('order_num', 'asc')->get();
+    // public function event()
+    // {
+    //     $event = Event::with('eventKategori')->orderBy('tgl_event', 'DESC')->get();
+    //     $kategorishop = KategoriShop::all();
+    //     $event_kategori = EventKategori::orderBy('order_num', 'asc')->get();
 
-        return view('event', compact('event', 'kategorishop', 'event_kategori'));
-    }
+    //     return view('event', compact('event', 'kategorishop', 'event_kategori'));
+    // }
 
+// public function galaPremiere()
+// {
+//     $event = Event::with('eventKategori')
+//         ->whereHas('eventKategori', function ($q) {
+//             $q->where('slug', 'gala-premier');
+//         })
+//         ->orderBy('tgl_event', 'DESC')
+//         ->get();
+
+//     $kategorishop = KategoriShop::all();
+//     $event_kategori = EventKategori::orderBy('order_num')->get();
+
+//     return view('event', compact('event', 'kategorishop', 'event_kategori'));
+// }
 public function galaPremiere()
 {
-    $event = Event::with('eventKategori')
-        ->whereHas('eventKategori', function ($q) {
-            $q->where('slug', 'gala-premier');
-        })
-        ->orderBy('tgl_event', 'DESC')
-        ->get();
+    $events = Event::whereHas('eventKategori', function ($q) {
+        $q->where('name', 'Gala Premier');
+    })->latest('tgl_event')->get();
 
-    $kategorishop = KategoriShop::all();
-    $event_kategori = EventKategori::orderBy('order_num')->get();
-
-    return view('event', compact('event', 'kategorishop', 'event_kategori'));
+    return view('event-gala', compact('events'));
 }
+// public function sinemakuDay()
+// {
+//     $event = Event::with('eventKategori')
+//         ->whereHas('eventKategori', function ($q) {
+//             $q->where('slug', 'sinemaku-day');
+//         })
+//         ->orderBy('tgl_event', 'DESC')
+//         ->get();
+
+//     $kategorishop = KategoriShop::all();
+//     $event_kategori = EventKategori::orderBy('order_num')->get();
+
+//     return view('event', compact('event', 'kategorishop', 'event_kategori'));
+// }
+
 public function sinemakuDay()
 {
-    $event = Event::with('eventKategori')
-        ->whereHas('eventKategori', function ($q) {
-            $q->where('slug', 'sinemaku-day');
-        })
-        ->orderBy('tgl_event', 'DESC')
-        ->get();
+    $events = Event::whereHas('eventKategori', function ($q) {
+        $q->where('name', 'Sinemaku Day');
+    })->latest('tgl_event')->get();
 
-    $kategorishop = KategoriShop::all();
-    $event_kategori = EventKategori::orderBy('order_num')->get();
-
-    return view('event', compact('event', 'kategorishop', 'event_kategori'));
+    return view('event-sinemaku-day', compact('events'));
 }
-    public function detailevent($id)
-    {
-        $event = Event::with('photos')->where('slug', $id)->firstOrFail();
-        $all_event = Event::where('uuid', '!=', $event->uuid)->orderBy('tgl_event', 'DESC')->get();
-        $kategorishop = KategoriShop::all();
 
-        return view('detail-event', compact('event', 'all_event', 'kategorishop'));
-    }
+    // public function detailevent($id)
+    // {
+    //     $event = Event::with('photos')->where('slug', $id)->firstOrFail();
+    //     $all_event = Event::where('uuid', '!=', $event->uuid)->orderBy('tgl_event', 'DESC')->get();
+    //     $kategorishop = KategoriShop::all();
 
-    public function membership()
-    {
-        $kategorishop = KategoriShop::all();
-        $settings = \App\Models\SiteSetting::getGroup('membership');
+    //     return view('detail-event', compact('event', 'all_event', 'kategorishop'));
+    // }
 
-        return view('membership', compact('kategorishop', 'settings'));
-    }
+    // public function membership()
+    // {
+    //     $kategorishop = KategoriShop::all();
+    //     $settings = \App\Models\SiteSetting::getGroup('membership');
+
+    //     return view('membership', compact('kategorishop', 'settings'));
+    // }
 
     public function careers()
     {
