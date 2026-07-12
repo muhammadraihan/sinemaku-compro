@@ -574,22 +574,28 @@ public function sinemakuDay()
     //     return view('detail-event', compact('event', 'all_event', 'kategorishop'));
     // }
 
-    public function membership()
-    {
-        $kategorishop = KategoriShop::all();
-        $settings = \App\Models\SiteSetting::getGroup('membership');
+    // public function membership()
+    // {
+    //     $kategorishop = KategoriShop::all();
+    //     $settings = \App\Models\SiteSetting::getGroup('membership');
 
-        return view('membership', compact('kategorishop', 'settings'));
-    }
+    //     return view('membership', compact('kategorishop', 'settings'));
+    // }
 
-    public function careers()
-    {
-        $careers = Job::all();
-        $casting = Casting::all();
-        $kategorishop = KategoriShop::all();
+public function careers()
+{
+    $careers = Job::all();
+    $casting = Casting::all();
+    $kategorishop = KategoriShop::all();
+    $settings = SiteSetting::getGroup('membership');
 
-        return view('careers', compact('careers', 'casting', 'kategorishop'));
-    }
+    return view('careers', compact(
+        'careers',
+        'casting',
+        'kategorishop',
+        'settings'
+    ));
+}
 
     public function detailcareers($id)
     {
