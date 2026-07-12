@@ -10,7 +10,7 @@ FULLSCREEN MENU OVERLAY
     <!-- Tombol Close -->
     <button id="close-menu-btn"
         class="absolute top-10 right-8 md:right-16 font-sans text-[10px] tracking-[0.25em] uppercase font-bold {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy hover:text-brand-orange' : 'text-white hover:text-brand-navy' }} transition-colors cursor-none hover-target">
-        [ X CLOSE ]
+        [ X TUTUP ]
     </button>
 
     {{-- Language Switcher inside menu --}}
@@ -20,7 +20,7 @@ FULLSCREEN MENU OVERLAY
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
-            <span class="lang-label">EN</span>
+            <span class="lang-label">ID</span>
         </button>
     </div>
 
@@ -62,9 +62,9 @@ FULLSCREEN MENU OVERLAY
     ],
 ],
 
-                ['title' => 'MERCH', 'url' => '/shop', 'i18n' => 'menu_merch'],
-                ['title' => 'COMMUNITY', 'url' => '/membership', 'i18n' => 'menu_community'],
-                ['title' => 'ARTICLE', 'url' => '/article', 'i18n' => 'menu_articles'],
+                // ['title' => 'MERCH', 'url' => '/shop', 'i18n' => 'menu_merch'],
+                // ['title' => 'COMMUNITY', 'url' => '/membership', 'i18n' => 'menu_community'],
+                // ['title' => 'ARTICLE', 'url' => '/article', 'i18n' => 'menu_articles'],
                 ['title' => 'CAREER', 'url' => '/careers', 'i18n' => 'menu_careers'],
             ];
         @endphp
