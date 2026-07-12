@@ -18,11 +18,11 @@
                     Punya cerita yang ingin didengar?
                 </h3>
                 <h2 class="font-peckham text-brand-orange text-xl md:text-3xl lg:text-[3vw] leading-[0.9] tracking-tighter mb-5 uppercase">
-                    Ngobrol dulu aja,<br>nggak harus langsung jadi apa-apa.
+                    Ngobrol dulu aja.
                 </h2>
                 <a href="mailto:hello@sinemakupictures.com"
                    class="inline-block bg-brand-orange text-white px-10 py-4 rounded-full font-sans text-xs font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brand-navy transition-all duration-500 cursor-none hover-target shadow-lg">
-                    Contact Us
+                    Hubungi Kami
                 </a>
             </div>
 
@@ -33,8 +33,11 @@
                 <div class="flex flex-col gap-3">
                     @php
                         $footerLinks = [
-                            ['HOME', '/'], ['OUR WORKS', '/films'], ['EVENT', '/events'],
-                            ['MERCH', '/shop'], ['COMMUNITY', '/membership'], ['ARTICLE', '/article'], ['CAREER', '/careers']
+                            // ['HOME', '/'], ['OUR WORKS', '/films'], ['EVENT', '/events'],
+                            // ['MERCH', '/shop'], ['COMMUNITY', '/membership'], ['ARTICLE', '/article'], ['CAREER', '/careers']
+
+                             ['BERANDA', '/'], ['MENGAPA KAMI ADA', '/tentang-kami'], ['KARYA KAMI', '/films'], ['KEGIATAN SINEMAKU', '/events/gala-premiere'],
+                             ['PINTU TERBUKA', '/careers']
                         ];
                     @endphp
                     @foreach($footerLinks as $link)
@@ -67,9 +70,11 @@
 
                 {{-- Stay in Touch --}}
                 <div class="flex flex-col">
-                    <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-white/20 block mb-6">STAY IN TOUCH</span>
+                    {{-- <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-white/20 block mb-6">STAY IN TOUCH</span> --}}
+                      <span class="text-[10px] tracking-[0.3em] uppercase font-bold text-white/20 block mb-6">TETAP TERHUBUNG</span>
                     <p class="text-white/40 text-xs tracking-wider leading-relaxed mb-8 uppercase font-medium max-w-[200px]">
-                        GET OUR EMAILS. NEW RELEASES UPDATE, TRAILERS, MERCH, EVENTS, AND MORE.
+                        {{-- GET OUR EMAILS. NEW RELEASES UPDATE, TRAILERS, MERCH, EVENTS, AND MORE. --}}
+                        DAPATKAN EMAIL KAMI. INFORMASI TERBARU TENTANG RILIS BARU, TRAILER, PRODUK, ACARA, DAN LAINNYA.
                     </p>
 
                     <form action="#" class="relative flex w-full max-w-[300px] border border-white/20 bg-brand-navy/30">

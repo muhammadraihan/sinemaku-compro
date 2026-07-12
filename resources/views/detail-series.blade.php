@@ -110,6 +110,26 @@
                         </div>
                     </div>
                     @endif
+                     {{-- Genres --}}
+@if(!empty($films->genre))
+<div class="mt-8 reveal-text">
+    <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">
+        Genre
+    </span>
+
+    <div class="flex flex-wrap gap-3">
+        @php
+            $genres = array_filter(explode(',', $films->genre));
+        @endphp
+
+        @foreach($genres as $g)
+            <span class="px-5 py-2 rounded-full bg-[#131b4d]/5 text-[#131b4d] font-sans text-xs font-bold uppercase tracking-widest">
+                {{ trim($g) }}
+            </span>
+        @endforeach
+    </div>
+</div>
+@endif
                 </div>
 
                 <!-- Right Content -->
@@ -117,6 +137,9 @@
 
     {{-- SYNOPSIS --}}
     <div class="mb-6 reveal-text">
+         <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-3 font-bold">
+        SINOPSIS
+    </p>
         <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d] text-justify">
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
@@ -214,10 +237,10 @@
                     @if($hasEpisodes)
                     <div class="flex flex-wrap gap-4 mb-12" id="detail-tabs">
                         <button onclick="switchTab('episodes')" id="tab-btn-episodes" class="bg-[#F36B21] text-white px-6 py-2.5 rounded-full font-sans text-xs tracking-wider uppercase font-bold cursor-none hover-target transition-colors">
-                            Episode Guide
+                            Daftar Episode
                         </button>
                         <button onclick="switchTab('photos')" id="tab-btn-photos" class="border border-[#F36B21] text-[#F36B21] px-6 py-2.5 rounded-full font-sans text-xs tracking-wider uppercase font-bold hover:bg-[#F36B21] hover:text-white transition-colors cursor-none hover-target">
-                            Photos
+                            Foto
                         </button>
                     </div>
                     @endif
@@ -265,11 +288,11 @@
                                     </p>
                                     @if(!empty($ep->link))
                                         <a href="{{ $ep->link }}" target="_blank" class="font-sans text-[10px] tracking-wider uppercase font-bold text-[#F36B21] hover:text-[#131b4d] transition-colors inline-block mt-2">
-                                            Watch Episode
+                                            Tonton Episode
                                         </a>
                                     @else
                                         <a href="#" class="font-sans text-[10px] tracking-wider uppercase font-bold text-[#F36B21] hover:text-[#131b4d] transition-colors inline-block mt-2">
-                                            Where to Watch
+                                            Dimana bisa Menonton
                                         </a>
                                     @endif
                                 </div>
@@ -301,7 +324,7 @@
 
                             @if($films->stillShots->count() == 0)
                                 <div class="col-span-4 py-20 text-center border-2 border-dashed border-[#131b4d]/10 rounded-2xl">
-                                    <span class="font-sans text-sm text-[#131b4d]/30 italic uppercase tracking-widest">No Photos Available</span>
+                                    <span class="font-sans text-sm text-[#131b4d]/30 italic uppercase tracking-widest">Tidak Ada Foto yang Tersedia</span>
                                 </div>
                             @endif
                         </div>
@@ -311,7 +334,7 @@
 
                 <!-- Right: Recommendations -->
                 <div class="w-full lg:w-2/5">
-                    <h2 class="font-sans font-black text-2xl text-[#F36B21] tracking-tight mb-8 uppercase">You Might Also Enjoy</h2>
+                    <h2 class="font-sans font-black text-2xl text-[#F36B21] tracking-tight mb-8 uppercase">Rekomendasi Untuk Anda</h2>
 
                     <div class="flex flex-col gap-4">
                         @php

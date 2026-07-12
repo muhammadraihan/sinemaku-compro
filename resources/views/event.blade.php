@@ -31,7 +31,7 @@ EDITORIAL WRAPPER
             Our <span class="font-sans font-black not-italic text-brand-orange uppercase mx-2">Events</span>
         </h2>
 
-<div class="flex flex-wrap justify-center gap-3 mb-24">
+< class="flex flex-wrap justify-center gap-3 mb-24">
 
     <a href="{{ route('events.gala') }}"
        class="filter-pill {{ request()->routeIs('events.gala') ? 'active' : '' }}">
@@ -42,6 +42,7 @@ EDITORIAL WRAPPER
        class="filter-pill {{ request()->routeIs('events.sinemaku-day') ? 'active' : '' }}">
         SINEMAKU DAY
     </a>
+
 
 </div>
 

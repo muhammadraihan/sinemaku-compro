@@ -110,6 +110,27 @@
                         </div>
                     </div>
                     @endif
+
+                    {{-- Genres --}}
+@if(!empty($films->genre))
+<div class="mt-8 reveal-text">
+    <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">
+        Genre
+    </span>
+
+    <div class="flex flex-wrap gap-3">
+        @php
+            $genres = array_filter(explode(',', $films->genre));
+        @endphp
+
+        @foreach($genres as $g)
+            <span class="px-5 py-2 rounded-full bg-[#131b4d]/5 text-[#131b4d] font-sans text-xs font-bold uppercase tracking-widest">
+                {{ trim($g) }}
+            </span>
+        @endforeach
+    </div>
+</div>
+@endif
                 </div>
 
 
@@ -118,6 +139,9 @@
 
     {{-- SYNOPSIS --}}
     <div class="mb-6 reveal-text">
+         <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-3 font-bold">
+        SINOPSIS
+    </p>
         <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d] text-justify">
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
@@ -274,7 +298,7 @@
                         </div>
                     </div> --}}
 
-                    <!-- Genres -->
+                    {{-- <!-- Genres -->
                     <div class="flex flex-wrap gap-3 mt-4 reveal-text">
                         @php
                             $genres = array_filter(explode(',', $films->genre));
@@ -284,7 +308,7 @@
                         @endforeach
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </section>
 
         {{-- ============================================================
@@ -355,11 +379,11 @@
                                     </p>
                                     @if(!empty($ep->link))
                                         <a href="{{ $ep->link }}" target="_blank" class="font-sans text-[10px] tracking-wider uppercase font-bold text-[#F36B21] hover:text-[#131b4d] transition-colors inline-block mt-2">
-                                            Watch Episode
+                                            Tonton Episode
                                         </a>
                                     @else
                                         <a href="#" class="font-sans text-[10px] tracking-wider uppercase font-bold text-[#F36B21] hover:text-[#131b4d] transition-colors inline-block mt-2">
-                                            Where to Watch
+                                            Dimana bisa Menonton
                                         </a>
                                     @endif
                                 </div>
@@ -371,8 +395,8 @@
 
                     <!-- Photos Section -->
                     <div id="content-photos" class="{{ $hasEpisodes ? 'hidden' : 'block' }}">
-                        <h2 class="font-sans font-black text-2xl text-[#F36B21] tracking-tight mb-1 uppercase">Photos</h2>
-                        <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-8 font-bold">{{ $films->stillShots->count() }} Photos</span>
+                        <h2 class="font-sans font-black text-2xl text-[#F36B21] tracking-tight mb-1 uppercase">Foto</h2>
+                        <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-8 font-bold">{{ $films->stillShots->count() }} Foto</span>
 
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 auto-rows-[120px] md:auto-rows-[160px] reveal-rec">
                             @foreach($films->stillShots as $index => $shot)
@@ -391,7 +415,7 @@
 
                             @if($films->stillShots->count() == 0)
                                 <div class="col-span-4 py-20 text-center border-2 border-dashed border-[#131b4d]/10 rounded-2xl">
-                                    <span class="font-sans text-sm text-[#131b4d]/30 italic uppercase tracking-widest">No Photos Available</span>
+                                    <span class="font-sans text-sm text-[#131b4d]/30 italic uppercase tracking-widest">Tidak Ada Foto yang Tersedia</span>
                                 </div>
                             @endif
                         </div>
@@ -401,7 +425,7 @@
 
                 <!-- Right: Recommendations -->
                 <div class="w-full lg:w-2/5">
-                    <h2 class="font-sans font-black text-2xl text-[#F36B21] tracking-tight mb-8 uppercase">You Might Also Enjoy</h2>
+                    <h2 class="font-sans font-black text-2xl text-[#F36B21] tracking-tight mb-8 uppercase">Rekomendasi Untuk Anda</h2>
 
                     <div class="flex flex-col gap-4">
                         @php

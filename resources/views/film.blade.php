@@ -174,39 +174,39 @@ $writers = $item->credits
                                 <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                     <div class="flex flex-col gap-4">
                                         <div class="flex flex-col">
-                                            <span class="meta-label uppercase tracking-tighter text-white/40">Release Date</span>
+                                            {{-- <span class="meta-label uppercase tracking-tighter text-white/40">Release Date</span>
                                             <span class="meta-value uppercase text-white tracking-wide font-sans">
                                                 {{ \Carbon\Carbon::parse($item->release_date)->isFuture() ? 'xx Sep 2025' : \Carbon\Carbon::parse($item->release_date)->format('d M Y') }}
-                                            </span>
+                                            </span> --}}
                                         </div>
                                         <div class="flex flex-col">
-    <span class="meta-label uppercase tracking-tighter text-white/40">
+    {{-- <span class="meta-label uppercase tracking-tighter text-white/40">
         Directed By
     </span>
 
     <span class="meta-value uppercase text-white tracking-wide font-sans">
         {{ $director ?: 'N/A' }}
-    </span>
+    </span> --}}
 </div>
 
 <div class="flex flex-col">
-    <span class="meta-label uppercase tracking-tighter text-white/40">
+    {{-- <span class="meta-label uppercase tracking-tighter text-white/40">
         Written By
     </span>
 
     <span class="meta-value normal-case text-white tracking-wide font-sans">
         {{ $writers ?: 'N/A' }}
-    </span>
+    </span> --}}
 </div>
                                         <div class="flex flex-col">
-                                            <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
+                                            {{-- <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
                                             <span class="meta-value normal-case text-white leading-tight font-sans">
                                                 @php
                                                     $casts = array_filter(explode(',', $item->cast));
                                                     $displayCasts = array_slice($casts, 0, 2);
                                                 @endphp
                                                 {{ implode(', ', $displayCasts) }}
-                                            </span>
+                                            </span> --}}
                                         </div>
                                     </div>
                                 </div>

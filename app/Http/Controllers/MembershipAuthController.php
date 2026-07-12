@@ -34,7 +34,7 @@ class MembershipAuthController extends Controller
 
         Auth::guard('member')->login($member, $request->has('remember'));
 
-        return redirect()->route('frontend.membership')->with('success', 'Registration successful. Welcome to the family!');
+        return redirect()->route('careers')->with('success', 'Registration successful. Welcome to the family!');
     }
 
     public function login(Request $request)
@@ -48,7 +48,7 @@ class MembershipAuthController extends Controller
 
         if (Auth::guard('member')->attempt($credentials, $remember)) {
             $request->session()->regenerate();
-            return redirect()->route('frontend.membership')->with('success', 'You are now logged in!');
+            return redirect()->route('careers')->with('success', 'You are now logged in!');
         }
 
         return back()->with('error', 'The provided credentials do not match our records.')->withInput($request->only('email', 'remember'));
@@ -57,10 +57,10 @@ class MembershipAuthController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('member')->logout();
-        
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('frontend.membership')->with('success', 'You have been logged out.');
+        return redirect()->route('careers')->with('success', 'You have been logged out.');
     }
 }
