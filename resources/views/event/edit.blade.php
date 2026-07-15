@@ -60,88 +60,8 @@
                 @endif
                 {!! Form::open(['route' => ['event.update',$event->uuid],'method' => 'PUT','class' =>
                 'needs-validation','novalidate', 'enctype' => 'multipart/form-data']) !!}
- <div class="row">
-
-    {{-- Kategori Event --}}
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('event_kategori_uuid', 'Kategori Event', ['class' => 'required form-label']) }}
-        {!! Form::select(
-            'event_kategori_uuid',
-            $eventKategoris,
-            $event->event_kategori_uuid,
-            [
-                'id' => 'event_kategori_uuid',
-                'class' => 'custom-select' . ($errors->has('event_kategori_uuid') ? ' is-invalid' : ''),
-                'placeholder' => 'Pilih Kategori...',
-                'required'
-            ]
-        ) !!}
-    </div>
-
-    {{-- Film --}}
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('film_uuid', 'Film', ['class' => 'required form-label']) }}
-        {!! Form::select(
-            'film_uuid',
-            $films,
-            $event->film_uuid,
-            [
-                'id' => 'film_uuid',
-                'class' => 'custom-select' . ($errors->has('film_uuid') ? ' is-invalid' : ''),
-                'placeholder' => 'Pilih Film...',
-                'required'
-            ]
-        ) !!}
-    </div>
-
-    {{-- Tanggal Event --}}
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('tgl_event', 'Tanggal Event', ['class' => 'required form-label']) }}
-        {{ Form::text(
-            'tgl_event',
-            $event->tgl_event,
-            [
-                'class' => 'form-control tgl_event' . ($errors->has('tgl_event') ? ' is-invalid' : ''),
-                'placeholder' => 'Tanggal Event',
-                'required'
-            ]
-        ) }}
-    </div>
-
-    {{-- Jam Event --}}
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('jam_event', 'Jam Event', ['class' => 'required form-label']) }}
-      {{ Form::time(
-    'jam_event',
-    $event->jam_event,
-    [
-        'class' => 'form-control' . ($errors->has('jam_event') ? ' is-invalid' : ''),
-        'placeholder' => 'Jam Event',
-        'required'
-    ]
-)}}
-    </div>
-
-</div>
-
-<div class="row">
-
-    {{-- Harga --}}
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('harga', 'Harga', ['class' => 'required form-label']) }}
-        {{ Form::text(
-            'harga',
-            $event->harga,
-            [
-                'class' => 'form-control' . ($errors->has('harga') ? ' is-invalid' : ''),
-                'placeholder' => 'Harga',
-                'required'
-            ]
-        ) }}
-    </div>
-
-</div>
-                    {{-- <div class="form-group col-md-3 mb-3">
+                <div class="row">
+                    <div class="form-group col-md-3 mb-3">
                         {{ Form::label('event_kategori_uuid','Kategori Event',['class' => 'required form-label'])}}
                         {!! Form::select('event_kategori_uuid', $eventKategoris, $event->event_kategori_uuid,
                         ['id'=>'event_kategori_uuid','class'
@@ -155,12 +75,12 @@
                     <div class="form-group col-md-3 mb-3">
                         {{ Form::label('jam_event','Jam Event',['class' => 'required form-label'])}}
                         {{ Form::time('jam_event',$event->jam_event,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':''),'required'])}}
-                    </div> --}}
-                    {{-- <div class="form-group col-md-3 mb-3">
+                    </div>
+                    <div class="form-group col-md-3 mb-3">
                         {{ Form::label('harga','Harga',['class' => 'required form-label'])}}
                         {{ Form::text('harga',$event->harga,['placeholder' => 'Harga','class' => 'form-control '.($errors->has('harga') ? 'is-invalid':''),'required'])}}
                     </div>
-                </div> --}}
+                </div>
 
                 <div class="panel-tag bg-white border-faded mb-4">
                     <ul class="nav lang-tabs" role="tablist">
@@ -269,8 +189,7 @@
 <script>
     $(document).ready(function(){
         $('#event_kategori_uuid').select2();
-$('#film_uuid').select2();
-
+        $('#type').select2();
 
         CKEDITOR.replace('detail');
         CKEDITOR.replace('detail_en');
@@ -297,14 +216,14 @@ $('#film_uuid').select2();
             clearBtn: true,
         });
 
-        // $('.tgl_akhir').datepicker({
-        //     orientation: "bottom left",
-        //     format:'yyyy-mm-dd', // Notice the Extra space at the beginning
-        //     todayHighlight:'TRUE',
-        //     autoclose: true,
-        //     todayBtn: "linked",
-        //     clearBtn: true,
-        // });
+        $('.tgl_akhir').datepicker({
+            orientation: "bottom left",
+            format:'yyyy-mm-dd', // Notice the Extra space at the beginning
+            todayHighlight:'TRUE',
+            autoclose: true,
+            todayBtn: "linked",
+            clearBtn: true,
+        });
 
         // Generate a password string
         function randString(){

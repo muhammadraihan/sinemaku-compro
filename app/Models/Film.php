@@ -65,11 +65,6 @@ class Film extends Model
         return $this->hasMany(FilmGallery::class, 'film_uuid', 'uuid')->where('type', 'bts');
     }
 
-    public function events()
-{
-    return $this->hasMany(Event::class, 'film_uuid', 'uuid');
-}
-
     public function userCreate() {
         return $this->belongsTo(User::class, 'created_by', 'uuid');
     }

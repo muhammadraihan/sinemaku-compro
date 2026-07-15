@@ -62,50 +62,6 @@
                 {!! Form::open(['route' => 'event.store','id'=>'forms','method' => 'POST','class' =>
                 'needs-validation','dropzone', 'forms','novalidate','enctype' => 'multipart/form-data']) !!}
                 <div class="row">
-
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('event_kategori_uuid','Kategori Event',['class' => 'required form-label'])}}
-        {!! Form::select(
-            'event_kategori_uuid',
-            $eventKategoris,
-            '',
-            [
-                'id'=>'event_kategori_uuid',
-                'class'=>'custom-select'.($errors->has('event_kategori_uuid') ? ' is-invalid':''),
-                'required'=>'',
-                'placeholder'=>'Pilih Kategori ...'
-            ])
-        !!}
-    </div>
-
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('film_uuid','Film',['class'=>'required form-label']) }}
-
-        {!! Form::select(
-            'film_uuid',
-            $films,
-            '',
-            [
-                'id'=>'film_uuid',
-                'class'=>'custom-select'.($errors->has('film_uuid') ? ' is-invalid':''),
-                'required'=>'',
-                'placeholder'=>'Pilih Film ...'
-            ])
-        !!}
-    </div>
-
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('tgl_event','Tanggal Event',['class' => 'required form-label'])}}
-        {{ Form::text('tgl_event',null,['placeholder' => 'Tanggal Event','class' => 'form-control tgl_event'.($errors->has('tgl_event') ? 'is-invalid':''),'required'])}}
-    </div>
-
-    <div class="form-group col-md-3 mb-3">
-        {{ Form::label('jam_event','Jam Event',['class' => 'required form-label'])}}
-        {{ Form::time('jam_event',null,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':''),'required'])}}
-    </div>
-
-</div>
-                {{-- <div class="row">
                     <div class="form-group col-md-3 mb-3">
                         {{ Form::label('event_kategori_uuid','Kategori Event',['class' => 'required form-label'])}}
                         {!! Form::select('event_kategori_uuid', $eventKategoris, '',
@@ -120,7 +76,7 @@
                     <div class="form-group col-md-3 mb-3">
                         {{ Form::label('jam_event','Jam Event',['class' => 'required form-label'])}}
                         {{ Form::time('jam_event',null,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':''),'required'])}}
-                    </div> --}}
+                    </div>
                     <div class="form-group col-md-3 mb-3">
                         {{ Form::label('harga','Harga',['class' => 'required form-label'])}}
                         {{ Form::text('harga',null,['placeholder' => 'Harga','class' => 'form-control '.($errors->has('harga') ? 'is-invalid':''),'required'])}}
@@ -225,7 +181,6 @@
 <script>
     $(document).ready(function(){
         $('#event_kategori_uuid').select2();
-        $('#film_uuid').select2();
         $('#type').select2();
         $('#type').select2();
 
