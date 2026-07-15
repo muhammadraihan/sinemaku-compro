@@ -29,6 +29,7 @@ class Event extends Model
         'video_link',
         'slug',
         'event_kategori_uuid',
+        'film_uuid'
     ];
 
     public function eventKategori()
@@ -36,6 +37,10 @@ class Event extends Model
         return $this->belongsTo(EventKategori::class, 'event_kategori_uuid', 'uuid');
     }
 
+          public function film()
+    {
+        return $this->belongsTo(Film::class, 'film_uuid', 'uuid');
+    }
     public function photos()
     {
         return $this->hasMany(EventPhoto::class, 'event_uuid', 'uuid');
@@ -48,4 +53,5 @@ class Event extends Model
     public function userEdit() {
         return $this->belongsTo(User::class, 'edited_by', 'uuid');
     }
+
 }

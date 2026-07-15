@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Event;
 use App\Models\EventKategori;
+use App\Models\Film;
 
 use Auth;
 use DataTables;
@@ -21,17 +22,24 @@ class EventController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $data = Event::get();
+           $data = Event::with(['film','eventKategori'])->get();
+
 
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('event_kategori_uuid', function ($row) {
                     return $row->eventKategori->name ?? '-';
                 })
+
+                ->addColumn('film', function ($row) {
+                    return $row->film->title ?? '-';
+                })
+
                 ->editColumn('photo', function ($row){
                     $url = asset('photo');
                     return '<image style="width: 150px; height: 150px;"  src="'.$url.'/'.$row->photo.'" alt="">';
                 })
+
                 ->addColumn('action', function ($row) {
                     return '
                             <a class="btn btn-success btn-sm btn-icon waves-effect waves-themed" href="' . route('event.edit', $row->uuid) . '"><i class="fal fa-edit"></i></a>
@@ -51,11 +59,27 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function create()
+    // {
+    //     $eventKategoris = EventKategori::orderBy('order_num', 'asc')->pluck('name', 'uuid');
+    //     return view('event.create', compact('eventKategoris'));
+    // }
     public function create()
-    {
-        $eventKategoris = EventKategori::orderBy('order_num', 'asc')->pluck('name', 'uuid');
-        return view('event.create', compact('eventKategoris'));
-    }
+{
+    $eventKategoris = EventKategori::orderBy('order_num','asc')
+        ->pluck('name','uuid');
+
+    $films = Film::orderBy('title','asc')
+        ->pluck('title','uuid');
+
+    return view(
+        'event.create',
+        compact(
+            'eventKategoris',
+            'films'
+        )
+    );
+}
 
     /**
      * Store a newly created resource in storage.
@@ -74,7 +98,8 @@ class EventController extends Controller
             'detail' => 'required',
             'link' => 'required',
             'video_link' => 'nullable',
-            'event_kategori_uuid' => 'required',
+            'event_kategori_uuid'=>'required',
+            'film_uuid'=>'required',
             'photo' => 'required|image'
         ];
 
@@ -103,6 +128,8 @@ class EventController extends Controller
         $event->link = $request->link;
         $event->video_link = $request->video_link;
         $event->event_kategori_uuid = $request->event_kategori_uuid;
+        $event->film_uuid = $request->film_uuid;
+
 
         if ($image = $request->file('photo')) {
             $destinationPath = 'photo/';
@@ -120,7 +147,7 @@ class EventController extends Controller
                 $destinationPath = 'photo/';
                 $galleryImage = "gallery_" . date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension();
                 $image->move($destinationPath, $galleryImage);
-                
+
                 \App\Models\EventPhoto::create([
                     'event_uuid' => $event->uuid,
                     'photo' => $galleryImage
@@ -149,13 +176,32 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $event          = Event::uuid($id);
-        $eventKategoris = EventKategori::orderBy('order_num', 'asc')->pluck('name', 'uuid');
-        return view('event.edit', compact('event', 'eventKategoris'));
-    }
+    // public function edit($id)
+    // {
+    //     $event          = Event::uuid($id);
+    //     $eventKategoris = EventKategori::orderBy('order_num', 'asc')->pluck('name', 'uuid');
+    //     return view('event.edit', compact('event', 'eventKategoris'));
+    // }
 
+        public function edit($id)
+{
+    $event = Event::uuid($id);
+
+    $eventKategoris = EventKategori::orderBy('order_num', 'asc')
+        ->pluck('name', 'uuid');
+
+    $films = Film::orderBy('title', 'asc')
+        ->pluck('title', 'uuid');
+
+    return view(
+        'event.edit',
+        compact(
+            'event',
+            'eventKategoris',
+            'films'
+        )
+    );
+}
     /**
      * Update the specified resource in storage.
      *
@@ -174,7 +220,9 @@ class EventController extends Controller
             'detail' => 'required',
             'link' => 'required',
             'video_link' => 'nullable',
-            'event_kategori_uuid' => 'required'
+            // 'event_kategori_uuid' => 'required'
+            'event_kategori_uuid' => 'required','film_uuid' => 'required',
+
         ];
 
         $messages = [
@@ -202,19 +250,20 @@ class EventController extends Controller
         $event->link = $request->link;
         $event->video_link = $request->video_link;
         $event->event_kategori_uuid = $request->event_kategori_uuid;
+        $event->film_uuid = $request->film_uuid;
 
         if($request->hasFile('photo')){
 
-            // user intends to replace the current image for the category.  
+            // user intends to replace the current image for the category.
             // delete existing (if set)
-        
+
             if($oldImage = $event->photo) {
                 $oldPath = public_path('photo/') . $oldImage;
                 if(file_exists($oldPath)){
                     unlink($oldPath);
                 }
             }
-        
+
             // save the new image
             $image = $request->file('photo');
             $destinationPath = 'photo/';
@@ -232,7 +281,7 @@ class EventController extends Controller
                 $destinationPath = 'photo/';
                 $galleryImage = "gallery_" . date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension();
                 $image->move($destinationPath, $galleryImage);
-                
+
                 \App\Models\EventPhoto::create([
                     'event_uuid' => $event->uuid,
                     'photo' => $galleryImage
