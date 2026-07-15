@@ -250,7 +250,7 @@ class EventController extends Controller
         $event->link = $request->link;
         $event->video_link = $request->video_link;
         $event->event_kategori_uuid = $request->event_kategori_uuid;
-        $event->film_uuid = $request->film_uuid;
+
 
         if($request->hasFile('photo')){
 
