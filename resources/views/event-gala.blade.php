@@ -403,10 +403,10 @@ const films = {
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
         `,
         gallery: [
-            "{{ asset('img/gala/sehati/1.jpg') }}",
-            "{{ asset('img/gala/sehati/2.jpg') }}",
-            "{{ asset('img/gala/sehati/3.jpg') }}",
-            "{{ asset('img/gala/sehati/4.jpg') }}"
+            "{{ asset('../img/gala/_ARM7358.jpg') }}",
+            "{{ asset('../img/gala/_ARM7902.jpg') }}",
+            "{{ asset('../img/gala/_ARM7833.jpg') }}",
+            "{{ asset('../img/gala/_ARM6985.jpg') }}"
         ]
     },
 
