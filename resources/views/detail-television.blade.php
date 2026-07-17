@@ -20,7 +20,7 @@
                 <img src="{{ asset('photo/' . $films->photo) }}" alt="{{ $films->title }}"
                     class="w-full h-full object-cover hero-parallax-img"
                     style="object-position: top center;">
-                
+
                 <!-- Dark gradient overlay to make text readable -->
                 <div class="absolute inset-0 bg-gradient-to-t from-[#131b4d]/90 via-[#131b4d]/30 to-transparent z-10"></div>
             </div>
@@ -41,7 +41,7 @@
                             Watch Trailer
                         </button>
                     @endif
-                    
+
                     <h1 class="font-sans text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl" style="font-family: Arial, Helvetica, sans-serif;">
                         @i18n($films, 'title')
                     </h1>
@@ -52,16 +52,16 @@
         {{-- ============================================================
         2. DETAILS SECTION
         ============================================================ --}}
-        <section class="py-16 md:py-24 px-8 md:px-16 z-10 relative bg-creme-leaks">
-            <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-12 md:gap-20">
-                
+       <section class="py-16 md:py-24 px-8 md:px-16 z-10 relative bg-creme-leaks">
+           <div class="max-w-[1400px] mx-auto grid lg:grid-cols-[280px_1fr] gap-20 items-start">
+
                 <!-- Left: Poster & Available On -->
-                <div class="w-full md:w-1/3 lg:w-1/4 flex-shrink-0">
+                < class="w-full max-w-[280px]">
                     <div class="rounded-xl overflow-hidden shadow-2xl mb-8 reveal-image">
                         <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
                             class="w-full aspect-[3/4] object-cover">
                     </div>
-                    
+
                     @php
                         $watchLinks = [];
                         if (!empty($films->link_watch)) {
@@ -95,7 +95,8 @@
 
                     @if(count($watchLinks) > 0)
                     <div class="reveal-image">
-                        <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">Available On</span>
+                         <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">Tersedia Di</span>
+                        {{-- <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">Available On</span> --}}
                         <div class="flex flex-col gap-4">
                             @foreach($watchLinks as $wl)
                             <a href="{{ $wl['url'] }}" target="_blank" class="flex items-center gap-3 text-[#131b4d] font-bold text-sm hover:text-[#F36B21] transition-colors cursor-none hover-target">
@@ -110,9 +111,31 @@
                         </div>
                     </div>
                     @endif
-                </div>
 
-                <!-- Right: Metadata & Synopsis -->
+                 {{-- Genres --}}
+@if(!empty($films->genre))
+<div class="mt-8 reveal-text">
+    <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">
+        Genre
+    </span>
+
+    <div class="flex flex-wrap gap-3">
+        @php
+            $genres = array_filter(explode(',', $films->genre));
+        @endphp
+
+        @foreach($genres as $g)
+            <span class="px-5 py-2 rounded-full bg-[#131b4d]/5 text-[#131b4d] font-sans text-xs font-bold uppercase tracking-widest">
+                {{ trim($g) }}
+            </span>
+        @endforeach
+        </div>
+        </div>
+@endif
+</div>
+
+
+                {{-- <!-- Right: Metadata & Synopsis -->
                 <div class="w-full md:w-2/3 lg:w-3/4">
                     <!-- Grid Metadata -->
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
@@ -128,7 +151,7 @@
                             <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Year</span>
                             <h3 class="font-sans text-xl text-[#131b4d] font-medium">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</h3>
                         </div>
-                        
+
                         <div class="col-span-2">
                             <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Starring</span>
                             <div class="grid grid-cols-2 gap-x-4 gap-y-1">
@@ -163,7 +186,92 @@
                         @endforeach
                     </div>
                 </div>
+            </div> --}}
+             <!-- Right Content -->
+<div class="w-full max-w-4xl">
+
+
+    {{-- SYNOPSIS --}}
+    <div class="mb-6 reveal-text">
+         <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-3 font-bold">
+        SINOPSIS
+    </p>
+        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d] text-justify">
+                            @if(trim(strip_tags($films->sinopsis)))
+                                @i18n($films, 'sinopsis')
+                            @else
+                                <p>Synopsis not available.</p>
+            @endif
+        </div>
+    </div>
+    {{-- MAIN INFO --}}
+<div class="mb-4 pb-4 reveal-text">
+
+    {{-- ROW 1 : STARRING & YEAR --}}
+   {{-- STARRING + YEAR --}}
+    <div class="grid grid-cols-4 gap-x-12 mb-8">
+
+    {{-- STARRING --}}
+    <div class="col-span-3">
+        <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-2 font-bold">
+            STARRING
+        </p>
+
+        @php
+            $casts = collect(explode(',', $films->cast))
+                ->map(fn($cast) => trim($cast))
+                ->filter();
+        @endphp
+
+        <p class="font-sans text-lg leading-8 text-[#131b4d] text-justify">
+            {{ $casts->implode(', ') }}
+        </p>
+    </div>
+
+    {{-- YEAR --}}
+    <div>
+        <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-2 font-bold">
+            YEAR
+        </p>
+
+        <p class="font-sans text-lg text-[#131b4d]">
+            {{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}
+        </p>
+    </div>
+
+</div>
+
+     {{-- CREDITS --}}
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-6 reveal-text">
+
+
+    @foreach($films->credits->groupBy('role') as $role => $credits)
+
+        <div>
+
+            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-1 font-bold">
+                {{ $role }}
+            </p>
+
+            <div class="space-y-2">
+
+                @foreach($credits as $credit)
+
+                    <p class="font-sans text-lg leading-7 text-[#131b4d] text-justify">
+                        {{ $credit->name }}
+                    </p>
+
+                @endforeach
+
             </div>
+
+        </div>
+
+    @endforeach
+
+
+    </div>
+
         </section>
 
         {{-- ============================================================
@@ -171,14 +279,14 @@
         ============================================================ --}}
         <section class="py-8 md:py-16 px-8 md:px-16 z-10 relative border-t border-[#131b4d]/10">
             <div class="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24">
-                
+
                 @php
                     $hasEpisodes = isset($films->episodes) && $films->episodes->count() > 0;
                 @endphp
 
                 <!-- Left: Content (Episodes or Photos) -->
                 <div class="w-full lg:w-3/5">
-                    
+
                     <!-- Tabs Navigation -->
                     @if($hasEpisodes)
                     <div class="flex flex-wrap gap-4 mb-12" id="detail-tabs">
@@ -208,7 +316,7 @@
                                 @endphp
 
                                 @if($ep_video_id)
-                                <div onclick="openHeroTrailer('{{ $ep_video_id }}')" 
+                                <div onclick="openHeroTrailer('{{ $ep_video_id }}')"
                                      class="w-full sm:w-48 aspect-[16/10] rounded-xl bg-[#F36B21] overflow-hidden shrink-0 relative cursor-pointer hover:scale-105 transition-transform duration-300 group/thumb shadow-lg">
                                     @if($ep->photo)
                                         <img src="{{ asset('photo/' . $ep->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" alt="{{ $ep->title }}">
@@ -225,7 +333,7 @@
                                     @endif
                                 </div>
                                 @endif
-                                
+
                                 <!-- Details -->
                                 <div class="flex-1 pt-1">
                                     <h3 class="font-sans text-lg font-bold text-[#131b4d] mb-2">E{{ $ep->episode_number }} · {{ $ep->title }}</h3>
@@ -267,7 +375,7 @@
                                     <img src="{{ asset('photo/' . $shot->photo) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Still Shot {{ $index + 1 }}">
                                 </div>
                             @endforeach
-                            
+
                             @if($films->stillShots->count() == 0)
                                 <div class="col-span-4 py-20 text-center border-2 border-dashed border-[#131b4d]/10 rounded-2xl">
                                     <span class="font-sans text-sm text-[#131b4d]/30 italic uppercase tracking-widest">No Photos Available</span>
@@ -281,7 +389,7 @@
                 <!-- Right: Recommendations -->
                 <div class="w-full lg:w-2/5">
                     <h2 class="font-sans font-black text-2xl text-[#F36B21] tracking-tight mb-8 uppercase">You Might Also Enjoy</h2>
-                    
+
                     <div class="flex flex-col gap-4">
                         @php
                             $recs = $all_film->where('id', '!=', $films->id)->take(3);
@@ -294,7 +402,7 @@
                                 ]))->take(3);
                             }
                         @endphp
-                        
+
                         @foreach ($recs as $item)
                         <a href="{{ $item->slug == '#' ? '#' : route('detail-tv', $item->slug) }}" class="flex items-center gap-5 p-5 rounded-2xl border border-[#131b4d]/10 hover:border-[#F36B21] transition-colors cursor-none hover-target group reveal-rec bg-white">
                             <div class="w-16 h-16 rounded-lg bg-[#F36B21] shrink-0 overflow-hidden relative">
@@ -402,7 +510,7 @@
                     if (contentPhotos) contentPhotos.classList.remove('hidden');
                     if (contentEpisodes) contentEpisodes.classList.add('hidden');
                 }
-                
+
                 setTimeout(() => {
                     if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
                 }, 100);
