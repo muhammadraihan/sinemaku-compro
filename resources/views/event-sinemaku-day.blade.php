@@ -322,6 +322,15 @@ function showEvent(year, button){
     button.classList.add("active-film");
 
 }
+document.addEventListener("DOMContentLoaded", function () {
+
+    const firstButton = document.querySelector(".film-button");
+
+    if (firstButton) {
+        showEvent("2024", firstButton);
+    }
+
+     });
 
 </script>
 
