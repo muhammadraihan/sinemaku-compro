@@ -70,7 +70,7 @@
             <!-- Header & Filter -->
             <div class="px-8 md:px-16 flex flex-col items-center mb-16 max-w-[1800px] mx-auto text-center">
                 <h2 class="font-instrument italic text-4xl md:text-6xl text-brand-navy leading-none tracking-tight mb-12">
-                    Our <span class="font-peckham not-italic text-brand-orange uppercase mx-1">Documentary</span> Catalogue
+                    Katalog <span class="font-peckham not-italic text-brand-orange uppercase mx-1">Dokumenter</span> Kami
                 </h2>
 
                 <!-- Dual Filter Dropdown -->
@@ -79,12 +79,12 @@
                         <!-- Year Dropdown -->
                         <div class="relative group/filter">
                             <div id="filter-year-trigger" class="px-6 py-2 flex flex-col items-center border-r border-brand-orange/20 cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-l-full">
-                                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Release Year</span>
-                                <span id="selected-year" class="text-sm font-sans text-brand-navy font-bold leading-none">Any</span>
+                                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Tahun Rilis</span>
+                                <span id="selected-year" class="text-sm font-sans text-brand-navy font-bold leading-none">Semua</span>
                             </div>
                             <div id="filter-year-menu" class="absolute top-full left-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
                                 <div class="max-h-64 overflow-y-auto py-2">
-                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="Any">Any</div>
+                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="Semua">Semua</div>
                                     @php
                                         $years = collect($genre)->map(fn($item) => \Carbon\Carbon::parse($item->release_date)->format('Y'))->unique()->sortDesc();
                                     @endphp
@@ -99,11 +99,11 @@
                         <div class="relative group/filter">
                             <div id="filter-genre-trigger" class="px-6 py-2 flex flex-col items-center cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-r-full">
                                 <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Genre</span>
-                                <span id="selected-genre" class="text-sm font-sans text-brand-navy font-bold leading-none">Any</span>
+                                <span id="selected-genre" class="text-sm font-sans text-brand-navy font-bold leading-none">Semua</span>
                             </div>
                             <div id="filter-genre-menu" class="absolute top-full right-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
                                 <div class="max-h-64 overflow-y-auto py-2">
-                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="Any">Any</div>
+                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="Semua">Semua</div>
                                     @php
                                         $genres = collect($genre)->map(fn($item) => $item->genre)->unique()->sort();
                                     @endphp
@@ -616,8 +616,8 @@ STYLES & SCRIPTS
                     const itemYear = card.getAttribute('data-year');
                     const itemGenre = card.getAttribute('data-genre');
 
-                    let matchYear = (selectedYear === 'Any' || itemYear === selectedYear);
-                    let matchGenre = (selectedGenre === 'Any' || itemGenre === selectedGenre);
+                    let matchYear = (selectedYear === 'Semua' || itemYear === selectedYear);
+                    let matchGenre = (selectedGenre === 'Semua' || itemGenre === selectedGenre);
 
                     if (matchYear && matchGenre) {
                         card.style.display = 'block';
