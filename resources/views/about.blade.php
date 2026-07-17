@@ -190,12 +190,12 @@
         <div class="w-full h-[1px] bg-brand-navy/20 mb-20 max-w-[80vw] mx-auto"></div> --}}
 
         <!-- Detailed Description -->
-        <div class="w-full flex flex-col items-center text-center">
+        {{-- <div class="w-full flex flex-col items-center text-center">
     <div class="max-w-xl">
         <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-orange uppercase block mb-3 tracking-tighter">
                 Mengapa Kami Ada?
             </span>
-    </div>
+    </div> --}}
 
     <div class="w-full flex flex-col items-center text-center">
         <h2 class="flex flex-col items-center max-w-5xl mx-auto">
