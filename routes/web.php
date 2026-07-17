@@ -50,9 +50,9 @@ Route::get('/detail-article/{slug}', [FrontEndController::class, 'detailarticles
 // Route::redirect('/events', '/events/gala-premiere')->name('event');
 Route::get('/events/gala-premiere', [FrontEndController::class, 'galaPremiere'])->name('events.gala');
 Route::get('/events/sinemaku-day', [FrontEndController::class, 'sinemakuDay'])->name('events.sinemaku-day');
+Route::get('/events/special-event', [FrontEndController::class, 'specialEvent'])->name('events.special-event');
 Route::get('/events/roadshow', [FrontEndController::class, 'roadshow'])->name('events.roadshow');
-Route::get('/events/goes-to-school', [FrontEndController::class, 'goesToSchool'])->name('events.school');
-Route::get('/events/special-event', [FrontEndController::class, 'specialEvent'])->name('events.special');
+Route::get('/events/goes-to-school', [FrontEndController::class, 'goesToSchool'])->name('events.goes-to-school');
 // Route::get('/detail-events/{slug}', [FrontEndController::class, 'detailevent'])->name('detail-event');
 Route::redirect('/membership', '/careers');
 Route::post('/membership/register', [App\Http\Controllers\MembershipAuthController::class, 'register'])->name('membership.register');

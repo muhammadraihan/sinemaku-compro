@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Gala Premiere | Sinemaku Pictures')
+@section('title','Special Event | Sinemaku Pictures')
 
 @section('content')
 
@@ -36,7 +36,7 @@ HERO
                 tracking-tight
                 text-white">
 
-                GALA PREMIERE
+                Special Event
 
             </h1>
 
@@ -78,28 +78,8 @@ FILM SELECTOR
                 Bolehkah Sekali Saja Kumenangis
             </button>
 
-            <button onclick="showFilm('namamu', this)" class="film-button">
-                Hanya Namamu Dalam Doaku
-            </button>
-
-            <button onclick="showFilm('patah', this)" class="film-button">
-                Patah Hati Yang Ku Pilih
-            </button>
-
-            <button onclick="showFilm('mati', this)" class="film-button">
-                Perayaan Mati Rasa
-            </button>
-
-            <button onclick="showFilm('sehati', this)" class="film-button">
-                Sehati Semati
-            </button>
-
             <button onclick="showFilm('temurun', this)" class="film-button">
                 Temurun
-            </button>
-
-            <button onclick="showFilm('ketika', this)" class="film-button">
-                Ketika Berhenti di Sini
             </button>
 
         </div>
@@ -202,7 +182,7 @@ GALLERY
 
                     <img
                         id="gallery-main"
-                        src="{{ asset('../img/gala/_ARM1785.jpg') }}"
+                        src="{{ asset('../img/special/bssk1.jpeg') }}"
                         class="h-[650px] w-full object-cover transition duration-700 group-hover:scale-105">
 
                 </div>
@@ -217,7 +197,7 @@ GALLERY
 
                     <img
                         id="gallery-1"
-                        src="{{ asset('../img/gala/_ARM1959.jpg') }}"
+                        src="{{ asset('../img/special/bssk2.jpeg') }}"
                         class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
 
                 </div>
@@ -226,7 +206,7 @@ GALLERY
 
                     <img
                         id="gallery-2"
-                        src="{{ asset('../img/gala/_ARM2795.jpg') }}"
+                        src="{{ asset('../img/special/bssk3.jpeg') }}"
                         class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
 
                 </div>
@@ -235,7 +215,7 @@ GALLERY
 
                     <img
                         id="gallery-3"
-                        src="{{ asset('../img/gala/_ARM1730.jpg') }}"
+                        src="{{ asset('../img/gala/_ARM17303.jpg') }}"
                         class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
 
                 </div>
@@ -307,106 +287,10 @@ const films = {
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
         `,
         gallery: [
-            "{{ asset('../img/gala/_ARM1785.jpg') }}",
-            "{{ asset('../img/gala/_ARM1959.jpg') }}",
-            "{{ asset('../img/gala/_ARM2795.jpg') }}",
-            "{{ asset('../img/gala/_ARM1730.jpg') }}"
-        ]
-    },
-
-    namamu: {
-        title: "HANYA NAMAMU DALAM DOAKU",
-        desc1: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        desc2: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        gallery: [
-            "{{ asset('../img/gala/_ARM4008.jpg') }}",
-            "{{ asset('../img/gala/_ARM4502.jpg') }}",
-            "{{ asset('../img/gala/_YAH6250.jpg') }}",
-            "{{ asset('../img/gala/_YAH6258.jpg') }}"
-        ]
-    },
-
-    patah: {
-        title: "PATAH HATI YANG KU PILIH",
-        desc1: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        desc2: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        gallery: [
-            "{{ asset('../img/gala/_ARM3087.jpg') }}",
-            "{{ asset('../img/gala/_ARM3503.jpg') }}",
-            "{{ asset('../img/gala/_ARM4212.jpg') }}",
-            "{{ asset('../img/gala/_ARM3077.jpg') }}"
-        ]
-    },
-
-    mati: {
-        title: "PERAYAAN MATI RASA",
-        desc1: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        desc2: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        gallery: [
-            "{{ asset('../img/gala/_ARM5518.jpg') }}",
-            "{{ asset('../img/gala/_ARM7184.jpg') }}",
-            "{{ asset('../img/gala/_ARM4747.jpg') }}",
-            "{{ asset('../img/gala/_MYG2521.jpg') }}"
-        ]
-    },
-
-    sehati: {
-        title: "SEHATI SEMATI",
-        desc1: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        desc2: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        gallery: [
-            "{{ asset('../img/gala/_ARM7358.jpg') }}",
-            "{{ asset('../img/gala/_ARM7902.jpg') }}",
-            "{{ asset('../img/gala/_ARM7833.jpg') }}",
-            "{{ asset('../img/gala/_ARM6985.jpg') }}"
+            "{{ asset('../img/special/bssk1.jpeg') }}",
+            "{{ asset('../img/special/bssk2.jpeg') }}",
+            "{{ asset('../img/special/bssk3.jpeg') }}",
+            "{{ asset('../img/gala/_ARM17303.jpg') }}"
         ]
     },
 
@@ -427,41 +311,12 @@ const films = {
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
         `,
         gallery: [
-            "{{ asset('../img/gala/_ARM1196.jpg') }}",
-            "{{ asset('../img/gala/_ARM0814.jpg') }}",
-            "{{ asset('../img/gala/_ARM0533.jpg') }}",
-            "{{ asset('../img/gala/_ARM0432.jpg') }}"
+            "{{ asset('../img/special/temurun1.jpeg') }}",
+            "{{ asset('../img/special/temurun2.jpeg') }}",
+            "{{ asset('../img/gala/_ARM05363.jpg') }}",
+            "{{ asset('../img/gala/_ARM04352.jpg') }}"
         ]
     },
-
-    ketika: {
-
-    title: "KETIKA BERHENTI DI SINI",
-
-    desc1: `
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    `,
-
-    desc2: `
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    `,
-
-    gallery: [
-        "{{ asset('../img/gala/_ARM0786.JPG') }}",
-        "{{ asset('../img/gala/_ARM9617.JPG') }}",
-        "{{ asset('../img/gala/_ARM9587.JPG') }}",
-        "{{ asset('../img/gala/_ARM0549.JPG') }}"
-    ]
-
-},
 
 };
 

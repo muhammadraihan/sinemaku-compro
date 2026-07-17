@@ -582,6 +582,33 @@ public function sinemakuDay()
     //     return view('membership', compact('kategorishop', 'settings'));
     // }
 
+    public function roadshow()
+{
+    $events = Event::whereHas('eventKategori', function ($q) {
+        $q->where('name', 'Roadshow');
+    })->latest('tgl_event')->get();
+
+    return view('event-roadshow', compact('events'));
+}
+
+public function goesToSchool()
+{
+    $events = Event::whereHas('eventKategori', function ($q) {
+        $q->where('name', 'Goes To School');
+    })->latest('tgl_event')->get();
+
+    return view('event-goes-to-school', compact('events'));
+}
+
+public function specialEvent()
+{
+    $events = Event::whereHas('eventKategori', function ($q) {
+        $q->where('name', 'Special Event');
+    })->latest('tgl_event')->get();
+
+    return view('special-event', compact('events'));
+}
+
 public function careers()
 {
     $careers = Job::all();
