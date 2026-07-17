@@ -59,8 +59,25 @@ FULLSCREEN MENU OVERLAY
             'url' => route('events.sinemaku-day'),
             'i18n' => 'menu_sinemaku_day',
         ],
+      [
+    'title' => 'SPECIAL EVENT',
+    'url' => route('events.special-event'),
+    'i18n' => 'menu_special_event',
+],
+        [
+
+             'title' => 'ROADSHOW',
+            'url' => route('events.roadshow'),
+            'i18n' => 'menu_roadshow',
+        ],
+        [
+            'title' => 'GOES TO SCHOOL',
+            'url' => route('events.goes-to-school'),
+            'i18n' => 'menu_goes_to_school',
+        ],
     ],
 ],
+
 
                 // ['title' => 'MERCH', 'url' => '/shop', 'i18n' => 'menu_merch'],
                 // ['title' => 'COMMUNITY', 'url' => '/membership', 'i18n' => 'menu_community'],
