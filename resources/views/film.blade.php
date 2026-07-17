@@ -85,7 +85,7 @@
                             </div>
                             <div id="filter-year-menu" class="absolute top-full left-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
                                 <div class="max-h-64 overflow-y-auto py-2">
-                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="Any">Any</div>
+                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="Semua">Semua</div>
                                     @php
                                         $years = collect($genre)->map(fn($item) => \Carbon\Carbon::parse($item->release_date)->format('Y'))->unique()->sortDesc();
                                     @endphp
@@ -104,7 +104,7 @@
                             </div>
                             <div id="filter-genre-menu" class="absolute top-full right-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
                                 <div class="max-h-64 overflow-y-auto py-2">
-                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="Any">Any</div>
+                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="Semua">Semua</div>
                                     @php
                                         $genres = collect($genre)->map(fn($item) => $item->genre)->unique()->sort();
                                     @endphp
@@ -672,8 +672,8 @@ STYLES & SCRIPTS
                     const itemYear = card.getAttribute('data-year');
                     const itemGenre = card.getAttribute('data-genre');
 
-                    let matchYear = (selectedYear === 'Any' || itemYear === selectedYear);
-                    let matchGenre = (selectedGenre === 'Any' || itemGenre === selectedGenre);
+                    let matchYear = (selectedYear === 'Semua' || itemYear === selectedYear);
+                    let matchGenre = (selectedGenre === 'Semua' || itemGenre === selectedGenre);
 
                     if (matchYear && matchGenre) {
                         card.style.display = 'block';

@@ -13,7 +13,7 @@ HERO
 
     {{-- Background --}}
     <img
-        src="{{ asset('../img/tentang/DSC08013.jpg') }}"
+        src="{{ asset('../img/sinemakuday/sinemaku.jpeg') }}"
         class="absolute inset-0 w-full h-full object-cover">
 
     {{-- Overlay --}}
