@@ -205,7 +205,7 @@
                             'EXECUTIVE PRODUCER',
                             'PRODUCER',
                             'CO-PRODUCER',
-                            'DIRECTOR OF PHOTOGRAPHY',
+                            'DOP',
                             'ART DIRECTOR',
                             'MAKE UP ARTIST',
                             'WARDROBE',
@@ -271,7 +271,7 @@
             <option>EXECUTIVE PRODUCER</option>
             <option>PRODUCER</option>
             <option>CO-PRODUCER</option>
-            <option>DIRECTOR OF PHOTOGRAPHY</option>
+            <option>DOP</option>
             <option>ART DIRECTOR</option>
             <option>MAKE UP ARTIST</option>
             <option>WARDROBE</option>
@@ -558,7 +558,7 @@
                     <option value="EXECUTIVE PRODUCER">EXECUTIVE PRODUCER</option>
                     <option value="PRODUCER">PRODUCER</option>
                     <option value="CO-PRODUCER">CO-PRODUCER</option>
-                    <option value="DIRECTOR OF PHOTOGRAPHY">DIRECTOR OF PHOTOGRAPHY</option>
+                    <option value="DOP">DOP</option>
                     <option value="ART DIRECTOR">ART DIRECTOR</option>
                     <option value="MAKE UP ARTIST">MAKE UP ARTIST</option>
                     <option value="WARDROBE">WARDROBE</option>
