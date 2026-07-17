@@ -187,7 +187,7 @@ GALLERY
 
                     <img
                         id="gallery-main"
-                        src="{{ asset('../img/gala/_ARM1785.jpg') }}"
+                        src="{{ asset('../img/gala/_ARM0786.JPG') }}"
                         class="h-[650px] w-full object-cover transition duration-700 group-hover:scale-105">
 
                 </div>
@@ -202,7 +202,7 @@ GALLERY
 
                     <img
                         id="gallery-1"
-                        src="{{ asset('../img/gala/_ARM1959.jpg') }}"
+                        src="{{ asset('../img/gala/_ARM9617.JPG') }}"
                         class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
 
                 </div>
@@ -211,7 +211,7 @@ GALLERY
 
                     <img
                         id="gallery-2"
-                        src="{{ asset('../img/gala/_ARM2795.jpg') }}"
+                        src="{{ asset('../img/gala/_ARM9587.JPG') }}"
                         class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
 
                 </div>
@@ -220,7 +220,7 @@ GALLERY
 
                     <img
                         id="gallery-3"
-                        src="{{ asset('../img/gala/_ARM1730.jpg') }}"
+                        src="{{ asset('../img/gala/_ARM0549.JPG') }}"
                         class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
 
                 </div>
@@ -383,6 +383,16 @@ function showFilm(film, button) {
     button.classList.add("active-film");
 
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const firstButton = document.querySelector(".film-button");
+
+    if (firstButton) {
+        showFilm("ketika", firstButton);
+    }
+
+});
 
 </script>
 @include('components.footer')

@@ -493,6 +493,15 @@ function showFilm(film, button) {
     button.classList.add("active-film");
 
 }
+document.addEventListener("DOMContentLoaded", function () {
+
+    const firstButton = document.querySelector(".film-button");
+
+    if (firstButton) {
+        showFilm("bolehkah", firstButton);
+    }
+
+});
 
 </script>
 @include('components.footer')

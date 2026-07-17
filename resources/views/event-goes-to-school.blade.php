@@ -347,6 +347,16 @@ function showFilm(film, button) {
 
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    const firstButton = document.querySelector(".film-button");
+
+    if (firstButton) {
+        showFilm("bolehkah", firstButton);
+    }
+
+});
+
 </script>
 @include('components.footer')
 
