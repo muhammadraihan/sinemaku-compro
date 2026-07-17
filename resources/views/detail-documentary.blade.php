@@ -49,18 +49,20 @@
             </div>
         </section>
 
+
         {{-- ============================================================
         2. DETAILS SECTION
         ============================================================ --}}
         <section class="py-16 md:py-24 px-8 md:px-16 z-10 relative bg-creme-leaks">
-            <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row gap-12 md:gap-20">
+            <div class="max-w-[1400px] mx-auto grid lg:grid-cols-[280px_1fr] gap-20 items-start">
 
                 <!-- Left: Poster & Available On -->
-                <div class="w-full md:w-1/3 lg:w-1/4 flex-shrink-0">
+                <div class="w-full max-w-[280px]">
                     <div class="rounded-xl overflow-hidden shadow-2xl mb-8 reveal-image">
-                        <img src="{{ asset('photo/' . $documentaries->poster) }}" alt="{{ $documentaries->title }} Poster"
-                            class="w-full aspect-[3/4] object-cover">
-                    </div>
+    <img src="{{ asset('photo/' . $documentaries->poster) }}"
+        alt="{{ $documentaries->title }} Poster"
+        class="w-full aspect-[3/4] object-cover">
+</div>
 
                     @php
                         $watchLinks = [];
@@ -110,9 +112,118 @@
                         </div>
                     </div>
                     @endif
-                </div>
 
-                <!-- Right: Metadata & Synopsis -->
+                 {{-- Genres --}}
+@if(!empty($documentaries->genre))
+<div class="mt-8 reveal-text">
+    <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">
+        Genre
+    </span>
+
+    <div class="flex flex-wrap gap-3">
+        @php
+            $genres = array_filter(explode(',', $documentaries->genre));
+        @endphp
+
+        @foreach($genres as $g)
+            <span class="px-5 py-2 rounded-full bg-[#131b4d]/5 text-[#131b4d] font-sans text-xs font-bold uppercase tracking-widest">
+                {{ trim($g) }}
+            </span>
+        @endforeach
+    </div>
+</div>
+@endif
+
+</div>
+
+                <!-- Right Content -->
+<div class="w-full max-w-4xl">
+
+
+    {{-- SYNOPSIS --}}
+    <div class="mb-6 reveal-text">
+         <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-3 font-bold">
+        SINOPSIS
+    </p>
+        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d] text-justify">
+                            @if(trim(strip_tags($documentaries->sinopsis)))
+                                @i18n($documentaries, 'sinopsis')
+                            @else
+                                <p>Synopsis not available.</p>
+            @endif
+        </div>
+    </div>
+    {{-- MAIN INFO --}}
+<div class="mb-4 pb-4 reveal-text">
+
+    {{-- ROW 1 : STARRING & YEAR --}}
+   {{-- STARRING + YEAR --}}
+    <div class="grid grid-cols-4 gap-x-12 mb-8">
+
+    {{-- STARRING --}}
+    <div class="col-span-3">
+        <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-2 font-bold">
+            STARRING
+        </p>
+
+        @php
+            $casts = collect(explode(',', $documentaries->cast))
+                ->map(fn($cast) => trim($cast))
+                ->filter();
+        @endphp
+
+        <p class="font-sans text-lg leading-8 text-[#131b4d] text-justify">
+            {{ $casts->implode(', ') }}
+        </p>
+    </div>
+
+    {{-- YEAR --}}
+    <div>
+        <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-2 font-bold">
+            YEAR
+        </p>
+
+        <p class="font-sans text-lg text-[#131b4d]">
+            {{ \Carbon\Carbon::parse($documentaries->release_date)->format('Y') }}
+        </p>
+    </div>
+
+</div>
+
+     {{-- CREDITS --}}
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-6 reveal-text">
+
+
+    @foreach($documentaries->credits->groupBy('role') as $role => $credits)
+
+        <div>
+
+            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-1 font-bold">
+                {{ $role }}
+            </p>
+
+            <div class="space-y-2">
+
+                @foreach($credits as $credit)
+
+                    <p class="font-sans text-lg leading-7 text-[#131b4d] text-justify">
+                        {{ $credit->name }}
+                    </p>
+
+                @endforeach
+
+            </div>
+
+        </div>
+
+    @endforeach
+
+
+    </div>
+
+
+
+                {{-- <!-- Right: Metadata & Synopsis -->
                 <div class="w-full md:w-2/3 lg:w-3/4">
                     <!-- Grid Metadata -->
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
@@ -164,6 +275,7 @@
                     </div>
                 </div>
             </div>
+        </section> --}}
         </section>
 
         {{-- ============================================================
