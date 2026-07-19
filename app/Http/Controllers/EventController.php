@@ -91,16 +91,16 @@ class EventController extends Controller
     {
         $rules = [
             'judul' => 'required',
-            'title' => 'required',
-            'tgl_event' => 'required',
-            'jam_event' => 'required',
-            'location' => 'required',
+            // 'title' => 'required',
+            // 'tgl_event' => 'required',
+            // 'jam_event' => 'required',
+            // 'location' => 'required',
             'detail' => 'required',
-            'link' => 'required',
-            'video_link' => 'nullable',
+            // 'link' => 'required',
+            // 'video_link' => 'nullable',
             'event_kategori_uuid'=>'required',
-            'film_uuid'=>'required',
-            'photo' => 'required|image'
+            // 'film_uuid'=>'required',
+            // 'photo' => 'required|image'
         ];
 
         $messages = [
@@ -183,25 +183,25 @@ class EventController extends Controller
     //     return view('event.edit', compact('event', 'eventKategoris'));
     // }
 
-        public function edit($id)
-{
-    $event = Event::uuid($id);
+    public function edit($id)
+        {
+            $event = Event::uuid($id);
 
-    $eventKategoris = EventKategori::orderBy('order_num', 'asc')
-        ->pluck('name', 'uuid');
+            $eventKategoris = EventKategori::orderBy('order_num', 'asc')
+                ->pluck('name', 'uuid');
 
-    $films = Film::orderBy('title', 'asc')
-        ->pluck('title', 'uuid');
+            $films = Film::orderBy('title', 'asc')
+                ->pluck('title', 'uuid');
 
-    return view(
-        'event.edit',
-        compact(
-            'event',
-            'eventKategoris',
-            'films'
-        )
-    );
-}
+            return view(
+                'event.edit',
+                compact(
+                    'event',
+                    'eventKategoris',
+                    'films'
+                )
+            );
+        }
     /**
      * Update the specified resource in storage.
      *
@@ -213,15 +213,16 @@ class EventController extends Controller
     {
         $rules = [
             'judul' => 'required',
-            'title' => 'required',
-            'tgl_event' => 'required',
-            'jam_event' => 'required',
-            'location' => 'required',
+            // 'title' => 'required',
+            // 'tgl_event' => 'required',
+            // 'jam_event' => 'required',
+            // 'location' => 'required',
             'detail' => 'required',
-            'link' => 'required',
-            'video_link' => 'nullable',
+            // 'link' => 'required',
+            // 'video_link' => 'nullable',
             // 'event_kategori_uuid' => 'required'
-            'event_kategori_uuid' => 'required','film_uuid' => 'required',
+            'event_kategori_uuid' => 'required',
+            // 'film_uuid' => 'required',
 
         ];
 

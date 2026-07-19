@@ -73,8 +73,12 @@ FILM SELECTOR
     <div class="max-w-7xl mx-auto px-8">
 
         <div class="flex flex-wrap justify-center gap-3">
-
-            <button onclick="showFilm('ketika', this)" class="film-button">
+            @foreach ($events as $index => $event)
+                <button onclick="showFilm({{ $index }}, this)" class="film-button">
+                    {{ $event->judul }}
+                </button>
+            @endforeach
+            {{-- <button onclick="showFilm('ketika', this)" class="film-button">
                 Ketika Berhenti di Sini
             </button>
 
@@ -84,7 +88,7 @@ FILM SELECTOR
 
             <button onclick="showFilm('namamu', this)" class="film-button">
                 Hanya Namamu Dalam Doaku
-            </button>
+            </button> --}}
 
 
         </div>
@@ -112,39 +116,10 @@ DETAIL FILM
 
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-16">
-
-            <div>
-
-                <p
-                    id="film-desc-1"
-                    class="text-[20px] leading-9 text-gray-700 text-justify">
-
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ducimus iste voluptas placeat totam.
-                    Accusantium numquam aliquid ab esse quasi at.
-                    Vel quos natus itaque autem repellat enim ea iusto minus.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-
-                </p>
-
-            </div>
-
-            <div>
-
-                <p
-                    id="film-desc-2"
-                    class="text-[20px] leading-9 text-gray-700 text-justify">
-
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Accusantium veniam perferendis modi facere voluptate adipisci.
-                    Modi deserunt sequi ipsa tempore architecto voluptates.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-
-                </p>
-
-            </div>
-
+        <div
+            id="film-desc-1"
+            class="columns-1 lg:columns-2 gap-16 text-[20px] leading-9 text-gray-700 text-justify">
+            {{-- Detail will be loaded dynamically --}}
         </div>
 
     </div>
@@ -274,106 +249,45 @@ GALLERY
 
 <script>
 
-const films = {
+@php
+    $events->load('photos');
+@endphp
 
-       ketika: {
+const filmsData = @json($events);
 
-    title: "KETIKA BERHENTI DI SINI",
+function showFilm(index, button) {
 
-    desc1: `
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    `,
-
-    desc2: `
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    `,
-
-    gallery: [
-        "{{ asset('../img/gala/_ARM0786.JPG') }}",
-        "{{ asset('../img/gala/_ARM9617.JPG') }}",
-        "{{ asset('../img/gala/_ARM9587.JPG') }}",
-        "{{ asset('../img/gala/_ARM0549.JPG') }}"
-    ]
-
-},
-
-    mati: {
-        title: "PERAYAAN MATI RASA",
-        desc1: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        desc2: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        gallery: [
-            "{{ asset('../img/gala/_ARM5518.jpg') }}",
-            "{{ asset('../img/gala/_ARM7184.jpg') }}",
-            "{{ asset('../img/gala/_ARM4747.jpg') }}",
-            "{{ asset('../img/gala/_MYG2521.jpg') }}"
-        ]
-    },
-
-    namamu: {
-        title: "HANYA NAMAMU DALAM DOAKU",
-        desc1: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        desc2: `
-             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Ducimus iste voluptas placeat totam.
-            Accusantium numquam aliquid ab esse quasi at.
-            Vel quos natus itaque autem repellat enim ea iusto minus.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        `,
-        gallery: [
-            "{{ asset('../img/gala/_ARM4008.jpg') }}",
-            "{{ asset('../img/gala/_ARM4502.jpg') }}",
-            "{{ asset('../img/gala/_YAH6250.jpg') }}",
-            "{{ asset('../img/gala/_YAH6258.jpg') }}"
-        ]
-    },
-
-};
-
-
-function showFilm(film, button) {
-
-    const data = films[film];
+    const data = filmsData[index];
 
     if (!data) return;
 
-    document.getElementById("film-title").innerHTML = data.title;
-// document.getElementById("gallery-title").innerHTML = data.title;
+    document.getElementById("film-title").innerHTML = data.judul;
 
-    // Ganti deskripsi
-    document.getElementById("film-desc-1").innerHTML = data.desc1;
-    document.getElementById("film-desc-2").innerHTML = data.desc2;
+    // Ganti deskripsi: Menggunakan detail saja untuk desc-1
+    document.getElementById("film-desc-1").innerHTML = data.detail || '';
+
+    // Helper function untuk set image gallery
+    function setGalleryImage(elementId, photoObj) {
+        const imgElement = document.getElementById(elementId);
+        if (imgElement) {
+            if (photoObj && photoObj.photo) {
+                let photoUrl = photoObj.photo;
+                if (!photoUrl.startsWith('http')) {
+                    photoUrl = "{{ asset('photo') }}/" + photoUrl;
+                }
+                imgElement.src = photoUrl;
+                imgElement.style.display = 'block';
+            } else {
+                imgElement.style.display = 'none';
+            }
+        }
+    }
 
     // Ganti gallery
-    document.getElementById("gallery-main").src = data.gallery[0];
-    document.getElementById("gallery-1").src = data.gallery[1];
-    document.getElementById("gallery-2").src = data.gallery[2];
-    document.getElementById("gallery-3").src = data.gallery[3];
+    setGalleryImage("gallery-main", data.photos[0]);
+    setGalleryImage("gallery-1", data.photos[1]);
+    setGalleryImage("gallery-2", data.photos[2]);
+    setGalleryImage("gallery-3", data.photos[3]);
 
     // Ganti tombol aktif
     document.querySelectorAll(".film-button").forEach(function(btn){
@@ -389,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstButton = document.querySelector(".film-button");
 
     if (firstButton) {
-        showFilm("ketika", firstButton);
+        showFilm(0, firstButton);
     }
 
 });

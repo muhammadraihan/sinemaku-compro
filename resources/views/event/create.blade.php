@@ -70,16 +70,16 @@
                         => '', 'placeholder' => 'Pilih Kategori ...'])!!}
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('tgl_event','Tanggal Event',['class' => 'required form-label'])}}
-                        {{ Form::text('tgl_event',null,['placeholder' => 'Tanggal Event','class' => 'form-control tgl_event'.($errors->has('tgl_event') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('tgl_event','Tanggal Event')}}
+                        {{ Form::text('tgl_event',null,['placeholder' => 'Tanggal Event','class' => 'form-control tgl_event'.($errors->has('tgl_event') ? 'is-invalid':'')])}}
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('jam_event','Jam Event',['class' => 'required form-label'])}}
-                        {{ Form::time('jam_event',null,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('jam_event','Jam Event')}}
+                        {{ Form::time('jam_event',null,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':'')])}}
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('harga','Harga',['class' => 'required form-label'])}}
-                        {{ Form::text('harga',null,['placeholder' => 'Harga','class' => 'form-control '.($errors->has('harga') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('harga','Harga')}}
+                        {{ Form::text('harga',null,['placeholder' => 'Harga','class' => 'form-control '.($errors->has('harga') ? 'is-invalid':'')])}}
                     </div>
                 </div>
 
@@ -106,8 +106,8 @@
                                     {{ Form::text('judul',null,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('judul') ? 'is-invalid':''),'required'])}}
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
-                                    {{ Form::label('location', 'Lokasi (ID)',['class' => 'required form-label'])}}
-                                    {{ Form::text('location',null,['placeholder' => 'Lokasi','class' => 'form-control '.($errors->has('location') ? 'is-invalid':''),'required'])}}
+                                    {{ Form::label('location', 'Lokasi (ID)')}}
+                                    {{ Form::text('location',null,['placeholder' => 'Lokasi','class' => 'form-control '.($errors->has('location') ? 'is-invalid':'')])}}
                                 </div>
                                 <div class="form-group col-md-12 mb-3">
                                     {{ Form::label('detail','Detail Event (ID)',['class' => 'required form-label'])}}
@@ -138,8 +138,8 @@
 
                 <div class="row">
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('link','Link Tiket / Pendaftaran',['class' => 'required form-label'])}}
-                        {{ Form::text('link',null,['placeholder' => 'Link Tiket','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('link','Link Tiket / Pendaftaran')}}
+                        {{ Form::text('link',null,['placeholder' => 'Link Tiket','class' => 'form-control '.($errors->has('link') ? 'is-invalid':'')])}}
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         {{ Form::label('video_link','Link Video (After Movie)',['class' => 'form-label'])}}
@@ -152,7 +152,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('photo','Main Photo (Thumbnail)',['class' => 'required form-label'])}}
+                        {{ Form::label('photo','Main Photo (Thumbnail)')}}
                         {{ Form::file('photo',['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'photo'])}}
                         <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                         alt="preview image" style="max-height: 250px; margin-top: 10px;">

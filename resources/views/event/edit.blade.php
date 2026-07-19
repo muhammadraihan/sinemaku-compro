@@ -69,16 +69,16 @@
                         => '', 'placeholder' => 'Pilih Kategori ...'])!!}
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('tgl_event','Tanggal Event',['class' => 'required form-label'])}}
-                        {{ Form::text('tgl_event',$event->tgl_event,['placeholder' => 'Tanggal Event','class' => 'form-control tgl_event'.($errors->has('tgl_event') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('tgl_event','Tanggal Event')}}
+                        {{ Form::text('tgl_event',$event->tgl_event,['placeholder' => 'Tanggal Event','class' => 'form-control tgl_event'.($errors->has('tgl_event') ? 'is-invalid':'')])}}
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('jam_event','Jam Event',['class' => 'required form-label'])}}
-                        {{ Form::time('jam_event',$event->jam_event,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('jam_event','Jam Event')}}
+                        {{ Form::time('jam_event',$event->jam_event,['placeholder' => 'Jam Event','class' => 'form-control '.($errors->has('jam_event') ? 'is-invalid':'')])}}
                     </div>
                     <div class="form-group col-md-3 mb-3">
-                        {{ Form::label('harga','Harga',['class' => 'required form-label'])}}
-                        {{ Form::text('harga',$event->harga,['placeholder' => 'Harga','class' => 'form-control '.($errors->has('harga') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('harga','Harga')}}
+                        {{ Form::text('harga',$event->harga,['placeholder' => 'Harga','class' => 'form-control '.($errors->has('harga') ? 'is-invalid':'')])}}
                     </div>
                 </div>
 
@@ -105,8 +105,8 @@
                                     {{ Form::text('judul',$event->judul,['placeholder' => 'Judul','class' => 'form-control '.($errors->has('judul') ? 'is-invalid':''),'required'])}}
                                 </div>
                                 <div class="form-group col-md-6 mb-3">
-                                    {{ Form::label('location','Lokasi (ID)',['class' => 'required form-label'])}}
-                                    {{ Form::text('location',$event->location,['placeholder' => 'Lokasi','class' => 'form-control '.($errors->has('location') ? 'is-invalid':''),'required'])}}
+                                    {{ Form::label('location','Lokasi (ID)')}}
+                                    {{ Form::text('location',$event->location,['placeholder' => 'Lokasi','class' => 'form-control '.($errors->has('location') ? 'is-invalid':'')])}}
                                 </div>
                                 <div class="form-group col-md-12 mb-3">
                                     {{ Form::label('detail','Detail Event (ID)',['class' => 'required form-label'])}}
@@ -137,21 +137,21 @@
 
                 <div class="row">
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('link','Link Tiket / Pendaftaran',['class' => 'required form-label'])}}
-                        {{ Form::text('link',$event->link,['placeholder' => 'Link Tiket','class' => 'form-control '.($errors->has('link') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('link','Link Tiket / Pendaftaran')}}
+                        {{ Form::text('link',$event->link,['placeholder' => 'Link Tiket','class' => 'form-control '.($errors->has('link') ? 'is-invalid':'')])}}
                     </div>
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('video_link','Link Video (After Movie)',['class' => 'form-label'])}}
+                        {{ Form::label('video_link','Link Video (After Movie)')}}
                         {{ Form::text('video_link',$event->video_link,['placeholder' => 'Link Video (Youtube)','class' => 'form-control'])}}
                     </div>
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('title','Slug / Unique Title',['class' => 'required form-label'])}}
-                        {{ Form::text('title',$event->title,['placeholder' => 'Slug','class' => 'form-control '.($errors->has('title') ? 'is-invalid':''),'required'])}}
+                        {{ Form::label('title','Slug / Unique Title')}}
+                        {{ Form::text('title',$event->title,['placeholder' => 'Slug','class' => 'form-control '.($errors->has('title') ? 'is-invalid':'')])}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-4 mb-3">
-                        {{ Form::label('photo','Main Photo (Thumbnail)',['class' => 'required form-label'])}}
+                        {{ Form::label('photo','Main Photo (Thumbnail)')}}
                         <input type="hidden" name="oldImage" value="{{ $event->photo }}">
                         {{ Form::file('photo',null,['placeholder' => 'Photo','class' => 'form-control upload '.($errors->has('photo') ? 'is-invalid':''), 'autocomplete' => 'off', 'id' => 'photo'])}}
                         @if ($event->photo)
