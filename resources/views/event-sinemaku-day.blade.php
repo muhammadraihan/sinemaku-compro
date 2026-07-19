@@ -71,7 +71,12 @@ EVENT SELECTOR
 
         <div class="flex flex-wrap justify-center gap-3">
 
-            <button onclick="showEvent('2024', this)"
+            @foreach ($events as $index => $event)
+            <button onclick="showEvent({{ $index }}, this)" class="film-button">
+                {{ $event->judul }}
+            </button>
+            @endforeach
+            {{-- <button onclick="showEvent('2024', this)"
                 class="film-button active-film">
 
                 Sinemaku Day 2024
@@ -83,7 +88,7 @@ EVENT SELECTOR
 
                 Sinemaku Day 2025
 
-            </button>
+            </button> --}}
 
         </div>
 
@@ -114,39 +119,10 @@ DETAIL EVENT
         {{-- Deskripsi --}}
         <div class="max-w-6xl mx-auto">
 
-            <div class="grid lg:grid-cols-2 gap-16 items-start">
-
-                <div>
-
-                    <p
-                        id="event-desc-1"
-                        class="text-[20px] leading-9 text-gray-700 text-justify">
-
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Ducimus iste voluptas placeat totam.
-                        Accusantium numquam aliquid ab esse quasi at.
-                        Vel quos natus itaque autem repellat enim ea iusto minus.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-
-                    </p>
-
-                </div>
-
-                <div>
-
-                    <p
-                        id="event-desc-2"
-                        class="text-[20px] leading-9 text-gray-700 text-justify">
-
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Accusantium veniam perferendis modi facere voluptate adipisci.
-                        Modi deserunt sequi ipsa tempore architecto voluptates.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-
-                    </p>
-
-                </div>
-
+            <div
+                id="event-desc-1"
+                class="columns-1 lg:columns-2 gap-16 text-[20px] leading-9 text-gray-700 text-justify">
+                {{-- Detail will be loaded dynamically --}}
             </div>
 
         </div>
@@ -227,113 +203,91 @@ EVENT GALLERY
 
 </section>
 <style>
+    .film-button {
 
-.film-button{
+        padding: 12px 22px;
+        border: 1px solid #131B4D;
+        border-radius: 999px;
+        background: white;
+        color: #131B4D;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .3s;
 
-    padding:12px 22px;
-    border:1px solid #131B4D;
-    border-radius:999px;
-    background:white;
-    color:#131B4D;
-    font-size:14px;
-    font-weight:600;
-    transition:.3s;
+    }
 
-}
+    .film-button:hover {
 
-.film-button:hover{
+        background: #131B4D;
+        color: white;
 
-    background:#131B4D;
-    color:white;
+    }
 
-}
+    .active-film {
 
-.active-film{
+        background: #131B4D;
+        color: white;
 
-    background:#131B4D;
-    color:white;
-
-}
-
+    }
 </style>
 
 <script>
+    @php
+    $events->load('photos');
+    @endphp
 
-const events = {
+    const eventsData = @json($events);
 
-    2024: {
-        title: "SINEMAKU DAY 2024",
-        desc1: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Accusantium veniam perferendis modi facere voluptate adipisci.
-                Modi deserunt sequi ipsa tempore architecto voluptates.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.`,
-        desc2: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Accusantium veniam perferendis modi facere voluptate adipisci.
-                Modi deserunt sequi ipsa tempore architecto voluptates.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.`,
-        gallery: [
-            "{{ asset('../img/sinemakuday/SINEMA24.JPG') }}",
-            "{{ asset('../img/sinemakuday/SINEMAKU DAY 24.JPG') }}",
-            "{{ asset('../img/sinemakuday/SINEMAKU DAY 2024.JPG') }}",
-            "{{ asset('../img/sinemakuday/_ARM1148.JPG') }}"
-        ]
-    },
+    function showEvent(index, button) {
 
-    2025: {
-        title: "SINEMAKU DAY 2025",
-        desc1: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Accusantium veniam perferendis modi facere voluptate adipisci.
-                Modi deserunt sequi ipsa tempore architecto voluptates.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.`,
-        desc2: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Accusantium veniam perferendis modi facere voluptate adipisci.
-                Modi deserunt sequi ipsa tempore architecto voluptates.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.`,
-        gallery: [
-             "{{ asset('../img/sinemakuday/SINEMDAY25.jpg') }}",
-            "{{ asset('../img/sinemakuday/SINEMAKU25.jpg') }}",
-            "{{ asset('../img/sinemakuday/SINEM25.jpg') }}",
-            "{{ asset('../img/sinemakuday/SIM25.jpg') }}"
-        ]
+        const data = eventsData[index];
+
+        if (!data) return;
+
+        document.getElementById("event-title").innerHTML = data.judul;
+
+        // Set event details
+        document.getElementById("event-desc-1").innerHTML = data.detail || '';
+
+        // Helper function to set gallery images dynamically
+        function setGalleryImage(elementId, photoObj) {
+            const imgElement = document.getElementById(elementId);
+            if (imgElement) {
+                if (photoObj && photoObj.photo) {
+                    let photoUrl = photoObj.photo;
+                    if (!photoUrl.startsWith('http')) {
+                        photoUrl = "{{ asset('photo') }}/" + photoUrl;
+                    }
+                    imgElement.src = photoUrl;
+                    imgElement.style.display = 'block';
+                } else {
+                    imgElement.style.display = 'none';
+                }
+            }
+        }
+
+        setGalleryImage("gallery-main", data.photos[0]);
+        setGalleryImage("gallery-1", data.photos[1]);
+        setGalleryImage("gallery-2", data.photos[2]);
+        setGalleryImage("gallery-3", data.photos[3]);
+
+        document.querySelectorAll(".film-button").forEach(function(btn) {
+            btn.classList.remove("active-film");
+        });
+
+        button.classList.add("active-film");
+
     }
 
-};
+    document.addEventListener("DOMContentLoaded", function() {
 
-function showEvent(year, button){
+        const firstButton = document.querySelector(".film-button");
 
-    const data = events[year];
+        if (firstButton) {
+            showEvent(0, firstButton);
+        }
 
-    if(!data) return;
-
-    document.getElementById("event-title").innerHTML = data.title;
-
-    document.getElementById("event-desc-1").innerHTML = data.desc1;
-    document.getElementById("event-desc-2").innerHTML = data.desc2;
-
-    document.getElementById("gallery-main").src = data.gallery[0];
-    document.getElementById("gallery-1").src = data.gallery[1];
-    document.getElementById("gallery-2").src = data.gallery[2];
-    document.getElementById("gallery-3").src = data.gallery[3];
-
-    document.querySelectorAll(".film-button").forEach(function(btn){
-        btn.classList.remove("active-film");
     });
-
-    button.classList.add("active-film");
-
-}
-document.addEventListener("DOMContentLoaded", function () {
-
-    const firstButton = document.querySelector(".film-button");
-
-    if (firstButton) {
-        showEvent("2024", firstButton);
-    }
-
-     });
-
 </script>
 
 @include('components.footer')
-
-
