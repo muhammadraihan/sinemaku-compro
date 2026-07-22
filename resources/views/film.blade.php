@@ -66,13 +66,13 @@
         {{-- ============================================================
         2. ALL FILMS CATALOGUE (HORIZONTAL PAN GRID)
         ============================================================ --}}
-        <section class="py-32 z-10 relative max-w-[100vw] bg-creme-leaks">
+        <section class="py-10 z-10 relative max-w-[100vw] bg-creme-leaks">
 
             <!-- Header & Filter -->
             <div class="px-8 md:px-16 flex flex-col items-center mb-16 max-w-[1800px] mx-auto text-center">
-                <h2 class="font-instrument italic text-4xl md:text-6xl text-brand-navy leading-none tracking-tight mb-12">
+                {{-- <h2 class="font-instrument italic text-4xl md:text-6xl text-brand-navy leading-none tracking-tight mb-12">
                     Katalog <span class="font-peckham not-italic text-brand-orange uppercase mx-1">Film</span> Kami
-                </h2>
+                </h2> --}}
 
                 <!-- Dual Filter Dropdown -->
                 <div class="inline-flex items-center border border-brand-orange/30 rounded-full bg-brand-orange/5 p-1 relative z-50">
@@ -286,8 +286,8 @@ STYLES & SCRIPTS
         /* ── WIDE vs NARROW card title & metadata sizing ── */
         /* Judul */
         .catalogue-card.is-wide .card-title {
-            font-size: clamp(1.4rem, 4vw, 4.5rem);
-            max-width: 60%;
+            font-size: clamp(0.75rem, 2.2vw, 2.2rem);
+            max-width: 100%;
             word-break: keep-all;
             overflow-wrap: normal;
         }

@@ -65,13 +65,13 @@
         {{-- ============================================================
         2. ALL FILMS CATALOGUE (HORIZONTAL PAN GRID)
         ============================================================ --}}
-        <section class="py-32 z-10 relative max-w-[100vw] overflow-hidden">
+        <section class="py-16 z-10 relative max-w-[100vw] overflow-hidden">
 
             <!-- Header & Filter -->
             <div class="px-8 md:px-16 flex flex-col items-center mb-16 max-w-[1800px] mx-auto text-center">
-                <h2 class="font-instrument italic text-4xl md:text-6xl text-brand-navy leading-none tracking-tight mb-12">
-                    Our <span class="font-peckham not-italic text-brand-orange uppercase mx-1">TV</span> Catalogue
-                </h2>
+                {{-- <h2 class="font-instrument italic text-4xl md:text-6xl text-brand-navy leading-none tracking-tight mb-12">
+                    Katalog <span class="font-peckham not-italic text-brand-orange uppercase mx-1">TV</span> Kami
+                </h2> --}}
 
                 <!-- Dual Filter Dropdown -->
                 <div class="inline-flex items-center border border-brand-orange/30 rounded-full bg-brand-orange/5 p-1 relative z-50">
@@ -79,12 +79,12 @@
                         <!-- Year Dropdown -->
                         <div class="relative group/filter">
                             <div id="filter-year-trigger" class="px-6 py-2 flex flex-col items-center border-r border-brand-orange/20 cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-l-full">
-                                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Release Year</span>
-                                <span id="selected-year" class="text-sm font-sans text-brand-navy font-bold leading-none">Any</span>
+                                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Tahun Rilis</span>
+                                <span id="selected-year" class="text-sm font-sans text-brand-navy font-bold leading-none">Semua</span>
                             </div>
                             <div id="filter-year-menu" class="absolute top-full left-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
                                 <div class="max-h-64 overflow-y-auto py-2">
-                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="Any">Any</div>
+                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="Semua">Semua</div>
                                     @php
                                         $years = collect($genre)->map(fn($item) => \Carbon\Carbon::parse($item->release_date)->format('Y'))->unique()->sortDesc();
                                     @endphp
@@ -99,11 +99,11 @@
                         <div class="relative group/filter">
                             <div id="filter-genre-trigger" class="px-6 py-2 flex flex-col items-center cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-r-full">
                                 <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Genre</span>
-                                <span id="selected-genre" class="text-sm font-sans text-brand-navy font-bold leading-none">Any</span>
+                                <span id="selected-genre" class="text-sm font-sans text-brand-navy font-bold leading-none">Semua</span>
                             </div>
                             <div id="filter-genre-menu" class="absolute top-full right-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
                                 <div class="max-h-64 overflow-y-auto py-2">
-                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="Any">Any</div>
+                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="Semuma">Semua</div>
                                     @php
                                         $genres = collect($genre)->map(fn($item) => $item->genre)->unique()->sort();
                                     @endphp
@@ -138,7 +138,7 @@
                         data-genre="{{ $item->genre }}"
                         data-trailer="{{ $item->link }}"
                         style="display: block;">
-                                
+
                                 {{-- Background Image with subtle zoom --}}
                                 <img src="{{ asset('photo/' . $item->photo) }}"
                                     class="film-card-img w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all duration-1000 ease-expo scale-100 group-hover:scale-105"
@@ -155,28 +155,28 @@
                                 <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                     <div class="flex flex-col gap-4">
                                         <div class="flex flex-col">
-                                            <span class="meta-label uppercase tracking-tighter text-white/40">Release Date</span>
+                                            {{-- <span class="meta-label uppercase tracking-tighter text-white/40">Release Date</span>
                                             <span class="meta-value uppercase text-white tracking-wide font-sans">
                                                 {{ \Carbon\Carbon::parse($item->release_date)->isFuture() ? 'xx Sep 2025' : \Carbon\Carbon::parse($item->release_date)->format('d M Y') }}
-                                            </span>
+                                            </span> --}}
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="meta-label uppercase tracking-tighter text-white/40">Directed By</span>
-                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->director ?: 'N/A' }}</span>
+                                            {{-- <span class="meta-label uppercase tracking-tighter text-white/40">Directed By</span>
+                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->director ?: 'N/A' }}</span> --}}
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="meta-label uppercase tracking-tighter text-white/40">Written By</span>
-                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->writer ?: 'N/A' }}</span>
+                                            {{-- <span class="meta-label uppercase tracking-tighter text-white/40">Written By</span>
+                                            <span class="meta-value uppercase text-white tracking-wide font-sans">{{ $item->writer ?: 'N/A' }}</span> --}}
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
+                                            {{-- <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
                                             <span class="meta-value uppercase text-white leading-tight font-sans">
                                                 @php
                                                     $casts = array_filter(explode(',', $item->cast));
                                                     $displayCasts = array_slice($casts, 0, 2);
                                                 @endphp
                                                 {{ implode(', ', $displayCasts) }}
-                                            </span>
+                                            </span> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -246,8 +246,8 @@ STYLES & SCRIPTS
         /* ── WIDE vs NARROW card title & metadata sizing ── */
         /* Judul */
         .catalogue-card.is-wide .card-title {
-            font-size: clamp(1.4rem, 4vw, 4.5rem);
-            max-width: 60%;
+            font-size: clamp(0.75rem, 2.2vw, 2.2rem);
+            max-width: 100%;
             word-break: keep-all;
             overflow-wrap: normal;
         }
@@ -493,7 +493,7 @@ STYLES & SCRIPTS
                     const titleContainer = item.querySelector('.film-title');
                     const titleText = item.querySelector('.title-text');
                     const meta = item.querySelector('.film-meta');
-                    
+
                     if (!titleContainer || !titleText || !meta) return;
 
                     const rects = titleText.getClientRects();
@@ -568,7 +568,7 @@ STYLES & SCRIPTS
                 menu.classList.toggle('opacity-0');
                 menu.classList.toggle('translate-y-2');
                 menu.classList.toggle('pointer-events-none');
-                
+
                 // Close other menu
                 if (otherMenu) {
                     otherMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
@@ -592,7 +592,7 @@ STYLES & SCRIPTS
                 option.addEventListener('click', () => {
                     const type = option.getAttribute('data-type');
                     const value = option.getAttribute('data-value');
-                    
+
                     if (type === 'year') {
                         document.getElementById('selected-year').textContent = value;
                         yearMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
@@ -608,17 +608,17 @@ STYLES & SCRIPTS
             function applyFilters() {
                 const selectedYear = document.getElementById('selected-year').textContent;
                 const selectedGenre = document.getElementById('selected-genre').textContent;
-                
+
                 const allCards = document.querySelectorAll('.catalogue-card');
                 const visibleCards = [];
-                
+
                 allCards.forEach(card => {
                     const itemYear = card.getAttribute('data-year');
                     const itemGenre = card.getAttribute('data-genre');
-                    
-                    let matchYear = (selectedYear === 'Any' || itemYear === selectedYear);
-                    let matchGenre = (selectedGenre === 'Any' || itemGenre === selectedGenre);
-                    
+
+                    let matchYear = (selectedYear === 'Semua' || itemYear === selectedYear);
+                    let matchGenre = (selectedGenre === 'Semua' || itemGenre === selectedGenre);
+
                     if (matchYear && matchGenre) {
                         card.style.display = 'block';
                         visibleCards.push(card);
@@ -630,9 +630,9 @@ STYLES & SCRIPTS
                 let N = visibleCards.length;
                 let layoutClasses = [];
                 let remaining = N;
-                
+
                 let isMobileLayout = window.innerWidth <= 768;
-                
+
                 if (isMobileLayout) {
                     let isRowOfTwo = true;
                     while (remaining > 0) {
@@ -654,7 +654,7 @@ STYLES & SCRIPTS
                 } else {
                     let isRowOfThree = true;
                     let threeRowAlternate = false;
-                    
+
                     while (remaining > 0) {
                         if (isRowOfThree) {
                             if (remaining >= 3) {
@@ -700,7 +700,7 @@ STYLES & SCRIPTS
                 visibleCards.forEach((card, index) => {
                     // Reset class grid sebelumnya
                     card.classList.remove('col-span-1', 'col-span-2', 'col-span-3', 'col-start-2', 'is-wide', 'is-narrow');
-                    
+
                     // Assign class sesuai urutan logika layout
                     const classToApply = layoutClasses[index];
                     if (classToApply) {
@@ -752,7 +752,7 @@ STYLES & SCRIPTS
 
                         iframeContainer = document.createElement('div');
                         iframeContainer.className = 'absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-[5] opacity-0 transition-opacity duration-700 bg-brand-navy';
-                        
+
                         const rect = card.getBoundingClientRect();
                         let iframeW = rect.width;
                         let iframeH = iframeW * (9/16);
@@ -760,20 +760,20 @@ STYLES & SCRIPTS
                             iframeH = rect.height;
                             iframeW = iframeH * (16/9);
                         }
-                        
+
                         const finalW = iframeW * 1.6;
                         const finalH = iframeH * 1.6;
 
                         const iframe = document.createElement('iframe');
-                        iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 max-w-none'; 
+                        iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 max-w-none';
                         iframe.style.width = finalW + 'px';
                         iframe.style.height = finalH + 'px';
                         iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&rel=0&loop=1&playlist=${videoId}&playsinline=1&modestbranding=1&disablekb=1`;
                         iframe.allow = 'autoplay; encrypted-media';
                         iframe.frameBorder = '0';
-                        
+
                         iframeContainer.appendChild(iframe);
-                        
+
                         const img = card.querySelector('.film-card-img');
                         if(img) {
                             img.parentNode.insertBefore(iframeContainer, img.nextSibling);
@@ -832,7 +832,7 @@ STYLES & SCRIPTS
                 card.addEventListener('touchstart', (e) => {
                     lastTouchTime = Date.now();
                     wasPlayingBeforeTouch = isTrailerPlaying;
-                    
+
                     const touch = e.touches[0];
                     touchStartX = touch.clientX;
                     touchStartY = touch.clientY;

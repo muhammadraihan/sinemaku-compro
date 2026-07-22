@@ -202,22 +202,37 @@
 
             <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                 @php
-                    $rawText = '[s]Tidak semua perjalanan dimulai dari tempat yang sama. Yang membedakan sering kali bukan bakat, melainkan kesempatan. Karena itu,[/s]
-                                [p]Sinemaku Pictures[/p] [s]memilih untuk menjaga satu hal yang sederhana:[/s] [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
+
+                    // $rawText = '[ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps] [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
+                    // [ps]Karena itu,[/ps] [p]Sinemaku Pictures[/p] [ps]memilih untuk menjaga satu hal yang sederhana:[/ps] [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
+
+$rawText = '
+[ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps]
+
+[ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
+
+<div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
+    [ps]Karena itu,[/ps]
+    [p]SINEMAKU PICTURES[/p]
+    [ps]memilih untuk menjaga satu hal yang sederhana:[/ps]
+</div>
+
+[s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]
+';
 
                     // Parse [ps]
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
-                        return '<span class="font-instrument text-[4.5vw] sm:text-[2vw] md:text-[2.5vw] text-brand-navy uppercase leading-thight tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-serif not-italic text-[4.5vw] sm:text-[2vw] md:text-[2.5vw] text-brand-orange leading-thight">' . $matches[1] . '</span>';
                     }, $rawText);
 
                     // Parse [p]
                     $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="font-instrument text-[5vw] sm:text-[3vw] md:text-[3vw] text-brand-navy uppercase leading-thight tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3vw] text-brand-navy leading-thight tracking-tighter">' . $matches[1] . '</span>';
                     }, $parsedText);
 
                     // Parse [s]
                     $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                        return '<span class="font-instrument text-[5.5vw] md:text-[2.5vw] text-brand-orange leading-thight">' . $matches[1] . '</span>';
+                        return '<span class="font-serif not-italic text-[4.5vw] sm:text-[2vw] md:text-[2.5vw] text-brand-navy leading-thight">' . $matches[1] . '</span>';
                     }, $parsedText);
                 @endphp
 
@@ -295,27 +310,26 @@
                 </div>
 
                 <!-- Row 2 (CENTER ROW) -->
-                <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="../img/p.home/_ARM0784.jpg" class="w-full h-full object-cover transition duration-700">
+                <div class="crew-center-img col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">                    <img src="../img/p.home/_ARM0784.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[2]['role'] }}</span>
                     </div>
                 </div>
 
-                <div class="crew-center-img col-span-12 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative shadow-2xl">
+                <div class="col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
                     <img src="../img/p.home/_ARM0218.JPG" class="w-full h-full object-cover">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
-                        <span class="crew-text-reveal font-serif text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
+                        <span class="crew-text-reveal font-serif not-italic text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">BERCERITA</h2>
                     </div>
                 </div>
 
-                <div class="col-span-4 md:col-span-3 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
+                <div class="crew-center-img col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">
                     <img src="../img/p.home/_ARM2826.JPG" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[3]['name'] }}</h3>

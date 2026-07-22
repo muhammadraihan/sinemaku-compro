@@ -36,7 +36,7 @@
                             // ['HOME', '/'], ['OUR WORKS', '/films'], ['EVENT', '/events'],
                             // ['MERCH', '/shop'], ['COMMUNITY', '/membership'], ['ARTICLE', '/article'], ['CAREER', '/careers']
 
-                             ['BERANDA', '/'], ['MENGAPA KAMI ADA', '/tentang-kami'], ['KARYA KAMI', '/films'], ['KEGIATAN SINEMAKU', '/events/gala-premiere'],
+                             ['BERANDA', '/'], ['MENGAPA KAMI ADA', '/tentang-kami'], ['KARYA KAMI', '/films'], ['RUANG TEMU', '/events/gala-premiere'],
                              ['PINTU TERBUKA', '/careers']
                         ];
                     @endphp

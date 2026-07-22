@@ -29,15 +29,10 @@
                 Di balik setiap karya,
                 <br>
                 selalu ada seseorang
-                yang berani memulai.
+                yang berani memulai
             </h1>
 
-            <span
-             data-aos="fade-up"
-            data-aos-delay="100"
-            class="font-sans font-bold uppercase tracking-[5px] text-white  text-sm">
-            Tentang Sinemaku Pictures
-            </span>
+
 
         <!-- Button -->
     <div class="mt-8">

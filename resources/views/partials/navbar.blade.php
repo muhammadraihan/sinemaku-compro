@@ -175,7 +175,7 @@ TOP NAVBAR
 
         /* Fix background color for fullscreen state */
         #sticky-navbar.is-expanded {
-            background-color: #0E1633; /* Pastikan solid saat fullscreen */
+            background-color: #1A2D61; /* Pastikan solid saat fullscreen */
         }
     </style>
 </nav>
@@ -184,7 +184,7 @@ TOP NAVBAR
 STICKY MORPHING NAVBAR (THE "PONI")
 ════════════════════════════════════════════════════════════════ --}}
 <nav id="sticky-navbar"
-    class="fixed top-6 left-1/2 z-[350] w-[90%] max-w-[800px] h-[64px] bg-[#0E1633] rounded-2xl flex flex-col items-center justify-start shadow-2xl border border-white/10 overflow-hidden"
+    class="fixed top-6 left-1/2 z-[350] w-[90%] max-w-[800px] h-[64px] bg-[#1A2D61] rounded-2xl flex flex-col items-center justify-start shadow-2xl border border-white/10 overflow-hidden"
     style="opacity: 0; visibility: hidden; will-change: transform, width, height, top, border-radius;">
 
     {{-- Header: Always visible, stable centering --}}
@@ -523,7 +523,7 @@ GLOBAL i18n ENGINE
             menu_television_short: { en: 'Television', id: 'Televisi' },
             menu_documentaries: { en: '↳ Documentaries', id: '↳ Dokumenter' },
             menu_documentaries_short: { en: 'Documentaries', id: 'Dokumenter' },
-            menu_events: { en: 'Events', id: 'Kegiatan Sinemaku' },
+            menu_events: { en: 'Events', id: 'Ruang Temu' },
             menu_merch: { en: 'Merch', id: 'Merch' },
             menu_community: { en: 'Community', id: 'Komunitas' },
             menu_articles: { en: 'Articles', id: 'Artikel' },
@@ -538,7 +538,7 @@ GLOBAL i18n ENGINE
             footer_serial: { en: 'Serial', id: 'Serial' },
             footer_shop: { en: 'Shop', id: 'Toko' },
             footer_articles: { en: 'Articles', id: 'Artikel' },
-            footer_events: { en: 'Events', id: 'Acara' },
+            footer_events: { en: 'Events', id: 'Ruang Temu' },
             footer_careers: { en: 'Careers', id: 'Karier' },
             footer_community: { en: 'Community', id: 'Komunitas' },
             footer_copyright: { en: '© 2026 Sinemaku Pictures. All rights reserved.', id: '© 2026 Sinemaku Pictures. Hak cipta dilindungi.' },
@@ -633,7 +633,7 @@ GLOBAL i18n ENGINE
 
         const TEXT_MAP = {
             id: {
-                'About': 'Mengapa Kami Ada', 'Our Works': 'Karya Kami', 'Events': 'Acara',
+                'About': 'Mengapa Kami Ada', 'Our Works': 'Karya Kami', 'Events': 'Ruang Temu',
                 'Merch': 'Merchandise', 'Articles': 'Artikel', 'Careers': 'Karier',
                 'Home': 'Beranda', 'Community': 'Komunitas', 'Films': 'Film',
                 'Web Series': 'Serial Web', 'Television': 'Televisi', 'Documentaries': 'Dokumenter',

@@ -56,7 +56,7 @@
            <div class="max-w-[1400px] mx-auto grid lg:grid-cols-[280px_1fr] gap-20 items-start">
 
                 <!-- Left: Poster & Available On -->
-                < class="w-full max-w-[280px]">
+                <div class="w-full max-w-[280px]">
                     <div class="rounded-xl overflow-hidden shadow-2xl mb-8 reveal-image">
                         <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
                             class="w-full aspect-[3/4] object-cover">
@@ -200,7 +200,7 @@
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
                             @else
-                                <p>Synopsis not available.</p>
+                                <p>Sinopsis tidak tersedia.</p>
             @endif
         </div>
     </div>
