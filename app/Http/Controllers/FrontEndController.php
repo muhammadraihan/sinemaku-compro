@@ -609,6 +609,15 @@ public function specialEvent()
     return view('special-event', compact('events'));
 }
 
+public function jaffMarket()
+{
+    $events = Event::whereHas('eventKategori', function ($q) {
+        $q->where('name', 'JAFF MARKET');
+    })->latest('tgl_event')->get();
+
+    return view('event-jaff-market', compact('events'));
+}
+
 public function careers()
 {
     $careers = Job::all();
