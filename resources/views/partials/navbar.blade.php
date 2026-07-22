@@ -75,6 +75,11 @@ FULLSCREEN MENU OVERLAY
             'url' => route('events.goes-to-school'),
             'i18n' => 'menu_goes_to_school',
         ],
+        [
+            'title' => 'JAFF MARKET',
+            'url' => route('events.jaff-market'),
+            'i18n' => 'menu_jaff_market',
+        ],
     ],
 ],
 
