@@ -147,6 +147,19 @@ GALLERY
 ========================================================== --}}
 <section class="bg-black py-3">
 
+    <div class="max-w-7xl mx-auto px-8">
+
+        <div class="mb-6">
+
+            <span
+                class="uppercase tracking-[5px] text-[#F36B21] text-sm font-bold">
+
+            Gallery Foto
+
+            </span>
+
+        </div>
+
     <div class="grid grid-cols-12 gap-3">
 
         {{-- Row 1 --}}
