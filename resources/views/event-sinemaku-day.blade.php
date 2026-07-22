@@ -234,17 +234,15 @@ GALLERY
     $events->load('photos');
 @endphp
 
-const filmsData = @json($events);
+const eventsData = @json($events);
 
-function showFilm(index, button) {
-const data = filmsData[index];
+function showEvent(index, button) {
+const data = eventsData[index];
 
     if (!data) return;
 
-    document.getElementById("film-title").innerHTML = data.judul;
-
-    // Ganti deskripsi: Menggunakan detail saja untuk desc-1
-    document.getElementById("film-desc-1").innerHTML = data.detail || '';
+   document.getElementById("event-title").innerHTML = data.judul;
+document.getElementById("event-desc-1").innerHTML = data.detail ?? '';
 
     // Helper function untuk set image gallery
     function setGalleryImage(elementId, photoObj) {
@@ -339,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstButton = document.querySelector(".film-button");
 
     if (firstButton) {
-        showFilm(0, firstButton);
+       showEvent(0, firstButton);
     }
 
 });
