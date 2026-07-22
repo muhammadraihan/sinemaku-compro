@@ -80,12 +80,14 @@ FILM SELECTOR
 
     <div class="max-w-7xl mx-auto px-8">
 
-        <div class="flex flex-wrap justify-center gap-3">
-            @foreach ($events as $index => $event)
-                <button onclick="showFilm({{ $index }}, this)" class="film-button">
-                    {{ $event->judul }}
-                </button>
-            @endforeach
+       <div class="flex flex-wrap justify-center gap-3">
+    @foreach ($events as $index => $event)
+        <button
+            onclick="showFilm({{ $index }}, this)"
+            class="film-button inline-block transition-all duration-300 text-xs font-sans font-bold tracking-widest px-4 py-2 rounded-md border border-brand-navy/20 shadow-sm uppercase bg-brand-navy/5 text-brand-navy hover:bg-brand-orange hover:border-brand-orange hover:text-white">
+            {{ $event->judul }}
+        </button>
+    @endforeach
             {{-- <button onclick="showFilm('bolehkah', this)" class="film-button">
                 Bolehkah Sekali Saja Kumenangis
             </button>
@@ -213,39 +215,31 @@ GALLERY
 <style>
 
 .film-button{
-
-    padding:12px 22px;
-
-    border:1px solid #131B4D;
-
-    border-radius:999px;
-
-    background:white;
-
-    color:#131B4D;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    transition:.3s;
-
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid rgba(19, 27, 77, 0.2);
+    border-radius: 8px;
+    background: rgba(19, 27, 77, 0.05);
+    color: #131B4D;
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    transition: all .3s ease;
 }
 
 .film-button:hover{
-
-    background:#131B4D;
-
-    color:white;
-
+    background: #F36B21;
+    border-color: #F36B21;
+    color: #fff;
 }
 
 .active-film{
-
-    background:#131B4D;
-
-    color:white;
-
+    background: #F36B21;
+    border-color: #F36B21;
+    color: #fff;
 }
 
 .hero-slide{

@@ -75,10 +75,10 @@ FILM SELECTOR
 
         <div class="flex flex-wrap justify-center gap-3">
             @foreach ($events as $index => $event)
-                <button onclick="showFilm({{ $index }}, this)" class="film-button">
-                    {{ $event->judul }}
-                </button>
-            @endforeach
+            <button onclick="showFilm({{ $index }}, this)" class="film-button inline-block transition-all duration-300 text-xs font-sans font-bold tracking-widest px-4 py-2 rounded-md border border-brand-navy/20 shadow-sm uppercase bg-brand-navy/5 text-brand-navy hover:bg-brand-orange hover:border-brand-orange hover:text-white">
+                {{ $event->judul }}
+            </button>
+        @endforeach
 
             {{-- <button onclick="showFilm('bolehkah', this)" class="film-button">
                 Bolehkah Sekali Saja Kumenangis
@@ -142,124 +142,91 @@ DETAIL FILM
     </div>
 
 </section>
-{{-- ==========================================================
+{{-- {{-- ==========================================================
 GALLERY
 ========================================================== --}}
+<section class="bg-black py-3">
 
-<section class="bg-[#fafafa] pt-10 pb-28">
+    <div class="grid grid-cols-12 gap-3">
 
-    <div class="max-w-7xl mx-auto px-8">
-
-        <div class="mb-6">
-
-            <span
-                class="uppercase tracking-[5px] text-[#F36B21] text-sm font-bold">
-
-                Event Gallery
-
-            </span>
-
-            {{-- <h2
-                id="gallery-title"
-                class="font-peckham text-5xl text-brand-navy mt-3">
-
-                BOLEHKAH SEKALI SAJA KUMENANGIS
-
-            </h2> --}}
-
+        {{-- Row 1 --}}
+        <div class="col-span-12 md:col-span-6">
+            <img id="gallery-1"
+                 class="w-full h-[320px] object-cover rounded-2xl">
         </div>
 
-
-        <div class="grid grid-cols-12 gap-6">
-
-            {{-- FOTO BESAR --}}
-            <div class="col-span-12 lg:col-span-7">
-
-                <div class="overflow-hidden rounded-2xl group">
-
-                    <img
-                        id="gallery-main"
-                        src="{{ asset('../img/gala/_ARM1785.jpg') }}"
-                        class="h-[650px] w-full object-cover transition duration-700 group-hover:scale-105">
-
-                </div>
-
-            </div>
-
-
-            {{-- FOTO KANAN --}}
-            <div class="col-span-12 lg:col-span-5 flex flex-col gap-6">
-
-                <div class="overflow-hidden rounded-2xl group">
-
-                    <img
-                        id="gallery-1"
-                        src="{{ asset('../img/gala/_ARM1959.jpg') }}"
-                        class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
-
-                </div>
-
-                <div class="overflow-hidden rounded-2xl group">
-
-                    <img
-                        id="gallery-2"
-                        src="{{ asset('../img/gala/_ARM2795.jpg') }}"
-                        class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
-
-                </div>
-
-                <div class="overflow-hidden rounded-2xl group">
-
-                    <img
-                        id="gallery-3"
-                        src="{{ asset('../img/gala/_ARM1730.jpg') }}"
-                        class="h-[200px] w-full object-cover transition duration-700 group-hover:scale-105">
-
-                </div>
-
-            </div>
-
+        <div class="col-span-12 md:col-span-6">
+            <img id="gallery-2"
+                 class="w-full h-[320px] object-cover rounded-2xl">
         </div>
 
+        {{-- Row 2 --}}
+        <div class="col-span-12 md:col-span-4">
+            <img id="gallery-3"
+                 class="w-full h-[320px] object-cover rounded-2xl">
+        </div>
+
+        <div class="col-span-12 md:col-span-4">
+            <img id="gallery-4"
+                 class="w-full h-[320px] object-cover rounded-2xl">
+        </div>
+
+        <div class="col-span-12 md:col-span-4">
+            <img id="gallery-5"
+                 class="w-full h-[320px] object-cover rounded-2xl">
+        </div>
+
+       {{-- Row 3 --}}
+<div class="col-span-12 md:col-span-6">
+    <img id="gallery-6"
+         class="w-full h-[320px] object-cover rounded-2xl">
+</div>
+
+<div class="col-span-12 md:col-span-6 relative cursor-pointer"
+     onclick="openGallery()">
+
+    <img id="gallery-7"
+         class="w-full h-[320px] object-cover rounded-2xl">
+
+    <div id="gallery-overlay"
+         class="absolute inset-0 bg-black/60 rounded-2xl flex items-center justify-center text-white text-5xl font-bold">
+        +99
     </div>
 
+</div>
+
 </section>
+
+<div id="gallery-all-images" style="display:none;"></div>
+
 <style>
 
 .film-button{
-
-    padding:12px 22px;
-
-    border:1px solid #131B4D;
-
-    border-radius:999px;
-
-    background:white;
-
-    color:#131B4D;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    transition:.3s;
-
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid rgba(19, 27, 77, 0.2);
+    border-radius: 8px;
+    background: rgba(19, 27, 77, 0.05);
+    color: #131B4D;
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    transition: all .3s ease;
 }
 
 .film-button:hover{
-
-    background:#131B4D;
-
-    color:white;
-
+    background: #F36B21;
+    border-color: #F36B21;
+    color: #fff;
 }
 
 .active-film{
-
-    background:#131B4D;
-
-    color:white;
-
+    background: #F36B21;
+    border-color: #F36B21;
+    color: #fff;
 }
 
 </style>
@@ -273,8 +240,7 @@ GALLERY
 const filmsData = @json($events);
 
 function showFilm(index, button) {
-
-    const data = filmsData[index];
+const data = filmsData[index];
 
     if (!data) return;
 
@@ -300,11 +266,15 @@ function showFilm(index, button) {
         }
     }
 
-    // Ganti gallery
-    setGalleryImage("gallery-main", data.photos[0]);
-    setGalleryImage("gallery-1", data.photos[1]);
-    setGalleryImage("gallery-2", data.photos[2]);
-    setGalleryImage("gallery-3", data.photos[3]);
+setGalleryImage("gallery-1", data.photos[0]);
+setGalleryImage("gallery-2", data.photos[1]);
+setGalleryImage("gallery-3", data.photos[2]);
+setGalleryImage("gallery-4", data.photos[3]);
+setGalleryImage("gallery-5", data.photos[4]);
+setGalleryImage("gallery-6", data.photos[5]);
+setGalleryImage("gallery-7", data.photos[6]);
+
+loadGallery(data.photos);
 
     // Ganti tombol aktif
     document.querySelectorAll(".film-button").forEach(function(btn){
@@ -314,6 +284,58 @@ function showFilm(index, button) {
     button.classList.add("active-film");
 
 }
+
+function loadGallery(photos){
+
+    const container = document.getElementById("gallery-all-images");
+
+    container.innerHTML = "";
+
+    photos.forEach(photo => {
+
+        let url = photo.photo;
+
+        if(!url.startsWith("http")){
+            url = "{{ asset('photo') }}/" + url;
+        }
+
+        container.innerHTML += `
+            <a href="${url}">
+                <img src="${url}" class="hidden">
+            </a>
+        `;
+    });
+
+    console.log(photos);
+    console.log(container.innerHTML);
+
+    // Hancurkan gallery lama
+  window.galleryInstance = lightGallery(container,{
+    selector:'a',
+    download:false,
+    thumbnail:true,
+    plugins:[lgThumbnail],
+    dynamic:false
+});
+
+    const overlay = document.getElementById("gallery-overlay");
+
+    if(photos.length > 7){
+        overlay.innerHTML = "+" + (photos.length - 6);
+        overlay.style.display = "flex";
+    }else{
+        overlay.style.display = "none";
+    }
+}
+
+function openGallery(){
+
+    if(window.galleryInstance){
+        window.galleryInstance.openGallery(6);
+    }
+
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
 

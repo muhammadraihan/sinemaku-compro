@@ -95,7 +95,7 @@
 
                     @if(count($watchLinks) > 0)
                     <div class="reveal-image">
-                        <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">Available On</span>
+                        <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">Tersedia di</span>
                         <div class="flex flex-col gap-4">
                             @foreach($watchLinks as $wl)
                             <a href="{{ $wl['url'] }}" target="_blank" class="flex items-center gap-3 text-[#131b4d] font-bold text-sm hover:text-[#F36B21] transition-colors cursor-none hover-target">
@@ -146,7 +146,7 @@
                             @if(trim(strip_tags($films->sinopsis)))
                                 @i18n($films, 'sinopsis')
                             @else
-                                <p>Synopsis not available.</p>
+                                <p>Sinopsis tidak tersedia.</p>
             @endif
         </div>
     </div>
