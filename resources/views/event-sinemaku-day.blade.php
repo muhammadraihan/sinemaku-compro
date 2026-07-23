@@ -86,7 +86,7 @@ EVENT SELECTOR
 DETAIL EVENT
 ========================================================== --}}
 
-<section id="event-section" class="bg-white py-20">
+<section id="event-section" class="bg-white pt-10 pb-20">
 
     <div class="max-w-7xl mx-auto px-8">
 
