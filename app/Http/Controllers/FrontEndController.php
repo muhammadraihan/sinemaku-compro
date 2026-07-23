@@ -67,9 +67,15 @@ class FrontEndController extends Controller
     }
 
         public function tentang()
-        {
-            return view('tentang');
-        }
+{
+    $event = Event::with('photos')
+        ->whereHas('eventKategori', function ($q) {
+            $q->where('slug', 'mengapa-kami-ada');
+        })
+        ->first();
+
+    return view('tentang', compact('event'));
+}
 
     public function film()
     {

@@ -71,7 +71,7 @@ EDITORIAL WRAPPER
                 <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div class="max-w-2xl">
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            CASTING <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">terbuka untuk umum</span>
+                            CASTING <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
                         </h2>
                         <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
                             Wajah baru selalu punya tempat di sini. Ambil kesempatanmu, perkenalkan dirimu.
@@ -114,7 +114,7 @@ EDITORIAL WRAPPER
                 <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div class="max-w-2xl">
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            ONLINE FILM LABS <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">terbuka untuk umum</span>
+                            ONLINE FILM LABS <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
                         </h2>
                         <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
                             Lorem Ipsum.

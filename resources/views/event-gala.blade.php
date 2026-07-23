@@ -13,7 +13,7 @@ HERO
 
     {{-- Background --}}
     <img
-        src="{{ asset('../img/gala/gala.jpeg') }}"
+        src="{{ asset('../img/gala/_ARM5814.jpg') }}"
         class="absolute inset-0 w-full h-full object-cover"
     >
 
