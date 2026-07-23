@@ -60,13 +60,13 @@
 
 </section>
 
-<section class="bg-white py-20">
+<section class="bg-white py-5">
 
     <div class="max-w-7xl mx-auto px-8">
 
         @if($event)
 
-            <div class="text-center mb-16">
+            <div class="text-center mb-6">
 
                 <h2 class="font-peckham text-[3.5vw] text-brand-navy uppercase">
                     {{ $event->judul }}

@@ -68,7 +68,7 @@ HERO
 FILM SELECTOR
 ========================================================== --}}
 
-<section class="bg-white py-10 border-y border-gray-200">
+<section class="bg-white py-5 border-y border-gray-200">
 
     <div class="max-w-7xl mx-auto px-8">
 
@@ -106,7 +106,7 @@ DETAIL FILM
 
     <div class="max-w-7xl mx-auto px-8">
 
-        <div class="text-center mb-16">
+        <div class="text-center mb-6">
 
             <h2
                 id="film-title"
