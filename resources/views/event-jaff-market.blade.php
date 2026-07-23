@@ -89,7 +89,7 @@ FILM SELECTOR
 DETAIL FILM
 ========================================================== --}}
 
-<section id="film-section" class="bg-white py-20">
+<section id="film-section" class="bg-white pt-10 pb-20">
 
     <div class="max-w-7xl mx-auto px-8">
 
