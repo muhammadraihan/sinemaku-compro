@@ -68,7 +68,7 @@ HERO
 FILM SELECTOR
 ========================================================== --}}
 
-<section class="bg-white py-10 border-y border-gray-200">
+<section class="bg-white py-5 border-y border-gray-200">
 
     <div class="max-w-7xl mx-auto px-8">
 
@@ -79,34 +79,6 @@ FILM SELECTOR
                 {{ $event->judul }}
             </button>
         @endforeach
-
-            {{-- <button onclick="showFilm('bolehkah', this)" class="film-button">
-                Bolehkah Sekali Saja Kumenangis
-            </button>
-
-            <button onclick="showFilm('namamu', this)" class="film-button">
-                Hanya Namamu Dalam Doaku
-            </button>
-
-            <button onclick="showFilm('patah', this)" class="film-button">
-                Patah Hati Yang Ku Pilih
-            </button>
-
-            <button onclick="showFilm('mati', this)" class="film-button">
-                Perayaan Mati Rasa
-            </button>
-
-            <button onclick="showFilm('sehati', this)" class="film-button">
-                Sehati Semati
-            </button>
-
-            <button onclick="showFilm('temurun', this)" class="film-button">
-                Temurun
-            </button>
-
-            <button onclick="showFilm('ketika', this)" class="film-button">
-                Ketika Berhenti di Sini
-            </button> --}}
 
         </div>
 
@@ -121,7 +93,7 @@ DETAIL FILM
 
     <div class="max-w-7xl mx-auto px-8">
 
-        <div class="text-center mb-16">
+        <div class="text-center mb-6">
 
             <h2
                 id="film-title"

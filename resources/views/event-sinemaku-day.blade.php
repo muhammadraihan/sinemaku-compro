@@ -65,7 +65,7 @@ HERO
 EVENT SELECTOR
 ========================================================== --}}
 
-<section class="bg-white py-10 border-y border-gray-200">
+<section class="bg-white py-5 border-y border-gray-200">
 
     <div class="flex flex-wrap justify-center gap-3">
             @foreach ($events as $index => $event)
@@ -75,19 +75,7 @@ EVENT SELECTOR
                     {{ $event->judul }}
                 </button>
     @endforeach
-            {{-- <button onclick="showEvent('2024', this)"
-                class="film-button active-film">
 
-                Sinemaku Day 2024
-
-            </button>
-
-            <button onclick="showEvent('2025', this)"
-                class="film-button">
-
-                Sinemaku Day 2025
-
-            </button> --}}
 
         </div>
 
@@ -103,7 +91,7 @@ DETAIL EVENT
     <div class="max-w-7xl mx-auto px-8">
 
         {{-- Judul --}}
-        <div class="text-center mb-16">
+        <div class="text-center mb-6">
 
             <h2
                 id="event-title"
