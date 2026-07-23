@@ -91,13 +91,13 @@
                     @endforeach
                 @else
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/SNP03249.JPG" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM6434.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/_ARM1263.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM0682.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_YAH6204.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/_YAH1664.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
@@ -302,7 +302,7 @@ $rawText = '
                     </div>
                 </div>
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="../img/p.home/_ARM1442.jpg" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/pmr.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[1]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[1]['role'] }}</span>
