@@ -201,18 +201,23 @@
                     @php
                         $roles = [
                             'DIRECTOR',
+                            'WRITER',
                             'WRITERS',
+                            'CO-WRITER',
                             'EXECUTIVE PRODUCER',
                             'PRODUCER',
                             'CO-PRODUCER',
                             'DIRECTOR OF PHOTOGRAPHY',
+                            'PRODUCTION DESIGNER',
                             'ART DIRECTOR',
                             'MAKE UP ARTIST',
                             'WARDROBE',
+                            'FASHION STYLIST',
                             'SOUND RECORDIST',
                             'POST PRODUCER',
                             'EDITOR',
-                            'SOUND DESIGNER'
+                            'SOUND DESIGNER',
+                            'ACTION DIRECTOR & FIGHT COREOGRAPHY'
                         ];
                     @endphp
 
@@ -267,18 +272,23 @@
         <select name="roles[]" class="form-control">
 
             <option>DIRECTOR</option>
+            <option>WRITER</option>
             <option>WRITERS</option>
+            <option>CO-WRITER</option>
             <option>EXECUTIVE PRODUCER</option>
             <option>PRODUCER</option>
             <option>CO-PRODUCER</option>
             <option>DIRECTOR OF PHOTOGRAPHY</option>
+            <option>PRODUCTION DESIGNER</option>
             <option>ART DIRECTOR</option>
             <option>MAKE UP ARTIST</option>
             <option>WARDROBE</option>
+            <option>FASHION STYLIST</option>
             <option>SOUND RECORDIST</option>
             <option>POST PRODUCER</option>
             <option>EDITOR</option>
             <option>SOUND DESIGNER</option>
+            <option>ACTION DIRECTOR & FIGHT COREOGRAPHY</option>
 
         </select>
 
@@ -554,18 +564,23 @@
                 <select name="roles[]" class="form-control">
 
                     <option value="DIRECTOR">DIRECTOR</option>
+                    <option value="WRITER">WRITER</option>
                     <option value="WRITERS">WRITERS</option>
+                    <option value="CO-WRITER">WRITER</option>
                     <option value="EXECUTIVE PRODUCER">EXECUTIVE PRODUCER</option>
                     <option value="PRODUCER">PRODUCER</option>
                     <option value="CO-PRODUCER">CO-PRODUCER</option>
                     <option value="DIRECTOR OF PHOTOGRAPHY">DIRECTOR OF PHOTOGRAPHY</option>
+                    <option value="PRODUCTION DESIGNER">PRODUCTION DESIGNER</option>
                     <option value="ART DIRECTOR">ART DIRECTOR</option>
                     <option value="MAKE UP ARTIST">MAKE UP ARTIST</option>
                     <option value="WARDROBE">WARDROBE</option>
+                    <option value="FASHION STYLIST">FASHION STYLIST</option>
                     <option value="SOUND RECORDIST">SOUND RECORDIST</option>
                     <option value="POST PRODUCER">POST PRODUCER</option>
                     <option value="EDITOR">EDITOR</option>
                     <option value="SOUND DESIGNER">SOUND DESIGNER</option>
+                    <option value="ACTION DIRECTOR & FIGHT COREOGRAPHY">ACTION DIRECTOR & FIGHT COREOGRAPHY</option>
 
                 </select>
 

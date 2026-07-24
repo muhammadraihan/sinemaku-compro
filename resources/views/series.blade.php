@@ -157,8 +157,8 @@ $director = $item->credits
     ->pluck('name')
     ->implode(', ');
 
-$writers = $item->credits
-    ->where('role', 'WRITERS')
+$writer = $item->credits
+    ->where('role', 'WRITER')
     ->pluck('name')
     ->implode(', ');
 
