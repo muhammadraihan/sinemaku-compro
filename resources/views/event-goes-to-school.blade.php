@@ -213,7 +213,6 @@ GALLERY
 
 </style>
 
-<script>
 
 <script>
 
