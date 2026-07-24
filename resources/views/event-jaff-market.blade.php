@@ -123,7 +123,7 @@ GALLERY
 
         <div class="mb-6">
             <span class="uppercase tracking-[5px] text-[#F36B21] text-sm font-bold">
-                Gallery Foto
+                Video & Galeri Foto
             </span>
         </div>
 
