@@ -11,11 +11,18 @@ HERO
 ========================================================== --}}
 <section class="relative h-screen overflow-hidden">
 
+    <div class="absolute inset-0 z-0">
+
     {{-- Background --}}
-    <img
-        src="{{ asset('../img/gts/gts.jpeg') }}"
-        class="absolute inset-0 w-full h-full object-cover"
-    >
+    <img src="{{ asset('../img/gts/gts.jpeg') }}"
+        class="hero-slide active">
+         <img src="{{ asset('../img/special/bssk1.jpeg') }}"
+        class="hero-slide active">
+    <img src="{{ asset('../img/special/temurun1.jpeg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/special/bssk3.jpeg') }}"
+        class="hero-slide">
+    </div>
 
     {{-- Overlay --}}
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
@@ -229,6 +236,21 @@ GALLERY
     color: #fff;
 }
 
+.hero-slide{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+}
+
+.hero-slide.active{
+    opacity:1;
+}
+
 </style>
 
 
@@ -389,6 +411,23 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(firstButton){
         showFilm(0, firstButton);
     }
+    const heroSlides = document.querySelectorAll(".hero-slide");
+
+if(heroSlides.length > 1){
+
+    let heroIndex = 0;
+
+    setInterval(() => {
+
+        heroSlides[heroIndex].classList.remove("active");
+
+        heroIndex = (heroIndex + 1) % heroSlides.length;
+
+        heroSlides[heroIndex].classList.add("active");
+
+    }, 3000);
+
+}
 
 });
 
