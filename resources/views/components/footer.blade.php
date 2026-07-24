@@ -14,7 +14,7 @@
 
             {{-- Left: Massive Branding CTA --}}
             <div class="lg:col-span-5 flex flex-col items-start">
-                <h3 class="font-serif italic text-white/80 text-2xl md:text-3xl mb-4 leading-tight">
+                <h3 class="font-serif not-italic text-white/80 text-2xl md:text-3xl mb-4 leading-tight">
                     Punya cerita yang ingin didengar?
                 </h3>
                 <h2 class="font-peckham text-brand-orange text-xl md:text-3xl lg:text-[3vw] leading-[0.9] tracking-tighter mb-5 uppercase">
