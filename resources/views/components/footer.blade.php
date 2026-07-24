@@ -20,10 +20,30 @@
                 <h2 class="font-peckham text-brand-orange text-xl md:text-3xl lg:text-[3vw] leading-[0.9] tracking-tighter mb-5 uppercase">
                     Ngobrol dulu aja.
                 </h2>
-                <a href="mailto:hello@sinemakupictures.com"
-                   class="inline-block bg-brand-orange text-white px-10 py-4 rounded-full font-sans text-xs font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-brand-navy transition-all duration-500 cursor-none hover-target shadow-lg">
-                    Hubungi Kami
-                </a>
+               <a href="mailto:hello@sinemakupictures.com"
+   class="inline-block
+          transition-all
+          duration-300
+          text-xs
+          font-sans
+          font-bold
+          tracking-widest
+          px-10
+          py-4
+          rounded-md
+          border
+          border-white/30
+          shadow-sm
+          uppercase
+          bg-brand-orange
+          text-white
+          hover:bg-white
+          hover:border-white
+          hover:text-brand-orange
+          cursor-none
+          hover-target">
+    Hubungi Kami
+</a>
             </div>
 
             {{-- Right: Three Modular Columns --}}
