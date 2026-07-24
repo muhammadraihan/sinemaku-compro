@@ -91,19 +91,25 @@
                     @endforeach
                 @else
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM6434.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/_ARM1263.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_YAH6204.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM0928.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/_YAH1664.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/_ARM1171.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                    <div class="swiper-slide h-full">
+                        <img src="../img/p.home/_ARM0988.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                    <div class="swiper-slide h-full">
+                        <img src="../img/p.home/_ARM1127.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
             @endif
             </div>
