@@ -11,10 +11,28 @@ HERO
 ========================================================== --}}
 <section class="relative h-screen overflow-hidden">
 
+
+    <div class="absolute inset-0 z-0">
+
     {{-- Background --}}
     <img
         src="{{ asset('../img/sinemakuday/sinemaku.jpeg') }}"
-        class="absolute inset-0 w-full h-full object-cover">
+        class="hero-slide active">
+    <img src="{{ asset('../img/sinemakuday/_ARM1010.JPG') }}"
+        class="hero-slide active">
+    <img src="{{ asset('../img/sinemakuday/_ARM1765.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM1859.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM0983.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM1588.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM0743.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM1611.jpg') }}"
+        class="hero-slide">
+        </div>
 
     {{-- Overlay --}}
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
@@ -241,6 +259,21 @@ GALLERY
     border-color: #F36B21;
     color: #fff;
 }
+.hero-slide{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+}
+
+.hero-slide.active{
+    opacity:1;
+}
+
 </style>
 
 <script>
@@ -388,6 +421,23 @@ document.addEventListener("DOMContentLoaded", function () {
     if (firstButton) {
        showEvent(0, firstButton);
     }
+    const heroSlides = document.querySelectorAll(".hero-slide");
+
+if(heroSlides.length > 1){
+
+    let heroIndex = 0;
+
+    setInterval(() => {
+
+        heroSlides[heroIndex].classList.remove("active");
+
+        heroIndex = (heroIndex + 1) % heroSlides.length;
+
+        heroSlides[heroIndex].classList.add("active");
+
+    }, 3000);
+
+}
 
 });
 

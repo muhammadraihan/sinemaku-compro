@@ -11,11 +11,26 @@ HERO
 ========================================================== --}}
 <section class="relative h-screen overflow-hidden">
 
+    <div class="absolute inset-0 z-0">
+
     {{-- Background --}}
-    <img
-        src="{{ asset('../img/gala/_ARM5814.jpg') }}"
-        class="absolute inset-0 w-full h-full object-cover"
-    >
+    <img src="{{ asset('../img/gala/_ARM5814.jpg') }}"
+        class="hero-slide active">
+     <img src="{{ asset('../img/gala/_YAH6220.jpg') }}"
+        class="hero-slide active">
+    <img src="{{ asset('../img/gala/_ARM9812.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/gala/_ARM5365.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/gala/_ARM4851.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/gala/_ARM6955.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/gala/_ARM2811.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/gala/_ARM1326.jpg') }}"
+        class="hero-slide">
+    </div>
 
     {{-- Overlay --}}
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
@@ -237,6 +252,20 @@ GALLERY
     border-color: #F36B21;
     color: #fff;
 }
+.hero-slide{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+}
+
+.hero-slide.active{
+    opacity:1;
+}
 
 </style>
 
@@ -387,6 +416,24 @@ document.addEventListener("DOMContentLoaded",function(){
     if(firstButton){
         showFilm(0, firstButton);
     }
+
+    const heroSlides = document.querySelectorAll(".hero-slide");
+
+if(heroSlides.length > 1){
+
+    let heroIndex = 0;
+
+    setInterval(() => {
+
+        heroSlides[heroIndex].classList.remove("active");
+
+        heroIndex = (heroIndex + 1) % heroSlides.length;
+
+        heroSlides[heroIndex].classList.add("active");
+
+    }, 3000);
+
+}
 
 });
 </script>
