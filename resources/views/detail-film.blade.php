@@ -415,7 +415,7 @@
 
                             @if($films->stillShots->count() == 0)
                                 <div class="col-span-4 py-20 text-center border-2 border-dashed border-[#131b4d]/10 rounded-2xl">
-                                    <span class="font-sans text-sm text-[#131b4d]/30 italic uppercase tracking-widest">Tidak Ada Foto yang Tersedia</span>
+                                    <span class="font-sans text-sm text-[#131b4d]/30 italic uppercase tracking-widest">Segera</span>
                                 </div>
                             @endif
                         </div>

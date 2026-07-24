@@ -60,7 +60,7 @@ FULLSCREEN MENU OVERLAY
             'i18n' => 'menu_sinemaku_day',
         ],
       [
-    'title' => 'SPECIAL EVENT',
+    'title' => 'SPECIAL EVENTS',
     'url' => route('events.special-event'),
     'i18n' => 'menu_special_event',
 ],

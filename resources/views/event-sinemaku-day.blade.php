@@ -117,6 +117,7 @@ DETAIL EVENT
     </div>
 
 </section>
+
 {{-- ==========================================================
 GALLERY
 ========================================================== --}}
@@ -125,66 +126,91 @@ GALLERY
     <div class="max-w-7xl mx-auto px-8">
 
         <div class="mb-6">
-
-            <span
-                class="uppercase tracking-[5px] text-[#F36B21] text-sm font-bold">
-
-            Gallery Foto
-
+            <span class="uppercase tracking-[5px] text-[#F36B21] text-sm font-bold">
+                Video & Galeri Foto
             </span>
+        </div>
+
+        <div class="grid grid-cols-12 gap-3">
+
+            {{-- Row 1 --}}
+            <div class="col-span-12 md:col-span-6">
+                <img id="gallery-1"
+                    onclick="showImage(this.src)"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            <div class="col-span-12 md:col-span-6">
+                <img id="gallery-2"
+                    onclick="showImage(this.src)"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            {{-- Row 2 --}}
+            <div class="col-span-12 md:col-span-4">
+                <img id="gallery-3"
+                    onclick="showImage(this.src)"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            <div class="col-span-12 md:col-span-4">
+                <img id="gallery-4"
+                    onclick="showImage(this.src)"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            <div class="col-span-12 md:col-span-4">
+                <img id="gallery-5"
+                    onclick="showImage(this.src)"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            {{-- Row 3 --}}
+            <div class="col-span-12 md:col-span-6">
+                <img id="gallery-6"
+                    onclick="showImage(this.src)"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            {{-- Foto terakhir membuka gallery --}}
+            <div class="col-span-12 md:col-span-6 relative cursor-pointer"
+                 onclick="openGallery(6)">
+
+                <img id="gallery-7"
+                    class="w-full h-[320px] object-cover rounded-2xl">
+
+                <div id="gallery-overlay"
+                    class="absolute inset-0 bg-black/60 rounded-2xl flex items-center justify-center text-white text-5xl font-bold">
+                    +99
+                </div>
+
+            </div>
 
         </div>
 
-    <div class="grid grid-cols-12 gap-3">
-
-        {{-- Row 1 --}}
-        <div class="col-span-12 md:col-span-6">
-            <img id="gallery-1"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-        <div class="col-span-12 md:col-span-6">
-            <img id="gallery-2"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-        {{-- Row 2 --}}
-        <div class="col-span-12 md:col-span-4">
-            <img id="gallery-3"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-        <div class="col-span-12 md:col-span-4">
-            <img id="gallery-4"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-        <div class="col-span-12 md:col-span-4">
-            <img id="gallery-5"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-       {{-- Row 3 --}}
-<div class="col-span-12 md:col-span-6">
-    <img id="gallery-6"
-         class="w-full h-[320px] object-cover rounded-2xl">
-</div>
-
-<div class="col-span-12 md:col-span-6 relative cursor-pointer"
-     onclick="openGallery()">
-
-    <img id="gallery-7"
-         class="w-full h-[320px] object-cover rounded-2xl">
-
-    <div id="gallery-overlay"
-         class="absolute inset-0 bg-black/60 rounded-2xl flex items-center justify-center text-white text-5xl font-bold">
-        +99
     </div>
 
-</div>
-
 </section>
+
 <div id="gallery-all-images" style="display:none;"></div>
+
+{{-- Modal Preview --}}
+<div id="imageModal"
+     class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[9999]"
+     onclick="closeImage()">
+
+    <button
+        type="button"
+        onclick="closeImage(); event.stopPropagation();"
+        class="absolute top-5 right-8 text-white text-6xl leading-none">
+        &times;
+    </button>
+
+    <img id="modalImage"
+         class="max-w-[90vw] max-h-[90vh] rounded-xl shadow-2xl"
+         onclick="event.stopPropagation()">
+
+</div>
 
 
 <style>
@@ -233,21 +259,38 @@ const data = eventsData[index];
 document.getElementById("event-desc-1").innerHTML = data.detail ?? '';
 
     // Helper function untuk set image gallery
-    function setGalleryImage(elementId, photoObj) {
-        const imgElement = document.getElementById(elementId);
-        if (imgElement) {
-            if (photoObj && photoObj.photo) {
-                let photoUrl = photoObj.photo;
-                if (!photoUrl.startsWith('http')) {
-                    photoUrl = "{{ asset('photo') }}/" + photoUrl;
-                }
-                imgElement.src = photoUrl;
-                imgElement.style.display = 'block';
-            } else {
-                imgElement.style.display = 'none';
-            }
+   function setGalleryImage(elementId, photoObj) {
+
+    const imgElement = document.getElementById(elementId);
+
+    if (!imgElement) return;
+
+    if (photoObj && photoObj.photo) {
+
+        let photoUrl = photoObj.photo;
+
+        if (!photoUrl.startsWith('http')) {
+            photoUrl = "{{ asset('photo') }}/" + photoUrl;
         }
+
+        imgElement.src = photoUrl;
+        imgElement.style.display = "block";
+
+        // gallery 1-6 -> preview besar
+        if (elementId !== "gallery-7") {
+            imgElement.onclick = function () {
+                showImage(photoUrl);
+            };
+        }
+
+    } else {
+
+        imgElement.style.display = "none";
+        imgElement.onclick = null;
+
     }
+
+}
 
 setGalleryImage("gallery-1", data.photos[0]);
 setGalleryImage("gallery-2", data.photos[1]);
@@ -318,7 +361,25 @@ function openGallery(){
     }
 
 }
+function showImage(src){
 
+    document.getElementById("modalImage").src = src;
+
+    const modal = document.getElementById("imageModal");
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+}
+
+function closeImage(){
+
+    const modal = document.getElementById("imageModal");
+
+    modal.classList.remove("flex");
+    modal.classList.add("hidden");
+
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 

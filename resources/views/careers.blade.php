@@ -114,10 +114,10 @@ EDITORIAL WRAPPER
                 <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div class="max-w-2xl">
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            ONLINE FILM LABS <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
+                            ONLINE FILM LAB <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
                         </h2>
                         <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
-                            Lorem Ipsum.
+                            Basic Scriptwriting bersama Reka Wijaya | 13 Agustus 2026.
                         </p>
                     </div>
                     <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[10px] tracking-[0.2em] font-bold uppercase group-hover:bg-white group-hover:text-brand-orange transition-all duration-300">

@@ -120,66 +120,84 @@ GALLERY
     <div class="max-w-7xl mx-auto px-8">
 
         <div class="mb-6">
-
-            <span
-                class="uppercase tracking-[5px] text-[#F36B21] text-sm font-bold">
-
-            Gallery Foto
-
+            <span class="uppercase tracking-[5px] text-[#F36B21] text-sm font-bold">
+                Gallery Foto
             </span>
+        </div>
+
+        <div class="grid grid-cols-12 gap-3">
+
+            {{-- Row 1 --}}
+            <div class="col-span-12 md:col-span-6">
+                <img id="gallery-1"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            <div class="col-span-12 md:col-span-6">
+                <img id="gallery-2"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            {{-- Row 2 --}}
+            <div class="col-span-12 md:col-span-4">
+                <img id="gallery-3"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            <div class="col-span-12 md:col-span-4">
+                <img id="gallery-4"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            <div class="col-span-12 md:col-span-4">
+                <img id="gallery-5"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            {{-- Row 3 --}}
+            <div class="col-span-12 md:col-span-6">
+                <img id="gallery-6"
+                    class="w-full h-[320px] object-cover rounded-2xl cursor-pointer">
+            </div>
+
+            <div class="col-span-12 md:col-span-6 relative cursor-pointer"
+                onclick="openGallery(6)">
+
+                <img id="gallery-7"
+                    class="w-full h-[320px] object-cover rounded-2xl">
+
+                <div id="gallery-overlay"
+                    class="absolute inset-0 bg-black/60 rounded-2xl flex items-center justify-center text-white text-5xl font-bold">
+                    +99
+                </div>
+
+            </div>
 
         </div>
 
-    <div class="grid grid-cols-12 gap-3">
-
-        {{-- Row 1 --}}
-        <div class="col-span-12 md:col-span-6">
-            <img id="gallery-1"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-        <div class="col-span-12 md:col-span-6">
-            <img id="gallery-2"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-        {{-- Row 2 --}}
-        <div class="col-span-12 md:col-span-4">
-            <img id="gallery-3"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-        <div class="col-span-12 md:col-span-4">
-            <img id="gallery-4"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-        <div class="col-span-12 md:col-span-4">
-            <img id="gallery-5"
-                 class="w-full h-[320px] object-cover rounded-2xl">
-        </div>
-
-       {{-- Row 3 --}}
-<div class="col-span-12 md:col-span-6">
-    <img id="gallery-6"
-         class="w-full h-[320px] object-cover rounded-2xl">
-</div>
-
-<div class="col-span-12 md:col-span-6 relative cursor-pointer"
-     onclick="openGallery()">
-
-    <img id="gallery-7"
-         class="w-full h-[320px] object-cover rounded-2xl">
-
-    <div id="gallery-overlay"
-         class="absolute inset-0 bg-black/60 rounded-2xl flex items-center justify-center text-white text-5xl font-bold">
-        +99
     </div>
 
+</section>
+
+<div id="gallery-all-images" style="display:none;"></div>
+
+{{-- Modal Preview --}}
+<div id="imageModal"
+    class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[9999]"
+    onclick="closeImage()">
+
+    <button
+        class="absolute top-5 right-8 text-white text-6xl"
+        onclick="closeImage()">
+        &times;
+    </button>
+
+    <img id="modalImage"
+        class="max-w-[90vw] max-h-[90vh] rounded-xl shadow-2xl"
+        onclick="event.stopPropagation()">
+
 </div>
 
-</section>
-<div id="gallery-all-images" style="display:none;"></div>
 
 <style>
 
@@ -222,36 +240,52 @@ GALLERY
 
 const filmsData = @json($events);
 
-function showFilm(index, button) {
+function showFilm(index, button){
+
     const data = filmsData[index];
 
-    if (!data) return;
+    if(!data) return;
 
     document.getElementById("film-title").innerHTML = data.judul;
+    document.getElementById("film-desc-1").innerHTML = data.detail ?? "";
 
-    // Deskripsi
-    document.getElementById("film-desc-1").innerHTML = data.detail || '';
+    function setGalleryImage(id, photo){
 
-    // Helper untuk gallery
-    function setGalleryImage(elementId, photoObj) {
-        const imgElement = document.getElementById(elementId);
+        const img = document.getElementById(id);
 
-        if (imgElement) {
-            if (photoObj && photoObj.photo) {
+        if(!img) return;
 
-                let photoUrl = photoObj.photo;
+        if(photo){
 
-                if (!photoUrl.startsWith('http')) {
-                    photoUrl = "{{ asset('photo') }}/" + photoUrl;
-                }
+            let url = photo.photo;
 
-                imgElement.src = photoUrl;
-                imgElement.style.display = 'block';
-
-            } else {
-                imgElement.style.display = 'none';
+            if(!url.startsWith("http")){
+                url = "{{ asset('photo') }}/" + url;
             }
+
+            img.src = url;
+            img.style.display = "block";
+
+            if(id !== "gallery-7"){
+
+                img.onclick = function(e){
+                    e.stopPropagation();
+                    showImage(url);
+                };
+
+            }else{
+
+                img.onclick = null;
+
+            }
+
+        }else{
+
+            img.style.display = "none";
+            img.onclick = null;
+
         }
+
     }
 
     setGalleryImage("gallery-1", data.photos[0]);
@@ -264,11 +298,12 @@ function showFilm(index, button) {
 
     loadGallery(data.photos);
 
-    document.querySelectorAll(".film-button").forEach(function(btn){
+    document.querySelectorAll(".film-button").forEach(btn=>{
         btn.classList.remove("active-film");
     });
 
     button.classList.add("active-film");
+
 }
 
 function loadGallery(photos){
@@ -277,7 +312,7 @@ function loadGallery(photos){
 
     container.innerHTML = "";
 
-    photos.forEach(photo => {
+    photos.forEach(photo=>{
 
         let url = photo.photo;
 
@@ -290,6 +325,7 @@ function loadGallery(photos){
                 <img src="${url}" class="hidden">
             </a>
         `;
+
     });
 
     if(window.galleryInstance){
@@ -298,35 +334,59 @@ function loadGallery(photos){
 
     window.galleryInstance = lightGallery(container,{
         selector:'a',
-        download:false,
         thumbnail:true,
         plugins:[lgThumbnail],
-        dynamic:false
+        download:false
     });
 
     const overlay = document.getElementById("gallery-overlay");
 
     if(photos.length > 7){
-        overlay.innerHTML = "+" + (photos.length - 6);
+
         overlay.style.display = "flex";
+        overlay.innerHTML = "+" + (photos.length - 7);
+
     }else{
+
         overlay.style.display = "none";
+
     }
+
 }
 
-function openGallery(){
+function openGallery(index = 6){
 
     if(window.galleryInstance){
-        window.galleryInstance.openGallery(6);
+        window.galleryInstance.openGallery(index);
     }
 
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function showImage(src){
+
+    document.getElementById("modalImage").src = src;
+
+    const modal = document.getElementById("imageModal");
+
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+
+}
+
+function closeImage(){
+
+    const modal = document.getElementById("imageModal");
+
+    modal.classList.remove("flex");
+    modal.classList.add("hidden");
+
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
 
     const firstButton = document.querySelector(".film-button");
 
-    if (firstButton) {
+    if(firstButton){
         showFilm(0, firstButton);
     }
 

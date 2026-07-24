@@ -137,65 +137,6 @@
 
     <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
     <section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
-        {{-- <!-- Top Metadata -->
-        <div class="w-full flex flex-col items-center text-center">
-            <div class="max-w-xl">
-            <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-orange uppercase block mb-10 tracking-tighter">
-                Mengapa Kami Ada?
-            </span>
-        </div>
-
-        <!-- Big Editorial Statement -->
-        <div class="w-full flex flex-col items-center text-center mb-20">
-            <h2 class="manifesto-reveal flex flex-col items-center max-w-5xl mx-auto">
-                @php
-                    $headingId = $settings['about_identity_heading'] ?? 'SINEMAKU PICTURES hadir untuk memberdayakan generasi baru pencerita dan mengubah lanskap perfilman Indonesia.';
-                    $words = explode(' ', $headingId);
-                @endphp
-
-                <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
-                    @php
-                     $rawText ='[s]Tidak semua perjalanan dimulai dari tempat yang sama.[/s]
-                                [s]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/s]
-                                [s]Karena itu,[/s]
-                                [p]Sinemaku Pictures[/p]
-                                [s]memilih untuk menjaga satu hal yang sederhana:[/s]
-                                [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
-
-                    // Parse [ps] tags — Peckham tapi ukuran lebih kecil
-                    $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
-                        return '<span class="font-peckham text-[4.5vw] sm:text-[2vw] md:text-[2.5vw] text-xl text-lg text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
-                    }, $rawText);
-
-                    // Parse [p] tags
-                    $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3vw] text-xl text-brand-navy uppercase leading-[1.1] tracking-tighter">' . $matches[1] . '</span>';
-                    }, $parsedText);
-
-                    // Parse [s] tags
-                    $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                        return '<span class="font-serif text-[5.5vw] md:text-[2.5vw] text-brand-orange leading-relaxed">' . $matches[1] . '</span>';
-                    }, $parsedText);
-                    @endphp
-
-                    {!! $parsedText !!}
-                </div>
-            </h2>
-        </div>
-
-     <!-- Divider Line -->
-        <div class="w-full h-[1px] bg-brand-navy/20 mb-20 max-w-[80vw] mx-auto"></div>
-
-        <!-- Divider Line -->
-        <div class="w-full h-[1px] bg-brand-navy/20 mb-20 max-w-[80vw] mx-auto"></div> --}}
-
-        <!-- Detailed Description -->
-        {{-- <div class="w-full flex flex-col items-center text-center">
-    <div class="max-w-xl">
-        <span class="font-peckham text-[6.5vw] sm:text-[3vw] md:text-[3vw] text-2xl text-brand-orange uppercase block mb-3 tracking-tighter">
-                Mengapa Kami Ada?
-            </span>
-    </div> --}}
 
     <div class="w-full flex flex-col items-center text-center">
         <h2 class="flex flex-col items-center max-w-5xl mx-auto">
@@ -204,7 +145,7 @@
                 @php
 
                     // $rawText = '[ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps] [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
-                    // [ps]Karena itu,[/ps] [p]Sinemaku Pictures[/p] [ps]memilih untuk menjaga satu hal yang sederhana:[/ps] [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
+                    // [ps]Karena itu,[/ps] [p]Sinemaku Pictures[/p] [ps]memilih untuk menjaga satu hal yang sederhana,[/ps] [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
 
 $rawText = '
 [ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps]
@@ -214,7 +155,7 @@ $rawText = '
 <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
     [ps]Karena itu,[/ps]
     [p]SINEMAKU PICTURES[/p]
-    [ps]memilih untuk menjaga satu hal yang sederhana:[/ps]
+    [ps]memilih untuk menjaga satu hal yang sederhana,[/ps]
 </div>
 
 [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]
@@ -243,16 +184,6 @@ $rawText = '
     </div>
 </div>
     </section>
-
-    <!-- 2.5 SECONDARY CREW PHOTO (Zoom Out Masonry Grid) -->
-    {{-- <section id="crew-masonry-wrapper" class="relative w-full bg-black z-10 overflow-hidden">
-    <div class="crew-title px-6 md:px-32 pt-4 md:pt-6 pb-1 md:pb-2 w-full flex justify-between items-start">
-
-       <span
-    id="typing-title"
-    data-text="KALIAN alasan kami terus BERCERITA."
-    class="font-peckham text-4xl md:text-3xl text-[#8E95B7]">
-</span> --}}
 
     </div>
         <div class="crew-pin-container w-full flex flex-col items-center bg-black">
@@ -310,7 +241,8 @@ $rawText = '
                 </div>
 
                 <!-- Row 2 (CENTER ROW) -->
-                <div class="crew-center-img col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">                    <img src="../img/p.home/_ARM0784.jpg" class="w-full h-full object-cover transition duration-700">
+                <div class="crew-center-img col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">
+                    <img src="../img/tentang/DSC09637.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[2]['role'] }}</span>
@@ -321,7 +253,7 @@ $rawText = '
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
-                    <img src="../img/p.home/_ARM0218.JPG" class="w-full h-full object-cover">
+                    <img src="../img/tentang/EDZ06515.jpg" class="w-full h-full object-cover">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
                         {{-- <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span> --}}
@@ -347,7 +279,7 @@ $rawText = '
                     </div>
                 </div>
                 <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
-                    <img src="../img/p.home/_YAH0333.jpg" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/tentang/_ARM0071.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[5]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[5]['role'] }}</span>

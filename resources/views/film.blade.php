@@ -39,7 +39,7 @@
             <div class="relative z-10 w-full h-full flex flex-col justify-end px-8 md:px-16 pb-20">
                 <div class="w-full flex flex-col items-start">
                     <!-- Film List (Vertical) -->
-                    <div class="flex flex-col gap-2 md:gap-3">
+                    {{-- <div class="flex flex-col gap-2 md:gap-3">
                         @foreach(collect($film)->take(3) as $i => $item)
                             <div class="film-nav-item group cursor-none hover-target" data-index="{{ $i }}">
                                 <a href="{{ route('detail-film', $item->slug) }}" class="block">
@@ -53,14 +53,49 @@
                                                 <span class="font-sans text-[8px] md:text-[10px] tracking-widest uppercase text-brand-orange leading-none">Upcoming</span>
                                             @endif
                                             <span class="film-meta-text font-sans font-bold text-[11px] md:text-[12px] tracking-widest uppercase leading-none transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40' }}">{{ $item->release_date }} | @i18n($item, 'genre')</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+                                        </div> --}}
+                                        <div class="overflow-hidden h-[330px]">
+
+    <div id="film-slider" class="transition-all duration-700 ease-in-out">
+
+        @foreach(collect($film) as $i => $item)
+
+        <div class="film-nav-item h-[110px] flex items-start"
+             data-index="{{ $i }}">
+
+            <a href="{{ route('detail-film',$item->slug) }}">
+
+                <h2 class="film-title font-peckham
+                           text-3xl md:text-5xl
+                           uppercase
+                           {{ $i==0 ? 'text-white' : 'text-white/40' }}">
+
+                    @i18n($item,'title')
+
+                </h2>
+
+                <span class="film-meta-text
+                             text-xs
+                             tracking-[3px]
+                             uppercase
+                             {{ $i==0 ? 'text-white' : 'text-white/40' }}">
+
+                    {{ $item->release_date }}
+                    |
+                    @i18n($item,'genre')
+
+                </span>
+
+            </a>
+
+        </div>
+
+        @endforeach
+
+    </div>
+
+</div>
+
         </section>
 
         {{-- ============================================================
@@ -70,9 +105,6 @@
 
             <!-- Header & Filter -->
             <div class="px-8 md:px-16 flex flex-col items-center mb-16 max-w-[1800px] mx-auto text-center">
-                {{-- <h2 class="font-instrument italic text-4xl md:text-6xl text-brand-navy leading-none tracking-tight mb-12">
-                    Katalog <span class="font-peckham not-italic text-brand-orange uppercase mx-1">Film</span> Kami
-                </h2> --}}
 
                 <!-- Dual Filter Dropdown -->
                 <div class="inline-flex items-center border border-brand-orange/30 rounded-full bg-brand-orange/5 p-1 relative z-50">
@@ -158,8 +190,8 @@ $director = $item->credits
     ->pluck('name')
     ->implode(', ');
 
-$writers = $item->credits
-    ->where('role', 'WRITERS')
+$writer = $item->credits
+    ->where('role', 'WRITER')
     ->pluck('name')
     ->implode(', ');
 
@@ -174,65 +206,22 @@ $writers = $item->credits
                                 <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                     <div class="flex flex-col gap-4">
                                         <div class="flex flex-col">
-                                            {{-- <span class="meta-label uppercase tracking-tighter text-white/40">Release Date</span>
-                                            <span class="meta-value uppercase text-white tracking-wide font-sans">
-                                                {{ \Carbon\Carbon::parse($item->release_date)->isFuture() ? 'xx Sep 2025' : \Carbon\Carbon::parse($item->release_date)->format('d M Y') }}
-                                            </span> --}}
                                         </div>
                                         <div class="flex flex-col">
-    {{-- <span class="meta-label uppercase tracking-tighter text-white/40">
-        Directed By
-    </span>
 
-    <span class="meta-value uppercase text-white tracking-wide font-sans">
-        {{ $director ?: 'N/A' }}
-    </span> --}}
 </div>
 
 <div class="flex flex-col">
-    {{-- <span class="meta-label uppercase tracking-tighter text-white/40">
-        Written By
-    </span>
 
-    <span class="meta-value normal-case text-white tracking-wide font-sans">
-        {{ $writers ?: 'N/A' }}
-    </span> --}}
 </div>
                                         <div class="flex flex-col">
-                                            {{-- <span class="meta-label uppercase tracking-tighter text-white/40">Starring</span>
-                                            <span class="meta-value normal-case text-white leading-tight font-sans">
-                                                @php
-                                                    $casts = array_filter(explode(',', $item->cast));
-                                                    $displayCasts = array_slice($casts, 0, 2);
-                                                @endphp
-                                                {{ implode(', ', $displayCasts) }}
-                                            </span> --}}
+
                                         </div>
                                     </div>
                                 </div>
 
                                 {{-- Metadata Overlay - Right Side (hover only) --}}
 <div class="card-meta-container absolute top-0 right-0 bottom-0 w-1/3 flex flex-col p-6 text-right z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-
-    {{-- @php
-    $director = $item->credits
-        ->where('role', 'DIRECTOR')
-        ->pluck('name')
-        ->implode(', ');
-
-    $writers = $item->credits
-        ->where('role', 'WRITERS')
-        ->pluck('name')
-        ->implode(', ');
-
-    $casts = $item->credits
-        ->where('role', 'CAST')
-        ->pluck('name')
-        ->take(2)
-        ->implode(', ');
-@endphp --}}
-
-
 
 </div>
 
@@ -270,6 +259,72 @@ $writers = $item->credits
     </div>
 
     @include('components.footer')
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const navItems = document.querySelectorAll('.film-nav-item');
+    const titles = document.querySelectorAll('.film-title');
+    const metas = document.querySelectorAll('.film-meta-text');
+    const backgrounds = document.querySelectorAll('.hero-bg-image');
+
+    let current = 0;
+
+    function showFilm(index){
+
+        // reset semua
+        titles.forEach(title=>{
+            title.classList.remove('text-white');
+            title.classList.add('text-white/40');
+        });
+
+        metas.forEach(meta=>{
+            meta.classList.remove('text-white');
+            meta.classList.add('text-white/40');
+        });
+
+        backgrounds.forEach(bg=>{
+            bg.classList.remove('opacity-100');
+            bg.classList.add('opacity-0');
+        });
+
+        // aktifkan film sekarang
+        titles[index].classList.remove('text-white/40');
+        titles[index].classList.add('text-white');
+
+        metas[index].classList.remove('text-white/40');
+        metas[index].classList.add('text-white');
+
+        backgrounds[index].classList.remove('opacity-0');
+        backgrounds[index].classList.add('opacity-100');
+
+        current = index;
+    }
+
+    // klik manual
+    navItems.forEach((item,index)=>{
+
+        item.addEventListener('mouseenter',()=>{
+            showFilm(index);
+        });
+
+    });
+
+    // autoplay
+    setInterval(()=>{
+
+        current++;
+
+        if(current >= navItems.length){
+            current = 0;
+        }
+
+        showFilm(current);
+
+    },3000);
+
+});
+</script>
 
 @endsection
 
@@ -493,6 +548,7 @@ STYLES & SCRIPTS
         .slide-desc {
             transition: color 700ms ease;
         }
+
     </style>
 @endpush
 
