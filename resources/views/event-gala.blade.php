@@ -245,47 +245,52 @@ GALLERY
     $events->load('photos');
 @endphp
 
-const eventsData = @json($events);
+const filmsData = @json($events);
 
-function showEvent(index, button){
+function showFilm(index, button){
 
-    const data = eventsData[index];
+    const data = filmsData[index];
 
     if(!data) return;
 
-    document.getElementById("event-title").innerHTML = data.judul;
-    document.getElementById("event-desc-1").innerHTML = data.detail ?? "";
+    // Title & Deskripsi
+    document.getElementById("film-title").innerHTML = data.judul;
+    document.getElementById("film-desc-1").innerHTML = data.detail ?? "";
 
-   function setGalleryImage(id, photo){
+    // Gallery
+    function setGalleryImage(id, photo){
 
-    const img = document.getElementById(id);
+        const img = document.getElementById(id);
 
-    if(!img) return;
+        if(!img) return;
 
-    if(photo){
+        if(photo){
 
-        let url = photo.photo;
+            let url = photo.photo;
 
-        if(!url.startsWith("http")){
-            url = "{{ asset('photo') }}/" + url;
+            if(!url.startsWith("http")){
+                url = "{{ asset('photo') }}/" + url;
+            }
+
+            img.src = url;
+            img.style.display = "block";
+
+            // gallery-7 tidak preview, tapi buka lightGallery
+            if(id !== "gallery-7"){
+                img.onclick = function(e){
+                    e.stopPropagation();
+                    showImage(url);
+                };
+            }
+
+        }else{
+
+            img.style.display = "none";
+            img.onclick = null;
+
         }
 
-        img.src = url;
-        img.style.display = "block";
-
-        // pasang event klik
-        img.onclick = function () {
-            showImage(url);
-        };
-
-    }else{
-
-        img.style.display = "none";
-        img.onclick = null;
-
     }
-
-}
 
     setGalleryImage("gallery-1", data.photos[0]);
     setGalleryImage("gallery-2", data.photos[1]);
@@ -340,16 +345,11 @@ function loadGallery(photos){
     const overlay = document.getElementById("gallery-overlay");
 
     if(photos.length > 7){
-
         overlay.style.display = "flex";
         overlay.innerHTML = "+" + (photos.length - 7);
-
     }else{
-
         overlay.style.display = "none";
-
     }
-
 }
 
 function openGallery(index = 6){
@@ -359,10 +359,6 @@ function openGallery(index = 6){
     }
 
 }
-
-/* ===========================
-   PREVIEW FOTO BESAR
-=========================== */
 
 function showImage(src){
 
@@ -389,7 +385,7 @@ document.addEventListener("DOMContentLoaded",function(){
     const firstButton = document.querySelector(".film-button");
 
     if(firstButton){
-        showEvent(0, firstButton);
+        showFilm(0, firstButton);
     }
 
 });
