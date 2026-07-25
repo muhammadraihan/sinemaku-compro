@@ -41,15 +41,8 @@
                 overflow: hidden;
             }
 
-            .crew-grid {
-                grid-template-columns: repeat(6, minmax(0, 1fr));
-                gap: 0.5rem;
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
-            }
-
+            .crew-grid,
             .crew-pin-container > .grid:not(.crew-grid) {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 0.5rem;
                 padding-left: 0.5rem;
                 padding-right: 0.5rem;
@@ -57,19 +50,7 @@
 
             .crew-grid > div,
             .crew-pin-container > .grid:not(.crew-grid) > div {
-                grid-column: span 3 / span 3 !important;
                 border-radius: 0.75rem;
-            }
-
-            .crew-grid > div:nth-child(3),
-            .crew-grid > div:nth-child(4),
-            .crew-grid > div:nth-child(5) {
-                grid-column: span 2 / span 2 !important;
-                height: var(--crew-row-h);
-            }
-
-            .crew-pin-container > .grid:not(.crew-grid) > div {
-                grid-column: span 1 / span 1 !important;
             }
 
             .crew-overlay h2 {
@@ -334,14 +315,14 @@ $rawText = '
                 @endphp
 
                 <!-- Row 1 -->
-                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
+                <div class="col-span-6 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="../img/tentang/_ARM2884.JPG" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[0]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[0]['role'] }}</span>
                     </div>
                 </div>
-                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
+                <div class="col-span-6 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="../img/p.home/pmr.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[1]['name'] }}</h3>
@@ -350,7 +331,7 @@ $rawText = '
                 </div>
 
                 <!-- Row 2 (CENTER ROW) -->
-                <div class="crew-center-img col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">
+                <div class="crew-center-img col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">
                     <img src="../img/p.home/6.JPG" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
@@ -358,7 +339,7 @@ $rawText = '
                     </div>
                 </div>
 
-                <div class="col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
+                <div class="col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
@@ -371,7 +352,7 @@ $rawText = '
                     </div>
                 </div>
 
-                <div class="crew-center-img col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">
+                <div class="crew-center-img col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">
                     <img src="../img/tentang/_ARM2965.JPG" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[3]['name'] }}</h3>
@@ -380,14 +361,14 @@ $rawText = '
                 </div>
 
                 <!-- Row 3 -->
-                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
+                <div class="col-span-6 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="../img/p.home/20.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[4]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-xs md:text-sm italic">{{ $top6[4]['role'] }}</span>
                     </div>
                 </div>
-                <div class="col-span-4 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
+                <div class="col-span-6 md:col-span-6 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     <img src="../img/tentang/_ARM0071.jpg" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-lg md:text-xl font-bold uppercase tracking-tight">{{ $top6[5]['name'] }}</h3>
