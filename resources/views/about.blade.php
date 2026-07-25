@@ -160,43 +160,37 @@
                 @if($heroSlides && count($heroSlides) > 0)
                     @foreach($heroSlides as $slide)
                     <div class="swiper-slide h-full">
-                        <img
-                            @if($loop->first)
-                                src="{{ asset($slide->image_path) }}" fetchpriority="high"
-                            @else
-                                data-hero-src="{{ asset($slide->image_path) }}"
-                            @endif
-                            alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="{{ asset($slide->image_path) }}" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                     @endforeach
                 @else
 
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover" fetchpriority="high" decoding="async">
+                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img data-hero-src="../img/p.home/_ARM1263.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="../img/p.home/_ARM1263.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img data-hero-src="../img/p.home/1.jpeg" alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="../img/p.home/1.jpeg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img data-hero-src="../img/p.home/3.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="../img/p.home/3.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img data-hero-src="../img/p.home/41.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="../img/p.home/41.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                  <div class="swiper-slide h-full">
-                        <img data-hero-src="../img/p.home/2.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="../img/p.home/2.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img data-hero-src="../img/p.home/PSX_20220103_224953.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="../img/p.home/PSX_20220103_224953.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img data-hero-src="../img/p.home/PSX_20220317_145659.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="../img/p.home/PSX_20220317_145659.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                      </div>
                      <div class="swiper-slide h-full">
-                        <img data-hero-src="../img/p.home/5.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover" decoding="async">
+                        <img src="../img/p.home/5.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
 
             @endif

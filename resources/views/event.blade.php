@@ -71,7 +71,7 @@ EDITORIAL WRAPPER
                         @endphp
                         @foreach($collageImages->take(2) as $img)
                             <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                                <img src="{{ asset('photo/' . $img->photo) }}" class="w-full h-full object-cover" alt="Event photo" loading="lazy" decoding="async">
+                                <img src="{{ asset('photo/' . $img->photo) }}" class="w-full h-full object-cover" alt="Event photo">
                             </div>
                         @endforeach
                     </div>
@@ -79,14 +79,14 @@ EDITORIAL WRAPPER
                     <div class="grid grid-cols-3 gap-4">
                         @foreach($collageImages->slice(2, 3) as $img)
                             <div class="aspect-square rounded-2xl overflow-hidden shadow-lg">
-                                <img src="{{ asset('photo/' . $img->photo) }}" class="w-full h-full object-cover" alt="Event photo" loading="lazy" decoding="async">
+                                <img src="{{ asset('photo/' . $img->photo) }}" class="w-full h-full object-cover" alt="Event photo">
                             </div>
                         @endforeach
                     </div>
                     <!-- Bottom Large -->
                     @if($collageImages->count() > 5)
                         <div class="aspect-video rounded-3xl overflow-hidden shadow-2xl">
-                            <img src="{{ asset('photo/' . $collageImages->last()->photo) }}" class="w-full h-full object-cover" alt="Event photo" loading="lazy" decoding="async">
+                            <img src="{{ asset('photo/' . $collageImages->last()->photo) }}" class="w-full h-full object-cover" alt="Event photo">
                         </div>
                     @endif
                 </div>

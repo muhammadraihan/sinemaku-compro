@@ -313,17 +313,6 @@ href="https://cdn.jsdelivr.net/npm/lightgallery@2.8.1/css/lightgallery-bundle.mi
   {{-- ── Cinematic SPA Transition Engine ── --}}
   <script src="{{ asset('js/film-transition.js') }}" defer></script>
 
-  <script>
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        document.querySelectorAll('img[data-hero-src]').forEach(function (img) {
-          img.src = img.dataset.heroSrc;
-          img.removeAttribute('data-hero-src');
-        });
-      }, 300);
-    });
-  </script>
-
   {{-- Script spesifik halaman --}}
   @stack('scripts')
 

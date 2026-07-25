@@ -15,23 +15,23 @@ HERO
     <div class="absolute inset-0 z-0">
 
     <img src="{{ asset('../img/special/_YAH1696 (1).jpg') }}"
-        class="hero-slide active" fetchpriority="high" decoding="async">
+        class="hero-slide active">
 
-    <img data-hero-src="{{ asset('../img/special/temurun1.jpeg') }}"
-        class="hero-slide" decoding="async">
+    <img src="{{ asset('../img/special/temurun1.jpeg') }}"
+        class="hero-slide">
 
-    <img data-hero-src="{{ asset('../img/special/_YAH1318 (1).jpg') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/special/DSC07779.jpg') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/special/HSP00910.jpg') }}"
-        class="hero-slide" decoding="async">
-        <img data-hero-src="{{ asset('../img/special/MHC06746 (1).jpg') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/special/_ARM1859 (1).JPG') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/special/_YAH2015.jpg') }}"
-        class="hero-slide" decoding="async">
+    <img src="{{ asset('../img/special/_YAH1318 (1).jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/special/DSC07779.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/special/HSP00910.jpg') }}"
+        class="hero-slide">
+        <img src="{{ asset('../img/special/MHC06746 (1).jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/special/_ARM1859 (1).JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/special/_YAH2015.jpg') }}"
+        class="hero-slide">
 
 </div>
 
@@ -455,3 +455,4 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 </script>
 @include('components.footer')
+

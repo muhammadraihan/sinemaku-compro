@@ -17,21 +17,21 @@ HERO
     {{-- Background --}}
     <img
         src="{{ asset('../img/sinemakuday/sinemaku.jpeg') }}"
-        class="hero-slide active" fetchpriority="high" decoding="async">
-    <img data-hero-src="{{ asset('../img/sinemakuday/_ARM1010.JPG') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/sinemakuday/_ARM1765.JPG') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/sinemakuday/_ARM1859.JPG') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/sinemakuday/_ARM0983.JPG') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/sinemakuday/_ARM1588.jpg') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/sinemakuday/_ARM0743.JPG') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/sinemakuday/_ARM1611.jpg') }}"
-        class="hero-slide" decoding="async">
+        class="hero-slide active">
+    <img src="{{ asset('../img/sinemakuday/_ARM1010.JPG') }}"
+        class="hero-slide active">
+    <img src="{{ asset('../img/sinemakuday/_ARM1765.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM1859.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM0983.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM1588.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM0743.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/sinemakuday/_ARM1611.jpg') }}"
+        class="hero-slide">
         </div>
 
     {{-- Overlay --}}

@@ -29,7 +29,7 @@
                         class="hero-bg-image absolute inset-0 transition-opacity duration-1000 {{ $i === 0 ? 'opacity-100' : 'opacity-0' }}">
                         <video src="{{ asset('photo/' . $item->photo) }}"
                             class="hero-bg-video w-full h-full object-cover"
-                            muted loop playsinline preload="metadata"
+                            autoplay muted loop playsinline preload="metadata"
                             aria-label="@i18n($item, 'title')"></video>
                         <!-- Dark Cinematic Overlay -->
                         <div class="absolute inset-0 bg-black/40"></div>
@@ -553,25 +553,11 @@ STYLES & SCRIPTS
             let current = 0;
             let resetTimer = null;
 
-            function playHeroVideo(video) {
-                const start = () => {
-                    try {
-                        video.currentTime = 0;
-                    } catch (e) {}
-                    video.play().catch(() => {});
-                };
-
-                if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-                    start();
-                } else {
-                    video.addEventListener('canplay', start, { once: true });
-                }
-            }
-
             function syncHeroVideos(activeIndex) {
                 heroVideos.forEach((video, index) => {
                     if (index === activeIndex) {
-                        playHeroVideo(video);
+                        video.currentTime = 0;
+                        video.play().catch(() => {});
                     } else {
                         video.pause();
                     }
@@ -656,7 +642,6 @@ STYLES & SCRIPTS
             });
 
             moveTitleReel(0, false);
-
             syncHeroVideos(0);
 
             window.addEventListener('resize', () => {

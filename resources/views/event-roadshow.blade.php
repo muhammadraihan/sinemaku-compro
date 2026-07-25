@@ -15,17 +15,17 @@ HERO
 
     {{-- Background --}}
     <img src="{{ asset('../img/roadshow/_ARM2917.JPG') }}"
-        class="hero-slide active" fetchpriority="high" decoding="async">
-        <img data-hero-src="{{ asset('../img/roadshow/_ARM3073.JPG') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/roadshow/3.jpg') }}"
-        class="hero-slide" decoding="async">
-    <img data-hero-src="{{ asset('../img/roadshow/20250815-IMN03700.jpg') }}"
-        class="hero-slide" decoding="async">
-     <img data-hero-src="{{ asset('../img/roadshow/HNDD-D3 TANGERANG-08239.jpg') }}"
-        class="hero-slide" decoding="async">
-     <img data-hero-src="{{ asset('../img/roadshow/HNDD-D3 TANGERANG-08315.jpg') }}"
-        class="hero-slide" decoding="async">
+        class="hero-slide active">
+        <img src="{{ asset('../img/roadshow/_ARM3073.JPG') }}"
+        class="hero-slide active">
+    <img src="{{ asset('../img/roadshow/3.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/roadshow/20250815-IMN03700.jpg') }}"
+        class="hero-slide">
+     <img src="{{ asset('../img/roadshow/HNDD-D3 TANGERANG-08239.jpg') }}"
+        class="hero-slide">
+     <img src="{{ asset('../img/roadshow/HNDD-D3 TANGERANG-08315.jpg') }}"
+        class="hero-slide">
     </div>
 
 
@@ -452,3 +452,4 @@ if(heroSlides.length > 1){
 });
 </script>
 @include('components.footer')
+

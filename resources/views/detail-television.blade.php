@@ -20,8 +20,7 @@
                 <video src="{{ asset('photo/' . $films->photo) }}"
                     class="w-full h-full object-cover hero-parallax-img"
                     style="object-position: top center;"
-                    muted loop playsinline preload="metadata"
-                    data-hero-video
+                    autoplay muted loop playsinline preload="metadata"
                     aria-label="@i18n($films, 'title')"></video>
 
                 <!-- Dark gradient overlay to make text readable -->
@@ -481,25 +480,6 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const heroVideo = document.querySelector('[data-hero-video]');
-            const startHeroVideo = () => {
-                if (!heroVideo) return;
-
-                const play = () => heroVideo.play().catch(() => {});
-
-                if (heroVideo.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-                    play();
-                } else {
-                    heroVideo.addEventListener('canplay', play, { once: true });
-                }
-            };
-
-            if (document.readyState === 'complete') {
-                setTimeout(startHeroVideo, 250);
-            } else {
-                window.addEventListener('load', () => setTimeout(startHeroVideo, 250), { once: true });
-            }
-
             if (typeof gsap === 'undefined') return;
 
             gsap.registerPlugin(ScrollTrigger);
