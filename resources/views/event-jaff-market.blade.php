@@ -14,13 +14,13 @@ HERO
     <div class="absolute inset-0 z-0">
 
     {{-- Background --}}
-    <img src="{{ asset('../img/special/ARDC8720.jpg') }}"
+    <img src="{{ asset('../img/jaff/ARDC7902.jpg') }}"
         class="hero-slide active">
-    <img src="{{ asset('../img/special/bssk1.jpeg') }}"
+    <img src="{{ asset('../img/jaff/ARDC8251.jpg') }}"
         class="hero-slide active">
-    <img src="{{ asset('../img/special/temurun1.jpeg') }}"
+    <img src="{{ asset('../img/jaff/ARDC8481.jpg') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/special/bssk3.jpeg') }}"
+    <img src="{{ asset('../img/jaff/ARDC8746.jpg') }}"
         class="hero-slide">
     </div>
 

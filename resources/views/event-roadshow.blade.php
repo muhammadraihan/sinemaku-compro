@@ -14,13 +14,17 @@ HERO
     <div class="absolute inset-0 z-0">
 
     {{-- Background --}}
-    <img src="{{ asset('../img/roadshow/roadshow.jpeg') }}"
+    <img src="{{ asset('../img/roadshow/_ARM2917.JPG') }}"
         class="hero-slide active">
-        <img src="{{ asset('../img/special/bssk1.jpeg') }}"
+        <img src="{{ asset('../img/roadshow/_ARM3073.JPG') }}"
         class="hero-slide active">
-    <img src="{{ asset('../img/special/temurun1.jpeg') }}"
+    <img src="{{ asset('../img/roadshow/3.jpg') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/special/bssk3.jpeg') }}"
+    <img src="{{ asset('../img/roadshow/20250815-IMN03700.jpg') }}"
+        class="hero-slide">
+     <img src="{{ asset('../img/roadshow/HNDD-D3 TANGERANG-08239.jpg') }}"
+        class="hero-slide">
+     <img src="{{ asset('../img/roadshow/HNDD-D3 TANGERANG-08315.jpg') }}"
         class="hero-slide">
     </div>
 
