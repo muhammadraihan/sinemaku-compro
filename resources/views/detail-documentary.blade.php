@@ -42,7 +42,7 @@
                         </button>
                     @endif
 
-                    <h1 class="font-peckham text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl" style="font-family: Arial, Helvetica, sans-serif;">
+                    <h1 class="font-peckham text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl" style="font-peckham;">
                         @i18n($documentaries, 'title')
                     </h1>
                 </div>
