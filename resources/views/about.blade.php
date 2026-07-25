@@ -225,7 +225,7 @@
 
                     <div class="flex items-baseline gap-x-2 md:gap-x-5">
                         <span class="font-serif not-italic text-[10vw] md:text-[9.5vw] text-white leading-[0.75]">The</span>
-                        <span class="font-peckham text-[10vw] md:text-[9.5vw] text-white uppercase leading-[0.75] tracking-tighter">FUN.</span>
+                        <span class="font-peckham text-[10vw] md:text-[9.5vw] text-white uppercase leading-[0.75] tracking-tighter">FUN</span>
                     </div>
                 </h1>
             </div>
