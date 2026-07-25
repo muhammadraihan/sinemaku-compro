@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Event;
 use App\Models\EventKategori;
 use App\Models\Film;
+use App\Support\ImageOptimizer;
 
 use Auth;
 use DataTables;
@@ -134,9 +135,7 @@ class EventController extends Controller
 
 
         if ($image = $request->file('photo')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_event');
             $event->photo = "$profileImage";
         }
 
@@ -146,9 +145,7 @@ class EventController extends Controller
 
         if ($request->hasFile('gallery')) {
             foreach ($request->file('gallery') as $image) {
-                $destinationPath = 'photo/';
-                $galleryImage = "gallery_" . date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension();
-                $image->move($destinationPath, $galleryImage);
+                $galleryImage = ImageOptimizer::save($image, 'photo', 'gallery_' . date('YmdHis'));
 
                 \App\Models\EventPhoto::create([
                     'event_uuid' => $event->uuid,
@@ -270,9 +267,7 @@ class EventController extends Controller
 
             // save the new image
             $image = $request->file('photo');
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_event');
             $event->photo = "$profileImage";
         }
 
@@ -282,9 +277,7 @@ class EventController extends Controller
 
         if ($request->hasFile('gallery')) {
             foreach ($request->file('gallery') as $image) {
-                $destinationPath = 'photo/';
-                $galleryImage = "gallery_" . date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension();
-                $image->move($destinationPath, $galleryImage);
+                $galleryImage = ImageOptimizer::save($image, 'photo', 'gallery_' . date('YmdHis'));
 
                 \App\Models\EventPhoto::create([
                     'event_uuid' => $event->uuid,

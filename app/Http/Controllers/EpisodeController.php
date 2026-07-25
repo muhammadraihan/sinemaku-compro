@@ -8,6 +8,7 @@ use App\Models\Episode;
 use App\Models\Film;
 use App\Models\Kategori;
 use App\Models\FilmGallery;
+use App\Support\ImageOptimizer;
 
 use Auth;
 use DataTables;
@@ -110,9 +111,7 @@ class EpisodeController extends Controller
         $episode->slug           = $slug;
 
         if ($image = $request->file('photo')) {
-            $destinationPath = 'photo/';
-            $profileImage    = date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage    = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_episode');
             $episode->photo  = $profileImage;
         }
 
@@ -123,8 +122,7 @@ class EpisodeController extends Controller
         // Still Shots Gallery
         if ($request->hasFile('still_shots')) {
             foreach ($request->file('still_shots') as $file) {
-                $filename = date('YmdHis') . '_' . Str::random(5) . '_still.' . $file->getClientOriginalExtension();
-                $file->move(public_path('photo/'), $filename);
+                $filename = ImageOptimizer::save($file, 'photo', date('YmdHis') . '_still_' . Str::random(5));
 
                 FilmGallery::create([
                     'episode_uuid' => $episode->uuid,
@@ -137,8 +135,7 @@ class EpisodeController extends Controller
         // BTS Gallery
         if ($request->hasFile('bts_galleries')) {
             foreach ($request->file('bts_galleries') as $file) {
-                $filename = date('YmdHis') . '_' . Str::random(5) . '_bts.' . $file->getClientOriginalExtension();
-                $file->move(public_path('photo/'), $filename);
+                $filename = ImageOptimizer::save($file, 'photo', date('YmdHis') . '_bts_' . Str::random(5));
 
                 FilmGallery::create([
                     'episode_uuid' => $episode->uuid,
@@ -217,9 +214,7 @@ class EpisodeController extends Controller
                 }
             }
             $image           = $request->file('photo');
-            $destinationPath = 'photo/';
-            $profileImage    = date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage    = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_episode');
             $episode->photo  = $profileImage;
         }
 
@@ -242,8 +237,7 @@ class EpisodeController extends Controller
         // Handle New Store
         if ($request->hasFile('still_shots')) {
             foreach ($request->file('still_shots') as $file) {
-                $filename = date('YmdHis') . '_' . Str::random(5) . '_still.' . $file->getClientOriginalExtension();
-                $file->move(public_path('photo/'), $filename);
+                $filename = ImageOptimizer::save($file, 'photo', date('YmdHis') . '_still_' . Str::random(5));
 
                 FilmGallery::create([
                     'episode_uuid' => $episode->uuid,
@@ -255,8 +249,7 @@ class EpisodeController extends Controller
 
         if ($request->hasFile('bts_galleries')) {
             foreach ($request->file('bts_galleries') as $file) {
-                $filename = date('YmdHis') . '_' . Str::random(5) . '_bts.' . $file->getClientOriginalExtension();
-                $file->move(public_path('photo/'), $filename);
+                $filename = ImageOptimizer::save($file, 'photo', date('YmdHis') . '_bts_' . Str::random(5));
 
                 FilmGallery::create([
                     'episode_uuid' => $episode->uuid,

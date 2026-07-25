@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Slide;
+use App\Support\ImageOptimizer;
 
 use Auth;
 use DataTables;
@@ -79,9 +80,7 @@ class SlideController extends Controller
         $slide->photo = $request->photo;
 
         if ($image = $request->file('photo')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_slide');
             $slide->photo = "$profileImage";
         }
         $slide->save();
@@ -151,9 +150,7 @@ class SlideController extends Controller
         
             // save the new image
             $image = $request->file('photo');
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_slide');
             $slide->photo = "$profileImage";
         }
         $slide->save();

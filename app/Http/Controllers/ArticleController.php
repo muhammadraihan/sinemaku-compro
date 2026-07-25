@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Article;
 use App\Models\ArtikelKategori;
+use App\Support\ImageOptimizer;
 
 use Auth;
 use DataTables;
@@ -101,9 +102,7 @@ class ArticleController extends Controller
         $article->link = $request->link;
 
         if ($image = $request->file('photo')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_article');
             $article->photo = "$profileImage";
         }
         $article->created_by = Auth::user()->uuid;
@@ -194,9 +193,7 @@ class ArticleController extends Controller
         
             // save the new image
             $image = $request->file('photo');
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_article');
             $article->photo = "$profileImage";
         }
         $article->edited_by = Auth::user()->uuid;

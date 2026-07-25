@@ -6,6 +6,7 @@ use App\Models\KategoriShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Shop;
+use App\Support\ImageOptimizer;
 
 use Auth;
 use DataTables;
@@ -99,9 +100,7 @@ class ShopController extends Controller
         $shop->kategorishop = $request->kategorishop;
 
         if ($image = $request->file('photo')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_shop');
             $shop->photo = "$profileImage";
         }
         $shop->created_by = Auth::user()->uuid;
@@ -191,9 +190,7 @@ class ShopController extends Controller
         
             // save the new image
             $image = $request->file('photo');
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_shop');
             $shop->photo = "$profileImage";
         }
         $shop->edited_by = Auth::user()->uuid;

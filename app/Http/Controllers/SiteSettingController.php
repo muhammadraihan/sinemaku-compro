@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SiteSetting;
 use App\Models\HeroSlide;
+use App\Support\ImageOptimizer;
 use Illuminate\Support\Facades\File;
 
 class SiteSettingController extends Controller
@@ -68,8 +69,7 @@ class SiteSettingController extends Controller
             
             if (isset($slideFiles[$i])) {
                 $file = $slideFiles[$i];
-                $filename = 'hero_slide_' . time() . '_' . $i . '_' . $file->getClientOriginalName();
-                $file->move(public_path('photo'), $filename);
+                $filename = ImageOptimizer::save($file, 'photo', 'hero_slide_' . time() . '_' . $i);
                 $imagePath = 'photo/' . $filename;
             }
 
@@ -86,8 +86,7 @@ class SiteSettingController extends Controller
         foreach ($fixedImageKeys as $imageKey) {
             if ($request->hasFile($imageKey)) {
                 $file = $request->file($imageKey);
-                $filename = $imageKey . '_' . time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('photo'), $filename);
+                $filename = ImageOptimizer::save($file, 'photo', $imageKey . '_' . time());
                 SiteSetting::setValue($imageKey, 'photo/' . $filename, 'about');
             }
         }
@@ -111,8 +110,7 @@ class SiteSettingController extends Controller
             $fileKey = "team_images_$i";
             if ($request->hasFile($fileKey)) {
                 $file = $request->file($fileKey);
-                $filename = 'crew_' . time() . '_' . $index . '_' . $file->getClientOriginalName();
-                $file->move(public_path('photo'), $filename);
+                $filename = ImageOptimizer::save($file, 'photo', 'crew_' . time() . '_' . $index);
                 $imagePath = 'photo/' . $filename;
             }
             
@@ -153,8 +151,7 @@ class SiteSettingController extends Controller
 
         if ($request->hasFile('membership_hero_image')) {
             $file = $request->file('membership_hero_image');
-            $filename = 'membership_' . time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('photo'), $filename);
+            $filename = ImageOptimizer::save($file, 'photo', 'membership_' . time());
             SiteSetting::setValue('membership_hero_image', 'photo/' . $filename, 'membership');
         }
 

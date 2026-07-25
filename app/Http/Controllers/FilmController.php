@@ -8,6 +8,7 @@ use App\Models\Film;
 use App\Models\Kategori;
 use App\Models\FilmGallery;
 use App\Models\FilmCredit;
+use App\Support\ImageOptimizer;
 
 use Auth;
 use DataTables;
@@ -121,23 +122,17 @@ class FilmController extends Controller
 
 
         if ($image = $request->file('photo')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_photo');
             $film->photo = "$profileImage";
         }
 
         if ($image = $request->file('poster')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_poster');
             $film->poster = "$profileImage";
         }
 
         if ($image = $request->file('cover')) {
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . ".cover." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_cover');
             $film->cover = "$profileImage";
         }
 
@@ -218,8 +213,7 @@ if ($request->roles) {
         // Handle Galleries
         if ($request->hasFile('still_shots')) {
             foreach ($request->file('still_shots') as $image) {
-                $filename = date('YmdHis') . "_still_" . Str::random(5) . "." . $image->getClientOriginalExtension();
-                $image->move('photo/', $filename);
+                $filename = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_still_' . Str::random(5));
                 FilmGallery::create([
                     'film_uuid' => $film->uuid,
                     'type' => 'still_shot',
@@ -230,8 +224,7 @@ if ($request->roles) {
 
         if ($request->hasFile('bts_galleries')) {
             foreach ($request->file('bts_galleries') as $image) {
-                $filename = date('YmdHis') . "_bts_" . Str::random(5) . "." . $image->getClientOriginalExtension();
-                $image->move('photo/', $filename);
+                $filename = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_bts_' . Str::random(5));
                 FilmGallery::create([
                     'film_uuid' => $film->uuid,
                     'type' => 'bts',
@@ -329,9 +322,7 @@ if ($request->roles) {
 
             // save the new image
             $image = $request->file('photo');
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . ".photo." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_photo');
             $film->photo = "$profileImage";
         }
 
@@ -349,9 +340,7 @@ if ($request->roles) {
 
             // save the new image
             $image = $request->file('poster');
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . ".poster." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_poster');
             $film->poster = "$profileImage";
         }
 
@@ -365,9 +354,7 @@ if ($request->roles) {
             }
 
             $image = $request->file('cover');
-            $destinationPath = 'photo/';
-            $profileImage = date('YmdHis') . ".cover." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_cover');
             $film->cover = "$profileImage";
         }
         $film->edited_by = Auth::user()->uuid;
@@ -403,8 +390,7 @@ if ($request->has('roles')) {
         // Handle New Galleries
         if ($request->hasFile('still_shots')) {
             foreach ($request->file('still_shots') as $image) {
-                $filename = date('YmdHis') . "_still_" . Str::random(5) . "." . $image->getClientOriginalExtension();
-                $image->move('photo/', $filename);
+                $filename = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_still_' . Str::random(5));
                 FilmGallery::create([
                     'film_uuid' => $film->uuid,
                     'type' => 'still_shot',
@@ -415,8 +401,7 @@ if ($request->has('roles')) {
 
         if ($request->hasFile('bts_galleries')) {
             foreach ($request->file('bts_galleries') as $image) {
-                $filename = date('YmdHis') . "_bts_" . Str::random(5) . "." . $image->getClientOriginalExtension();
-                $image->move('photo/', $filename);
+                $filename = ImageOptimizer::save($image, 'photo', date('YmdHis') . '_bts_' . Str::random(5));
                 FilmGallery::create([
                     'film_uuid' => $film->uuid,
                     'type' => 'bts',
