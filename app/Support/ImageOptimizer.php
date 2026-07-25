@@ -13,9 +13,9 @@ class ImageOptimizer
         UploadedFile $file,
         string $directory = 'photo',
         ?string $basename = null,
-        int $maxWidth = 1920,
-        int $maxHeight = 1920,
-        int $quality = 86
+        int $maxWidth = 1600,
+        int $maxHeight = 1600,
+        int $quality = 82
     ): string {
         $directory = trim($directory, '/');
         $targetDir = public_path($directory);

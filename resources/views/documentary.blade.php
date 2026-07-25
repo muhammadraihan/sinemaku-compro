@@ -108,6 +108,7 @@
                                 {{-- Background Image with subtle zoom --}}
                                 <img src="{{ asset('photo/' . $item->cover) }}"
                                     class="film-card-img w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all duration-1000 ease-expo scale-100 group-hover:scale-105"
+                                    loading="lazy" decoding="async"
                                     alt="@i18n($item, 'title')">
 
                                 {{-- "UPCOMING" Label --}}

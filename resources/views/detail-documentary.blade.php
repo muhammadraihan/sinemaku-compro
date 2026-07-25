@@ -63,7 +63,7 @@
                     <div class="rounded-xl overflow-hidden shadow-2xl mb-8 reveal-image">
     <img src="{{ asset('photo/' . $documentaries->poster) }}"
         alt="{{ $documentaries->title }} Poster"
-        class="w-full aspect-[3/4] object-cover">
+        class="w-full aspect-[3/4] object-cover" loading="lazy" decoding="async">
 </div>
 
                     @php
@@ -325,7 +325,7 @@
                                 <div onclick="openHeroTrailer('{{ $ep_video_id }}')"
                                      class="w-full sm:w-48 aspect-[16/10] rounded-xl bg-[#F36B21] overflow-hidden shrink-0 relative cursor-pointer hover:scale-105 transition-transform duration-300 group/thumb shadow-lg">
                                     @if($ep->photo)
-                                        <img src="{{ asset('photo/' . $ep->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" alt="{{ $ep->title }}">
+                                        <img src="{{ asset('photo/' . $ep->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" loading="lazy" decoding="async" alt="{{ $ep->title }}">
                                     @endif
                                     <!-- Play Icon Overlay -->
                                     <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300">
@@ -335,7 +335,7 @@
                                 @else
                                 <div class="w-full sm:w-48 aspect-[16/10] rounded-xl bg-[#F36B21] overflow-hidden shrink-0 relative">
                                     @if($ep->photo)
-                                        <img src="{{ asset('photo/' . $ep->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" alt="{{ $ep->title }}">
+                                        <img src="{{ asset('photo/' . $ep->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" loading="lazy" decoding="async" alt="{{ $ep->title }}">
                                     @endif
                                 </div>
                                 @endif
@@ -378,7 +378,7 @@
                                     elseif ($index === 6) $spanClass = 'col-span-1 row-span-2';
                                 @endphp
                                 <div class="{{ $spanClass }} rounded-xl overflow-hidden shadow-sm hover:opacity-90 transition-all duration-500 cursor-pointer group">
-                                    <img src="{{ asset('photo/' . $shot->photo) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Still Shot {{ $index + 1 }}">
+                                    <img src="{{ asset('photo/' . $shot->photo) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" alt="Still Shot {{ $index + 1 }}">
                                 </div>
                             @endforeach
 
@@ -413,7 +413,7 @@
                         <a href="{{ $item->slug == '#' ? '#' : route('detail-documentary', $item->slug) }}" class="flex items-center gap-5 p-5 rounded-2xl border border-[#131b4d]/10 hover:border-[#F36B21] transition-colors cursor-none hover-target group reveal-rec bg-white">
                             <div class="w-16 h-16 rounded-lg bg-[#F36B21] shrink-0 overflow-hidden relative">
                                 @if(!empty($item->photo))
-                                 <img src="{{ asset('photo/' . $item->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" alt="@i18n($item, 'title')">
+                                 <img src="{{ asset('photo/' . $item->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" loading="lazy" decoding="async" alt="@i18n($item, 'title')">
                                 @endif
                             </div>
                             <div class="flex-1">
