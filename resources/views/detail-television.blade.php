@@ -15,11 +15,13 @@
         1. HERO SECTION
         ============================================================ --}}
         <section class="relative w-full h-[60vh] md:h-[75vh] flex flex-col justify-end overflow-hidden z-20">
-            <!-- Background Image -->
+            <!-- Background Video -->
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset('photo/' . $films->photo) }}" alt="{{ $films->title }}"
+                <video src="{{ asset('photo/' . $films->photo) }}"
                     class="w-full h-full object-cover hero-parallax-img"
-                    style="object-position: top center;">
+                    style="object-position: top center;"
+                    autoplay muted loop playsinline preload="metadata"
+                    aria-label="@i18n($films, 'title')"></video>
 
                 <!-- Dark gradient overlay to make text readable -->
                 <div class="absolute inset-0 bg-gradient-to-t from-[#131b4d]/90 via-[#131b4d]/30 to-transparent z-10"></div>
