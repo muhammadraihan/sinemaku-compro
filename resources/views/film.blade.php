@@ -30,7 +30,6 @@
                         <video src="{{ asset('photo/' . $item->photo) }}"
                             class="hero-bg-video w-full h-full object-cover"
                             muted loop playsinline preload="metadata"
-                            @if($i === 0) autoplay @endif
                             aria-label="@i18n($item, 'title')"></video>
                         <!-- Dark Cinematic Overlay -->
                         <div class="absolute inset-0 bg-black/40"></div>
@@ -209,11 +208,25 @@ document.addEventListener('DOMContentLoaded', function () {
     let current = 0;
     let resetTimer = null;
 
+    function playHeroVideo(video) {
+        const start = () => {
+            try {
+                video.currentTime = 0;
+            } catch (e) {}
+            video.play().catch(() => {});
+        };
+
+        if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+            start();
+        } else {
+            video.addEventListener('canplay', start, { once: true });
+        }
+    }
+
     function syncHeroVideos(activeIndex) {
         heroVideos.forEach((video, index) => {
             if (index === activeIndex) {
-                video.currentTime = 0;
-                video.play().catch(() => {});
+                playHeroVideo(video);
             } else {
                 video.pause();
             }
@@ -305,6 +318,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     moveTitleReel(0, false);
+
     syncHeroVideos(0);
 
     window.addEventListener('resize', () => {

@@ -85,7 +85,7 @@
             {{-- Left: Product Image --}}
             <div class="w-full lg:w-1/2 reveal-item">
                 <div class="product-img-main shadow-2xl flex items-center justify-center">
-                    <img src="{{ asset('photo/' . $shop->photo) }}" alt="{{ $shop->name }}" class="w-full h-full object-cover">
+                    <img src="{{ asset('photo/' . $shop->photo) }}" alt="{{ $shop->name }}" class="w-full h-full object-cover" fetchpriority="high" decoding="async">
                 </div>
             </div>
 

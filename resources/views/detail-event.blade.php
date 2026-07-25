@@ -80,7 +80,7 @@
                 @if($youtube_id)
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $youtube_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 @else
-                    <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}" class="w-full h-full object-cover">
+                    <img src="{{ asset('photo/' . $event->photo) }}" alt="{{ $event->judul }}" class="w-full h-full object-cover" fetchpriority="high" decoding="async">
                     <div class="absolute inset-0 bg-brand-navy/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" onclick="openLightbox('{{ asset('photo/' . $event->photo) }}')">
                          <span class="iconify text-white" data-icon="lucide:zoom-in" data-width="64"></span>
                     </div>

@@ -58,8 +58,8 @@ EDITORIAL WRAPPER (Redesign based on image)
         {{-- 1. FEATURED IMAGE --}}
         <div class="relative w-full mb-8 reveal-image">
             <div class="aspect-[16/9] md:aspect-[21/9] w-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl bg-tint-2/20">
-                <img src="{{ asset('photo/' . $article->photo) }}" alt="{{ $article->judul }}" 
-                     class="w-full h-full object-cover">
+                <img src="{{ asset('photo/' . $article->photo) }}" alt="{{ $article->judul }}"
+                     class="w-full h-full object-cover" fetchpriority="high" decoding="async">
             </div>
             
             {{-- Photo Credits --}}
@@ -227,4 +227,3 @@ document.addEventListener('DOMContentLoaded', () => {
 @include('components.footer')
 
 @endsection
-
