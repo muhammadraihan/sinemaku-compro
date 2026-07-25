@@ -90,29 +90,44 @@
                     </div>
                     @endforeach
                 @else
+
+                <div class="swiper-slide h-full">
+                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="../img/p.home/_ARM1263.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="../img/p.home/_ARM1127.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="../img/p.home/_ARM0928.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/1.jpeg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="../img/p.home/3.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                <div class="swiper-slide h-full">
+                        <img src="../img/p.home/41.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
+                 <div class="swiper-slide h-full">
+                        <img src="../img/p.home/2.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/PSX_20220103_224953.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/41.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                <div class="swiper-slide h-full">
-                        <img src="../img/p.home/5.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
+                        <img src="../img/p.home/PSX_20220317_145659.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/SEHATI SEMATI_BTS-79.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
-                    <div class="swiper-slide h-full">
-                        <img src="../img/p.home/2.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                     <div class="swiper-slide h-full">
+                        <img src="../img/p.home/5.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
-                    <div class="swiper-slide h-full">
-                        <img src="../img/p.home/PSX_20220317_145659.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    <div class="swiper-slide h-full">
-                        <img src="../img/p.home/3.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
+
             @endif
             </div>
 
