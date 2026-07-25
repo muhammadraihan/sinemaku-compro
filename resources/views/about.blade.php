@@ -184,25 +184,27 @@
                     @endforeach
                 @else
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/1.jpeg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM1263.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/PSX_20220103_224953.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM0928.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/41.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_YAH1664.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/5.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM1171.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/SEHATI SEMATI_BTS-79.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                     <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM0988.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/2.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                     <div class="swiper-slide h-full">
-                        <img src="../img/p.home/_ARM1127.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                        <img src="../img/p.home/PSX_20220317_145659.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    <div class="swiper-slide h-full">
+                        <img src="../img/p.home/3.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
             @endif
             </div>
@@ -349,7 +351,7 @@ $rawText = '
 
                 <!-- Row 2 (CENTER ROW) -->
                 <div class="crew-center-img col-span-12 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">
-                    <img src="../img/tentang/DSC09637.jpg" class="w-full h-full object-cover transition duration-700">
+                    <img src="../img/p.home/6.JPG" class="w-full h-full object-cover transition duration-700">
                     <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end">
                         <h3 class="font-sans text-white text-sm md:text-lg font-bold uppercase tracking-tight">{{ $top6[2]['name'] }}</h3>
                         <span class="font-serif text-brand-orange text-[10px] md:text-xs italic">{{ $top6[2]['role'] }}</span>

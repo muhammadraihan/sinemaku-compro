@@ -278,8 +278,12 @@ GALLERY
 @endphp
 
 const filmsData = @json($events);
+console.log(filmsData);
 
 function showFilm(index, button){
+    console.log("showFilm dipanggil");
+console.log(index);
+console.log(filmsData[index]);
 
     const data = filmsData[index];
     if(!data) return;

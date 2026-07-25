@@ -16,13 +16,13 @@ HERO
     {{-- Background --}}
     <img src="{{ asset('../img/gala/_ARM5814.jpg') }}"
         class="hero-slide active">
-     <img src="{{ asset('../img/gala/_YAH6220.jpg') }}"
+     <img src="{{ asset('../img/gala/hndd.jpg') }}"
         class="hero-slide active">
     <img src="{{ asset('../img/gala/_ARM9812.JPG') }}"
         class="hero-slide">
     <img src="{{ asset('../img/gala/_ARM5365.jpg') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/gala/_ARM4851.jpg') }}"
+    <img src="{{ asset('../img/gala/_ARM4857.jpg') }}"
         class="hero-slide">
     <img src="{{ asset('../img/gala/_ARM6955.jpg') }}"
         class="hero-slide">
