@@ -137,7 +137,7 @@
 </div>
 
                 <!-- Right Content -->
-<div class="w-full max-w-4xl">
+<div class="detail-text-panel w-full max-w-4xl">
 
 
     {{-- SYNOPSIS --}}
@@ -145,7 +145,7 @@
          <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-3 font-bold">
         SINOPSIS
     </p>
-        <div class="font-sans text-sm md:text-xl leading-relaxed text-[#131b4d] text-justify">
+        <div class="detail-copy font-sans text-base md:text-xl leading-7 md:leading-relaxed text-[#131b4d] text-justify">
                             @if(trim(strip_tags($documentaries->sinopsis)))
                                 @i18n($documentaries, 'sinopsis')
                             @else
@@ -158,10 +158,10 @@
 
     {{-- ROW 1 : STARRING & YEAR --}}
    {{-- STARRING + YEAR --}}
-    <div class="grid grid-cols-4 gap-x-12 mb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-y-6 sm:gap-x-12 mb-8">
 
     {{-- STARRING --}}
-    <div class="col-span-3">
+    <div class="sm:col-span-3">
         <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-2 font-bold">
             STARRING
         </p>
@@ -172,7 +172,7 @@
                 ->filter();
         @endphp
 
-        <p class="font-sans text-lg leading-8 text-[#131b4d] text-justify">
+        <p class="detail-info-copy font-sans text-base md:text-lg leading-7 md:leading-8 text-[#131b4d] text-justify">
             {{ $casts->implode(', ') }}
         </p>
     </div>
@@ -183,7 +183,7 @@
             YEAR
         </p>
 
-        <p class="font-sans text-lg text-[#131b4d]">
+        <p class="detail-info-copy font-sans text-base md:text-lg leading-7 text-[#131b4d]">
             {{ \Carbon\Carbon::parse($documentaries->release_date)->format('Y') }}
         </p>
     </div>
@@ -206,7 +206,7 @@
 
                 @foreach($credits as $credit)
 
-                    <p class="font-sans text-lg leading-7 text-[#131b4d] text-justify">
+                    <p class="detail-info-copy font-sans text-base md:text-lg leading-7 text-[#131b4d] text-justify">
                         {{ $credit->name }}
                     </p>
 
@@ -447,6 +447,37 @@
     @include('components.footer')
 
 @endsection
+
+@push('head')
+    <style>
+        @media (max-width: 767px) {
+            .detail-copy,
+            .detail-info-copy {
+                font-size: 1rem !important;
+                line-height: 1.75rem !important;
+            }
+
+            .detail-text-panel .font-sans.text-\[12px\] {
+                line-height: 1rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            .detail-copy :where(p, div, span) {
+                font-size: inherit !important;
+                line-height: inherit !important;
+            }
+
+            .detail-copy :where(p, div) {
+                margin-top: 0 !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            .detail-copy :where(p, div):last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+    </style>
+@endpush
 
 @push('scripts')
     <script>

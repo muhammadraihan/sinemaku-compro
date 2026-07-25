@@ -30,6 +30,7 @@ class Film extends Model
         'link_watch',
         'photo',
         'poster',
+        'cover',
         'slug'
     ];
 

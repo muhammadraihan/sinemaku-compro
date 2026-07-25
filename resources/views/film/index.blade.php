@@ -52,6 +52,7 @@
                 <th>Link Watch Now / Buy Ticket</th>
                 <th>Foto</th>
                 <th>Poster</th>
+                <th>Cover</th>
                 <th width="120px">Aksi</th>
                 </tr>
                         </thead>
@@ -131,6 +132,7 @@
             {data: 'link_watch', name: 'link_watch'},
             {data: 'photo', name: 'photo'},
             {data: 'poster', name: 'poster'},
+            {data: 'cover', name: 'cover'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

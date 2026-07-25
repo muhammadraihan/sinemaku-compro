@@ -22,13 +22,15 @@
         1. EDITORIAL HERO SLIDESHOW
         ============================================================ --}}
         <section class="relative w-full h-[100svh] overflow-hidden bg-creme-leaks z-20">
-            <!-- Background Images Container -->
+            <!-- Background Videos Container -->
             <div id="hero-bg-container" class="absolute inset-0 z-0">
                 @foreach(collect($film)->take(3) as $i => $item)
                     <div
                         class="hero-bg-image absolute inset-0 transition-opacity duration-1000 {{ $i === 0 ? 'opacity-100' : 'opacity-0' }}">
-                        <img src="{{ asset('photo/' . $item->photo) }}" class="w-full h-full object-cover"
-                            alt="@i18n($item, 'title')">
+                        <video src="{{ asset('photo/' . $item->photo) }}"
+                            class="hero-bg-video w-full h-full object-cover"
+                            autoplay muted loop playsinline preload="metadata"
+                            aria-label="@i18n($item, 'title')"></video>
                         <!-- Dark Cinematic Overlay -->
                         <div class="absolute inset-0 bg-black/40"></div>
                     </div>
@@ -37,26 +39,40 @@
 
             <!-- Content Overlay -->
             <div class="relative z-10 w-full h-full flex flex-col justify-end px-8 md:px-16 pb-20">
-                <div class="w-full flex flex-col items-start">
-                    <!-- Film List (Vertical) -->
-                    <div class="flex flex-col gap-2 md:gap-3">
-                        @foreach(collect($film)->take(3) as $i => $item)
-                            <div class="film-nav-item group cursor-none hover-target" data-index="{{ $i }}">
-                                <a href="{{ route('detail-television', $item->slug) }}" class="block">
-                                    <div class="relative" style="max-width: min(35vw, 80vw);">
-                                        <h2 class="film-title font-peckham font-bold text-3xl md:text-4xl lg:text-5xl uppercase leading-[0.95] transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40' }}">
-                                            <span class="title-text">@i18n($item, 'title')</span>
-                                        </h2>
-                                        <div class="film-meta absolute top-0 flex flex-col gap-0.5 pl-3 pt-2 whitespace-nowrap pointer-events-none" style="left: 0; opacity: 1;">
-                                            @if(\Carbon\Carbon::parse($item->release_date)->isFuture())
-                                                <span class="font-sans text-[8px] md:text-[10px] tracking-widest uppercase text-brand-orange leading-none">Upcoming</span>
-                                            @endif
-                                            <span class="film-meta-text font-sans font-bold text-[11px] md:text-[12px] tracking-widest uppercase leading-none transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40' }}">{{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} | @i18n($item, 'genre')</span>
-                                        </div>
-                                    </div>
+                @php
+                    $heroFilms = collect($film)->take(3)->values();
+                @endphp
+                <div class="hero-title-window">
+                    <div id="film-slider" class="hero-title-reel">
+                        @foreach($heroFilms as $i => $item)
+                            <div class="film-nav-item hero-title-item {{ $i === 0 ? 'is-active' : '' }}"
+                                data-index="{{ $i }}">
+                                <a href="{{ route('detail-television', $item->slug) }}" class="hero-title-link">
+                                    <h2 class="film-title font-peckham font-bold text-3xl md:text-4xl lg:text-5xl uppercase leading-[0.95] transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40' }}">
+                                        @i18n($item, 'title')
+                                    </h2>
+
+                                    <span class="film-meta-text font-sans font-bold text-[11px] md:text-[12px] tracking-widest uppercase leading-none transition-all duration-300 {{ $i === 0 ? 'text-white' : 'text-white/40' }}">
+                                        {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} | @i18n($item, 'genre')
+                                    </span>
                                 </a>
                             </div>
                         @endforeach
+
+                        @if($heroFilms->count() > 1)
+                            @php $firstHeroFilm = $heroFilms->first(); @endphp
+                            <div class="hero-title-item hero-title-item-clone" aria-hidden="true">
+                                <a href="{{ route('detail-television', $firstHeroFilm->slug) }}" class="hero-title-link" tabindex="-1">
+                                    <h2 class="film-title font-peckham font-bold text-3xl md:text-4xl lg:text-5xl uppercase leading-[0.95] transition-all duration-300 text-white/40">
+                                        @i18n($firstHeroFilm, 'title')
+                                    </h2>
+
+                                    <span class="film-meta-text font-sans font-bold text-[11px] md:text-[12px] tracking-widest uppercase leading-none transition-all duration-300 text-white/40">
+                                        {{ \Carbon\Carbon::parse($firstHeroFilm->release_date)->format('Y') }} | @i18n($firstHeroFilm, 'genre')
+                                    </span>
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -66,56 +82,6 @@
         2. ALL FILMS CATALOGUE (HORIZONTAL PAN GRID)
         ============================================================ --}}
         <section class="py-16 z-10 relative max-w-[100vw] overflow-hidden">
-
-            <!-- Header & Filter -->
-            <div class="px-8 md:px-16 flex flex-col items-center mb-16 max-w-[1800px] mx-auto text-center">
-                {{-- <h2 class="font-instrument italic text-4xl md:text-6xl text-brand-navy leading-none tracking-tight mb-12">
-                    Katalog <span class="font-peckham not-italic text-brand-orange uppercase mx-1">TV</span> Kami
-                </h2> --}}
-
-                <!-- Dual Filter Dropdown -->
-                <div class="inline-flex items-center border border-brand-orange/30 rounded-full bg-brand-orange/5 p-1 relative z-50">
-                    <div class="flex items-center">
-                        <!-- Year Dropdown -->
-                        <div class="relative group/filter">
-                            <div id="filter-year-trigger" class="px-6 py-2 flex flex-col items-center border-r border-brand-orange/20 cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-l-full">
-                                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Tahun Rilis</span>
-                                <span id="selected-year" class="text-sm font-sans text-brand-navy font-bold leading-none">Semua</span>
-                            </div>
-                            <div id="filter-year-menu" class="absolute top-full left-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
-                                <div class="max-h-64 overflow-y-auto py-2">
-                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="Semua">Semua</div>
-                                    @php
-                                        $years = collect($genre)->map(fn($item) => \Carbon\Carbon::parse($item->release_date)->format('Y'))->unique()->sortDesc();
-                                    @endphp
-                                    @foreach($years as $year)
-                                        <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="year" data-value="{{ $year }}">{{ $year }}</div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Genre Dropdown -->
-                        <div class="relative group/filter">
-                            <div id="filter-genre-trigger" class="px-6 py-2 flex flex-col items-center cursor-pointer hover:bg-brand-orange/10 transition-colors rounded-r-full">
-                                <span class="text-[9px] uppercase tracking-widest text-brand-navy/40 leading-none mb-1">Genre</span>
-                                <span id="selected-genre" class="text-sm font-sans text-brand-navy font-bold leading-none">Semua</span>
-                            </div>
-                            <div id="filter-genre-menu" class="absolute top-full right-0 mt-2 w-48 bg-white border border-brand-orange/20 rounded-2xl shadow-xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 z-[60] overflow-hidden">
-                                <div class="max-h-64 overflow-y-auto py-2">
-                                    <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="Semuma">Semua</div>
-                                    @php
-                                        $genres = collect($genre)->map(fn($item) => $item->genre)->unique()->sort();
-                                    @endphp
-                                    @foreach($genres as $g)
-                                        <div class="filter-option px-6 py-2 text-xs font-sans uppercase tracking-widest text-brand-navy/60 hover:text-brand-orange hover:bg-brand-orange/5 cursor-pointer transition-colors" data-type="genre" data-value="{{ $g }}">{{ $g }}</div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- The Grid -->
             <style>
@@ -140,7 +106,7 @@
                         style="display: block;">
 
                                 {{-- Background Image with subtle zoom --}}
-                                <img src="{{ asset('photo/' . $item->photo) }}"
+                                <img src="{{ asset('photo/' . $item->cover) }}"
                                     class="film-card-img w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all duration-1000 ease-expo scale-100 group-hover:scale-105"
                                     alt="@i18n($item, 'title')">
 
@@ -225,6 +191,92 @@ STYLES & SCRIPTS
         /* UTILITIES SPESIFIK HALAMAN FILM */
         .bg-tint-3 {
             background-color: #FFF6F9;
+        }
+
+        .hero-title-window {
+            --hero-title-row: 110px;
+            position: relative;
+            width: 100%;
+            min-width: 0;
+            height: 330px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: left;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+        }
+
+        .hero-title-reel {
+            width: 100%;
+            transform: translate3d(0, var(--hero-title-offset, var(--hero-title-row)), 0);
+            transition: transform 780ms cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+
+        .hero-title-item {
+            height: var(--hero-title-row);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            opacity: 0.34;
+            filter: brightness(0.72);
+            transform: scale(0.9);
+            transform-origin: left center;
+            transition:
+                opacity 620ms ease,
+                filter 620ms ease,
+                transform 780ms cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform, opacity, filter;
+        }
+
+        .hero-title-item.is-active {
+            opacity: 1;
+            filter: brightness(1.18);
+            transform: scale(1.08);
+            z-index: 2;
+        }
+
+        .hero-title-link {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .hero-title-item .film-title {
+            max-width: none;
+            white-space: nowrap;
+            text-align: left;
+            text-shadow: 0 16px 50px rgba(0, 0, 0, 0.28);
+            transition: color 620ms ease, text-shadow 620ms ease;
+        }
+
+        .hero-title-item .film-meta-text {
+            display: block;
+            margin-top: 0.25rem;
+            white-space: nowrap;
+            text-align: left;
+            transition: color 620ms ease, opacity 620ms ease;
+        }
+
+        .hero-title-item.is-active .film-title {
+            color: #fff !important;
+            text-shadow:
+                0 18px 58px rgba(0, 0, 0, 0.46),
+                0 0 28px rgba(255, 255, 255, 0.16);
+        }
+
+        .hero-title-item.is-active .film-meta-text {
+            color: rgba(255, 255, 255, 0.92) !important;
+        }
+
+        @media (max-width: 640px) {
+            .hero-title-window {
+                --hero-title-row: 96px;
+                height: 288px;
+            }
         }
 
         .text-brand-deepbreath {
@@ -450,39 +502,114 @@ STYLES & SCRIPTS
             // Hero Background Logic
             const bgImages = document.querySelectorAll('.hero-bg-image');
             const navItems = document.querySelectorAll('.film-nav-item');
+            const titleItems = document.querySelectorAll('.hero-title-item');
+            const slider = document.getElementById('film-slider');
+            const titles = document.querySelectorAll('.film-title');
+            const metas = document.querySelectorAll('.film-meta-text');
+            const heroVideos = document.querySelectorAll('.hero-bg-video');
 
-            navItems.forEach(item => {
+            let current = 0;
+            let resetTimer = null;
+
+            function syncHeroVideos(activeIndex) {
+                heroVideos.forEach((video, index) => {
+                    if (index === activeIndex) {
+                        video.currentTime = 0;
+                        video.play().catch(() => {});
+                    } else {
+                        video.pause();
+                    }
+                });
+            }
+
+            function moveTitleReel(position, animate = true) {
+                if (!slider || !titleItems.length) return;
+
+                const rowHeight = titleItems[0].offsetHeight;
+                slider.style.transition = animate ? '' : 'none';
+                slider.style.transform = `translate3d(0, ${rowHeight * (1 - position)}px, 0)`;
+
+                if (!animate) {
+                    slider.offsetHeight;
+                    slider.style.transition = '';
+                }
+            }
+
+            function setActiveTitle(position) {
+                titleItems.forEach((item, i) => {
+                    item.classList.toggle('is-active', i === position);
+                });
+            }
+
+            function showFilm(index, options = {}) {
+                if (!navItems.length) return;
+
+                const shouldLoopForward = options.loopForward && index === 0 && current === navItems.length - 1 && titleItems.length > navItems.length;
+                const titlePosition = shouldLoopForward ? navItems.length : index;
+
+                clearTimeout(resetTimer);
+
+                titles.forEach(title => {
+                    title.classList.remove('text-white');
+                    title.classList.add('text-white/40');
+                });
+
+                metas.forEach(meta => {
+                    meta.classList.remove('text-white');
+                    meta.classList.add('text-white/40');
+                });
+
+                bgImages.forEach(bg => {
+                    bg.classList.remove('opacity-100');
+                    bg.classList.add('opacity-0');
+                });
+
+                if (titles[titlePosition]) {
+                    titles[titlePosition].classList.remove('text-white/40');
+                    titles[titlePosition].classList.add('text-white');
+                }
+
+                if (metas[titlePosition]) {
+                    metas[titlePosition].classList.remove('text-white/40');
+                    metas[titlePosition].classList.add('text-white');
+                }
+
+                if (bgImages[index]) {
+                    bgImages[index].classList.remove('opacity-0');
+                    bgImages[index].classList.add('opacity-100');
+                }
+
+                syncHeroVideos(index);
+                setActiveTitle(titlePosition);
+                moveTitleReel(titlePosition);
+
+                current = index;
+
+                if (shouldLoopForward) {
+                    resetTimer = setTimeout(() => {
+                        setActiveTitle(0);
+                        moveTitleReel(0, false);
+                    }, 820);
+                }
+            }
+
+            navItems.forEach((item, index) => {
                 item.addEventListener('mouseenter', () => {
-                    const index = item.getAttribute('data-index');
-
-                    // Update Active Image
-                    bgImages.forEach((img, i) => {
-                        img.classList.toggle('opacity-100', i == index);
-                        img.classList.toggle('opacity-0', i != index);
-                    });
-
-                    // Update Active Text Styling
-                    navItems.forEach((nav, i) => {
-                        const h2 = nav.querySelector('h2');
-                        const meta = nav.querySelector('.film-meta-text');
-                        if (i == index) {
-                            h2.classList.remove('text-white/40');
-                            h2.classList.add('text-white');
-                            if (meta) {
-                                meta.classList.remove('text-white/40');
-                                meta.classList.add('text-white');
-                            }
-                        } else {
-                            h2.classList.remove('text-white');
-                            h2.classList.add('text-white/40');
-                            if (meta) {
-                                meta.classList.remove('text-white');
-                                meta.classList.add('text-white/40');
-                            }
-                        }
-                    });
+                    showFilm(index);
                 });
             });
+
+            moveTitleReel(0, false);
+            syncHeroVideos(0);
+
+            window.addEventListener('resize', () => {
+                moveTitleReel(current, false);
+            });
+
+            setInterval(() => {
+                const next = current + 1 >= navItems.length ? 0 : current + 1;
+                showFilm(next, { loopForward: true });
+            }, 3000);
 
             // Remove legacy hero code
             // [Old code for sliders, indicators, etc is gone from DOM above]
@@ -594,11 +721,13 @@ STYLES & SCRIPTS
                     const value = option.getAttribute('data-value');
 
                     if (type === 'year') {
-                        document.getElementById('selected-year').textContent = value;
-                        yearMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+                        const selectedYearLabel = document.getElementById('selected-year');
+                        if (selectedYearLabel) selectedYearLabel.textContent = value;
+                        if (yearMenu) yearMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
                     } else {
-                        document.getElementById('selected-genre').textContent = value;
-                        genreMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+                        const selectedGenreLabel = document.getElementById('selected-genre');
+                        if (selectedGenreLabel) selectedGenreLabel.textContent = value;
+                        if (genreMenu) genreMenu.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
                     }
 
                     applyFilters();
@@ -606,8 +735,8 @@ STYLES & SCRIPTS
             });
 
             function applyFilters() {
-                const selectedYear = document.getElementById('selected-year').textContent;
-                const selectedGenre = document.getElementById('selected-genre').textContent;
+                const selectedYear = document.getElementById('selected-year')?.textContent || 'Semua';
+                const selectedGenre = document.getElementById('selected-genre')?.textContent || 'Semua';
 
                 const allCards = document.querySelectorAll('.catalogue-card');
                 const visibleCards = [];

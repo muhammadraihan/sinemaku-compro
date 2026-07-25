@@ -163,13 +163,6 @@
                     <div class="form-group col-md-8 mb-3">
                         {{ Form::label('gallery','Add More Photos to Gallery',['class' => 'form-label'])}}
                         <input type="file" name="gallery[]" class="form-control" multiple accept="image/*">
-                        <div class="mt-3 d-flex flex-wrap gap-2">
-                            @foreach($event->photos as $item)
-                                <div class="position-relative">
-                                    <img src="{{ asset('photo/'.$item->photo) }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;">
-                                </div>
-                            @endforeach
-                        </div>
                     </div>
                 </div>
             <div

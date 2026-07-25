@@ -2,6 +2,40 @@
 
 @section('title','Tentang Kami | Sinemaku Pictures')
 
+@push('head')
+    <style>
+        .tentang-gradient-panel {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            background: #fff;
+        }
+
+        .tentang-gradient-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(circle 360px at var(--tentang-mx, 50%) var(--tentang-my, 50%), rgba(243, 107, 33, 0.24) 0%, rgba(243, 107, 33, 0.11) 38%, transparent 72%),
+                radial-gradient(circle 220px at var(--tentang-mx, 50%) var(--tentang-my, 50%), rgba(255, 180, 87, 0.16) 0%, transparent 70%);
+            filter: blur(26px);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .tentang-gradient-panel:hover::before {
+            opacity: 1;
+        }
+
+        .tentang-gradient-content {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+@endpush
+
 @section('content')
 
 @include('partials.navbar')
@@ -48,9 +82,9 @@
 
 </section>
 
-<section class="bg-white py-5">
+<section class="tentang-gradient-panel py-5">
 
-    <div class="max-w-7xl mx-auto px-8">
+    <div class="tentang-gradient-content max-w-7xl mx-auto px-8">
 
         @if($event)
 
@@ -289,6 +323,19 @@ function closeImage(){
 document.addEventListener("DOMContentLoaded",function(){
 
     loadGallery();
+
+    const tentangGradientPanel = document.querySelector(".tentang-gradient-panel");
+
+    if (tentangGradientPanel) {
+        tentangGradientPanel.addEventListener("mousemove", function(event) {
+            const rect = tentangGradientPanel.getBoundingClientRect();
+            const x = ((event.clientX - rect.left) / rect.width) * 100;
+            const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+            tentangGradientPanel.style.setProperty("--tentang-mx", x + "%");
+            tentangGradientPanel.style.setProperty("--tentang-my", y + "%");
+        });
+    }
 
 });
 

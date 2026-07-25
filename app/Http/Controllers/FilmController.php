@@ -38,6 +38,14 @@ class FilmController extends Controller
                     $url = asset('photo');
                     return '<image style="width: 150px; height: 150px;"  src="'.$url.'/'.$row->poster.'" alt="">';
                 })
+                ->editColumn('cover', function ($row){
+                    if (!$row->cover) {
+                        return '-';
+                    }
+
+                    $url = asset('photo');
+                    return '<image style="width: 150px; height: 150px; object-fit: cover;"  src="'.$url.'/'.$row->cover.'" alt="">';
+                })
                 ->addColumn('action', function ($row) {
                     return '
                             <a class="btn btn-success btn-sm btn-icon waves-effect waves-themed" href="' . route('film.edit', $row->uuid) . '"><i class="fal fa-edit"></i></a>
@@ -45,7 +53,7 @@ class FilmController extends Controller
                 })
                 ->removeColumn('id')
                 ->removeColumn('uuid')
-                ->rawColumns(['action','photo', 'poster'])
+                ->rawColumns(['action','photo', 'poster', 'cover'])
                 ->make(true);
         }
 
@@ -78,7 +86,8 @@ class FilmController extends Controller
     'release_date' => 'required',
     'sinopsis' => 'required',
     'photo' => 'required|image',
-    'poster' => 'required|image'
+    'poster' => 'required|image',
+    'cover' => 'required|image'
         ];
 
         $messages = [
@@ -123,6 +132,13 @@ class FilmController extends Controller
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $film->poster = "$profileImage";
+        }
+
+        if ($image = $request->file('cover')) {
+            $destinationPath = 'photo/';
+            $profileImage = date('YmdHis') . ".cover." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $film->cover = "$profileImage";
         }
 
         $film->created_by = Auth::user()->uuid;
@@ -267,6 +283,7 @@ if ($request->roles) {
             'genre' => 'required',
             'release_date' => 'required',
             'sinopsis' => 'required',
+            'cover' => 'nullable|image',
         ];
 
         $messages = [
@@ -336,6 +353,22 @@ if ($request->roles) {
             $profileImage = date('YmdHis') . ".poster." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $film->poster = "$profileImage";
+        }
+
+        if($request->hasFile('cover')){
+
+            if($oldImage = $film->cover) {
+                $oldPath = public_path('photo/') . $oldImage;
+                if(file_exists($oldPath)){
+                    unlink($oldPath);
+                }
+            }
+
+            $image = $request->file('cover');
+            $destinationPath = 'photo/';
+            $profileImage = date('YmdHis') . ".cover." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $film->cover = "$profileImage";
         }
         $film->edited_by = Auth::user()->uuid;
 $film->save();

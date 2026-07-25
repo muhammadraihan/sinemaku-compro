@@ -32,9 +32,52 @@
         }
         .crew-h { height: var(--crew-row-h); }
         @media (max-width: 768px) {
-            /* :root { --crew-row-h: clamp(160px, 45vw, 300px); } */
-            #crew-masonry-wrapper, .crew-pin-container {
-                min-height: 105svh;
+            :root {
+                --crew-row-h: clamp(132px, 34vw, 210px);
+            }
+
+            .crew-pin-container {
+                min-height: auto;
+                overflow: hidden;
+            }
+
+            .crew-grid {
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+                gap: 0.5rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            .crew-pin-container > .grid:not(.crew-grid) {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.5rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            .crew-grid > div,
+            .crew-pin-container > .grid:not(.crew-grid) > div {
+                grid-column: span 3 / span 3 !important;
+                border-radius: 0.75rem;
+            }
+
+            .crew-grid > div:nth-child(3),
+            .crew-grid > div:nth-child(4),
+            .crew-grid > div:nth-child(5) {
+                grid-column: span 2 / span 2 !important;
+                height: var(--crew-row-h);
+            }
+
+            .crew-pin-container > .grid:not(.crew-grid) > div {
+                grid-column: span 1 / span 1 !important;
+            }
+
+            .crew-overlay h2 {
+                font-size: clamp(1.8rem, 9vw, 3.5rem) !important;
+            }
+
+            .crew-overlay span {
+                font-size: clamp(1.45rem, 7vw, 2.75rem) !important;
             }
         }
 
@@ -68,6 +111,56 @@
 
 .font-instrument {
     font-family: 'Instrument Serif', serif;
+}
+
+.manifesto-copy {
+    width: 100%;
+}
+
+.manifesto-row {
+    width: 100%;
+    margin-top: clamp(8px, 1.4vw, 18px);
+}
+
+.manifesto-line {
+    display: inline-block;
+    max-width: 100%;
+    white-space: normal;
+    text-wrap: balance;
+    line-height: 0.95;
+    font-size: clamp(18px, 4.5vw, 35px);
+}
+
+.manifesto-copy > .manifesto-line {
+    width: 100%;
+}
+
+.manifesto-copy > .manifesto-line + .manifesto-line,
+.manifesto-row + .manifesto-line {
+    margin-top: clamp(8px, 1.5vw, 20px);
+}
+
+.manifesto-brand {
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 0.85;
+    font-size: clamp(22px, 5vw, 52px);
+}
+
+@media (min-width: 640px) {
+    .manifesto-line {
+        font-size: clamp(22px, 2.5vw, 35px);
+    }
+
+    .manifesto-brand {
+        font-size: clamp(32px, 3vw, 52px);
+    }
+}
+
+@media (min-width: 1024px) {
+    .manifesto-line {
+        white-space: nowrap;
+    }
 }
     </style>
 @endpush
@@ -145,9 +238,9 @@
     <section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
 
     <div class="w-full flex flex-col items-center text-center">
-        <h2 class="flex flex-col items-center max-w-5xl mx-auto">
+        <h2 class="flex flex-col items-center w-full max-w-5xl mx-auto">
 
-            <div class="flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
+            <div class="manifesto-copy flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
                 @php
 
                     // $rawText = '[ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps] [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
@@ -158,7 +251,7 @@ $rawText = '
 
 [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
 
-<div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
+<div class="manifesto-row flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
     [ps]Karena itu,[/ps]
     [p]SINEMAKU PICTURES[/p]
     [ps]memilih untuk menjaga satu hal yang sederhana,[/ps]
@@ -167,19 +260,27 @@ $rawText = '
 [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]
 ';
 
+                    $keepLastWordTogether = function($text) {
+                        return preg_replace('/\s+([^\s]+)$/u', '&nbsp;$1', e(trim($text)));
+                    };
+
                     // Parse [ps]
-                    $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) {
-                        return '<span class="font-serif not-italic text-[4.5vw] sm:text-[2vw] md:text-[2.5vw] text-brand-orange leading-thight">' . $matches[1] . '</span>';
+                    $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) use ($keepLastWordTogether) {
+                        $text = trim($matches[1]);
+
+                        return '<span class="manifesto-line font-serif not-italic text-brand-orange">' . $keepLastWordTogether($text) . '</span>';
                     }, $rawText);
 
                     // Parse [p]
                     $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="font-peckham text-[5vw] sm:text-[3vw] md:text-[3vw] text-brand-navy leading-thight tracking-tighter">' . $matches[1] . '</span>';
+                        return '<span class="manifesto-brand font-peckham text-brand-navy tracking-tighter">' . e(trim($matches[1])) . '</span>';
                     }, $parsedText);
 
                     // Parse [s]
-                    $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) {
-                        return '<span class="font-serif not-italic text-[4.5vw] sm:text-[2vw] md:text-[2.5vw] text-brand-navy leading-thight">' . $matches[1] . '</span>';
+                    $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) use ($keepLastWordTogether) {
+                        $text = trim($matches[1]);
+
+                        return '<span class="manifesto-line font-serif not-italic text-brand-navy">' . $keepLastWordTogether($text) . '</span>';
                     }, $parsedText);
                 @endphp
 

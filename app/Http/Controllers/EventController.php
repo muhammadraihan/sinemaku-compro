@@ -113,8 +113,10 @@ class EventController extends Controller
         $this->validate($request, $rules, $messages);
         // dd($request->photo);
 
+        $eventKategori = EventKategori::where('uuid', $request->event_kategori_uuid)->first();
+
         $event = new Event();
-        $event->slug = Str::slug($request->judul);
+        $event->slug = Str::slug($eventKategori->name ?? 'uncategorized') . '/' . Str::slug($request->judul);
         $event->judul = $request->judul;
         $event->judul_en = $request->judul_en;
         $event->title = $request->title;
@@ -237,7 +239,8 @@ class EventController extends Controller
         // dd($request->photo);
 
         $event = Event::uuid($id);
-        $event->slug = Str::slug($request->judul);
+        $eventKategori = EventKategori::where('uuid', $request->event_kategori_uuid)->first();
+        $event->slug = Str::slug($eventKategori->name ?? 'uncategorized') . '/' . Str::slug($request->judul);
         $event->judul = $request->judul;
         $event->judul_en = $request->judul_en;
         $event->title = $request->title;

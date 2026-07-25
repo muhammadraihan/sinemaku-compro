@@ -291,6 +291,15 @@
                     <div class="invalid-feedback">{{ $errors->first('poster') }}</div>
                     @endif
                 </div>
+                <div class="form-group col-md-4 mb-3">
+                    {{ Form::label('cover','Cover',['class' => 'required form-label'])}}
+                    {{ Form::file('cover',['placeholder' => 'Cover','class' => 'form-control upload '.($errors->has('cover') ? 'is-invalid':''),'required', 'autocomplete' => 'off', 'id' => 'cover'])}}
+                    <img id="preview-image-before-upload-cover" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                    alt="preview image" style="max-height: 250px;">
+                    @if ($errors->has('cover'))
+                    <div class="invalid-feedback">{{ $errors->first('cover') }}</div>
+                    @endif
+                </div>
                 <div class="form-group col-md-6 mb-3">
                     {{ Form::label('still_shots','Still Shots (Bisa pilih banyak)',['class' => 'form-label'])}}
                     <input type="file" name="still_shots[]" class="form-control" multiple accept="image/*">
@@ -344,6 +353,19 @@
             reader.onload = (e) => {
 
                 $('#preview-image-before-upload-poster').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(this.files[0]);
+
+        });
+
+        $('#cover').change(function(){
+
+            let reader = new FileReader();
+
+            reader.onload = (e) => {
+
+                $('#preview-image-before-upload-cover').attr('src', e.target.result);
             }
 
             reader.readAsDataURL(this.files[0]);

@@ -106,8 +106,6 @@
       position: relative;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      cursor: none;
-      /* Menyembunyikan kursor bawaan untuk semua halaman */
     }
 
     /* ── EFEK CINEMATIC GRAIN GLOBAL ── */
@@ -141,44 +139,8 @@
     }
 
 
-    /* ── CUSTOM CURSOR (EDITORIAL RING) GLOBAL ── */
-    #cursor-ring {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 30px;
-      height: 30px;
-      border: 1px solid #f46a21;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 999999;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s, height 0.3s, background-color 0.3s;
-      mix-blend-mode: multiply;
-    }
-
-    #cursor-dot {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 8px;
-      height: 8px;
-      background-color: transparent;
-      backdrop-filter: invert(1) grayscale(1) contrast(100);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 1000000;
-      transform: translate(-50%, -50%);
-    }
-
-    @media (pointer: coarse) {
-      #cursor-ring,
-      #cursor-dot {
-        display: none !important;
-      }
-      body {
-        cursor: auto !important;
-      }
+    .cursor-none {
+      cursor: auto !important;
     }
 
     /* ── UTILITY: BACKGROUND CREME WITH LEAKS ── */
@@ -331,12 +293,6 @@ href="https://cdn.jsdelivr.net/npm/lightgallery@2.8.1/css/lightgallery-bundle.mi
   <!-- Efek Grain & Light Leak Global (Synced with About) -->
   <div class="cinematic-grain"></div>
 
-
-
-  <!-- Custom Cursor Global -->
-  <div id="cursor-ring"></div>
-  <div id="cursor-dot"></div>
-
   <!-- ═══ CINEMATIC TRANSITION OVERLAYS (SPA) ═══ -->
   <!-- Zoom image clone lives here during transition -->
   <div id="film-zoom-overlay"
@@ -353,79 +309,6 @@ href="https://cdn.jsdelivr.net/npm/lightgallery@2.8.1/css/lightgallery-bundle.mi
   {{-- GSAP JS (Load Global) --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-  {{-- SCRIPT KURSOR GLOBAL --}}
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const cursorRing = document.getElementById('cursor-ring');
-      const cursorDot = document.getElementById('cursor-dot');
-
-      // Hide cursor on touch devices when touch is detected
-      window.addEventListener('touchstart', function onFirstTouch() {
-        if (cursorRing) cursorRing.style.display = 'none';
-        if (cursorDot) cursorDot.style.display = 'none';
-        document.body.style.cursor = 'auto';
-        window.removeEventListener('touchstart', onFirstTouch);
-      });
-
-      let mouseX = window.innerWidth / 2;
-      let mouseY = window.innerHeight / 2;
-      let ringX = mouseX;
-      let ringY = mouseY;
-      let bgX = mouseX;
-      let bgY = mouseY;
-
-      // Dot mengikuti langsung
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        gsap.to(cursorDot, {
-          x: mouseX,
-          y: mouseY,
-          duration: 0.1,
-          ease: "none"
-        });
-      });
-
-      // Animasi mengikuti dengan delay (Lerp)
-      gsap.ticker.add(() => {
-        // Ring
-        ringX += (mouseX - ringX) * 0.15;
-        ringY += (mouseY - ringY) * 0.15;
-        gsap.set(cursorRing, { x: ringX, y: ringY });
-
-        // Background gradient (lebih lambat/halus)
-        bgX += (mouseX - bgX) * 0.05;
-        bgY += (mouseY - bgY) * 0.05;
-        document.body.style.setProperty('--mx', (bgX / window.innerWidth * 100) + '%');
-        document.body.style.setProperty('--my', (bgY / window.innerHeight * 100) + '%');
-      });
-
-      // Re-bind hover logic function agar bisa dipanggil ulang jika ada konten dinamis (AJAX/Livewire)
-      window.bindCursorHoverEffects = function () {
-        const hoverTargets = document.querySelectorAll('.hover-target, a, button');
-        hoverTargets.forEach(target => {
-          // Hindari binding ganda
-          if (target.dataset.cursorBound) return;
-          target.dataset.cursorBound = "true";
-
-          target.addEventListener('mouseenter', () => {
-            gsap.to(cursorRing, { scale: 1.8, backgroundColor: 'rgba(255, 177, 80, 0.2)', duration: 0.3 });
-            gsap.to(cursorDot, { scale: 0.5, duration: 0.2 });
-          });
-          target.addEventListener('mouseleave', () => {
-            gsap.to(cursorRing, { scale: 1, backgroundColor: 'transparent', duration: 0.3 });
-            gsap.to(cursorDot, { scale: 1, duration: 0.2 });
-          });
-        });
-      };
-
-
-      // Inisiasi awal
-      bindCursorHoverEffects();
-    });
-  </script>
 
   {{-- ── Cinematic SPA Transition Engine ── --}}
   <script src="{{ asset('js/film-transition.js') }}" defer></script>
