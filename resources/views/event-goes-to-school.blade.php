@@ -12,15 +12,21 @@ HERO
 <section class="relative h-screen overflow-hidden">
 
     <div class="absolute inset-0 z-0">
-
+../img/gts/SAN03781.JPG
     {{-- Background --}}
     <img src="{{ asset('../img/gts/gts.jpeg') }}"
         class="hero-slide active">
-         <img src="{{ asset('../img/special/bssk1.jpeg') }}"
+         <img src="{{ asset('../img/gts/EDZ06806.jpg') }}"
         class="hero-slide active">
-    <img src="{{ asset('../img/special/temurun1.jpeg') }}"
+    <img src="{{ asset('../img/gts/EDZ07439.jpg') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/special/bssk3.jpeg') }}"
+    <img src="{{ asset('../img/gts/SAN03340.JPG') }}"
+        class="hero-slide">
+     <img src="{{ asset('../img/gts/SAN03781.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/gts/SAN03775.JPG') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/gts/SAN03387.JPG') }}"
         class="hero-slide">
     </div>
 
