@@ -14,19 +14,19 @@ HERO
     <div class="absolute inset-0 z-0">
 ../img/gts/SAN03781.JPG
     {{-- Background --}}
-    <img src="{{ asset('../img/gts/gts.jpeg') }}"
+    <img src="{{ asset('../img/gts/EDZ08070.jpg') }}"
         class="hero-slide active">
-         <img src="{{ asset('../img/gts/EDZ06806.jpg') }}"
+         <img src="{{ asset('../img/gts/SAN03387.JPG') }}"
         class="hero-slide active">
     <img src="{{ asset('../img/gts/EDZ07439.jpg') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/gts/SAN03340.JPG') }}"
+    <img src="{{ asset('../img/gts/SAN03852.JPG') }}"
         class="hero-slide">
      <img src="{{ asset('../img/gts/SAN03781.JPG') }}"
         class="hero-slide">
     <img src="{{ asset('../img/gts/SAN03775.JPG') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/gts/SAN03387.JPG') }}"
+    <img src="{{ asset('../img/gts/EDZ06806.jpg') }}"
         class="hero-slide">
     </div>
 
