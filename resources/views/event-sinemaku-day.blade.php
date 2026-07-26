@@ -315,22 +315,20 @@ document.getElementById("event-desc-1").innerHTML = data.detail ?? '';
      // Foto pertama membuka link video
 if (elementId === "gallery-1") {
 
-   imgElement.onclick = function () {
+imgElement.onclick = function () {
 
-    console.log("Foto pertama diklik");
-    console.log("Video:", data.video_link);
+    console.log("FOTO 1 DIKLIK");
+    console.log("video:", data.video_link);
 
     if (data.video_link) {
-        console.log("Membuka YouTube...");
+        console.log("BUKA YOUTUBE");
         window.open(data.video_link, "_blank");
     } else {
-        console.log("Video kosong");
+        console.log("TIDAK ADA VIDEO");
         showImage(photoUrl);
     }
 
-};
     };
-
 }
 // Foto lainnya tetap preview
 else if (elementId !== "gallery-7") {
