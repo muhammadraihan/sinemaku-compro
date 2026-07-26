@@ -287,8 +287,8 @@ function showEvent(index, button) {
 const data = eventsData[index];
 console.log(data);
 
-console.log(data);          // seluruh data event
-    console.log(data.link_video); // khusus link video
+console.log(data);
+console.log("video_link:", data.video_link);
     if (!data) return;
 
    document.getElementById("event-title").innerHTML = data.judul;

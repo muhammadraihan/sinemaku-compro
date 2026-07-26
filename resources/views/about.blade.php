@@ -241,9 +241,7 @@ $rawText = '
 [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
 
 <div class="manifesto-row flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
-    [ps]Karena itu,[/ps]
-    [p]SINEMAKU PICTURES[/p]
-    [ps]memilih untuk menjaga satu hal yang sederhana,[/ps]
+    [ps]Karena itu,[/ps] [p]SINEMAKU PICTURES[/p] [ps]memilih untuk menjaga satu hal yang sederhana,[/ps]
 </div>
 
 [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]
