@@ -285,7 +285,10 @@ const eventsData = @json($events);
 
 function showEvent(index, button) {
 const data = eventsData[index];
+console.log(data);
 
+console.log(data);          // seluruh data event
+    console.log(data.link_video); // khusus link video
     if (!data) return;
 
    document.getElementById("event-title").innerHTML = data.judul;
@@ -309,17 +312,28 @@ document.getElementById("event-desc-1").innerHTML = data.detail ?? '';
         imgElement.src = photoUrl;
         imgElement.style.display = "block";
 
-        // gallery 1-6 -> preview besar
-        if (elementId !== "gallery-7") {
-            imgElement.onclick = function () {
-                showImage(photoUrl);
-            };
-        }
+     // Foto pertama membuka link video
+if (elementId === "gallery-1") {
 
-    } else {
+    imgElement.onclick = function () {
 
-        imgElement.style.display = "none";
-        imgElement.onclick = null;
+        if (data.video_link) {
+    window.open(data.video_link, "_blank");
+} else {
+    showImage(photoUrl);
+}
+
+    };
+
+}
+// Foto lainnya tetap preview
+else if (elementId !== "gallery-7") {
+
+    imgElement.onclick = function () {
+        showImage(photoUrl);
+    };
+
+}
 
     }
 
