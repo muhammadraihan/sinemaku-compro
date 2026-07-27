@@ -54,7 +54,7 @@
                                     </h2>
 
                                     <span class="film-meta-text text-xs tracking-[3px] uppercase {{ $i === 0 ? 'text-white' : 'text-white/40' }}">
-                                        {{ $item->release_date }} | @i18n($item,'genre')
+                                        {{ \Carbon\Carbon::parse($item->release_date)->format('d-m-Y') }} | @i18n($item,'genre')
                                     </span>
                                 </a>
                             </div>
@@ -69,7 +69,7 @@
                                     </h2>
 
                                     <span class="film-meta-text text-xs tracking-[3px] uppercase text-white/40">
-                                        {{ $firstHeroFilm->release_date }} | @i18n($firstHeroFilm,'genre')
+                                        {{ \Carbon\Carbon::parse($firstHeroFilm->release_date)->format('d-m-Y') }} | @i18n($firstHeroFilm,'genre')
                                     </span>
                                 </a>
                             </div>
