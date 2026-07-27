@@ -429,8 +429,9 @@
                 line-height: 1.2rem !important;
             }
 
-            .detail-credit-title {
-                margin-bottom: 0.2rem !important;
+            .detail-text-panel .detail-credit-title {
+                line-height: 0.9rem !important;
+                margin-bottom: 0.05rem !important;
             }
 
             .detail-credit-list > :not([hidden]) ~ :not([hidden]) {
