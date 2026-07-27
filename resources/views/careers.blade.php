@@ -49,14 +49,14 @@ EDITORIAL WRAPPER
                 <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div class="max-w-2xl">
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            MAGANG <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">untuk mahasiswa</span>
+                            MAGANG <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk mahasiswa</span>
                         </h2>
-                        <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
+                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
                             Ruang belajar langsung di dalam industri film, bersama tim Sinemaku di berbagai divisi.
                         </p>
                     </div>
-                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[10px] tracking-[0.2em] font-bold uppercase group-hover:bg-white group-hover:text-brand-orange transition-all duration-300">
-                        PELAJARI LEBIH LANJUT
+                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold normal-case group-hover:bg-white group-hover:text-brand-orange transition-all duration-300">
+                        Pelajari Lebih Lanjut
                     </div>
                 </div>
             </a>
@@ -71,14 +71,14 @@ EDITORIAL WRAPPER
                 <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div class="max-w-2xl">
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            CASTING <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
+                            CASTING <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
                         </h2>
-                        <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
+                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
                             Wajah baru selalu punya tempat di sini. Ambil kesempatanmu, perkenalkan dirimu.
                         </p>
                     </div>
-                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[10px] tracking-[0.2em] font-bold uppercase group-hover:bg-white group-hover:text-brand-navy transition-all duration-300">
-                        PELAJARI LEBIH LANJUT
+                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold normal-case group-hover:bg-white group-hover:text-brand-navy transition-all duration-300">
+                        Pelajari Lebih Lanjut
                     </div>
                 </div>
             </a>
@@ -93,14 +93,14 @@ EDITORIAL WRAPPER
                 <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div class="max-w-2xl">
                         <h2 class="font-peckham text-3xl md:text-5xl text-brand-orange uppercase leading-none mb-2">
-                            VOLUNTEER <span class="font-serif not-italic text-xl md:text-3xl normal-case text-brand-navy opacity-60">untuk event mendatang</span>
+                            VOLUNTEER <span class="font-sans text-xl md:text-3xl normal-case text-brand-navy opacity-60">untuk event mendatang</span>
                         </h2>
-                        <p class="font-sans text-xs md:text-sm text-brand-navy/60 leading-relaxed line-clamp-2">
+                        <p class="font-sans text-xl md:text-sm text-brand-navy/60 leading-relaxed line-clamp-2">
                             Jadi bagian di balik layar event Sinemaku. Untuk kamu yang suka event, produksi, dan bertemu orang baru.
                         </p>
                     </div>
-                    <div class="px-8 py-3 rounded-full border border-brand-navy/20 text-brand-navy font-sans text-[10px] tracking-[0.2em] font-bold uppercase group-hover:bg-brand-navy group-hover:text-white transition-all duration-300">
-                        PELAJARI LEBIH LANJUT
+                    <div class="px-8 py-3 rounded-full border border-brand-navy/20 text-brand-navy font-sans text-[12px] tracking-[0.2em] font-bold normal-case group-hover:bg-brand-navy group-hover:text-white transition-all duration-300">
+                        Pelajari Lebih Lanjut
                     </div>
                 </div>
             </a>
@@ -114,14 +114,14 @@ EDITORIAL WRAPPER
                 <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
                     <div class="max-w-2xl">
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            ONLINE FILM LAB <span class="font-serif not-italic text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
+                            ONLINE FILM LAB <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
                         </h2>
-                        <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
+                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
                             Basic Scriptwriting bersama Reka Wijaya | 13 Agustus 2026.
                         </p>
                     </div>
-                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[10px] tracking-[0.2em] font-bold uppercase group-hover:bg-white group-hover:text-brand-orange transition-all duration-300">
-                        PELAJARI LEBIH LANJUT
+                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold normal-case group-hover:bg-white group-hover:text-brand-orange transition-all duration-300">
+                        Pelajari Lebih Lanjut
                     </div>
                 </div>
             </a>
@@ -141,10 +141,15 @@ MEMBERSHIP / COMMUNITY PAGE
 
         <!-- Left Side: Membership Benefits -->
         <div class="w-full lg:max-w-[500px] text-brand-navy animate-fade-in-up">
-            <h1 class="flex flex-col gap-2 mb-8">
-                <span class="font-peckham text-5xl md:text-7xl text-brand-navy uppercase leading-[0.85] tracking-tighter">JADI BAGIAN</span>
-                <span class="font-serif not-italic text-3xl md:text-5xl text-brand-orange italic leading-[0.85] tracking-tighter">Dari Komunitas Sinemaku.</span>
-            </h1>
+           <h1 class="flex flex-col gap-2 mb-8">
+    <span class="font-peckham text-5xl md:text-7xl text-brand-navy uppercase leading-[0.85] tracking-tighter">
+        JADI BAGIAN
+    </span>
+
+    <span class="font-sans text-xl md:text-5xl text-brand-orange leading-[0.85] tracking-tighter whitespace-nowrap">
+        Dari Komunitas Sinemaku.
+    </span>
+</h1>
             <div class="flex flex-col gap-6">
                 <p class="font-sans text-base md:text-xl text-brand-navy/80 leading-relaxed font-light">
                     Komunitas ini kami buat sebagai ruang untuk bertemu, berdialog, dan bertumbuh bersama. Dengan bergabung, kamu jadi yang pertama tahu setiap kali ada pintu baru yang dibuka.
@@ -194,8 +199,8 @@ MEMBERSHIP / COMMUNITY PAGE
             @guest('member')
             {{-- REGISTRATION PANEL --}}
             <div id="registration-panel" class="hidden">
-                <h2 class="font-serif text-3xl md:text-5xl text-brand-navy text-center mb-8 md:mb-12 leading-tight">
-                    Jadilah bagian dari <span class="italic text-brand-orange">KELUARGA SINEMAKU</span>
+                <h2 class="font-sans text-3xl md:text-5xl text-brand-navy text-center mb-8 md:mb-12 leading-tight">
+                    Jadilah bagian dari <span class=" text-brand-orange">KELUARGA SINEMAKU</span>
                 </h2>
 
                 <form action="{{ route('membership.register') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
@@ -254,8 +259,8 @@ MEMBERSHIP / COMMUNITY PAGE
 
             {{-- LOGIN PANEL --}}
             <div id="login-panel">
-                <h2 class="font-serif not-italic text-3xl md:text-5xl text-brand-navy text-center mb-8 md:mb-12 leading-tight">
-                    Masuk dengan <span class="font-serif not-italic text-brand-orange">EMAIL</span>
+                <h2 class="font-sans text-3xl md:text-5xl text-brand-navy text-center mb-8 md:mb-12 leading-tight">
+                    Masuk dengan <span class="font-sans text-brand-orange">EMAIL</span>
                 </h2>
 
                 <form action="{{ route('membership.login') }}" method="POST" class="flex flex-col gap-6 max-w-[400px] mx-auto">
