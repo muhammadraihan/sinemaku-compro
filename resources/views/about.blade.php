@@ -53,12 +53,35 @@
                 border-radius: 0.75rem;
             }
 
-            .crew-overlay h2 {
-                font-size: clamp(1.8rem, 9vw, 3.5rem) !important;
+            .crew-story-card {
+                container-type: inline-size;
             }
 
-            .crew-overlay span {
-                font-size: clamp(1.45rem, 7vw, 2.75rem) !important;
+            .crew-story-card .crew-overlay {
+                padding: clamp(0.25rem, 3cqw, 0.75rem);
+                overflow: hidden;
+            }
+
+            .crew-story-card .crew-story-title {
+                width: 100%;
+                max-width: 100%;
+                font-size: clamp(0.7rem, 14cqw, 1.2rem) !important;
+                line-height: 0.86 !important;
+                letter-spacing: 0 !important;
+                white-space: nowrap;
+                transform: scaleX(0.76);
+                transform-origin: center;
+            }
+
+            .crew-story-card .crew-story-copy {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                font-size: clamp(1rem, 25cqw, 2rem) !important;
+                line-height: 0.82 !important;
+                margin-top: clamp(0.1rem, 1.4cqw, 0.35rem) !important;
+                margin-bottom: clamp(0.1rem, 1.4cqw, 0.35rem) !important;
+                text-wrap: balance;
             }
         }
 
@@ -98,39 +121,32 @@
     width: 100%;
 }
 
-.manifesto-row {
+.manifesto-paragraph {
     width: 100%;
-    margin-top: clamp(8px, 1.4vw, 18px);
-}
-
-.manifesto-line {
-    display: inline-block;
     max-width: 100%;
-    white-space: normal;
+    margin: 0;
     text-wrap: balance;
-    line-height: 0.95;
+    line-height: 1.65;
     font-size: clamp(18px, 4.5vw, 35px);
 }
 
-.manifesto-copy > .manifesto-line {
-    width: 100%;
-}
-
-.manifesto-copy > .manifesto-line + .manifesto-line,
-.manifesto-row + .manifesto-line {
-    margin-top: clamp(8px, 1.5vw, 20px);
+.manifesto-paragraph br {
+    display: block;
+    content: "";
 }
 
 .manifesto-brand {
     display: inline-block;
     white-space: nowrap;
-    line-height: 0.85;
-    font-size: clamp(22px, 5vw, 52px);
+    line-height: 1;
+    vertical-align: -0.06em;
+    font-size: clamp(20px, 4.3vw, 46px);
 }
 
 @media (min-width: 640px) {
-    .manifesto-line {
+    .manifesto-paragraph {
         font-size: clamp(22px, 2.5vw, 35px);
+        line-height: 1.65;
     }
 
     .manifesto-brand {
@@ -139,8 +155,9 @@
 }
 
 @media (min-width: 1024px) {
-    .manifesto-line {
+    .manifesto-paragraph {
         white-space: nowrap;
+        line-height: 1.72;
     }
 }
     </style>
@@ -227,54 +244,15 @@
     <section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
 
     <div class="w-full flex flex-col items-center text-center">
-        <h2 class="flex flex-col items-center w-full max-w-5xl mx-auto">
-
-            <div class="manifesto-copy flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
-                @php
-
-                    // $rawText = '[ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps] [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
-                    // [ps]Karena itu,[/ps] [p]Sinemaku Pictures[/p] [ps]memilih untuk menjaga satu hal yang sederhana,[/ps] [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
-
-$rawText = '
-[ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps]
-
-[ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
-
-<div class="manifesto-row flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
-    [ps]Karena itu,[/ps] [p]SINEMAKU PICTURES[/p] [ps]memilih untuk menjaga satu hal yang sederhana,[/ps]
-</div>
-
-[s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]
-';
-
-                    $keepLastWordTogether = function($text) {
-                        return preg_replace('/\s+([^\s]+)$/u', '&nbsp;$1', e(trim($text)));
-                    };
-
-                    // Parse [ps]
-                    $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) use ($keepLastWordTogether) {
-                        $text = trim($matches[1]);
-
-                        return '<span class="manifesto-line font-serif not-italic text-brand-orange">' . $keepLastWordTogether($text) . '</span>';
-                    }, $rawText);
-
-                    // Parse [p]
-                    $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="manifesto-brand font-peckham text-brand-navy tracking-tighter">' . e(trim($matches[1])) . '</span>';
-                    }, $parsedText);
-
-                    // Parse [s]
-                    $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) use ($keepLastWordTogether) {
-                        $text = trim($matches[1]);
-
-                        return '<span class="manifesto-line font-serif not-italic text-brand-navy">' . $keepLastWordTogether($text) . '</span>';
-                    }, $parsedText);
-                @endphp
-
-                {!! $parsedText !!}
-            </div>
-
-        </h2>
+        <div class="flex flex-col items-center w-full max-w-5xl mx-auto">
+            <p class="manifesto-paragraph font-serif not-italic">
+                <span class="text-brand-orange">Tidak semua perjalanan dimulai dari tempat yang sama.</span><br>
+                <span class="text-brand-orange">Yang membedakan sering kali bukan bakat, melainkan kesempatan.</span><br>
+                <span class="text-brand-orange">Karena itu, <span class="manifesto-brand font-peckham text-brand-navy tracking-tighter">SINEMAKU PICTURES</span></span><br>
+                <span class="text-brand-orange">memilih untuk menjaga satu hal yang sederhana,</span><br>
+                <span class="text-brand-navy">Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.</span>
+            </p>
+        </div>
     </div>
 </div>
     </section>
@@ -343,16 +321,16 @@ $rawText = '
                     </div>
                 </div>
 
-                <div class="col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
+                <div class="crew-story-card col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
                     <img src="../img/tentang/EDZ06515.jpg" class="w-full h-full object-cover" loading="lazy" decoding="async">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
-                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
+                        <h2 class="crew-story-title crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
                         {{-- <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span> --}}
-                        <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
-                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">BERCERITA</h2>
+                        <span class="crew-story-copy crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
+                        <h2 class="crew-story-title crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">BERCERITA</h2>
                     </div>
                 </div>
 
