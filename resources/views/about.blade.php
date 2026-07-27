@@ -251,15 +251,15 @@
             };
 
             $rawText = '
-<div class="mb-5">
+<div class="mb-2 md:mb-5">
     [ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps]
 </div>
 
-<div class="mb-6">
+<div class="mb-3 md:mb-6">
     [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
 </div>
 
-<div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 mb-6">
+<div class="flex flex-wrap justify-center items-center gap-x-2 md:gap-x-3 gap-y-1 md:gap-y-2 mb-3 md:mb-6">
     [ps]Karena itu,[/ps]
     [p]SINEMAKU[/p]
     [ps]memilih untuk menjaga satu hal yang sederhana.[/ps]
@@ -272,7 +272,7 @@
 
             // Orange text
             $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function ($matches) use ($keepLastWordTogether) {
-                return '<span class="font-serif text-brand-orange text-2xl md:text-4xl leading-relaxed">' .
+                return '<span class="font-serif text-brand-orange text-2xl md:text-4xl leading-tight md:leading-relaxed">' .
                     $keepLastWordTogether($matches[1]) .
                 '</span>';
             }, $rawText);
@@ -286,7 +286,7 @@
 
             // Blue text
             $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function ($matches) use ($keepLastWordTogether) {
-                return '<span class="font-serif text-brand-navy text-2xl md:text-4xl leading-relaxed">' .
+                return '<span class="font-serif text-brand-navy text-2xl md:text-4xl leading-tight md:leading-relaxed">' .
                     $keepLastWordTogether($matches[1]) .
                 '</span>';
             }, $parsedText);
