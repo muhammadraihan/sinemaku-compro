@@ -199,7 +199,7 @@
 
         <div>
 
-            <p class="font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-1 font-bold">
+            <p class="detail-credit-title font-sans text-[12px] tracking-[0.2em] uppercase text-[#131b4d]/50 mb-1 font-bold">
                 {{ $role }}
             </p>
 
@@ -518,6 +518,10 @@
 
             .detail-credit-name {
                 line-height: 1.2rem !important;
+            }
+
+            .detail-credit-title {
+                margin-bottom: 0.2rem !important;
             }
 
             .detail-credit-list > :not([hidden]) ~ :not([hidden]) {
