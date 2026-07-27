@@ -412,8 +412,9 @@
                         @foreach ($recs as $item)
                         <a href="{{ $item->slug == '#' ? '#' : route('detail-documentary', $item->slug) }}" class="flex items-center gap-5 p-5 rounded-2xl border border-[#131b4d]/10 hover:border-[#F36B21] transition-colors cursor-none hover-target group reveal-rec bg-white">
                             <div class="w-16 h-16 rounded-lg bg-[#F36B21] shrink-0 overflow-hidden relative">
-                                @if(!empty($item->photo))
-                                 <img src="{{ asset('photo/' . $item->photo) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" loading="lazy" decoding="async" alt="@i18n($item, 'title')">
+                                @php $recommendationImage = $item->cover ?? $item->poster ?? ''; @endphp
+                                @if(!empty($recommendationImage))
+                                 <img src="{{ asset('photo/' . $recommendationImage) }}" class="w-full h-full object-cover mix-blend-multiply opacity-80" loading="lazy" decoding="async" alt="@i18n($item, 'title')">
                                 @endif
                             </div>
                             <div class="flex-1">
