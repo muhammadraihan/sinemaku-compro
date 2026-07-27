@@ -59,7 +59,7 @@
                 @i18n($event, 'category') {{-- Fallback to a static string if category doesn't exist --}}
                 @if(!$event->category) GALA PREMIERE @endif
             </span>
-            <h1 class="font-peckham text-brand-navy text-3xl md:text-[2.5vw] uppercase leading-[1.1] tracking-tighter mb-10 max-w-5xl mx-auto">
+            <h1 class="font-peckham text-brand-navy text-[clamp(2rem,9vw,3.75rem)] md:text-[2.5vw] uppercase leading-[0.95] md:leading-[1.1] tracking-tighter mb-10 max-w-5xl mx-auto">
                 @i18n($event, 'judul')
             </h1>
             <div class="font-serif text-brand-navy/60 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed detail-content italic">

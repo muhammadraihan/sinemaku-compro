@@ -90,7 +90,7 @@
 
             <div class="text-center mb-0">
 
-                <h2 class="font-peckham text-[3.5vw] text-brand-navy uppercase">
+                <h2 class="font-peckham text-[clamp(2rem,9vw,3.5rem)] md:text-[3.5vw] leading-[0.95] text-brand-navy uppercase">
                     {{ $event->judul }}
                 </h2>
 

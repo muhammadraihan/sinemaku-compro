@@ -45,7 +45,7 @@ HERO
                 data-aos="fade-up"
                 data-aos-delay="300"
                 class="font-peckham
-                text-[14vw]
+                text-[clamp(3rem,14vw,5.5rem)]
                 sm:text-[9vw]
                 md:text-[6vw]
                 lg:text-[5vw]
@@ -113,7 +113,7 @@ DETAIL EVENT
 
             <h2
                 id="event-title"
-                class="font-peckham text-[3.5vw] text-brand-navy uppercase">
+                class="font-peckham text-[clamp(2rem,9vw,3.5rem)] md:text-[3.5vw] leading-[0.95] text-brand-navy uppercase">
 
                 SINEMAKU DAY 2024
 
