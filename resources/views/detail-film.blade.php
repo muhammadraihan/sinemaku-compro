@@ -203,11 +203,11 @@
                 {{ $role }}
             </p>
 
-            <div class="space-y-2">
+            <div class="detail-credit-list space-y-2">
 
                 @foreach($credits as $credit)
 
-                    <p class="detail-info-copy font-sans text-base md:text-lg leading-7 text-[#131b4d] text-justify">
+                    <p class="detail-info-copy detail-credit-name font-sans text-base md:text-lg leading-7 text-[#131b4d] text-justify">
                         {{ $credit->name }}
                     </p>
 
@@ -516,8 +516,12 @@
                 margin-bottom: 0 !important;
             }
 
-            .detail-text-panel .space-y-2 > :not([hidden]) ~ :not([hidden]) {
-                margin-top: 0.35rem !important;
+            .detail-credit-name {
+                line-height: 1.2rem !important;
+            }
+
+            .detail-credit-list > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 0.15rem !important;
             }
         }
     </style>
