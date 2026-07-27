@@ -53,12 +53,35 @@
                 border-radius: 0.75rem;
             }
 
-            .crew-overlay h2 {
-                font-size: clamp(1.8rem, 9vw, 3.5rem) !important;
+            .crew-story-card {
+                container-type: inline-size;
             }
 
-            .crew-overlay span {
-                font-size: clamp(1.45rem, 7vw, 2.75rem) !important;
+            .crew-story-card .crew-overlay {
+                padding: clamp(0.25rem, 3cqw, 0.75rem);
+                overflow: hidden;
+            }
+
+            .crew-story-card .crew-story-title {
+                width: 100%;
+                max-width: 100%;
+                font-size: clamp(0.7rem, 14cqw, 1.2rem) !important;
+                line-height: 0.86 !important;
+                letter-spacing: 0 !important;
+                white-space: nowrap;
+                transform: scaleX(0.76);
+                transform-origin: center;
+            }
+
+            .crew-story-card .crew-story-copy {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                font-size: clamp(1rem, 25cqw, 2rem) !important;
+                line-height: 0.82 !important;
+                margin-top: clamp(0.1rem, 1.4cqw, 0.35rem) !important;
+                margin-bottom: clamp(0.1rem, 1.4cqw, 0.35rem) !important;
+                text-wrap: balance;
             }
         }
 
@@ -98,39 +121,32 @@
     width: 100%;
 }
 
-.manifesto-row {
+.manifesto-paragraph {
     width: 100%;
-    margin-top: clamp(8px, 1.4vw, 18px);
-}
-
-.manifesto-line {
-    display: inline-block;
     max-width: 100%;
-    white-space: normal;
+    margin: 0;
     text-wrap: balance;
-    line-height: 0.95;
+    line-height: 1.65;
     font-size: clamp(18px, 4.5vw, 35px);
 }
 
-.manifesto-copy > .manifesto-line {
-    width: 100%;
-}
-
-.manifesto-copy > .manifesto-line + .manifesto-line,
-.manifesto-row + .manifesto-line {
-    margin-top: clamp(8px, 1.5vw, 20px);
+.manifesto-paragraph br {
+    display: block;
+    content: "";
 }
 
 .manifesto-brand {
     display: inline-block;
     white-space: nowrap;
-    line-height: 0.85;
-    font-size: clamp(22px, 5vw, 52px);
+    line-height: 1;
+    vertical-align: -0.06em;
+    font-size: clamp(20px, 4.3vw, 46px);
 }
 
 @media (min-width: 640px) {
-    .manifesto-line {
+    .manifesto-paragraph {
         font-size: clamp(22px, 2.5vw, 35px);
+        line-height: 1.65;
     }
 
     .manifesto-brand {
@@ -139,8 +155,9 @@
 }
 
 @media (min-width: 1024px) {
-    .manifesto-line {
+    .manifesto-paragraph {
         white-space: nowrap;
+        line-height: 1.72;
     }
 }
     </style>
@@ -255,7 +272,7 @@ $rawText = '
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) use ($keepLastWordTogether) {
                         $text = trim($matches[1]);
 
-                        return '<span class="manifesto-line font-serif text-brand-orange">' . $keepLastWordTogether($text) . '</span>';
+                        return '<span class="manifesto-line font-serif not-italic text-brand-orange">' . $keepLastWordTogether($text) . '</span>';
                     }, $rawText);
 
                     // Parse [p]
@@ -267,7 +284,7 @@ $rawText = '
                     $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) use ($keepLastWordTogether) {
                         $text = trim($matches[1]);
 
-                        return '<span class="manifesto-line font-serif text-brand-navy">' . $keepLastWordTogether($text) . '</span>';
+                        return '<span class="manifesto-line font-serif not-italic text-brand-navy">' . $keepLastWordTogether($text) . '</span>';
                     }, $parsedText);
                 @endphp
 
@@ -343,15 +360,15 @@ $rawText = '
                     </div>
                 </div>
 
-                <div class="col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
+                <div class="crew-story-card col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-3xl overflow-hidden relative group crew-card cursor-pointer">
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
                     <img src="../img/tentang/EDZ06515.jpg" class="w-full h-full object-cover" loading="lazy" decoding="async">
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
-                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
+                        <h2 class="crew-story-title crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
                         {{-- <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span> --}}
-                        <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
+                        <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">BERCERITA</h2>
                     </div>
                 </div>
