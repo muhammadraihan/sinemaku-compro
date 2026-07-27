@@ -51,7 +51,7 @@ EDITORIAL WRAPPER
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
                             MAGANG <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk mahasiswa</span>
                         </h2>
-                        <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
+                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
                             Ruang belajar langsung di dalam industri film, bersama tim Sinemaku di berbagai divisi.
                         </p>
                     </div>
@@ -73,7 +73,7 @@ EDITORIAL WRAPPER
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
                             CASTING <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
                         </h2>
-                        <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
+                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
                             Wajah baru selalu punya tempat di sini. Ambil kesempatanmu, perkenalkan dirimu.
                         </p>
                     </div>
@@ -95,7 +95,7 @@ EDITORIAL WRAPPER
                         <h2 class="font-peckham text-3xl md:text-5xl text-brand-orange uppercase leading-none mb-2">
                             VOLUNTEER <span class="font-sans text-xl md:text-3xl normal-case text-brand-navy opacity-60">untuk event mendatang</span>
                         </h2>
-                        <p class="font-sans text-xs md:text-sm text-brand-navy/60 leading-relaxed line-clamp-2">
+                        <p class="font-sans text-xl md:text-sm text-brand-navy/60 leading-relaxed line-clamp-2">
                             Jadi bagian di balik layar event Sinemaku. Untuk kamu yang suka event, produksi, dan bertemu orang baru.
                         </p>
                     </div>
@@ -116,7 +116,7 @@ EDITORIAL WRAPPER
                         <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
                             ONLINE FILM LAB <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
                         </h2>
-                        <p class="font-sans text-xs md:text-sm text-white/80 leading-relaxed line-clamp-2">
+                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
                             Basic Scriptwriting bersama Reka Wijaya | 13 Agustus 2026.
                         </p>
                     </div>
@@ -142,14 +142,9 @@ MEMBERSHIP / COMMUNITY PAGE
         <!-- Left Side: Membership Benefits -->
         <div class="w-full lg:max-w-[500px] text-brand-navy animate-fade-in-up">
             <h1 class="flex flex-col gap-2 mb-8">
-    <span class="font-peckham text-5xl md:text-7xl text-brand-navy uppercase leading-[0.85] tracking-tighter">
-        JADI BAGIAN
-    </span>
-
-    <span class="font-sans text-xl md:text-5xl text-brand-orange leading-[0.85] tracking-tighter whitespace-nowrap">
-        Dari Komunitas Sinemaku.
-    </span>
-</h1>
+                <span class="font-peckham text-5xl md:text-7xl text-brand-navy uppercase leading-[0.85] tracking-tighter">JADI BAGIAN</span>
+                <span class="font-serif not-italic text-3xl md:text-5xl text-brand-orange italic leading-[0.85] tracking-tighter">Dari Komunitas Sinemaku.</span>
+            </h1>
             <div class="flex flex-col gap-6">
                 <p class="font-sans text-base md:text-xl text-brand-navy/80 leading-relaxed font-light">
                     Komunitas ini kami buat sebagai ruang untuk bertemu, berdialog, dan bertumbuh bersama. Dengan bergabung, kamu jadi yang pertama tahu setiap kali ada pintu baru yang dibuka.
@@ -199,8 +194,8 @@ MEMBERSHIP / COMMUNITY PAGE
             @guest('member')
             {{-- REGISTRATION PANEL --}}
             <div id="registration-panel" class="hidden">
-                <h2 class="font-sans text-3xl md:text-3xl text-brand-navy text-center mb-8 md:mb-12 leading-tight">
-                    Jadilah bagian dari <span class="text-brand-orange">KELUARGA SINEMAKU</span>
+                <h2 class="font-serif text-3xl md:text-5xl text-brand-navy text-center mb-8 md:mb-12 leading-tight">
+                    Jadilah bagian dari <span class="italic text-brand-orange">KELUARGA SINEMAKU</span>
                 </h2>
 
                 <form action="{{ route('membership.register') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">

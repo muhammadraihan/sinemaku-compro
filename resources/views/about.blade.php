@@ -272,7 +272,7 @@ $rawText = '
                     $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) use ($keepLastWordTogether) {
                         $text = trim($matches[1]);
 
-                        return '<span class="manifesto-line font-serif not-italic text-brand-orange">' . $keepLastWordTogether($text) . '</span>';
+                        return '<span class="manifesto-line font-serif text-brand-orange">' . $keepLastWordTogether($text) . '</span>';
                     }, $rawText);
 
                     // Parse [p]
@@ -284,7 +284,7 @@ $rawText = '
                     $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) use ($keepLastWordTogether) {
                         $text = trim($matches[1]);
 
-                        return '<span class="manifesto-line font-serif not-italic text-brand-navy">' . $keepLastWordTogether($text) . '</span>';
+                        return '<span class="manifesto-line font-serif text-brand-navy">' . $keepLastWordTogether($text) . '</span>';
                     }, $parsedText);
                 @endphp
 
@@ -368,7 +368,7 @@ $rawText = '
                     <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
                         <h2 class="crew-story-title crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
                         {{-- <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span> --}}
-                        <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
+                        <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
                         <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">BERCERITA</h2>
                     </div>
                 </div>
