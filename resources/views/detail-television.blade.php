@@ -57,18 +57,12 @@
        <section class="py-16 md:py-24 px-8 md:px-16 z-10 relative bg-creme-leaks">
            <div class="max-w-[1400px] mx-auto grid lg:grid-cols-[280px_1fr] gap-20 items-start">
 
-    {{-- LEFT --}}
-    <div class="w-full max-w-[280px]">
-
-        <div class="rounded-xl overflow-hidden shadow-2xl mb-8 reveal-image">
-            <img
-                src="{{ asset('photo/' . $films->poster) }}"
-                alt="{{ $films->title }}"
-                class="w-full object-cover rounded-xl"
-                loading="lazy"
-                decoding="async">
-        </div>
-
+                <!-- Left: Poster & Available On -->
+                <div class="w-full max-w-[280px]">
+                    <div class="rounded-xl overflow-hidden shadow-2xl mb-8 reveal-image">
+                        <img src="{{ asset('photo/' . $films->poster) }}" alt="{{ $films->title }} Poster"
+                            class="w-full aspect-[3/4] object-cover" loading="lazy" decoding="async">
+                    </div>
 
                     @php
                         $watchLinks = [];
@@ -105,27 +99,20 @@
                     <div class="reveal-image">
                          <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">Tersedia Di</span>
                         {{-- <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-4 font-bold">Available On</span> --}}
-                     <div class="flex flex-col gap-4">
-    @foreach($watchLinks as $wl)
-    <a href="{{ $wl['url'] }}" target="_blank"
-        class="flex items-center gap-3 text-[#131b4d] font-bold text-sm hover:text-[#F36B21] transition-colors cursor-none hover-target">
-
-        @if($wl['is_vidio'])
-            <img src="{{ asset('img/thumbs/vidio.png') }}"
-                alt="Vidio"
-                class="h-6 w-auto shrink-0">
-        @else
-            <span class="iconify w-6 h-6 shrink-0"
-                style="color: {{ $wl['color'] }}"
-                data-icon="{{ $wl['icon'] }}"></span>
-        @endif
-
-        {{ $wl['name'] }}
-    </a>
-    @endforeach
-</div>
-</div>
-@endif
+                        <div class="flex flex-col gap-4">
+                            @foreach($watchLinks as $wl)
+                            <a href="{{ $wl['url'] }}" target="_blank" class="flex items-center gap-3 text-[#131b4d] font-bold text-sm hover:text-[#F36B21] transition-colors cursor-none hover-target">
+                                @if($wl['is_vidio'])
+                                    <div class="w-6 h-6 bg-[#ED0226] rounded text-white flex items-center justify-center font-bold text-xs shrink-0">v</div>
+                                @else
+                                    <span class="iconify w-6 h-6 shrink-0" style="color: {{ $wl['color'] }}" data-icon="{{ $wl['icon'] }}"></span>
+                                @endif
+                                {{ $wl['name'] }}
+                            </a>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
 
                  {{-- Genres --}}
 @if(!empty($films->genre))
@@ -149,7 +136,61 @@
 @endif
 </div>
 
-<div class="detail-text-panel min-w-0">
+
+                {{-- <!-- Right: Metadata & Synopsis -->
+                <div class="w-full md:w-2/3 lg:w-3/4">
+                    <!-- Grid Metadata -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-8 mb-12 border-b border-[#131b4d]/10 pb-12 reveal-text">
+                        <div>
+                            <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Directed By</span>
+                            <h3 class="font-sans text-xl text-[#131b4d] font-medium">{{ $films->director ?: 'N/A' }}</h3>
+                        </div>
+                        <div>
+                            <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Written By</span>
+                            <h3 class="font-sans text-xl text-[#131b4d] font-medium">{{ $films->writer ?: 'N/A' }}</h3>
+                        </div>
+                        <div>
+                            <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Year</span>
+                            <h3 class="font-sans text-xl text-[#131b4d] font-medium">{{ \Carbon\Carbon::parse($films->release_date)->format('Y') }}</h3>
+                        </div>
+
+                        <div class="col-span-2">
+                            <span class="font-sans text-[10px] tracking-widest uppercase text-[#131b4d]/50 block mb-2 font-bold">Starring</span>
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-1">
+                                @php
+                                    $casts = array_filter(explode(',', $films->cast));
+                                @endphp
+                                @foreach($casts as $cast)
+                                    <span class="font-sans text-xl font-medium text-[#131b4d]">{{ trim($cast) }}</span>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Synopsis -->
+                    <div class="mb-10 reveal-text">
+                        <div class="font-sans text-sm md:text-base leading-relaxed text-[#131b4d]/80 max-w-3xl">
+                            @if(trim(strip_tags($films->sinopsis)))
+                                @i18n($films, 'sinopsis')
+                            @else
+                                <p>Synopsis not available.</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Genres -->
+                    <div class="flex flex-wrap gap-3 reveal-text">
+                        @php
+                            $genres = array_filter(explode(',', $films->genre));
+                        @endphp
+                        @foreach($genres as $g)
+                            <span class="px-5 py-2 rounded-full bg-[#131b4d]/5 text-[#131b4d] font-sans text-xs font-bold uppercase tracking-widest">{{ trim($g) }}</span>
+                        @endforeach
+                    </div>
+                </div>
+            </div> --}}
+             <!-- Right Content -->
+<div class="detail-text-panel w-full max-w-4xl">
 
 
     {{-- SYNOPSIS --}}
