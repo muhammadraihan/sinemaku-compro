@@ -240,61 +240,63 @@
         </div>
     </section>
 
-    <!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
-    <section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
+<!-- 2. MANIFESTO (EDITORIAL LAYOUT) -->
+<section id="manifesto" class="py-16 md:py-24 px-6 md:px-32 z-10 relative bg-creme-leaks">
 
-    <div class="w-full flex flex-col items-center text-center">
-        <h2 class="flex flex-col items-center w-full max-w-5xl mx-auto">
+    <div class="max-w-6xl mx-auto text-center">
 
-            <div class="manifesto-copy flex flex-wrap justify-center gap-x-2 md:gap-x-4 gap-y-1 md:gap-y-2 items-baseline">
-                @php
+        @php
+            $keepLastWordTogether = function ($text) {
+                return preg_replace('/\s+([^\s]+)$/u', '&nbsp;$1', e(trim($text)));
+            };
 
-                    // $rawText = '[ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps] [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
-                    // [ps]Karena itu,[/ps] [p]Sinemaku Pictures[/p] [ps]memilih untuk menjaga satu hal yang sederhana,[/ps] [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]';
-
-$rawText = '
-[ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps]
-
-[ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
-
-<div class="manifesto-row flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
-    [ps]Karena itu,[/ps] [p]SINEMAKU PICTURES[/p] [ps]memilih untuk menjaga satu hal yang sederhana,[/ps]
+            $rawText = '
+<div class="mb-5">
+    [ps]Tidak semua perjalanan dimulai dari tempat yang sama.[/ps]
 </div>
 
-[s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]
+<div class="mb-6">
+    [ps]Yang membedakan sering kali bukan bakat, melainkan kesempatan.[/ps]
+</div>
+
+<div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 mb-6">
+    [ps]Karena itu,[/ps]
+    [p]SINEMAKU[/p]
+    [ps]memilih untuk menjaga satu hal yang sederhana.[/ps]
+</div>
+
+<div>
+    [s]Sebuah pintu yang tetap terbuka bagi setiap kemungkinan yang lahir dari sebuah pertemuan.[/s]
+</div>
 ';
 
-                    $keepLastWordTogether = function($text) {
-                        return preg_replace('/\s+([^\s]+)$/u', '&nbsp;$1', e(trim($text)));
-                    };
+            // Orange text
+            $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function ($matches) use ($keepLastWordTogether) {
+                return '<span class="font-serif text-brand-orange text-2xl md:text-4xl leading-relaxed">' .
+                    $keepLastWordTogether($matches[1]) .
+                '</span>';
+            }, $rawText);
 
-                    // Parse [ps]
-                    $parsedText = preg_replace_callback('/\[ps\](.*?)\[\/ps\]/', function($matches) use ($keepLastWordTogether) {
-                        $text = trim($matches[1]);
+            // SINEMAKU
+            $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function ($matches) {
+                return '<span class="font-peckham text-brand-navy text-5xl md:text-6xl tracking-tight leading-none">' .
+                    e(trim($matches[1])) .
+                '</span>';
+            }, $parsedText);
 
-                        return '<span class="manifesto-line font-serif text-brand-orange">' . $keepLastWordTogether($text) . '</span>';
-                    }, $rawText);
+            // Blue text
+            $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function ($matches) use ($keepLastWordTogether) {
+                return '<span class="font-serif text-brand-navy text-2xl md:text-4xl leading-relaxed">' .
+                    $keepLastWordTogether($matches[1]) .
+                '</span>';
+            }, $parsedText);
+        @endphp
 
-                    // Parse [p]
-                    $parsedText = preg_replace_callback('/\[p\](.*?)\[\/p\]/', function($matches) {
-                        return '<span class="manifesto-brand font-peckham text-brand-navy tracking-tighter">' . e(trim($matches[1])) . '</span>';
-                    }, $parsedText);
+        {!! $parsedText !!}
 
-                    // Parse [s]
-                    $parsedText = preg_replace_callback('/\[s\](.*?)\[\/s\]/', function($matches) use ($keepLastWordTogether) {
-                        $text = trim($matches[1]);
-
-                        return '<span class="manifesto-line font-serif text-brand-navy">' . $keepLastWordTogether($text) . '</span>';
-                    }, $parsedText);
-                @endphp
-
-                {!! $parsedText !!}
-            </div>
-
-        </h2>
     </div>
-</div>
-    </section>
+
+</section>
 
     </div>
         <div class="crew-pin-container w-full flex flex-col items-center bg-black">
