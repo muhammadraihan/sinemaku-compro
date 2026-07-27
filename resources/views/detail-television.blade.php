@@ -450,10 +450,14 @@
 @push('head')
     <style>
         @media (max-width: 767px) {
-            .detail-copy,
+            .detail-copy {
+                font-size: 1rem !important;
+                line-height: 1.55rem !important;
+            }
+
             .detail-info-copy {
                 font-size: 1rem !important;
-                line-height: 1.75rem !important;
+                line-height: 1.45rem !important;
             }
 
             .detail-text-panel .font-sans.text-\[12px\] {
@@ -473,6 +477,10 @@
 
             .detail-copy :where(p, div):last-child {
                 margin-bottom: 0 !important;
+            }
+
+            .detail-text-panel .space-y-2 > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 0.35rem !important;
             }
         }
     </style>
