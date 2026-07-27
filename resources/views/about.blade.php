@@ -127,7 +127,7 @@
     margin: 0;
     text-wrap: balance;
     line-height: 1.65;
-    font-size: clamp(18px, 4.5vw, 35px);
+    font-size: clamp(16px, 4vw, 35px);
 }
 
 .manifesto-paragraph br {
@@ -140,7 +140,7 @@
     white-space: nowrap;
     line-height: 1;
     vertical-align: -0.06em;
-    font-size: clamp(20px, 4.3vw, 46px);
+    font-size: clamp(18px, 4vw, 46px);
 }
 
 @media (min-width: 640px) {
