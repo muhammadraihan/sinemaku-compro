@@ -408,17 +408,19 @@
             .detail-hero-content {
                 padding-top: 7rem !important;
                 padding-bottom: 2.25rem !important;
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
             }
 
             .detail-hero-title {
-                max-width: 100% !important;
+                max-width: calc(100vw - 2.5rem) !important;
                 font-size: clamp(2.35rem, 12vw, 4rem) !important;
-                line-height: 1.02 !important;
+                line-height: 0.9 !important;
                 letter-spacing: 0 !important;
                 white-space: normal !important;
-                overflow-wrap: anywhere;
+                overflow-wrap: normal;
                 word-break: normal;
-                hyphens: auto;
+                hyphens: none;
             }
 
             .detail-copy {
@@ -469,6 +471,31 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const detailHeroTitle = document.querySelector('.detail-hero-title');
+
+            function fitDetailHeroTitle() {
+                if (!detailHeroTitle) return;
+
+                detailHeroTitle.style.removeProperty('font-size');
+                detailHeroTitle.style.removeProperty('line-height');
+
+                if (!window.matchMedia('(max-width: 767px)').matches) return;
+
+                let fontSize = Math.min(64, Math.max(26, window.innerWidth * 0.12));
+                const minFontSize = 14;
+
+                detailHeroTitle.style.setProperty('line-height', '0.9', 'important');
+                detailHeroTitle.style.setProperty('font-size', `${fontSize}px`, 'important');
+
+                while (fontSize > minFontSize && detailHeroTitle.scrollHeight > (fontSize * 0.9 * 2.12)) {
+                    fontSize -= 1;
+                    detailHeroTitle.style.setProperty('font-size', `${fontSize}px`, 'important');
+                }
+            }
+
+            fitDetailHeroTitle();
+            window.addEventListener('resize', fitDetailHeroTitle);
+
             if (typeof gsap === 'undefined') return;
 
             gsap.registerPlugin(ScrollTrigger);
