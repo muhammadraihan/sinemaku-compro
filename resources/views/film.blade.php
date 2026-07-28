@@ -24,7 +24,7 @@
         <section class="relative w-full h-[100svh] overflow-hidden z-20">
             <!-- Background Videos Container -->
             <div id="hero-bg-container" class="absolute inset-0 z-0">
-                @foreach(collect($film)->take(3) as $i => $item)
+                @foreach(collect($film)->values() as $i => $item)
                     <div
                         class="hero-bg-image absolute inset-0 transition-opacity duration-1000 {{ $i === 0 ? 'opacity-100' : 'opacity-0' }}">
                         <video src="{{ asset('photo/' . $item->photo) }}"
@@ -41,7 +41,7 @@
             <!-- Content Overlay -->
             <div class="relative z-10 w-full h-full flex flex-col justify-end px-8 md:px-16 pb-20">
                 @php
-                    $heroFilms = collect($film)->take(3)->values();
+                    $heroFilms = collect($film)->values();
                 @endphp
                 <div class="hero-title-window">
                     <div id="film-slider" class="hero-title-reel">
@@ -54,7 +54,7 @@
                                     </h2>
 
                                     <span class="film-meta-text text-xs tracking-[3px] uppercase {{ $i === 0 ? 'text-white' : 'text-white/40' }}">
-                                        {{ \Carbon\Carbon::parse($item->release_date)->format('d-m-Y') }} | @i18n($item,'genre')
+                                        {{ \Carbon\Carbon::parse($item->release_date)->format('Y') }} | @i18n($item,'genre')
                                     </span>
                                 </a>
                             </div>
@@ -69,7 +69,7 @@
                                     </h2>
 
                                     <span class="film-meta-text text-xs tracking-[3px] uppercase text-white/40">
-                                        {{ \Carbon\Carbon::parse($firstHeroFilm->release_date)->format('d-m-Y') }} | @i18n($firstHeroFilm,'genre')
+                                        {{ \Carbon\Carbon::parse($firstHeroFilm->release_date)->format('Y') }} | @i18n($firstHeroFilm,'genre')
                                     </span>
                                 </a>
                             </div>
@@ -225,9 +225,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function moveTitleReel(position, animate = true) {
         if (!slider || !titleItems.length) return;
 
-        const rowHeight = titleItems[0].offsetHeight;
         slider.style.transition = animate ? '' : 'none';
-        slider.style.transform = `translate3d(0, ${rowHeight * (1 - position)}px, 0)`;
+        slider.style.transform = 'translate3d(0, 0, 0)';
 
         if (!animate) {
             slider.offsetHeight;
@@ -339,31 +338,34 @@ STYLES & SCRIPTS
             position: relative;
             width: 100%;
             min-width: 0;
-            height: 330px;
+            height: var(--hero-title-row);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             text-align: left;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
         }
 
         .hero-title-reel {
+            position: relative;
             width: 100%;
-            transform: translate3d(0, var(--hero-title-offset, var(--hero-title-row)), 0);
+            height: 100%;
+            transform: translate3d(0, 0, 0);
             transition: transform 780ms cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform;
         }
 
         .hero-title-item {
+            position: absolute;
+            inset: 0;
             height: var(--hero-title-row);
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            opacity: 0.34;
-            filter: brightness(0.72);
-            transform: scale(0.9);
+            opacity: 0;
+            filter: brightness(0.9);
+            transform: translateY(0.65rem);
+            pointer-events: none;
             transform-origin: left center;
             transition:
                 opacity 620ms ease,
@@ -375,7 +377,8 @@ STYLES & SCRIPTS
         .hero-title-item.is-active {
             opacity: 1;
             filter: brightness(1.18);
-            transform: scale(1.08);
+            transform: translateY(0);
+            pointer-events: auto;
             z-index: 2;
         }
 
@@ -419,8 +422,8 @@ STYLES & SCRIPTS
 
         @media (max-width: 640px) {
             .hero-title-window {
-                --hero-title-row: 132px;
-                height: 396px;
+                --hero-title-row: 250px;
+                height: var(--hero-title-row);
             }
 
             .hero-title-link {
@@ -431,6 +434,8 @@ STYLES & SCRIPTS
             .hero-title-item {
                 width: 100%;
                 transform: scale(0.94);
+                align-items: flex-end;
+                padding-bottom: 0.25rem;
             }
 
             .hero-title-item.is-active {
