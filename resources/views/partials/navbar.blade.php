@@ -87,7 +87,7 @@ FULLSCREEN MENU OVERLAY
                 // ['title' => 'MERCH', 'url' => '/shop', 'i18n' => 'menu_merch'],
                 // ['title' => 'COMMUNITY', 'url' => '/membership', 'i18n' => 'menu_community'],
                 // ['title' => 'ARTICLE', 'url' => '/article', 'i18n' => 'menu_articles'],
-                ['title' => 'CAREER', 'url' => '/careers', 'i18n' => 'menu_careers'],
+                ['title' => 'PINTU TERBUKA', 'url' => '/careers', 'i18n' => 'menu_careers'],
             ];
         @endphp
 
@@ -213,7 +213,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
             <button id="menu-open-sticky" class="group flex items-center gap-3 cursor-none hover-target relative h-[24px]">
                 <div class="relative w-[80px] h-full flex items-center justify-end">
                     <span id="sticky-menu-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 transition-colors duration-300">Menu</span>
-                    <span id="sticky-close-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 opacity-0 pointer-events-none translate-x-4 transition-colors duration-300 whitespace-nowrap">[ CLOSE ]</span>
+                    <span id="sticky-close-text" class="absolute right-0 top-1/2 -translate-y-1/2 font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 opacity-0 pointer-events-none translate-x-4 transition-colors duration-300 whitespace-nowrap">[ Tutup ]</span>
                 </div>
                 <div id="sticky-menu-icon" class="flex flex-col gap-1 transition-colors duration-300 origin-right">
                     <div class="w-4 h-[1.5px] bg-white"></div>
@@ -638,7 +638,7 @@ GLOBAL i18n ENGINE
 
         const TEXT_MAP = {
             id: {
-                'About': 'Mengapa Kami Ada', 'Our Works': 'Karya Kami', 'Events': 'Ruang Temu',
+                'About': 'Langkah Kami', 'Our Works': 'Karya Kami', 'Events': 'Ruang Temu',
                 'Merch': 'Merchandise', 'Articles': 'Artikel', 'Careers': 'Karier',
                 'Home': 'Beranda', 'Community': 'Komunitas', 'Films': 'Film',
                 'Web Series': 'Serial Web', 'Television': 'Televisi', 'Documentaries': 'Dokumenter',

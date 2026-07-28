@@ -27,109 +27,132 @@ EDITORIAL WRAPPER
 ============================================================ --}}
 <div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen pt-32 pb-40">
 
-
     <div class="max-w-[1600px] mx-auto px-6 md:px-10">
 
         {{-- 1. PAGE HEADER (Centered) --}}
-        <div class="text-center mb-24 reveal-text">
-            <h1 class="font-peckham not-italic text-2xl md:text-5xl lg:text-6xl text-brand-navy leading-[0.8] tracking-tight text-base">
-                Setiap orang <span class="font-peckham not-italic uppercase text-brand-orange tracking-tighter text-lg md:text-5xl lg:text-6xl">BERHAK ATAS KESEMPATAN PERTAMANYA, </span> disini pintunya.
+        <div class="text-center mb-20 reveal-text">
+            <h1 class="font-peckham not-italic text-5xl md:text-4xl lg:text-5xl text-brand-navy leading-[0.8] tracking-tight text-base">
+                Setiap Orang Berhak Atas Kesempatan Pertamanya.<span class="font-peckham not-italic uppercase text-brand-orange tracking-tighter text-lg md:text-4xl lg:text-5xl"> Sinemaku Membuka Pintunya.</span>
             </h1>
         </div>
 
-        {{-- 2. CATEGORY BOXES --}}
-        <div class="flex flex-col gap-6 md:gap-8 mx-auto">
+     {{-- 2. CATEGORY BOXES --}}
+<div class="flex flex-col gap-6 md:gap-8 mx-auto">
 
-            {{-- BOX 1: INTERNSHIP (ORANGE) --}}
-            @php
-                $firstIntern = $careers->filter(fn($c) => str_contains(strtolower($c->position), 'intern'))->first();
-                $internUrl = $firstIntern ? route('detail-careers', $firstIntern->slug) : '#latest-openings';
-            @endphp
-            <a href="{{ $internUrl }}" class="career-card group relative bg-brand-orange rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-orange/30 shadow-xl shadow-brand-orange/20 reveal-item block cursor-none hover-target">
-                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                    <div class="max-w-2xl">
-                        <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            MAGANG <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk mahasiswa</span>
-                        </h2>
-                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
-                            Ruang belajar langsung di dalam industri film, bersama tim Sinemaku di berbagai divisi.
-                        </p>
-                    </div>
-                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold normal-case group-hover:bg-white group-hover:text-brand-orange transition-all duration-300">
-                        Pelajari Lebih Lanjut
-                    </div>
-                </div>
+    {{-- BOX 1: ONLINE FILM LAB --}}
+    <div class="career-card group relative bg-brand-orange rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-orange/30 shadow-xl shadow-brand-orange/20 reveal-item">
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+
+            <div class="max-w-2xl">
+                <h2 class="font-peckham text-2xl md:text-3xl text-white normal-case leading-none mb-2">
+                    ONLINE FILM LAB
+                    <span class="font-sans text-xl md:text-3xl normal-case opacity-90">
+                        untuk umum
+                    </span>
+                </h2>
+
+                <p class="font-sans text-xl md:text-sm text-white leading-relaxed line-clamp-2">
+                    Basic Scriptwriting bersama Reka Wijaya | 13 Agustus 2026
+                </p>
+            </div>
+
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSepFLs416xdfEAP3ex2R2H-PkSmo2UsFc37Wn9AhuwsT3xPLA/viewform"
+               target="_blank"
+               class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold group-hover:bg-white group-hover:text-brand-orange transition-all duration-300 inline-block">
+                Daftar Sekarang
             </a>
-
-
-            {{-- BOX 2: OPEN CASTING (NAVY) --}}
-            @php
-                $firstCasting = $casting->first();
-                $castingUrl = $firstCasting ? route('detail-careers', $firstCasting->slug) : '#latest-openings';
-            @endphp
-            <a href="{{ $castingUrl }}" class="career-card group relative bg-[#1A2D61] rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-black/40 shadow-xl shadow-black/20 reveal-item block cursor-none hover-target">
-                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                    <div class="max-w-2xl">
-                        <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            CASTING <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
-                        </h2>
-                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
-                            Wajah baru selalu punya tempat di sini. Ambil kesempatanmu, perkenalkan dirimu.
-                        </p>
-                    </div>
-                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold normal-case group-hover:bg-white group-hover:text-brand-navy transition-all duration-300">
-                        Pelajari Lebih Lanjut
-                    </div>
-                </div>
-            </a>
-
-
-            {{-- BOX 3: VOLUNTEER (LIGHT) --}}
-            @php
-                $firstVolun = $careers->filter(fn($c) => str_contains(strtolower($c->position), 'volunteer'))->first();
-                $volunUrl = $firstVolun ? route('detail-careers', $firstVolun->slug) : '#latest-openings';
-            @endphp
-            <a href="{{ $volunUrl }}" class="career-card group relative bg-white border border-brand-navy/5 rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-navy/10 shadow-xl shadow-brand-navy/5 reveal-item block cursor-none hover-target">
-                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                    <div class="max-w-2xl">
-                        <h2 class="font-peckham text-3xl md:text-5xl text-brand-orange uppercase leading-none mb-2">
-                            VOLUNTEER <span class="font-sans text-xl md:text-3xl normal-case text-brand-navy opacity-60">untuk event mendatang</span>
-                        </h2>
-                        <p class="font-sans text-xl md:text-sm text-brand-navy/60 leading-relaxed line-clamp-2">
-                            Jadi bagian di balik layar event Sinemaku. Untuk kamu yang suka event, produksi, dan bertemu orang baru.
-                        </p>
-                    </div>
-                    <div class="px-8 py-3 rounded-full border border-brand-navy/20 text-brand-navy font-sans text-[12px] tracking-[0.2em] font-bold normal-case group-hover:bg-brand-navy group-hover:text-white transition-all duration-300">
-                        Pelajari Lebih Lanjut
-                    </div>
-                </div>
-            </a>
-
-            {{-- BOX 1: INTERNSHIP (ORANGE) --}}
-            @php
-                $firstIntern = $careers->filter(fn($c) => str_contains(strtolower($c->position), 'intern'))->first();
-                $internUrl = $firstIntern ? route('detail-careers', $firstIntern->slug) : '#latest-openings';
-            @endphp
-            <a href="{{ $internUrl }}" class="career-card group relative bg-brand-orange rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-orange/30 shadow-xl shadow-brand-orange/20 reveal-item block cursor-none hover-target">
-                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                    <div class="max-w-2xl">
-                        <h2 class="font-peckham text-3xl md:text-5xl text-white uppercase leading-none mb-2">
-                            ONLINE FILM LAB <span class="font-sans text-xl md:text-3xl normal-case opacity-90">untuk umum</span>
-                        </h2>
-                        <p class="font-sans text-xl md:text-sm text-white/80 leading-relaxed line-clamp-2">
-                            Basic Scriptwriting bersama Reka Wijaya | 13 Agustus 2026.
-                        </p>
-                    </div>
-                    <div class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold normal-case group-hover:bg-white group-hover:text-brand-orange transition-all duration-300">
-                        Pelajari Lebih Lanjut
-                    </div>
-                </div>
-            </a>
-
 
         </div>
-           </div>
 
+    </div>
+
+    {{-- BOX 2: CASTING --}}
+    <div class="career-card group relative bg-[#1A2D61] rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-black/40 shadow-xl shadow-black/20 reveal-item">
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+
+            <div class="max-w-2xl">
+                <h2 class="font-peckham text-2xl md:text-3xl text-white uppercase leading-none mb-2">
+                    MAGANG
+                    <span class="font-sans text-xl md:text-3xl normal-case opacity-90">
+                        untuk mahasiswa
+                    </span>
+                </h2>
+
+                <p class="font-sans text-xl md:text-sm text-white leading-relaxed line-clamp-2">
+                    Ruang belajar langsung di dalam industri film bersama tim Sinemaku di berbagai divisi
+                </p>
+            </div>
+
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkQcptXoVdOWgvl5mZuJAdyUj6EHXpMg_bqHR8xBtYo8qTSw/viewform"
+               target="_blank"
+               class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold group-hover:bg-white group-hover:text-brand-navy transition-all duration-300 inline-block">
+                Daftar Sekarang
+            </a>
+
+        </div>
+
+    </div>
+
+    {{-- BOX 3: VOLUNTEER --}}
+    <div class="career-card group relative bg-white border border-brand-navy/5 rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-navy/10 shadow-xl shadow-brand-navy/5 reveal-item">
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+
+            <div class="max-w-2xl">
+                <h2 class="font-peckham text-2xl md:text-3xl text-brand-orange uppercase leading-none mb-2">
+                    CASTING
+                    <span class="font-sans text-xl md:text-3xl normal-case text-brand-navy opacity-60">
+                        untuk umum
+                    </span>
+                </h2>
+
+                <p class="font-sans text-xl md:text-sm text-brand-navy/60 leading-relaxed line-clamp-2">
+                    Wajah baru selalu punya tempat di sini. Ambil kesempatanmu, perkenalkan dirimu
+                </p>
+            </div>
+
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc5m0Y7nUeoVE_mIzB_XmZNT14Q3fL4R3GJytdt15k3r4NRhQ/viewform"
+               target="_blank"
+               class="px-8 py-3 rounded-full border border-brand-navy/40 text-brand-navy font-sans text-[12px] tracking-[0.2em] font-bold group-hover:bg-brand-navy group-hover:text-white transition-all duration-300 inline-block">
+                Daftar Sekarang
+            </a>
+
+        </div>
+
+    </div>
+
+
+    {{-- BOX 4: MAGANG --}}
+    <div class="career-card group relative bg-brand-orange rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-orange/30 shadow-xl shadow-brand-orange/20 reveal-item">
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+
+            <div class="max-w-2xl">
+                <h2 class="font-peckham text-2xl md:text-3xl text-white uppercase leading-none mb-2">
+                    VOLUNTEER
+                    <span class="font-sans text-xl md:text-3xl normal-case opacity-90">
+                        untuk event mendatang
+                    </span>
+                </h2>
+
+                <p class="font-sans text-xl md:text-sm text-white leading-relaxed line-clamp-2">
+                    Jadi bagian di balik layar event Sinemaku. Untuk kamu yang suka event, produksi, dan bertemu orang baru
+                </p>
+            </div>
+
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRU7kmYTPanb1F_tvC6vSdB_qjQ5uuazdWrffCwXer3gLPyg/viewform"
+               target="_blank"
+               class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold group-hover:bg-white group-hover:text-brand-orange transition-all duration-300 inline-block">
+                Daftar Sekarang
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 {{-- ============================================================
 MEMBERSHIP / COMMUNITY PAGE

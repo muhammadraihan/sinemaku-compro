@@ -52,7 +52,7 @@
 
     <div class="relative z-10 h-full flex items-end">
 
-        <div class="max-w-9xl mx-auto w-full px-8 lg:px-20 pb-24">
+        <div class="max-w-9xl mx-auto w-full px-8 lg:px-20 pb-8 md:pb-10">
 
             <h1
              data-aos="fade-up"
@@ -69,12 +69,11 @@
 
 
         <!-- Button -->
-    <div class="mt-8">
+    <div class="mt-2">
         <a href="{{ route('film') }}"
-            class="inline-flex items-center bg-navy hover:bg-white text-white hover:text-[#F36B21] px-8 py-3 rounded-full uppercase font-bold tracking-wider transition-all duration-300 shadow-lg cursor-none hover-target">
-            Our Works
-        </a>
-
+    class="inline-flex items-center bg-brand-navy border border-brand-navy px-6 py-3 rounded-md text-white font-sans text-xs font-bold tracking-widest uppercase shadow-sm transition-all duration-300 hover:bg-white hover:border-brand-navy hover:text-brand-navy cursor-none hover-target">
+    Karya Kami
+</a>
 
         </div>
 

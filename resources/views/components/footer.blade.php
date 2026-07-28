@@ -18,7 +18,7 @@
                     Punya cerita yang ingin didengar?
                 </h3>
                 <h2 class="font-peckham text-brand-orange text-xl md:text-3xl lg:text-[3vw] leading-[0.9] tracking-tighter mb-5 uppercase">
-                    Ngobrol dulu aja.
+                    Ngobrol dulu aja
                 </h2>
                <a href="mailto:hello@sinemakupictures.com"
    class="inline-block
@@ -56,7 +56,7 @@
                             // ['HOME', '/'], ['OUR WORKS', '/films'], ['EVENT', '/events'],
                             // ['MERCH', '/shop'], ['COMMUNITY', '/membership'], ['ARTICLE', '/article'], ['CAREER', '/careers']
 
-                             ['BERANDA', '/'], ['MENGAPA KAMI ADA', '/tentang-kami'], ['KARYA KAMI', '/films'], ['RUANG TEMU', '/events/gala-premiere'],
+                             ['BERANDA', '/'], ['LANGKAH KAMI', '/tentang-kami'], ['KARYA KAMI', '/films'], ['RUANG TEMU', '/events/gala-premiere'],
                              ['PINTU TERBUKA', '/careers']
                         ];
                     @endphp

@@ -8,7 +8,7 @@
 
 @push('head')
 <style>
-    
+
     /* Clean career content styling */
     .career-content h2, .career-content h3 {
         font-family: 'PeckhamPress', sans-serif;
@@ -72,7 +72,7 @@ EDITORIAL WRAPPER
 <div id="editorial-wrapper" class="text-brand-deepbreath relative w-full font-sans min-h-screen pt-32 pb-40">
 
     <div class="max-w-[1600px] mx-auto px-6 md:px-12">
-        
+
         {{-- 1. PAGE HEADER (Centered) --}}
         <header class="text-center mb-24 md:mb-32 reveal-text">
             <span class="font-sans text-[10px] tracking-[0.4em] uppercase font-bold text-brand-orange mb-6 block">
@@ -99,7 +99,7 @@ EDITORIAL WRAPPER
 
         {{-- 2. MAIN CONTENT GRID --}}
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-start">
-            
+
             {{-- LEFT COLUMN: DETAIL CONTENT --}}
             <main class="lg:col-span-8 career-content reveal-text">
                 <div class="prose prose-brand-navy max-w-none">
@@ -114,7 +114,7 @@ EDITORIAL WRAPPER
             {{-- RIGHT COLUMN: SIDEBAR --}}
             <aside class="lg:col-span-4 lg:sticky lg:top-40 reveal-rec">
                 <div class="bg-white border border-brand-navy/5 rounded-2xl p-8 md:p-12 shadow-xl shadow-brand-navy/5 relative overflow-hidden">
-                    
+
                     <h3 class="font-peckham text-2xl text-brand-navy uppercase mb-10 tracking-tight flex items-center gap-3">
                         <span class="w-2 h-2 rounded-full bg-brand-orange"></span>
                         Job Summary
