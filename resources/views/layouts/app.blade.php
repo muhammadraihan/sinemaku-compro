@@ -115,13 +115,24 @@
       [style*="text-align:justify"] {
         text-align: justify !important;
         text-align-last: left !important;
-        word-spacing: -0.035em !important;
+        word-spacing: -0.08em !important;
+        letter-spacing: -0.005em;
         overflow-wrap: break-word;
         word-break: normal;
         hyphens: auto;
         -webkit-hyphens: auto;
         hyphenate-limit-chars: 7 3 3;
         text-wrap: pretty;
+      }
+
+      .text-justify.columns-1 {
+        font-size: clamp(0.95rem, 4.15vw, 1.05rem) !important;
+        line-height: 1.68 !important;
+      }
+
+      .text-justify.columns-1 :where(p, div, span, li) {
+        font-size: inherit !important;
+        line-height: inherit !important;
       }
     }
 
