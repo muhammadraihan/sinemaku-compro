@@ -55,22 +55,6 @@ HERO
 
             </h1>
 
-            <span
-                data-aos="fade-up"
-                data-aos-delay="500"
-                class="mt-4
-                block
-                uppercase
-                tracking-[6px]
-                text-white
-                font-bold
-                text-xs
-                md:text-sm">
-
-                SINEMAKU PICTURES
-
-            </span>
-
         </div>
 
     </div>
