@@ -248,12 +248,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const titleWindow = title.closest('.hero-title-window');
             const maxHeight = Math.max(120, (titleWindow ? titleWindow.clientHeight : 230) - ((meta ? meta.offsetHeight : 18) + 14));
             let fontSize = Math.min(44, Math.max(30, window.innerWidth * 0.1));
-            const minFontSize = 18;
+            const minFontSize = 14;
 
-            title.style.setProperty('line-height', '0.9', 'important');
+            title.style.setProperty('line-height', '0.86', 'important');
             title.style.setProperty('font-size', `${fontSize}px`, 'important');
 
-            while (fontSize > minFontSize && (title.scrollHeight > maxHeight || title.scrollHeight > (fontSize * 0.9 * 2.2))) {
+            while (fontSize > minFontSize && (title.scrollHeight > maxHeight || title.scrollHeight > (fontSize * 0.86 * 2.08))) {
                 fontSize -= 1;
                 title.style.setProperty('font-size', `${fontSize}px`, 'important');
             }
@@ -456,8 +456,8 @@ STYLES & SCRIPTS
             }
 
             .hero-title-link {
-                width: min(100%, calc(100vw - 3rem));
-                max-width: calc(100vw - 3rem);
+                width: min(100%, calc(100vw - 2rem));
+                max-width: calc(100vw - 2rem);
             }
 
             .hero-title-item {
@@ -477,7 +477,7 @@ STYLES & SCRIPTS
                 overflow-wrap: break-word;
                 word-break: normal;
                 font-size: clamp(2rem, 10vw, 2.75rem) !important;
-                line-height: 0.9 !important;
+                line-height: 0.86 !important;
                 letter-spacing: 0;
                 overflow: visible;
             }
