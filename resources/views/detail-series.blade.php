@@ -9,7 +9,7 @@
     {{-- ============================================================
     EDITORIAL WRAPPER
     ============================================================ --}}
-    <div id="editorial-wrapper" class="text-[#131b4d] relative w-full font-sans">
+    <section id="editorial-wrapper" class="text-[#131b4d] relative w-full font-sans">
 
         {{-- ============================================================
         1. HERO SECTION
@@ -27,22 +27,26 @@
                 <div class="absolute inset-0 bg-gradient-to-t from-[#131b4d]/90 via-[#131b4d]/30 to-transparent z-10"></div>
             </div>
 
-            <!-- Content -->
-            <div class="detail-hero-content relative z-20 px-8 md:px-16 pb-12 max-w-[1400px] mx-auto w-full">
-                <div class="flex flex-col items-start gap-4">
-                    @php
-                        $video_id = '';
-                        if (!empty($films->link) && preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $films->link, $match)) {
-                            $video_id = $match[1];
-                        }
-                    @endphp
+    <!-- Content -->
+<div class="detail-hero-content relative z-20 px-8 md:px-16 pb-12 max-w-[1400px] mx-auto w-full">
+    <div class="flex flex-col items-start gap-2 mt-8 md:mt-12">
+        @php
+            $video_id = '';
+            if (
+                !empty($films->link) &&
+                preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $films->link, $match)
+            ) {
+                $video_id = $match[1];
+            }
+        @endphp
 
-                    @if($video_id)
-                        <button onclick="openHeroTrailer('{{ $video_id }}')"
-                            class="bg-[#F36B21] text-white px-6 py-2 md:py-3 rounded-full font-sans text-xs md:text-sm tracking-wider uppercase font-bold hover:bg-white hover:text-[#F36B21] transition-colors cursor-none hover-target inline-flex items-center gap-2 hero-reveal shadow-lg">
-                            Watch Trailer
-                        </button>
-                    @endif
+       @if($video_id)
+    <button
+        onclick="openHeroTrailer('{{ $video_id }}')"
+        class="inline-flex items-center px-4 py-2 mb-2 rounded-md border border-[#F36B21] bg-[#F36B21] text-white shadow-sm font-sans text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:bg-white hover:border-[#F36B21] hover:text-[#F36B21] cursor-none hover-target hero-reveal">
+        Tonton Trailer
+    </button>
+@endif
 
                     <h1 class="detail-hero-title font-peckham text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl" style="font-peckham;">
                         @i18n($films, 'title')

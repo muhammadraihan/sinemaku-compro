@@ -62,7 +62,7 @@ Route::post('/membership/login', [App\Http\Controllers\MembershipAuthController:
 Route::get('/membership/login', function () {return redirect()->route('careers');});
 Route::post('/membership/logout', [App\Http\Controllers\MembershipAuthController::class, 'logout'])->name('membership.logout');
 Route::get('/careers', [FrontEndController::class, 'careers'])->name('careers');
-Route::get('/detail-careers/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
+// Route::get('/detail-careers/{slug}', [FrontEndController::class, 'detailcareers'])->name('detail-careers');
 Route::get('/bts', [FrontEndController::class, 'bts'])->name('bts');
 Route::get('/documentary', [FrontEndController::class, 'documentary'])->name('documentary');
 Route::get('/detail-documentary/{slug}', [FrontEndController::class, 'detaildocumentary'])->name('detail-documentary');
