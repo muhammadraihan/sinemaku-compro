@@ -113,10 +113,10 @@
       .text-justify :where(p, div, span, li),
       [style*="text-align: justify"],
       [style*="text-align:justify"] {
-        text-align: left !important;
-        text-align-last: auto !important;
-        word-spacing: normal !important;
-        letter-spacing: 0;
+        text-align: justify !important;
+        text-align-last: left !important;
+        word-spacing: -0.12em !important;
+        letter-spacing: -0.01em;
         overflow-wrap: break-word;
         word-break: normal;
         hyphens: auto;
@@ -125,11 +125,12 @@
       }
 
       .text-justify.columns-1 {
-        max-width: min(100%, 38rem);
-        margin-left: auto;
-        margin-right: auto;
-        font-size: clamp(1rem, 4.45vw, 1.125rem) !important;
-        line-height: 1.76 !important;
+        width: calc(100% + 2rem);
+        max-width: none;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        font-size: clamp(0.92rem, 3.95vw, 1rem) !important;
+        line-height: 1.82 !important;
       }
 
       .text-justify.columns-1 :where(p, div, span, li) {
