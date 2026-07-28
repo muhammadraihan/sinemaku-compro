@@ -113,9 +113,15 @@
       .text-justify :where(p, div, span, li),
       [style*="text-align: justify"],
       [style*="text-align:justify"] {
-        text-align: left !important;
-        text-align-last: auto !important;
-        word-spacing: normal !important;
+        text-align: justify !important;
+        text-align-last: left !important;
+        word-spacing: -0.035em !important;
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphenate-limit-chars: 7 3 3;
+        text-wrap: pretty;
       }
     }
 
