@@ -77,22 +77,22 @@
                                 $link = trim($link);
                                 if (empty($link)) continue;
 
-                                $provider = ['name' => 'WATCH NOW', 'icon' => 'mdi:play-circle', 'color' => '#131b4d', 'url' => $link, 'is_vidio' => false];
+                                $provider = ['name' => 'WATCH NOW', 'icon' => 'mdi:play-circle', 'color' => '#131b4d', 'url' => $link, 'logo' => null];
 
                                 if (strpos($link, 'netflix.com') !== false) {
-                                    $provider = ['name' => 'NETFLIX', 'icon' => 'mdi:netflix', 'color' => '#E50914', 'url' => $link, 'is_vidio' => false];
+                                    $provider = ['name' => 'NETFLIX', 'icon' => 'mdi:netflix', 'color' => '#E50914', 'url' => $link, 'logo' => null];
                                 } elseif (strpos($link, 'vidio.com') !== false) {
-                                    $provider = ['name' => 'VIDIO', 'icon' => 'simple-icons:vidio', 'color' => '#ED0226', 'url' => $link, 'is_vidio' => false];
+                                    $provider = ['name' => 'VIDIO', 'icon' => null, 'color' => '#ED0226', 'url' => $link, 'logo' => asset('img/provider/vidio-v.svg')];
                                 } elseif (strpos($link, 'disneyplus.com') !== false || strpos($link, 'hotstar.com') !== false) {
-                                    $provider = ['name' => 'DISNEY+', 'icon' => 'simple-icons:disneyplus', 'color' => '#0063E5', 'url' => $link, 'is_vidio' => false];
+                                    $provider = ['name' => 'DISNEY+', 'icon' => 'simple-icons:disneyplus', 'color' => '#0063E5', 'url' => $link, 'logo' => null];
                                 } elseif (strpos($link, 'apple.com') !== false) {
-                                    $provider = ['name' => 'APPLE TV', 'icon' => 'tabler:brand-apple-tv', 'color' => '#000000', 'url' => $link, 'is_vidio' => false];
+                                    $provider = ['name' => 'APPLE TV', 'icon' => 'tabler:brand-apple-tv', 'color' => '#000000', 'url' => $link, 'logo' => null];
                                 } elseif (strpos($link, 'youtube.com') !== false || strpos($link, 'youtu.be') !== false) {
-                                    $provider = ['name' => 'YOUTUBE', 'icon' => 'mdi:youtube', 'color' => '#FF0000', 'url' => $link, 'is_vidio' => false];
+                                    $provider = ['name' => 'YOUTUBE', 'icon' => 'mdi:youtube', 'color' => '#FF0000', 'url' => $link, 'logo' => null];
                                 } elseif (strpos($link, 'amazon.com') !== false || strpos($link, 'primevideo.com') !== false) {
-                                    $provider = ['name' => 'PRIME VIDEO', 'icon' => 'simple-icons:primevideo', 'color' => '#00A8E1', 'url' => $link, 'is_vidio' => false];
+                                    $provider = ['name' => 'PRIME VIDEO', 'icon' => 'simple-icons:primevideo', 'color' => '#00A8E1', 'url' => $link, 'logo' => null];
                                 } elseif (strpos($link, 'hbo') !== false) {
-                                    $provider = ['name' => 'HBO', 'icon' => 'simple-icons:hbo', 'color' => '#000000', 'url' => $link, 'is_vidio' => false];
+                                    $provider = ['name' => 'HBO', 'icon' => 'simple-icons:hbo', 'color' => '#000000', 'url' => $link, 'logo' => null];
                                 }
 
                                 $watchLinks[] = $provider;
@@ -107,8 +107,12 @@
                         <div class="flex flex-col gap-4">
                             @foreach($watchLinks as $wl)
                             <a href="{{ $wl['url'] }}" target="_blank" class="flex items-center gap-3 text-[#131b4d] font-bold text-sm hover:text-[#F36B21] transition-colors cursor-none hover-target">
-                                <span class="iconify w-6 h-6 shrink-0" style="color: {{ $wl['color'] }}" data-icon="{{ $wl['icon'] }}"></span>
-                                {{ $wl['name'] }}
+                                @if(!empty($wl['logo']))
+                                    <img src="{{ $wl['logo'] }}" class="h-6 w-auto shrink-0" alt="{{ $wl['name'] }}">
+                                @else
+                                    <span class="iconify w-6 h-6 shrink-0" style="color: {{ $wl['color'] }}" data-icon="{{ $wl['icon'] }}"></span>
+                                    {{ $wl['name'] }}
+                                @endif
                             </a>
                             @endforeach
                         </div>
