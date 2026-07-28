@@ -108,6 +108,17 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    @media (max-width: 767px) {
+      .text-justify,
+      .text-justify :where(p, div, span, li),
+      [style*="text-align: justify"],
+      [style*="text-align:justify"] {
+        text-align: left !important;
+        text-align-last: auto !important;
+        word-spacing: normal !important;
+      }
+    }
+
     /* ── EFEK CINEMATIC GRAIN GLOBAL ── */
     .cinematic-grain {
       position: fixed;
