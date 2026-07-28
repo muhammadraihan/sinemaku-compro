@@ -125,12 +125,14 @@
       }
 
       .text-justify.columns-1 {
-        width: calc(100% + 2rem);
+        width: calc(100% + 2.75rem);
         max-width: none;
-        margin-left: -1rem;
-        margin-right: -1rem;
-        font-size: clamp(0.92rem, 3.95vw, 1rem) !important;
+        margin-left: -1.375rem;
+        margin-right: -1.375rem;
+        font-size: clamp(0.9rem, 3.78vw, 0.97rem) !important;
         line-height: 1.82 !important;
+        word-spacing: -0.16em !important;
+        letter-spacing: -0.012em;
       }
 
       .text-justify.columns-1 :where(p, div, span, li) {
