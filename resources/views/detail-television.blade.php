@@ -81,7 +81,7 @@
                                 if (strpos($link, 'netflix.com') !== false) {
                                     $provider = ['name' => 'NETFLIX', 'icon' => 'mdi:netflix', 'color' => '#E50914', 'url' => $link, 'is_vidio' => false];
                                 } elseif (strpos($link, 'vidio.com') !== false) {
-                                    $provider = ['name' => 'VIDIO', 'icon' => '', 'color' => '#ED0226', 'url' => $link, 'is_vidio' => true];
+                                    $provider = ['name' => 'VIDIO', 'icon' => 'simple-icons:vidio', 'color' => '#ED0226', 'url' => $link, 'is_vidio' => false];
                                 } elseif (strpos($link, 'disneyplus.com') !== false || strpos($link, 'hotstar.com') !== false) {
                                     $provider = ['name' => 'DISNEY+', 'icon' => 'simple-icons:disneyplus', 'color' => '#0063E5', 'url' => $link, 'is_vidio' => false];
                                 } elseif (strpos($link, 'apple.com') !== false) {
@@ -106,11 +106,7 @@
                         <div class="flex flex-col gap-4">
                             @foreach($watchLinks as $wl)
                             <a href="{{ $wl['url'] }}" target="_blank" class="flex items-center gap-3 text-[#131b4d] font-bold text-sm hover:text-[#F36B21] transition-colors cursor-none hover-target">
-                                @if($wl['is_vidio'])
-                                    <div class="w-6 h-6 bg-[#ED0226] rounded text-white flex items-center justify-center font-bold text-xs shrink-0">v</div>
-                                @else
-                                    <span class="iconify w-6 h-6 shrink-0" style="color: {{ $wl['color'] }}" data-icon="{{ $wl['icon'] }}"></span>
-                                @endif
+                                <span class="iconify w-6 h-6 shrink-0" style="color: {{ $wl['color'] }}" data-icon="{{ $wl['icon'] }}"></span>
                                 {{ $wl['name'] }}
                             </a>
                             @endforeach

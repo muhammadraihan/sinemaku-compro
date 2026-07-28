@@ -161,7 +161,7 @@
 
 <div class="form-group col-md-4 mb-3">
     {{ Form::label('cast','Cast',['class'=>'required form-label'])}}
-    {{ Form::text('cast',null,[
+    {{ Form::text('cast',$film->cast,[
         'placeholder'=>'e.g Umay, Prilly',
         'class'=>'form-control'
     ])}}
