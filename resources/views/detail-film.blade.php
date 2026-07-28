@@ -14,7 +14,7 @@
         {{-- ============================================================
         1. HERO SECTION
         ============================================================ --}}
-        <section class="relative w-full h-[60vh] md:h-[75vh] flex flex-col justify-end overflow-hidden z-20">
+        <section class="detail-hero-section relative w-full h-[60vh] md:h-[75vh] flex flex-col justify-end overflow-hidden z-20">
             <!-- Background Video -->
             <div class="absolute inset-0 z-0">
                 <video src="{{ asset('photo/' . $films->photo) }}"
@@ -48,11 +48,11 @@
             </button>
         @endif
 
-        <h1 class="font-peckham text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl">
-            @i18n($films, 'title')
-        </h1>
-    </div>
-</div>
+                    <h1 class="detail-hero-title font-peckham text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl" style="font-peckham;">
+                        @i18n($films, 'title')
+                    </h1>
+                </div>
+            </div>
         </section>
 
         {{-- ============================================================
@@ -491,6 +491,27 @@
 @push('head')
     <style>
         @media (max-width: 767px) {
+            .detail-hero-section {
+                height: auto !important;
+                min-height: 60vh !important;
+            }
+
+            .detail-hero-content {
+                padding-top: 7rem !important;
+                padding-bottom: 2.25rem !important;
+            }
+
+            .detail-hero-title {
+                max-width: 100% !important;
+                font-size: clamp(2.35rem, 12vw, 4rem) !important;
+                line-height: 1.02 !important;
+                letter-spacing: 0 !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: normal;
+                hyphens: auto;
+            }
+
             .detail-copy {
                 font-size: 1rem !important;
                 line-height: 1.55rem !important;

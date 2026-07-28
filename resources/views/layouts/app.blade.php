@@ -108,6 +108,48 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    @media (max-width: 767px) {
+      .text-justify,
+      .text-justify :where(p, div, span, li),
+      [style*="text-align: justify"],
+      [style*="text-align:justify"] {
+        text-align: justify !important;
+        text-align-last: left !important;
+        word-spacing: -0.12em !important;
+        letter-spacing: -0.01em;
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        text-wrap: pretty;
+      }
+
+      .text-justify.columns-1 {
+        width: calc(100% + 2.75rem);
+        max-width: none;
+        margin-left: -1.375rem;
+        margin-right: -1.375rem;
+        font-size: clamp(0.9rem, 3.78vw, 0.97rem) !important;
+        line-height: 1.82 !important;
+        word-spacing: -0.16em !important;
+        letter-spacing: -0.012em;
+      }
+
+      .text-justify.columns-1 :where(p, div, span, li) {
+        font-size: inherit !important;
+        line-height: inherit !important;
+      }
+
+      .text-justify.columns-1 :where(p, div) {
+        margin-top: 0 !important;
+        margin-bottom: 1rem !important;
+      }
+
+      .text-justify.columns-1 :where(p, div):last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+
     /* ── EFEK CINEMATIC GRAIN GLOBAL ── */
     .cinematic-grain {
       position: fixed;

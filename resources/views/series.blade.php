@@ -316,8 +316,38 @@ STYLES & SCRIPTS
 
         @media (max-width: 640px) {
             .hero-title-window {
-                --hero-title-row: 96px;
-                height: 288px;
+                --hero-title-row: 132px;
+                height: 396px;
+            }
+
+            .hero-title-link {
+                width: min(100%, calc(100vw - 4rem));
+                max-width: calc(100vw - 4rem);
+            }
+
+            .hero-title-item {
+                width: 100%;
+                transform: scale(0.94);
+            }
+
+            .hero-title-item.is-active {
+                transform: scale(1);
+            }
+
+            .hero-title-item .film-title {
+                max-width: 100%;
+                white-space: normal;
+                overflow-wrap: break-word;
+                word-break: normal;
+                font-size: clamp(2rem, 10vw, 2.75rem) !important;
+                line-height: 0.9 !important;
+                letter-spacing: 0;
+            }
+
+            .hero-title-item .film-meta-text {
+                max-width: 100%;
+                white-space: normal;
+                line-height: 1.25;
             }
         }
 
@@ -335,6 +365,58 @@ STYLES & SCRIPTS
 
         .hairline-border {
             border-color: rgba(37, 34, 94, 0.15);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .catalogue-card {
+                transition:
+                    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+                    box-shadow 520ms ease,
+                    filter 520ms ease;
+            }
+
+            .catalogue-card::before,
+            .catalogue-card::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                opacity: 0;
+                border-radius: inherit;
+                transition: opacity 520ms ease, transform 820ms cubic-bezier(0.22, 1, 0.36, 1);
+            }
+
+            .catalogue-card::before {
+                z-index: 18;
+                background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.2) 42%, transparent 58%);
+                transform: translateX(-115%);
+                mix-blend-mode: screen;
+            }
+
+            .catalogue-card::after {
+                z-index: 19;
+                border: 1px solid rgba(244, 106, 33, 0.45);
+                box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+            }
+
+            .catalogue-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 24px 55px rgba(19, 27, 77, 0.28);
+                filter: saturate(1.05);
+            }
+
+            .catalogue-card:hover::before {
+                opacity: 1;
+                transform: translateX(115%);
+            }
+
+            .catalogue-card:hover::after {
+                opacity: 1;
+            }
+
+            .catalogue-card:hover .film-card-img {
+                filter: contrast(1.04) saturate(1.08);
+            }
         }
 
         /* ── WIDE vs NARROW card title & metadata sizing ── */
@@ -651,7 +733,7 @@ STYLES & SCRIPTS
             setInterval(() => {
                 const next = current + 1 >= navItems.length ? 0 : current + 1;
                 showFilm(next, { loopForward: true });
-            }, 3000);
+            }, 5000);
 
             // Remove legacy hero code
             // [Old code for sliders, indicators, etc is gone from DOM above]
@@ -905,6 +987,8 @@ STYLES & SCRIPTS
             }
 
             document.querySelectorAll('.catalogue-card').forEach(card => {
+                return;
+
                 let iframeContainer = null;
                 let timeoutId = null;
                 let isTrailerPlaying = false;
