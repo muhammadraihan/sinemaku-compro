@@ -56,7 +56,7 @@
         </section>
 
         {{-- ============================================================
-        2. DETAILS SECTION
+        2. DETAILS SECTIONS
         ============================================================ --}}
        <section class="py-16 md:py-24 px-8 md:px-16 z-10 relative bg-creme-leaks">
            <div class="max-w-[1400px] mx-auto grid lg:grid-cols-[280px_1fr] gap-20 items-start">
