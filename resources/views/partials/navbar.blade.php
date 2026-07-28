@@ -14,7 +14,7 @@ FULLSCREEN MENU OVERLAY
     </button>
 
     {{-- Language Switcher inside menu --}}
-    <div class="absolute bottom-10 left-8 md:left-16 flex items-center gap-4">
+    <div class="hidden absolute bottom-10 left-8 md:left-16 items-center gap-4">
         <button id="lang-switcher" aria-label="Switch language"
             class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy/50 hover:text-brand-orange' : 'text-white/50 hover:text-white' }} transition-colors cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
@@ -155,7 +155,7 @@ TOP NAVBAR
 
         {{-- Top Nav Language Switcher --}}
         <button
-            class="font-sans text-[10px] tracking-[0.25em] uppercase font-bold {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy' : 'text-white' }} opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
+            class="hidden font-sans text-[10px] tracking-[0.25em] uppercase font-bold {{ ($navTheme ?? '') === 'event' ? 'text-brand-navy' : 'text-white' }} opacity-90 hover:opacity-100 transition-colors relative z-10 cursor-none hover-target"
             onmouseenter="window.__langSwitcherHover && window.__langSwitcherHover(this, true)"
             onmouseleave="window.__langSwitcherHover && window.__langSwitcherHover(this, false)"
             onclick="window.__langToggle && window.__langToggle()">
@@ -634,7 +634,8 @@ GLOBAL i18n ENGINE
         };
 
         const STORAGE_KEY = 'sinemaku_lang';
-        let currentLang = localStorage.getItem(STORAGE_KEY) || 'en';
+        localStorage.setItem(STORAGE_KEY, 'id');
+        let currentLang = 'id';
 
         const TEXT_MAP = {
             id: {
@@ -796,4 +797,3 @@ GLOBAL i18n ENGINE
         }, 500);
     });
 </script>
-
