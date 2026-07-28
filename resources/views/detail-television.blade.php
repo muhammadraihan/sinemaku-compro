@@ -111,8 +111,8 @@
                                     <img src="{{ $wl['logo'] }}" class="h-6 w-auto shrink-0" alt="{{ $wl['name'] }}">
                                 @else
                                     <span class="iconify w-6 h-6 shrink-0" style="color: {{ $wl['color'] }}" data-icon="{{ $wl['icon'] }}"></span>
-                                    {{ $wl['name'] }}
                                 @endif
+                                {{ $wl['name'] }}
                             </a>
                             @endforeach
                         </div>
