@@ -14,17 +14,17 @@ HERO
     <div class="absolute inset-0 z-0">
 
     {{-- Background --}}
+    <img src="{{ asset('../img/jaff/DSC08954.jpg') }}"
+        class="hero-slide active">
     <img src="{{ asset('../img/jaff/ARDC9126.jpg') }}"
         class="hero-slide active">
     <img src="{{ asset('../img/jaff/9.jpg') }}"
-        class="hero-slide active">
-    <img src="{{ asset('../img/jaff/DSC08954.jpg') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/jaff/DSC09671.jpg') }}"
+    <img src="{{ asset('../img/jaff/DSC08021.jpg') }}"
+        class="hero-slide">
+     <img src="{{ asset('../img/jaff/DSC09671.jpg') }}"
         class="hero-slide">
      <img src="{{ asset('../img/jaff/ARDC8698.jpg') }}"
-        class="hero-slide">
-     <img src="{{ asset('../img/jaff/DSC08021.jpg') }}"
         class="hero-slide">
     </div>
 
