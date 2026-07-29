@@ -35,7 +35,7 @@ HERO
 
     <div class="relative z-10 h-full flex items-end">
 
-        <div class="max-w-7xl mx-auto w-full px-8 lg:px-20 pb-24">
+        <div class="max-w-7xl mx-auto w-full px-8 lg:px-20 pb-10">
 
             <h1
                 data-aos="fade-up"
@@ -53,21 +53,6 @@ HERO
 
             </h1>
 
-            <span
-                data-aos="fade-up"
-                data-aos-delay="500"
-                class="mt-4
-                block
-                uppercase
-                tracking-[6px]
-                text-white
-                font-bold
-                text-xs
-                md:text-sm">
-
-                SINEMAKU PICTURES
-
-            </span>
 
         </div>
 

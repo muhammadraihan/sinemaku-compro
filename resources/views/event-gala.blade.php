@@ -37,7 +37,7 @@ HERO
 
     <div class="relative z-10 h-full flex items-end">
 
-        <div class="max-w-7xl mx-auto w-full px-8 lg:px-20 pb-24">
+        <div class="max-w-7xl mx-auto w-full px-8 lg:px-20 pb-10">
 
             <h1
                 data-aos="fade-up"
