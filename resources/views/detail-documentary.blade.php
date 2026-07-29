@@ -45,10 +45,6 @@
             @i18n($documentaries, 'title')
         </h1>
 
-            <h1 class="detail-hero-title font-peckham text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl" style="font-peckham;">
-                        @i18n($documentaries, 'title')
-                    </h1>
-
         @if($video_id)
             <button
                 onclick="openHeroTrailer('{{ $video_id }}')"
