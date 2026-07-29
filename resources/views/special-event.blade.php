@@ -11,7 +11,7 @@ HERO
 ========================================================== --}}
 <section class="relative h-screen overflow-hidden">
 
-    {{-- Background --}}
+    {{-- Backgroundd --}}
     <div class="absolute inset-0 z-0">
 
     <img src="{{ asset('../img/special/_YAH1696 (1).jpg') }}"

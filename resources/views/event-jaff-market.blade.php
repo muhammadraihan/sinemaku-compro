@@ -24,7 +24,7 @@ HERO
         class="hero-slide">
     </div>
 
-    {{-- Overlay --}}
+    {{-- Overlayy --}}
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
 
     <div class="relative z-10 h-full flex items-end">
