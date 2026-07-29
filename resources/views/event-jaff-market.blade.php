@@ -14,6 +14,7 @@ HERO
     <div class="absolute inset-0 z-0">
 
     {{-- Background --}}
+       {{-- Background --}}
     <img src="{{ asset('../img/jaff/DSC08954.jpg') }}"
         class="hero-slide active">
     <img src="{{ asset('../img/jaff/ARDC9126.jpg') }}"
@@ -22,11 +23,10 @@ HERO
         class="hero-slide">
     <img src="{{ asset('../img/jaff/DSC08021.jpg') }}"
         class="hero-slide">
-     <img src="{{ asset('../img/jaff/DSC09671.jpg') }}"
+    <img src="{{ asset('../img/jaff/DSC09671.jpg') }}"
         class="hero-slide">
-     <img src="{{ asset('../img/jaff/ARDC8698.jpg') }}"
+    <img src="{{ asset('../img/jaff/ARDC8698.jpg') }}"
         class="hero-slide">
-    </div>
 
     {{-- Overlayy --}}
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
