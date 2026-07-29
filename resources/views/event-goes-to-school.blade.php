@@ -12,6 +12,7 @@ HERO
 <section class="relative h-screen overflow-hidden">
 
     <div class="absolute inset-0 z-0">
+../img/gts/SAN03781.JPG
     {{-- Background --}}
     <img src="{{ asset('../img/gts/EDZ08070.jpg') }}"
         class="hero-slide active">
