@@ -28,8 +28,9 @@
             </div>
 
 <!-- Content -->
-<div class="relative z-20 px-8 md:px-16 pb-12 max-w-[1400px] mx-auto w-full">
-    <div class="flex flex-col items-start gap-2 mt-12 md:mt-16">
+<div class="relative z-50 px-8 md:px-16 pb-12 max-w-[1400px] mx-auto w-full">
+    <div class="flex flex-col items-start gap-3 mt-8 md:mt-10">
+
         @php
             $video_id = '';
             if (
@@ -40,9 +41,9 @@
             }
         @endphp
 
-        <h1 class="detail-hero-title font-peckham text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl" style="font-peckham;">
-                        @i18n($films, 'title')
-                    </h1>
+        <h1 class="font-peckham text-[8vw] md:text-[5vw] leading-[0.95] text-white tracking-tighter uppercase font-black hero-reveal max-w-4xl">
+            @i18n($films, 'title')
+        </h1>
 
         @if($video_id)
             <button
@@ -51,7 +52,6 @@
                 Tonton Trailer
             </button>
         @endif
-
                 </div>
             </div>
         </section>
