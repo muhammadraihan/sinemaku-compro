@@ -53,7 +53,7 @@ EDITORIAL WRAPPER
                 </h2>
 
                 <p class="font-sans text-xl md:text-sm text-white leading-relaxed line-clamp-2">
-                    Basic Scriptwriting bersama Reka Wijaya | 15 Agustus 2026
+                    Basic Scriptwriting bersama Reka Wijaya | 12 Agustus 2026
                 </p>
             </div>
 
