@@ -45,6 +45,9 @@ HERO
                 lg:text-[5vw]
                 uppercase
                 tracking-tight
+                leading-[0.78]
+                sm:leading-[0.85]
+                md:leading-none
                 text-white">
 
                 JAFF MARKET

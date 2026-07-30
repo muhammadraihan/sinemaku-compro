@@ -112,13 +112,6 @@
                                     loading="lazy" decoding="async"
                                     alt="@i18n($item, 'title')">
 
-                                {{-- "UPCOMING" Label --}}
-                                @if(\Carbon\Carbon::parse($item->release_date)->isFuture())
-                                    <div class="absolute top-6 left-6 z-20">
-                                        <span class="font-peckham text-brand-orange text-lg md:text-2xl tracking-wider">UPCOMING</span>
-                                    </div>
-                                @endif
-
 @php
 $director = $item->credits
     ->where('role', 'DIRECTOR')
@@ -169,6 +162,9 @@ $writer = $item->credits
                                     <h4 class="card-title font-peckham leading-[0.85] text-white uppercase">
                                         @i18n($item, 'title')
                                     </h4>
+                                    @if(\Carbon\Carbon::parse($item->release_date)->isFuture())
+                                        <span class="card-upcoming-label block mt-2 font-peckham text-brand-orange text-sm md:text-2xl tracking-wider leading-none">UPCOMING</span>
+                                    @endif
                                 </div>
 
                                 {{-- Dark Gradient Overlay --}}
@@ -561,6 +557,9 @@ STYLES & SCRIPTS
             word-break: keep-all;
             overflow-wrap: normal;
         }
+        .catalogue-card .card-upcoming-label {
+            font-size: clamp(0.75rem, 2.4vw, 1.5rem);
+        }
 
         /* Judul Posisi */
         /* Wide: judul bawah-kiri, meta kanan → batasi lebar agar tidak bertabrakan */
@@ -640,6 +639,10 @@ STYLES & SCRIPTS
                 line-height: 1.2 !important;
                 word-break: break-word;
                 overflow-wrap: break-word;
+            }
+            .catalogue-card .card-upcoming-label {
+                font-size: 0.75rem;
+                margin-top: 0.35rem;
             }
         }
 
