@@ -366,13 +366,13 @@
                     @php
                         $secondaryImg = $settings['about_secondary_image'] ?? 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?q=80&w=2000&auto=format&fit=crop';
                     @endphp
-                    <img src="../img/tentang/EDZ06515.jpg" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                    <div class="crew-overlay absolute inset-0 bg-brand-navy/60 flex flex-col items-center justify-center text-center p-4 opacity-100 pointer-events-none">
-                        <h2 class="crew-story-title crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">KALIAN</h2>
-                        {{-- <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] italic my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span> --}}
-                        <span class="crew-text-reveal font-serif font-bold text-white text-[4.5vw] md:text-[2.8vw] my-2 md:my-4 shadow-sm" style="line-height: 0.9;">alasan kami terus</span>
-                        <h2 class="crew-text-reveal font-peckham text-white text-[5vw] md:text-[3vw] uppercase leading-none tracking-tighter shadow-sm" style="line-height: 0.9;">BERCERITA</h2>
-                    </div>
+                    {{-- <img src="../img/tentang/EDZ06515.jpg" class="w-full h-full object-cover" loading="lazy" decoding="async"> --}}
+                    <div class="crew-center-img col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">
+    <img src="../img/tentang/alasan kami.png"
+        class="w-full h-full object-cover transition duration-700"
+        loading="lazy"
+        decoding="async">
+</div>
                 </div>
 
                 <div class="crew-center-img col-span-4 md:col-span-4 crew-h rounded-xl md:rounded-2xl overflow-hidden relative shadow-xl group">

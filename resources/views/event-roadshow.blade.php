@@ -14,9 +14,13 @@ HERO
     <div class="absolute inset-0 z-0">
 
     {{-- Background --}}
+    <img src="{{ asset('../img/roadshow/14.webp') }}"
+        class="hero-slide active">
+    <img src="{{ asset('../img/roadshow/13.webp') }}"
+        class="hero-slide active">
     <img src="{{ asset('../img/roadshow/_ARM2917.JPG') }}"
         class="hero-slide active">
-        <img src="{{ asset('../img/roadshow/_ARM3073.JPG') }}"
+    <img src="{{ asset('../img/roadshow/_ARM3073.JPG') }}"
         class="hero-slide active">
     <img src="{{ asset('../img/roadshow/3.jpg') }}"
         class="hero-slide">
