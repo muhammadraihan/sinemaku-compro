@@ -66,9 +66,9 @@ HERO
 FILM SELECTOR
 ========================================================== --}}
 
-<section class="bg-white py-6 md:py-5 border-y border-gray-200">
+<section class="bg-white py-5 border-y border-gray-200">
 
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="max-w-7xl mx-auto px-8">
 
        <div class="flex flex-wrap justify-center gap-3">
     @foreach ($events as $index => $event)
@@ -87,11 +87,11 @@ FILM SELECTOR
 DETAIL FILM
 ========================================================== --}}
 
-<section id="film-section" class="bg-white pt-14 md:pt-10 pb-20">
+<section id="film-section" class="bg-white pt-10 pb-20">
 
-    <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="max-w-7xl mx-auto px-8">
 
-        <div class="text-center mb-10 md:mb-6">
+        <div class="text-center mb-6">
 
             <h2
                 id="film-title"
