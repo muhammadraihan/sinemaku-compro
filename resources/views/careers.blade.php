@@ -30,7 +30,7 @@ EDITORIAL WRAPPER
     <div class="max-w-[1600px] mx-auto px-6 md:px-10">
 
         {{-- 1. PAGE HEADER (Centered) --}}
-        <div class="text-center mb-20 reveal-text">
+        <div class="text-center mb-8 md:mb-20 reveal-text">
             <h1 class="font-peckham not-italic text-[26px] sm:text-4xl md:text-4xl lg:text-5xl text-brand-navy leading-[0.9] md:leading-[0.8] tracking-tight">
                 Setiap Orang Berhak Atas Kesempatan Pertamanya.<span class="font-peckham not-italic uppercase text-brand-orange tracking-tighter text-[26px] sm:text-4xl md:text-4xl lg:text-5xl"> Sinemaku Membuka Pintunya.</span>
             </h1>
