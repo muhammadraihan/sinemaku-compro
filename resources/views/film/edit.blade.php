@@ -214,6 +214,7 @@
                             'WARDROBE',
                             'FASHION STYLIST',
                             'SOUND RECORDIST',
+                            'MUSIC SCORING',
                             'POST PRODUCER',
                             'EDITOR',
                             'SOUND DESIGNER',
@@ -285,6 +286,7 @@
             <option>WARDROBE</option>
             <option>FASHION STYLIST</option>
             <option>SOUND RECORDIST</option>
+            <option>MUSIC SCORING</option>
             <option>POST PRODUCER</option>
             <option>EDITOR</option>
             <option>SOUND DESIGNER</option>
@@ -603,6 +605,7 @@
                     <option value="WARDROBE">WARDROBE</option>
                     <option value="FASHION STYLIST">FASHION STYLIST</option>
                     <option value="SOUND RECORDIST">SOUND RECORDIST</option>
+                    <option value="MUSIC SCORING">MUSIC SCORING</option>
                     <option value="POST PRODUCER">POST PRODUCER</option>
                     <option value="EDITOR">EDITOR</option>
                     <option value="SOUND DESIGNER">SOUND DESIGNER</option>
