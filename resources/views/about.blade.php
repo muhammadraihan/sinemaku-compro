@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'About — Sinemaku Pictures')
+@section('title', 'Beranda — Sinemaku Pictures')
 
 @push('head')
     <!-- Swiper CSS -->
@@ -196,9 +196,6 @@
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/41.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
-                    </div>
-                 <div class="swiper-slide h-full">
-                        <img src="../img/p.home/2.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/PSX_20220103_224953.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">

@@ -18,13 +18,13 @@ HERO
         class="hero-slide active">
     <img src="{{ asset('../img/jaff/ARDC9126.jpg') }}"
         class="hero-slide active">
-    <img src="{{ asset('../img/jaff/9.jpg') }}"
+    <img src="{{ asset('../img/tentang/ARDC0060.jpg') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/jaff/DSC08021.jpg') }}"
+    <img src="{{ asset('../img/tentang/ARDC9255.jpg') }}"
         class="hero-slide">
     <img src="{{ asset('../img/jaff/DSC09671.jpg') }}"
         class="hero-slide">
-    <img src="{{ asset('../img/jaff/ARDC8698.jpg') }}"
+    <img src="{{ asset('../img/tentang/12.jpg') }}"
         class="hero-slide">
          </div>
 
