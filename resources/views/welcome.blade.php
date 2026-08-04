@@ -307,7 +307,7 @@
                 </p>
 
                 {{-- CTA --}}
-                <a href="/films" style="display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:var(--amber-500); border-bottom:1px solid rgba(237,149,32,0.45); padding-bottom:4px; text-decoration:none; transition: color 280ms ease, gap 280ms ease;">
+                <a href="{{ route('film') }}" style="display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; color:var(--amber-500); border-bottom:1px solid rgba(237,149,32,0.45); padding-bottom:4px; text-decoration:none; transition: color 280ms ease, gap 280ms ease;">
                     <span data-i18n="home_see_all_films">Lihat Semua Film</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width:14px;height:14px;"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                 </a>
@@ -413,7 +413,7 @@
                     @endif
                 </div>
                 <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestSerial->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
-                <a href="/serial" class="feature-cta">
+                <a href="{{ route('series') }}" class="feature-cta">
                     <span data-i18n="home_see_serials">Lihat Serial Lainnya</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                 </a>
@@ -505,7 +505,7 @@
                         @endif
                     </div>
                     <p class="feature-excerpt">{{ Str::limit(html_entity_decode(strip_tags($latestTvShow->sinopsis), ENT_QUOTES | ENT_HTML5), 180) }}</p>
-                    <a href="/tv" class="feature-cta">
+                    <a href="{{ route('tv') }}" class="feature-cta">
                         <span data-i18n="home_see_tv">Lihat Tayangan Lainnya</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/></svg>
                     </a>

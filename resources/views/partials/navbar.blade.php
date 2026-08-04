@@ -37,10 +37,10 @@ FULLSCREEN MENU OVERLAY
                     'i18n' => 'menu_our_works',
                     'isDropdown' => true,
                     'children' => [
-                        ['title' => 'FILMS', 'url' => '/films', 'i18n' => 'menu_films_short'],
-                        ['title' => 'WEB SERIES', 'url' => '/serial', 'i18n' => 'menu_web_series_short'],
-                        ['title' => 'TELEVISION', 'url' => '/tv', 'i18n' => 'menu_television_short'],
-                        ['title' => 'DOCUMENTARIES', 'url' => '/documentary', 'i18n' => 'menu_documentaries_short'],
+                        ['title' => 'FILMS', 'url' => route('film'), 'i18n' => 'menu_films_short'],
+                        ['title' => 'WEB SERIES', 'url' => route('series'), 'i18n' => 'menu_web_series_short'],
+                        ['title' => 'TELEVISION', 'url' => route('tv'), 'i18n' => 'menu_television_short'],
+                        ['title' => 'DOCUMENTARIES', 'url' => route('documentary'), 'i18n' => 'menu_documentaries_short'],
                     ]
                 ],
                 // ['title' => 'EVENT', 'url' => '/events', 'i18n' => 'menu_events'],
@@ -87,7 +87,7 @@ FULLSCREEN MENU OVERLAY
                 // ['title' => 'MERCH', 'url' => '/shop', 'i18n' => 'menu_merch'],
                 // ['title' => 'COMMUNITY', 'url' => '/membership', 'i18n' => 'menu_community'],
                 // ['title' => 'ARTICLE', 'url' => '/article', 'i18n' => 'menu_articles'],
-                ['title' => 'PINTU TERBUKA', 'url' => '/careers', 'i18n' => 'menu_careers'],
+                ['title' => 'PINTU TERBUKA', 'url' => route('careers'), 'i18n' => 'menu_careers'],
             ];
         @endphp
 
@@ -196,7 +196,7 @@ STICKY MORPHING NAVBAR (THE "PONI")
     <div id="sticky-header" class="w-full flex justify-between items-center px-6 md:px-10 h-[64px] shrink-0 transition-colors duration-300">
         {{-- Left --}}
         <div class="basis-1/3 flex justify-start">
-            <a href="/films" class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors cursor-none hover-target">
+            <a href="{{ route('film') }}" class="font-sans text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-bold text-white/80 hover:text-white transition-colors cursor-none hover-target">
                 Our Works
             </a>
         </div>

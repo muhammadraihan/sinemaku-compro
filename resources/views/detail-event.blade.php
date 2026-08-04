@@ -246,7 +246,7 @@
 
         {{-- Discover More footer --}}
         <div class="mt-32 text-center">
-            <a href="/events" class="inline-flex flex-col items-center group">
+            <a href="{{ route('events.index') }}" class="inline-flex flex-col items-center group">
                 <span class="text-[10px] font-bold uppercase tracking-[0.4em] text-brand-navy/40 group-hover:text-brand-orange transition-colors mb-4">View All Events</span>
                 <div class="w-12 h-12 rounded-full border border-brand-navy/10 flex items-center justify-center group-hover:bg-brand-navy group-hover:text-white transition-all">
                     <span class="iconify" data-icon="lucide:arrow-right" data-width="20"></span>

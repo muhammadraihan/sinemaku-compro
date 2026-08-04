@@ -56,8 +56,8 @@
                             // ['HOME', '/'], ['OUR WORKS', '/films'], ['EVENT', '/events'],
                             // ['MERCH', '/shop'], ['COMMUNITY', '/membership'], ['ARTICLE', '/article'], ['CAREER', '/careers']
 
-                             ['BERANDA', '/'], ['LANGKAH KAMI', '/tentang-kami'], ['KARYA KAMI', '/films'], ['RUANG TEMU', '/events/gala-premiere'],
-                             ['PINTU TERBUKA', '/careers']
+                             ['BERANDA', '/'], ['LANGKAH KAMI', route('tentang')], ['KARYA KAMI', route('film')], ['RUANG TEMU', route('events.gala')],
+                             ['PINTU TERBUKA', route('careers')]
                         ];
                     @endphp
                     @foreach($footerLinks as $link)
