@@ -14,10 +14,12 @@ HERO
     <div class="absolute inset-0 z-0">
 
     {{-- Background --}}
+    <img src="{{ asset('../img/gala/_YAH8593.jpg') }}"
+        class="hero-slide active">
     <img src="{{ asset('../img/gala/_ARM5814.jpg') }}"
-        class="hero-slide active">
+        class="hero-slide">
      <img src="{{ asset('../img/gala/hndd.jpg') }}"
-        class="hero-slide active">
+        class="hero-slide">
     <img src="{{ asset('../img/gala/_ARM9812.JPG') }}"
         class="hero-slide">
     <img src="{{ asset('../img/gala/_ARM5365.jpg') }}"

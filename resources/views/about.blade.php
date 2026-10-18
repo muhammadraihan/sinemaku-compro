@@ -182,6 +182,9 @@
                     @endforeach
                 @else
 
+                  <div class="swiper-slide h-full">
+                        <img src="../img/p.home/_YAH8593.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
+                    </div>
                 <div class="swiper-slide h-full">
                         <img src="../img/p.home/_ARM1294.jpg" alt="Sinemaku Hero" class="w-full h-full object-cover">
                     </div>

@@ -39,25 +39,28 @@ EDITORIAL WRAPPER
      {{-- 2. CATEGORY BOXES --}}
 <div class="flex flex-col gap-6 md:gap-8 mx-auto">
 
-    {{-- BOX 1: ONLINE FILM LAB --}}
+    {{-- BOX 1 --}}
     <div class="career-card group relative bg-brand-orange rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-orange/30 shadow-xl shadow-brand-orange/20 reveal-item">
 
         <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
 
             <div class="max-w-2xl">
-                <h2 class="font-peckham text-2xl md:text-3xl text-white normal-case leading-none mb-2">
-                    ONLINE FILM LAB
-                    <span class="font-sans text-xl md:text-3xl normal-case opacity-90">
-                        untuk umum
-                    </span>
-                </h2>
+
+        <h2 class="font-peckham text-2xl md:text-3xl text-white normal-case leading-tight mb-2">
+            <span class="whitespace-nowrap">
+                PITCHING PROYEK TUGAS AKHIR
+            </span>
+            <span class="font-sans text-xl md:text-3xl normal-case opacity-90 whitespace-nowrap">
+                untuk mahasiswa
+            </span>
+        </h2>
 
                 <p class="font-sans text-xl md:text-sm text-white leading-relaxed line-clamp-2">
-                    Basic Scriptwriting bersama Reka Wijaya | 12 Agustus 2026
+                    Jaff Market 2026
                 </p>
             </div>
 
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSepFLs416xdfEAP3ex2R2H-PkSmo2UsFc37Wn9AhuwsT3xPLA/viewform"
+            <a href=""
                target="_blank"
                class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold group-hover:bg-white group-hover:text-brand-orange transition-all duration-300 inline-block">
                 Daftar Sekarang
@@ -67,7 +70,91 @@ EDITORIAL WRAPPER
 
     </div>
 
-    {{-- BOX 2: CASTING --}}
+        {{-- BOX 2 --}}
+    <div class="career-card group relative bg-[#1A2D61] rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-black/40 shadow-xl shadow-black/20 reveal-item">
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+
+            <div class="max-w-2xl">
+                <h2 class="font-peckham text-2xl md:text-3xl text-white uppercase leading-none mb-2">
+                    PITCHING FILM PENDEK
+                    <span class="font-sans text-xl md:text-3xl normal-case opacity-90">
+                        untuk umum
+                    </span>
+                </h2>
+
+                <p class="font-sans text-xl md:text-sm text-white leading-relaxed line-clamp-2">
+                    Jaff Market 2026
+                </p>
+            </div>
+
+            <a href=""
+               target="_blank"
+               class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold group-hover:bg-white group-hover:text-brand-navy transition-all duration-300 inline-block">
+                Daftar Sekarang
+            </a>
+
+        </div>
+
+    </div>
+
+    {{-- BOX 3 --}}
+    <div class="career-card group relative bg-white border border-brand-navy/5 rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-navy/10 shadow-xl shadow-brand-navy/5 reveal-item">
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+
+            <div class="max-w-2xl">
+                <h2 class="font-peckham text-2xl md:text-3xl text-brand-orange uppercase leading-none mb-2">
+                    SCRIPT LAB FILM PENDEK
+                    <span class="font-sans text-xl md:text-3xl normal-case text-brand-navy opacity-60">
+                        untuk umum
+                    </span>
+                </h2>
+
+                <p class="font-sans text-xl md:text-sm text-brand-navy/60 leading-relaxed line-clamp-2">
+                    Jaff Market 2026
+                </p>
+            </div>
+
+            <a href=""
+               target="_blank"
+               class="px-8 py-3 rounded-full border border-brand-navy/40 text-brand-navy font-sans text-[12px] tracking-[0.2em] font-bold group-hover:bg-brand-navy group-hover:text-white transition-all duration-300 inline-block">
+                Daftar Sekarang
+            </a>
+
+        </div>
+
+    </div>
+
+      {{-- BOX 4 --}}
+    <div class="career-card group relative bg-brand-orange rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-orange/30 shadow-xl shadow-brand-orange/20 reveal-item">
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+
+            <div class="max-w-2xl">
+                <h2 class="font-peckham text-2xl md:text-3xl text-white uppercase leading-none mb-2">
+                    DANA DISTRIBUSI
+                    <span class="font-sans text-xl md:text-3xl normal-case opacity-90">
+                        untuk umum
+                    </span>
+                </h2>
+
+                <p class="font-sans text-xl md:text-sm text-white leading-relaxed line-clamp-2">
+                    Jaff Market 2026
+                </p>
+            </div>
+
+            <a href=""
+               target="_blank"
+               class="px-8 py-3 rounded-full border border-white/40 text-white font-sans text-[12px] tracking-[0.2em] font-bold group-hover:bg-white group-hover:text-brand-orange transition-all duration-300 inline-block">
+                Daftar Sekarang
+            </a>
+
+        </div>
+
+    </div>
+
+    {{-- BOX 5 --}}
     <div class="career-card group relative bg-[#1A2D61] rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-black/40 shadow-xl shadow-black/20 reveal-item">
 
         <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -95,7 +182,7 @@ EDITORIAL WRAPPER
 
     </div>
 
-    {{-- BOX 3: VOLUNTEER --}}
+    {{-- BOX 6 --}}
     <div class="career-card group relative bg-white border border-brand-navy/5 rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-navy/10 shadow-xl shadow-brand-navy/5 reveal-item">
 
         <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -124,7 +211,7 @@ EDITORIAL WRAPPER
     </div>
 
 
-    {{-- BOX 4: MAGANG --}}
+    {{-- BOX 7 --}}
     <div class="career-card group relative bg-brand-orange rounded-xl p-8 md:p-12 overflow-hidden transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand-orange/30 shadow-xl shadow-brand-orange/20 reveal-item">
 
         <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">

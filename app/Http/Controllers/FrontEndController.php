@@ -543,7 +543,7 @@ public function galaPremiere()
 {
     $events = Event::whereHas('eventKategori', function ($q) {
         $q->where('name', 'Gala Premier');
-    })->latest('tgl_event')->get();
+    })->latest('created_at')->get();
 
     return view('event-gala', compact('events'));
 }
@@ -566,7 +566,7 @@ public function sinemakuDay()
 {
     $events = Event::whereHas('eventKategori', function ($q) {
         $q->where('name', 'Sinemaku Day');
-    })->latest('tgl_event')->get();
+    })->latest('created_at')->get();
 
     return view('event-sinemaku-day', compact('events'));
 }
@@ -592,7 +592,7 @@ public function sinemakuDay()
 {
     $events = Event::whereHas('eventKategori', function ($q) {
         $q->where('name', 'Roadshow');
-    })->latest('tgl_event')->get();
+    })->latest('created_at')->get();
 
     return view('event-roadshow', compact('events'));
 }
@@ -601,7 +601,7 @@ public function goesToSchool()
 {
     $events = Event::whereHas('eventKategori', function ($q) {
         $q->where('name', 'Goes To School');
-    })->latest('tgl_event')->get();
+    })->latest('created_at')->get();
 
     return view('event-goes-to-school', compact('events'));
 }
@@ -610,7 +610,7 @@ public function specialEvent()
 {
     $events = Event::whereHas('eventKategori', function ($q) {
         $q->where('name', 'Special Event');
-    })->latest('tgl_event')->get();
+    })->latest('created_at')->get();
 
     return view('special-event', compact('events'));
 }
@@ -619,7 +619,7 @@ public function jaffMarket()
 {
     $events = Event::whereHas('eventKategori', function ($q) {
         $q->where('name', 'JAFF MARKET');
-    })->latest('tgl_event')->get();
+    })->latest('created_at')->get();
 
     return view('event-jaff-market', compact('events'));
 }
