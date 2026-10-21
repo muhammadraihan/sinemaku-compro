@@ -32,7 +32,7 @@ EDITORIAL WRAPPER
         {{-- 1. PAGE HEADER (Centered) --}}
         <div class="text-center mb-8 md:mb-20 reveal-text">
             <h1 class="font-peckham not-italic text-[26px] sm:text-4xl md:text-4xl lg:text-5xl text-brand-navy leading-[0.9] md:leading-[0.8] tracking-tight">
-                PROGRAM SINEMAKU<span class="font-peckham not-italic uppercase text-brand-orange tracking-tighter text-[26px] sm:text-4xl md:text-4xl lg:text-5xl"> JAFF MARKET 2026.</span>
+                PROGRAM SINEMAKU<span class="font-peckham not-italic uppercase text-brand-orange tracking-tighter text-[26px] sm:text-4xl md:text-4xl lg:text-5xl"> JAFF MARKET 2026</span>
             </h1>
         </div>
 
@@ -50,7 +50,7 @@ EDITORIAL WRAPPER
             <span class="whitespace-nowrap">
                 PITCHING PROYEK TUGAS AKHIR
             </span>
-            <span class="font-sans text-xl md:text-3xl normal-case opacity-90 whitespace-nowrap">
+            <span class="font-peckham text-xl md:text-2xl normal-case opacity-90 whitespace-nowrap">
                 JAFF MARKET 2026
             </span>
         </h2>
@@ -78,7 +78,7 @@ EDITORIAL WRAPPER
             <div class="max-w-2xl">
                 <h2 class="font-peckham text-2xl md:text-3xl text-white uppercase leading-none mb-2">
                     PITCHING PENDANAAN FILM PENDEK UNTUK UMUM
-                    <span class="font-sans text-xl md:text-3xl normal-case opacity-90">
+                    <span class="font-peckham text-xl md:text-2xl normal-case opacity-90">
                         JAFF MARKET 2026
                     </span>
                 </h2>
@@ -106,7 +106,7 @@ EDITORIAL WRAPPER
             <div class="max-w-2xl">
                 <h2 class="font-peckham text-2xl md:text-3xl text-brand-orange uppercase leading-none mb-2">
                     SCRIPT LAB FILM PENDEK
-                    <p class="font-sans text-xl md:text-3xl normal-case text-brand-navy opacity-60">
+                    <p class="font-peckham text-xl md:text-2xl normal-case text-brand-navy opacity-60">
                         JAFF MARKET 2026
                     </p>
                 </h2>
@@ -134,7 +134,7 @@ EDITORIAL WRAPPER
             <div class="max-w-2xl">
                 <h2 class="font-peckham text-2xl md:text-3xl text-white uppercase leading-none mb-2">
                     DANA DISTRIBUSI FILM PENDEK
-                    <p class="font-sans text-xl md:text-3xl normal-case opacity-90">
+                    <p class="font-peckham text-xl md:text-2xl normal-case opacity-90">
                         JAFF MARKET 2026
                     </p>
                 </h2>
