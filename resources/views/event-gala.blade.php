@@ -259,171 +259,182 @@ GALLERY
 </style>
 
 <script>
-@php
-    $events->load('photos');
-@endphp
+    @php
+        $events->load('photos');
+    @endphp
 
-const filmsData = @json($events);
+    const filmsData = @json($events);
 
-function showFilm(index, button){
+    let activeFilmIndex = 0;
 
-    const data = filmsData[index];
+    console.log(filmsData);
 
-    if(!data) return;
+    function showFilm(index, button) {
+        const data = filmsData[index];
 
-    // Title & Deskripsi
-    document.getElementById("film-title").innerHTML = data.judul;
-    document.getElementById("film-desc-1").innerHTML = data.detail ?? "";
+        if (!data) return;
 
-    // Gallery
-    function setGalleryImage(id, photo){
+        activeFilmIndex = index;
 
-        const img = document.getElementById(id);
+        console.log("Film dipilih:", data);
+        console.log("video_link:", data.video_link);
 
-        if(!img) return;
+        document.getElementById("film-title").innerHTML = data.judul;
+        document.getElementById("film-desc-1").innerHTML = data.detail ?? "";
 
-        if(photo){
+        // Mengatur gambar galeri
+        function setGalleryImage(id, photo) {
+            const img = document.getElementById(id);
+
+            if (!img) return;
+
+            if (photo && photo.photo) {
+                let url = photo.photo;
+
+                if (!url.startsWith("http")) {
+                    url = "{{ asset('photo') }}/" + url;
+                }
+
+                img.src = url;
+                img.style.display = "block";
+
+                // Foto pertama membuka link video
+                if (id === "gallery-1") {
+                    img.onclick = function(e) {
+                        e.stopPropagation();
+
+                        console.log("FOTO 1 DIKLIK");
+                        console.log("Video:", data.video_link);
+
+                        if (data.video_link) {
+                            window.open(data.video_link, "_blank");
+                        } else {
+                            showImage(url);
+                        }
+                    };
+
+                } else if (id !== "gallery-7") {
+                    // Foto lainnya membuka preview
+                    img.onclick = function(e) {
+                        e.stopPropagation();
+                        showImage(url);
+                    };
+
+                } else {
+                    img.onclick = null;
+                }
+
+            } else {
+                img.style.display = "none";
+                img.onclick = null;
+            }
+        }
+
+        setGalleryImage("gallery-1", data.photos[0]);
+        setGalleryImage("gallery-2", data.photos[1]);
+        setGalleryImage("gallery-3", data.photos[2]);
+        setGalleryImage("gallery-4", data.photos[3]);
+        setGalleryImage("gallery-5", data.photos[4]);
+        setGalleryImage("gallery-6", data.photos[5]);
+        setGalleryImage("gallery-7", data.photos[6]);
+
+        loadGallery(data.photos);
+
+        // Mengatur tombol film aktif
+        document.querySelectorAll(".film-button").forEach(btn => {
+            btn.classList.remove("active-film");
+        });
+
+        if (button) {
+            button.classList.add("active-film");
+        }
+    }
+
+    function loadGallery(photos) {
+        const container = document.getElementById("gallery-all-images");
+
+        container.innerHTML = "";
+
+        photos.forEach(photo => {
+            if (!photo.photo) return;
 
             let url = photo.photo;
 
-            if(!url.startsWith("http")){
+            if (!url.startsWith("http")) {
                 url = "{{ asset('photo') }}/" + url;
             }
 
-            img.src = url;
-            img.style.display = "block";
+            container.innerHTML += `
+                <a href="${url}">
+                    <img src="${url}" class="hidden">
+                </a>
+            `;
+        });
 
-            // gallery-7 tidak preview, tapi buka lightGallery
-            if(id !== "gallery-7"){
-                img.onclick = function(e){
-                    e.stopPropagation();
-                    showImage(url);
-                };
-            }
-
-        }else{
-
-            img.style.display = "none";
-            img.onclick = null;
-
+        // Hancurkan instance galeri sebelumnya
+        if (window.galleryInstance) {
+            window.galleryInstance.destroy();
         }
 
+        window.galleryInstance = lightGallery(container, {
+            selector: "a",
+            thumbnail: true,
+            download: false,
+            plugins: [lgThumbnail],
+            dynamic: false
+        });
+
+        const overlay = document.getElementById("gallery-overlay");
+
+        if (photos.length > 7) {
+            overlay.style.display = "flex";
+            overlay.innerHTML = "+" + (photos.length - 7);
+        } else {
+            overlay.style.display = "none";
+        }
     }
 
-    setGalleryImage("gallery-1", data.photos[0]);
-    setGalleryImage("gallery-2", data.photos[1]);
-    setGalleryImage("gallery-3", data.photos[2]);
-    setGalleryImage("gallery-4", data.photos[3]);
-    setGalleryImage("gallery-5", data.photos[4]);
-    setGalleryImage("gallery-6", data.photos[5]);
-    setGalleryImage("gallery-7", data.photos[6]);
+    function openGallery(index = 6) {
+        if (window.galleryInstance) {
+            window.galleryInstance.openGallery(index);
+        }
+    }
 
-    loadGallery(data.photos);
+    function showImage(src) {
+        document.getElementById("modalImage").src = src;
 
-    document.querySelectorAll(".film-button").forEach(btn=>{
-        btn.classList.remove("active-film");
-    });
+        const modal = document.getElementById("imageModal");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+    }
 
-    button.classList.add("active-film");
-}
+    function closeImage() {
+        const modal = document.getElementById("imageModal");
+        modal.classList.remove("flex");
+        modal.classList.add("hidden");
+    }
 
-function loadGallery(photos){
+    document.addEventListener("DOMContentLoaded", function() {
+        const firstButton = document.querySelector(".film-button");
 
-    const container = document.getElementById("gallery-all-images");
-
-    container.innerHTML = "";
-
-    photos.forEach(photo=>{
-
-        let url = photo.photo;
-
-        if(!url.startsWith("http")){
-            url = "{{ asset('photo') }}/" + url;
+        if (firstButton) {
+            showFilm(0, firstButton);
         }
 
-        container.innerHTML += `
-            <a href="${url}">
-                <img src="${url}" class="hidden">
-            </a>
-        `;
+        const heroSlides = document.querySelectorAll(".hero-slide");
 
+        if (heroSlides.length > 1) {
+            let heroIndex = 0;
+
+            setInterval(() => {
+                heroSlides[heroIndex].classList.remove("active");
+
+                heroIndex = (heroIndex + 1) % heroSlides.length;
+
+                heroSlides[heroIndex].classList.add("active");
+            }, 2000);
+        }
     });
-
-    if(window.galleryInstance){
-        window.galleryInstance.destroy();
-    }
-
-    window.galleryInstance = lightGallery(container,{
-        selector:'a',
-        download:false,
-        thumbnail:true,
-        plugins:[lgThumbnail]
-    });
-
-    const overlay = document.getElementById("gallery-overlay");
-
-    if(photos.length > 7){
-        overlay.style.display = "flex";
-        overlay.innerHTML = "+" + (photos.length - 7);
-    }else{
-        overlay.style.display = "none";
-    }
-}
-
-function openGallery(index = 6){
-
-    if(window.galleryInstance){
-        window.galleryInstance.openGallery(index);
-    }
-
-}
-
-function showImage(src){
-
-    document.getElementById("modalImage").src = src;
-
-    const modal = document.getElementById("imageModal");
-
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-
-}
-
-function closeImage(){
-
-    const modal = document.getElementById("imageModal");
-
-    modal.classList.remove("flex");
-    modal.classList.add("hidden");
-
-}
-
-document.addEventListener("DOMContentLoaded",function(){
-
-    const firstButton = document.querySelector(".film-button");
-
-    if(firstButton){
-        showFilm(0, firstButton);
-    }
-
-    const heroSlides = document.querySelectorAll(".hero-slide");
-
-if(heroSlides.length > 1){
-
-    let heroIndex = 0;
-
-    setInterval(() => {
-
-        heroSlides[heroIndex].classList.remove("active");
-
-        heroIndex = (heroIndex + 1) % heroSlides.length;
-
-        heroSlides[heroIndex].classList.add("active");
-
-    }, 3000);
-
-}
-
-});
 </script>
+
 @include('components.footer')

@@ -17,7 +17,6 @@ HERO
     <img src="{{ asset('../img/special/MORZ5573.jpg') }}"
         class="hero-slide active">
 
-
     <img src="{{ asset('../img/special/MORZ5890.jpg') }}"
         class="hero-slide">
     <img src="{{ asset('../img/special/MORZ5788.jpg') }}"
@@ -266,185 +265,182 @@ GALLERY
 </style>
 
 <script>
-@php
-    $events->load('photos');
-@endphp
+    @php
+        $events->load('photos');
+    @endphp
 
-const filmsData = @json($events);
-console.log(filmsData);
+    const filmsData = @json($events);
 
-function showFilm(index, button){
-    console.log("showFilm dipanggil");
-console.log(index);
-console.log(filmsData[index]);
+    let activeFilmIndex = 0;
 
-    const data = filmsData[index];
-    if(!data) return;
+    console.log(filmsData);
 
-    document.getElementById("film-title").innerHTML = data.judul;
-    document.getElementById("film-desc-1").innerHTML = data.detail ?? "";
+    function showFilm(index, button) {
+        const data = filmsData[index];
 
-    function setGalleryImage(id, photo){
+        if (!data) return;
 
-    const img = document.getElementById(id);
+        activeFilmIndex = index;
 
-    if(!img) return;
+        console.log("Film dipilih:", data);
+        console.log("video_link:", data.video_link);
 
-    if(photo){
+        document.getElementById("film-title").innerHTML = data.judul;
+        document.getElementById("film-desc-1").innerHTML = data.detail ?? "";
 
-        let url = photo.photo;
+        // Mengatur gambar galeri
+        function setGalleryImage(id, photo) {
+            const img = document.getElementById(id);
 
-        if(!url.startsWith("http")){
-            url = "{{ asset('photo') }}/" + url;
+            if (!img) return;
+
+            if (photo && photo.photo) {
+                let url = photo.photo;
+
+                if (!url.startsWith("http")) {
+                    url = "{{ asset('photo') }}/" + url;
+                }
+
+                img.src = url;
+                img.style.display = "block";
+
+                // Foto pertama membuka link video
+                if (id === "gallery-1") {
+                    img.onclick = function(e) {
+                        e.stopPropagation();
+
+                        console.log("FOTO 1 DIKLIK");
+                        console.log("Video:", data.video_link);
+
+                        if (data.video_link) {
+                            window.open(data.video_link, "_blank");
+                        } else {
+                            showImage(url);
+                        }
+                    };
+
+                } else if (id !== "gallery-7") {
+                    // Foto lainnya membuka preview
+                    img.onclick = function(e) {
+                        e.stopPropagation();
+                        showImage(url);
+                    };
+
+                } else {
+                    img.onclick = null;
+                }
+
+            } else {
+                img.style.display = "none";
+                img.onclick = null;
+            }
         }
 
-        img.src = url;
-        img.style.display = "block";
+        setGalleryImage("gallery-1", data.photos[0]);
+        setGalleryImage("gallery-2", data.photos[1]);
+        setGalleryImage("gallery-3", data.photos[2]);
+        setGalleryImage("gallery-4", data.photos[3]);
+        setGalleryImage("gallery-5", data.photos[4]);
+        setGalleryImage("gallery-6", data.photos[5]);
+        setGalleryImage("gallery-7", data.photos[6]);
 
-        // gallery ke-7 tidak memakai preview
-        if(id !== "gallery-7"){
+        loadGallery(data.photos);
 
-            img.onclick = function(e){
-                e.stopPropagation();
-                showImage(url);
-            };
+        // Mengatur tombol film aktif
+        document.querySelectorAll(".film-button").forEach(btn => {
+            btn.classList.remove("active-film");
+        });
 
-        }else{
-
-            img.onclick = null;
-
+        if (button) {
+            button.classList.add("active-film");
         }
-
-    }else{
-
-        img.style.display = "none";
-        img.onclick = null;
-
     }
 
-}
+    function loadGallery(photos) {
+        const container = document.getElementById("gallery-all-images");
 
-    setGalleryImage("gallery-1", data.photos[0]);
-    setGalleryImage("gallery-2", data.photos[1]);
-    setGalleryImage("gallery-3", data.photos[2]);
-    setGalleryImage("gallery-4", data.photos[3]);
-    setGalleryImage("gallery-5", data.photos[4]);
-    setGalleryImage("gallery-6", data.photos[5]);
-    setGalleryImage("gallery-7", data.photos[6]);
+        container.innerHTML = "";
 
-    loadGallery(data.photos);
+        photos.forEach(photo => {
+            if (!photo.photo) return;
 
-    document.querySelectorAll(".film-button").forEach(btn=>{
-        btn.classList.remove("active-film");
-    });
+            let url = photo.photo;
 
-    button.classList.add("active-film");
-}
-
-function loadGallery(photos){
-
-    const container = document.getElementById("gallery-all-images");
-
-    container.innerHTML = "";
-
-    photos.forEach(photo=>{
-
-        let url = photo.photo;
-
-        if(!url.startsWith("http")){
-            url = "{{ asset('photo') }}/" + url;
-        }
-
-        container.innerHTML += `
-            <a href="${url}">
-                <img src="${url}" class="hidden">
-            </a>
-        `;
-
-    });
-
-    if(window.galleryInstance){
-        window.galleryInstance.destroy();
-    }
-
-    window.galleryInstance = lightGallery(container,{
-        selector:'a',
-        thumbnail:true,
-        download:false,
-        plugins:[lgThumbnail]
-    });
-
-    const overlay = document.getElementById("gallery-overlay");
-
-    if(photos.length > 7){
-
-        overlay.style.display = "flex";
-        overlay.innerHTML = "+" + (photos.length - 7);
-
-    }else{
-
-        overlay.style.display = "none";
-
-    }
-
-}
-
-function openGallery(index = 6){
-
-    if(window.galleryInstance){
-        window.galleryInstance.openGallery(index);
-    }
-
-}
-
-function showImage(src){
-
-    document.getElementById("modalImage").src = src;
-
-    const modal = document.getElementById("imageModal");
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-
-}
-
-function closeImage(){
-
-    const modal = document.getElementById("imageModal");
-    modal.classList.remove("flex");
-    modal.classList.add("hidden");
-
-}
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-    const firstButton = document.querySelector(".film-button");
-
-    if(firstButton){
-        showFilm(0, firstButton);
-    }
-
-    const heroSlides = document.querySelectorAll(".hero-slide");
-
-    if(heroSlides.length > 0){
-
-        let heroIndex = 0;
-
-        setInterval(()=>{
-
-            heroSlides[heroIndex].classList.remove("active");
-
-            heroIndex++;
-
-            if(heroIndex >= heroSlides.length){
-                heroIndex = 0;
+            if (!url.startsWith("http")) {
+                url = "{{ asset('photo') }}/" + url;
             }
 
-            heroSlides[heroIndex].classList.add("active");
+            container.innerHTML += `
+                <a href="${url}">
+                    <img src="${url}" class="hidden">
+                </a>
+            `;
+        });
 
-        },2000);
+        // Hancurkan instance galeri sebelumnya
+        if (window.galleryInstance) {
+            window.galleryInstance.destroy();
+        }
 
+        window.galleryInstance = lightGallery(container, {
+            selector: "a",
+            thumbnail: true,
+            download: false,
+            plugins: [lgThumbnail],
+            dynamic: false
+        });
+
+        const overlay = document.getElementById("gallery-overlay");
+
+        if (photos.length > 7) {
+            overlay.style.display = "flex";
+            overlay.innerHTML = "+" + (photos.length - 7);
+        } else {
+            overlay.style.display = "none";
+        }
     }
 
-});
+    function openGallery(index = 6) {
+        if (window.galleryInstance) {
+            window.galleryInstance.openGallery(index);
+        }
+    }
+
+    function showImage(src) {
+        document.getElementById("modalImage").src = src;
+
+        const modal = document.getElementById("imageModal");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+    }
+
+    function closeImage() {
+        const modal = document.getElementById("imageModal");
+        modal.classList.remove("flex");
+        modal.classList.add("hidden");
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const firstButton = document.querySelector(".film-button");
+
+        if (firstButton) {
+            showFilm(0, firstButton);
+        }
+
+        const heroSlides = document.querySelectorAll(".hero-slide");
+
+        if (heroSlides.length > 1) {
+            let heroIndex = 0;
+
+            setInterval(() => {
+                heroSlides[heroIndex].classList.remove("active");
+
+                heroIndex = (heroIndex + 1) % heroSlides.length;
+
+                heroSlides[heroIndex].classList.add("active");
+            }, 2000);
+        }
+    });
 </script>
+
 @include('components.footer')
