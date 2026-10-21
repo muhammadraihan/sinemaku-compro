@@ -32,7 +32,7 @@ EDITORIAL WRAPPER
         {{-- 1. PAGE HEADER (Centered) --}}
         <div class="text-center mb-8 md:mb-20 reveal-text">
             <h1 class="font-peckham not-italic text-[26px] sm:text-4xl md:text-4xl lg:text-5xl text-brand-navy leading-[0.9] md:leading-[0.8] tracking-tight">
-                PROGRAM SINEMAKU<span class="font-peckham not-italic uppercase text-brand-orange tracking-tighter text-[26px] sm:text-4xl md:text-4xl lg:text-5xl"> JAFF MARKET 2026</span>
+                PROGRAM SINEMAKU<p class="font-peckham not-italic uppercase text-brand-orange tracking-tighter text-[26px] sm:text-4xl md:text-4xl lg:text-5xl"> DI JAFF MARKET 2026</p>
             </h1>
         </div>
 
@@ -46,14 +46,12 @@ EDITORIAL WRAPPER
 
             <div class="max-w-2xl">
 
-        <h2 class="font-peckham text-2xl md:text-3xl text-white normal-case leading-tight mb-2">
-            <span class="whitespace-nowrap">
-                PITCHING PROYEK TUGAS AKHIR
-            </span>
-            <span class="font-peckham text-xl md:text-2xl normal-case opacity-90 whitespace-nowrap">
-                JAFF MARKET 2026
-            </span>
-        </h2>
+         <h2 class="font-peckham text-2xl md:text-3xl text-white uppercase leading-none mb-2">
+                    PITCHING PROYEK TUGAS AKHIR
+                    <p class="font-peckham text-xl md:text-2xl normal-case opacity-90">
+                        JAFF MARKET 2026
+                    </p>
+                </h2>
 
                 {{-- <p class="font-sans text-xl md:text-sm text-white leading-relaxed line-clamp-2">
                     Jaff Market 2026
