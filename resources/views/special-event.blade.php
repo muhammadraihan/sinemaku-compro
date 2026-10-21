@@ -17,6 +17,11 @@ HERO
     <img src="{{ asset('../img/special/MORZ5573.jpg') }}"
         class="hero-slide active">
 
+
+    <img src="{{ asset('../img/special/MORZ5890.jpg') }}"
+        class="hero-slide">
+    <img src="{{ asset('../img/special/MORZ5788.jpg') }}"
+        class="hero-slide">
     <img src="{{ asset('../img/special/_YAH1696 (1).jpg') }}"
         class="hero-slide">
     <img src="{{ asset('../img/special/temurun1.jpeg') }}"
