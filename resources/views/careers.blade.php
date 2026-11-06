@@ -47,7 +47,7 @@ EDITORIAL WRAPPER
             <div class="max-w-2xl">
 
          <h2 class="font-peckham text-2xl md:text-3xl text-white uppercase leading-none mb-2">
-                    PITCHING PROYEK TUGAS AKHIR
+                    PITCHING TUGAS AKHIR MAHASISWA
                     <p class="font-peckham text-xl md:text-2xl normal-case opacity-90">
                         JAFF MARKET 2026
                     </p>
